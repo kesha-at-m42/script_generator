@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from core.claude_client import ClaudeClient
 from core.json_utils import parse_json
 from steps.question_generator import QuestionGenerator
+from dashboard.module_editor import render_module_editor
 
 # Configuration
 PROMPTS_FILE = "prompts/saved_prompts.json"
@@ -81,7 +82,7 @@ st.markdown("Edit, test, and manage your Claude prompts")
 # Sidebar for navigation
 with st.sidebar:
     st.header("Navigation")
-    page = st.radio("Go to:", ["Prompt Editor", "Test Prompt", "Prompt Chain", "History"])
+    page = st.radio("Go to:", ["Prompt Editor", "Test Prompt", "Prompt Chain", "Module Editor", "History"])
     
     st.divider()
     st.header("Quick Stats")
@@ -486,7 +487,11 @@ elif page == "Prompt Chain":
                 
                 st.success(f"💾 Chain results saved to: `{filename}`")
 
-# PAGE 4: History
+# PAGE 4: Module Editor
+elif page == "Module Editor":
+    render_module_editor()
+
+# PAGE 5: History
 elif page == "History":
     st.header("📊 Test History")
     

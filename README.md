@@ -1,6 +1,12 @@
 # Script Generator
 
-An AI-powered prompt engineering and testing dashboard for educational content generation using Claude API.
+An AI-powered prompt engineering and testing system for educational content generation using Claude API.
+
+## 📖 Documentation
+
+**[Complete Guide →](docs/README.md)** - Everything you need to know in one place
+
+**Quick Reference:** `python docs/QUICK_REFERENCE.py`
 
 ## Features
 
@@ -26,6 +32,14 @@ An AI-powered prompt engineering and testing dashboard for educational content g
 - JSON-based output
 - Integration with dashboard prompts
 - File I/O utilities included
+
+### 🔗 Multi-Step Pipelines
+- Chain multiple steps together (Question → Answer → Format)
+- Reusable step components
+- Built-in steps: QuestionGenerator, AnswerGenerator, QuizFormatter
+- Create custom steps easily
+- Dashboard-managed prompts for all steps
+- See `docs/SCALING_GUIDE.md` for details
 
 ## Quick Start
 

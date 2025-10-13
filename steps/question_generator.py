@@ -7,11 +7,13 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.claude_client import ClaudeClient
 from core.json_utils import parse_json
+from core.pipeline import Step
 
-class QuestionGenerator:
+class QuestionGenerator(Step):
     """Generates questions from learning goals"""
     
     def __init__(self, claude_client: ClaudeClient, prompt_template: str = None):
+        super().__init__(name="Question Generator", prompt_id="question_generator")
         self.claude = claude_client
         
         # Load prompt from saved prompts file or use provided template
@@ -50,7 +52,18 @@ Example:
 ]"""
     
     def generate(self, learning_goals: str, num_questions: int = 5) -> list:
-        """Generate questions from learning goals"""
+        """Generate questions from learning goals (legacy method)"""
+        return self.execute({"learning_goals": learning_goals, "num_questions": num_questions})
+    
+    def execute(self, input_data, **kwargs):
+        """Execute step - generates questions from learning goals"""
+        # Handle both dict and string inputs
+        if isinstance(input_data, dict):
+            learning_goals = input_data.get("learning_goals", "")
+            num_questions = input_data.get("num_questions", 5)
+        else:
+            learning_goals = str(input_data)
+            num_questions = kwargs.get("num_questions", 5)
         
         # Format the prompt with provided variables
         prompt = self.prompt_template.format(
@@ -58,13 +71,13 @@ Example:
             learning_goals=learning_goals
         )
         
-        print("🎯 Generating questions...")
+        print("  🎯 Generating questions...")
         response = self.claude.generate(prompt, max_tokens=2000)
         
-        print("✓ Response received, parsing JSON...")
+        print("  ✓ Response received, parsing JSON...")
         questions = parse_json(response)
         
-        print(f"✓ Generated {len(questions)} questions")
+        print(f"  ✓ Generated {len(questions)} questions")
         return questions
 
 # Test it

@@ -1,6 +1,10 @@
 {
   "question_generator": {
     "name": "Question Generator",
-    "template": "Generate {num_questions} educational questions based on these learning goals:\n\n{learning_goals}\n\nReturn as a JSON array where each item has:\n- \"goal\": the specific learning goal being addressed\n- \"prompt\": the question text\n- \"interaction_type\": one of [\"Click\", \"Shade\", \"Multiple Choice\", \"Drag and Drop\"]\n\nExample:\n[\n  {{\n    \"goal\": \"Students can identify fractions\",\n    \"prompt\": \"Click on the shape that shows 1/2\"\n  }}\n]"
+    "template": "Generate {num_questions} educational questions based on these learning goals:\n\n{learning_goals}\n\nReturn as a JSON array where each item has:\n- \"goal\": the specific learning goal being addressed\n- \"prompt\": the question text\n- \"interaction_type\": one of [\"Click\", \"Shade\", \"Multiple Choice\", \"Drag and Drop\"]\n\nExample:\n[\n  {{\n    \"goal\": \"Students can identify fractions\",\n    \"prompt\": \"Click on the shape that shows 1/2\",\n    \"interaction_type\": \"Click\"\n  }}\n]"
+  },
+  "answer_generator": {
+    "name": "Answer Generator",
+    "template": "Given these educational questions, generate detailed answers with explanations:\n\n{questions}\n\nReturn as a JSON array where each item has:\n- \"question\": the original question text\n- \"answer\": the correct answer\n- \"explanation\": step-by-step explanation\n- \"hints\": array of helpful hints for students\n\nExample:\n[\n  {{\n    \"question\": \"What is 1/2 + 1/4?\",\n    \"answer\": \"3/4\",\n    \"explanation\": \"First find common denominator (4), convert 1/2 to 2/4, then add: 2/4 + 1/4 = 3/4\",\n    \"hints\": [\"Find a common denominator\", \"Convert fractions\", \"Add numerators\"]\n  }}\n]"
   }
 }

@@ -22,6 +22,18 @@ def load_json(filename: str, output_dir: str = "output"):
     with open(filepath, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def save_to_file(content: str, filename: str, output_dir: str = "output"):
+    """Save text content to file"""
+    Path(output_dir).mkdir(exist_ok=True, parents=True)
+    
+    filepath = Path(output_dir) / filename
+    
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    print(f"💾 Saved to: {filepath}")
+    return filepath
+
 # Test it
 if __name__ == "__main__":
     print("Testing file utilities...\n")
