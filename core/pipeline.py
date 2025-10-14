@@ -29,10 +29,13 @@ class Step:
 class Pipeline:
     """Orchestrates execution of multiple steps"""
     
-    def __init__(self, name: str):
+    def __init__(self, name: str, save_intermediate=False, output_dir="outputs"):
         self.name = name
         self.steps: List[Step] = []
         self.results = []
+        self.save_intermediate = save_intermediate
+        self.output_dir = Path(output_dir)
+        self.run_folder = None  # Will be set when pipeline starts
         
     def add_step(self, step: Step) -> 'Pipeline':
         """Add a step to the pipeline (chainable)"""
@@ -44,20 +47,35 @@ class Pipeline:
         current_data = initial_input
         self.results = []
         
+        # Override with kwargs if provided
+        save_intermediate = global_kwargs.pop('save_intermediate', self.save_intermediate)
+        output_dir = Path(global_kwargs.pop('output_dir', self.output_dir))
+        
+        # Create date-based folder for this run
+        date_folder = datetime.now().strftime("%Y-%m-%d")
+        self.run_folder = output_dir / date_folder
+        self.run_folder.mkdir(parents=True, exist_ok=True)
+        
         print(f"🔄 Starting pipeline: {self.name}")
-        print(f"   Steps: {len(self.steps)}\n")
+        print(f"   Steps: {len(self.steps)}")
+        print(f"   Output folder: {self.run_folder}\n")
         
         for i, step in enumerate(self.steps, 1):
             print(f"▶ Step {i}/{len(self.steps)}: {step.name}")
             
             try:
-                # Execute step
+                # Execute step - pass run_folder in kwargs
                 step.input_data = current_data
-                current_data = step.execute(current_data, **global_kwargs)
+                step_kwargs = {**global_kwargs, 'run_folder': self.run_folder}
+                current_data = step.execute(current_data, **step_kwargs)
                 step.output_data = current_data
                 
                 # Store result
                 self.results.append(step.get_result())
+                
+                # Save intermediate output if enabled
+                if save_intermediate:
+                    self._save_step_output(step, current_data, self.run_folder)
                 
                 print(f"  ✓ Completed\n")
                 
@@ -67,6 +85,20 @@ class Pipeline:
         
         print(f"✓ Pipeline '{self.name}' completed successfully!\n")
         return self.results
+    
+    def _save_step_output(self, step: Step, data: Any, output_dir: Path):
+        """Save individual step output to JSON"""
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        timestamp = datetime.now().strftime("%H%M%S")  # Just time, since date is in folder name
+        # Convert step name to filename (e.g., "Question Generator" -> "question_generator")
+        step_filename = step.name.lower().replace(' ', '_').replace('-', '_')
+        filename = output_dir / f"{step_filename}_{timestamp}.json"
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        
+        print(f"  💾 Saved: {filename}")
     
     def save_results(self, output_dir: str = "output/pipelines"):
         """Save pipeline results to file"""
