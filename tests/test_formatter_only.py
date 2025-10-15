@@ -10,17 +10,18 @@ from steps.script_formatter import ScriptFormatter
 print("Testing ScriptFormatter only...\n")
 
 # Load sample sequence data from previous run
-sequence_file = Path("outputs/2025-10-13/sequence_generator_203210.json")
+sequence_file = Path("outputs/test_dialogue_only.json")
 
 if not sequence_file.exists():
     print(f"❌ Sequence file not found: {sequence_file}")
-    print("Please run the full pipeline first to generate sequence data.")
+    print("Please run test_dialogue_writer_only.py first to generate sequence data.")
     sys.exit(1)
 
 with open(sequence_file, 'r', encoding='utf-8') as f:
     input_data = json.load(f)
 
-print(f"📖 Loaded {len(input_data['sequences'])} sequences from {sequence_file}\n")
+sequences = input_data.get('sequences', [])
+print(f"📖 Loaded {len(sequences)} sequences from {sequence_file}\n")
 
 # Test formatter
 formatter = ScriptFormatter()

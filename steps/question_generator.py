@@ -6,6 +6,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from core.claude_client import ClaudeClient
 from core.json_utils import parse_json
 from core.pipeline import Step
+from core.prompt_builder import PromptBuilder
 
 
 class QuestionGenerator(Step):
@@ -14,56 +15,7 @@ class QuestionGenerator(Step):
     def __init__(self, claude_client: ClaudeClient):
         super().__init__(name="Question Generator", prompt_id="question_generator")
         self.claude = claude_client
-        self.prompt_template = self._get_prompt_template()
-    
-    def _get_prompt_template(self) -> str:
-        """Hard-coded prompt structure with framework injection placeholders"""
-        return """Generate {num_questions} educational questions for grade {grade_level} based on:
-
-{learning_goals}
-
-{difficulty_framework}
-
-{question_type_framework}
-
-=== INTERACTION TYPES ===
-Multiple Choice | Multiple Select | Click | Shade | Drag and Drop | Input | True/False
-
-=== REQUIREMENTS ===
-1. Follow difficulty level targets and constraints
-2. Follow question type distribution targets
-3. Match cognitive verbs to question types
-4. Vary interaction types (use 4-5 different)
-5. Progress from simple (Level 0-1) to complex (Level 3-4)
-
-=== REQUIRED OUTPUT FORMAT ===
-Return a JSON object with this EXACT structure:
-
-{{
-  "metadata": {{
-    "total_questions": <number>,
-    "distribution": {{
-      "by_difficulty": {{"0": <count>, "1": <count>, "2": <count>, "3": <count>, "4": <count>}},
-      "by_question_type": {{"procedural": <count>, "conceptual": <count>, "transfer": <count>}},
-      "by_interaction_type": {{"<type>": <count>, ...}}
-    }}
-  }},
-  "questions": [
-    {{
-      "id": <sequential number starting at 1>,
-      "goal": "<specific learning goal addressed>",
-      "prompt": "<clear, age-appropriate question text>",
-      "interaction_type": "<one of the interaction types above>",
-      "difficulty_level": <integer 0-4>,
-      "question_type": "<procedural|conceptual|transfer>",
-      "cognitive_verb": "<main action verb from appropriate category>",
-      "context": "<optional visual description or scenario setup>"
-    }},
-    ...
-  ]
-}}
-
-Return ONLY valid JSON."""
+        self.prompt_builder = PromptBuilder()
     
     def execute(self, input_data, **kwargs):
         """Execute step - generates questions from learning goals"""
@@ -77,22 +29,14 @@ Return ONLY valid JSON."""
             num_questions = kwargs.get("num_questions", 5)
             grade_level = kwargs.get("grade_level", 3)
         
-        # Load framework text directly from markdown files
-        docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
-        
-        with open(docs_dir / "difficulty_levels.md", "r", encoding="utf-8") as f:
-            difficulty_framework = f.read()
-        
-        with open(docs_dir / "question_types.md", "r", encoding="utf-8") as f:
-            question_type_framework = f.read()
-        
-        # Format the prompt with all variables (structure + data)
-        prompt = self.prompt_template.format(
-            num_questions=num_questions,
-            learning_goals=learning_goals,
-            grade_level=grade_level,
-            difficulty_framework=difficulty_framework,
-            question_type_framework=question_type_framework
+        # Build prompt using PromptBuilder
+        prompt = self.prompt_builder.build_prompt(
+            "question_generator",
+            {
+                "num_questions": num_questions,
+                "learning_goals": learning_goals,
+                "grade_level": grade_level
+            }
         )
         
         # Generate
@@ -136,9 +80,10 @@ Return ONLY valid JSON."""
 
 # Test it
 if __name__ == "__main__":
+    from core.claude_client import ClaudeClient
     from core.pipeline import Pipeline
     
-    print("Testing QuestionGenerator with Pipeline...\n")
+    print("Testing QuestionGenerator with PromptBuilder...\n")
     
     client = ClaudeClient()
     generator = QuestionGenerator(client)

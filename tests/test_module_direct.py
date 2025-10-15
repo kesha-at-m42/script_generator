@@ -10,7 +10,7 @@ from core.pipeline import Pipeline
 from core.file_utils import save_to_file
 from steps.question_generator import QuestionGenerator
 from steps.answer_generator import AnswerGenerator
-from steps.quiz_formatter import QuizFormatter
+from archive.steps.quiz_formatter import QuizFormatter
 
 print("="*60)
 print("MODULE-DRIVEN PIPELINE: Direct Data Access")

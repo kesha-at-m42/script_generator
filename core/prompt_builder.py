@@ -1,0 +1,477 @@
+"""
+Prompt Builder - Centralized prompt management system
+
+Each prompt has 5 components:
+1. role - System role/identity for Claude
+2. docs - Reference documentation to include
+3. examples - Example outputs to guide Claude
+4. structure - Required output structure/schema
+5. instructions - What to do (the actual task)
+"""
+
+from pathlib import Path
+from typing import Dict, List, Optional
+
+
+class PromptBuilder:
+    """Builds prompts from structured components"""
+    
+    def __init__(self):
+        self.docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
+        self.prompts_dir = Path(__file__).parent.parent / "prompts"
+    
+    def build_prompt(self, prompt_id: str, variables: Dict = None) -> str:
+        """Build a complete prompt from components"""
+        
+        # Load prompt config
+        config = self._get_prompt_config(prompt_id)
+        
+        # Build sections
+        sections = []
+        
+        # 1. Role (if present)
+        if config.get("role"):
+            sections.append(f"<role>\n{config['role']}\n</role>")
+        
+        # 2. Documentation references
+        if config.get("docs"):
+            docs_content = self._load_docs(config["docs"])
+            sections.append(docs_content)
+        
+        # 3. Examples
+        if config.get("examples"):
+            examples_content = self._format_examples(config["examples"])
+            sections.append(f"<examples>\n{examples_content}\n</examples>")
+        
+        # 4. Output structure
+        if config.get("structure"):
+            sections.append(f"<required_output_format>\n{config['structure']}\n</required_output_format>")
+        
+        # 5. Instructions (the actual task)
+        instructions = config.get("instructions", "")
+        if variables:
+            instructions = instructions.format(**variables)
+        sections.append(instructions)
+        
+        return "\n\n".join(sections)
+    
+    def _get_prompt_config(self, prompt_id: str) -> Dict:
+        """Get prompt configuration by ID"""
+        
+        configs = {
+            "question_generator": self._question_generator_config(),
+            "interaction_designer": self._interaction_designer_config(),
+            "validation_designer": self._validation_designer_config(),
+            "dialogue_writer": self._dialogue_writer_config(),
+        }
+        
+        return configs.get(prompt_id, {})
+    
+    def _load_docs(self, doc_refs: List[str]) -> str:
+        """Load documentation files"""
+        sections = []
+        
+        for doc_ref in doc_refs:
+            if isinstance(doc_ref, dict):
+                # Embedded doc content
+                title = doc_ref.get("title", "Reference")
+                content = doc_ref.get("content", "")
+                sections.append(f"<{title.lower().replace(' ', '_')}>\n{content}\n</{title.lower().replace(' ', '_')}>")
+            else:
+                # File reference
+                filepath = self.docs_dir / doc_ref
+                if filepath.exists():
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    tag = filepath.stem
+                    sections.append(f"<{tag}>\n{content}\n</{tag}>")
+        
+        return "\n\n".join(sections)
+    
+    def _format_examples(self, examples: List[Dict]) -> str:
+        """Format example outputs"""
+        formatted = []
+        
+        for i, example in enumerate(examples, 1):
+            example_text = f"Example {i}:\n"
+            if "description" in example:
+                example_text += f"{example['description']}\n\n"
+            example_text += example.get("output", "")
+            formatted.append(example_text)
+        
+        return "\n\n---\n\n".join(formatted)
+    
+    # ========================================================================
+    # PROMPT CONFIGURATIONS
+    # ========================================================================
+    
+    def _question_generator_config(self) -> Dict:
+        """Question Generator prompt configuration"""
+        return {
+            "role": "You are an expert educational content designer specializing in elementary mathematics. You create questions that are developmentally appropriate, clear, and aligned with learning objectives.",
+            
+            "docs": [
+                "difficulty_levels.md",
+                "question_types.md",
+            ],
+            
+            "examples": [
+                {
+                    "description": "Sample question set for fraction partitioning",
+                    "output": """{
+  "metadata": {
+    "total_questions": 3,
+    "distribution": {
+      "by_difficulty": {"0": 1, "1": 1, "2": 1},
+      "by_question_type": {"procedural": 1, "conceptual": 1, "transfer": 1},
+      "by_interaction_type": {"shade": 1, "multiple_choice": 1, "drag_and_drop": 1}
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "goal": "Students can partition a circle into equal parts",
+      "prompt": "Shade one section to show 1/4 of the circle",
+      "interaction_type": "shade",
+      "difficulty_level": 0,
+      "question_type": "procedural",
+      "cognitive_verb": "partition",
+      "context": "Circle divided into 4 equal wedges, all unshaded"
+    }
+  ]
+}"""
+                }
+            ],
+            
+            "structure": """{
+  "metadata": {
+    "total_questions": <number>,
+    "distribution": {
+      "by_difficulty": {"0": <count>, "1": <count>, "2": <count>, "3": <count>, "4": <count>},
+      "by_question_type": {"procedural": <count>, "conceptual": <count>, "transfer": <count>},
+      "by_interaction_type": {"<type>": <count>, ...}
+    }
+  },
+  "questions": [
+    {
+      "id": <sequential number starting at 1>,
+      "goal": "<specific learning goal addressed>",
+      "prompt": "<clear, age-appropriate question text>",
+      "interaction_type": "<Multiple Choice|Multiple Select|Click|Shade|Drag and Drop|Input|True/False>",
+      "difficulty_level": <integer 0-4>,
+      "question_type": "<procedural|conceptual|transfer>",
+      "cognitive_verb": "<main action verb from appropriate category>",
+      "context": "<optional visual description or scenario setup>"
+    }
+  ]
+}
+
+Return ONLY valid JSON.""",
+            
+            "instructions": """Generate {num_questions} educational questions for grade {grade_level} based on these learning goals:
+
+{learning_goals}
+
+REQUIREMENTS:
+1. Follow difficulty level targets and constraints from the difficulty framework
+2. Follow question type distribution targets from the question types framework
+3. Match cognitive verbs to question types
+4. Vary interaction types (use 4-5 different types)
+5. Progress from simple (Level 0-1) to complex (Level 3-4)
+6. Use age-appropriate language for grade {grade_level}
+
+INTERACTION TYPES:
+Multiple Choice | Multiple Select | Click | Shade | Drag and Drop | Input | True/False"""
+        }
+    
+    def _interaction_designer_config(self) -> Dict:
+        """Interaction Designer prompt configuration"""
+        return {
+            "role": "You are an expert in designing interactive educational experiences. You create clear visual flows and interaction mechanics WITHOUT writing dialogue or validation logic yet.",
+            
+            "docs": [
+                "visual_guide.md",
+            ],
+            
+            "examples": [
+                {
+                    "description": "Sample interaction design for fraction identification",
+                    "output": """{
+  "sequences": [
+    {
+      "problem_id": 1,
+      "goal": "Identify unit fractions",
+      "verb": "identify",
+      "difficulty": 1,
+      "main_sequence": [
+        {
+          "step_id": "1.1",
+          "dialogue_placeholder": "OPENING [context: introduce visual]",
+          "visuals": [
+            {
+              "id": "circle_1",
+              "type": "circle",
+              "description": "Circle 200px diameter, divided into 4 equal wedges, top-right wedge shaded blue"
+            }
+          ],
+          "animations": [],
+          "student_action": null
+        },
+        {
+          "step_id": "1.2",
+          "dialogue_placeholder": "OPENING [context: pose question]",
+          "visuals": [
+            {
+              "id": "buttons",
+              "type": "multiple_choice_buttons",
+              "description": "Four buttons showing 1/2, 1/3, 1/4, 1/8"
+            }
+          ],
+          "student_action": {
+            "type": "button_click",
+            "expected": "1/4",
+            "description": "Click the correct fraction"
+          }
+        }
+      ]
+    }
+  ]
+}"""
+                }
+            ],
+            
+            "structure": """{
+  "sequences": [
+    {
+      "problem_id": <number>,
+      "goal": "<learning goal>",
+      "verb": "<cognitive verb>",
+      "difficulty": <0-4>,
+      "main_sequence": [
+        {
+          "step_id": "<problem_id>.<step_number>",
+          "dialogue_placeholder": "<STANDARD_TYPE> [context: ...]",
+          "visuals": [
+            {
+              "id": "<unique_id>",
+              "type": "<visual_type>",
+              "description": "<detailed description with dimensions, colors, states>"
+            }
+          ],
+          "animations": [
+            {
+              "visual_id": "<id>",
+              "type": "<animation_type>",
+              "description": "<what happens>"
+            }
+          ],
+          "student_action": {
+            "type": "<interaction_type>",
+            "expected": "<expected_outcome>",
+            "description": "<what student should do>"
+          } | null
+        }
+      ]
+    }
+  ]
+}
+
+Return ONLY valid JSON.""",
+            
+            "instructions": """Design interactive visual sequences for these educational questions.
+
+<questions>
+{learning_goals_data}
+</questions>
+
+For each question, design the interaction flow:
+- What visuals appear (with specific dimensions, colors, states)
+- What students see and do
+- What animations might happen
+- Use visuals and animations from the visual guide
+
+DO NOT:
+- Write actual dialogue (use placeholders like "OPENING [context: ...]")
+- Design validation logic (that's a separate step)
+- Create error remediation (that's a separate step)
+
+FOCUS ON:
+- Clear visual descriptions
+- Logical interaction flow
+- Appropriate visual types for the learning goal"""
+        }
+    
+    def _validation_designer_config(self) -> Dict:
+        """Validation Designer prompt configuration"""
+        return {
+            "role": "You are an expert in educational scaffolding and error remediation. You design progressive support systems that help students learn from mistakes.",
+            
+            "docs": [
+                "visual_guide.md",
+                {
+                    "title": "Standard Dialogue Types",
+                    "content": """BREAKTHROUGH - First try success
+BREAKTHROUGH_AFTER_STRUGGLE - Success after hints
+STRUGGLE_GENTLE - Light remediation (1st attempt)
+STRUGGLE_EXPLICIT - Medium remediation (2nd attempt)
+STRUGGLE_DEMONSTRATE - Heavy remediation (3rd attempt, show solution)
+OPENING - Introduce new step/visual
+PATTERN_DISCOVERY - Student found a pattern
+STRATEGIC_THINKING - Note student's approach"""
+                }
+            ],
+            
+            "examples": [],
+            
+            "structure": """For each student_action in the sequences, add validation:
+
+{
+  "student_action": {
+    "type": "...",
+    "expected": "...",
+    "description": "...",
+    "validation": {
+      "success_first_attempt": {
+        "dialogue_placeholder": "BREAKTHROUGH [context: first try success]",
+        "next": <next_step_id or "complete">
+      },
+      "success_after_error": {
+        "dialogue_placeholder": "BREAKTHROUGH_AFTER_STRUGGLE [context: success after hints]",
+        "next": <next_step_id or "complete">
+      },
+      "errors": {
+        "<error_name>": {
+          "condition": "<what triggers this error>",
+          "remediations": [
+            {
+              "attempt": 1,
+              "dialogue_placeholder": "STRUGGLE_GENTLE [visuals: <list animations>]",
+              "animations": [...]
+            },
+            {
+              "attempt": 2,
+              "dialogue_placeholder": "STRUGGLE_EXPLICIT [visuals: <list animations>]",
+              "animations": [...]
+            },
+            {
+              "attempt": 3,
+              "dialogue_placeholder": "STRUGGLE_DEMONSTRATE [visuals: <show solution>]",
+              "animations": [...]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+Return ONLY valid JSON.""",
+            
+            "instructions": """Design validation and error handling for these interaction sequences.
+
+<interaction_sequences>
+{interaction_sequences}
+</interaction_sequences>
+
+For each student_action:
+1. Identify possible error types (what mistakes might students make?)
+2. Design progressive scaffolding with 3 attempts:
+   - Attempt 1 (STRUGGLE_GENTLE): Gentle nudge, count or highlight
+   - Attempt 2 (STRUGGLE_EXPLICIT): More direct, explain the concept
+   - Attempt 3 (STRUGGLE_DEMONSTRATE): Show the solution
+3. Select remediation animations from the visual guide
+4. Add [visuals: ...] or [context: ...] to each placeholder showing what's visible
+5. Design success paths for first try vs after hints
+
+CRITICAL:
+- List ALL visuals/animations in [visuals: ...] brackets
+- Use standard dialogue types: BREAKTHROUGH, STRUGGLE_GENTLE, etc.
+- Progressive difficulty: each remediation should be more explicit"""
+        }
+    
+    def _dialogue_writer_config(self) -> Dict:
+        """Dialogue Writer prompt configuration"""
+        return {
+            "role": "You are a character voice writer specializing in educational dialogue. You write in the voice of Kim, a warm and encouraging guide who helps students learn through discovery.",
+            
+            "docs": [
+                "guide_design.md",
+            ],
+            
+            "examples": [],
+            
+            "structure": """Replace all dialogue_placeholder fields with actual dialogue.
+
+Return the same JSON structure with all placeholders replaced by character dialogue.
+
+Return ONLY valid JSON.""",
+            
+            "instructions": """Add character dialogue to these interaction sequences.
+
+<interaction_sequences>
+{interaction_sequences}
+</interaction_sequences>
+
+For each dialogue_placeholder:
+1. Note the standard type (BREAKTHROUGH, STRUGGLE_GENTLE, etc.)
+2. Check the character guide for examples of that type
+3. Note what visuals are available in [visuals: ...] or [context: ...]
+4. Write dialogue in Kim's voice that:
+   - Matches the standard type's tone and purpose
+   - ONLY references visuals/animations listed in brackets
+   - Uses age-appropriate language
+   - Feels natural and encouraging
+
+CRITICAL - Visual/Dialogue Consistency:
+- If placeholder says [visuals: circle highlights, counter shows parts], you CAN reference those
+- If placeholder says [context: verbal feedback only], do NOT say "look at this" or "watch this"
+- Match dialogue timing to animations
+
+Character Voice Guidelines:
+- Warm, encouraging, never condescending
+- Uses "we" and "let's" to feel collaborative
+- Celebrates effort and thinking, not just correctness
+- Keeps it brief (1-2 sentences usually)"""
+        }
+
+
+# Test it
+if __name__ == "__main__":
+    builder = PromptBuilder()
+    
+    print("=" * 70)
+    print("Testing PromptBuilder")
+    print("=" * 70)
+    
+    # Test question generator prompt
+    print("\n1. Question Generator Prompt")
+    print("-" * 70)
+    
+    prompt = builder.build_prompt(
+        "question_generator",
+        {
+            "num_questions": 5,
+            "grade_level": 3,
+            "learning_goals": "- Students can partition shapes\n- Students can identify fractions"
+        }
+    )
+    
+    print(f"Length: {len(prompt)} chars")
+    print(f"Preview (first 500 chars):\n{prompt[:500]}...")
+    
+    # Test interaction designer prompt
+    print("\n2. Interaction Designer Prompt")
+    print("-" * 70)
+    
+    prompt = builder.build_prompt(
+        "interaction_designer",
+        {
+            "learning_goals_data": "[question data here]"
+        }
+    )
+    
+    print(f"Length: {len(prompt)} chars")
+    print(f"Preview (first 500 chars):\n{prompt[:500]}...")
+    
+    print("\n" + "=" * 70)
+    print("✓ PromptBuilder working!")

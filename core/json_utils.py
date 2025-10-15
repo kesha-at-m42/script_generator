@@ -11,6 +11,9 @@ def extract_json(text: str) -> str:
         end = text.find("```", start)
         if end != -1:
             return text[start:end].strip()
+        else:
+            # Code fence not closed - might be truncated, extract everything after ```json
+            return text[start:].strip()
     
     # Try to find JSON in regular code blocks
     if "```" in text:
@@ -18,6 +21,9 @@ def extract_json(text: str) -> str:
         end = text.find("```", start)
         if end != -1:
             return text[start:end].strip()
+        else:
+            # Code fence not closed - extract everything after ```
+            return text[start:].strip()
     
     # Try to find JSON array or object
     for start_char, end_char in [('[', ']'), ('{', '}')]:

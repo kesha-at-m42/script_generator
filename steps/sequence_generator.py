@@ -28,7 +28,11 @@ class SequenceGenerator(Step):
 {character_template}
 </character_voice>
 
-For each question, create a sequence with 3-6 interaction steps. Use the character voice for all dialogue. Break complex questions into smaller steps with feedback between each action.
+<visual_interaction_guide>
+{visual_guide}
+</visual_interaction_guide>
+
+For each question, create a sequence with 3-6 interaction steps. Use the character voice for all dialogue. Use the visual guide to design appropriate visuals, interactions, and scaffolding based on the difficulty level.
 
 **Output structure for each sequence:**
 ```json
@@ -37,23 +41,84 @@ For each question, create a sequence with 3-6 interaction steps. Use the charact
   "difficulty": <0-4>,
   "verb": "<action verb>",
   "goal": "<learning objective>",
-  "steps": [
+  
+  "main_sequence": [
     {{
-      "dialogue": "<what tutor says in character voice>",
-      "prompt": "<student action, or null>",
-      "visual": [<visual elements with id/type/state/description, or null>],
-      "expected_student_input": "<expected action type>"
+      "step_id": <sequential number>,
+      "guide_says": "<what tutor says in character voice>",
+      "visuals": [
+        {{
+          "id": "<unique_id>",
+          "type": "<type from visual guide>",
+          "state": "<state description>",
+          "description": "<human-readable description>",
+          "animation": "<animation type from visual guide>" or null
+        }}
+      ],
+      "student_action": {{
+        "type": "<interaction type from visual guide>",
+        "expected": "<expected outcome>",
+        "validation": {{
+          "success_first_attempt": {{
+            "guide_says": "<encouraging feedback>",
+            "next": <next_step_id or "complete">
+          }},
+          "success_after_error": {{
+            "guide_says": "<positive reinforcement feedback>",
+            "next": <next_step_id or "complete">
+          }},
+          "errors": {{
+            "<error_type>": {{
+              "condition": "<what makes this error>",
+              "remediations": [
+                {{
+                  "attempt": 1,
+                  "guide_says": "<corrective feedback>",
+                  "visuals": [
+                    {{
+                      "id": "<visual_id>",
+                      "animation": "<animation from visual guide>",
+                      "description": "<what animation shows>"
+                    }}
+                  ],
+                  "retry": true
+                }},
+                {{
+                  "attempt": 2,
+                  "guide_says": "<more explicit hint>",
+                  "visuals": [
+                    {{
+                      "id": "<visual_id>",
+                      "animation": "<stronger scaffolding animation>",
+                      "description": "<what animation shows>"
+                    }}
+                  ],
+                  "retry": true
+                }},
+                {{
+                  "attempt": 3,
+                  "guide_says": "<demonstration>",
+                  "visuals": [
+                    {{
+                      "id": "<visual_id>",
+                      "animation": "<show solution animation>",
+                      "description": "<complete demonstration>"
+                    }}
+                  ],
+                  "retry": false
+                }}
+              ]
+            }}
+          }}
+        }}
+      }} or null,
+      "next": <next_step_id or "complete">
     }}
-  ],
-  "valid_visual": [<expected final visual state>],
-  "student_attempts": {{"success_path": {{"steps": [<feedback dialogue>]}}}}
+  ]
 }}
 ```
 
-**Visual types:** horizontal_rectangle_bar, circle, number_button  
-**Common states:** empty, partitioned_2, shaded_1_of_4, divided_2_equal
-
-Return ONLY valid JSON array. Process {questions_per_goal} questions per goal."""
+Return ONLY valid JSON array. Process all questions."""
     
     def execute(self, input_data, **kwargs):
         """Execute step - converts questions to interactive sequences"""
@@ -71,10 +136,16 @@ Return ONLY valid JSON array. Process {questions_per_goal} questions per goal.""
         # Load character template from guide_design.md (required)
         docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
         character_template_path = docs_dir / "guide_design.md"
+        visual_guide_path = docs_dir / "visual_guide.md"
         
         with open(character_template_path, "r", encoding="utf-8") as f:
             character_template = f.read()
+        
+        with open(visual_guide_path, "r", encoding="utf-8") as f:
+            visual_guide = f.read()
+        
         print(f"  📖 Loaded character template")
+        print(f"  🎨 Loaded visual interaction guide")
         
         # Format learning goals data as JSON string if it's a dict
         if isinstance(learning_goals_data, dict):
@@ -85,7 +156,7 @@ Return ONLY valid JSON array. Process {questions_per_goal} questions per goal.""
         prompt = self.prompt_template.format(
             learning_goals_data=learning_goals_data,
             character_template=character_template,
-            questions_per_goal=questions_per_goal
+            visual_guide=visual_guide
         )
         
         # Generate
@@ -110,8 +181,14 @@ Return ONLY valid JSON array. Process {questions_per_goal} questions per goal.""
             # Check required fields only
             if 'problem_id' not in seq:
                 print(f"  ⚠️  Sequence {i}: Missing problem_id")
-            if 'steps' not in seq or not seq['steps']:
-                print(f"  ⚠️  Sequence {i}: Missing or empty steps array")
+            if 'main_sequence' not in seq or not seq['main_sequence']:
+                print(f"  ⚠️  Sequence {i}: Missing or empty main_sequence array")
+            
+            # Validate steps have proper validation structure if they have student actions
+            main_seq = seq.get('main_sequence', [])
+            for step in main_seq:
+                if step.get('student_action') and not step.get('student_action', {}).get('validation'):
+                    print(f"  ⚠️  Sequence {i}, Step {step.get('step_id')}: Has student_action but missing validation")
 
 # Test it
 if __name__ == "__main__":

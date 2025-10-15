@@ -62,7 +62,7 @@ class ScriptFormatter(Step):
         goal = sequence.get("goal", "No goal specified")
         verb = sequence.get("verb", "interact")
         difficulty_num = sequence.get("difficulty", "N/A")
-        steps = sequence.get("steps", [])
+        main_sequence = sequence.get("main_sequence", [])
         
         # Map difficulty number to name
         difficulty_names = {
@@ -84,62 +84,118 @@ class ScriptFormatter(Step):
         script_lines.append("---")
         script_lines.append("")
         
-        # Process steps - no step numbers, just spacing
-        for step in steps:
-            dialogue = step.get("dialogue", "")
-            prompt = step.get("prompt")
-            visual = step.get("visual")
+        # Process main sequence steps
+        for step in main_sequence:
+            step_id = step.get("step_id", "?")
+            guide_says = step.get("guide_says", "")
+            visuals = step.get("visuals", [])
+            animations = step.get("animations", [])
+            student_action = step.get("student_action")
             
             # Guide dialogue with emoji
-            if dialogue:
-                script_lines.append(f"⚫ **Guide:** \"{dialogue}\"")
-                script_lines.append("")
+            if guide_says:
+                script_lines.append(f"⚫ **Guide:** \"{guide_says}\"")
                 script_lines.append("")
             
-            # Visual with emoji
-            if visual:
-                for v in visual:
+            # Animations (if any)
+            if animations:
+                for anim in animations:
+                    anim_type = anim.get("type", "")
+                    anim_desc = anim.get("description", "")
+                    script_lines.append(f"🎬 **Animation:** {anim_desc}")
+                script_lines.append("")
+            
+            # Visuals with emoji
+            if visuals:
+                for v in visuals:
                     v_desc = v.get("description", "")
                     script_lines.append(f"🔵 **Visual:** {v_desc}")
                 script_lines.append("")
             
             # Student action as [Description]
-            if prompt:
-                script_lines.append(f"[{prompt}]")
-                script_lines.append("")
+            if student_action:
+                action_desc = student_action.get("description", "")
+                validation = student_action.get("validation", {})
+                
+                if action_desc:
+                    script_lines.append(f"[{action_desc}]")
+                    script_lines.append("")
+                
+                # Format validation paths if present
+                if validation:
+                    script_lines.append("")
+                    script_lines = self._format_validation(validation, script_lines)
             
             # Extra spacing between interactions
             script_lines.append("")
         
-        # Success feedback
-        student_attempts = sequence.get("student_attempts", {})
-        success_path = student_attempts.get("success_path", {})
-        success_steps = success_path.get("steps", [])
+        return "\n".join(script_lines)
+    
+    def _format_validation(self, validation: dict, script_lines: list) -> list:
+        """Format validation states (success paths and error remediations)"""
         
-        if success_steps:
-            script_lines.append("---")
-            script_lines.append("")
-            script_lines.append("**On Success:**")
-            script_lines.append("")
-            for feedback in success_steps:
-                if isinstance(feedback, str):
-                    script_lines.append(f"⚫ **Guide:** \"{feedback}\"")
-                    script_lines.append("")
-            script_lines.append("")
+        # Remediation level emojis and labels
+        remediation_levels = {
+            1: {"emoji": "🟡", "label": "Light Remediation"},
+            2: {"emoji": "🟠", "label": "Medium Remediation"},
+            3: {"emoji": "🔴", "label": "Heavy Remediation"}
+        }
         
-        # Error paths
-        error_paths = student_attempts.get("error_paths", {})
-        if error_paths:
-            script_lines.append("**Error Handling:**")
-            script_lines.append("")
-            for error_name, feedback_list in error_paths.items():
-                error_label = error_name.replace("_", " ").title()
-                script_lines.append(f"*{error_label}:*")
-                for feedback in feedback_list:
-                    script_lines.append(f"⚫ **Guide:** \"{feedback}\"")
+        # Success on first attempt
+        success_first = validation.get("success_first_attempt")
+        if success_first and isinstance(success_first, dict):
+            guide_says = success_first.get("guide_says", "")
+            if guide_says:
+                script_lines.append("**✅ Success (First Try):**")
+                script_lines.append(f"⚫ **Guide:** \"{guide_says}\"")
                 script_lines.append("")
         
-        return "\n".join(script_lines)
+        # Success after error
+        success_after = validation.get("success_after_error")
+        if success_after and isinstance(success_after, dict):
+            guide_says = success_after.get("guide_says", "")
+            if guide_says:
+                script_lines.append("**✅ Success (After Hints):**")
+                script_lines.append(f"⚫ **Guide:** \"{guide_says}\"")
+                script_lines.append("")
+        
+        # Error paths with progressive remediations
+        errors = validation.get("errors", {})
+        if errors:
+            script_lines.append("---")
+            script_lines.append("")
+            script_lines.append("**❌ ERROR PATHS:**")
+            script_lines.append("")
+            
+            for error_name, error_data in errors.items():
+                error_label = error_name.replace("_", " ").title()
+                remediations = error_data.get("remediations", [])
+                
+                script_lines.append(f"**{error_label}:**")
+                script_lines.append("")
+                
+                for i, rem in enumerate(remediations, 1):
+                    guide_says = rem.get("guide_says", "")
+                    animations = rem.get("animations", [])
+                    
+                    # Get remediation level info
+                    level_info = remediation_levels.get(i, {"emoji": "⚪", "label": f"Attempt {i}"})
+                    
+                    script_lines.append(f"{level_info['emoji']} **{level_info['label']}:**")
+                    
+                    if guide_says:
+                        script_lines.append(f"  ⚫ **Guide:** \"{guide_says}\"")
+                    
+                    if animations:
+                        for anim in animations:
+                            anim_desc = anim.get("description", "")
+                            script_lines.append(f"  🎬 **Animation:** {anim_desc}")
+                    
+                    script_lines.append("")
+                
+                script_lines.append("")
+        
+        return script_lines
     
     def _save_combined_script(self, script_content: str, run_folder: Path):
         """Save the combined script to the run folder"""
