@@ -21,19 +21,40 @@ class ClaudeClient:
         self.total_input_tokens = 0
         self.total_output_tokens = 0
     
-    def generate(self, prompt: str, max_tokens: int = 1000) -> str:
+    def generate(self, prompt: str, max_tokens: int = 1000, temperature: float = 1.0) -> str:
         """Generate response from Claude"""
-        message = self.client.messages.create(
-            model=self.model,
-            max_tokens=max_tokens,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        
-        # Track tokens
-        self.total_input_tokens += message.usage.input_tokens
-        self.total_output_tokens += message.usage.output_tokens
-        
-        return message.content[0].text
+        # Use streaming for large outputs (>10K tokens) to avoid timeouts
+        if max_tokens > 10000:
+            full_response = ""
+            with self.client.messages.stream(
+                model=self.model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                messages=[{"role": "user", "content": prompt}]
+            ) as stream:
+                for text in stream.text_stream:
+                    full_response += text
+                
+                # Get final message for usage stats
+                final_message = stream.get_final_message()
+                self.total_input_tokens += final_message.usage.input_tokens
+                self.total_output_tokens += final_message.usage.output_tokens
+            
+            return full_response
+        else:
+            # Standard non-streaming for smaller outputs
+            message = self.client.messages.create(
+                model=self.model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            
+            # Track tokens
+            self.total_input_tokens += message.usage.input_tokens
+            self.total_output_tokens += message.usage.output_tokens
+            
+            return message.content[0].text
     
     def get_stats(self):
         """Get usage statistics"""

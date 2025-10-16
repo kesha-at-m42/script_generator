@@ -150,7 +150,7 @@ Return the COMPLETE sequences with validation added to each student_action. Retu
         
         # Generate
         print(f"  🎯 Designing validation logic for {len(sequences)} sequences...")
-        response = self.claude.generate(prompt, max_tokens=16000)
+        response = self.claude.generate(prompt, max_tokens=20000)  # Increased for complex validation logic
         
         # Debug
         print(f"  📋 API Response length: {len(response)} chars")

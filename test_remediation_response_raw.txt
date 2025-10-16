@@ -1,0 +1,110 @@
+```json
+{
+  "sequences": [
+    {
+      "problem_id": 1,
+      "difficulty": 1,
+      "verb": "partition",
+      "goal": "Students can partition shapes into equal parts",
+      "steps": [
+        {
+          "dialogue": "Let's figure out how to split this rectangle into 4 equal parts.",
+          "prompt": null,
+          "visual": [
+            {
+              "id": "rectangle_1",
+              "type": "horizontal_rectangle_bar",
+              "state": "empty",
+              "description": "A horizontal rectangle with light grid overlay"
+            }
+          ],
+          "expected_student_input": null
+        },
+        {
+          "dialogue": "Draw lines to divide it into 4 parts that are the same size.",
+          "prompt": "Draw division lines on the rectangle",
+          "visual": [
+            {
+              "id": "rectangle_1",
+              "type": "horizontal_rectangle_bar",
+              "state": "empty_with_grid",
+              "description": "Rectangle with grid guides active"
+            }
+          ],
+          "expected_student_input": "draw_lines"
+        }
+      ],
+      "valid_visual": [
+        {
+          "id": "rectangle_1",
+          "type": "horizontal_rectangle_bar",
+          "state": "partitioned_4_equal",
+          "description": "Rectangle divided into 4 equal parts"
+        }
+      ],
+      "student_attempts": {
+        "success_path": {
+          "steps": [
+            {
+              "dialogue": "You divided it into equal parts. Good work.",
+              "prompt": null,
+              "visual": [],
+              "expected_student_input": null
+            }
+          ]
+        },
+        "error_path_generic": {
+          "steps": [
+            {
+              "dialogue": "Check your parts - we need 4 equal sections.",
+              "prompt": "Draw division lines on the rectangle",
+              "visual": [],
+              "expected_student_input": "draw_lines"
+            },
+            {
+              "dialogue": "Let's think about this together. Divide the rectangle so all 4 parts are exactly the same size.",
+              "prompt": "Draw division lines on the rectangle",
+              "visual": [
+                {
+                  "id": "rectangle_1",
+                  "type": "horizontal_rectangle_bar",
+                  "state": "empty_with_grid_highlighted",
+                  "description": "Rectangle with grid guides and equal spacing indicators"
+                }
+              ],
+              "expected_student_input": "draw_lines"
+            },
+            {
+              "dialogue": "This is tricky, so let's work through it together. We need 4 equal parts. Watch as I draw the lines: first line here, second line here, third line here. Now we have 4 parts that are all the same size. See how that works?",
+              "prompt": "Draw division lines on the rectangle",
+              "visual": [
+                {
+                  "id": "rectangle_1",
+                  "type": "horizontal_rectangle_bar",
+                  "state": "partitioned_4_equal_animated",
+                  "description": "Rectangle showing animated step-by-step division into 4 equal parts"
+                }
+              ],
+              "expected_student_input": "draw_lines"
+            }
+          ]
+        },
+        "error_path_counting": {
+          "steps": [
+            {
+              "dialogue": "Count your parts - you need exactly 4.",
+              "prompt": "Draw division lines on the rectangle",
+              "visual": [],
+              "expected_student_input": "draw_lines"
+            },
+            {
+              "dialogue": "You're working on it. Count total parts - we need exactly 4 equal sections, not more or less.",
+              "prompt": "Draw division lines on the rectangle",
+              "visual": [
+                {
+                  "id": "rectangle_1",
+                  "type": "horizontal_rectangle_bar",
+                  "state": "empty_with_numbered_sections",
+                  "description": "Rectangle with grid showing 4 numbered target sections"
+                }
+              ],

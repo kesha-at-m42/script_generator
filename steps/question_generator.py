@@ -18,65 +18,148 @@ class QuestionGenerator(Step):
         self.prompt_builder = PromptBuilder()
     
     def execute(self, input_data, **kwargs):
-        """Execute step - generates questions from learning goals"""
+        """Execute step - generates questions from learning goals, going goal by goal"""
         # Handle both dict and string inputs
         if isinstance(input_data, dict):
-            learning_goals = input_data.get("learning_goals", "")
-            num_questions = input_data.get("num_questions", 5)
+            goals = input_data.get("goals", [])
             grade_level = input_data.get("grade_level", 3)
+            vocabulary = input_data.get("full_module_data", {}).get("vocabulary", [])
+            # Generate more questions to get good distribution across difficulty levels
+            # Default: 6 questions per goal (can be filtered later by validator)
+            questions_per_goal = kwargs.get("questions_per_goal", 6)
         else:
-            learning_goals = str(input_data)
-            num_questions = kwargs.get("num_questions", 5)
+            goals = kwargs.get("goals", [])
             grade_level = kwargs.get("grade_level", 3)
+            vocabulary = kwargs.get("vocabulary", [])
+            questions_per_goal = kwargs.get("questions_per_goal", 6)
         
-        # Build prompt using PromptBuilder
+        if not goals:
+            raise ValueError("No goals provided for question generation")
+        
+        # Process each goal deterministically
+        all_goal_groups = []
+        total_questions = 0
+        
+        print(f"  🎯 Generating {questions_per_goal} questions per goal for {len(goals)} goals...")
+        
+        for goal in goals:
+            print(f"\n  📍 Processing Goal {goal['id']}: {goal['text'][:60]}...")
+            
+            # Generate questions for this specific goal
+            goal_questions = self._generate_questions_for_goal(
+                goal, 
+                vocabulary, 
+                grade_level, 
+                questions_per_goal
+            )
+            
+            all_goal_groups.append({
+                "goal_id": goal['id'],
+                "goal_text": goal['text'],
+                "vocabulary_used": goal.get('vocabulary_used', []),
+                "questions": goal_questions
+            })
+            
+            total_questions += len(goal_questions)
+            print(f"     ✓ Generated {len(goal_questions)} questions for Goal {goal['id']}")
+        
+        # Build final result
+        result = {
+            "metadata": {
+                "total_questions": total_questions,
+                "total_goals": len(goals),
+                "questions_per_goal": questions_per_goal
+            },
+            "goals": all_goal_groups
+        }
+        
+        print(f"\n  ✓ Total: {total_questions} questions across {len(goals)} goals")
+        
+        return result
+    
+    def _generate_questions_for_goal(self, goal, vocabulary, grade_level, num_questions):
+        """Generate questions for a single goal"""
+        # Format vocabulary relevant to this goal
+        vocab_text = self._format_vocabulary_for_goal(vocabulary, goal.get('vocabulary_used', []))
+        
+        # Format example questions
+        examples_text = ""
+        if goal.get('example_questions'):
+            examples_text = ""
+            for i, ex in enumerate(goal['example_questions'], 1):
+                examples_text += f"{i}. {ex}\n"
+        
+        # Get visual constraints from module data (passed through in kwargs or from parent)
+        visuals_text = "Rectangle bars (horizontal or vertical), can be divided into 2, 3, 4, 6, or 8 equal or unequal parts"
+        
+        # Build prompt for this specific goal
         prompt = self.prompt_builder.build_prompt(
             "question_generator",
             {
+                "goal_id": goal['id'],
+                "goal_text": goal['text'],
+                "vocabulary": vocab_text,
+                "visuals": visuals_text,
+                "examples": examples_text,
                 "num_questions": num_questions,
-                "learning_goals": learning_goals,
                 "grade_level": grade_level
             }
         )
         
-        # Generate
-        print(f"  🎯 Generating {num_questions} questions...")
-        response = self.claude.generate(prompt, max_tokens=4000)
+        # Generate with reduced temperature for more consistent, example-following output
+        response = self.claude.generate(prompt, max_tokens=4000, temperature=0.7)
         
         # Parse
         result = parse_json(response)
+        questions = result.get("questions", []) if isinstance(result, dict) else result
         
-        # Validate and fix any hallucinated values
-        questions = result["questions"] if isinstance(result, dict) else result
-        self._validate_and_fix_questions(questions)
+        # Validate and add goal_id
+        for q in questions:
+            q['goal_id'] = goal['id']
+            self._validate_question(q)
         
-        # Quick summary
-        if isinstance(result, dict) and "questions" in result:
-            print(f"  ✓ Generated {len(result['questions'])} questions")
-        else:
-            print(f"  ✓ Generated {len(result)} questions")
-        
-        return result
+        return questions
     
-    def _validate_and_fix_questions(self, questions: list):
-        """Validate questions and fix any hallucinated metadata values"""
+    def _format_vocabulary_for_goal(self, all_vocabulary, goal_vocab_used):
+        """Format vocabulary terms relevant to this goal"""
+        if not all_vocabulary or not goal_vocab_used:
+            return ""
+        
+        vocab_lines = []
+        for term in all_vocabulary:
+            if isinstance(term, dict):
+                # Only include vocabulary used in this goal
+                if term['term'] in goal_vocab_used:
+                    line = f"- {term['term']}: {term['definition']}"
+                    if 'values' in term:
+                        line += f" (values: {term['values']})"
+                    vocab_lines.append(line)
+        
+        return "\n".join(vocab_lines) if vocab_lines else ""
+    
+    def _validate_question(self, question):
+        """Validate a single question and fix any hallucinated values"""
         VALID_DIFFICULTY_LEVELS = {0, 1, 2, 3, 4}
         VALID_QUESTION_TYPES = {"procedural", "conceptual", "transfer"}
         
-        for i, q in enumerate(questions, 1):
-            # Validate difficulty_level
-            if "difficulty_level" in q:
-                level = q["difficulty_level"]
-                if level not in VALID_DIFFICULTY_LEVELS:
-                    print(f"  ⚠️  Question {i}: Invalid difficulty_level {level}, defaulting to 2")
-                    q["difficulty_level"] = 2
-            
-            # Validate question_type
-            if "question_type" in q:
-                q_type = q["question_type"]
-                if q_type not in VALID_QUESTION_TYPES:
-                    print(f"  ⚠️  Question {i}: Invalid question_type '{q_type}', defaulting to 'conceptual'")
-                    q["question_type"] = "conceptual"
+        # Validate difficulty_level
+        if "difficulty_level" in question:
+            level = question["difficulty_level"]
+            if level not in VALID_DIFFICULTY_LEVELS:
+                print(f"  ⚠️  Invalid difficulty_level {level}, defaulting to 2")
+                question["difficulty_level"] = 2
+        
+        # Validate question_type
+        if "question_type" in question:
+            q_type = question["question_type"]
+            if q_type not in VALID_QUESTION_TYPES:
+                print(f"  ⚠️  Invalid question_type '{q_type}', defaulting to 'conceptual'")
+                question["question_type"] = "conceptual"
+    
+    def _validate_and_fix_questions(self, questions: list):
+        """Validate questions and fix any hallucinated metadata values (DEPRECATED - use _validate_question)"""
+        for q in questions:
+            self._validate_question(q)
 
 # Test it
 if __name__ == "__main__":

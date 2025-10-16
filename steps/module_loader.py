@@ -35,21 +35,30 @@ class ModuleLoader(Step):
         
         module_data = MODULES[module_number]
         
-        # Extract and format learning goals
-        learning_goals = module_data["learning_goals"]
-        learning_goals_text = "\n".join(f"- {goal}" for goal in learning_goals)
+        # Extract and format learning goals (from detailed goals array)
+        learning_goals = module_data["learning_goals"]  # Original simple goals
+        goals = module_data.get("goals", [])  # Detailed goals with IDs
+        
+        # Format detailed goals for AI
+        goals_text = ""
+        for goal in goals:
+            goals_text += f"\nGoal ID {goal['id']}: {goal['text']}\n"
+            goals_text += f"  Vocabulary: {', '.join(goal.get('vocabulary_used', []))}\n"
+            if goal.get('example_questions'):
+                goals_text += f"  Example: {goal['example_questions'][0]}\n"
         
         print(f"  📚 Loaded Module {module_number}: {module_data['module_name']}")
         print(f"  🎯 Grade Level: {module_data['grade_level']}")
-        print(f"  📖 Learning Goals: {len(learning_goals)}")
+        print(f"  📖 Learning Goals: {len(goals)} detailed goals")
         
         # Return data in format expected by QuestionGenerator
         return {
             "module_number": module_number,
             "module_name": module_data["module_name"],
             "grade_level": module_data["grade_level"],
-            "learning_goals": learning_goals_text,
+            "learning_goals": goals_text,
             "learning_goals_list": learning_goals,
+            "goals": goals,  # Detailed goals with IDs
             "full_module_data": module_data
         }
 

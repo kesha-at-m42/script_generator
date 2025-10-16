@@ -1,4 +1,7 @@
-# AI Visual Interaction Generator: Fraction Teaching Guide
+# Visual Guide: Animation Types & Scaffolding Reference
+
+## PURPOSE
+This guide defines the **available visual animations and scaffolding types** that can be used in interactive fraction exercises. When the Remediation System document references "see Visual Guide," consult this document for appropriate animation types based on the student's learning stage and error type.
 
 ## CORE INSTRUCTION
 You are creating interactive visual fraction exercises using rectangle bars, shapes, and grid arrays. Match the interaction type and scaffolding level to the student's learning stage.
@@ -196,15 +199,15 @@ INTERACTION:
 ```
 CREATE INTERACTIVE FRACTION EXERCISE:
 
-Visual: Rectangle bar, 300px wide × 60px tall, divided into 5 equal vertical sections
+Visual: Rectangle bar, divided into 5 equal vertical sections
 
 Initial State:
-- 5 sections outlined with 2px black borders
+- 5 sections outlined with black borders
 - All sections white/unshaded
-- Sections numbered 1-5 in bottom corner (light gray, small text)
+- Sections numbered 1-5 in bottom corner
 
 Scaffolding Animation (on load):
-- Each section outline highlights sequentially (yellow glow, 400ms each)
+- Each section outline highlights sequentially
 - Counter appears above: "1 of 5 parts... 2 of 5 parts..." through "5 of 5 parts"
 
 Student Interaction:
