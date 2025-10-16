@@ -2,14 +2,6 @@
 
 An AI-powered prompt engineering and testing system for educational content generation using Claude API.
 
-## 📖 Documentation
-
-**[Complete Guide →](docs/README.md)** - Everything you need to know in one place
-
-**Quick Reference:** `python docs/QUICK_REFERENCE.py`
-
-## Features
-
 ### 📝 Prompt Editor
 - Create and manage reusable prompt templates
 - Visual editing interface with variable detection
