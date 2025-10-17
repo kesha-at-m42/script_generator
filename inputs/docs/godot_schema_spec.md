@@ -1,0 +1,579 @@
+# Godot Schema Specification
+
+**Audience:** Developers and engineers  
+**Purpose:** Standardize terminology and structure for Godot game engine integration
+
+
+## Overview
+
+The Godot schema uses **@type annotations** in JSON for deserialization, which are mapped to Godot classes during validation. The validator uses `.type(ClassName)` to specify the target class, while the JSON contains `"@type": "ClassName"` for serialization.
+
+---
+
+## Root Structure
+
+```json
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 1,
+        "difficulty": 0,
+        "verb": "partition",
+        "goal": "Students can partition shapes into equal parts"
+      },
+      "steps": [...]
+    }
+  ]
+}
+```
+
+**Note:** The validator expects `{"steps": [...]}` at the Sequence level, but the JSON includes wrapping with @type annotations for proper deserialization. Each Sequence also includes @metadata with problem context.
+
+---
+
+## Example Step Structure
+
+```json
+{
+  "@type": "Step",
+  "dialogue": "Here's a bar. Click in the middle to make 2 equal parts.",
+  "workspace": {
+    "@type": "WorkspaceData",
+    "tangibles": [...]
+  },
+  "prompt": {
+    "@type": "Prompt",
+    "text": "Click once in the middle to make 2 equal parts.",
+    "tool": "click_sections",
+    "validator": {
+      "@type": "SelectSectionsValidator",
+      "answer": [1]
+    },
+    "choices": null,
+    "remediations": [
+      {"@type": "Remediation", "id": "light", ...},
+      {"@type": "Remediation", "id": "medium", ...},
+      {"@type": "Remediation", "id": "heavy", ...}
+    ],
+    "on_correct": null
+  },
+  "scene": null
+}
+```
+
+---
+
+## Schema Field Reference
+
+### Step Fields (from sequence_schema.gd)
+
+Required fields:
+- `@type`: "Step"
+
+Optional fields:
+- `dialogue`: string - What the guide says (can include [event:...] tags)
+- `workspace`: WorkspaceData - Visual setup with tangibles
+- `prompt`: Prompt - Learner interaction request
+- `scene`: string - Scene change (e.g., "Classroom", "Workspace", or null)
+
+### Workspace Structure
+
+```json
+{
+  "@type": "WorkspaceData",
+  "tangibles": [
+    {
+      "@type": "<TangibleType>",
+      "id": "unique_id",
+      ...properties...
+    }
+  ]
+}
+```
+
+**Important:** Use `"@type": "WorkspaceData"` (not "Workspace")
+
+### Prompt Structure
+
+```json
+{
+  "@type": "Prompt",
+  "text": "Problem statement or instruction",
+  "tool": "interaction_tool_name",
+  "validator": {
+    "@type": "ValidatorType",
+    "answer": ...
+  },
+  "choices": {
+    "@type": "WorkspaceChoices",
+    "allow_multiple": false,
+    "options": ["option1", "option2", ...]
+  } | null,
+  "remediations": [
+    {
+      "@type": "Remediation",
+      "id": "light" | "medium" | "heavy",
+      "step": {
+        "@type": "Step",
+        "dialogue": "..."
+      }
+    }
+  ],
+  "on_correct": {
+    "@type": "Step",
+    "dialogue": "Success message"
+  } | null
+}
+```
+
+### Remediation Structure
+
+```json
+{
+  "@type": "Remediation",
+  "id": "light" | "medium" | "heavy",
+  "step": {
+    "@type": "Step",
+    "dialogue": "Remediation text with optional [event:tags]"
+  }
+}
+```
+
+The `step` field uses partial_step schema (dialogue only).
+
+---
+
+## Component Definitions
+
+### Sequence
+A list of **Steps** triggered in order. Each Sequence represents one problem or learning interaction.
+
+**Structure:**
+```json
+{
+  "@type": "Sequence",
+  "@metadata": {
+    "problem_id": 1,
+    "difficulty": 0,
+    "verb": "partition",
+    "goal": "Students can partition shapes into equal parts"
+  },
+  "steps": [...]
+}
+```
+
+**@metadata Fields:**
+- `problem_id`: Integer - Unique identifier for the problem
+- `difficulty`: Integer - Problem difficulty level (0=easy, 1=medium, 2=hard)
+- `verb`: String - Learning action/skill (e.g., "partition", "compare", "identify")
+- `goal`: String - Learning objective description
+
+### Step
+A collection of one or more **Components** that trigger simultaneously:
+- **Dialogue** - Guide speech
+- **Workspace** - Visual setup
+- **Prompt** - Learner interaction
+- **Scene** - Camera/environment change
+
+A step is "completed" when all components finish running.
+
+### Event
+A script that drives procedural animations. Referenced in dialogue as `[event:event_name]`.
+
+**Format:** `[event:event_name]` embedded in dialogue text
+
+**Examples:**
+- `[event:show_lines]` - Display number lines
+- `[event:pulse_sections]` - Animate sections pulsing
+- `[event:label_sections]` - Add number labels
+- `[event:highlight_shaded]` - Highlight shaded areas
+- `[event:practice_1_md]` - Medium scaffolding animation
+- `[event:practice_1_hv]` - Heavy scaffolding demonstration
+
+**Pattern:** Events can be chained: `[event:event1][event:event2]Dialogue text`
+
+### Tool
+An interaction method the learner uses to respond:
+- `"cut"` - Cut/divide tangibles into parts
+- `"paint"` - Shade/color sections of tangibles
+- `"select"` - Select a single tangible from workspace
+- `"multi_select"` - Select multiple tangibles from workspace
+- `"compare"` - Compare tangibles or match representations
+- `"highlight"` - Highlight specific tick marks or positions
+- `"place_tick"` - Place tick marks on number line
+- (no tool) - Multiple choice questions use workspace.choices instead of a tool
+
+**Rule:** Only one tool active at a time per prompt. MCQs don't use tools.
+
+### Tangible Types
+
+Physical interactable objects in the workspace.
+
+**FracShape** - Unified type for all fraction shapes (rectangles, circles, squares)
+
+The `visual` property determines the shape type:
+- `0` = Bar (horizontal)
+- `1` = Pie
+- `2` = Grid
+- (other values for additional shapes)
+
+**Uniform FracShape** (equal parts):
+```json
+{
+  "@type": "FracShape",
+  "fractions": "1/4",
+  "visual": 0,
+  "shaded": [0, 1],
+  "lcm": 24
+}
+```
+When `fractions` is a single fraction string, creates uniform shape with that many equal parts.
+
+**Non-uniform FracShape** (different-sized parts):
+```json
+{
+  "@type": "FracShape",
+  "fractions": ["1/4", "1/4", "1/2"],
+  "visual": 0,
+  "shaded": [],
+  "frac_label_visible": [0, 1, 2],
+  "lcm": 24
+}
+```
+When `fractions` is an array, each element represents one part's fraction value.
+
+**FracShape Properties:**
+- `@type`: Always "FracShape"
+- `fractions`: String ("1/4") for uniform OR Array<String> (["1/4", "1/2"]) for non-uniform OR null for whole
+- `visual`: Integer (0=bar, 1=pie, 2=grid, etc.) - Optional, default 0
+- `shaded`: Array<Integer> - Indices of shaded parts - Optional, default []
+- `missing`: Array<Integer> - Indices of missing/hidden parts - Optional, default []
+- `frac_label_visible`: Array<Integer> - Indices where fraction labels show - Optional, default []
+- `lcm`: Integer - Least common multiple for rendering calculations - Optional, default 24
+  * **For cut/partition tasks**: Set to `sections × 2` (e.g., 3 sections → lcm = 6)
+  * **For other tasks**: Use default 24
+- `is_read_only`: Boolean - Whether shape is interactive - Optional, default false
+
+**NumberLine:**
+```json
+{
+  "@type": "NumberLine",
+  "lcd": 6,
+  "tick_marks": [0, "1/6", "2/6", "3/6", "4/6", "5/6", 1],
+  "labelled": [true, false, false, false, false, false, true],
+  "is_read_only": [true, false, false, false, false, false, true],
+  "dots": [2]
+}
+```
+
+**NumberLine Properties:**
+- `@type`: Always "NumberLine"
+- `lcd`: Integer - Least common denominator (required)
+- `tick_marks`: Array - Mix of integers (0, 1) and fraction strings ("1/6") for tick positions (required)
+- `labelled`: Array<Boolean> - Whether each tick shows label - Optional
+- `is_read_only`: Array<Boolean> - Whether each tick is interactive - Optional
+- `dots`: Array<Integer> - Indices of tick marks with dots/markers - Optional
+
+### Validator Types
+
+Maps to interaction tools to validate learner responses.
+
+**EqualShadedValidator** (tool: "paint")
+```json
+{
+  "@type": "EqualShadedValidator",
+  "answer": "1/4"
+}
+```
+Validates that fraction shapes are shaded to represent a specific fraction. Answer is a fraction string (e.g., "1/4", "2/3").
+
+**ShadedPartsValidator** (tool: "paint")
+```json
+{
+  "@type": "ShadedPartsValidator",
+  "answer": 3
+}
+```
+Validates the number of shaded parts. Answer is an integer representing count of shaded sections.
+
+**FractionShapePartsValidator** (tool: "compare")
+```json
+{
+  "@type": "FractionShapePartsValidator",
+  "answer": "1/4"
+}
+```
+or for multiple shapes:
+```json
+{
+  "@type": "FractionShapePartsValidator",
+  "answer": ["1/4", "2/4"]
+}
+```
+Validates that fraction shape(s) match specific fraction values. Answer can be single fraction or array of fractions.
+
+**SelectionValidator** (tool: "select" or "multi_select")
+```json
+{
+  "@type": "SelectionValidator",
+  "answer": 2
+}
+```
+or for multiple selections:
+```json
+{
+  "@type": "SelectionValidator",
+  "answer": [0, 2]
+}
+```
+Validates tangible selection by index. Answer is integer (single) or array of integers (multiple).
+
+**MultipleChoiceValidator** (no tool - uses workspace.choices)
+```json
+{
+  "@type": "MultipleChoiceValidator",
+  "answer": [2]
+}
+```
+Used for choice selection. Answer is array with index of correct choice (0-based). Choices displayed via workspace.choices.
+
+**PlaceTicksValidator** (tool: "place_tick")
+```json
+{
+  "@type": "PlaceTicksValidator",
+  "answer": [2, 4]
+}
+```
+Validates placement of tick marks on number line. Answer is array of tick positions/indices.
+
+**SelectTicksValidator** (tool: "highlight")
+```json
+{
+  "@type": "SelectTicksValidator",
+  "answer": [3]
+}
+```
+Validates selection/highlighting of specific tick marks. Answer is array of tick indices to highlight.
+
+### WorkspaceChoices
+
+Used with MultipleChoiceValidator for displaying options.
+
+```json
+{
+  "@type": "WorkspaceChoices",
+  "allow_multiple": false,
+  "options": ["1/2", "1/3", "1/4", "1/5"]
+}
+```
+
+- `allow_multiple`: boolean - Whether multiple selections allowed
+- `options`: array of strings - Text for each choice button
+
+---
+
+## Tool-to-Validator Mappings
+
+**Critical Reference:** Each tool pairs with specific validator types.
+
+| Tool | Validator(s) | Usage |
+|------|-------------|-------|
+| `"paint"` | `EqualShadedValidator`, `ShadedPartsValidator` | Shade sections to match fraction or count |
+| `"select"` | `SelectionValidator` | Select single tangible by index |
+| `"multi_select"` | `SelectionValidator` | Select multiple tangibles by indices |
+| `"compare"` | `FractionShapePartsValidator` | Match fraction shapes to values |
+| `"highlight"` | `SelectTicksValidator` | Highlight tick marks on number line |
+| `"place_tick"` | `PlaceTicksValidator` | Place new tick marks on number line |
+| `"cut"` | (context-specific) | Divide shapes into parts |
+| (no tool) | `MultipleChoiceValidator` | Display choices via `workspace.choices` |
+
+**Important:** MCQs don't use a tool - they use `workspace.choices` to display options and `MultipleChoiceValidator` to validate.
+
+---
+
+## Scaffolding Levels
+
+Remediations follow progressive scaffolding with 3 levels:
+
+**Light** - Minimal hint (10-20 words)
+- No visual effects
+- Brief redirect or question
+- Example: "Check your spacing - Thirds need three equal intervals."
+
+**Medium** - Explanation + visual hint (20-30 words)
+- Includes [event:...] tags for visual feedback
+- Explains concept more directly
+- Example: "[event:practice_1_md]Not quite. For thirds, place marks at one third and two thirds."
+
+**Heavy** - Full demonstration (30-60 words)
+- Multiple [event:...] tags showing solution
+- Step-by-step walkthrough
+- Example: "[event:practice_1_hv]Let me show you. For three equal intervals, I place marks at one third and two thirds. Now I have thirds."
+
+---
+
+## Complete Working Example
+
+**Full sequence from problem_pool.json:**
+
+```json
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 101,
+        "difficulty": 0,
+        "verb": "partition",
+        "goal": "Create thirds on a number line"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "range": [0, 1],
+                "lcd": 6,
+                "tick_marks": [0, 1]
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "[event:show_lines]Create thirds on this number line. Click to place marks that make three equal intervals."
+        },
+        {
+          "@type": "Step",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place marks to create three equal intervals.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [2, 4]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Here's a hint: Check your spacing - Thirds need three equal intervals."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "[event:practice_1_md]Not quite. For thirds, place marks at one third and two thirds to create three equal spaces between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "[event:practice_1_hv]Let me show you. For three equal intervals, I place marks at one third and two thirds. Now I have thirds."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Perfect! Three equal intervals - that's thirds."
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Step Breakdown:**
+1. **Workspace Setup** - Display NumberLine with tick marks at 0 and 1
+2. **Dialogue** - Instruct learner with [event:show_lines] trigger
+3. **Prompt** - Request interaction with tool, validator, and 3 remediations (L/M/H)
+4. **Success Dialogue** - Positive feedback when correct
+
+---
+
+## Key Rules & Best Practices
+
+### Required @type Fields
+Every object must have `@type` for proper deserialization:
+- Root: `"@type": "SequencePool"`
+- Sequence: `"@type": "Sequence"` + `"@metadata": {...}` (problem context)
+- Step: `"@type": "Step"`
+- Workspace: `"@type": "WorkspaceData"` ⚠️ (not "Workspace")
+- Prompt: `"@type": "Prompt"`
+- Validator: `"@type": "<ValidatorType>"` (see validator types above)
+- Remediation: `"@type": "Remediation"`
+- Choices: `"@type": "WorkspaceChoices"`
+- Tangibles: `"@type": "FracShape"` or `"@type": "NumberLine"`
+
+### Field Requirements
+- **@metadata**: Required in Sequence. Contains problem_id, difficulty, verb, goal
+- **dialogue**: Optional in Steps. Contains guide speech and [event:...] tags.
+- **workspace**, **prompt**, **scene**: All optional in Steps. At least one should be present.
+- **remediations**: Must have exactly 3 items with id "light", "medium", "heavy" (in that order)
+- **tool**: Required in Prompt (use appropriate tool from list above). Exception: MCQs have no tool (omit or null)
+- **validator**: Required in Prompt. Must match tool type (see Validator-Tool Mapping)
+- **choices**: Required for MultipleChoiceValidator (workspace.choices), null for other validators
+
+### Event Tag Rules
+- Format: `[event:event_name]`
+- Multiple events: `[event:event1][event:event2]Dialogue text`
+- Placement: At start of dialogue before text
+- Light remediations: No events
+- Medium/Heavy: Include appropriate events
+
+### Validator-Tool Mapping
+- `"paint"` → `EqualShadedValidator` or `ShadedPartsValidator`
+- `"select"` → `SelectionValidator` (single tangible)
+- `"multi_select"` → `SelectionValidator` (multiple tangibles)
+- `"compare"` → `FractionShapePartsValidator`
+- `"highlight"` → `SelectTicksValidator`
+- `"place_tick"` → `PlaceTicksValidator`
+- (no tool) → `MultipleChoiceValidator` (uses workspace.choices)
+
+### Answer Format
+- EqualShadedValidator: Fraction string `"1/4"`
+- ShadedPartsValidator: Integer count `3`
+- FractionShapePartsValidator: Fraction string `"1/4"` or Array `["1/4", "2/4"]`
+- SelectionValidator: Integer `2` or Array `[0, 2]`
+- MultipleChoiceValidator: Array with single index `[2]` (0-based)
+- PlaceTicksValidator: Array of positions `[2, 4]`
+- SelectTicksValidator: Array of tick indices `[3]`
+
+### Common Patterns
+
+
+**Pattern 1: Combined Workspace + Dialogue**
+```json
+{
+  "@type": "Step",
+    "dialogue": "[event:show_lines]Look at this..."
+  "workspace": {...},
+}
+```
+
+**Pattern 3: Dialogue + Prompt in Same Step**
+```json
+{
+  "@type": "Step",
+  "dialogue": "Instructions here.",
+  "prompt": {
+    "@type": "Prompt",
+    "text": "Button text",
+    ...
+  }
+}

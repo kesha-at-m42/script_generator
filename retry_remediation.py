@@ -44,7 +44,7 @@ print(f"Prompt length: {len(remediation_prompt)} characters")
 print("\nCalling Claude API for remediation generation...")
 print("Using max_tokens=64000 (actual model maximum)")
 
-remediation_response = client.generate(remediation_prompt, max_tokens=64000, temperature=0.7)
+remediation_response = client.generate(remediation_prompt, max_tokens=64000, temperature=0.3)
 
 # Print token usage
 stats = client.get_stats()

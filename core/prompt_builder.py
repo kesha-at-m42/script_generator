@@ -67,10 +67,8 @@ class PromptBuilder:
         configs = {
             "question_generator": self._question_generator_config(),
             "interaction_designer": self._interaction_designer_config(),
-            "validation_designer": self._validation_designer_config(),
             "remediation_generator": self._remediation_generator_config(),
-            "dialogue_writer": self._dialogue_writer_config(),
-            "formatter": self._formatter_config(),
+            "godot_formatter": self._godot_formatter_config(),
         }
         
         return configs.get(prompt_id, {})
@@ -411,186 +409,6 @@ FOCUS ON:
 - Appropriate visual types for the learning goal"""
         }
     
-    def _validation_designer_config(self) -> Dict:
-        """Validation Designer prompt configuration"""
-        from validation_designer import (
-            VALIDATION_DESIGNER_ROLE,
-            VALIDATION_DESIGNER_DOCS,
-            VALIDATION_DESIGNER_EXAMPLES,
-            VALIDATION_DESIGNER_STRUCTURE,
-            VALIDATION_DESIGNER_INSTRUCTIONS
-        )
-        
-        return {
-            "role": VALIDATION_DESIGNER_ROLE,
-            "docs": VALIDATION_DESIGNER_DOCS,
-            "examples": VALIDATION_DESIGNER_EXAMPLES,
-            "structure": VALIDATION_DESIGNER_STRUCTURE,
-            "instructions": VALIDATION_DESIGNER_INSTRUCTIONS
-        }
-    
-    def _validation_designer_config_OLD(self) -> Dict:
-        """OLD Validation Designer prompt configuration - DEPRECATED"""
-        return {
-            "role": "You are an expert in educational scaffolding and error remediation. You design progressive support systems that help students learn from mistakes.",
-            
-            "docs": [
-                "visual_guide.md",
-                {
-                    "title": "Standard Dialogue Types",
-                    "content": """BREAKTHROUGH - First try success
-BREAKTHROUGH_AFTER_STRUGGLE - Success after hints
-STRUGGLE_GENTLE - Light remediation (1st attempt)
-STRUGGLE_EXPLICIT - Medium remediation (2nd attempt)
-STRUGGLE_DEMONSTRATE - Heavy remediation (3rd attempt, show solution)
-OPENING - Introduce new step/visual
-PATTERN_DISCOVERY - Student found a pattern
-STRATEGIC_THINKING - Note student's approach"""
-                }
-            ],
-            
-            "examples": [],
-            
-            "structure": """For each student_action in the sequences, add validation:
-
-{
-  "student_action": {
-    "type": "...",
-    "expected": "...",
-    "description": "...",
-    "validation": {
-      "success_first_attempt": {
-        "dialogue_placeholder": "BREAKTHROUGH [context: first try success]",
-        "next": <next_step_id or "complete">
-      },
-      "success_after_error": {
-        "dialogue_placeholder": "BREAKTHROUGH_AFTER_STRUGGLE [context: success after hints]",
-        "next": <next_step_id or "complete">
-      },
-      "errors": {
-        "<error_name>": {
-          "condition": "<what triggers this error>",
-          "remediations": [
-            {
-              "attempt": 1,
-              "dialogue_placeholder": "STRUGGLE_GENTLE [visuals: <list animations>]",
-              "animations": [...]
-            },
-            {
-              "attempt": 2,
-              "dialogue_placeholder": "STRUGGLE_EXPLICIT [visuals: <list animations>]",
-              "animations": [...]
-            },
-            {
-              "attempt": 3,
-              "dialogue_placeholder": "STRUGGLE_DEMONSTRATE [visuals: <show solution>]",
-              "animations": [...]
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-
-Return ONLY valid JSON.""",
-            
-            "instructions": """Design validation and error handling for these interaction sequences.
-
-<interaction_sequences>
-{interaction_sequences}
-</interaction_sequences>
-
-For each student_action:
-1. Identify possible error types (what mistakes might students make?)
-2. Design progressive scaffolding with 3 attempts:
-   - Attempt 1 (STRUGGLE_GENTLE): Gentle nudge, count or highlight
-   - Attempt 2 (STRUGGLE_EXPLICIT): More direct, explain the concept
-   - Attempt 3 (STRUGGLE_DEMONSTRATE): Show the solution
-3. Select remediation animations from the visual guide
-4. Add [visuals: ...] or [context: ...] to each placeholder showing what's visible
-5. Design success paths for first try vs after hints
-
-CRITICAL:
-- List ALL visuals/animations in [visuals: ...] brackets
-- Use standard dialogue types: BREAKTHROUGH, STRUGGLE_GENTLE, etc.
-- Progressive difficulty: each remediation should be more explicit"""
-        }
-    
-    def _dialogue_writer_config(self) -> Dict:
-        """Dialogue Writer prompt configuration"""
-        from dialogue_writer import (
-            DIALOGUE_WRITER_ROLE,
-            DIALOGUE_WRITER_DOCS,
-            DIALOGUE_WRITER_EXAMPLES,
-            DIALOGUE_WRITER_STRUCTURE,
-            DIALOGUE_WRITER_INSTRUCTIONS
-        )
-        
-        return {
-            "role": DIALOGUE_WRITER_ROLE,
-            "docs": DIALOGUE_WRITER_DOCS,
-            "examples": DIALOGUE_WRITER_EXAMPLES,
-            "structure": DIALOGUE_WRITER_STRUCTURE,
-            "instructions": DIALOGUE_WRITER_INSTRUCTIONS
-        }
-    
-    def _dialogue_writer_config_OLD(self) -> Dict:
-        """OLD Dialogue Writer prompt configuration - DEPRECATED"""
-        return {
-            "role": "You are a character voice writer specializing in educational dialogue. You write in the voice of Kim, a warm and encouraging guide who helps students learn through discovery.",
-            
-            "docs": [
-                "guide_design.md",
-            ],
-            
-            "examples": [],
-            
-            "structure": """TRANSFORMATION REQUIRED:
-Replace every "dialogue_placeholder" field with "guide_says" containing actual dialogue.
-
-Input structure (what you receive):
-{
-  "dialogue_placeholder": "BREAKTHROUGH [visuals: circle glows green]"
-}
-
-Output structure (what you must return):
-{
-  "guide_says": "Right there – you got it."
-}
-
-DELETE the dialogue_placeholder field and ADD guide_says field.
-
-Return ONLY valid JSON with the same structure but all dialogue_placeholder fields replaced by guide_says.""",
-            
-            "instructions": """Add character dialogue to these interaction sequences.
-
-<interaction_sequences>
-{interaction_sequences}
-</interaction_sequences>
-
-For each dialogue_placeholder:
-1. Note the standard type (BREAKTHROUGH, STRUGGLE_GENTLE, etc.)
-2. Check the character guide for examples of that type
-3. Note what visuals are available in [visuals: ...] or [context: ...]
-4. Write dialogue in Kim's voice that:
-   - Matches the standard type's tone and purpose
-   - ONLY references visuals/animations listed in brackets
-   - Uses age-appropriate language
-   - Feels natural and encouraging
-
-CRITICAL - Visual/Dialogue Consistency:
-- If placeholder says [visuals: circle highlights, counter shows parts], you CAN reference those
-- If placeholder says [context: verbal feedback only], do NOT say "look at this" or "watch this"
-- Match dialogue timing to animations
-
-Character Voice Guidelines:
-- Warm, encouraging, never condescending
-- Uses "we" and "let's" to feel collaborative
-- Celebrates effort and thinking, not just correctness
-- Keeps it brief (1-2 sentences usually)"""
-        }
-    
     def _remediation_generator_config(self) -> Dict:
         """Configuration for remediation generation prompt"""
         from remediation_generator import (
@@ -609,30 +427,30 @@ Character Voice Guidelines:
             "instructions": REMEDIATION_GENERATOR_INSTRUCTIONS
         }
     
+    def _godot_formatter_config(self) -> Dict:
+        """Godot Formatter prompt configuration"""
+        from godot_formatter import (
+            GODOT_FORMATTER_ROLE,
+            GODOT_FORMATTER_DOCS,
+            GODOT_FORMATTER_EXAMPLES,
+            GODOT_FORMATTER_STRUCTURE,
+            GODOT_FORMATTER_INSTRUCTIONS
+        )
+        
+        return {
+            "role": GODOT_FORMATTER_ROLE,
+            "docs": GODOT_FORMATTER_DOCS,
+            "examples": GODOT_FORMATTER_EXAMPLES,
+            "structure": GODOT_FORMATTER_STRUCTURE,
+            "instructions": GODOT_FORMATTER_INSTRUCTIONS
+        }
+    
     def build_remediation_generator_prompt(self, interactions_context: str) -> str:
         """Build prompt for remediation generation"""
         return self.build_prompt(
             "remediation_generator",
             {"interactions_context": interactions_context}
         )
-    
-    def _formatter_config(self) -> Dict:
-        """Configuration for formatter prompt"""
-        from formatter import (
-            FORMATTER_ROLE,
-            FORMATTER_DOCS,
-            FORMATTER_EXAMPLES,
-            FORMATTER_INSTRUCTIONS,
-            FORMATTER_STRUCTURE
-        )
-        
-        return {
-            "role": FORMATTER_ROLE,
-            "docs": FORMATTER_DOCS,
-            "examples": FORMATTER_EXAMPLES,
-            "structure": FORMATTER_STRUCTURE,
-            "instructions": FORMATTER_INSTRUCTIONS
-        }
 
 
 # Test it

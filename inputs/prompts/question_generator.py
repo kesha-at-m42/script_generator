@@ -59,9 +59,11 @@ QUESTION_GENERATOR_EXAMPLES = [
 QUESTION_GENERATOR_INSTRUCTIONS = """
 ## TASK
 
-Generate {num_questions} questions for the following learning goal(s):
+Generate {num_questions} questions **PER LEARNING GOAL** for the following:
 
 {learning_goals}
+
+**IMPORTANT:** If multiple learning goals are provided, generate {num_questions} questions for EACH goal (not {num_questions} total).
 
 ## REQUIREMENTS
 
