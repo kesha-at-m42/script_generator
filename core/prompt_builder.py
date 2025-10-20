@@ -22,9 +22,17 @@ if str(prompts_path) not in sys.path:
 class PromptBuilder:
     """Builds prompts from structured components"""
     
-    def __init__(self):
+    def __init__(self, module_number: int = None, path_letter: str = None):
         self.docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
         self.prompts_dir = Path(__file__).parent.parent / "prompts"
+        self.module_number = module_number
+        self.path_letter = path_letter
+        
+        # Build module path like "module_1_path_b"
+        if module_number is not None and path_letter:
+            self.module_path = f"module_{module_number}_path_{path_letter.lower()}"
+        else:
+            self.module_path = None
     
     def build_prompt(self, prompt_id: str, variables: Dict = None) -> str:
         """Build a complete prompt from components"""
@@ -42,6 +50,7 @@ class PromptBuilder:
         # 2. Documentation references
         if config.get("docs"):
             docs_content = self._load_docs(config["docs"])
+            print("Adding document to prompt...")
             sections.append(docs_content)
         
         # 3. Examples
@@ -59,22 +68,33 @@ class PromptBuilder:
             instructions = instructions.format(**variables)
         sections.append(instructions)
         
-        return "\n\n".join(sections)
+        final_prompt = "\n\n".join(sections)
+        print("Final prompt length:", len(final_prompt))
+        return final_prompt
     
     def _get_prompt_config(self, prompt_id: str) -> Dict:
         """Get prompt configuration by ID"""
         
-        configs = {
-            "question_generator": self._question_generator_config(),
-            "interaction_designer": self._interaction_designer_config(),
-            "remediation_generator": self._remediation_generator_config(),
-            "godot_formatter": self._godot_formatter_config(),
+        print(f"\nDEBUG: Requested prompt_id = '{prompt_id}'")
+        
+        # Map prompt IDs to their config methods (don't call them yet!)
+        config_methods = {
+            "question_generator": self._question_generator_config,
+            "interaction_designer": self._interaction_designer_config,
+            "remediation_generator": self._remediation_generator_config,
+            "godot_formatter": self._godot_formatter_config,
         }
         
-        return configs.get(prompt_id, {})
+        # Only call the specific config method we need
+        if prompt_id in config_methods:
+            print(f"DEBUG: Loading config for '{prompt_id}'")
+            return config_methods[prompt_id]()  # ← Note the () here - call it now
+        else:
+            print(f"WARNING: Unknown prompt_id '{prompt_id}'")
+            return {}
     
     def _load_docs(self, doc_refs: List[str]) -> str:
-        """Load documentation files"""
+        """Load documentation files with module-specific override support"""
         sections = []
         
         for doc_ref in doc_refs:
@@ -84,15 +104,46 @@ class PromptBuilder:
                 content = doc_ref.get("content", "")
                 sections.append(f"<{title.lower().replace(' ', '_')}>\n{content}\n</{title.lower().replace(' ', '_')}>")
             else:
-                # File reference
-                filepath = self.docs_dir / doc_ref
-                if filepath.exists():
-                    with open(filepath, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                    tag = filepath.stem
+                # File reference - check for module-specific version first
+                content = self._load_doc_with_module_fallback(doc_ref)
+                if content:
+                    tag = Path(doc_ref).stem
                     sections.append(f"<{tag}>\n{content}\n</{tag}>")
         
         return "\n\n".join(sections)
+    
+    def _load_doc_with_module_fallback(self, doc_ref: str) -> Optional[str]:
+        """Load doc with module-specific override, fallback to base
+        
+        Priority:
+        1. Module-specific: inputs/docs/module_{num}_path_{letter}/{doc_ref}
+        2. Base: inputs/docs/{doc_ref}
+        """
+        # Try module-specific first
+        if self.module_path:
+            module_path = self.docs_dir / self.module_path / doc_ref
+            print("Loading document from:", module_path)
+            if module_path.exists():
+                with open(module_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                print("Document content loaded:", len(content), "characters")
+                print("First 200 characters:", content[:200])
+                print(f"  📘 Loaded module-specific: {self.module_path}/{doc_ref}")
+                return content
+        
+        # Fallback to base
+        base_path = self.docs_dir / doc_ref
+        print("Loading document from:", base_path)
+        if base_path.exists():
+            with open(base_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            print("Document content loaded:", len(content), "characters")
+            print("First 200 characters:", content[:200])
+            print(f"  📗 Loaded base: {doc_ref}")
+            return content
+        
+        print(f"  ⚠️  Doc not found: {doc_ref}")
+        return None
     
     def _format_examples(self, examples: List[Dict]) -> str:
         """Format example outputs"""
@@ -129,151 +180,6 @@ class PromptBuilder:
             "instructions": QUESTION_GENERATOR_INSTRUCTIONS
         }
     
-    def _question_generator_config_OLD(self) -> Dict:
-        """OLD Question Generator prompt configuration - DEPRECATED"""
-        return {
-            "role": "You are an expert educational content designer specializing in elementary mathematics. You create questions that are developmentally appropriate, clear, and aligned with learning objectives.",
-            
-            "docs": [
-                "difficulty_levels.md",
-                "question_types.md",
-            ],
-            
-            "examples": [
-                {
-                    "description": "Sample questions for Goal: Students can partition shapes into equal parts (showing good variety)",
-                    "output": """{
-  "questions": [
-    {
-      "id": 1,
-      "question_text": "Click once in the middle to divide the bar into 2 equal parts.",
-      "interaction_type": "Click",
-      "difficulty_level": 0,
-      "question_type": "procedural",
-      "cognitive_verb": "divide",
-      "visual_context": "A horizontal rectangular bar, unpartitioned, solid color",
-      "correct_answer": "Click once in the center to create 2 equal sections",
-      "explanation": "This question teaches the most basic partitioning skill - creating two equal parts by finding the midpoint. It's procedural and concrete, requiring only one action to successfully partition a whole into halves.",
-      "vocabulary_reinforced": ["partition", "equal parts"]
-    },
-    {
-      "id": 2,
-      "question_text": "Which circle shows 4 equal parts?",
-      "interaction_type": "Multiple Choice",
-      "difficulty_level": 2,
-      "question_type": "conceptual",
-      "cognitive_verb": "identify",
-      "visual_context": "Three circles displayed: Circle A divided into 4 equal wedges, Circle B divided into 4 unequal wedges, Circle C divided into 3 equal parts",
-      "correct_answer": "Circle A (the one with 4 equal wedges)",
-      "explanation": "This question builds conceptual understanding by requiring students to distinguish between equal and unequal partitioning while also verifying the correct count. The circle shape adds complexity compared to rectangles, and the multiple distractors require careful visual discrimination.",
-      "vocabulary_reinforced": ["equal parts"]
-    },
-    {
-      "id": 3,
-      "question_text": "A rectangular garden needs to be divided into 6 equal sections for planting different vegetables. Show how you would divide it.",
-      "interaction_type": "Drag and Drop",
-      "difficulty_level": 4,
-      "question_type": "transfer",
-      "cognitive_verb": "apply",
-      "visual_context": "A large rectangle representing a garden, with draggable dividing lines (5 lines available) that can be positioned horizontally or vertically",
-      "correct_answer": "Position 5 lines to create 6 equal sections (e.g., 2 rows × 3 columns or 3 rows × 2 columns)",
-      "explanation": "This transfer question applies partitioning to a real-world scenario requiring spatial reasoning and strategic planning. Students must determine that creating 6 equal parts requires 5 dividing lines and discover that multiple valid arrangements exist (2×3 or 3×2 or 6×1), promoting flexible thinking about equal partitioning in context.",
-      "vocabulary_reinforced": ["equal parts", "partition", "whole"]
-    }
-  ]
-}"""
-                }
-            ],
-            
-            "structure": """{
-  "questions": [
-    {
-      "id": <sequential number starting at 1>,
-      "question_text": "<clear, age-appropriate question text>",
-      "interaction_type": "<Multiple Choice|Multiple Select|Click|Shade|Drag and Drop|Input|True/False>",
-      "difficulty_level": <integer 0-4>,
-      "question_type": "<procedural|conceptual|transfer>",
-      "cognitive_verb": "<main action verb from appropriate category>",
-      "visual_context": "<description of what the student sees>",
-      "correct_answer": "<expected correct answer or action>",
-      "answer_choices": ["<option 1>", "<option 2>", "<option 3>", "<option 4>"],
-      "explanation": "<how this question teaches the learning goal>",
-      "vocabulary_reinforced": ["<term1>", "<term2>"]
-    }
-  ]
-}
-
-Note: answer_choices is only required for Multiple Choice and Multiple Select questions.
-
-Return ONLY valid JSON.""",
-            
-            "instructions": """You are generating questions for this SPECIFIC learning goal:
-
-GOAL ID: {goal_id}
-GOAL: {goal_text}
-
-VOCABULARY TERMS for this goal:
-{vocabulary}
-
-AVAILABLE VISUALS:
-{visuals}
-
-EXAMPLE QUESTIONS FROM CURRICULUM:
-{examples}
-
-Generate {num_questions} DIFFERENT questions that teach this learning goal for grade {grade_level} students.
-
-CRITICAL - FOLLOW THE EXAMPLES CLOSELY:
-The example questions above show the STYLE and APPROACH that works for this goal.
-- Use similar question structures but vary the numbers/specifics
-- Follow the same interaction patterns shown in examples
-- Keep the same level of complexity and language
-- Create variations, NOT exact copies
-
-ENSURE VARIETY ACROSS ALL {num_questions} QUESTIONS:
-1. Use DIFFERENT interaction types (vary as much as possible, minimal repeats)
-   Available: Multiple Choice, Multiple Select, Click, Shade, Drag and Drop, Input, True/False
-2. Use DIFFERENT difficulty levels following this distribution:
-   - 1-2 questions at Level 0-1 (support/confidence building)
-   - 2-3 questions at Level 2 (baseline mastery) ← FOCUS HERE
-   - 2-3 questions at Level 3 (stretch/deeper) ← FOCUS HERE  
-   - 1-2 questions at Level 4 (challenge/enrichment)
-3. Use DIFFERENT question types: Mix procedural, conceptual, and transfer
-4. Use DIFFERENT visual contexts: Vary the number of bars, number of parts (2,3,4,6,8), shading patterns
-5. Use DIFFERENT cognitive verbs: partition, identify, recognize, shade, count, compare, apply, etc.
-6. Create DIFFERENT scenarios: Don't repeat the same setup or wording
-
-REQUIREMENTS FOR EACH QUESTION:
-1. question_text: Write a clear, age-appropriate question (follow example style)
-   - For Multiple Choice: Include all answer options in the question_text or answer choices field
-2. interaction_type: Choose from the list above (vary as much as possible)
-3. difficulty_level: Follow the distribution above - prioritize Levels 2 and 3
-4. question_type: Vary between procedural, conceptual, and transfer
-5. cognitive_verb: Use appropriate action verb that matches the question type
-6. visual_context: Describe what visual the student sees using ONLY rectangle bars
-   - For Multiple Choice: Describe all answer options/bars shown
-7. correct_answer: State what the correct answer or action is
-   - For Multiple Choice: Clearly identify which option is correct
-8. explanation: Explain HOW this specific question teaches the learning goal (2-3 sentences)
-9. vocabulary_reinforced: List which vocabulary terms from above are used/reinforced
-10. answer_choices: (For Multiple Choice only) List all answer options
-
-EXAMPLE OF GOOD VARIETY for "parts must be equal for unit fractions":
-- Question 1: "Click on the bar that can represent a unit fraction" (Click, Level 3, conceptual)
-  Visual: Shows 3 bars with unequal parts and 1 bar with equal parts
-- Question 2: "Click on the bar that represents 1/4" (Click, Level 2, conceptual)  
-  Visual: Two bars with 1 part shaded of 4 equal parts, one bar with 1 part shaded of 4 unequal parts
-- Question 3: "Why can't this represent a unit fraction?" (Multiple Choice, Level 3, conceptual)
-  Visual: Bar divided into unequal parts with one section shaded, options explain why
-
-VISUAL CONSTRAINTS:
-- Use ONLY rectangle bars (horizontal or vertical orientation)
-- Bars can be divided into 2, 3, 4, 6, or 8 parts
-- Parts can be equal or unequal (depending on the question)
-- Parts can be shaded or unshaded
-- Multiple bars can be shown for comparison questions"""
-        }
-    
     def _interaction_designer_config(self) -> Dict:
         """Interaction Designer prompt configuration"""
         from interaction_designer import (
@@ -292,137 +198,20 @@ VISUAL CONSTRAINTS:
             "instructions": INTERACTION_DESIGNER_INSTRUCTIONS
         }
     
-    def _interaction_designer_config_OLD(self) -> Dict:
-        """OLD Interaction Designer prompt configuration - DEPRECATED"""
-        return {
-            "role": "You are an expert in designing interactive educational experiences. You create clear visual flows and interaction mechanics WITHOUT writing dialogue or validation logic yet.",
-            
-            "docs": [
-                "visual_guide.md",
-            ],
-            
-            "examples": [
-                {
-                    "description": "Sample interaction design for fraction identification",
-                    "output": """{
-  "sequences": [
-    {
-      "problem_id": 1,
-      "goal": "Identify unit fractions",
-      "verb": "identify",
-      "difficulty": 1,
-      "main_sequence": [
-        {
-          "step_id": "1.1",
-          "dialogue_placeholder": "OPENING [context: introduce visual]",
-          "visuals": [
-            {
-              "id": "circle_1",
-              "type": "circle",
-              "description": "Circle 200px diameter, divided into 4 equal wedges, top-right wedge shaded blue"
-            }
-          ],
-          "animations": [],
-          "student_action": null
-        },
-        {
-          "step_id": "1.2",
-          "dialogue_placeholder": "OPENING [context: pose question]",
-          "visuals": [
-            {
-              "id": "buttons",
-              "type": "multiple_choice_buttons",
-              "description": "Four buttons showing 1/2, 1/3, 1/4, 1/8"
-            }
-          ],
-          "student_action": {
-            "type": "button_click",
-            "expected": "1/4",
-            "description": "Click the correct fraction"
-          }
-        }
-      ]
-    }
-  ]
-}"""
-                }
-            ],
-            
-            "structure": """{
-  "sequences": [
-    {
-      "problem_id": <number>,
-      "goal": "<learning goal>",
-      "verb": "<cognitive verb>",
-      "difficulty": <0-4>,
-      "main_sequence": [
-        {
-          "step_id": "<problem_id>.<step_number>",
-          "dialogue_placeholder": "<STANDARD_TYPE> [context: ...]",
-          "visuals": [
-            {
-              "id": "<unique_id>",
-              "type": "<visual_type>",
-              "description": "<detailed description with dimensions, colors, states>"
-            }
-          ],
-          "animations": [
-            {
-              "visual_id": "<id>",
-              "type": "<animation_type>",
-              "description": "<what happens>"
-            }
-          ],
-          "student_action": {
-            "type": "<interaction_type>",
-            "expected": "<expected_outcome>",
-            "description": "<what student should do>"
-          } | null
-        }
-      ]
-    }
-  ]
-}
-
-Return ONLY valid JSON.""",
-            
-            "instructions": """Design interactive visual sequences for these educational questions.
-
-<questions>
-{learning_goals_data}
-</questions>
-
-For each question, design the interaction flow:
-- What visuals appear (with specific dimensions, colors, states)
-- What students see and do
-- What animations might happen
-- Use visuals and animations from the visual guide
-
-DO NOT:
-- Write actual dialogue (use placeholders like "OPENING [context: ...]")
-- Design validation logic (that's a separate step)
-- Create error remediation (that's a separate step)
-
-FOCUS ON:
-- Clear visual descriptions
-- Logical interaction flow
-- Appropriate visual types for the learning goal"""
-        }
-    
     def _remediation_generator_config(self) -> Dict:
         """Configuration for remediation generation prompt"""
         from remediation_generator import (
             REMEDIATION_GENERATOR_ROLE,
+            REMEDIATION_GENERATOR_DOCS,
+            REMEDIATION_GENERATOR_EXAMPLES,
             REMEDIATION_GENERATOR_INSTRUCTIONS,
             REMEDIATION_GENERATOR_STRUCTURE
         )
         
         return {
             "role": REMEDIATION_GENERATOR_ROLE,
-            "docs": [
-                "remediation_system.md"  # Reference documentation for error patterns
-            ],
-            "examples": [],  # Examples are embedded in the reference doc
+            "docs": REMEDIATION_GENERATOR_DOCS,
+            "examples": REMEDIATION_GENERATOR_EXAMPLES,
             "structure": REMEDIATION_GENERATOR_STRUCTURE,
             "instructions": REMEDIATION_GENERATOR_INSTRUCTIONS
         }
@@ -455,40 +244,27 @@ FOCUS ON:
 
 # Test it
 if __name__ == "__main__":
-    builder = PromptBuilder()
-    
+    # Ask user for module number and path letter
+    try:
+        module_number = int(input("Enter module number: "))
+    except Exception:
+        print("Invalid module number. Using 1.")
+        module_number = 1
+    path_letter = input("Enter path letter (e.g., 'a', 'b'): ").strip() or "a"
+
+    builder = PromptBuilder(module_number=module_number, path_letter=path_letter)
+
     print("=" * 70)
-    print("Testing PromptBuilder")
+    print(f"Testing loading of visual_guide.md for module {module_number} path {path_letter}")
     print("=" * 70)
-    
-    print("\n1. Question Generator Prompt")
-    print("-" * 70)
-    
+
+    # Build a prompt using visual_guide.md as the only doc reference
+    print("\nBuilding prompt with visual_guide.md as doc reference...")
     prompt = builder.build_prompt(
-        "question_generator",
-        {
-            "num_questions": 5,
-            "grade_level": 3,
-            "learning_goals": "- Students can partition shapes\n- Students can identify fractions"
+        prompt_id="remediation_generator",
+        variables={
+          "interactions_context": "C:\\git\\script_generator\\outputs\\test_interaction_20251017_152028\\sequences.json"
         }
     )
-    
-    print(f"Length: {len(prompt)} chars")
-    print(f"Preview (first 500 chars):\n{prompt[:500]}...")
-    
-    # Test interaction designer prompt
-    print("\n2. Interaction Designer Prompt")
-    print("-" * 70)
-    
-    prompt = builder.build_prompt(
-        "interaction_designer",
-        {
-            "learning_goals_data": "[question data here]"
-        }
-    )
-    
-    print(f"Length: {len(prompt)} chars")
-    print(f"Preview (first 500 chars):\n{prompt[:500]}...")
-    
-    print("\n" + "=" * 70)
-    print("✓ PromptBuilder working!")
+    print("\nFull prompt output:\n")
+    print(prompt)

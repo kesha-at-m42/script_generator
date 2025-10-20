@@ -14,6 +14,13 @@ Your task: Add ERROR PATHS to existing sequences. Each error path has 3 remediat
 
 Use remediation_system.md for error patterns, detection rules, and approved language templates."""
 
+REMEDIATION_GENERATOR_DOCS = [
+  "remediation_system.md",  # Error patterns, detection rules, language templates
+  "visual_guide.md"         # Visual scaffolds and animation types
+]
+
+REMEDIATION_GENERATOR_EXAMPLES = []
+
 REMEDIATION_GENERATOR_INSTRUCTIONS = """
 ## YOUR TASK
 
@@ -39,7 +46,7 @@ Each error path has 3 remediation levels:
 
 ## KEY RULES
 
-1. **Use remediation_system.md**: All error patterns, detection rules, and language templates are defined there
+1. **Use remediation_system.md and visual_guide.md**: All error patterns, detection rules, and language templates are defined in remediation_system.md. All visual scaffolds and animation types are defined in visual_guide.md. Always reference both documents for every remediation step.
 2. **Detectability**: Only include errors the system can detect from the interaction (see detection rules in ref doc)
 3. **Always Include Generic**: Generic error paths required for all interactions (fallback for ambiguous errors)
 4. **Scaffolding Level at Step Level**: Each remediation step must have scaffolding_level field at the top level:

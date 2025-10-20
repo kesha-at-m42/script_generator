@@ -89,13 +89,12 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
 
 #### LIGHT (10–20 words)
 - **Purpose:** Simple redirect without diagnosis
-- **Dialogue:** Brief and direct
+- **Dialogue:** Brief and direct, occasional error signalling.
 - **Visual:** `null` (no visual effects applied)
 - **Dialogue patterns:**
-  - "Check the symbol..."
-  - "Count again..."
-  - "Try one more jump..."
-  - "Look at all your parts..."
+  - "Check the spacing between marks."
+  - "Not quite. Count seven fourths from zero."
+  - "Count seven fourths from zero."
 
 #### MEDIUM (20–30 words)
 - **Purpose:** Specific hint + visual scaffolding
@@ -106,9 +105,9 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - `animation`: Animation name (e.g., "pulse", "highlight_sections")
   - `description`: Human-readable description of the visual effect
 - **Dialogue patterns:**
-  - "You're close! Try moving one more interval."
-  - "Let's think together..."
-  - "You made 5 parts, but need 4."
+  - "Let's think about this together..."
+  - "Here's a hint..."
+  - "You're getting there..."
 
 #### HEAVY (30–60 words)
 - **Purpose:** Step-by-step walkthrough revealing the answer
@@ -120,9 +119,12 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - `description`: Human-readable description of the demonstration
 - **Dialogue structure:**
   - Opening: Modeling introduction ("This is tricky, let's walk through it together...")
-  - Body: Step-by-step demonstration with the answer revealed
-
+  - Body: Modeling, or step-by-step demonstration with the answer revealed
   - Closing: Post-modeling acknowledgment (required)
+- **Dialogue patterns:**
+  - "This is tricky, so let's work through it together..."
+  - "Let me help you with this one..."
+  - "Here, I'll walk you through this one..."
 
 ##### Post-Modeling Acknowledgment Phrases
 
@@ -132,6 +134,7 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - "See how that works?"
   - "Now you see the pattern."
   - "That makes sense now, right?"
+
 - **Never ends with:**
   - "Perfect!" / "Great job!" / "You figured it out!"
 
@@ -146,16 +149,29 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 #### GENERIC
 
 **Light:**
-- "Let's try again. Count from zero."
-- "Give it another try. Check the spacing."
-- "Try again — remember to count each part."
+- "Count seven fourths from zero."
+- "Almost. Check your spacing between marks."
+- "Check the spacing between marks."
+- "Let's try again. Make five equal jumps total."
+- "Make five equal jumps from zero."
 
 **Medium:**
-- "Let's think about this together. You need 4 equal parts."  
+- "You're working on it. Here's what helps - each fourth stays the same size even past 1."
+- "Let's think about this a bit more. You need 4 equal parts." 
+- "Still tricky? Try this..."
+- "Here's a different approach..." 
   → [Visual: See visual_guide.md for matching highlight]
 
 **Heavy:**
-- "This is tricky, let's walk through it. Four fourths is 1, then three more = 7/4."  
+- "These can be challenging. Let's trace through step by step. Four fourths equals 1, then three more fourths gets us to 7/4."
+- "This can be tricky, so let's do it together.
+- "Let's work through this together..."
+- "Let me work through it with you..."
+- "Here, let me show you..."
+- "Let's do it together. Here's how we solve it..." 
+- "Let's walk through this step by step together..." 
+- "Let me help a bit more..." 
+- "Okay, let me show you another way..." 
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -167,13 +183,19 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 **Light:**
 - "Count your parts - you need exactly 4."
 - "Check how many parts you made."
+- "Count the shaded parts again."
+- "Count again - we need 3 parts shaded."
+
 
 **Medium:**
-- "You made 5 parts, but we need 4. Try combining two of them."  
+- "You're close! You made 5 parts, but we need 4. Try combining two of them."
+- "You shaded 2, but we need 3. Count the shaded parts again." 
+- "You're working on it. Count total parts - we need exactly 4 equal sections."
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "We need 4 parts total. Count with me: 1, 2, 3, 4. That's it!"  
+- "Let me show you. We need 4 parts total. Count with me as we divide: 1, 2, 3, 4. That's it!" 
+- "Here's how we do this. Count each part: 1, 2, 3, 4, 5. We have 5, but need 4. Let me show you the right number." 
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -185,13 +207,15 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 **Light:**
 - "Check your position - you're one space off."
 - "Almost there - adjust by one interval."
+- "Count the spaces one more time."
 
 **Medium:**
 - "You're very close! Move one more interval to the right."  
+- "You're getting there. Check the spacing - you need one more jump."
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "Count each interval: 1/4, 2/4, 3/4, 4/4 equals 1, then 5/4. We need one more space."  
+- "Here's how we find the exact spot. Count each interval: 1/4, 2/4, 3/4, 4/4 equals 1, then 5/4. See? We need to go one more space."
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -202,13 +226,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Check the order - we need biggest to smallest."
+- "Look at the instruction again - it says smallest to largest."
 
 **Medium:**
-- "The instruction asks for smallest to largest. Try reversing your order."  
+- "You're working on it. The instruction asks for smallest to largest. Try reversing your order."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "We need smallest to largest. This is smallest, this is medium, this is largest."  
+- "Let me show you. We need smallest to largest. This piece is smallest, this is medium, this is largest. That's the order: smallest first, largest last."
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -219,13 +244,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Check your symbol - which way does it point?"
+- "Look at the symbol direction again."
 
 **Medium:**
-- "The small end points to the smaller number. Check which fraction is smaller."  
+- "You're getting there. The small end points to the smaller number. Check which fraction is smaller."   
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "The small end points to the smaller fraction. 3/8 is smaller than 5/8, so: 3/8 < 5/8."  
+- "Here's a way to think about the symbols. The small end points to the smaller fraction. 3/8 is smaller than 5/8, so: 3/8 < 5/8. The small end points left to the smaller number."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
