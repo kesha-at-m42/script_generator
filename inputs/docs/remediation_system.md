@@ -88,8 +88,8 @@ Each detectable error type has:
 Each error path must be structured with 3 scaffolding levels delivered as sequential steps. Each step includes dialogue, workspace_context, and visual specifications.
 
 #### LIGHT (10–20 words)
-- **Purpose:** Brief redirect
-- **Dialogue:** Imperatives, direct statements
+- **Purpose:** Simple redirect without diagnosis
+- **Dialogue:** Brief and direct
 - **Visual:** `null` (no visual effects applied)
 - **Dialogue patterns:**
   - "Check the symbol..."
@@ -98,8 +98,8 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - "Look at all your parts..."
 
 #### MEDIUM (20–30 words)
-- **Purpose:** Hint + visual guidance
-- **Dialogue:** Encouraging, lightly directive
+- **Purpose:** Specific hint + visual scaffolding
+- **Dialogue:** Acknowledge continued struggle, collaborative language
 - **Visual:** Effects object with highlight/pulse/arrow animations applied to tangibles
   - `type`: "highlight", "pulse", "arrow"
   - `target`: Specific tangible_id from workspace
@@ -111,8 +111,8 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - "You made 5 parts, but need 4."
 
 #### HEAVY (30–60 words)
-- **Purpose:** Full demonstration with modeling
-- **Dialogue:** Explicit walkthrough + post-modeling acknowledgment
+- **Purpose:** Step-by-step walkthrough revealing the answer
+- **Dialogue:** Full emotional support, complete demonstration
 - **Visual:** Effects object with measurement/overlay/demonstration animations
   - `type`: "measurement", "overlay", "demonstration"
   - `target`: Specific tangible_id from workspace
