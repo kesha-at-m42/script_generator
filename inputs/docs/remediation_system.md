@@ -115,7 +115,11 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
 - **Dialogue structure:**
   - Opening: Modeling introduction ("This is tricky, let's walk through it together...")
   - Body: Step-by-step demonstration with the answer revealed
+
   - Closing: Post-modeling acknowledgment (required)
+
+##### Post-Modeling Acknowledgment Phrases
+
 - **Always ends with one of:**
   - "There we go."
   - "You're getting it now."
@@ -403,48 +407,8 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 - **visual** = null (light), highlight/pulse (medium), overlay/measurement (heavy)
 - **workspace_context** must include tangibles from the main sequence
 
-### Detectability Rules
 
-Include error pattern ONLY if all 3 are YES:
-1. Applies to this specific interaction type?
-2. System can observe clear evidence?
-3. Can write simple detection rule?
-
-**Examples:**
-- ✅ "Student shaded 4 but fraction is 3/4" → Counting Error
-- ✅ "Student wrote 4/3 but visual shows 3/4" → Misconception #6
-- ❌ "Student doesn't understand" → Too vague
-- ❌ "Student might be confused" → Speculation
-
-### Post-Modeling Guidance (Heavy Only)
-
-**Allowed endings:**
-- "There we go."
-- "You're getting it now."
-- "Now you see the pattern."
-- "That makes sense now, right?"
-
-**Disallowed:**
-- "Perfect!" / "Great job!" / "You figured it out!"
-
----
-
-## SECTION 6: VALIDATION FLAGS
-
-### Validation Flags (Handled by Claude or Post-Processor)
-
-Flag for review if:
-- Visual scaffold missing → lookup in visual_guide.md fails
-- Misconception used without confidence ≥ 90%
-- Common error used without HIGH detectability
-- Repeated language within 3 adjacent interactions
-- "Remember" used more than 3 times per module
-
-**Tip:** Include a `validation_pass: true` flag if all structural rules pass.
-
----
-
-## SECTION 7: INTERACTION TYPE QUICK REFERENCE
+## SECTION 6: INTERACTION TYPE QUICK REFERENCE
 
 ### Common Error Patterns by Interaction Type
 
@@ -460,7 +424,7 @@ Flag for review if:
 
 ---
 
-## SECTION 8: COMPANION FILE
+## SECTION 7: COMPANION FILE
 
 ### Companion File: `visual_guide.md`
 
