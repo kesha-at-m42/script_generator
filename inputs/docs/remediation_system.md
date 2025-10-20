@@ -13,16 +13,22 @@ This reference defines the logic and language templates used to generate remedia
 ### How the System Works
 
 When a student makes an error:
-1. System detects the error type (e.g., "counting error" vs "misconception about equal parts")
-2. System selects the appropriate error path and serves the **Light** level response
-3. If the student attempts again incorrectly, system progresses to **Medium** within the same path
-4. If the student attempts a third time incorrectly, system progresses to **Heavy** within the same path
+1. System detects an error on the current attempt.
+2. System selects the appropriate error path and scaffolding level based on:
+   - **error_type**: The type of error detected on the current attempt (e.g., counting error, reversed symbol, generic, etc.)
+   - **error_count**: The total number of errors the student has made in this interaction (cumulative across all error types)
+   - The system always serves the remediation level matching the error_count:
+     - **Light** level for error_count = 1 (first error)
+     - **Medium** level for error_count = 2 (second error)
+     - **Heavy** level for error_count ≥ 3 (third or subsequent errors)
+   - The error_type determines WHICH error path is used, while error_count determines WHICH LEVEL within that path. For example, if error_count = 2 and the student makes a "reversed symbol" error, the system serves the Medium level of the Reversed Symbol Error path.
+3. This process continues, always selecting the error path and scaffolding level that matches the most recent detected error.
 
 **Example:**
 - Student shades 3 parts instead of 1 on a fraction bar
 - System detects counting error → Serves `error_path_counting` Light: "Count your parts — you need exactly 1."
-- Student tries again, shades 2 parts → Still counting error → Medium: "You're close! Count carefully — we need just 1 part shaded."
-- Student tries again, shades 4 parts → Still counting error → Heavy: "Let me show you. We need 1 part shaded. Watch as I shade exactly 1 section..."
+- Student tries again, but now uses the wrong symbol (< instead of >) → System detects reversed symbol error → Serves `error_path_reversed_symbol` Medium: "The small end points to the smaller number. Check which fraction is smaller."
+- Student tries again, makes a generic/ambiguous error → System detects generic error → Serves `error_path_generic` Heavy: "This is tricky, let's walk through it together..."
 
 ### Required Error Paths
 
