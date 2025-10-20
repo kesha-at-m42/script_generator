@@ -78,6 +78,8 @@ Optional fields:
 - `workspace`: WorkspaceData - Visual setup with tangibles
 - `prompt`: Prompt - Learner interaction request
 - `scene`: string - Scene change (e.g., "Classroom", "Workspace", or null)
+- `@metadata`: object - Documentation for visual effects/events (optional)
+  - `events`: Array<{name: string, description: string}> - Describes each animation event
 
 ### Workspace Structure
 
@@ -137,12 +139,76 @@ Optional fields:
   "id": "light" | "medium" | "heavy",
   "step": {
     "@type": "Step",
-    "dialogue": "Remediation text with optional [event:tags]"
+    "dialogue": "Remediation text with optional [event:tags]",
+    "@metadata": {
+      "events": [
+        {
+          "name": "pulse_sections",
+          "description": "All three sections pulse to show they are separate parts"
+        }
+      ]
+    }
   }
 }
 ```
 
-The `step` field uses partial_step schema (dialogue only).
+The `step` field uses partial_step schema (dialogue only). The optional `@metadata` field can document what visual effects occur:
+
+**Light Remediation** (no events):
+```json
+{
+  "@type": "Remediation",
+  "id": "light",
+  "step": {
+    "@type": "Step",
+    "dialogue": "Think about how many parts you need."
+  }
+}
+```
+
+**Medium Remediation** (1-2 events):
+```json
+{
+  "@type": "Remediation",
+  "id": "medium",
+  "step": {
+    "@type": "Step",
+    "@metadata": {
+      "events": [
+        {
+          "name": "pulse_sections",
+          "description": "All three sections pulse to show they are separate parts"
+        }
+      ]
+    },
+    "dialogue": "[event:pulse_sections]Let's count the parts together."
+  }
+}
+```
+
+**Heavy Remediation** (2+ events):
+```json
+{
+  "@type": "Remediation",
+  "id": "heavy",
+  "step": {
+    "@type": "Step",
+    "@metadata": {
+      "events": [
+        {
+          "name": "label_sections",
+          "description": "Labels appear on each section"
+        },
+        {
+          "name": "shade_one_section",
+          "description": "One section becomes shaded as a demonstration"
+        }
+      ]
+    },
+    "dialogue": "[event:label_sections][event:shade_one_section]Here's an example."
+  }
+}
+```
 
 ---
 

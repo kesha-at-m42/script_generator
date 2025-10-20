@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
+from utils.vocabulary_helper import format_vocabulary_list_for_prompt
 
 
 def transform_to_godot_schema_OLD(remediation_data):
@@ -282,6 +283,12 @@ def test_godot_formatter(remediation_path, output_dir=None):
     print("  - Flattening steps structure")
     print("  - Mapping validators and remediations")
     print("  - Embedding visual effects as [event:...] tags")
+    print("  - Formatting fractions with [fraction] tags")
+    print("  - Formatting vocabulary with [vocab] tags")
+    
+    # Get vocabulary terms for formatting
+    vocabulary_list = format_vocabulary_list_for_prompt()
+    print(f"\nVocabulary terms loaded: {len(vocabulary_list.split(chr(10)))} terms")
     
     # Initialize
     client = ClaudeClient()
@@ -290,7 +297,10 @@ def test_godot_formatter(remediation_path, output_dir=None):
     # Build prompt
     godot_prompt = builder.build_prompt(
         prompt_id="godot_formatter",
-        variables={"remediation_context": json.dumps(remediation_data, indent=2)}
+        variables={
+            "remediation_context": json.dumps(remediation_data, indent=2),
+            "vocabulary_terms": vocabulary_list
+        }
     )
     
     print(f"\nPrompt length: {len(godot_prompt)} characters")
@@ -442,6 +452,8 @@ def test_godot_formatter(remediation_path, output_dir=None):
     print("  ✓ Prompt with validator and remediations")
     print("  ✓ Remediations with id: light/medium/heavy")
     print("  ✓ Visual effects embedded in dialogue as [event:...] tags")
+    print("  ✓ Fractions formatted with [fraction numerator=N denominator=D] BBCode")
+    print("  ✓ Vocabulary terms wrapped with [vocab][/vocab] tags")
     
     print("\n" + "=" * 70)
     
