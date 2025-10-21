@@ -53,32 +53,56 @@ def test_interaction_designer(questions_path, output_dir=None):
     print("GENERATING SEQUENCES")
     print("=" * 70)
     
-    print("\nGenerating sequences with workspace + visual schema...")
+    print(f"\nGenerating sequences for {num_questions} questions (one at a time)...\n")
     
-    sequences_prompt = builder.build_prompt(
-        prompt_id="interaction_designer",
-        variables={"learning_goals_data": json.dumps(questions_data, indent=2)}
-    )
+    all_sequences = []
+    questions_list = questions_data.get('questions', [])
     
-    print(f"Prompt length: {len(sequences_prompt)} characters")
-    print("Calling Claude API...")
+    for idx, question in enumerate(questions_list, 1):
+        print(f"  [{idx}/{num_questions}] Processing Question {question.get('id')}...")
+        
+        # Create single-question data for this iteration
+        single_question_data = {
+            "questions": [question]
+        }
+        
+        sequences_prompt = builder.build_prompt(
+            prompt_id="interaction_designer",
+            variables={"learning_goals_data": json.dumps(single_question_data, indent=2)}
+        )
+        
+        # Generate sequence for this question
+        sequences_response = client.generate(sequences_prompt, max_tokens=8000, temperature=0.7)
+        
+        # Save individual raw response
+        with open(f"{output_dir}/sequence_{question.get('id')}_raw.txt", "w", encoding="utf-8") as f:
+            f.write(sequences_response)
+        
+        # Extract JSON
+        if "```json" in sequences_response:
+            json_start = sequences_response.find("```json") + 7
+            json_end = sequences_response.find("```", json_start)
+            sequences_json = sequences_response[json_start:json_end].strip()
+        else:
+            sequences_json = sequences_response.strip()
+        
+        try:
+            sequence_data = json.loads(sequences_json)
+            # Extract sequences from response and add to collection
+            sequences = sequence_data.get('sequences', [])
+            all_sequences.extend(sequences)
+            print(f"      ✓ Generated {len(sequences)} sequence(s)")
+        except json.JSONDecodeError as e:
+            print(f"      ✗ JSON parsing error: {e}")
+            print(f"      ✗ Skipping question {question.get('id')}")
+            continue
     
-    sequences_response = client.generate(sequences_prompt, max_tokens=8000, temperature=0.7)
+    print(f"\n  ✓ Total sequences generated: {len(all_sequences)}")
     
-    # Save raw response
-    with open(f"{output_dir}/sequences_raw.txt", "w", encoding="utf-8") as f:
-        f.write(sequences_response)
-    
-    # Extract JSON
-    if "```json" in sequences_response:
-        json_start = sequences_response.find("```json") + 7
-        json_end = sequences_response.find("```", json_start)
-        sequences_json = sequences_response[json_start:json_end].strip()
-    else:
-        sequences_json = sequences_response.strip()
+    # Combine all sequences into final output
+    sequences_data = {"sequences": all_sequences}
     
     try:
-        sequences_data = json.loads(sequences_json)
         
         sequences_output_path = f"{output_dir}/sequences.json"
         with open(sequences_output_path, "w", encoding="utf-8") as f:

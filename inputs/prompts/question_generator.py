@@ -91,23 +91,20 @@ Vary interaction types as much as possible. Available types:
 - Multiple Choice
 - Multiple Select
 - Shade
-- Drag and Drop
-- Input
 - True/False
 
 **IMPORTANT:** For Multiple Choice and Multiple Select questions, include the `answer_choices` field with an array of all options.
 
 ### VISUAL CONSTRAINTS
 
-Use ONLY rectangle bars (horizontal or vertical):
+Use ONLY rectangle bars:
 - 2-8 parts
 - Equal or unequal divisions
-- Various states (empty, partitioned, shaded)
 
 Example visual descriptions:
-- "Horizontal rectangle bar divided into 4 equal parts, 1 shaded"
-- "Vertical rectangle bar with 6 equal sections, 3 shaded"
-- "Two horizontal bars: one divided into halves, one into fourths"
+- "Rectangle bar divided into 4 equal parts, 1 shaded"
+- "Rectangle bar with 6 equal sections, 3 shaded"
+- "Two rectangle bars: one divided into halves, one into fourths"
 
 For Multiple Choice questions with visual answer options, describe all options in visual_context.
 
@@ -135,16 +132,16 @@ Return valid JSON with this structure:
     {{
       "id": 1,
       "goal_id": "ID from learning goals (if provided)",
-      "question_text": "Clear, specific instruction or question",
-      "interaction_type": "Click|Multiple Choice|Shade|etc.",
+      "goal": "Learning goal text here",
       "difficulty_level": 0-4,
       "question_type": "procedural|conceptual|transfer",
       "cognitive_verb": "identify|partition|compare|etc.",
+      "question_text": "Clear, specific instruction or question",
+      "interaction_type": "string",
       "visual_context": "Detailed description of what student sees",
       "correct_answer": "Expected student response or action",
       "explanation": "Why this question targets the learning goal (30+ words)",
-      "vocabulary_reinforced": ["term1", "term2"],
-      "answer_choices": ["option1", "option2", "option3", "option4"]
+      "vocabulary_reinforced": ["term1", "term2"]
     }}
   ]
 }}
@@ -168,16 +165,16 @@ QUESTION_GENERATOR_STRUCTURE = """
     {
       "id": 1,
       "goal_id": "ID from learning goals (if provided)",
-      "question_text": "string",
-      "interaction_type": "string",
+      "goal": "Learning goal text here",
       "difficulty_level": 0-4,
       "question_type": "procedural|conceptual|transfer",
-      "cognitive_verb": "string",
-      "visual_context": "string",
-      "correct_answer": "string",
-      "explanation": "string (30+ words)",
-      "vocabulary_reinforced": ["string"],
-      "answer_choices": ["string"] // Optional, only for Multiple Choice/Multiple Select
+      "cognitive_verb": "identify|partition|compare|etc.",
+      "question_text": "Clear, specific instruction or question",
+      "interaction_type": "string",
+      "visual_context": "Detailed description of what student sees",
+      "correct_answer": "Expected student response or action",
+      "explanation": "Why this question targets the learning goal (30+ words)",
+      "vocabulary_reinforced": ["term1", "term2"]
     }
   ]
 }

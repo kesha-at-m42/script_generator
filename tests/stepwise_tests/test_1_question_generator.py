@@ -72,7 +72,7 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
     print(f"Prompt length: {len(questions_prompt)} characters")
     print("Calling Claude API...")
     
-    questions_response = client.generate(questions_prompt, max_tokens=8000, temperature=0.7)
+    questions_response = client.generate(questions_prompt, max_tokens=16000, temperature=0.7)
     
     # Save raw response
     with open(f"{output_dir}/questions_raw.txt", "w", encoding="utf-8") as f:

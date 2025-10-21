@@ -219,7 +219,7 @@ Every object needs a @type field:
 - Validator: `"@type": "<ValidatorType>"` (see Type Mappings below)
 - Remediation: `"@type": "Remediation"`
 - Tangibles: `"@type": "FracShape"` or `"@type": "NumberLine"`
-- Choices: `"@type": "WorkspaceChoices"`
+- Choices: `"@type": "WorkspaceChoices"` (when used in prompt.choices)
 
 ### 2. Type Mappings
 
@@ -463,17 +463,8 @@ Output (add to prompt):
 
 ### 6. Choices (Multiple Choice)
 
-If input has `choices` array, add to workspace AND prompt:
+If input has `choices` array, add to prompt:
 ```json
-"workspace": {{
-  "@type": "WorkspaceData",
-  "tangibles": [],
-  "choices": {{
-    "@type": "WorkspaceChoices",
-    "allow_multiple": false,
-    "options": ["1/2", "1/3", "1/4", "1/8"]
-  }}
-}},
 "prompt": {{
   "@type": "Prompt",
   "text": "...",
@@ -481,10 +472,15 @@ If input has `choices` array, add to workspace AND prompt:
     "@type": "MultipleChoiceValidator",
     "answer": [2]
   }},
+  "choices": {{
+    "@type": "WorkspaceChoices",
+    "allow_multiple": false,
+    "options": ["1/2", "1/3", "1/4", "1/8"]
+  }},
   "remediations": [...]
 }}
 ```
-**Note**: MCQs do NOT have a "tool" field. They use workspace.choices for display.
+**Note**: MCQs do NOT have a "tool" field. Choices are part of the prompt object for rendering.
 
 ### 7. Fraction Formatting in Dialogue
 
@@ -551,7 +547,7 @@ Vocabulary terms must be wrapped with `[vocab][/vocab]` tags for proper highligh
 11. **Remediation IDs**: Must be "light", "medium", or "heavy" (lowercase)
 12. **Tool mapping**: click_sections→paint, click_choice→(no tool), drag_fraction→compare
 13. **Validator selection**: Choose correct validator based on interaction type and answer format
-14. **MCQ special case**: No tool field, choices go in workspace.choices
+14. **MCQ choices**: Choices go ONLY in prompt.choices
 
 Return ONLY valid JSON with the Godot schema structure.
 """
@@ -588,12 +584,7 @@ GODOT_FORMATTER_STRUCTURE = """
                 "labelled": [true, false, false, true],
                 "is_read_only": [true, false, false, true]
               }
-            ],
-            "choices": {
-              "@type": "WorkspaceChoices",
-              "allow_multiple": false,
-              "options": ["1/2", "1/3", "1/4"]
-            }
+            ]
           },
           "dialogue": "..."
         },
@@ -607,6 +598,11 @@ GODOT_FORMATTER_STRUCTURE = """
             "validator": {
               "@type": "ShadedPartsValidator",
               "answer": 2
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": ["1/2", "1/3", "1/4"]
             },
             "remediations": [
               {

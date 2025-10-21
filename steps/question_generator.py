@@ -107,7 +107,8 @@ class QuestionGenerator(Step):
         )
         
         # Generate with reduced temperature for more consistent, example-following output
-        response = self.claude.generate(prompt, max_tokens=4000, temperature=0.7)
+        # Increased token limit to handle multiple detailed questions with explanations
+        response = self.claude.generate(prompt, max_tokens=16000, temperature=0.7)
         
         # Parse
         result = parse_json(response)

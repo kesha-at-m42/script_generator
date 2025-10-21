@@ -7,6 +7,7 @@ Uses Claude to intelligently transform schema with proper @type annotations and 
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -244,13 +245,14 @@ def transform_error_path_to_remediations(error_path):
     return remediations
 
 
-def test_godot_formatter(remediation_path, output_dir=None):
+def test_godot_formatter(remediation_path, output_dir=None, limit=None):
     """
     Test Godot formatter with remediation JSON file
     
     Args:
         remediation_path: Path to remediation JSON file (output from remediation generator)
         output_dir: Optional output directory (auto-generated if not provided)
+        limit: Optional limit on number of sequences to process (for testing)
     """
     print("=" * 70)
     print("STEPWISE TEST 3: GODOT FORMATTER")
@@ -263,6 +265,33 @@ def test_godot_formatter(remediation_path, output_dir=None):
     
     num_sequences = len(remediation_data.get('sequences', []))
     print(f"✓ Loaded {num_sequences} sequences")
+    
+    # Apply limit if specified
+    if limit and limit < num_sequences:
+        print(f"⚠️  Processing only first {limit} sequences (limit specified)")
+        remediation_data['sequences'] = remediation_data['sequences'][:limit]
+        num_sequences = limit
+    elif limit is None:
+        # Interactive mode - ask user how many to process
+        print(f"\n{'='*70}")
+        print(f"INTERACTIVE MODE")
+        print(f"{'='*70}")
+        response = input(f"\nProcess all {num_sequences} sequences? (y/n) or enter a number: ").strip().lower()
+        
+        if response == 'n':
+            print("Cancelled by user.")
+            return None
+        elif response != 'y':
+            try:
+                custom_limit = int(response)
+                if custom_limit > 0 and custom_limit < num_sequences:
+                    print(f"⚠️  Processing first {custom_limit} sequences")
+                    remediation_data['sequences'] = remediation_data['sequences'][:custom_limit]
+                    num_sequences = custom_limit
+                elif custom_limit > num_sequences:
+                    print(f"⚠️  Requested {custom_limit} but only {num_sequences} available. Processing all.")
+            except ValueError:
+                print(f"Invalid input. Processing all {num_sequences} sequences.")
     
     # Create output directory
     if output_dir is None:
@@ -278,54 +307,96 @@ def test_godot_formatter(remediation_path, output_dir=None):
     print("TRANSFORMING TO GODOT SCHEMA")
     print("=" * 70)
     
-    print("\nTransforming to Godot-processable format using AI...")
+    print(f"\nTransforming {num_sequences} sequences to Godot format (one at a time)...")
     print("  - Adding @type annotations")
     print("  - Flattening steps structure")
     print("  - Mapping validators and remediations")
     print("  - Embedding visual effects as [event:...] tags")
     print("  - Formatting fractions with [fraction] tags")
-    print("  - Formatting vocabulary with [vocab] tags")
+    print("  - Formatting vocabulary with [vocab] tags\n")
     
     # Get vocabulary terms for formatting
     vocabulary_list = format_vocabulary_list_for_prompt()
-    print(f"\nVocabulary terms loaded: {len(vocabulary_list.split(chr(10)))} terms")
     
     # Initialize
     client = ClaudeClient()
     builder = PromptBuilder()
     
-    # Build prompt
-    godot_prompt = builder.build_prompt(
-        prompt_id="godot_formatter",
-        variables={
-            "remediation_context": json.dumps(remediation_data, indent=2),
-            "vocabulary_terms": vocabulary_list
+    all_godot_sequences = []
+    sequences_list = remediation_data.get('sequences', [])
+    
+    for idx, sequence in enumerate(sequences_list, 1):
+        print(f"  [{idx}/{num_sequences}] Processing Sequence {sequence.get('problem_id')}...")
+        
+        # Create single-sequence data for this iteration
+        single_sequence_data = {
+            "sequences": [sequence]
         }
-    )
+        
+        # Build prompt
+        godot_prompt = builder.build_prompt(
+            prompt_id="godot_formatter",
+            variables={
+                "remediation_context": json.dumps(single_sequence_data, indent=2),
+                "vocabulary_terms": vocabulary_list
+            }
+        )
+        
+        # Generate Godot format for this sequence with retry logic
+        max_retries = 3
+        retry_delay = 5  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                godot_response = client.generate(godot_prompt, max_tokens=16000, temperature=0.3)
+                break  # Success, exit retry loop
+            except Exception as e:
+                if "Overloaded" in str(e) and attempt < max_retries - 1:
+                    print(f"      ⚠️  API overloaded, retrying in {retry_delay} seconds... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
+                else:
+                    print(f"      ✗ Error: {e}")
+                    print(f"      ✗ Skipping sequence {sequence.get('problem_id')}")
+                    godot_response = None
+                    break
+        
+        if godot_response is None:
+            continue
+        
+        # Add small delay between requests
+        time.sleep(1)
+        
+        # Save individual raw response
+        with open(f"{output_dir}/godot_{sequence.get('problem_id')}_raw.txt", "w", encoding="utf-8") as f:
+            f.write(godot_response)
+        
+        # Extract JSON
+        if "```json" in godot_response:
+            json_start = godot_response.find("```json") + 7
+            json_end = godot_response.find("```", json_start)
+            godot_json = godot_response[json_start:json_end].strip()
+        else:
+            godot_json = godot_response.strip()
+        
+        try:
+            godot_seq_data = json.loads(godot_json)
+            # Extract sequences from response and add to collection
+            sequences = godot_seq_data.get('sequences', [])
+            all_godot_sequences.extend(sequences)
+            print(f"      ✓ Transformed successfully")
+        except json.JSONDecodeError as e:
+            print(f"      ✗ JSON parsing error: {e}")
+            print(f"      ✗ Skipping sequence {sequence.get('problem_id')}")
+            continue
     
-    print(f"\nPrompt length: {len(godot_prompt)} characters")
-    print("Calling Claude API...")
+    print(f"\n  ✓ Total sequences transformed: {len(all_godot_sequences)}")
     
-    godot_response = client.generate(godot_prompt, max_tokens=16000, temperature=0.3)
-    
-    # Save raw response
-    with open(f"{output_dir}/godot_raw.txt", "w", encoding="utf-8") as f:
-        f.write(godot_response)
-    
-    # Extract JSON
-    if "```json" in godot_response:
-        json_start = godot_response.find("```json") + 7
-        json_end = godot_response.find("```", json_start)
-        godot_json = godot_response[json_start:json_end].strip()
-    else:
-        godot_json = godot_response.strip()
-    
-    try:
-        godot_data = json.loads(godot_json)
-    except json.JSONDecodeError as e:
-        print(f"\n✗ JSON parsing error: {e}")
-        print(f"✗ Raw response saved to {output_dir}/godot_raw.txt")
-        return None
+    # Combine all sequences into final output
+    godot_data = {
+        "@type": "SequencePool",
+        "sequences": all_godot_sequences
+    }
     
     # Save Godot schema
     godot_output_path = f"{output_dir}/godot_sequences.json"
@@ -466,6 +537,7 @@ def main():
     parser = argparse.ArgumentParser(description='Test Godot Formatter with remediation JSON')
     parser.add_argument('remediation_path', help='Path to remediation JSON file (from remediation generator)')
     parser.add_argument('-o', '--output', help='Output directory (optional)', default=None)
+    parser.add_argument('-n', '--limit', type=int, help='Limit number of sequences to process (for testing)', default=None)
     
     args = parser.parse_args()
     
@@ -473,7 +545,7 @@ def main():
         print(f"✗ Error: Remediation file not found: {args.remediation_path}")
         sys.exit(1)
     
-    test_godot_formatter(args.remediation_path, args.output)
+    test_godot_formatter(args.remediation_path, args.output, args.limit)
 
 
 if __name__ == "__main__":

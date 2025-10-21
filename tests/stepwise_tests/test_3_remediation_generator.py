@@ -6,6 +6,7 @@ Takes a sequences JSON file and adds error paths with scaffolding_level, workspa
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -15,13 +16,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
 
-def test_remediation_generator(sequences_path, output_dir=None):
+def test_remediation_generator(sequences_path, output_dir=None, limit=None):
     """
     Test remediation generator with sequences from a JSON file
     
     Args:
         sequences_path: Path to sequences JSON file (output from interaction designer)
         output_dir: Optional output directory (auto-generated if not provided)
+        limit: Optional limit on number of sequences to process (for testing)
     """
     print("=" * 70)
     print("STEPWISE TEST 2: REMEDIATION GENERATOR")
@@ -34,6 +36,12 @@ def test_remediation_generator(sequences_path, output_dir=None):
     
     num_sequences = len(sequences_data.get('sequences', []))
     print(f"✓ Loaded {num_sequences} sequences")
+    
+    # Apply limit if specified
+    if limit and limit < num_sequences:
+        print(f"⚠️  Processing only first {limit} sequences (limit specified)")
+        sequences_data['sequences'] = sequences_data['sequences'][:limit]
+        num_sequences = limit
     
     # Create output directory
     if output_dir is None:
@@ -53,32 +61,85 @@ def test_remediation_generator(sequences_path, output_dir=None):
     print("ADDING ERROR PATHS")
     print("=" * 70)
     
-    print("\nAdding error paths with scaffolding_level, workspace_context, visual schema...")
+    print(f"\nAdding error paths for {num_sequences} sequences (one at a time)...\n")
     
-    remediation_prompt = builder.build_prompt(
-        prompt_id="remediation_generator",
-        variables={"interactions_context": json.dumps(sequences_data, indent=2)}
-    )
+    all_sequences = []
+    sequences_list = sequences_data.get('sequences', [])
     
-    print(f"Prompt length: {len(remediation_prompt)} characters")
-    print("Calling Claude API...")
+    for idx, sequence in enumerate(sequences_list, 1):
+        print(f"  [{idx}/{num_sequences}] Processing Sequence {sequence.get('problem_id')}...")
+        
+        # Create single-sequence data for this iteration
+        single_sequence_data = {
+            "sequences": [sequence]
+        }
+        
+        remediation_prompt = builder.build_prompt(
+            prompt_id="remediation_generator",
+            variables={"interactions_context": json.dumps(single_sequence_data, indent=2)}
+        )
+        
+        # Generate remediation for this sequence with retry logic
+        max_retries = 3
+        retry_delay = 5  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                remediation_response = client.generate(remediation_prompt, max_tokens=16000, temperature=0.3)
+                break  # Success, exit retry loop
+            except Exception as e:
+                if "Overloaded" in str(e) and attempt < max_retries - 1:
+                    print(f"      ⚠️  API overloaded, retrying in {retry_delay} seconds... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
+                else:
+                    print(f"      ✗ Error: {e}")
+                    print(f"      ✗ Skipping sequence {sequence.get('problem_id')}")
+                    remediation_response = None
+                    break
+        
+        if remediation_response is None:
+            continue
+        
+        # Add small delay between requests to avoid overwhelming API
+        time.sleep(1)
+        
+        # Save individual raw response
+        with open(f"{output_dir}/remediation_{sequence.get('problem_id')}_raw.txt", "w", encoding="utf-8") as f:
+            f.write(remediation_response)
+        
+        # Extract JSON
+        if "```json" in remediation_response:
+            json_start = remediation_response.find("```json") + 7
+            json_end = remediation_response.find("```", json_start)
+            remediation_json = remediation_response[json_start:json_end].strip()
+        else:
+            remediation_json = remediation_response.strip()
+        
+        try:
+            remediation_seq_data = json.loads(remediation_json)
+            # Extract sequences from response and add to collection
+            sequences = remediation_seq_data.get('sequences', [])
+            all_sequences.extend(sequences)
+            
+            # Count error paths added
+            error_paths = 0
+            if sequences:
+                attempts = sequences[0].get('student_attempts', {})
+                error_paths = len([k for k in attempts.keys() if k.startswith('error_path')])
+            
+            print(f"      ✓ Added {error_paths} error path(s)")
+        except json.JSONDecodeError as e:
+            print(f"      ✗ JSON parsing error: {e}")
+            print(f"      ✗ Skipping sequence {sequence.get('problem_id')}")
+            continue
     
-    remediation_response = client.generate(remediation_prompt, max_tokens=16000, temperature=0.3)
+    print(f"\n  ✓ Total sequences processed: {len(all_sequences)}")
     
-    # Save raw response
-    with open(f"{output_dir}/remediation_raw.txt", "w", encoding="utf-8") as f:
-        f.write(remediation_response)
-    
-    # Extract JSON
-    if "```json" in remediation_response:
-        json_start = remediation_response.find("```json") + 7
-        json_end = remediation_response.find("```", json_start)
-        remediation_json = remediation_response[json_start:json_end].strip()
-    else:
-        remediation_json = remediation_response.strip()
+    # Combine all sequences into final output
+    remediation_data = {"sequences": all_sequences}
     
     try:
-        remediation_data = json.loads(remediation_json)
         
         remediation_output_path = f"{output_dir}/remediation.json"
         with open(remediation_output_path, "w", encoding="utf-8") as f:
@@ -251,6 +312,7 @@ def main():
     parser = argparse.ArgumentParser(description='Test Remediation Generator with sequences JSON')
     parser.add_argument('sequences_path', help='Path to sequences JSON file (from interaction designer)')
     parser.add_argument('-o', '--output', help='Output directory (optional)', default=None)
+    parser.add_argument('-n', '--limit', type=int, help='Limit number of sequences to process (for testing)', default=None)
     
     args = parser.parse_args()
     
@@ -258,7 +320,7 @@ def main():
         print(f"✗ Error: Sequences file not found: {args.sequences_path}")
         sys.exit(1)
     
-    test_remediation_generator(args.sequences_path, args.output)
+    test_remediation_generator(args.sequences_path, args.output, args.limit)
 
 if __name__ == "__main__":
     main()
