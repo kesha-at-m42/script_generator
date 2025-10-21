@@ -98,27 +98,28 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
 
 #### MEDIUM (20–30 words)
 - **Purpose:** Specific hint + visual scaffolding
-- **Dialogue:** Acknowledge continued struggle, collaborative language
+- **Dialogue:** Acknowledge continued struggle, collaborative language, explicitly name error for misconceptions
 - **Visual:** Effects object with highlight/pulse/arrow animations applied to tangibles
   - `type`: "highlight", "pulse", "arrow"
   - `target`: Specific tangible_id from workspace
   - `animation`: Animation name (e.g., "pulse", "highlight_sections")
   - `description`: Human-readable description of the visual effect
 - **Dialogue patterns:**
+  - For misconceptions: Explicitly name the error first ("I see you reversed the numbers...")
   - "Let's think about this together..."
   - "Here's a hint..."
   - "You're getting there..."
 
 #### HEAVY (30–60 words)
 - **Purpose:** Step-by-step walkthrough revealing the answer
-- **Dialogue:** Full emotional support, complete demonstration
+- **Dialogue:** Full emotional support, complete demonstration, explicitly name error for misconceptions
 - **Visual:** Effects object with measurement/overlay/demonstration animations
   - `type`: "measurement", "overlay", "demonstration"
   - `target`: Specific tangible_id from workspace
   - `animation`: Animation name (e.g., "measure_sections_equal", "overlay_counting")
   - `description`: Human-readable description of the demonstration
 - **Dialogue structure:**
-  - Opening: Modeling introduction ("This is tricky, let's walk through it together...")
+  - Opening: Name the misconception ("I notice you're putting the numbers in reverse order...") then modeling introduction ("This is tricky, let's walk through it together...")
   - Body: Modeling, or step-by-step demonstration with the answer revealed
   - Closing: Post-modeling acknowledgment (required)
 - **Dialogue patterns:**
@@ -262,13 +263,17 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Are all these parts the same size?"
+- "Check if all your parts are equal."
+- "Look at the sizes of each part."
 
 **Medium:**
 - "Your parts need to be equal. This part is bigger than this one."  
+- "Fractions only work when all parts are equal. Check if each section matches."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "Every piece must be exactly the same size. See how this is bigger? Let's make them match."  
+- "For equal parts, every piece must be exactly the same size. Watch - I'll measure each one. See how this is bigger? Let's make them all match."  
+- "Look - this part is bigger than that part. When parts aren't equal, we can't use fractions. We need same-sized pieces."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -279,13 +284,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Check what the whole bar is."
+- "Look at the complete shape first."
 
 **Medium:**
-- "These bars are different sizes. We need to compare pieces from the same whole."  
+- "You're working on it. These bars are different sizes. We need to compare pieces from the same whole."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "This whole bar is our '1'. These parts are from this bar. That bar is different. We can only compare fractions from the same whole."  
+- "Watch this. This whole bar is our '1'. These parts are from this bar. That whole bar is different - it's a different '1'. We can only compare fractions from the same whole."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -296,13 +302,16 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "These numbers work together - check what each shows."
+- "The top and bottom numbers are connected."
 
 **Medium:**
-- "Top counts what you have, bottom counts total parts."  
+- "The top and bottom numbers are connected. Top counts what you have, bottom counts total parts."  
+- "You're getting there. These numbers describe the same situation together."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "If I have 2 parts out of 5 total, that's 2/5. The numbers describe the same situation."  
+- "Watch: if I have 2 parts (numerator) out of 5 total (denominator), that's 2/5. The numbers describe the same situation."  
+- "Let me show you how they work together. Count shaded parts - that's your top number. Count total parts - that's your bottom number. They both describe this one fraction."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -313,13 +322,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Check your spacing - all intervals should be equal."
+- "Make sure each space is the same size."
 
 **Medium:**
-- "Each interval needs to be the same width. This space is bigger than that one."  
+- "You're working on it. Each interval needs to be the same width. This space is bigger than that one."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "Each interval must be exactly the same. Watch: this space, this space, this space - all equal."  
+- "Let me show you equal spacing. Each interval must be exactly the same. Watch: this space, this space, this space - all equal. That's how we partition a number line."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -330,13 +340,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Count the spaces between marks, not the marks."
+- "We count intervals, not tick marks."
 
 **Medium:**
-- "The spaces between marks are what we count, not the marks themselves."  
+- "Here's a hint: the spaces between marks are what we count, not the marks themselves. Try counting spaces."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "We count spaces, not marks. This space is one fourth, this space is another fourth. Marks show where spaces end."  
+- "Watch how we count on a number line. We count spaces, not marks. See: this space is one fourth, this space is another fourth. Marks are just there to show where spaces end."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -347,13 +358,17 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "You have the right numbers - check their positions."
+- "Check which number goes on top."
+- "Look at the order of the numbers."
 
 **Medium:**
-- "Shaded parts go on top, total parts go on bottom."  
+- "Looks like these are flipped. Shaded parts go on top, total parts go on bottom."  
+- "You're working on it. The numerator (top) counts shaded parts. The denominator (bottom) counts total parts."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "Count shaded parts - that's your top number. Count total parts - that's your bottom. So 3 shaded out of 4 total is 3/4."  
+- "Let me show you the order: count shaded parts - that's your top number. Count total parts - that's your bottom number. So 3 shaded out of 4 total is 3/4."  
+- "Watch: if I have 2 parts shaded (numerator) out of 5 total (denominator), that's 2/5. Top number = shaded. Bottom number = total."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -364,13 +379,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Look at the shaded amounts - are they the same?"
+- "Check how much is shaded in each."
 
 **Medium:**
-- "These look different but show the same amount. Look at the total shaded space."  
+- "You're getting there. These look different but show the same amount. Look at the total shaded space."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "2 out of 4 is 2/4. 1 out of 2 is 1/2. But the shaded amounts take up the same space. Different fractions, same amount."  
+- "Watch this. This bar has 2 out of 4 shaded - that's 2/4. This bar has 1 out of 2 shaded - that's 1/2. But look: the shaded amounts take up the same space. Different fractions, same amount."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -381,13 +397,16 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Look at the actual size of each piece."
+- "Check which pieces are bigger."
 
 **Medium:**
 - "More parts means smaller pieces. Which bar has pieces that take up more space?"  
+- "You're working on it. More parts doesn't mean bigger pieces - it means smaller ones."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "When we cut into fewer pieces, each piece is larger. Three pieces means bigger parts than eight pieces."  
+- "See how 1/3 is bigger than 1/8? When we cut into fewer pieces, each piece is larger. Three pieces means bigger parts." 
+- "Watch this. This bar has 3 parts - each part is this big. This bar has 8 parts - each part is much smaller. More parts = smaller pieces."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -398,13 +417,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Fractions work on number lines too."
+- "This shows the same fraction, just differently."
 
 **Medium:**
-- "Fractions aren't just shapes - they're positions on number lines and symbols too."  
+- "You're getting there. Fractions aren't just shapes - they're positions on number lines and symbols too."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "In a shape, 1/4 is one part out of four. On a number line, 1/4 is a position. Same fraction, different way to show it."  
+- "Watch. In a shape, 1/4 is one shaded part out of four. On a number line, 1/4 is a position - one jump out of four equal jumps to 1. Same fraction, different way to show it."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
@@ -415,13 +435,14 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Light:**
 - "Check with the visual - does that rule work here?"
+- "Look at the pieces, not just the numbers."
 
 **Medium:**
-- "That rule doesn't work for denominators. More parts means each piece is smaller."  
+- "You're working on it. That rule doesn't work for denominators. More parts means each piece is smaller."  
   → [Visual: See visual_guide.md]
 
 **Heavy:**
-- "For numerators, bigger is more: 3/4 > 1/4. For denominators, bigger means smaller pieces: 1/8 < 1/4. Context matters."  
+- "Watch how this works. For numerators, bigger is more: 3/4 > 1/4 because we have more pieces. For denominators, bigger means smaller pieces: 1/8 < 1/4 because eighths are tiny. Context matters."  
   → [Modeling] + [Visual: See visual_guide.md]
 
 ---
