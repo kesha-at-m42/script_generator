@@ -53,13 +53,28 @@ def test_interaction_designer(questions_path, output_dir=None):
     print("GENERATING SEQUENCES")
     print("=" * 70)
     
-    print(f"\nGenerating sequences for {num_questions} questions (one at a time)...\n")
+    # Ask user how many questions to process
+    questions_list = questions_data.get('questions', [])
+    print(f"\nTotal questions available: {num_questions}")
+    
+    try:
+        user_input = input("How many questions would you like to process? (press Enter for all): ").strip()
+        if user_input == "":
+            num_to_process = num_questions
+        else:
+            num_to_process = int(user_input)
+            num_to_process = min(num_to_process, num_questions)  # Cap at total available
+    except ValueError:
+        print("Invalid input, processing all questions")
+        num_to_process = num_questions
+    
+    print(f"\nProcessing {num_to_process} question(s) (one at a time)...\n")
     
     all_sequences = []
-    questions_list = questions_data.get('questions', [])
     
-    for idx, question in enumerate(questions_list, 1):
-        print(f"  [{idx}/{num_questions}] Processing Question {question.get('id')}...")
+    for idx in range(num_to_process):
+        question = questions_list[idx]
+        print(f"  [{idx+1}/{num_to_process}] Processing Question {question.get('id')}...")
         
         # Create single-question data for this iteration
         single_question_data = {

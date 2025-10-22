@@ -293,6 +293,21 @@ def test_godot_formatter(remediation_path, output_dir=None, limit=None):
             except ValueError:
                 print(f"Invalid input. Processing all {num_sequences} sequences.")
     
+    # Strip non-generic error paths to ensure 1-to-1 mapping
+    print(f"\n⚠️  Stripping non-generic error paths (keeping only error_path_generic)...")
+    for sequence in remediation_data['sequences']:
+        if 'student_attempts' in sequence:
+            attempts = sequence['student_attempts']
+            # Keep only success_path and error_path_generic
+            filtered_attempts = {}
+            if 'success_path' in attempts:
+                filtered_attempts['success_path'] = attempts['success_path']
+            if 'error_path_generic' in attempts:
+                filtered_attempts['error_path_generic'] = attempts['error_path_generic']
+            sequence['student_attempts'] = filtered_attempts
+    
+    print(f"✓ Stripped non-generic error paths. Each sequence will generate exactly 1 Godot sequence.\n")
+    
     # Create output directory
     if output_dir is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

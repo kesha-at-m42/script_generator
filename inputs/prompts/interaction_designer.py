@@ -54,13 +54,30 @@ Each sequence has TWO logical parts:
       "id": "bar_1",
       "type": "rectangle_bar",
       "sections": 4,
-      "orientation": "horizontal",
       "state": "divided",
+      "shaded": [],
       "position": "center"
     }}
   ]
 }}
 ```
+
+**Required tangible fields:**
+- `type`: String - Shape type (rectangle_bar, circle, grid, number_line, etc.)
+- `sections`: Integer - Number of equal parts (1 = undivided/whole, 2+ = divided)
+- `state`: String - Visual state of the tangible:
+  * `"undivided"` - Whole shape, no divisions (sections = 1)
+  * `"divided"` - Shape divided into equal parts (sections = 2+)
+  * `"divided_unequal"` - Shape divided into unequal parts (for distractor/incorrect examples)
+- `shaded`: Array of integers - Indices of shaded sections (e.g., `[0, 2]` means first and third sections are shaded, `[]` means none shaded)
+- `position`: String - Location on screen (center, top, bottom, etc.)
+
+**Fields to omit:**
+- ~~`orientation`~~ - Not needed, inferred from shape type
+- ~~`section_widths`~~ - Not needed, use `state: "divided_unequal"` for unequal divisions
+- ~~`shaded_sections`~~ - Use `shaded` array instead
+- ~~`filled_sections`~~ - Use `shaded` array instead
+- ~~`shading_colors`~~ - Not needed for basic interactions
 
 ### Part 2: Action Steps (1-3 steps)
 **Purpose**: Student interacts with the workspace to solve the problem
@@ -68,23 +85,56 @@ Each sequence has TWO logical parts:
 **Fields (in order):**
 - **dialogue**: Kim's guidance (10-30 words)
 - **prompt**: Screen instruction/button text
-- **interaction_tool**: Input method ("click_sections", "click_choice", "drag_fraction", "input_text")
+- **interaction_tool**: Choose based on the interaction type:
+  - `"shade"` - Student shades/colors sections of shapes
+  - `"cut"` - Student divides/partitions shapes into parts
+  - `"select"` - Student selects one shape from multiple options
+  - `"multi_select"` - Student selects multiple shapes
+  - `"place_tick"` - Student places marks on a number line
+  - `"click_choice"` - Student picks from multiple choice answers
 - **workspace_context**: What's visible `{{"tangibles_present": ["bar_1"], "note": "description"}}`
 - **choices** (optional): For multiple choice `[{{"id": "a", "text": "1/4"}}]`
-- **input_config** (optional): For inputs `{{"type": "number", "min": 0, "max": 10}}`
-- **correct_answer**: The correct answer (array or string)
+- **correct_answer**: Object with two fields:
+  - **value**: The answer value (format depends on interaction_tool):
+    - `shade`: Fraction string like `"3/4"` (shade 3 out of 4 parts)
+    - `cut`: Fraction string like `"1/4"` (divide into 4 equal parts)
+    - `select`: Tangible ID string like `"shape_b"`
+    - `multi_select`: Array of tangible IDs like `["shape_a", "shape_c"]`
+    - `place_tick`: Array of decimals like `[0.5]` or `[0.25, 0.75]`
+    - `click_choice`: Choice ID string like `"c"`
+  - **context**: Human-readable explanation of what the value means (e.g., "Shade 3 out of 4 parts to represent three-fourths" or "Place tick at 0.5 which represents one-half")
 
-**Example 1: Click interaction**
+**Example 1: Shading interaction**
    ```json
    {{
      "dialogue": "Now shade 3 out of 4 parts to show three-fourths.",
      "prompt": "Click to shade 3 parts",
-     "interaction_tool": "click_sections",
+     "interaction_tool": "shade",
      "workspace_context": {{
        "tangibles_present": ["bar_1"],
        "note": "Rectangle bar with 4 sections visible"
      }},
-     "correct_answer": [1, 2, 3]
+     "correct_answer": {{
+       "value": "3/4",
+       "context": "Shade 3 out of 4 sections to represent three-fourths of the bar"
+     }}
+   }}
+   ```
+   
+   **Example 1b: Dividing/partitioning interaction**
+   ```json
+   {{
+     "dialogue": "Click to divide this bar into 4 equal parts.",
+     "prompt": "Click 3 times to make 4 parts",
+     "interaction_tool": "cut",
+     "workspace_context": {{
+       "tangibles_present": ["bar_1"],
+       "note": "Undivided rectangle bar"
+     }},
+     "correct_answer": {{
+       "value": "1/4",
+       "context": "Divide the bar into fourths (4 equal parts), requiring 3 cuts"
+     }}
    }}
    ```
    
@@ -104,22 +154,44 @@ Each sequence has TWO logical parts:
        {{"id": "c", "text": "3/4"}},
        {{"id": "d", "text": "4/4"}}
      ],
-     "correct_answer": "c"
+     "correct_answer": {{
+       "value": "c",
+       "context": "Choice 'c' (3/4) correctly identifies that 3 out of 4 parts are shaded"
+     }}
    }}
    ```
    
-   **Example 3: Text input**
+   **Example 3: Number line interaction**
    ```json
    {{
-     "dialogue": "Enter the missing numerator to make the fractions equivalent.",
-     "prompt": "Type the numerator",
-     "interaction_tool": "input_text",
+     "dialogue": "Place a tick mark at one-half on the number line.",
+     "prompt": "Click to place the tick mark",
+     "interaction_tool": "place_tick",
      "workspace_context": {{
-       "tangibles_present": ["bar_1", "bar_2"],
-       "note": "Two bars showing equivalent fractions"
+       "tangibles_present": ["number_line_1"],
+       "note": "Number line from 0 to 1"
      }},
-     "input_config": {{"type": "number", "min": 1, "max": 12}},
-     "correct_answer": "6"
+     "correct_answer": {{
+       "value": [0.5],
+       "context": "Position 0.5 represents the halfway point between 0 and 1, which is one-half"
+     }}
+   }}
+   ```
+   
+   **Example 4: Selection interaction**
+   ```json
+   {{
+     "dialogue": "Which shape shows one-third shaded?",
+     "prompt": "Click the shape that shows 1/3",
+     "interaction_tool": "select",
+     "workspace_context": {{
+       "tangibles_present": ["shape_a", "shape_b", "shape_c"],
+       "note": "Three shapes with different shaded amounts"
+     }},
+     "correct_answer": {{
+       "value": "shape_b",
+       "context": "shape_b has exactly 1 out of 3 parts shaded, representing one-third"
+     }}
    }}
    ```
 
@@ -158,23 +230,25 @@ INTERACTION_DESIGNER_STRUCTURE = """
               "id": "bar_1",
               "type": "rectangle_bar",
               "sections": 4,
-              "orientation": "horizontal",
               "state": "divided",
-              "position": "center"
+              "shaded": []
             }}
           ]
         }},
         
-        // PART 2: Action (1-3 steps) - Click interaction example
+        // PART 2: Action (1-3 steps) - Shading interaction example
         {{
           "dialogue": "Shade 3 parts to show three-fourths.",
           "prompt": "Click to shade 3 parts",
-          "interaction_tool": "click_sections",
+          "interaction_tool": "paint",
           "workspace_context": {{
             "tangibles_present": ["bar_1"],
             "note": "Rectangle bar with 4 equal sections"
           }},
-          "correct_answer": [1, 2, 3]
+          "correct_answer": {{
+            "value": "3/4",
+            "context": "Shade 3 out of 4 sections to show three-fourths"
+          }}
         }},
         
         // PART 2: Alternative - Multiple choice example
@@ -191,7 +265,13 @@ INTERACTION_DESIGNER_STRUCTURE = """
             {{"id": "b", "text": "2/4"}},
             {{"id": "c", "text": "3/4"}}
           ],
-          "correct_answer": "c"
+          "correct_answer": {{
+            "value": "c",
+            "context": "Choice 'c' represents three-fourths, matching the shaded amount"
+          }}
+        }}
+            "context": "Choice 'c' represents three-fourths, matching the shaded amount"
+          }}
         }}
       ],
       "student_attempts": {{

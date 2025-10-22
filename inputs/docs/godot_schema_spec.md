@@ -347,41 +347,62 @@ When `fractions` is an array, each element represents one part's fraction value.
 
 Maps to interaction tools to validate learner responses.
 
-**EqualShadedValidator** (tool: "paint")
+**EqualShadedValidator**
 ```json
 {
   "@type": "EqualShadedValidator",
   "answer": "1/4"
 }
 ```
-Validates that fraction shapes are shaded to represent a specific fraction. Answer is a fraction string (e.g., "1/4", "2/3").
+**Answer Type:** Fraction string (e.g., "1/4", "2/3") or null
+**Required Tangibles:** At least one non-read-only FracShape
+**Required Properties:** FracShape.shaded array
+**Key Behavior:** Validates all shapes have equal shaded proportions (within 0.001 tolerance). When answer provided, first shape must match target proportion.
+**Use case:** Ensuring equivalent shaded amounts across multiple representations ("shade 1/4 on all bars")
 
-**ShadedPartsValidator** (tool: "paint")
+**ShadedPartsValidator**
 ```json
 {
   "@type": "ShadedPartsValidator",
   "answer": 3
 }
 ```
-Validates the number of shaded parts. Answer is an integer representing count of shaded sections.
+**Answer Type:** Integer (count) or null
+**Required Tangibles:** At least one non-read-only FracShape
+**Required Properties:** FracShape.shaded array
+**Key Behavior:** Validates all shapes have same count of shaded parts. When answer provided, checks for exact count match.
+**Use case:** Tasks requiring specific number of parts shaded, regardless of size ("shade 3 parts")
 
-**FractionShapePartsValidator** (tool: "compare")
+**FractionShapePartsValidator** 
 ```json
 {
   "@type": "FractionShapePartsValidator",
   "answer": "1/4"
 }
 ```
-or for multiple shapes:
+or explicit array form (equivalent):
 ```json
 {
   "@type": "FractionShapePartsValidator",
-  "answer": ["1/4", "2/4"]
+  "answer": ["1/4", "1/4", "1/4", "1/4"]
 }
 ```
-Validates that fraction shape(s) match specific fraction values. Answer can be single fraction or array of fractions.
+or for non-uniform parts:
+```json
+{
+  "@type": "FractionShapePartsValidator",
+  "answer": ["1/4", "1/4", "1/2"]
+}
+```
+**Answer Type:** Single fraction string (e.g., "1/4") or array of fraction strings (e.g., ["1/4", "1/4", "1/2"])
+  - Single fraction string: Shorthand for uniform parts (e.g., "1/4" means all parts are fourths)
+  - Array of fractions: Explicit form where each element represents one part's size. Array elements must have same denominator and sum to 1. Can represent uniform parts ["1/2", "1/2"] or non-uniform parts ["1/4", "1/4", "1/2"]
+**Required Tangibles:** At least one non-read-only FracShape
+**Required Properties:** FracShape.fractions (string or array)
+**Key Behavior:** Validates each part's exact fraction value. If array, checks part[i] == answer[i]. If string, all parts must equal that value.
+**Use case:** Partition/cut tasks where specific part sizes matter ("cut into thirds", "cut into 1/4 and 1/2")
 
-**SelectionValidator** (tool: "select" or "multi_select")
+**SelectionValidator**
 ```json
 {
   "@type": "SelectionValidator",
@@ -395,34 +416,50 @@ or for multiple selections:
   "answer": [0, 2]
 }
 ```
-Validates tangible selection by index. Answer is integer (single) or array of integers (multiple).
+**Answer Type:** Integer (e.g., 2) for single selection or array of integers (e.g., [0, 2]) for multiple selections
+**Required Tangibles:** At least one tangible model in workspace
+**Required Properties:** Tangible.is_selected property
+**Key Behavior:** Validates is_selected property on tangibles by 0-based index. Multi-select ensures only items in answer array are selected.
+**Use case:** Select specific shapes/objects from multiple options ("select the shape showing 1/2")
 
-**MultipleChoiceValidator** (no tool - uses workspace.choices)
+**MultipleChoiceValidator**
 ```json
 {
   "@type": "MultipleChoiceValidator",
   "answer": [2]
 }
 ```
-Used for choice selection. Answer is array with index of correct choice (0-based). Choices displayed via workspace.choices.
+**Answer Type:** Array of integers (e.g., [2] for single choice, [0, 2] for multiple)
+**Required Tangibles:** None (uses button interface)
+**Required Fields:** Prompt.choices (WorkspaceChoices object with options array)
+**Key Behavior:** Validates selected button indices match answer array (order-independent, uses sorting). Requires exact match.
+**Use case:** Multiple choice questions where learner clicks button(s) to select answer
 
-**PlaceTicksValidator** (tool: "place_tick")
+**PlaceTicksValidator**
 ```json
 {
   "@type": "PlaceTicksValidator",
   "answer": [2, 4]
 }
 ```
-Validates placement of tick marks on number line. Answer is array of tick positions/indices.
+**Answer Type:** Array of integers (numerator values, e.g., [2, 4] for 2/6 and 4/6)
+**Required Tangibles:** One NumberLine
+**Required Properties:** NumberLine.tick_marks array, tick numerator property
+**Key Behavior:** Validates count and numerator values of user-placed ticks (excludes start/end ticks). Each tick's numerator must match answer[i].
+**Use case:** Tasks where learner places tick marks at specific positions ("place ticks at 2/6 and 4/6")
 
-**SelectTicksValidator** (tool: "highlight")
+**SelectTicksValidator**
 ```json
 {
   "@type": "SelectTicksValidator",
   "answer": [3]
 }
 ```
-Validates selection/highlighting of specific tick marks. Answer is array of tick indices to highlight.
+**Answer Type:** Array of integers (numerator values, e.g., [3] for 3/6)
+**Required Tangibles:** One NumberLine with existing tick marks
+**Required Properties:** NumberLine.tick_marks array, tick is_shaded and numerator properties
+**Key Behavior:** Validates numerators of shaded ticks match answer array (order-independent). Rejects if end tick selected.
+**Use case:** Tasks where learner highlights/selects existing tick marks ("select the tick at 3/6")
 
 ### WorkspaceChoices
 
@@ -438,25 +475,6 @@ Used with MultipleChoiceValidator for displaying options.
 
 - `allow_multiple`: boolean - Whether multiple selections allowed
 - `options`: array of strings - Text for each choice button
-
----
-
-## Tool-to-Validator Mappings
-
-**Critical Reference:** Each tool pairs with specific validator types.
-
-| Tool | Validator(s) | Usage |
-|------|-------------|-------|
-| `"paint"` | `EqualShadedValidator`, `ShadedPartsValidator` | Shade sections to match fraction or count |
-| `"select"` | `SelectionValidator` | Select single tangible by index |
-| `"multi_select"` | `SelectionValidator` | Select multiple tangibles by indices |
-| `"compare"` | `FractionShapePartsValidator` | Match fraction shapes to values |
-| `"highlight"` | `SelectTicksValidator` | Highlight tick marks on number line |
-| `"place_tick"` | `PlaceTicksValidator` | Place new tick marks on number line |
-| `"cut"` | (context-specific) | Divide shapes into parts |
-| (no tool) | `MultipleChoiceValidator` | Display choices via `workspace.choices` |
-
-**Important:** MCQs don't use a tool - they use `workspace.choices` to display options and `MultipleChoiceValidator` to validate.
 
 ---
 

@@ -30,7 +30,6 @@ GODOT_FORMATTER_EXAMPLES = [
               "id": "rect_1",
               "type": "rectangle_bar",
               "sections": 3,
-              "orientation": "horizontal",
               "state": "divided",
               "shaded": [],
               "position": "center"
@@ -40,12 +39,15 @@ GODOT_FORMATTER_EXAMPLES = [
         {
           "dialogue": "Shade 1 part to show one-third.",
           "prompt": "Click to shade 1 part",
-          "interaction_tool": "click_sections",
+          "interaction_tool": "shade",
           "workspace_context": {
             "tangibles_present": ["rect_1"],
             "note": "Rectangle with 3 equal horizontal sections, all unshaded"
           },
-          "correct_answer": [1]
+          "correct_answer": {
+            "value": "1/3",
+            "context": "Shade 1 out of 3 parts to represent one-third"
+          }
         }
       ],
       "student_attempts": {
@@ -146,11 +148,11 @@ GODOT_FORMATTER_EXAMPLES = [
           "dialogue": "Shade 1 part to show [fraction numerator=1 denominator=3]one third[/fraction].",
           "prompt": {
             "@type": "Prompt",
-            "text": "Click to shade 1 [vocab]part[/vocab]",
+            "text": "Click to shade 1 part",
             "tool": "paint",
             "validator": {
-              "@type": "ShadedPartsValidator",
-              "answer": 1
+              "@type": "EqualShadedValidator",
+              "answer": "1/3"
             },
             "remediations": [
               {
@@ -166,7 +168,7 @@ GODOT_FORMATTER_EXAMPLES = [
                 "id": "medium",
                 "step": {
                   "@type": "Step",
-                  "dialogue": "[event:pulse_sections]Let's think about this together. We want to show [fraction numerator=1 denominator=3]one third[/fraction], which means 1 [vocab]part[/vocab] out of 3 total [vocab]parts[/vocab]."
+                  "dialogue": "[event:pulse_sections]Let's think about this together. We want to show [fraction numerator=1 denominator=3]one third[/fraction], which means 1 part out of 3 total parts."
                 }
               },
               {
@@ -174,7 +176,7 @@ GODOT_FORMATTER_EXAMPLES = [
                 "id": "heavy",
                 "step": {
                   "@type": "Step",
-                  "dialogue": "[event:label_sections][event:shade_one_section]This is tricky, so let's work through it together. [fraction numerator=1 denominator=3]One third[/fraction] means 1 [vocab]part[/vocab] out of 3. See these three [vocab]parts[/vocab]? Click any one of them to shade it. There we go."
+                  "dialogue": "[event:label_sections][event:shade_one_section]This is tricky, so let's work through it together. [fraction numerator=1 denominator=3]One third[/fraction] means 1 part out of 3. See these three parts? Click any one of them to shade it. There we go."
                 }
               }
             ],
@@ -199,12 +201,6 @@ Transform these remediation sequences to Godot-processable format:
 <remediation_sequences>
 {remediation_context}
 </remediation_sequences>
-
-## VOCABULARY TERMS
-
-These are the vocabulary terms from the current module that should be wrapped with [vocab][/vocab] tags:
-
-{vocabulary_terms}
 
 ## TRANSFORMATION RULES
 
@@ -232,48 +228,157 @@ ALL fraction shapes use unified `FracShape` type:
 - `fraction_bar` → `"@type": "FracShape"` with `"visual": 0`
 - `number_line` → `"@type": "NumberLine"` (unchanged)
 
-**FracShape Conversion:**
-- If tangible has uniform sections (e.g., 4 equal parts), use: `"fractions": "1/4"`
-- If tangible has non-uniform sections, use array: `"fractions": ["1/4", "1/4", "1/2"]`
-- visual: 0=rectangle/bar, 1=circle/pie, 2=grid
-- Remove "type", "id", "orientation", "state", "position" fields
-- Keep: shaded (array of indices)
-- Add: is_read_only (typically false)
-- Add: lcm - **IMPORTANT LCM CALCULATION:**
-  * For "cut" tool OR if verb is "partition"/"divide"/"cut": lcm = sections * 2 (double the parts)
-  * Example: 3 sections → lcm = 6, 4 sections → lcm = 8
-  * For all other interactions: lcm = 24 (default)
-
-**Validator Types (based on interaction_tool):**
-- `click_sections` / `paint` → `"@type": "ShadedPartsValidator"` (answer: integer count)
-- `click_sections` / `paint` → `"@type": "EqualShadedValidator"` (answer: fraction string like "1/4")
-- `select` → `"@type": "SelectionValidator"` (answer: integer or array of integers)
-- `click_choice` → `"@type": "MultipleChoiceValidator"` (answer: array with index)
-- `place_tick` → `"@type": "PlaceTicksValidator"` (answer: array of positions)
-- `highlight` → `"@type": "SelectTicksValidator"` (answer: array of indices)
-- `compare` → `"@type": "FractionShapePartsValidator"` (answer: fraction or array of fractions)
-
-**Tool Mapping:**
-- `click_sections` → `"paint"` (for shading interactions)
-- `click_choice` → omit tool (MCQs don't use tools, only workspace.choices)
-- `drag_fraction` → `"compare"` (for fraction comparison)
+**Tool Mapping (interaction_tool → Godot tool):**
+- `shade` → `"paint"` (for shading interactions)
+- `cut` → `"cut"` (for dividing/partitioning shapes)
+- `select` → `"select"` (for selecting single tangible)
+- `multi_select` → `"multi_select"` (for selecting multiple tangibles)
 - `place_tick` → `"place_tick"` (unchanged)
-- `highlight` → `"highlight"` (unchanged)
-- `select` / `multi_select` → use for tangible selection
+- `click_choice` → omit tool (MCQs don't use tools, only workspace.choices)
+
+**Validator Selection:**
+
+Read `correct_answer.context` to understand what's being validated, then use the schema to determine the appropriate validator based on:
+
+**What's being checked:**
+- **Shading a proportion** (e.g., "shade 3/4") → Answer: fraction string → Requires: FracShape.shaded
+- **Shading a count** (e.g., "shade exactly 2 parts") → Answer: integer → Requires: FracShape.shaded
+- **Part sizes after cutting** (e.g., "cut into thirds") → Answer: fraction string or array → Requires: FracShape.fractions
+- **Selecting tangible(s)** (e.g., "select the shape showing 1/2") → Answer: integer or array → Requires: multiple tangibles
+- **Clicking choice buttons** (e.g., "which represents 3/4?") → Answer: array of indices → Requires: choices array in input
+- **Placing tick marks** (e.g., "place ticks at 1/3 and 2/3") → Answer: array of numerators → Requires: NumberLine
+- **Selecting tick marks** (e.g., "select the tick at 2/6") → Answer: array of numerators → Requires: NumberLine with existing ticks
+
+**Key principle:** The context describes the action. The answer type + tangible properties determine which validator to use. Refer to godot_schema_spec.md for complete validator details.
 
 ### 3. Structure Transformation
 
-**Input Part 1 (workspace setup):**
+**FracShape Conversion Rules:**
+
+Input tangible fields (standardized schema):
+- `type`: Shape type (rectangle_bar, circle, grid, etc.)
+- `sections`: Integer count (1 = undivided, 2+ = divided)
+- `state`: Visual state ("undivided", "divided", "divided_unequal")
+- `shaded`: Array of 0-based indices for shaded sections
+- `position`: Screen location (center, top, bottom, etc.)
+
+Output FracShape fields:
+- `@type`: Always "FracShape" for fraction shapes
+- `visual`: Shape rendering (0=rectangle/bar, 1=circle/pie, 2=grid)
+- `fractions`: Determined by state and sections:
+  * state="undivided" (sections=1) → `"1/1"`
+  * state="divided" (equal parts) → `"1/N"` where N = sections
+    - sections=2 → `"1/2"`
+    - sections=3 → `"1/3"`
+    - sections=4 → `"1/4"`
+    - sections=6 → `"1/6"`
+  * state="divided_unequal" → array of fractions (must sum to 1)
+    - sections=3 → `["1/2", "1/4", "1/4"]` (unequal thirds)
+    - sections=4 → `["1/8", "4/8", "3/8"]` (unequal fourths)
+    - sections=5 → `["2/8", "2/8", "1/8", "1/8", "2/8"]` (unequal fifths)
+- `shaded`: Keep as-is (array of 0-based indices)
+- `is_read_only`: Typically false for interactive tangibles
+- `lcm`: LCM calculation:
+  * For "cut" tool OR if verb is "partition"/"divide"/"cut": 
+    - If shape is undivided (sections=1), look at correct_answer to determine target sections
+    - Example: answer="1/2" means creating 2 sections → lcm = 2 × 2 = 4
+    - Example: answer="1/3" means creating 3 sections → lcm = 3 × 2 = 6
+    - If shape is already divided, use existing sections count → lcm = sections × 2
+  * For all other interactions: lcm = 24 (default)
+
+Fields to remove (not in Godot schema):
+- `type` (replaced by @type)
+- `id` (not needed)
+- `state` (used to determine fractions, then removed)
+- `position` (not in Godot schema)
+
+**Example Transformations:**
+
+**Example A: Partition/cut interaction (verb="partition", tool="cut")**
+
+Input:
 ```json
 {{
-  "dialogue": "...",
-  "workspace": [
-    {{"id": "rect_1", "type": "rectangle_bar", ...}}
+  "verb": "partition",
+  "steps": [
+    {{
+      "dialogue": "Here's a rectangle.",
+      "workspace": [
+        {{
+          "id": "rect_1",
+          "type": "rectangle_bar",
+          "sections": 1,
+          "state": "undivided",
+          "shaded": [],
+          "position": "center"
+        }}
+      ]
+    }},
+    {{
+      "dialogue": "Divide it into 4 equal parts.",
+      "prompt": "Click to cut",
+      "interaction_tool": "cut",
+      "correct_answer": {{
+        "value": "1/4",
+        "context": "Divide into fourths"
+      }}
+    }}
   ]
 }}
 ```
 
-**Output:**
+Output:
+```json
+{{
+  "steps": [
+    {{
+      "@type": "Step",
+      "workspace": {{
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {{
+            "@type": "FracShape",
+            "visual": 0,
+            "shaded": [],
+            "lcm": 8,
+            "is_read_only": false
+          }}
+        ]
+      }},
+      "dialogue": "Here's a rectangle."
+    }}
+  ]
+}}
+```
+Note: 
+- state="undivided" (sections=1) → fractions omitted (whole shape)
+- lcm=8 because verb="partition" AND correct_answer="1/4" indicates creating 4 sections, so lcm = 4 × 2 = 8
+
+**Example B: Shading interaction (no partition verb)**
+
+Input:
+```json
+{{
+  "verb": "shade",
+  "steps": [
+    {{
+      "dialogue": "Here's a rectangle divided into 3 equal parts.",
+      "workspace": [
+        {{
+          "id": "rect_1",
+          "type": "rectangle_bar",
+          "sections": 3,
+          "state": "divided",
+          "shaded": [],
+          "position": "center"
+        }}
+      ]
+    }}
+  ]
+}}
+```
+
+Output:
 ```json
 {{
   "@type": "Step",
@@ -285,24 +390,31 @@ ALL fraction shapes use unified `FracShape` type:
         "fractions": "1/3",
         "visual": 0,
         "shaded": [],
-        "lcm": 6,
+        "lcm": 24,
         "is_read_only": false
       }}
     ]
   }},
-  "dialogue": "..."
+  "dialogue": "Here's a rectangle divided into 3 equal parts."
 }}
 ```
-Note: lcm = 6 because verb is "partition" and sections = 3, so lcm = 3 × 2 = 6
+Note: 
+- type="rectangle_bar" → @type="FracShape" with visual=0
+- sections=3 + state="divided" → fractions="1/3" (equal thirds)
+- lcm=24 (default for non-partition interactions - verb is "shade", not "partition")
+- Removed fields: id, type, state, position
 
 **Input Part 2 (interaction):**
 ```json
 {{
-  "dialogue": "Shade 1 part...",
-  "prompt": "Click to shade 1 part",
-  "interaction_tool": "click_sections",
+  "dialogue": "Shade 3 out of 4 parts...",
+  "prompt": "Click to shade 3 parts",
+  "interaction_tool": "shade",
   "workspace_context": {{...}},
-  "correct_answer": [1]
+  "correct_answer": {{
+    "value": "3/4",
+    "context": "Shade 3 out of 4 parts to show three-fourths"
+  }}
 }}
 ```
 
@@ -310,19 +422,21 @@ Note: lcm = 6 because verb is "partition" and sections = 3, so lcm = 3 × 2 = 6
 ```json
 {{
   "@type": "Step",
-  "dialogue": "Shade 1 part...",
+  "dialogue": "Shade 3 out of 4 parts...",
   "prompt": {{
     "@type": "Prompt",
-    "text": "Click to shade 1 part",
+    "text": "Click to shade 3 parts",
     "tool": "paint",
     "validator": {{
-      "@type": "ShadedPartsValidator",
-      "answer": 1
+      "@type": "EqualShadedValidator",
+      "answer": "3/4"
     }},
     "remediations": [...]
   }}
 }}
 ```
+
+**Note:** The validator type (EqualShadedValidator) was chosen by reading the context "Shade 3 out of 4 parts" which indicates a shading action, not by looking at the interaction_tool field.
 
 ### 4. Error Paths → Remediations with Event Tags + @metadata
 
@@ -498,7 +612,6 @@ ALL fractions in dialogue text must use the special BBCode format for proper ren
 - Replace ALL fraction notation (like "1/3", "2/4") with the BBCode format
 - Use the spelled-out text version between the tags (e.g., "three fourths")
 - Apply this to dialogue in ALL steps, remediations, and on_correct messages
-- Also apply to prompt.text fields
 
 **Example transformation:**
 - Input: `"dialogue": "Shade 1/3 of the rectangle"`
@@ -507,47 +620,20 @@ ALL fractions in dialogue text must use the special BBCode format for proper ren
 - Input: `"dialogue": "That's it! You showed 1/3 perfectly."`
 - Output: `"dialogue": "That's it! You showed [fraction numerator=1 denominator=3]one third[/fraction] perfectly."`
 
-### 8. Vocabulary Term Formatting in Dialogue
-
-Vocabulary terms must be wrapped with `[vocab][/vocab]` tags for proper highlighting:
-
-**Format:** `[vocab]term[/vocab]`
-
-**Vocabulary terms to tag:** See the VOCABULARY TERMS section above for the complete list from the current module.
-
-**Rules:**
-- Wrap vocabulary terms with [vocab][/vocab] tags when they appear in dialogue
-- Apply this to ALL dialogue fields (steps, remediations, on_correct, prompt.text)
-- Match the exact term from the vocabulary list (case-insensitive matching)
-- Only wrap the first occurrence of each term in a given dialogue string
-- Multi-word terms (like "equal parts", "unit fraction") should be matched as complete phrases
-
-**Examples:**
-- Input: `"dialogue": "Partition the bar into 4 equal parts"`
-- Output: `"dialogue": "[vocab]Partition[/vocab] the bar into 4 [vocab]equal parts[/vocab]"`
-
-- Input: `"dialogue": "The numerator shows how many parts you have"`
-- Output: `"dialogue": "The [vocab]numerator[/vocab] shows how many parts you have"`
-
-- Input: `"dialogue": "Which represents 1/2 of the whole?"`
-- Output: `"dialogue": "Which represents [fraction numerator=1 denominator=2]one half[/fraction] of the [vocab]whole[/vocab]?"`
-
 ## KEY POINTS
 
 1. **@metadata field**: Each Sequence must have @metadata with problem_id, difficulty, verb, and goal from input
 2. **Workspace rename**: Change "workspace" array → "workspace" object with "tangibles" array and optional "choices"
-3. **Type field removal**: Remove "type", "id", "orientation", "state", "position" from tangibles after mapping to FracShape
-4. **FracShape conversion**: ALL fraction shapes become FracShape with visual property (0/1/2)
-5. **Uniform fractions**: Use string "1/4" for equal parts, not array ["1/4","1/4","1/4","1/4"]
-6. **LCM calculation**: For cut/partition questions (verb="partition"/"divide"/"cut" OR tool="cut"), set lcm = sections × 2. Otherwise lcm = 24
-7. **Success path handling**: Add success_path dialogue to prompt.on_correct (not as separate step)
-8. **Event tags + @metadata**: Extract event names for [event:...] tags AND descriptions for @metadata.events array (optional, only if visual effects exist)
-9. **Fraction formatting**: ALL fractions in dialogue must use `[fraction numerator=N denominator=D]text[/fraction]` BBCode format
-10. **Vocabulary formatting**: Wrap vocabulary terms with `[vocab][/vocab]` tags (see VOCABULARY TERMS section for complete list from module)
-11. **Remediation IDs**: Must be "light", "medium", or "heavy" (lowercase)
-12. **Tool mapping**: click_sections→paint, click_choice→(no tool), drag_fraction→compare
-13. **Validator selection**: Choose correct validator based on interaction type and answer format
-14. **MCQ choices**: Choices go ONLY in prompt.choices
+3. **FracShape conversion**: ALL fraction shapes become FracShape with visual property (0=rectangle/bar, 1=circle/pie, 2=grid). See Structure Transformation section for complete conversion rules (sections + state → fractions, lcm calculation)
+4. **Field removal**: Remove "type", "id", "state", "position" from input tangibles (not in Godot schema)
+5. **Success path handling**: Add success_path dialogue to prompt.on_correct (not as separate step)
+6. **Event tags + @metadata**: Extract event names for [event:...] tags AND descriptions for @metadata.events array (optional, only if visual effects exist)
+7. **Fraction formatting**: ALL fractions in dialogue must use `[fraction numerator=N denominator=D]text[/fraction]` BBCode format
+8. **Remediation IDs**: Must be "light", "medium", or "heavy" (lowercase)
+9. **Tool mapping**: Use interaction_tool to map Godot tool (shade→paint, cut→cut, select→select, multi_select→multi_select, place_tick→place_tick, click_choice→(no tool))
+10. **Validator selection**: Analyze workspace_context.tangibles_present and correct_answer.context to choose validator
+11. **MCQ choices**: Choices go ONLY in prompt.choices
+12. **Answer object structure**: Input has correct_answer.value (the actual answer) and correct_answer.context (explanation). Use context to understand what validator is needed, then use only the value in the output validator
 
 Return ONLY valid JSON with the Godot schema structure.
 """

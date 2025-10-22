@@ -1,0 +1,161 @@
+```json
+{
+  "sequences": [
+    {
+      "problem_id": 1,
+      "difficulty": 0,
+      "verb": "divide",
+      "goal": "The student can partition shapes into equal parts",
+      "steps": [
+        {
+          "dialogue": "Here's a bar. We're going to split it into two equal parts.",
+          "workspace": [
+            {
+              "id": "bar_1",
+              "type": "rectangle_bar",
+              "sections": 1,
+              "state": "undivided",
+              "shaded": [],
+              "position": "center"
+            }
+          ]
+        },
+        {
+          "dialogue": "Click once in the middle to divide the bar into 2 equal parts.",
+          "prompt": "Click in the center to divide",
+          "interaction_tool": "cut",
+          "workspace_context": {
+            "tangibles_present": [
+              "bar_1"
+            ],
+            "note": "Undivided horizontal rectangle bar"
+          },
+          "correct_answer": {
+            "value": "1/2",
+            "context": "One click in the center divides the bar into 2 equal halves"
+          }
+        }
+      ],
+      "student_attempts": {
+        "success_path": {
+          "steps": [
+            {
+              "dialogue": "Perfect! You found the exact midpoint."
+            }
+          ]
+        },
+        "error_path_generic": {
+          "steps": [
+            {
+              "scaffolding_level": "light",
+              "dialogue": "Check your spacing. We need two equal parts.",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": null
+            },
+            {
+              "scaffolding_level": "medium",
+              "dialogue": "You're working on it. Try clicking right in the middle so both parts are the same size.",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": {
+                "effects": [
+                  {
+                    "target": "bar_1",
+                    "type": "highlight",
+                    "animation": "pulse_center",
+                    "description": "Center point of bar pulses to indicate target location"
+                  }
+                ]
+              }
+            },
+            {
+              "scaffolding_level": "heavy",
+              "dialogue": "This is tricky, so let's do it together. Watch where I click—right in the middle. See how both parts are exactly the same size now? That's what equal parts means. There we go.",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": {
+                "effects": [
+                  {
+                    "target": "bar_1",
+                    "type": "demonstration",
+                    "animation": "show_midpoint_cut",
+                    "description": "Animated demonstration showing cut line appearing at exact center, then bar dividing into two equal sections"
+                  },
+                  {
+                    "target": "bar_1",
+                    "type": "measurement",
+                    "animation": "measure_sections_equal",
+                    "description": "Measurement lines appear showing both sections are equal width"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "error_path_misconception_1": {
+          "steps": [
+            {
+              "scaffolding_level": "light",
+              "dialogue": "Are both parts the same size?",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": null
+            },
+            {
+              "scaffolding_level": "medium",
+              "dialogue": "I see you made unequal parts. For equal parts, both pieces must be exactly the same size. Try clicking closer to the center.",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": {
+                "effects": [
+                  {
+                    "target": "bar_1",
+                    "type": "highlight",
+                    "animation": "highlight_unequal_sections",
+                    "description": "Both sections highlighted with different colors to show size difference"
+                  }
+                ]
+              }
+            },
+            {
+              "scaffolding_level": "heavy",
+              "dialogue": "Let me show you what equal parts look like. This part is bigger than this part—see the difference? For equal parts, every piece must be exactly the same size. Watch as I click right in the middle. Now both parts match perfectly. That makes sense now, right?",
+              "workspace_context": {
+                "tangibles_present": ["bar_1"],
+                "note": "Uses existing workspace from main flow"
+              },
+              "visual": {
+                "effects": [
+                  {
+                    "target": "bar_1",
+                    "type": "measurement",
+                    "animation": "measure_sections_unequal",
+                    "description": "Measurement lines appear showing one section is larger than the other"
+                  },
+                  {
+                    "target": "bar_1",
+                    "type": "demonstration",
+                    "animation": "show_correct_equal_partition",
+                    "description": "Bar resets and demonstrates correct cut at center with measurement lines confirming equal sections"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+```
