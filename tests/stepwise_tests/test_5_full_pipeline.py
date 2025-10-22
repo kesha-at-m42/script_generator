@@ -1,255 +1,338 @@
 """
-Full Pipeline Test - Process questions through all stages with parallel execution
-Tests: Question → Interaction Designer → Remediation Generator → Godot Formatter
+Stepwise Test 5: Full Pipeline
+Chains all 4 stepwise tests together automatically:
+  Test 1: Question Generator (Module → Questions)
+  Test 2: Interaction Designer (Questions → Sequences)
+  Test 3: Remediation Generator (Sequences → Remediation)
+  Test 4: Godot Formatter (Remediation → Godot JSON)
 """
 
-import asyncio
 import json
 import os
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 # Add parent directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from core.claude_client import ClaudeClient
-from core.prompt_builder import PromptBuilder
+# Import individual test functions
+from tests.stepwise_tests.test_1_question_generator import test_question_generator
+from tests.stepwise_tests.test_2_interaction_designer import test_interaction_designer
+from tests.stepwise_tests.test_3_remediation_generator import test_remediation_generator
+from tests.stepwise_tests.test_4_godot_formatter import test_godot_formatter
 
 
-class FullPipelineTest:
-    def __init__(self, max_concurrent=3, rate_limit_delay=1.0):
-        """
-        Args:
-            max_concurrent: Maximum number of parallel API calls
-            rate_limit_delay: Delay in seconds between API calls (rate limiting)
-        """
-        self.max_concurrent = max_concurrent
-        self.rate_limit_delay = rate_limit_delay
-        self.semaphore = asyncio.Semaphore(max_concurrent)
-        self.api_client = APIClient()
-        self.interaction_designer = InteractionDesigner(self.api_client)
-        self.remediation_generator = RemediationGenerator(self.api_client)
-        self.godot_formatter = GodotFormatter(self.api_client)
-        
-    async def process_single_question(self, question, question_num, total_questions):
-        """Process one question through all three stages"""
-        async with self.semaphore:  # Limit concurrent API calls
-            question_id = question.get('id', question_num)
-            
-            try:
-                print(f"\n{'='*70}")
-                print(f"[{question_num}/{total_questions}] Processing Question {question_id}")
-                print(f"{'='*70}")
-                
-                # Stage 1: Interaction Designer
-                print(f"  Stage 1/3: Interaction Designer...")
-                await asyncio.sleep(self.rate_limit_delay)  # Rate limiting
-                
-                interaction_result = await self.interaction_designer.process_single(question)
-                
-                if not interaction_result or 'sequences' not in interaction_result:
-                    raise Exception("Interaction designer failed")
-                
-                sequence = interaction_result['sequences'][0]
-                print(f"    ✓ Generated {len(sequence.get('steps', []))} steps")
-                
-                # Stage 2: Remediation Generator
-                print(f"  Stage 2/3: Remediation Generator...")
-                await asyncio.sleep(self.rate_limit_delay)  # Rate limiting
-                
-                remediation_result = await self.remediation_generator.process_single(sequence)
-                
-                if not remediation_result:
-                    raise Exception("Remediation generator failed")
-                
-                error_paths = [k for k in remediation_result.get('student_attempts', {}).keys() 
-                             if k.startswith('error_path')]
-                print(f"    ✓ Generated {len(error_paths)} error path(s)")
-                
-                # Stage 3: Godot Formatter
-                print(f"  Stage 3/3: Godot Formatter...")
-                await asyncio.sleep(self.rate_limit_delay)  # Rate limiting
-                
-                godot_result = await self.godot_formatter.process_single(remediation_result)
-                
-                if not godot_result or '@type' not in godot_result:
-                    raise Exception("Godot formatter failed")
-                
-                print(f"    ✓ Godot formatted")
-                print(f"  ✅ Question {question_id} completed successfully")
-                
-                return {
-                    'question_id': question_id,
-                    'status': 'success',
-                    'interaction': sequence,
-                    'remediation': remediation_result,
-                    'godot': godot_result
-                }
-                
-            except Exception as e:
-                print(f"  ❌ Question {question_id} failed: {str(e)}")
-                return {
-                    'question_id': question_id,
-                    'status': 'failed',
-                    'error': str(e)
-                }
+def test_full_pipeline(
+    module_number=1,
+    path_letter=None,
+    num_questions=8,
+    limit_sequences=None,
+    output_dir=None
+):
+    """
+    Run complete pipeline from module to Godot-ready JSON
     
-    async def process_batch(self, questions):
-        """Process multiple questions in parallel"""
-        total = len(questions)
-        
-        print(f"\n{'='*70}")
-        print(f"FULL PIPELINE TEST")
-        print(f"{'='*70}")
-        print(f"Questions to process: {total}")
-        print(f"Max concurrent API calls: {self.max_concurrent}")
-        print(f"Rate limit delay: {self.rate_limit_delay}s between calls")
-        print(f"Estimated time: ~{total * 3 * self.rate_limit_delay / self.max_concurrent:.0f}s")
-        print(f"{'='*70}")
-        
-        # Process all questions in parallel (controlled by semaphore)
-        tasks = [
-            self.process_single_question(q, i+1, total) 
-            for i, q in enumerate(questions)
-        ]
-        
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        return results
-
-
-def load_questions(file_path):
-    """Load questions from JSON file"""
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    return data['questions']
-
-
-def save_results(results, output_dir):
-    """Save results to output directory"""
-    output_dir.mkdir(parents=True, exist_ok=True)
+    Args:
+        module_number: Module number to load
+        path_letter: Optional path letter (e.g., 'a', 'b') for module-specific docs
+        num_questions: Number of questions to generate per learning goal
+        limit_sequences: Optional limit on sequences to process in remediation/Godot steps
+        output_dir: Optional output directory (auto-generated if not provided)
     
-    # Separate successful and failed results
-    successful = [r for r in results if isinstance(r, dict) and r.get('status') == 'success']
-    failed = [r for r in results if isinstance(r, dict) and r.get('status') == 'failed']
+    Returns:
+        Dict with paths to all outputs
+    """
+    print("=" * 70)
+    print("STEPWISE TEST 5: FULL PIPELINE")
+    print("=" * 70)
+    print("\nChaining Tests:")
+    print("  1. Question Generator (Module → Questions)")
+    print("  2. Interaction Designer (Questions → Sequences)")
+    print("  3. Remediation Generator (Sequences → Remediation)")
+    print("  4. Godot Formatter (Remediation → Godot JSON)")
+    print("=" * 70)
     
-    # Save successful results by stage
-    if successful:
-        # Interaction sequences
-        interactions = {
-            "sequences": [r['interaction'] for r in successful]
-        }
-        with open(output_dir / 'interactions.json', 'w', encoding='utf-8') as f:
-            json.dump(interactions, f, indent=2, ensure_ascii=False)
-        
-        # Remediations
-        remediations = {
-            "sequences": [r['remediation'] for r in successful]
-        }
-        with open(output_dir / 'remediations.json', 'w', encoding='utf-8') as f:
-            json.dump(remediations, f, indent=2, ensure_ascii=False)
-        
-        # Godot formatted
-        godot = {
-            "@type": "SequencePool",
-            "sequences": [r['godot'] for r in successful]
-        }
-        with open(output_dir / 'godot_sequences.json', 'w', encoding='utf-8') as f:
-            json.dump(godot, f, indent=2, ensure_ascii=False)
+    # Create main output directory
+    if output_dir is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_dir = f"outputs/test_full_pipeline_{timestamp}"
+    os.makedirs(output_dir, exist_ok=True)
     
-    # Save summary
-    summary = {
-        "total_questions": len(results),
-        "successful": len(successful),
-        "failed": len(failed),
-        "success_rate": f"{len(successful)/len(results)*100:.1f}%",
-        "failed_questions": [
-            {
-                "question_id": r['question_id'],
-                "error": r.get('error', 'Unknown error')
-            }
-            for r in failed
-        ] if failed else []
+    print(f"\n📁 Main output directory: {output_dir}\n")
+    
+    # Track outputs
+    outputs = {
+        "output_dir": output_dir,
+        "module_number": module_number,
+        "path_letter": path_letter,
+        "num_questions": num_questions,
+        "limit_sequences": limit_sequences,
+        "steps": {}
     }
     
-    with open(output_dir / 'summary.json', 'w', encoding='utf-8') as f:
-        json.dump(summary, f, indent=2, ensure_ascii=False)
+    # ========================================================================
+    # STEP 1: QUESTION GENERATOR
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("STEP 1/4: QUESTION GENERATOR")
+    print("=" * 70)
     
-    return summary
-
-
-async def main():
-    # Get input file from command line or use default
-    if len(sys.argv) > 1:
-        input_file = Path(sys.argv[1])
-    else:
-        input_file = Path('outputs/test_questions_20251021_104426/questions.json')
+    step1_dir = os.path.join(output_dir, "step1_questions")
     
-    # Get batch size from command line or use default
-    batch_size = int(sys.argv[2]) if len(sys.argv) > 2 else 5
-    
-    # Get max concurrent from command line or use default
-    max_concurrent = int(sys.argv[3]) if len(sys.argv) > 3 else 3
-    
-    if not input_file.exists():
-        print(f"Error: Input file not found: {input_file}")
-        sys.exit(1)
-    
-    # Load questions
-    print(f"Loading questions from: {input_file}")
-    all_questions = load_questions(input_file)
-    print(f"Loaded {len(all_questions)} questions")
-    
-    # Interactive mode: ask how many to process
-    print(f"\nHow many questions to process? (1-{len(all_questions)}) or enter number:")
     try:
-        user_input = input().strip()
-        if user_input.lower() == 'all':
-            num_questions = len(all_questions)
-        else:
-            num_questions = min(int(user_input), len(all_questions))
-    except (ValueError, EOFError):
-        num_questions = batch_size
-        print(f"Using default batch size: {num_questions}")
+        questions_path = test_question_generator(
+            module_number=module_number,
+            num_questions=num_questions,
+            path_letter=path_letter,
+            output_dir=step1_dir
+        )
+        
+        if questions_path is None:
+            print("\n✗ Step 1 failed - cannot continue pipeline")
+            return None
+        
+        outputs["steps"]["step1_questions"] = {
+            "status": "success",
+            "output_path": questions_path,
+            "output_dir": step1_dir
+        }
+        
+        # Load questions to check count
+        with open(questions_path, 'r', encoding='utf-8') as f:
+            questions_data = json.load(f)
+        
+        num_generated = len(questions_data.get('questions', []))
+        print(f"\n✓ Step 1 Complete: {num_generated} questions generated")
+        print(f"  → Output: {questions_path}")
+        
+    except Exception as e:
+        print(f"\n✗ Step 1 Error: {e}")
+        outputs["steps"]["step1_questions"] = {
+            "status": "failed",
+            "error": str(e)
+        }
+        return outputs
     
-    questions = all_questions[:num_questions]
+    # ========================================================================
+    # STEP 2: INTERACTION DESIGNER
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("STEP 2/4: INTERACTION DESIGNER")
+    print("=" * 70)
     
-    # Create output directory
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = Path(f'outputs/test_full_pipeline_{timestamp}')
+    step2_dir = os.path.join(output_dir, "step2_sequences")
     
-    # Process questions
-    tester = FullPipelineTest(max_concurrent=max_concurrent, rate_limit_delay=1.0)
-    results = await tester.process_batch(questions)
+    try:
+        sequences_path = test_interaction_designer(
+            questions_path=questions_path,
+            output_dir=step2_dir
+        )
+        
+        if sequences_path is None:
+            print("\n✗ Step 2 failed - cannot continue pipeline")
+            outputs["steps"]["step2_sequences"] = {
+                "status": "failed",
+                "error": "test_interaction_designer returned None"
+            }
+            return outputs
+        
+        outputs["steps"]["step2_sequences"] = {
+            "status": "success",
+            "output_path": sequences_path,
+            "output_dir": step2_dir
+        }
+        
+        # Load sequences to check count
+        with open(sequences_path, 'r', encoding='utf-8') as f:
+            sequences_data = json.load(f)
+        
+        num_sequences = len(sequences_data.get('sequences', []))
+        print(f"\n✓ Step 2 Complete: {num_sequences} sequences designed")
+        print(f"  → Output: {sequences_path}")
+        
+    except Exception as e:
+        print(f"\n✗ Step 2 Error: {e}")
+        outputs["steps"]["step2_sequences"] = {
+            "status": "failed",
+            "error": str(e)
+        }
+        return outputs
     
-    # Save results
-    print(f"\n{'='*70}")
-    print(f"SAVING RESULTS")
-    print(f"{'='*70}")
-    summary = save_results(results, output_dir)
+    # ========================================================================
+    # STEP 3: REMEDIATION GENERATOR
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("STEP 3/4: REMEDIATION GENERATOR")
+    print("=" * 70)
     
-    # Print summary
-    print(f"\n{'='*70}")
-    print(f"TEST SUMMARY")
-    print(f"{'='*70}")
-    print(f"Total questions: {summary['total_questions']}")
-    print(f"✓ Successful: {summary['successful']}")
-    print(f"✗ Failed: {summary['failed']}")
-    print(f"Success rate: {summary['success_rate']}")
+    step3_dir = os.path.join(output_dir, "step3_remediation")
     
-    if summary['failed_questions']:
-        print(f"\nFailed questions:")
-        for failed in summary['failed_questions']:
-            print(f"  - Question {failed['question_id']}: {failed['error']}")
+    try:
+        remediation_path = test_remediation_generator(
+            sequences_path=sequences_path,
+            output_dir=step3_dir,
+            limit=limit_sequences
+        )
+        
+        if remediation_path is None:
+            print("\n✗ Step 3 failed - cannot continue pipeline")
+            outputs["steps"]["step3_remediation"] = {
+                "status": "failed",
+                "error": "test_remediation_generator returned None"
+            }
+            return outputs
+        
+        outputs["steps"]["step3_remediation"] = {
+            "status": "success",
+            "output_path": remediation_path,
+            "output_dir": step3_dir
+        }
+        
+        # Load remediation to check count
+        with open(remediation_path, 'r', encoding='utf-8') as f:
+            remediation_data = json.load(f)
+        
+        num_remediation = len(remediation_data.get('sequences', []))
+        
+        # Count error paths
+        total_error_paths = 0
+        for seq in remediation_data.get('sequences', []):
+            attempts = seq.get('student_attempts', {})
+            error_paths = [k for k in attempts.keys() if k.startswith('error_path')]
+            total_error_paths += len(error_paths)
+        
+        print(f"\n✓ Step 3 Complete: {num_remediation} sequences with error paths")
+        print(f"  → Total error paths added: {total_error_paths}")
+        print(f"  → Output: {remediation_path}")
+        
+    except Exception as e:
+        print(f"\n✗ Step 3 Error: {e}")
+        outputs["steps"]["step3_remediation"] = {
+            "status": "failed",
+            "error": str(e)
+        }
+        return outputs
     
-    print(f"\nOutput files:")
-    print(f"  - {output_dir / 'interactions.json'}")
-    print(f"  - {output_dir / 'remediations.json'}")
-    print(f"  - {output_dir / 'godot_sequences.json'}")
-    print(f"  - {output_dir / 'summary.json'}")
-    print(f"{'='*70}")
+    # ========================================================================
+    # STEP 4: GODOT FORMATTER
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("STEP 4/4: GODOT FORMATTER")
+    print("=" * 70)
+    
+    step4_dir = os.path.join(output_dir, "step4_godot")
+    
+    try:
+        godot_path = test_godot_formatter(
+            remediation_path=remediation_path,
+            output_dir=step4_dir,
+            limit=limit_sequences
+        )
+        
+        if godot_path is None:
+            print("\n✗ Step 4 failed")
+            outputs["steps"]["step4_godot"] = {
+                "status": "failed",
+                "error": "test_godot_formatter returned None"
+            }
+            return outputs
+        
+        outputs["steps"]["step4_godot"] = {
+            "status": "success",
+            "output_path": godot_path,
+            "output_dir": step4_dir
+        }
+        
+        # Load Godot data to check count
+        with open(godot_path, 'r', encoding='utf-8') as f:
+            godot_data = json.load(f)
+        
+        num_godot = len(godot_data.get('sequences', []))
+        print(f"\n✓ Step 4 Complete: {num_godot} Godot-ready sequences")
+        print(f"  → Output: {godot_path}")
+        
+    except Exception as e:
+        print(f"\n✗ Step 4 Error: {e}")
+        outputs["steps"]["step4_godot"] = {
+            "status": "failed",
+            "error": str(e)
+        }
+        return outputs
+    
+    # ========================================================================
+    # PIPELINE SUMMARY
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("PIPELINE COMPLETE")
+    print("=" * 70)
+    
+    print(f"\n✅ All 4 steps completed successfully!")
+    print(f"\n📁 Output Directory: {output_dir}")
+    print(f"\n📊 Pipeline Results:")
+    print(f"  • Module {module_number}{f' (Path {path_letter})' if path_letter else ''}")
+    print(f"  • {num_generated} questions generated")
+    print(f"  • {num_sequences} sequences designed")
+    print(f"  • {total_error_paths} error paths added")
+    print(f"  • {num_godot} Godot sequences formatted")
+    
+    print(f"\n📂 Output Files:")
+    print(f"  Step 1: {outputs['steps']['step1_questions']['output_path']}")
+    print(f"  Step 2: {outputs['steps']['step2_sequences']['output_path']}")
+    print(f"  Step 3: {outputs['steps']['step3_remediation']['output_path']}")
+    print(f"  Step 4: {outputs['steps']['step4_godot']['output_path']}")
+    
+    print(f"\n🎮 Final Output (Ready for Godot):")
+    print(f"  → {godot_path}")
+    
+    # Save pipeline summary
+    summary_path = os.path.join(output_dir, "pipeline_summary.json")
+    with open(summary_path, 'w', encoding='utf-8') as f:
+        json.dump(outputs, f, indent=2)
+    
+    print(f"\n📄 Pipeline summary saved to: {summary_path}")
+    
+    print("\n" + "=" * 70)
+    
+    return outputs
 
 
-if __name__ == '__main__':
-    asyncio.run(main())
+def main():
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Run full pipeline from module to Godot-ready JSON')
+    parser.add_argument('-m', '--module', type=int, default=1, help='Module number to load (default: 1)')
+    parser.add_argument('-p', '--path', help='Path letter (e.g., a, b) for module-specific docs')
+    parser.add_argument('-n', '--num-questions', type=int, default=8, help='Number of questions per goal (default: 8)')
+    parser.add_argument('-l', '--limit', type=int, help='Limit sequences in remediation/Godot steps (for testing)')
+    parser.add_argument('-o', '--output', help='Output directory (optional)', default=None)
+    
+    args = parser.parse_args()
+    
+    print("\n🚀 Starting Full Pipeline...")
+    print(f"   Module: {args.module}")
+    if args.path:
+        print(f"   Path: {args.path}")
+    print(f"   Questions per goal: {args.num_questions}")
+    if args.limit:
+        print(f"   Sequence limit: {args.limit}")
+    print()
+    
+    result = test_full_pipeline(
+        module_number=args.module,
+        path_letter=args.path,
+        num_questions=args.num_questions,
+        limit_sequences=args.limit,
+        output_dir=args.output
+    )
+    
+    if result is None:
+        print("\n❌ Pipeline failed")
+        sys.exit(1)
+    else:
+        print("\n✅ Pipeline completed successfully!")
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

@@ -15,13 +15,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
 
-def test_interaction_designer(questions_path, output_dir=None):
+def test_interaction_designer(questions_path, output_dir=None, limit=None):
     """
     Test interaction designer with questions from a JSON file
     
     Args:
         questions_path: Path to questions JSON file
         output_dir: Optional output directory (auto-generated if not provided)
+        limit: Optional limit on number of questions to process
     """
     print("=" * 70)
     print("STEPWISE TEST 1: INTERACTION DESIGNER")
@@ -53,20 +54,24 @@ def test_interaction_designer(questions_path, output_dir=None):
     print("GENERATING SEQUENCES")
     print("=" * 70)
     
-    # Ask user how many questions to process
+    # Determine how many questions to process
     questions_list = questions_data.get('questions', [])
     print(f"\nTotal questions available: {num_questions}")
     
-    try:
-        user_input = input("How many questions would you like to process? (press Enter for all): ").strip()
-        if user_input == "":
+    if limit is not None:
+        num_to_process = min(limit, num_questions)
+        print(f"⚠️  Processing only first {num_to_process} questions (limit specified)")
+    else:
+        try:
+            user_input = input("How many questions would you like to process? (press Enter for all): ").strip()
+            if user_input == "":
+                num_to_process = num_questions
+            else:
+                num_to_process = int(user_input)
+                num_to_process = min(num_to_process, num_questions)  # Cap at total available
+        except ValueError:
+            print("Invalid input, processing all questions")
             num_to_process = num_questions
-        else:
-            num_to_process = int(user_input)
-            num_to_process = min(num_to_process, num_questions)  # Cap at total available
-    except ValueError:
-        print("Invalid input, processing all questions")
-        num_to_process = num_questions
     
     print(f"\nProcessing {num_to_process} question(s) (one at a time)...\n")
     
