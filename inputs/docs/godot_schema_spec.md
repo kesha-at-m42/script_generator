@@ -314,6 +314,8 @@ When `fractions` is an array, each element represents one part's fraction value.
 **FracShape Properties:**
 - `@type`: Always "FracShape"
 - `fractions`: String ("1/4") for uniform OR Array<String> (["1/4", "1/2"]) for non-uniform OR null for whole
+  * **Fraction format:** Pattern `^[1-9]+/[1-9]+$` (e.g., "1/4", "2/9")
+  * **Maximum denominator:** 9 (smallest supported fraction is 1/9)
 - `visual`: Integer (0=bar, 1=pie, 2=grid, etc.) - Optional, default 0
 - `shaded`: Array<Integer> - Indices of shaded parts - Optional, default []
 - `missing`: Array<Integer> - Indices of missing/hidden parts - Optional, default []
@@ -337,8 +339,10 @@ When `fractions` is an array, each element represents one part's fraction value.
 
 **NumberLine Properties:**
 - `@type`: Always "NumberLine"
-- `lcd`: Integer - Least common denominator (required)
+- `lcd`: Integer - Least common denominator (required, maximum value: 9)
 - `tick_marks`: Array - Mix of integers (0, 1) and fraction strings ("1/6") for tick positions (required)
+  * **Fraction format:** Pattern `^[1-9]+/[1-9]+$` (e.g., "1/6", "2/9")
+  * **Maximum denominator:** 9 (smallest supported fraction is 1/9)
 - `labelled`: Array<Boolean> - Whether each tick shows label - Optional
 - `is_read_only`: Array<Boolean> - Whether each tick is interactive - Optional
 - `dots`: Array<Integer> - Indices of tick marks with dots/markers - Optional
