@@ -323,7 +323,6 @@ When `fractions` is an array, each element represents one part's fraction value.
 - `lcm`: Integer - Least common multiple for rendering calculations - Optional, default 24
   * **For cut/partition tasks**: Set to `sections × 2` (e.g., 3 sections → lcm = 6)
   * **For other tasks**: Use default 24
-- `is_read_only`: Boolean - Whether shape is interactive - Optional, default false
 
 **NumberLine:**
 ```json
@@ -332,7 +331,6 @@ When `fractions` is an array, each element represents one part's fraction value.
   "lcd": 6,
   "tick_marks": [0, "1/6", "2/6", "3/6", "4/6", "5/6", 1],
   "labelled": [true, false, false, false, false, false, true],
-  "is_read_only": [true, false, false, false, false, false, true],
   "dots": [2]
 }
 ```
@@ -344,7 +342,6 @@ When `fractions` is an array, each element represents one part's fraction value.
   * **Fraction format:** Pattern `^[1-9]+/[1-9]+$` (e.g., "1/6", "2/9")
   * **Maximum denominator:** 9 (smallest supported fraction is 1/9)
 - `labelled`: Array<Boolean> - Whether each tick shows label - Optional
-- `is_read_only`: Array<Boolean> - Whether each tick is interactive - Optional
 - `dots`: Array<Integer> - Indices of tick marks with dots/markers - Optional
 
 ### Validator Types
