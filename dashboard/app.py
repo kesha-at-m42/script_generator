@@ -9,7 +9,7 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.claude_client import ClaudeClient
-from core.json_utils import parse_json
+from utils.json_utils import parse_json
 from steps.question_generator import QuestionGenerator
 from dashboard.module_editor import render_module_editor
 

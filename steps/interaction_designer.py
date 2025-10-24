@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.claude_client import ClaudeClient
-from core.json_utils import parse_json
+from utils.json_utils import parse_json
 from core.pipeline import Step
 from core.prompt_builder import PromptBuilder
 

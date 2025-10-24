@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.claude_client import ClaudeClient
 from steps.question_generator import QuestionGenerator
-from inputs.modules import module_1
+from inputs.modules.modules import module_1
 from inputs.difficulty_levels import DIFFICULTY_LEVELS
 from inputs.question_types import QUESTION_TYPES
 

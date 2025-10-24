@@ -2,14 +2,11 @@
 Utility modules for script generator
 """
 
-from .vocabulary_helper import (
-    get_all_vocabulary_terms,
-    format_vocabulary_list_for_prompt,
-    get_vocabulary_terms_as_list
-)
+from .json_utils import extract_json, parse_json
+from .module_utils import get_module_field
 
 __all__ = [
-    'get_all_vocabulary_terms',
-    'format_vocabulary_list_for_prompt',
-    'get_vocabulary_terms_as_list'
+    'extract_json',
+    'parse_json',
+    'get_module_field'
 ]

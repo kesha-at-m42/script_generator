@@ -1,6 +1,6 @@
 """Test 5: Extract JSON from real Claude responses"""
 from core.claude_client import ClaudeClient
-from core.json_utils import parse_json
+from utils.json_utils import parse_json
 
 print("Testing JSON extraction with Claude...\n")
 

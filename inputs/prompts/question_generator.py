@@ -1,180 +1,117 @@
 """
 Question Generator Prompt Configuration
+Brainstorms diverse questions exploring different narratives, contexts, and cognitive demands
 """
 
-QUESTION_GENERATOR_ROLE = """You are an expert educational content designer specializing in elementary mathematics. You create questions that are developmentally appropriate, clear, and aligned with learning objectives."""
+QUESTION_GENERATOR_ROLE = """You are an expert educational content designer who takes the learning goals and their example questions from the module, then creates fresh narrative variations. Your role is to generate creative, engaging question variations that use the module's available visuals and vocabulary."""
 
 QUESTION_GENERATOR_DOCS = [
     "difficulty_levels.md",
     "question_types.md",
 ]
 
-QUESTION_GENERATOR_EXAMPLES = [
-    {
-        "description": "Sample questions for Goal: Students can partition shapes into equal parts (showing good variety)",
-        "output": """{
-  "questions": [
-    {
-      "id": 1,
-      "question_text": "Click once in the middle to divide the bar into 2 equal parts.",
-      "interaction_type": "Click",
-      "difficulty_level": 0,
-      "question_type": "procedural",
-      "cognitive_verb": "divide",
-      "visual_context": "A horizontal rectangular bar, unpartitioned, solid color",
-      "correct_answer": "Click once in the center to create 2 equal sections",
-      "explanation": "This question teaches the most basic partitioning skill - creating two equal parts by finding the midpoint. It's procedural and concrete, requiring only one action to successfully partition a whole into halves.",
-      "vocabulary_reinforced": ["partition", "equal parts"]
-    },
-    {
-      "id": 2,
-      "question_text": "Which circle shows 4 equal parts?",
-      "interaction_type": "Multiple Choice",
-      "difficulty_level": 2,
-      "question_type": "conceptual",
-      "cognitive_verb": "identify",
-      "visual_context": "Three circles displayed: Circle A divided into 4 equal wedges, Circle B divided into 4 unequal wedges, Circle C divided into 3 equal parts",
-      "correct_answer": "Circle A (the one with 4 equal wedges)",
-      "explanation": "This question builds conceptual understanding by requiring students to distinguish between equal and unequal partitioning while also verifying the correct count. The circle shape adds complexity compared to rectangles, and the multiple distractors require careful visual discrimination.",
-      "vocabulary_reinforced": ["equal parts"],
-      "answer_choices": ["Circle A", "Circle B", "Circle C"]
-    },
-    {
-      "id": 3,
-      "question_text": "A rectangular garden needs to be divided into 6 equal sections for planting different vegetables. Show how you would divide it.",
-      "interaction_type": "Drag and Drop",
-      "difficulty_level": 4,
-      "question_type": "transfer",
-      "cognitive_verb": "apply",
-      "visual_context": "A large rectangle representing a garden, with draggable dividing lines (5 lines available) that can be positioned horizontally or vertically",
-      "correct_answer": "Position 5 lines to create 6 equal sections (e.g., 2 rows × 3 columns or 3 rows × 2 columns)",
-      "explanation": "This transfer question applies partitioning to a real-world scenario requiring spatial reasoning and strategic planning. Students must determine that creating 6 equal parts requires 5 dividing lines and discover that multiple valid arrangements exist (2×3 or 3×2 or 6×1), promoting flexible thinking about equal partitioning in context.",
-      "vocabulary_reinforced": ["equal parts", "partition", "whole"]
-    }
-  ]
-}"""
-    }
-]
+QUESTION_GENERATOR_EXAMPLES = []
+
+QUESTION_GENERATOR_MODULE_REF = ["variables", "available_visuals", "vocabulary"]
+
+QUESTION_GENERATOR_PREFILL = '{"questions": ['
+
+QUESTION_GENERATOR_EXPECTED_INPUT = {
+    "id": 3,
+    "text": "The student can shade one part to represent a unit fraction",
+    "difficulty_level": "0-2",
+    "example_questions": [
+        "Shade a part of the bar to represent 1/2.",
+        "Which bar correctly shows 1/3 shaded?",
+        "Select a fraction that matches the shaded part of the bar."
+    ]
+}
 
 QUESTION_GENERATOR_INSTRUCTIONS = """
 ## TASK
 
-Generate {num_questions} questions **PER LEARNING GOAL** for the following:
+For each learning goal provided, generate diverse question variations using the input **example_questions as templates**.
 
-{learning_goals}
+**Your process:**
+1. You receive a learning goal with their example_questions and difficulty_level range
+2. For EACH value in example_questions you generate:
+   - Pick a difficulty level within the goal's range (vary across 0-4 based on goal's difficulty_level)
+   - Assign a question_type from the 5 cognitive actions (refer to question_types.md)
+   - Create a unique narrative context that matches the visual shape from {available_visuals}
+   - Pick different variable values from {variables} (e.g., halves vs thirds vs fourths)
+   - Use vocabulary terms from {vocabulary} appropriately in your question text
 
-**IMPORTANT:** If multiple learning goals are provided, generate {num_questions} questions for EACH goal (not {num_questions} total).
+**IMPORTANT:** 
+- Generate multiple questions for the input goal
+- VARY difficulty levels across the questions (use the full range from the goal's difficulty_level)
+- VARY question types (don't repeat the same cognitive action)
+- VARY variable values (use different denominators, different partition types, etc.)
 
-## REQUIREMENTS
+## STEP 1: UNDERSTAND THE VISUAL
 
-### DIFFICULTY DISTRIBUTION
+Check {available_visuals} to know what shape you're working with. This guides your narrative choice.
 
-Generate questions across difficulty levels (see difficulty_levels.md for details):
-- 1-2 questions at Level 0-1 (support/confidence building)
-- 2-3 questions at Level 2 (baseline mastery) ← FOCUS HERE
-- 2-3 questions at Level 3 (stretch/deeper) ← FOCUS HERE  
-- 1-2 questions at Level 4 (challenge/enrichment)
+## STEP 2: CREATING NARRATIVE VARIATIONS
 
-Target distribution: Level 0-1 (25%), Level 2 (30%), Level 3 (25%), Level 4 (20%)
+Take the example_question template and add a real-world context **that matches the visual_context**:
 
-### QUESTION TYPE DISTRIBUTION
+**Key principle:** The narrative shape should match the visual_context shape. Student should intuitively picture the context as the visual.
 
-See question_types.md for definitions. Target:
-- ~25% Procedural (create, construct, partition, divide)
-- ~45% Conceptual (identify, compare, explain, recognize)
-- ~30% Transfer (apply, connect, predict, extend)
+## STEP 3: VARY YOUR QUESTIONS
 
-### INTERACTION VARIETY
+Generate diverse questions by systematically varying:
 
-Vary interaction types as much as possible. Available types:
-- Click
-- Multiple Choice
-- Multiple Select
-- Shade
-- True/False
+**1. Difficulty Levels:**
+- Use the goal's difficulty_level range (e.g., "0-2" means generate questions at levels 0, 1, and 2)
+- Distribute evenly: if generating 6 questions for a "0-2" goal, make 2 at level 0, 2 at level 1, 2 at level 2
+- Refer to difficulty_levels.md for what each level means
 
-**IMPORTANT:** For Multiple Choice and Multiple Select questions, include the `answer_choices` field with an array of all options.
+**2. Question Types (Cognitive Actions):**
+- Rotate through: CREATE → IDENTIFY → COMPARE → APPLY → CONNECT
+- Each type tests different skills (procedural vs conceptual vs transfer)
+- Refer to question_types.md for guidance on each type
 
-### VISUAL CONSTRAINTS
+**3. Variable Values:**
+- Use different values from the module's variables for each question
+- Example: If variables includes denominators [2, 3, 4, 6, 8], cycle through them
+- Question 1: halves (denominator 2)
+- Question 2: thirds (denominator 3)  
+- Question 3: fourths (denominator 4)
+- etc.
 
-Use ONLY rectangle bars:
-- 2-8 parts
-- Equal or unequal divisions
+**4. Narrative Contexts:**
+- Don't repeat the same context (e.g., don't use "chocolate bar" for every question)
+- Mix food, objects, and spaces from the narrative ideas below
 
-Example visual descriptions:
-- "Rectangle bar divided into 4 equal parts, 1 shaded"
-- "Rectangle bar with 6 equal sections, 3 shaded"
-- "Two rectangle bars: one divided into halves, one into fourths"
+## STEP 4: NARRATIVE IDEAS BY SHAPE
 
-For Multiple Choice questions with visual answer options, describe all options in visual_context.
+**For rectangle_bar:**
+- **Linear Food**: Candy bar, licorice, granola bar, chocolate bar, toast, sandwich, hotdog, baguette
+- **Materials/Strips**: Ribbon, fabric strip, rope, paper strip, tape, beam
+- **Spaces/Lanes**: Parking lanes, swimming lanes, rows in a garden bed, sections of fence
+- **Groups in Lines**: People in a line, books on a shelf, seats in a row, plants in a row
 
-### ENSURE VARIETY
+**For circle:**
+- **Circular Food**: Pizza, pie, cake, donut, tart, pancake
+- **Circular Objects**: Wheel, clock, plate, coin, target
+- **Circular Spaces**: Garden plot, pond, field, stage
 
-- Use different interaction types where possible
-- Vary visual contexts (different partition counts, orientations)
-- Different cognitive verbs from the learning goal
-- Progress from simpler to more complex scenarios
-
-### VOCABULARY
-
-Reinforce vocabulary from the learning goal. Use terms like:
-- partition, equal parts, whole
-- halves, thirds, fourths, etc.
-- numerator, denominator
-- unit fraction
-
-## OUTPUT STRUCTURE
-
-Return valid JSON with this structure:
-
-{{
-  "questions": [
-    {{
-      "id": 1,
-      "goal_id": "ID from learning goals (if provided)",
-      "goal": "Learning goal text here",
-      "difficulty_level": 0-4,
-      "question_type": "procedural|conceptual|transfer",
-      "cognitive_verb": "identify|partition|compare|etc.",
-      "question_text": "Clear, specific instruction or question",
-      "interaction_type": "string",
-      "visual_context": "Detailed description of what student sees",
-      "correct_answer": "Expected student response or action",
-      "explanation": "Why this question targets the learning goal (30+ words)",
-      "vocabulary_reinforced": ["term1", "term2"]
-    }}
-  ]
-}}
-
-Note: answer_choices is only required for Multiple Choice and Multiple Select questions.
-
-## FOLLOW THE EXAMPLES CLOSELY
-
-The example shows good variety in:
-- Interaction types (Click → Multiple Choice → Drag and Drop)
-- Difficulty levels (0 → 2 → 4)  
-- Question types (procedural → conceptual → transfer)
-- Visual complexity (simple bar → multiple circles → complex garden)
-
-Match this level of variety and quality.
+**For other shapes:**
+- Match the narrative to the visual (hexagon → honeycomb, diamond → tiles, triangle → roof sections, etc.)
 """
 
 QUESTION_GENERATOR_STRUCTURE = """
 {
   "questions": [
     {
-      "id": 1,
-      "goal_id": "ID from learning goals (if provided)",
+      "question_id": 1,
+      "goal_id": "From learning goals",
       "goal": "Learning goal text here",
+      "question_prompt": "The example_question template from the module",
+      "question_type": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
+      "visual_context": "From module's available_visuals (e.g., 'rectangle_bar')",
+      "question_text": "Your creative narrative variation matching the visual shape",
       "difficulty_level": 0-4,
-      "question_type": "procedural|conceptual|transfer",
-      "cognitive_verb": "identify|partition|compare|etc.",
-      "question_text": "Clear, specific instruction or question",
-      "interaction_type": "string",
-      "visual_context": "Detailed description of what student sees",
-      "correct_answer": "Expected student response or action",
-      "explanation": "Why this question targets the learning goal (30+ words)",
-      "vocabulary_reinforced": ["term1", "term2"]
     }
   ]
 }

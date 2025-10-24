@@ -34,11 +34,22 @@ class PromptBuilder:
         else:
             self.module_path = None
     
-    def build_prompt(self, prompt_id: str, variables: Dict = None) -> str:
-        """Build a complete prompt from components"""
+    def build_prompt(self, prompt_id: str, variables: Dict = None):
+        """Build a complete prompt from components
+        
+        Returns:
+            tuple: (prompt_text, prefill_text) or just prompt_text if no prefill
+        """
         
         # Load prompt config
         config = self._get_prompt_config(prompt_id)
+        
+        # Auto-fetch module data if MODULE_REF is specified
+        if variables is None:
+            variables = {}
+        
+        if self.module_number and config.get("module_ref"):
+            variables = self._auto_fetch_module_data(config["module_ref"], variables)
         
         # Build sections
         sections = []
@@ -70,7 +81,51 @@ class PromptBuilder:
         
         final_prompt = "\n\n".join(sections)
         print("Final prompt length:", len(final_prompt))
+        
+        # Return with prefill if specified
+        prefill = config.get("prefill")
+        if prefill:
+            print(f"Using prefill: {prefill}")
+            return final_prompt, prefill
         return final_prompt
+    
+    def _auto_fetch_module_data(self, module_ref_fields: List[str], variables: Dict) -> Dict:
+        """Auto-fetch module data fields using module_utils"""
+        import sys
+        from pathlib import Path
+        
+        # Add utils directory to path if needed
+        utils_path = Path(__file__).parent.parent / "utils"
+        if str(utils_path) not in sys.path:
+            sys.path.insert(0, str(utils_path))
+        
+        from module_utils import get_module_field
+        
+        # Handle case where module_ref_fields might not be a list
+        if not isinstance(module_ref_fields, list):
+            print(f"  ⚠️ MODULE_REF is not a list, got: {type(module_ref_fields)}")
+            return variables
+        
+        print(f"  📦 Auto-fetching module data for fields: {module_ref_fields}")
+        
+        for field_name in module_ref_fields:
+            # Skip if already provided in variables
+            if field_name in variables:
+                print(f"     ↪ Skipping '{field_name}' (already provided)")
+                continue
+            
+            try:
+                # Fetch from modules.py
+                field_value = get_module_field(self.module_number, field_name, required=False)
+                if field_value is not None:
+                    variables[field_name] = field_value
+                    print(f"     ✓ Fetched '{field_name}' from module {self.module_number}")
+                else:
+                    print(f"     ⚠️ Field '{field_name}' not found in module {self.module_number}")
+            except Exception as e:
+                print(f"     ✗ Error fetching '{field_name}': {e}")
+        
+        return variables
     
     def _get_prompt_config(self, prompt_id: str) -> Dict:
         """Get prompt configuration by ID"""
@@ -116,7 +171,7 @@ class PromptBuilder:
         """Load doc with module-specific override, fallback to base
         
         Priority:
-        1. Module-specific: inputs/docs/module_{num}_path_{letter}/{doc_ref}
+        1. Module-specific: inputs/docs/modules/module{num}/path{letter}/{doc_ref}
         2. Base: inputs/docs/{doc_ref}
         """
         # Try module-specific first
@@ -169,7 +224,9 @@ class PromptBuilder:
             QUESTION_GENERATOR_DOCS,
             QUESTION_GENERATOR_EXAMPLES,
             QUESTION_GENERATOR_STRUCTURE,
-            QUESTION_GENERATOR_INSTRUCTIONS
+            QUESTION_GENERATOR_INSTRUCTIONS,
+            QUESTION_GENERATOR_MODULE_REF,
+            QUESTION_GENERATOR_PREFILL
         )
         
         return {
@@ -177,7 +234,9 @@ class PromptBuilder:
             "docs": QUESTION_GENERATOR_DOCS,
             "examples": QUESTION_GENERATOR_EXAMPLES,
             "structure": QUESTION_GENERATOR_STRUCTURE,
-            "instructions": QUESTION_GENERATOR_INSTRUCTIONS
+            "instructions": QUESTION_GENERATOR_INSTRUCTIONS,
+            "module_ref": QUESTION_GENERATOR_MODULE_REF,
+            "prefill": QUESTION_GENERATOR_PREFILL
         }
     
     def _interaction_designer_config(self) -> Dict:

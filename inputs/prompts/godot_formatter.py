@@ -137,8 +137,7 @@ GODOT_FORMATTER_EXAMPLES = [
                 "fractions": "1/3",
                 "visual": 0,
                 "shaded": [],
-                "lcm": 6,
-                "is_read_only": false
+                "lcm": 6
               }
             ]
           }
@@ -277,13 +276,12 @@ Output FracShape fields:
     - sections=4 → `["1/8", "4/8", "3/8"]` (unequal fourths)
     - sections=5 → `["2/8", "2/8", "1/8", "1/8", "2/8"]` (unequal fifths)
 - `shaded`: Keep as-is (array of 0-based indices)
-- `is_read_only`: Typically false for interactive tangibles
 - `lcm`: LCM calculation:
   * For "cut" tool OR if verb is "partition"/"divide"/"cut": 
     - If shape is undivided (sections=1), look at correct_answer to determine target sections
-    - Example: answer="1/2" means creating 2 sections → lcm = 2 × 2 = 4
-    - Example: answer="1/3" means creating 3 sections → lcm = 3 × 2 = 6
-    - If shape is already divided, use existing sections count → lcm = sections × 2
+    - Example: answer="1/2" means creating 2 sections → lcm = 2 * 2 = 4
+    - Example: answer="1/3" means creating 3 sections → lcm = 3 * 2 = 6
+    - If shape is already divided, use existing sections count → lcm = sections * 2
   * For all other interactions: lcm = 24 (default)
 
 Fields to remove (not in Godot schema):
@@ -340,8 +338,7 @@ Output:
             "@type": "FracShape",
             "visual": 0,
             "shaded": [],
-            "lcm": 8,
-            "is_read_only": false
+            "lcm": 8
           }}
         ]
       }},
@@ -390,8 +387,7 @@ Output:
         "fractions": "1/3",
         "visual": 0,
         "shaded": [],
-        "lcm": 24,
-        "is_read_only": false
+        "lcm": 24
       }}
     ]
   }},
@@ -660,15 +656,13 @@ GODOT_FORMATTER_STRUCTURE = """
                 "@type": "FracShape",
                 "fractions": "1/4",
                 "shaded": [],
-                "lcm": 24,
-                "is_read_only": false
+                "lcm": 24
               },
               {
                 "@type": "NumberLine",
                 "lcd": 6,
                 "tick_marks": [0, "1/6", "2/6", 1],
-                "labelled": [true, false, false, true],
-                "is_read_only": [true, false, false, true]
+                "labelled": [true, false, false, true]
               }
             ]
           },

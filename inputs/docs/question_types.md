@@ -1,23 +1,38 @@
-# Question Types - Cognitive Focus Framework
+# Question Types - Cognitive Action Framework
 
-**EDIT THIS FILE** to change question generation behavior.  
-This text is injected directly into the LLM prompt.
+Reference guide for the five cognitive actions used across all modules.
 
 ---
 
-## QUESTION TYPES (Cognitive Focus)
+## COMPONENT TYPES
 
-### PROCEDURAL: Skill execution
-- **Verbs:** create, construct, partition, divide
-- **Target:** ~25% of questions
-- **Description:** Student performs a mathematical procedure or construction
+Understanding what each component means:
 
-### CONCEPTUAL: Understanding & reasoning
-- **Verbs:** identify, compare, explain, recognize
-- **Target:** ~45% of questions
-- **Description:** Student demonstrates understanding through recognition or analysis
+- **Procedural:** Student can execute a skill or process step-by-step. They can construct, build, or perform an action with visual tools.
+- **Conceptual:** Student understands the "what" and "why"—they can recognize patterns, identify properties, and analyze relationships between ideas.
+- **Transfer:** Student can apply learning in new or complex contexts. They can extend what they know to solve novel problems or integrate multiple representations.
 
-### TRANSFER: Application in new contexts
-- **Verbs:** apply, connect, predict, extend
-- **Target:** ~30% of questions
-- **Description:** Student applies learned concepts to novel situations
+---
+
+## QUESTION TYPES (Cognitive Actions)
+
+### CREATE - Constructing or building representations
+- **Definition:** Student constructs a concept using visual tools
+- **Component:** procedural
+
+### IDENTIFY - Recognizing or selecting correct representations
+- **Definition:** Student recognizes concepts and their properties
+- **Component:** conceptual
+
+### COMPARE - Determining relationships between concepts
+- **Definition:** Student analyzes relationships and makes judgments
+- **Component:** conceptual
+
+
+### APPLY - Using concepts in contexts or multi-step tasks
+- **Definition:** Student applies the concept to solve problems
+- **Component:** transfer
+
+### CONNECT - Linking representations or integrating concepts
+- **Definition:** Student connects multiple representations or ideas
+- **Component:** transfer

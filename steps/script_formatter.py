@@ -63,7 +63,6 @@ class ScriptFormatter(Step):
         verb = sequence.get("verb", "interact")
         difficulty_num = sequence.get("difficulty", "N/A")
         
-        # New format uses 'steps' directly (not 'main_sequence')
         steps = sequence.get("steps", [])
         
         # Map difficulty number to name
@@ -88,26 +87,36 @@ class ScriptFormatter(Step):
         
         # Process main instruction steps
         for i, step in enumerate(steps, 1):
-            # New format fields
             dialogue = step.get("dialogue", "")
             prompt = step.get("prompt")
-            visuals = step.get("visual", [])  # Note: 'visual' not 'visuals'
+            workspace = step.get("workspace", [])
+            interaction_tool = step.get("interaction_tool")
+            correct_answer = step.get("correct_answer")
             
             # Guide dialogue
             if dialogue:
                 script_lines.append(f"⚫ **Guide:** \"{dialogue}\"")
                 script_lines.append("")
             
-            # Visuals
-            if visuals:
-                for v in visuals:
-                    v_desc = v.get("description", f"{v.get('type', 'visual')} - {v.get('state', 'unknown')}")
-                    script_lines.append(f"🔵 **Visual:** {v_desc}")
+            # Workspace tangibles
+            if workspace:
+                script_lines.append(f"🔵 **Visual:**")
+                for tangible in workspace:
+                    tangible_type = tangible.get("type", "unknown")
+                    tangible_id = tangible.get("id", "?")
+                    state = tangible.get("state", "unknown")
+                    sections = tangible.get("sections", "?")
+                    script_lines.append(f"  - {tangible_id} ({tangible_type}): {sections} sections, {state}")
                 script_lines.append("")
             
-            # Screen prompt (on its own line with different emoji)
+            # Screen prompt with interaction tool
             if prompt:
                 script_lines.append(f"📱 **Screen Prompt:** {prompt}")
+                if interaction_tool:
+                    script_lines.append(f"   **Tool:** {interaction_tool}")
+                if correct_answer:
+                    answer_val = correct_answer.get("value") if isinstance(correct_answer, dict) else correct_answer
+                    script_lines.append(f"   **Answer:** {answer_val}")
                 script_lines.append("")
         
         script_lines.append("")
@@ -127,21 +136,12 @@ class ScriptFormatter(Step):
         if success:
             success_steps = success.get("steps", [])
             if success_steps:
-                # First try
-                if len(success_steps) > 0:
-                    dialogue = success_steps[0].get("dialogue", "")
+                script_lines.append(f"**✅ SUCCESS:**")
+                for step in success_steps:
+                    dialogue = step.get("dialogue", "")
                     if dialogue:
-                        script_lines.append(f"**✅ Success (First Try):**")
                         script_lines.append(f"⚫ **Guide:** \"{dialogue}\"")
-                        script_lines.append("")
-                
-                # After hints (if there's a second success dialogue)
-                if len(success_steps) > 1:
-                    dialogue = success_steps[1].get("dialogue", "")
-                    if dialogue:
-                        script_lines.append(f"**✅ Success (After Hints):**")
-                        script_lines.append(f"⚫ **Guide:** \"{dialogue}\"")
-                        script_lines.append("")
+                script_lines.append("")
         
         # Error paths
         error_paths = [(k, v) for k, v in student_attempts.items() if k.startswith("error_path")]
@@ -158,34 +158,40 @@ class ScriptFormatter(Step):
                 script_lines.append(f"### ❌ {error_label}")
                 script_lines.append("")
                 
-                for i, step in enumerate(error_data.get("steps", []), 1):
-                    # Remediation level
-                    attempt_labels = {
-                        1: "🟡 **Light Remediation:**",
-                        2: "🟠 **Medium Remediation:**", 
-                        3: "🔴 **Heavy Remediation:**"
+                error_steps = error_data.get("steps", [])
+                for step in error_steps:
+                    scaffolding = step.get("scaffolding_level", "unknown")
+                    
+                    # Remediation level labels
+                    level_labels = {
+                        "light": "🟡 **Light Remediation:**",
+                        "medium": "🟠 **Medium Remediation:**", 
+                        "heavy": "🔴 **Heavy Remediation:**"
                     }
-                    attempt_label = attempt_labels.get(i, f"**Attempt {i}:**")
+                    level_label = level_labels.get(scaffolding, f"**{scaffolding.title()}:**")
                     
                     dialogue = step.get("dialogue", "")
-                    visuals = step.get("visual", [])
+                    visual = step.get("visual")
                     
-                    script_lines.append(f"{attempt_label}")
+                    script_lines.append(f"{level_label}")
                     script_lines.append("")
                     
                     if dialogue:
-                        # Remove [Modeling] tag if present in dialogue
-                        dialogue = dialogue.replace(" [Modeling]", "").replace("[Modeling]", "")
                         script_lines.append(f"  ⚫ **Guide:** \"{dialogue}\"")
                         script_lines.append("")
                     
-                    if visuals:
-                        for v in visuals:
-                            v_desc = v.get("description", f"{v.get('type', 'visual')} - {v.get('state', 'unknown')}")
-                            # Remove [Modeling] tag if present in visual description
-                            v_desc = v_desc.replace(" [Modeling]", "").replace("[Modeling]", "")
-                            script_lines.append(f"  🔵 **Visual:** {v_desc}")
-                        script_lines.append("")
+                    # Visual effects (null for light, object with effects for medium/heavy)
+                    if visual and isinstance(visual, dict):
+                        effects = visual.get("effects", [])
+                        if effects:
+                            script_lines.append(f"  🔵 **Visual:**")
+                            for effect in effects:
+                                target = effect.get("target", "?")
+                                effect_type = effect.get("type", "?")
+                                animation = effect.get("animation", "?")
+                                description = effect.get("description", "")
+                                script_lines.append(f"    - [{target}] {animation} ({effect_type}): {description}")
+                            script_lines.append("")
                 
                 script_lines.append("")
         
