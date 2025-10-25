@@ -83,15 +83,13 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
 
 ##### Post-Modeling Acknowledgment Phrases
 
-- **Always ends with one of:**
-  - "There we go."
-  - "You're getting it now."
-  - "See how that works?"
-  - "Now you see the pattern."
-  - "That makes sense now, right?"
+Reinforce the mathematical concept they just worked through. Make acknowledgment problem-specific and content-focused, not praise-focused.
 
-- **Never ends with:**
-  - "Perfect!" / "Great job!" / "You figured it out!"
+**Examples:**
+- "That's how fourths work - 4 equal parts make a whole."
+- "See how all three parts need to be equal for thirds."
+- "Now you see why we count from zero on the number line."
+- "There we go - one-fourth is 1 out of 4 equal sections."
 
 ---
 

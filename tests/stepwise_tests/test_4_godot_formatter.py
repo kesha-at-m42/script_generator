@@ -16,7 +16,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
-from utils.vocabulary_helper import format_vocabulary_list_for_prompt
+# from utils.vocabulary_helper import format_vocabulary_list_for_prompt
+from utils.module_utils import get_module_field
 
 
 def transform_to_godot_schema_OLD(remediation_data):
@@ -331,7 +332,24 @@ def test_godot_formatter(remediation_path, output_dir=None, limit=None):
     print("  - Formatting vocabulary with [vocab] tags\n")
     
     # Get vocabulary terms for formatting
-    vocabulary_list = format_vocabulary_list_for_prompt()
+    # Ask user for module number to fetch vocabulary
+    try:
+        module_input = input("Enter module number to fetch vocabulary (e.g., 1) or press Enter to skip: ").strip()
+        if module_input:
+            module_number = int(module_input)
+            vocabulary = get_module_field(module_number, 'vocabulary', required=False)
+            if vocabulary:
+                vocabulary_list = ', '.join(vocabulary)
+                print(f"✓ Loaded vocabulary from module {module_number}: {vocabulary_list}")
+            else:
+                vocabulary_list = ""
+                print("⚠️  No vocabulary found in module")
+        else:
+            vocabulary_list = ""
+            print("⚠️  No module specified - vocabulary formatting will be skipped")
+    except ValueError:
+        print("⚠️  Invalid module number - vocabulary formatting will be skipped")
+        vocabulary_list = ""
     
     # Initialize
     client = ClaudeClient()

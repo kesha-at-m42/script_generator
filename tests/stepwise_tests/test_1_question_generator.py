@@ -16,7 +16,7 @@ from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
 from steps.module_loader import ModuleLoader
 
-def test_question_generator(module_number=1, num_questions=8, path_letter=None, output_dir=None, test_mode=False):
+def test_question_generator(module_number=1, num_questions=8, path_letter=None, output_dir=None, test_mode=False, goal_number=None):
     """
     Test question generator with learning goals
     
@@ -26,18 +26,32 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         path_letter: Optional path letter for module-specific docs
         output_dir: Optional output directory (auto-generated if not provided)
         test_mode: If True, only process first 2 goals for testing
+        goal_number: If provided, only process this specific goal number
     """
     print("=" * 70)
     print("STEPWISE TEST 1: QUESTION GENERATOR")
     print("=" * 70)
     
-    # Load module data using ModuleLoader
-    loader = ModuleLoader()
-    module_data = loader.execute(module_number)
-    learning_goals = module_data["learning_goals_list"]
+    # Load learning goals from decomposed_goals.json
+    goals_file = Path(__file__).parent.parent.parent / "inputs" / "modules" / f"module{module_number}" / "decomposed_goals.json"
     
-    # Apply test mode filter
-    if test_mode:
+    if not goals_file.exists():
+        raise FileNotFoundError(f"Could not find decomposed goals file: {goals_file}")
+    
+    with open(goals_file, 'r', encoding='utf-8') as f:
+        goals_data = json.load(f)
+    
+    learning_goals = goals_data["goals"]
+    print(f"  📚 Loaded {len(learning_goals)} learning goals from {goals_file.name}")
+    
+    # Apply goal number filter if specified
+    if goal_number is not None:
+        learning_goals = [g for g in learning_goals if g['id'] == goal_number]
+        if not learning_goals:
+            raise ValueError(f"Goal {goal_number} not found in module {module_number}")
+        print(f"\n🎯 SPECIFIC GOAL MODE: Processing only goal {goal_number}")
+    # Otherwise apply test mode filter
+    elif test_mode:
         learning_goals = learning_goals[:2]
         print(f"\n⚠️  TEST MODE: Processing only first 2 goals")
     
@@ -78,23 +92,34 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         print(f"Goal: {goal_display}")
         print(f"Generating questions...")
         
-        # Format single goal for prompt
+        # Extract goal data for prompt variables
         if isinstance(goal, dict):
-            goal_text = f"Goal {goal.get('id', idx)}: {goal.get('text', '')}"
-            if 'difficulty_level' in goal:
-                goal_text += f"\nDifficulty Range: {goal['difficulty_level']}"
-            if 'example_questions' in goal:
-                goal_text += f"\nExample Questions:\n"
-                for ex in goal['example_questions']:
-                    goal_text += f"  - {ex}\n"
+            goal_id = goal.get('id', idx)
+            goal_text = goal.get('text', str(goal))
+            difficulty_level = goal.get('difficulty_level', '0-4')
+            example_questions = goal.get('example_questions', [])
+            
+            # Format example questions as bullet list
+            example_questions_text = '\n'.join([f"  - {ex}" for ex in example_questions])
+            num_examples = len(example_questions)
         else:
-            goal_text = f"Goal {idx}: {goal}"
+            goal_id = idx
+            goal_text = str(goal)
+            difficulty_level = '0-4'
+            example_questions_text = ''
+            num_examples = 3
+        
+        print(f"  Generating variations from {num_examples} example questions across difficulty range {difficulty_level}")
         
         # Build prompt (may return prefill)
         prompt_result = builder.build_prompt(
             prompt_id="question_generator",
             variables={
-                "learning_goals": goal_text
+                "goal_id": goal_id,
+                "goal": goal_text,
+                "difficulty_level": difficulty_level,
+                "example_questions": example_questions_text,
+                "num_examples": num_examples
             }
         )
         
@@ -106,16 +131,20 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
             prefill = None
         
         print(f"Prompt length: {len(questions_prompt)} characters")
-        if prefill:
-            print(f"Using prefill: {prefill}")
+        print(f"Prefill: {prefill[:100]}..." if len(prefill) > 100 else f"Prefill: {prefill}")
         print("Calling Claude API...")
         
+        # Higher temperature for more creative variation while maintaining structure
         questions_response = client.generate(
             questions_prompt, 
             max_tokens=16000, 
-            temperature=0.7,
+            temperature=1.0,
             prefill=prefill
         )
+        
+        # The response already includes the prefill, close the first question and questions array
+        if not questions_response.strip().endswith('}'):
+            questions_response = questions_response.rstrip().rstrip(',') + '\n    }\n  ]\n}'
         
         # Save raw response for this goal
         with open(f"{output_dir}/goal_{idx}_raw.txt", "w", encoding="utf-8") as f:
@@ -133,11 +162,7 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
             goal_questions_data = json.loads(questions_json)
             goal_questions = goal_questions_data.get('questions', [])
             
-            # Add goal reference to each question
-            for q in goal_questions:
-                q['learning_goal_id'] = goal.get('id', idx) if isinstance(goal, dict) else idx
-                q['learning_goal_text'] = goal.get('text', goal) if isinstance(goal, dict) else goal
-            
+            # Questions already have goal_id and goal_text from prefill - no need to add them
             all_questions.extend(goal_questions)
             
             print(f"✓ Generated {len(goal_questions)} questions for goal {idx}")
@@ -176,11 +201,10 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         "questions": []
     }
     
-    # Required fields
+    # Required fields for question generator output (8 fields)
     required_fields = [
-        "id", "question_text", "interaction_type", "difficulty_level",
-        "question_type", "cognitive_verb", "visual_context",
-        "correct_answer", "explanation", "vocabulary_reinforced"
+        "goal_id", "goal_text", "question_id", "question_prompt", 
+        "question_type", "difficulty_level", "visual_context", "question_text"
     ]
     
     # Track distributions
@@ -190,11 +214,11 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
     
     for idx, q in enumerate(questions_data.get('questions', []), 1):
         q_validation = {
-            "question_id": q.get('id'),
+            "question_id": q.get('question_id'),
             "issues": []
         }
         
-        print(f"\n  Question {idx} (ID: {q.get('id')}):")
+        print(f"\n  Question {idx} (ID: {q.get('question_id')}):")
         
         # Check required fields
         missing_fields = [field for field in required_fields if field not in q]
@@ -204,35 +228,50 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         else:
             print(f"    ✓ All required fields present")
         
-        # Check interaction_type specific fields
-        interaction_type = q.get('interaction_type', '')
-        if interaction_type in ['Multiple Choice', 'Multiple Select']:
-            if 'answer_choices' not in q:
-                q_validation['issues'].append(f"Missing answer_choices for {interaction_type}")
-                print(f"    ✗ Missing answer_choices for {interaction_type}")
+        # Check for extra fields (should only have 6 fields)
+        extra_fields = [field for field in q.keys() if field not in required_fields]
+        if extra_fields:
+            q_validation['issues'].append(f"Extra fields found: {extra_fields}")
+            print(f"    ✗ Extra fields found: {extra_fields}")
+        
+        # Validate question_prompt is present with reasonable length
+        question_prompt = q.get('question_prompt', '')
+        if not question_prompt:
+            q_validation['issues'].append("question_prompt is empty")
+            print(f"    ✗ question_prompt is empty")
+        else:
+            prompt_length = len(question_prompt)
+            if prompt_length > 50:
+                print(f"    ✓ question_prompt present ({prompt_length} chars): \"{question_prompt[:50]}...\"")
             else:
-                print(f"    ✓ answer_choices present ({len(q['answer_choices'])} options)")
+                print(f"    ✓ question_prompt ({prompt_length} chars): \"{question_prompt}\"")
+            # Warn if suspiciously short or long
+            if prompt_length < 10:
+                print(f"    ⚠️  question_prompt seems too short")
+                q_validation['issues'].append("question_prompt too short")
+            elif prompt_length > 200:
+                print(f"    ⚠️  question_prompt seems too long")
+                q_validation['issues'].append("question_prompt too long")
         
         # Track distributions
         diff_level = q.get('difficulty_level')
         if diff_level in difficulty_dist:
             difficulty_dist[diff_level] += 1
         
-        q_type = q.get('question_type', '').lower()
-        if q_type in question_type_dist:
-            question_type_dist[q_type] += 1
+        q_type = q.get('question_type', '').upper()
+        # Question types are CREATE, IDENTIFY, COMPARE, APPLY, CONNECT (not procedural/conceptual/transfer)
         
-        i_type = q.get('interaction_type', '')
+        i_type = q.get('interaction_type', 'N/A')
         interaction_type_dist[i_type] = interaction_type_dist.get(i_type, 0) + 1
         
-        # Check explanation length
-        explanation = q.get('explanation', '')
-        word_count = len(explanation.split())
-        if word_count < 30:
-            q_validation['issues'].append(f"Explanation too short ({word_count} words, need 30+)")
-            print(f"    ✗ Explanation too short ({word_count} words)")
+        # Check question_text length (should be a narrative variation)
+        question_text = q.get('question_text', '')
+        word_count = len(question_text.split())
+        if word_count < 10:
+            q_validation['issues'].append(f"question_text too short ({word_count} words)")
+            print(f"    ✗ question_text too short ({word_count} words)")
         else:
-            print(f"    ✓ Explanation adequate ({word_count} words)")
+            print(f"    ✓ question_text adequate ({word_count} words)")
         
         # Check visual context
         visual = q.get('visual_context', '')
@@ -314,11 +353,11 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
     print(f"  - {output_dir}/validation_report.json")
     
     print("\n📊 Expected Schema:")
-    print("  ✓ Required fields: id, question_text, interaction_type, difficulty_level")
-    print("  ✓ question_type, cognitive_verb, visual_context, correct_answer")
-    print("  ✓ explanation (30+ words), vocabulary_reinforced")
-    print("  ✓ answer_choices (for Multiple Choice/Multiple Select only)")
-    print("  ✓ Visual: Rectangle bars only, 2-8 parts")
+    print("  ✓ Required fields: goal_id, goal_text, question_id, question_prompt")
+    print("  ✓ question_type, difficulty_level, visual_context, question_text")
+    print("  ✓ Question types: CREATE, IDENTIFY, COMPARE, APPLY, CONNECT")
+    print("  ✓ NO extra fields beyond these 8")
+    print("  ✓ question_prompt should be verbatim copy of example question")
     
     print("\n" + "=" * 70)
     print("NEXT STEP")
@@ -337,6 +376,7 @@ def main():
     parser.add_argument('-p', '--path', help='Path letter (e.g., a, b) for module-specific docs')
     parser.add_argument('-o', '--output', help='Output directory (optional)', default=None)
     parser.add_argument('--test', action='store_true', help='Test mode: only process first 2 goals')
+    parser.add_argument('-g', '--goal', type=int, help='Process only this specific goal number')
 
     args = parser.parse_args()
 
@@ -345,7 +385,8 @@ def main():
         num_questions=args.num_questions,
         path_letter=args.path,
         output_dir=args.output,
-        test_mode=args.test
+        test_mode=args.test,
+        goal_number=args.goal
     )
 
 if __name__ == "__main__":

@@ -31,7 +31,13 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
     # Load questions
     print(f"\nLoading questions from: {questions_path}")
     with open(questions_path, 'r', encoding='utf-8') as f:
-        questions_data = json.load(f)
+        loaded_data = json.load(f)
+    
+    # Handle both formats: list or dict with 'questions' key
+    if isinstance(loaded_data, list):
+        questions_data = {"questions": loaded_data}
+    else:
+        questions_data = loaded_data
     
     num_questions = len(questions_data.get('questions', []))
     print(f"✓ Loaded {num_questions} questions")
@@ -43,9 +49,26 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
     os.makedirs(output_dir, exist_ok=True)
     print(f"\nOutput directory: {output_dir}\n")
     
+    # Get module information for accessing module-specific docs
+    print("\nModule Configuration:")
+    try:
+        module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
+        if module_input:
+            module_number = int(module_input)
+            path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
+            print(f"✓ Using module {module_number}, path {path_letter}")
+        else:
+            module_number = None
+            path_letter = None
+            print("⚠️  No module specified - module-specific docs won't be loaded")
+    except ValueError:
+        print("⚠️  Invalid module number - skipping module configuration")
+        module_number = None
+        path_letter = None
+    
     # Initialize
     client = ClaudeClient()
-    builder = PromptBuilder()
+    builder = PromptBuilder(module_number=module_number, path_letter=path_letter)
     
     # ========================================================================
     # INTERACTION DESIGNER
@@ -81,21 +104,29 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
         question = questions_list[idx]
         print(f"  [{idx+1}/{num_to_process}] Processing Question {question.get('id')}...")
         
-        # Create single-question data for this iteration
-        single_question_data = {
-            "questions": [question]
-        }
+        # Pass the entire question object as a formatted JSON string
+        # The prompt will parse fields like goal, prompt, context, question_type, etc.
+        question_json = json.dumps(question, indent=2)
+        
+        print(f"\n  📋 Question data being passed to prompt:")
+        print(f"  {question_json}")
+        print()
         
         sequences_prompt = builder.build_prompt(
             prompt_id="interaction_designer",
-            variables={"learning_goals_data": json.dumps(single_question_data, indent=2)}
+            variables={
+                "question_data": question_json,
+                "questions_data": question_json,
+                "learning_goals_data": question_json,
+            }
         )
         
         # Generate sequence for this question
         sequences_response = client.generate(sequences_prompt, max_tokens=8000, temperature=0.7)
         
         # Save individual raw response
-        with open(f"{output_dir}/sequence_{question.get('id')}_raw.txt", "w", encoding="utf-8") as f:
+        question_id = question.get('id', 'unknown')  # Use 'unknown' if id is missing
+        with open(f"{output_dir}/sequence_{question_id}_raw.txt", "w", encoding="utf-8") as f:
             f.write(sequences_response)
         
         # Extract JSON
@@ -141,7 +172,7 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
         validation_results = {
             "total_sequences": len(sequences_data.get('sequences', [])),
             "sequences": []
-        }
+        };
         
         for idx, seq in enumerate(sequences_data.get('sequences', []), 1):
             seq_validation = {

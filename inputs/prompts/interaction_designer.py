@@ -10,8 +10,8 @@ INTERACTION_DESIGNER_ROLE = """You are an expert in designing interactive educat
 
 Your task: Create step-by-step MAIN INSTRUCTION FLOW sequences for math problems. Each sequence is an array of steps with:
 - **dialogue**: What the guide (Kim) says
-- **prompt**: Screen instruction/button text
-- **workspace**: The tangibles (shapes, buttons, objects) that are set up for the activity
+- **prompt**: A concise, task-focused instruction telling the student exactly what to do. 
+- **workspace**: The interactive space where visuals appear and student interactions happen - defines what tangibles (shapes, buttons, objects) are present and their states
 
 Use guide_design.md for Kim's voice and visual_guide.md for workspace elements."""
 
@@ -22,155 +22,120 @@ INTERACTION_DESIGNER_DOCS = [
 
 INTERACTION_DESIGNER_EXAMPLES = []
 
+INTERACTION_DESIGNER_EXPECTED_INPUT="""
+    {
+      "goal_id": 6,
+      "goal_text": "The student can understand that all parts must be equal for unit fractions",
+      "question_id": 3,
+      "question_prompt": "Select the bar that represents 1/6.",
+      "question_type": "IDENTIFY",
+      "difficulty_level": 2,
+      "question_text": "Leo partitions a granola bar into 6 equal pieces. Select the bar showing 1/6 of the whole.",
+      "visual_context": "Three rectangle bars shown horizontally, each divided into 6 parts with one part shaded; only one bar has equal parts"
+    }
+"""
+
+INTERACTION_DESIGNER_PREFILL = """{
+  "sequences": [
+    {
+"""
+
 INTERACTION_DESIGNER_INSTRUCTIONS = """
 ## YOUR TASK
 
-Design interactive sequences for these questions:
+Design an interactive sequence for the given question idea:
 
-<questions>
-{learning_goals_data}
-</questions>
-
-For each question, create a SEQUENCE (1-3 steps).
-
-## HOW TO USE THE QUESTION DATA
-
-Each question includes rich metadata. Use it to design the sequence:
-
-**Design Process:**
-1. **Generate dialogue first** using difficulty level, goal, question_text and guide_design.md (Kim's warm, encouraging voice)
-2. **Design the interaction** (prompt, tool, workspace) using interaction_type and visual_context
-3. **Validate**: Check that dialogue matches the visual workspace you created, and use vocabulary_reinforced terms naturally in dialogue
-
-**Key fields:**
-- **question_text**: The scenario/context - use for dialogue content
-- **interaction_type**: Inspires the type of interaction/tool to use
-- **visual_context**: Inspires the workspace setup
-- **goal**: The learning objective - understand what concept the student is practicing
-- **difficulty_level** (0-4): Consider for appropriate complexity in dialogue scaffolding and tone
-- **cognitive_verb**: The thinking skill (identify, apply, compare, etc.)
-- **correct_answer**: Use this to set the correct_answer.value field
-- **explanation**: Background on what the question assesses
-- **vocabulary_reinforced**: Key terms that might appear in dialogue
-
-**Example mapping:**
-```
-Question data:
-  "question_text": "A chocolate is cut into 8 equal pieces. Shade the bar to show what fraction one piece represents."
-  "interaction_type": "Shade"
-  "visual_context": "A horizontal rectangle bar divided into 8 equal parts, all unshaded, with a small chocolate icon above it"
-  "correct_answer": "Shade one of the eight equal parts"
-
-Becomes sequence:
-  "dialogue": "A chocolate is cut into 8 equal pieces. Shade the bar to show what fraction one piece represents."
-  "prompt": "Shade one-eighth"
-  "interaction_tool": "shade"
-  "workspace": [{"id": "bar_1", "type": "rectangle_bar", "sections": 8, "state": "divided", "shaded": []}]
-  "correct_answer": {"value": "1/8", "context": "Shade 1 out of 8 sections to represent one piece"}
-  "student_attempts": {"success_path": {"dialogue": "That's correct. You shaded one-eighth of the chocolate bar."}}
-```
-
-## SEQUENCE STRUCTURE
+<question>
+{question_data}
+</question>
 
 Generally, each sequence has 1 step. Each step can include the following fields:
 
-**dialogue** (required)
-- Use Kim's conversational voice from the guide design document
-- Length: 10-30 words
-- Clear, friendly practice instructions
-- These are practice problems for concepts already taught - guide students through applying what they know
+**Step 1: Write the prompt**
+- Derive the `prompt` from `question_prompt`, and ensure it doesn't give away the answer.
+- Clear mathematical action language focused on the concept in 5-15 words.
+- Example: "Select the bar that represents 1/4" -> "Select the bar showing the correct fraction"
 
-**prompt** (required)
-- Clear mathematical action language focused on the concept
-- Examples: "Shade three-fourths", "Partition the bar into halves", "Select bars with equal parts"
+**Step 2: Map visual_context to workspace and choose interaction_tool**
+- Read the prompt, `question_text` and `visual_context` to understand what should appear on screen
+- Find matching tasks in visual_guide.md
+- Select the appropriate interaction_tool based on the task requirements
+  - `"shade"` - Student shades sections of shapes
+  - `"cut"` - Student divides shapes into parts
+  - `"select"` - Student selects one shape from multiple options
+  - `"multi_select"` - Student selects multiple shapes
+  - `"place_tick"` - Student places ticks on a number line
+  - `"click_choice"` - Student picks from multiple choice answers
+- Build workspace array with tangible objects:
+  Array of tangible objects with these required fields:
+  - `id`: Unique identifier string
+  - `type`: Shape type (rectangle_bar, circle, grid, number_line, etc.)
+  - `sections`: Number of parts, omit if not applicable
+  - `state`: Visual state - "undivided", "divided_equal", or "divided_unequal"
+There are two types of dialogue to write:
 
-**interaction_tool** (required)
-Choose from these options:
-- `"shade"` - Student shades/colors sections of shapes
-- `"cut"` - Student divides/partitions shapes into parts
-- `"select"` - Student selects one shape from multiple options
-- `"multi_select"` - Student selects multiple shapes
-- `"place_tick"` - Student places marks on a number line
-- `"click_choice"` - Student picks from multiple choice answers
+**3a. Main dialogue (setting up the question)**
+- Use `question_text` as your narrative base.
+- Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
+- Keep the dialogue concise (10-30 words), clear, and supportive.
+- Focus on guiding students to practice the `goal_text` without introducing new concepts.
+- Adjust scaffolding and tone based on `difficulty_level` (0-4):
+  - **Lower levels (0-1):** Provide more conversational guidance.
+  - **Higher levels (2-4):** Reduce scaffolding and encourage independent thinking.
 
-**workspace** (required)
-Array of tangible objects with these required fields:
-- `id`: Unique identifier string
-- `type`: Shape type (rectangle_bar, circle, grid, number_line, etc.)
-- `sections`: Number of equal parts (1 = undivided/whole, 2+ = divided)
-- `state`: Visual state - "undivided", "divided", or "divided_unequal"
-- `shaded`: Array of integers for shaded section indices (empty array [] means none shaded)
-- `position`: Location on screen (center, top, bottom, etc.)
+**3b. Success dialogue (student_attempts.success_path.dialogue)**
+- Provide brief, positive feedback when the student completes the task correctly.
+- Refer to the "Success Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
+- Keep the feedback concise (5-10 words).
 
-**correct_answer** (required)
-Object with two fields:
-- `value`: The answer value (format depends on interaction_tool):
-  - shade: Fraction string like "3/4"
-  - cut: Fraction string like "1/4" 
-  - select: Tangible ID string like "shape_b"
-  - multi_select: Array of tangible IDs like ["shape_a", "shape_c"]
-  - place_tick: Array of decimals like [0.5]
-  - click_choice: Choice ID string like "c"
-- `context`: Human-readable explanation of what the value means
+**Example transformation:**
+```
+Input question data:
+  "question_prompt": "Select the bar that represents 1/4.",
+  "question_type": "IDENTIFY",
+  "difficulty_level": 2,
+  "question_text": "Maya is sharing a chocolate bar equally with 3 friends. Select the bar that shows 1/4 with equal parts.",
+  "visual_context": "Three rectangle bars shown horizontally, each divided into 4 parts with one part shaded; only one bar has equal parts"
 
-**choices** (optional)
-Only for click_choice interactions - array of choice objects with id and text fields
+Output sequence step:
+  "prompt": "Select the bar showing the correct fraction.",
+  "dialogue": "Maya wants to share a chocolate bar with three friends. Everyone will receive one part. How should she divide the bar so that everyone receives an equal part?" (based on guide_design.md),
+  "interaction_tool": "select",
+  "workspace": [
+    {"id": "bar_top", "type": "rectangle_bar", "sections": 4, "state": "divided_unequal", "shaded": [0]},
+    {"id": "bar_middle", "type": "rectangle_bar", "sections": 4, "state": "divided_unequal", "shaded": [0]},
+    {"id": "bar_bottom", "type": "rectangle_bar", "sections": 4, "state": "divided_equal", "shaded": [0]}
+  ],
+  "correct_answer": {"value": "bar_bottom", "context": "It's the bar with equal parts."},
+  "student_attempts": {"success_path": {"dialogue": "You selected the bar divided in fourths."}}}
+```
 
-**student_attempts** (required)
-Object with feedback for successful completion:
-- `success_path`: Object containing dialogue
-  - `dialogue`: Brief positive feedback (5-10 words, warm tone from guide_design.md)
-
-**Example step:**
+**Example: Shading interaction:**
 ```json
 {{
-  "dialogue": "Here's a rectangle bar divided into 4 equal parts. Shade three of them.",
-  "prompt": "Shade three-fourths",
+  "prompt": "Shade parts to show the correct fraction",
   "interaction_tool": "shade",
   "workspace": [
     {{
       "id": "bar_1",
       "type": "rectangle_bar",
       "sections": 4,
-      "state": "divided",
+      "state": "divided_equal",
       "shaded": [],
       "position": "center"
     }}
   ],
   "correct_answer": {{
     "value": "3/4",
-    "context": "Shade 3 out of 4 sections"
+    "context": "3/4 parts should be shaded"
   }}
 }}
 ```
-
-**Example 1: Shading interaction**
-   ```json
-   {{
-     "dialogue": "Here's a bar with 4 equal parts. Shade three of them to show three-fourths.",
-     "prompt": "Shade three-fourths",
-     "interaction_tool": "shade",
-     "workspace": [
-       {{
-         "id": "bar_1",
-         "type": "rectangle_bar",
-         "sections": 4,
-         "state": "divided",
-         "shaded": []
-       }}
-     ],
-     "correct_answer": {{
-       "value": "3/4",
-       "context": "The value 3/4 represents shading 3 out of 4 sections - the numerator is the number of sections to shade, denominator is total sections"
-     }}
-   }}
-   ```
    
-   **Example 1b: Dividing/partitioning interaction**
+**Example: Dividing/partitioning interaction**
    ```json
    {{
-     "dialogue": "Here's a whole bar. Divide it into 4 equal parts.",
-     "prompt": "Partition the bar into fourths",
+     "prompt": "Divide the bar into required parts",
      "interaction_tool": "cut",
      "workspace": [
        {{
@@ -183,15 +148,13 @@ Object with feedback for successful completion:
      ],
      "correct_answer": {{
        "value": "1/4",
-       "context": "The value 1/4 represents the size of each part created - the denominator indicates how many equal parts to create the bar into"
+       "context": "The value 1/4 represents the size of each part created"
      }}
    }}
    ```
    
-   **Example 2: Multiple choice**
-   ```json
+   **Example: Multiple choice**
    {{
-     "dialogue": "Look at this rectangle. What fraction is shaded?",
      "prompt": "Select the correct fraction",
      "interaction_tool": "click_choice",
      "workspace": [
@@ -215,33 +178,11 @@ Object with feedback for successful completion:
    }}
    ```
    
-   **Example 3: Number line interaction**
+     
+   **Example: Selection interaction**
    ```json
    {{
-     "dialogue": "Here's a number line from 0 to 1. Mark one-half on it.",
-     "prompt": "Mark one-half on the number line",
-     "interaction_tool": "place_tick",
-     "workspace": [
-       {{
-         "id": "number_line_1",
-         "type": "number_line",
-         "start": 0,
-         "end": 1,
-         "marks": []
-       }}
-     ],
-     "correct_answer": {{
-       "value": [0.5],
-       "context": "The value 0.5 is the decimal position on the number line representing one-half - array contains positions where ticks should be placed"
-     }}
-   }}
-   ```
-   
-   **Example 4: Selection interaction**
-   ```json
-   {{
-     "dialogue": "Look at these bars. Which one shows one-third shaded?",
-     "prompt": "Select the bar showing one-third",
+     "prompt": "Select the bar showing the correct fraction",
      "interaction_tool": "select",
      "workspace": [
        {{"id": "bar_top", "type": "rectangle_bar", "sections": 3, "state": "divided", "shaded": [0, 1]}},
@@ -263,10 +204,9 @@ INTERACTION_DESIGNER_STRUCTURE = """
     {{
       "problem_id": 1,
       "difficulty": 0-4,
-      "verb": "string",
-      "goal": "string",
+      "verb": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
+      "goal": "learning goal text",
       "steps": [
-        // Every step has workspace, dialogue, prompt, interaction_tool, correct_answer, and student_attempts
         {{
           "dialogue": "Here's a rectangle divided into 4 equal parts. Shade three of them.",
           "prompt": "Shade three-fourths",
@@ -325,11 +265,4 @@ INTERACTION_DESIGNER_STRUCTURE = """
   ]
 }}
 
-Key points:
-- Every step requires: dialogue, prompt, interaction_tool, workspace, correct_answer, student_attempts
-- workspace defines the tangibles for each step
-- Add choices field for click_choice interactions
-- student_attempts.success_path.dialogue provides feedback for successful completion of that step
-- Omit optional fields that aren't needed (don't set to null)
-- Each dialogue is 10-30 words
 """

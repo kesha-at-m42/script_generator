@@ -37,11 +37,28 @@ def test_remediation_generator(sequences_path, output_dir=None, limit=None):
     num_sequences = len(sequences_data.get('sequences', []))
     print(f"✓ Loaded {num_sequences} sequences")
     
-    # Apply limit if specified
-    if limit and limit < num_sequences:
-        print(f"⚠️  Processing only first {limit} sequences (limit specified)")
-        sequences_data['sequences'] = sequences_data['sequences'][:limit]
-        num_sequences = limit
+    # Determine how many sequences to process
+    print(f"\nTotal sequences available: {num_sequences}")
+    
+    if limit is not None:
+        num_to_process = min(limit, num_sequences)
+        print(f"⚠️  Processing only first {num_to_process} sequences (limit specified)")
+    else:
+        try:
+            user_input = input("How many sequences would you like to process? (press Enter for all): ").strip()
+            if user_input == "":
+                num_to_process = num_sequences
+            else:
+                num_to_process = int(user_input)
+                num_to_process = min(num_to_process, num_sequences)  # Cap at total available
+        except ValueError:
+            print("Invalid input, processing all sequences")
+            num_to_process = num_sequences
+    
+    # Apply limit
+    if num_to_process < num_sequences:
+        sequences_data['sequences'] = sequences_data['sequences'][:num_to_process]
+        num_sequences = num_to_process
     
     # Create output directory
     if output_dir is None:
@@ -50,9 +67,26 @@ def test_remediation_generator(sequences_path, output_dir=None, limit=None):
     os.makedirs(output_dir, exist_ok=True)
     print(f"\nOutput directory: {output_dir}\n")
     
+    # Get module information for accessing module-specific docs
+    print("Module Configuration:")
+    try:
+        module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
+        if module_input:
+            module_number = int(module_input)
+            path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
+            print(f"✓ Using module {module_number}, path {path_letter}")
+        else:
+            module_number = None
+            path_letter = None
+            print("⚠️  No module specified - module-specific docs won't be loaded")
+    except ValueError:
+        print("⚠️  Invalid module number - skipping module configuration")
+        module_number = None
+        path_letter = None
+    
     # Initialize
     client = ClaudeClient()
-    builder = PromptBuilder()
+    builder = PromptBuilder(module_number=module_number, path_letter=path_letter)
     
     # ========================================================================
     # REMEDIATION GENERATOR
@@ -74,9 +108,29 @@ def test_remediation_generator(sequences_path, output_dir=None, limit=None):
             "sequences": [sequence]
         }
         
+        # Build dynamic prefill - copy sequence up to error_path_generic
+        prefill_seq = sequence.copy()
+        # Ensure student_attempts exists and add the error_path_generic start
+        if 'student_attempts' not in prefill_seq:
+            prefill_seq['student_attempts'] = {}
+        
+        # Build prefill JSON stopping at error_path_generic opening
+        prefill_dict = {"sequences": [prefill_seq]}
+        prefill_json = json.dumps(prefill_dict, indent=2)
+        
+        # Truncate at the end of success_path and add error_path_generic opening
+        # Find where to insert error_path_generic
+        success_path_end = prefill_json.rfind('}')  # Find last closing brace before end
+        # Insert error_path_generic at the student_attempts level
+        prefill_parts = prefill_json.rsplit('}', 2)  # Split at last 2 closing braces
+        prefill_text = prefill_parts[0] + '},\n            "error_path_generic": {'
+        
         remediation_prompt = builder.build_prompt(
             prompt_id="remediation_generator",
-            variables={"interactions_context": json.dumps(single_sequence_data, indent=2)}
+            variables={
+                "interactions_context": json.dumps(single_sequence_data, indent=2),
+                "prefill_sequence": prefill_text
+            }
         )
         
         # Generate remediation for this sequence with retry logic

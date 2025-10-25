@@ -24,13 +24,14 @@ class PromptBuilder:
     
     def __init__(self, module_number: int = None, path_letter: str = None):
         self.docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
+        self.modules_dir = Path(__file__).parent.parent / "inputs" / "modules"
         self.prompts_dir = Path(__file__).parent.parent / "prompts"
         self.module_number = module_number
         self.path_letter = path_letter
         
-        # Build module path like "module_1_path_b"
+        # Build module path like "module1/pathb" for accessing module-specific docs
         if module_number is not None and path_letter:
-            self.module_path = f"module_{module_number}_path_{path_letter.lower()}"
+            self.module_path = f"module{module_number}/path{path_letter.lower()}"
         else:
             self.module_path = None
     
@@ -75,8 +76,29 @@ class PromptBuilder:
         
         # 5. Instructions (the actual task)
         instructions = config.get("instructions", "")
+
+        # Safe formatting: instructions may contain many literal braces (JSON examples).
+        # To avoid KeyError when calling str.format on those literals, escape all
+        # braces first, then un-escape only the placeholders we actually provide in
+        # `variables` so that only those are substituted.
         if variables:
-            instructions = instructions.format(**variables)
+            # Escape all braces to treat them as literals
+            instr_escaped = instructions.replace('{', '{{').replace('}', '}}')
+
+            # Un-escape placeholders that we will provide so format can substitute them
+            for key in variables.keys():
+                instr_escaped = instr_escaped.replace('{{' + key + '}}', '{' + key + '}')
+
+            try:
+                instructions = instr_escaped.format(**variables)
+            except Exception as e:
+                # Fall back to a conservative replacement for question_data if formatting fails
+                # This ensures the builder doesn't crash for unexpected templates.
+                if 'question_data' in variables:
+                    instructions = instructions.replace('{question_data}', str(variables.get('question_data')))
+                else:
+                    # Last resort: leave instructions unformatted
+                    instructions = instructions
         sections.append(instructions)
         
         final_prompt = "\n\n".join(sections)
@@ -85,6 +107,8 @@ class PromptBuilder:
         # Return with prefill if specified
         prefill = config.get("prefill")
         if prefill:
+            # Format prefill with variables
+            prefill = prefill.format(**variables)
             print(f"Using prefill: {prefill}")
             return final_prompt, prefill
         return final_prompt
@@ -171,12 +195,12 @@ class PromptBuilder:
         """Load doc with module-specific override, fallback to base
         
         Priority:
-        1. Module-specific: inputs/docs/modules/module{num}/path{letter}/{doc_ref}
+        1. Module-specific: inputs/modules/module{num}/path{letter}/{doc_ref}
         2. Base: inputs/docs/{doc_ref}
         """
         # Try module-specific first
         if self.module_path:
-            module_path = self.docs_dir / self.module_path / doc_ref
+            module_path = self.modules_dir / self.module_path / doc_ref
             print("Loading document from:", module_path)
             if module_path.exists():
                 with open(module_path, 'r', encoding='utf-8') as f:
