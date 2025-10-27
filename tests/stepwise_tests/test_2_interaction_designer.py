@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
 
-def test_interaction_designer(questions_path, output_dir=None, limit=None):
+def test_interaction_designer(questions_path, output_dir=None, limit=None, module_number=None, path_letter=None):
     """
     Test interaction designer with questions from a JSON file
     
@@ -23,6 +23,8 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
         questions_path: Path to questions JSON file
         output_dir: Optional output directory (auto-generated if not provided)
         limit: Optional limit on number of questions to process
+        module_number: Module number (if None, will prompt user)
+        path_letter: Path letter (if None, will prompt user)
     """
     print("=" * 70)
     print("STEPWISE TEST 1: INTERACTION DESIGNER")
@@ -49,22 +51,25 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
     os.makedirs(output_dir, exist_ok=True)
     print(f"\nOutput directory: {output_dir}\n")
     
-    # Get module information for accessing module-specific docs
-    print("\nModule Configuration:")
-    try:
-        module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
-        if module_input:
-            module_number = int(module_input)
-            path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
-            print(f"✓ Using module {module_number}, path {path_letter}")
-        else:
+    # Get module information for accessing module-specific docs (if not provided)
+    if module_number is None:
+        print("\nModule Configuration:")
+        try:
+            module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
+            if module_input:
+                module_number = int(module_input)
+                path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
+                print(f"✓ Using module {module_number}, path {path_letter}")
+            else:
+                module_number = None
+                path_letter = None
+                print("⚠️  No module specified - module-specific docs won't be loaded")
+        except ValueError:
+            print("⚠️  Invalid module number - skipping module configuration")
             module_number = None
             path_letter = None
-            print("⚠️  No module specified - module-specific docs won't be loaded")
-    except ValueError:
-        print("⚠️  Invalid module number - skipping module configuration")
-        module_number = None
-        path_letter = None
+    else:
+        print(f"\n✓ Using module {module_number}, path {path_letter}")
     
     # Initialize
     client = ClaudeClient()
@@ -102,7 +107,8 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
     
     for idx in range(num_to_process):
         question = questions_list[idx]
-        print(f"  [{idx+1}/{num_to_process}] Processing Question {question.get('id')}...")
+        question_id = question.get('question_id', question.get('id', idx + 1))  # Use question_id, id, or index
+        print(f"  [{idx+1}/{num_to_process}] Processing Question {question_id}...")
         
         # Pass the entire question object as a formatted JSON string
         # The prompt will parse fields like goal, prompt, context, question_type, etc.
@@ -124,9 +130,8 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
         # Generate sequence for this question
         sequences_response = client.generate(sequences_prompt, max_tokens=8000, temperature=0.7)
         
-        # Save individual raw response
-        question_id = question.get('id', 'unknown')  # Use 'unknown' if id is missing
-        with open(f"{output_dir}/sequence_{question_id}_raw.txt", "w", encoding="utf-8") as f:
+        # Save individual raw response - use index-based filename
+        with open(f"{output_dir}/sequence_{idx + 1}_raw.txt", "w", encoding="utf-8") as f:
             f.write(sequences_response)
         
         # Extract JSON
@@ -185,25 +190,22 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
             print(f"\n  Sequence {idx} (Problem ID: {seq.get('problem_id')}):")
             print(f"    - Steps: {seq_validation['num_steps']}")
             
-            # Check Part 1 steps (should have workspace)
-            part1_steps = [step for step in seq.get('steps', []) if 'workspace' in step]
-            part1_count = len(part1_steps)
-            print(f"    - Part 1 steps (with workspace): {part1_count} {'✓' if part1_count > 0 else '✗'}")
-            if part1_count == 0:
-                seq_validation['issues'].append("No Part 1 steps with workspace field")
+            # Check steps have required fields
+            steps_with_workspace = [step for step in seq.get('steps', []) if 'workspace' in step]
+            steps_with_interaction = [step for step in seq.get('steps', []) if 'interaction_tool' in step]
+            steps_with_answer = [step for step in seq.get('steps', []) if 'correct_answer' in step]
             
-            # Check Part 2 steps (should have workspace_context + interaction_tool)
-            part2_steps = [step for step in seq.get('steps', []) if 'workspace_context' in step and 'interaction_tool' in step]
-            part2_count = len(part2_steps)
-            print(f"    - Part 2 steps (with workspace_context + interaction_tool): {part2_count} {'✓' if part2_count > 0 else '✗'}")
-            if part2_count == 0:
-                seq_validation['issues'].append("No Part 2 steps with workspace_context and interaction_tool")
+            print(f"    - Steps with workspace: {len(steps_with_workspace)} {'✓' if len(steps_with_workspace) > 0 else '✗'}")
+            if len(steps_with_workspace) == 0:
+                seq_validation['issues'].append("No steps with workspace field")
             
-            # Check that Part 2 steps have correct_answer
-            part2_with_answer = sum(1 for step in part2_steps if 'correct_answer' in step)
-            print(f"    - Part 2 steps with correct_answer: {part2_with_answer}/{part2_count} {'✓' if part2_with_answer == part2_count else '✗'}")
-            if part2_with_answer != part2_count:
-                seq_validation['issues'].append("Some Part 2 steps missing correct_answer")
+            print(f"    - Steps with interaction_tool: {len(steps_with_interaction)} {'✓' if len(steps_with_interaction) > 0 else '✗'}")
+            if len(steps_with_interaction) == 0:
+                seq_validation['issues'].append("No steps with interaction_tool")
+            
+            print(f"    - Steps with correct_answer: {len(steps_with_answer)} {'✓' if len(steps_with_answer) > 0 else '✗'}")
+            if len(steps_with_answer) == 0:
+                seq_validation['issues'].append("No steps with correct_answer")
             
             # Check visual field (should be omitted/not present in main flow)
             steps_with_visual = sum(1 for step in seq.get('steps', []) if 'visual' in step)
@@ -259,12 +261,12 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None):
         print(f"  - {output_dir}/validation_report.json")
         
         print("\n📊 Expected Schema:")
-        print("  ✓ Part 1 steps: dialogue + workspace")
-        print("  ✓ Part 2 steps: dialogue + prompt + interaction_tool + workspace_context + correct_answer")
-        print("  ✓ Optional Part 2 fields: choices, input_config")
-        print("  ✓ Visual field: omitted (not present) in main flow steps")
-        print("  ✓ success_path: In student_attempts")
-        print("  ✓ No error_path_* (added in remediation step)")
+        print("  ✓ Steps should have: dialogue, prompt, interaction_tool, workspace, correct_answer")
+        print("  ✓ Optional step fields: choices (for MCQs)")
+        print("  ✓ workspace: Array of tangible objects with id, type, sections, state, shaded")
+        print("  ✓ student_attempts.success_path: Success dialogue")
+        print("  ✓ No error_path_* at this stage (added in remediation step)")
+        print("  ✓ Visual effects: Not in main flow steps (added in remediation)")
         
         print("\n" + "=" * 70)
         

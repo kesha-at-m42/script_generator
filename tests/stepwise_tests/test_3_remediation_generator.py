@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
 
-def test_remediation_generator(sequences_path, output_dir=None, limit=None):
+def test_remediation_generator(sequences_path, output_dir=None, limit=None, module_number=None, path_letter=None):
     """
     Test remediation generator with sequences from a JSON file
     
@@ -24,6 +24,8 @@ def test_remediation_generator(sequences_path, output_dir=None, limit=None):
         sequences_path: Path to sequences JSON file (output from interaction designer)
         output_dir: Optional output directory (auto-generated if not provided)
         limit: Optional limit on number of sequences to process (for testing)
+        module_number: Module number (if None, will prompt user)
+        path_letter: Path letter (if None, will prompt user)
     """
     print("=" * 70)
     print("STEPWISE TEST 2: REMEDIATION GENERATOR")
@@ -67,22 +69,25 @@ def test_remediation_generator(sequences_path, output_dir=None, limit=None):
     os.makedirs(output_dir, exist_ok=True)
     print(f"\nOutput directory: {output_dir}\n")
     
-    # Get module information for accessing module-specific docs
-    print("Module Configuration:")
-    try:
-        module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
-        if module_input:
-            module_number = int(module_input)
-            path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
-            print(f"✓ Using module {module_number}, path {path_letter}")
-        else:
+    # Get module information for accessing module-specific docs (if not provided)
+    if module_number is None:
+        print("Module Configuration:")
+        try:
+            module_input = input("Enter module number (e.g., 1) or press Enter to skip: ").strip()
+            if module_input:
+                module_number = int(module_input)
+                path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
+                print(f"✓ Using module {module_number}, path {path_letter}")
+            else:
+                module_number = None
+                path_letter = None
+                print("⚠️  No module specified - module-specific docs won't be loaded")
+        except ValueError:
+            print("⚠️  Invalid module number - skipping module configuration")
             module_number = None
             path_letter = None
-            print("⚠️  No module specified - module-specific docs won't be loaded")
-    except ValueError:
-        print("⚠️  Invalid module number - skipping module configuration")
-        module_number = None
-        path_letter = None
+    else:
+        print(f"\n✓ Using module {module_number}, path {path_letter}")
     
     # Initialize
     client = ClaudeClient()

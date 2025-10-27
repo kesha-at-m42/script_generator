@@ -246,21 +246,6 @@ A collection of one or more **Components** that trigger simultaneously:
 
 A step is "completed" when all components finish running.
 
-### Event
-A script that drives procedural animations. Referenced in dialogue as `[event:event_name]`.
-
-**Format:** `[event:event_name]` embedded in dialogue text
-
-**Examples:**
-- `[event:show_lines]` - Display number lines
-- `[event:pulse_sections]` - Animate sections pulsing
-- `[event:label_sections]` - Add number labels
-- `[event:highlight_shaded]` - Highlight shaded areas
-- `[event:practice_1_md]` - Medium scaffolding animation
-- `[event:practice_1_hv]` - Heavy scaffolding demonstration
-
-**Pattern:** Events can be chained: `[event:event1][event:event2]Dialogue text`
-
 ### Tool
 An interaction method the learner uses to respond:
 - `"cut"` - Cut/divide tangibles into parts
@@ -481,22 +466,22 @@ Used with MultipleChoiceValidator for displaying options.
 
 ## Scaffolding Levels
 
-Remediations follow progressive scaffolding with 3 levels:
+Remediations use progressive scaffolding with 3 required levels:
 
-**Light** - Minimal hint (10-20 words)
-- No visual effects
-- Brief redirect or question
-- Example: "Check your spacing - Thirds need three equal intervals."
+**Light Remediation:**
+- ID: `"light"`
+- No visual effects (no @metadata.events)
+- Example: `{"@type": "Remediation", "id": "light", "step": {"@type": "Step", "dialogue": "..."}}`
 
-**Medium** - Explanation + visual hint (20-30 words)
-- Includes [event:...] tags for visual feedback
-- Explains concept more directly
-- Example: "[event:practice_1_md]Not quite. For thirds, place marks at one third and two thirds."
+**Medium Remediation:**
+- ID: `"medium"`
+- May include 1-2 visual effects in @metadata.events
+- Example: `{"@type": "Remediation", "id": "medium", "step": {"@type": "Step", "@metadata": {"events": [...]}, "dialogue": "..."}}`
 
-**Heavy** - Full demonstration (30-60 words)
-- Multiple [event:...] tags showing solution
-- Step-by-step walkthrough
-- Example: "[event:practice_1_hv]Let me show you. For three equal intervals, I place marks at one third and two thirds. Now I have thirds."
+**Heavy Remediation:**
+- ID: `"heavy"`
+- May include 2+ visual effects in @metadata.events
+- Example: `{"@type": "Remediation", "id": "heavy", "step": {"@type": "Step", "@metadata": {"events": [...]}, "dialogue": "..."}}`
 
 ---
 
@@ -610,48 +595,22 @@ Every object must have `@type` for proper deserialization:
 - **dialogue**: Optional in Steps. Contains guide speech and [event:...] tags.
 - **workspace**, **prompt**, **scene**: All optional in Steps. At least one should be present.
 - **remediations**: Must have exactly 3 items with id "light", "medium", "heavy" (in that order)
-- **tool**: Required in Prompt (use appropriate tool from list above). Exception: MCQs have no tool (omit or null)
-- **validator**: Required in Prompt. Must match tool type (see Validator-Tool Mapping)
+- **tool**: Required in Prompt (use appropriate tool from list). Exception: MCQs have no tool (omit or null)
+- **validator**: Required in Prompt
 - **choices**: Required for MultipleChoiceValidator (workspace.choices), null for other validators
 
-### Event Tag Rules
-- Format: `[event:event_name]`
-- Multiple events: `[event:event1][event:event2]Dialogue text`
-- Placement: At start of dialogue before text
-- Light remediations: No events
-- Medium/Heavy: Include appropriate events
-
-### Validator-Tool Mapping
-- `"paint"` → `EqualShadedValidator` or `ShadedPartsValidator`
-- `"select"` → `SelectionValidator` (single tangible)
-- `"multi_select"` → `SelectionValidator` (multiple tangibles)
-- `"compare"` → `FractionShapePartsValidator`
-- `"highlight"` → `SelectTicksValidator`
-- `"place_tick"` → `PlaceTicksValidator`
-- (no tool) → `MultipleChoiceValidator` (uses workspace.choices)
-
-### Answer Format
-- EqualShadedValidator: Fraction string `"1/4"`
-- ShadedPartsValidator: Integer count `3`
-- FractionShapePartsValidator: Fraction string `"1/4"` or Array `["1/4", "2/4"]`
-- SelectionValidator: Integer `2` or Array `[0, 2]`
-- MultipleChoiceValidator: Array with single index `[2]` (0-based)
-- PlaceTicksValidator: Array of positions `[2, 4]`
-- SelectTicksValidator: Array of tick indices `[3]`
-
-### Common Patterns
-
+### Common Usage Patterns
 
 **Pattern 1: Combined Workspace + Dialogue**
 ```json
 {
   "@type": "Step",
-    "dialogue": "[event:show_lines]Look at this..."
-  "workspace": {...},
+  "dialogue": "Look at this...",
+  "workspace": {...}
 }
 ```
 
-**Pattern 3: Dialogue + Prompt in Same Step**
+**Pattern 2: Dialogue + Prompt in Same Step**
 ```json
 {
   "@type": "Step",

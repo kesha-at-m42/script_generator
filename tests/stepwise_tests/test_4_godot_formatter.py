@@ -20,233 +20,7 @@ from core.prompt_builder import PromptBuilder
 from utils.module_utils import get_module_field
 
 
-def transform_to_godot_schema_OLD(remediation_data):
-    """
-    Transform remediation schema to Godot-processable format
-    
-    Current schema:
-    - Part 1: workspace (array of tangibles)
-    - Part 2: workspace_context + interaction_tool + correct_answer
-    - Error paths: scaffolding_level + workspace_context + visual (effects array)
-    
-    Godot schema:
-    - Flat steps[] array
-    - @type annotations for Godot type system
-    - Consistent structure for parsing
-    """
-    
-    godot_sequences = []
-    
-    for seq in remediation_data.get('sequences', []):
-        godot_seq = {
-            "@type": "Sequence",
-            "problem_id": seq.get('problem_id'),
-            "difficulty": seq.get('difficulty'),
-            "verb": seq.get('verb'),
-            "goal": seq.get('goal'),
-            "steps": []
-        }
-        
-        # Transform main steps
-        main_steps = seq.get('steps', [])
-        for step_idx, step in enumerate(main_steps):
-            
-            # Check if this is Part 1 (workspace setup) or Part 2 (interaction)
-            has_workspace = 'workspace' in step
-            has_interaction = 'interaction_tool' in step
-            
-            if has_workspace:
-                # Part 1: Setup step with workspace tangibles
-                godot_step = {
-                    "@type": "Step",
-                    "workspace": {
-                        "@type": "WorkspaceData",
-                        "tangibles": transform_tangibles(step['workspace'])
-                    }
-                }
-                
-                # Add dialogue if present
-                if step.get('dialogue'):
-                    godot_step['dialogue'] = step['dialogue']
-                
-                godot_seq['steps'].append(godot_step)
-            
-            elif has_interaction:
-                # Part 2: Interaction step
-                # Split into dialogue + prompt steps
-                
-                # Dialogue step
-                if step.get('dialogue'):
-                    godot_seq['steps'].append({
-                        "@type": "Step",
-                        "dialogue": step['dialogue']
-                    })
-                
-                # Prompt step with validator and remediations
-                prompt_step = {
-                    "@type": "Step",
-                    "prompt": {
-                        "@type": "Prompt",
-                        "text": step.get('prompt', ''),
-                        "tool": step.get('interaction_tool'),
-                        "validator": create_validator(step),
-                        "remediations": []
-                    }
-                }
-                
-                # Add choices if present
-                if 'choices' in step:
-                    prompt_step['prompt']['choices'] = {
-                        "@type": "WorkspaceChoices",
-                        "allow_multiple": False,
-                        "options": [choice['text'] for choice in step['choices']]
-                    }
-                
-                # Transform error paths to remediations
-                student_attempts = seq.get('student_attempts', {})
-                
-                # Add all error paths
-                for error_path_name, error_path in student_attempts.items():
-                    if error_path_name.startswith('error_path'):
-                        remediations = transform_error_path_to_remediations(error_path)
-                        prompt_step['prompt']['remediations'].extend(remediations)
-                
-                godot_seq['steps'].append(prompt_step)
-                
-                # Success step
-                success_path = student_attempts.get('success_path', {})
-                success_steps = success_path.get('steps', [])
-                if success_steps:
-                    godot_seq['steps'].append({
-                        "@type": "Step",
-                        "dialogue": success_steps[0].get('dialogue', '')
-                    })
-        
-        godot_sequences.append(godot_seq)
-    
-    return {
-        "@type": "SequencePool",
-        "sequences": godot_sequences
-    }
-
-
-def transform_tangibles(workspace_array):
-    """Transform workspace array to Godot tangibles format"""
-    tangibles = []
-    
-    for tangible in workspace_array:
-        godot_tangible = {
-            "@type": map_type_to_godot(tangible.get('type', ''))
-        }
-        
-        # Copy all properties except 'type' (already mapped to @type)
-        for key, value in tangible.items():
-            if key != 'type':
-                godot_tangible[key] = value
-        
-        tangibles.append(godot_tangible)
-    
-    return tangibles
-
-
-def map_type_to_godot(type_name):
-    """Map our type names to Godot class names"""
-    type_map = {
-        'rectangle_bar': 'RectangleBar',
-        'square': 'Square',
-        'circle': 'Circle',
-        'number_line': 'NumberLine',
-        'fraction_bar': 'FractionBar'
-    }
-    
-    return type_map.get(type_name, 'Shape')
-
-
-def create_validator(step):
-    """Create validator object from step data"""
-    interaction_tool = step.get('interaction_tool', '')
-    correct_answer = step.get('correct_answer')
-    
-    # Map interaction tools to validator types
-    if interaction_tool == 'click_sections':
-        return {
-            "@type": "SelectSectionsValidator",
-            "answer": correct_answer if isinstance(correct_answer, list) else [correct_answer]
-        }
-    elif interaction_tool == 'click_choice':
-        return {
-            "@type": "MultipleChoiceValidator",
-            "answer": [get_choice_index(step, correct_answer)]
-        }
-    elif interaction_tool == 'drag_fraction':
-        return {
-            "@type": "DragFractionValidator",
-            "answer": correct_answer
-        }
-    else:
-        # Generic validator
-        return {
-            "@type": "GenericValidator",
-            "answer": correct_answer
-        }
-
-
-def get_choice_index(step, correct_answer):
-    """Get the index of the correct answer from choices"""
-    choices = step.get('choices', [])
-    for idx, choice in enumerate(choices):
-        if choice.get('id') == correct_answer:
-            return idx
-    return 0
-
-
-def transform_error_path_to_remediations(error_path):
-    """Transform error path (L/M/H steps) to Godot remediation format"""
-    remediations = []
-    
-    steps = error_path.get('steps', [])
-    
-    for step in steps:
-        scaffolding = step.get('scaffolding_level', 'light')
-        
-        # Map scaffolding levels to Godot IDs
-        remediation_id_map = {
-            'light': 'light',
-            'medium': 'medium',
-            'heavy': 'heavy'
-        }
-        
-        remediation = {
-            "@type": "Remediation",
-            "id": remediation_id_map.get(scaffolding, 'light'),
-            "step": {
-                "@type": "Step",
-                "dialogue": step.get('dialogue', '')
-            }
-        }
-        
-        # Add visual effects if present
-        visual = step.get('visual')
-        if visual and visual.get('effects'):
-            # Transform effects to Godot events
-            effects = visual['effects']
-            events = []
-            
-            for effect in effects:
-                event_name = f"{effect.get('type', 'animation')}_{effect.get('animation', 'default')}"
-                events.append(f"[event:{event_name}]")
-            
-            # Prepend events to dialogue
-            if events:
-                event_str = ' '.join(events)
-                remediation['step']['dialogue'] = f"{event_str} {remediation['step']['dialogue']}"
-        
-        remediations.append(remediation)
-    
-    return remediations
-
-
-def test_godot_formatter(remediation_path, output_dir=None, limit=None):
+def test_godot_formatter(remediation_path, output_dir=None, limit=None, module_number=None):
     """
     Test Godot formatter with remediation JSON file
     
@@ -254,6 +28,7 @@ def test_godot_formatter(remediation_path, output_dir=None, limit=None):
         remediation_path: Path to remediation JSON file (output from remediation generator)
         output_dir: Optional output directory (auto-generated if not provided)
         limit: Optional limit on number of sequences to process (for testing)
+        module_number: Module number to fetch vocabulary (if None, will prompt user)
     """
     print("=" * 70)
     print("STEPWISE TEST 3: GODOT FORMATTER")
@@ -332,24 +107,27 @@ def test_godot_formatter(remediation_path, output_dir=None, limit=None):
     print("  - Formatting vocabulary with [vocab] tags\n")
     
     # Get vocabulary terms for formatting
-    # Ask user for module number to fetch vocabulary
-    try:
-        module_input = input("Enter module number to fetch vocabulary (e.g., 1) or press Enter to skip: ").strip()
-        if module_input:
-            module_number = int(module_input)
-            vocabulary = get_module_field(module_number, 'vocabulary', required=False)
-            if vocabulary:
-                vocabulary_list = ', '.join(vocabulary)
-                print(f"✓ Loaded vocabulary from module {module_number}: {vocabulary_list}")
+    # Ask user for module number to fetch vocabulary (if not provided)
+    if module_number is None:
+        try:
+            module_input = input("Enter module number to fetch vocabulary (e.g., 1) or press Enter to skip: ").strip()
+            if module_input:
+                module_number = int(module_input)
             else:
-                vocabulary_list = ""
-                print("⚠️  No vocabulary found in module")
+                print("⚠️  No module specified - vocabulary formatting will be skipped")
+        except ValueError:
+            print("⚠️  Invalid module number - vocabulary formatting will be skipped")
+            module_number = None
+    
+    # Fetch vocabulary if module_number is set
+    vocabulary_list = ""
+    if module_number is not None:
+        vocabulary = get_module_field(module_number, 'vocabulary', required=False)
+        if vocabulary:
+            vocabulary_list = ', '.join(vocabulary)
+            print(f"✓ Loaded vocabulary from module {module_number}: {vocabulary_list}")
         else:
-            vocabulary_list = ""
-            print("⚠️  No module specified - vocabulary formatting will be skipped")
-    except ValueError:
-        print("⚠️  Invalid module number - vocabulary formatting will be skipped")
-        vocabulary_list = ""
+            print("⚠️  No vocabulary found in module")
     
     # Initialize
     client = ClaudeClient()

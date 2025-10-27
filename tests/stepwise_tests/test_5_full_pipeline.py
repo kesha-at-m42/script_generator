@@ -24,7 +24,7 @@ from tests.stepwise_tests.test_4_godot_formatter import test_godot_formatter
 
 
 def test_full_pipeline(
-    module_number=1,
+    module_number=None,
     path_letter=None,
     num_questions=8,
     limit_sequences=None,
@@ -34,8 +34,8 @@ def test_full_pipeline(
     Run complete pipeline from module to Godot-ready JSON
     
     Args:
-        module_number: Module number to load
-        path_letter: Optional path letter (e.g., 'a', 'b') for module-specific docs
+        module_number: Module number to load (if None, will prompt user)
+        path_letter: Optional path letter (e.g., 'a', 'b') for module-specific docs (if None, will prompt user)
         num_questions: Number of questions to generate per learning goal
         limit_sequences: Optional limit on sequences to process in remediation/Godot steps
         output_dir: Optional output directory (auto-generated if not provided)
@@ -52,6 +52,25 @@ def test_full_pipeline(
     print("  3. Remediation Generator (Sequences → Remediation)")
     print("  4. Godot Formatter (Remediation → Godot JSON)")
     print("=" * 70)
+    
+    # Get module configuration if not provided
+    if module_number is None:
+        print("\nModule Configuration:")
+        try:
+            module_input = input("Enter module number (e.g., 1): ").strip()
+            module_number = int(module_input)
+            path_letter = input("Enter path letter (e.g., a, b, c): ").strip().lower()
+            print(f"✓ Using module {module_number}, path {path_letter}")
+        except ValueError:
+            print("❌ Invalid module number")
+            return None
+    
+    print(f"\n📋 Pipeline Configuration:")
+    print(f"  • Module: {module_number}")
+    print(f"  • Path: {path_letter}")
+    print(f"  • Questions per goal: {num_questions}")
+    if limit_sequences:
+        print(f"  • Sequence limit: {limit_sequences}")
     
     # Create main output directory
     if output_dir is None:
@@ -126,7 +145,9 @@ def test_full_pipeline(
     try:
         sequences_path = test_interaction_designer(
             questions_path=questions_path,
-            output_dir=step2_dir
+            output_dir=step2_dir,
+            module_number=module_number,
+            path_letter=path_letter
         )
         
         if sequences_path is None:
@@ -172,7 +193,9 @@ def test_full_pipeline(
         remediation_path = test_remediation_generator(
             sequences_path=sequences_path,
             output_dir=step3_dir,
-            limit=limit_sequences
+            limit=limit_sequences,
+            module_number=module_number,
+            path_letter=path_letter
         )
         
         if remediation_path is None:
@@ -227,7 +250,8 @@ def test_full_pipeline(
         godot_path = test_godot_formatter(
             remediation_path=remediation_path,
             output_dir=step4_dir,
-            limit=limit_sequences
+            limit=limit_sequences,
+            module_number=module_number
         )
         
         if godot_path is None:

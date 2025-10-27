@@ -17,12 +17,17 @@ module_1 = {
         "equal parts",
         "unit fraction",
         "numerator",
-        "denominator"
+        "denominator",
+        "halves",
+        "thirds",
+        "fourths",
+        "sixths",
+        "eighths"
     ],
     "variables": {
-        "parts": ["halves", "thirds", "fourths", "sixths", "eighths"],
-        "unit_fraction": ["1/2", "1/3", "1/4", "1/6", "1/8"],
-        "denominator": [2, 3, 4, 6, 8]
+        "fraction_names": ["halves", "thirds", "fourths", "sixths", "eighths"],
+        "fractions": ["1/2", "1/3", "1/4", "1/6", "1/8"],
+        "total_parts": [2, 3, 4, 6, 8]
     },
     "standards": {
         "building_on": [
@@ -42,7 +47,7 @@ module_1 = {
         "Defining the Whole"
     ],
     "available_visuals": {
-        "shapes": ["rectangle bar"],
+        "tangibles": ["rectangle bar"],
         "description": "Rectangular bars are the primary visual for this module. Bars can be oriented horizontally or vertically, and can be partitioned into equal or unequal parts.",
         "constraints": [
             "All fractions are shown using rectangle bars divided into parts",
@@ -53,12 +58,12 @@ module_1 = {
     },
     "misconceptions": [
         {
-            "misconception": "More pieces means bigger fractions",
-            "correction": "More pieces means smaller unit fractions (1/8 < 1/4)"
+            "misconception": "Unequal Parts",
+            "description": "Believing parts can be different sizes and still count as equal fractions"
         },
         {
-            "misconception": "All pieces must be the same shape to be equal",
-            "correction": "Pieces can be different shapes but same area/size"
+            "misconception": "Misidentifying the Whole",
+            "description": "Losing track of what the '1' is; comparing parts of different wholes"
         }
     ]
 }

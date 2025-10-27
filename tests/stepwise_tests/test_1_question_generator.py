@@ -176,8 +176,42 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
             print(f"✗ Raw response saved to {output_dir}/goal_{idx}_raw.txt")
             continue
     
-    # Combine all questions
-    questions_data = {"questions": all_questions}
+    # ====================================================================
+    # GENERATE SUMMARY STATISTICS
+    # ====================================================================
+    summary = {
+        "total_questions": len(all_questions),
+        "by_goal": {},
+        "by_variable_value": {},
+        "by_difficulty_level": {0: 0, 1: 0, 2: 0, 3: 0, 4: 0},
+        "by_question_type": {}
+    }
+    
+    for q in all_questions:
+        # Count by goal
+        goal_id = q.get('goal_id', 'unknown')
+        summary['by_goal'][goal_id] = summary['by_goal'].get(goal_id, 0) + 1
+        
+        # Count by variable value
+        variables_used = q.get('variables_used', {})
+        for var_name, var_value in variables_used.items():
+            key = f"{var_name}: {var_value}"
+            summary['by_variable_value'][key] = summary['by_variable_value'].get(key, 0) + 1
+        
+        # Count by difficulty level
+        diff_level = q.get('difficulty_level')
+        if diff_level in summary['by_difficulty_level']:
+            summary['by_difficulty_level'][diff_level] += 1
+        
+        # Count by question type
+        q_type = q.get('question_type', 'unknown')
+        summary['by_question_type'][q_type] = summary['by_question_type'].get(q_type, 0) + 1
+    
+    # Combine all questions with summary
+    questions_data = {
+        "summary": summary,
+        "questions": all_questions
+    }
     
     # Save combined output
     questions_output_path = f"{output_dir}/questions.json"
@@ -187,6 +221,33 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
     print(f"\n{'=' * 70}")
     print(f"✓ Generated {len(all_questions)} total questions across {len(learning_goals)} goals")
     print(f"✓ Saved combined output to {questions_output_path}")
+    
+    # Display summary statistics
+    print("\n" + "=" * 70)
+    print("SUMMARY STATISTICS")
+    print("=" * 70)
+    
+    print("\nQuestions per Goal:")
+    for goal_id in sorted(summary['by_goal'].keys()):
+        count = summary['by_goal'][goal_id]
+        print(f"  Goal {goal_id}: {count} questions")
+    
+    print("\nQuestions per Variable Value:")
+    for var_key in sorted(summary['by_variable_value'].keys()):
+        count = summary['by_variable_value'][var_key]
+        print(f"  {var_key}: {count} questions")
+    
+    print("\nQuestions per Difficulty Level:")
+    for level in sorted(summary['by_difficulty_level'].keys()):
+        count = summary['by_difficulty_level'][level]
+        pct = (count / len(all_questions) * 100) if len(all_questions) > 0 else 0
+        print(f"  Level {level}: {count} questions ({pct:.1f}%)")
+    
+    print("\nQuestions per Question Type:")
+    for q_type in sorted(summary['by_question_type'].keys()):
+        count = summary['by_question_type'][q_type]
+        pct = (count / len(all_questions) * 100) if len(all_questions) > 0 else 0
+        print(f"  {q_type}: {count} questions ({pct:.1f}%)")
     
     # ====================================================================
     # VALIDATE SCHEMA
@@ -201,11 +262,14 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         "questions": []
     }
     
-    # Required fields for question generator output (8 fields)
+    # Required fields for question generator output
     required_fields = [
         "goal_id", "goal_text", "question_id", "question_prompt", 
-        "question_type", "difficulty_level", "visual_context", "question_text"
+        "question_type", "difficulty_level", "visual_context", "variables_used"
     ]
+    
+    # Optional fields
+    optional_fields = ["application_context"]
     
     # Track distributions
     difficulty_dist = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
@@ -228,8 +292,9 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         else:
             print(f"    ✓ All required fields present")
         
-        # Check for extra fields (should only have 6 fields)
-        extra_fields = [field for field in q.keys() if field not in required_fields]
+        # Check for extra fields
+        all_valid_fields = required_fields + optional_fields
+        extra_fields = [field for field in q.keys() if field not in all_valid_fields]
         if extra_fields:
             q_validation['issues'].append(f"Extra fields found: {extra_fields}")
             print(f"    ✗ Extra fields found: {extra_fields}")
@@ -264,14 +329,13 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
         i_type = q.get('interaction_type', 'N/A')
         interaction_type_dist[i_type] = interaction_type_dist.get(i_type, 0) + 1
         
-        # Check question_text length (should be a narrative variation)
-        question_text = q.get('question_text', '')
-        word_count = len(question_text.split())
-        if word_count < 10:
-            q_validation['issues'].append(f"question_text too short ({word_count} words)")
-            print(f"    ✗ question_text too short ({word_count} words)")
+        # Check variables_used (required field)
+        variables_used = q.get('variables_used', {})
+        if not variables_used:
+            q_validation['issues'].append("Missing variables_used field")
+            print(f"    ✗ Missing variables_used")
         else:
-            print(f"    ✓ question_text adequate ({word_count} words)")
+            print(f"    ✓ Variables used: {list(variables_used.keys())}")
         
         # Check visual context
         visual = q.get('visual_context', '')
@@ -354,10 +418,10 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
     
     print("\n📊 Expected Schema:")
     print("  ✓ Required fields: goal_id, goal_text, question_id, question_prompt")
-    print("  ✓ question_type, difficulty_level, visual_context, question_text")
+    print("  ✓ question_type, difficulty_level, visual_context, variables_used")
+    print("  ✓ Optional fields: application_context (for APPLY/CONNECT types)")
     print("  ✓ Question types: CREATE, IDENTIFY, COMPARE, APPLY, CONNECT")
-    print("  ✓ NO extra fields beyond these 8")
-    print("  ✓ question_prompt should be verbatim copy of example question")
+    print("  ✓ question_prompt should be close to example with variables swapped")
     
     print("\n" + "=" * 70)
     print("NEXT STEP")

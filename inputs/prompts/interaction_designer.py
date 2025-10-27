@@ -30,8 +30,11 @@ INTERACTION_DESIGNER_EXPECTED_INPUT="""
       "question_prompt": "Select the bar that represents 1/6.",
       "question_type": "IDENTIFY",
       "difficulty_level": 2,
-      "question_text": "Leo partitions a granola bar into 6 equal pieces. Select the bar showing 1/6 of the whole.",
-      "visual_context": "Three rectangle bars shown horizontally, each divided into 6 parts with one part shaded; only one bar has equal parts"
+      "visual_context": "Three rectangle bars shown horizontally, each divided into 6 parts with one part shaded; only one bar has equal parts",
+      "variables_used": {
+        "total_parts": 6
+      },
+      "application_context": "Leo partitions a granola bar into 6 equal pieces."
     }
 """
 
@@ -57,7 +60,7 @@ Generally, each sequence has 1 step. Each step can include the following fields:
 - Example: "Select the bar that represents 1/4" -> "Select the bar showing the correct fraction"
 
 **Step 2: Map visual_context to workspace and choose interaction_tool**
-- Read the prompt, `question_text` and `visual_context` to understand what should appear on screen
+- Read the `question_prompt`, `application_context` (if present) and `visual_context` to understand what should appear on screen
 - Find matching tasks in visual_guide.md
 - Select the appropriate interaction_tool based on the task requirements
   - `"shade"` - Student shades sections of shapes
@@ -75,12 +78,12 @@ Generally, each sequence has 1 step. Each step can include the following fields:
 There are two types of dialogue to write:
 
 **3a. Main dialogue (setting up the question)**
-- Use `question_text` as your narrative base.
+- Use `question_prompt` and `application_context` (if available) as your narrative base.
 - Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the dialogue concise (10-30 words), clear, and supportive.
 - Focus on guiding students to practice the `goal_text` without introducing new concepts.
 - Adjust scaffolding and tone based on `difficulty_level` (0-4):
-  - **Lower levels (0-1):** Provide more conversational guidance.
+  - **Lower levels (0-1):** Provide more guidance.
   - **Higher levels (2-4):** Reduce scaffolding and encourage independent thinking.
 
 **3b. Success dialogue (student_attempts.success_path.dialogue)**
@@ -88,14 +91,20 @@ There are two types of dialogue to write:
 - Refer to the "Success Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the feedback concise (5-10 words).
 
+**4. Map the fraction covered
+- Use the `variables_used` field from question data to identify which fraction is being practiced in this question.
+- For total_parts without numerators or fractions mentioned, 2-8 maps to "1/2" through "1/8" respectively.
+- For fraction_names, "halves" maps to "1/2", "thirds" to "1/3", "fourths" to "1/4", "sixths" to "1/6", and "eighths" to "1/8".
+
 **Example transformation:**
 ```
 Input question data:
   "question_prompt": "Select the bar that represents 1/4.",
   "question_type": "IDENTIFY",
   "difficulty_level": 2,
-  "question_text": "Maya is sharing a chocolate bar equally with 3 friends. Select the bar that shows 1/4 with equal parts.",
-  "visual_context": "Three rectangle bars shown horizontally, each divided into 4 parts with one part shaded; only one bar has equal parts"
+  "application_context": "Maya is sharing a chocolate bar equally with 3 friends.",
+  "visual_context": "Three rectangle bars shown horizontally, each divided into 4 parts with one part shaded; only one bar has equal parts",
+  "variables_used": {"total_parts": 4}
 
 Output sequence step:
   "prompt": "Select the bar showing the correct fraction.",
@@ -206,6 +215,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
       "difficulty": 0-4,
       "verb": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
       "goal": "learning goal text",
+      "fractions_covered":[],
       "steps": [
         {{
           "dialogue": "Here's a rectangle divided into 4 equal parts. Shade three of them.",
