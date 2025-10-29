@@ -254,7 +254,7 @@ if __name__ == "__main__":
                         "difficulty_level": 0,
                         "question_type": "procedural",
                         "cognitive_verb": "divide",
-                        "visual_context": "A rectangular bar",
+                        "visual_context": "A rectangle bar",
                         "correct_answer": "Click once",
                         "explanation": "This teaches partitioning by having students physically divide a shape.",
                         "vocabulary_reinforced": ["partition"]
@@ -266,7 +266,7 @@ if __name__ == "__main__":
                         "difficulty_level": 1,
                         "question_type": "procedural",
                         "cognitive_verb": "divide",
-                        "visual_context": "A rectangular bar",  # Similar!
+                        "visual_context": "A rectangle bar",  # Similar!
                         "correct_answer": "Click three times",
                         "explanation": "This teaches partitioning.",  # Short!
                         "vocabulary_reinforced": ["partition"]

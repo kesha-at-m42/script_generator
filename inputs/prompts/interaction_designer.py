@@ -32,7 +32,7 @@ INTERACTION_DESIGNER_EXPECTED_INPUT="""
       "difficulty_level": 2,
       "visual_context": "Three rectangle bars shown horizontally, each divided into 6 parts with one part shaded; only one bar has equal parts",
       "variables_used": {
-        "total_parts": 6
+        "fractions": 6
       },
       "application_context": "Leo partitions a granola bar into 6 equal pieces."
     }
@@ -93,8 +93,7 @@ There are two types of dialogue to write:
 
 **4. Map the fraction covered
 - Use the `variables_used` field from question data to identify which fraction is being practiced in this question.
-- For total_parts without numerators or fractions mentioned, 2-8 maps to "1/2" through "1/8" respectively.
-- For fraction_names, "halves" maps to "1/2", "thirds" to "1/3", "fourths" to "1/4", "sixths" to "1/6", and "eighths" to "1/8".
+- For parts without numerators or fractions mentioned, 2-8 maps to "1/2" through "1/8" respectively.
 
 **Example transformation:**
 ```
@@ -104,7 +103,7 @@ Input question data:
   "difficulty_level": 2,
   "application_context": "Maya is sharing a chocolate bar equally with 3 friends.",
   "visual_context": "Three rectangle bars shown horizontally, each divided into 4 parts with one part shaded; only one bar has equal parts",
-  "variables_used": {"total_parts": 4}
+  "variables_used": {"fractions": 4}
 
 Output sequence step:
   "prompt": "Select the bar showing the correct fraction.",
@@ -215,7 +214,8 @@ INTERACTION_DESIGNER_STRUCTURE = """
       "difficulty": 0-4,
       "verb": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
       "goal": "learning goal text",
-      "fractions_covered":[],
+      "goal_id": 1,
+      "fractions":[],
       "steps": [
         {{
           "dialogue": "Here's a rectangle divided into 4 equal parts. Shade three of them.",

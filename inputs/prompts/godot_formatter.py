@@ -10,16 +10,17 @@ GODOT_FORMATTER_ROLE = """You are an expert in transforming educational content 
 
 Your task: Transform remediation sequences into Godot-processable format that matches the exact specification with @type annotations and proper component structure."""
 
+GODOT_FORMATTER_EXAMPLES = []
 GODOT_FORMATTER_DOCS = ["godot_schema_spec.md"]
 
 GODOT_FORMATTER_INSTRUCTIONS = """
 ## YOUR TASK
 
-Transform these remediation sequences to Godot-processable format:
+Transform these interaction sequences to Godot-processable format:
 
-<remediation_sequences>
-{remediation_context}
-</remediation_sequences>
+<interaction_sequences>
+{complete_interaction_sequences}
+</interaction_sequences>
 
 See godot_schema_spec.md for complete structure documentation.
 
@@ -28,7 +29,7 @@ See godot_schema_spec.md for complete structure documentation.
 ### 1. Add @type Annotations
 Every object needs a @type field for deserialization (see schema for complete list):
 - Root: `"@type": "SequencePool"`
-- Sequence: `"@type": "Sequence"` + @metadata object
+- Sequence: `"@type": "Sequence"` + metadata object
 - Step: `"@type": "Step"`
 - Workspace: `"@type": "WorkspaceData"` (NOT "Workspace")
 - Tangibles: `"@type": "FracShape"` or `"@type": "NumberLine"`
@@ -363,6 +364,11 @@ Return ONLY valid JSON with Godot schema structure.
 GODOT_FORMATTER_STRUCTURE = """
 {
   "@type": "SequencePool",
+  "@metadata": {
+  "goal_ids": 5,
+  "variables_covered": [
+    {"fractions": ["1/2", "1/3", "1/4", "1/6", "1/8"]}
+  ],
   "sequences": [
     {
       "@type": "Sequence",
@@ -370,7 +376,9 @@ GODOT_FORMATTER_STRUCTURE = """
         "problem_id": 1,
         "difficulty": 0,
         "verb": "partition",
-        "goal": "Students can partition shapes"
+        "goal": "Students can partition shapes",
+        "goal_id": 1,
+        "fractions": []
       },
       "steps": [
         {

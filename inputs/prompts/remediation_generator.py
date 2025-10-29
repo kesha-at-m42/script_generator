@@ -72,7 +72,8 @@ REMEDIATION_GENERATOR_STRUCTURE = """
       "difficulty": 0-4,
       "verb": "string",
       "goal": "string",
-      "fractions_covered": [],
+      "goal_id": 1,
+      "fractions": [],
       "steps": [...existing steps with workspace tangibles...],
       "valid_visual": [...existing...],
       "student_attempts": {

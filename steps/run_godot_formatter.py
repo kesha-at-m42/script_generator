@@ -92,7 +92,7 @@ def run_godot_formatter(
         godot_prompt = builder.build_prompt(
             prompt_id="godot_formatter",
             variables={
-                "remediation_context": json.dumps(single_sequence_data, indent=2),
+                "complete_interaction_sequences": json.dumps(single_sequence_data, indent=2),
                 "vocabulary_terms": vocabulary_list
             }
         )

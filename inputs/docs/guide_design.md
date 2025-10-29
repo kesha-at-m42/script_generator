@@ -60,7 +60,7 @@ Transform the problem into a conversational narrative that guides students towar
 
 **Key Approaches:**
 
-1. **Frame as a real-world situation:**
+1. **Frame as a real-world situation if it has application context:**
    - "Maya wants to share a chocolate bar with three friends."
    - "Jake has to give half of his energy bar to Sam."
 
@@ -75,10 +75,10 @@ Transform the problem into a conversational narrative that guides students towar
 - Don't repeat the prompt verbatim.
 
 **Calibrate to Difficulty:**
-- **Lower difficulty (0-1):** More conversational guidance.
-  - Include helpful hints naturally in the narrative.
+- **Lower difficulty (0-1):** More supportive and conversational guidance.
+  - Include instruction and helpful hints naturally in the narrative.
   - Mention specific terms if they scaffold without giving away the answer.
-- **Higher difficulty (2-3):** Less scaffolding.
+- **Higher difficulty (2-4):** Less scaffolding.
   - Frame the challenge, let them work it out.
   - Trust them to apply what they know.
 
