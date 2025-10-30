@@ -14,9 +14,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
 from core.prompt_builder import PromptBuilder
-from steps.module_loader import ModuleLoader
 
-def test_question_generator(module_number=1, num_questions=8, path_letter=None, output_dir=None, test_mode=False, goal_number=None):
+def test_question_generator(module_number=2, num_questions=8, path_letter=None, output_dir=None, test_mode=False, goal_number=None):
     """
     Test question generator with learning goals
     
@@ -98,18 +97,22 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
             goal_text = goal.get('text', str(goal))
             difficulty_level = goal.get('difficulty_level', '0-4')
             example_questions = goal.get('example_questions', [])
+            question_type = goal.get('question_type', [])
+            variables = goal.get('variables', {})
             
             # Format example questions as bullet list
             example_questions_text = '\n'.join([f"  - {ex}" for ex in example_questions])
-            num_examples = len(example_questions)
+            variables_text = json.dumps(variables, indent=2)  # ← ADD THIS
+    
+    # Format question types as comma-separated list
+            question_types_text = ', '.join(question_type) 
         else:
             goal_id = idx
             goal_text = str(goal)
             difficulty_level = '0-4'
             example_questions_text = ''
-            num_examples = 3
         
-        print(f"  Generating variations from {num_examples} example questions across difficulty range {difficulty_level}")
+        print(f"  Generating variations of example questions across difficulty range {difficulty_level}")
         
         # Build prompt (may return prefill)
         prompt_result = builder.build_prompt(
@@ -119,7 +122,8 @@ def test_question_generator(module_number=1, num_questions=8, path_letter=None, 
                 "goal": goal_text,
                 "difficulty_level": difficulty_level,
                 "example_questions": example_questions_text,
-                "num_examples": num_examples
+                "question_types": question_types_text,
+                "variables": variables_text
             }
         )
         

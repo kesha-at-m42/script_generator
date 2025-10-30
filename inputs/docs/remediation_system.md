@@ -28,6 +28,12 @@ Writers create multiple error path options for each interaction:
 
 Each error path must contain exactly 3 steps in sequence: light, medium, heavy.
 
+## IMPORTANT CLARIFICATION
+
+For the `error_path_generic`, do NOT assume or diagnose a specific error type. This path is used when the system cannot determine the exact nature of the student's mistake. Remediation language and visual scaffolds should remain general, supportive, and non-specific—avoid guessing what the error was. Only reference the student's observable actions or provide general encouragement and guidance.
+
+---
+
 ## SECTION 3: REMEDIATION STRUCTURE BY LEVEL
 
 ### General Requirements
@@ -77,7 +83,6 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - Body: Modeling, or step-by-step demonstration with the answer revealed
   - Closing: Post-modeling acknowledgment (required)
 - **Dialogue patterns:**
-  - "This is tricky, so let's work through it together..."
   - "Let me help you with this one..."
   - "Here, I'll walk you through this one..."
 

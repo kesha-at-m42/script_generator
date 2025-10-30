@@ -34,16 +34,16 @@ def split_by_difficulty(input_file):
     
     # Group sequences by difficulty
     for seq in sequences:
-        # Check if difficulty is in @metadata (Godot format) or directly on sequence
-        if '@metadata' in seq:
-            difficulty = seq['@metadata'].get('difficulty')
+        # Check if difficulty is in metadata (Godot format) or directly on sequence
+        if 'metadata' in seq:
+            difficulty = seq['metadata'].get('difficulty')
         else:
             difficulty = seq.get("difficulty")
         
         if difficulty in difficulty_groups:
             difficulty_groups[difficulty].append(seq)
         else:
-            print(f"⚠️  Unknown difficulty: {difficulty} in problem_id {seq.get('@metadata', {}).get('problem_id', seq.get('problem_id'))}")
+            print(f"⚠️  Unknown difficulty: {difficulty} in problem_id {seq.get('metadata', {}).get('problem_id', seq.get('problem_id'))}")
     
     # Print summary
     print("Difficulty distribution:")
@@ -96,9 +96,9 @@ def split_by_verb(input_file):
     
     # Group sequences by verb
     for seq in sequences:
-        # Check if verb is in @metadata (Godot format) or directly on sequence
-        if '@metadata' in seq:
-            verb = seq['@metadata'].get('verb')
+        # Check if verb is in metadata (Godot format) or directly on sequence
+        if 'metadata' in seq:
+            verb = seq['metadata'].get('verb')
         else:
             verb = seq.get("verb")
         
@@ -108,7 +108,7 @@ def split_by_verb(input_file):
                 verb_groups[verb_lower] = []
             verb_groups[verb_lower].append(seq)
         else:
-            print(f"⚠️  No verb found in problem_id {seq.get('@metadata', {}).get('problem_id', seq.get('problem_id'))}")
+            print(f"⚠️  No verb found in problem_id {seq.get('metadata', {}).get('problem_id', seq.get('problem_id'))}")
     
     # Print summary
     print("Verb distribution:")
@@ -167,8 +167,8 @@ def split_by_both(input_file):
     # Group sequences by difficulty + verb
     for seq in sequences:
         # Extract metadata
-        if '@metadata' in seq:
-            metadata = seq['@metadata']
+        if 'metadata' in seq:
+            metadata = seq['metadata']
             difficulty = metadata.get('difficulty')
             verb = metadata.get('verb')
         else:

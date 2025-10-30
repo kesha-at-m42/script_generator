@@ -57,7 +57,6 @@ Generally, each sequence has 1 step. Each step can include the following fields:
 **Step 1: Write the prompt**
 - Derive the `prompt` from `question_prompt`, and ensure it doesn't give away the answer.
 - Clear mathematical action language focused on the concept in 5-15 words.
-- Example: "Select the bar that represents 1/4" -> "Select the bar showing the correct fraction"
 
 **Step 2: Map visual_context to workspace and choose interaction_tool**
 - Read the `question_prompt`, `application_context` (if present) and `visual_context` to understand what should appear on screen
@@ -73,17 +72,19 @@ Generally, each sequence has 1 step. Each step can include the following fields:
   Array of tangible objects with these required fields:
   - `id`: Unique identifier string
   - `type`: Shape type (rectangle_bar, circle, grid, number_line, etc.)
-  - `sections`: Number of parts, omit if not applicable
   - `state`: Visual state - "undivided", "divided_equal", or "divided_unequal"
-There are two types of dialogue to write:
+  - `sections`: Number of parts, omit if not applicable
+  - `shaded`: Array of shaded section indices, omit if not applicable
 
+There are two types of dialogue to write:
 **3a. Main dialogue (setting up the question)**
 - Use `question_prompt` and `application_context` (if available) as your narrative base.
+- Match the language in the call to action with the prompt.
 - Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the dialogue concise (10-30 words), clear, and supportive.
 - Focus on guiding students to practice the `goal_text` without introducing new concepts.
 - Adjust scaffolding and tone based on `difficulty_level` (0-4):
-  - **Lower levels (0-1):** Provide more guidance.
+  - **Lower levels (0-1):** Provide more guidance, break down multi-step questions to match the difficulty level.
   - **Higher levels (2-4):** Reduce scaffolding and encourage independent thinking.
 
 **3b. Success dialogue (student_attempts.success_path.dialogue)**
@@ -121,16 +122,15 @@ Output sequence step:
 **Example: Shading interaction:**
 ```json
 {{
-  "prompt": "Shade parts to show the correct fraction",
+  "prompt": "Shade three-fourths of the bar",
   "interaction_tool": "shade",
   "workspace": [
     {{
-      "id": "bar_1",
+      "id": "bar_center",
       "type": "rectangle_bar",
       "sections": 4,
       "state": "divided_equal",
-      "shaded": [],
-      "position": "center"
+      "shaded": []
     }}
   ],
   "correct_answer": {{
@@ -143,11 +143,11 @@ Output sequence step:
 **Example: Dividing/partitioning interaction**
    ```json
    {{
-     "prompt": "Divide the bar into required parts",
+     "prompt": "Divide the bar into four equal parts",
      "interaction_tool": "cut",
      "workspace": [
        {{
-         "id": "bar_1",
+         "id": "bar_center",
          "type": "rectangle_bar",
          "sections": 1,
          "state": "undivided",
@@ -223,7 +223,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
           "interaction_tool": "shade",
           "workspace": [
             {{
-              "id": "bar_1",
+              "id": "bar_center",
               "type": "rectangle_bar",
               "sections": 4,
               "state": "divided",
@@ -236,7 +236,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
           }},
           "student_attempts": {{
             "success_path": {{
-              "dialogue": "Perfect! You shaded exactly three-fourths."
+              "dialogue": "Good! You shaded exactly three-fourths."
             }}
           }}
         }},
@@ -267,7 +267,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
           }},
           "student_attempts": {{
             "success_path": {{
-              "dialogue": "You counted the shaded parts and identified the fraction correctly."
+              "dialogue": "Yes. You counted the shaded parts and identified the fraction correctly."
             }}
           }}
         }}

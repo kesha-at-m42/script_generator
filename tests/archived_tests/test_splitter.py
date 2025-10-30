@@ -1,5 +1,5 @@
 import json
-from steps.difficulty_splitter import DifficultySplitter
+from utils.difficulty_splitter import DifficultySplitter
 from pathlib import Path
 
 # Load godot sequences

@@ -26,16 +26,52 @@ See godot_schema_spec.md for complete structure documentation.
 
 ## TRANSFORMATION RULES
 
-### 1. Add @type Annotations
+### 1. Sequence Metadata Structure
+
+Each Sequence must include a metadata object with these fields:
+
+**Input fields (copy directly from source):**
+- `problem_id`: Integer - unique identifier for this problem
+- `goal_id`: Integer - learning goal this sequence addresses
+- `goal_text`: String - human-readable description of the learning goal
+- `verb`: String - primary interaction verb (e.g., "shade", "partition", "select")
+- `variables_covered`: Object - maps variable types to their values
+  - Format: `{"fractions": ["1/4", "1/3"], "whole_numbers": [2, 3]}`
+  - Common keys: "fractions", "whole_numbers", "mixed_numbers"
+
+**Mastery fields (will be auto-generated, use placeholders):**
+- `mastery_tier`: String - set to `"2"` (placeholder, will be mapped from goal_id)
+- `mastery_component`: String - set to `"PROCEDURAL"` (placeholder)
+- `mastery_verbs`: Array - set to `["APPLY"]` (placeholder)
+
+**Complete metadata structure:**
+```json
+{
+  "@type": "SequenceMetadata",
+  "problem_id": 123,
+  "goal_id": 5,
+  "goal_text": "The student can partition shapes into equal parts",
+  "verb": "partition",
+  "variables_covered": {"fractions": ["1/4"]},
+  "mastery_tier": "2",
+  "mastery_component": "PROCEDURAL",
+  "mastery_verbs": ["APPLY"]
+}
+```
+
+Note: Mastery fields will be automatically corrected by metadata_mapper utility in post-processing. Use the placeholder values shown above.
+
+### 2. Add @type Annotations
+
 Every object needs a @type field for deserialization (see schema for complete list):
 - Root: `"@type": "SequencePool"`
-- Sequence: `"@type": "Sequence"` + metadata object
+- Sequence: `"@type": "Sequence"` (with metadata object as shown above)
 - Step: `"@type": "Step"`
 - Workspace: `"@type": "WorkspaceData"` (NOT "Workspace")
 - Tangibles: `"@type": "FracShape"` or `"@type": "NumberLine"`
 - Prompt, Validator, Remediation, Choices: Use appropriate @type (see schema)
 
-### 2. Type Mappings
+### 3. Type Mappings
 
 **Tangible Types (input → output):**
 ALL fraction shapes use unified `FracShape` type:
@@ -68,7 +104,7 @@ Read `correct_answer.context` to understand what's being validated, then determi
 
 See schema for validator field requirements and answer formats.
 
-### 3. FracShape State Conversion
+### 4. FracShape State Conversion
 
 **Input fields (standardized schema):**
 - `type`: Shape type (rectangle_bar, circle, grid, etc.)
@@ -98,53 +134,53 @@ See schema for validator field requirements and answer formats.
 **Remove these fields** (not in Godot schema):
 - `id`, `type`, `state`, `position`
 
-### 4. Example Transformations
+### 5. Example Transformations
 
 **Example A: Partition/cut interaction (verb="partition", tool="cut")**
 
 Input:
 ```json
-{{
+{
   "verb": "partition",
   "steps": [
-    {{
+    {
       "workspace": [
-        {{
+        {
           "type": "rectangle_bar",
           "sections": 1,
           "state": "undivided",
           "shaded": []
-        }}
+        }
       ]
-    }},
-    {{
+    },
+    {
       "prompt": "Click to cut",
       "interaction_tool": "cut",
-      "correct_answer": {{
+      "correct_answer": {
         "value": "1/4",
         "context": "Divide into fourths"
-      }}
-    }}
+      }
+    }
   ]
-}}
+}
 ```
 
 Output:
 ```json
-{{
+{
   "@type": "Step",
-  "workspace": {{
+  "workspace": {
     "@type": "WorkspaceData",
     "tangibles": [
-      {{
+      {
         "@type": "FracShape",
         "visual": 0,
         "shaded": [],
         "lcm": 8
-      }}
+      }
     ]
-  }}
-}}
+  }
+}
 ```
 *Note: state="undivided" → fractions omitted. lcm=8 because answer="1/4" means 4 sections → 4*2=8
 
@@ -152,211 +188,180 @@ Output:
 
 Input:
 ```json
-{{
+{
   "verb": "shade",
   "workspace": [
-    {{
+    {
       "type": "rectangle_bar",
       "sections": 3,
       "state": "divided",
       "shaded": []
-    }}
+    }
   ]
-}}
+}
 ```
 
 Output:
 ```json
-{{
+{
   "@type": "Step",
-  "workspace": {{
+  "workspace": {
     "@type": "WorkspaceData",
     "tangibles": [
-      {{
+      {
         "@type": "FracShape",
         "fractions": "1/3",
         "visual": 0,
         "shaded": [],
         "lcm": 24
-      }}
+      }
     ]
-  }}
-}}
+  }
+}
 ```
 *Note: sections=3 + state="divided" → fractions="1/3". lcm=24 (default for non-partition)*
 
-### 5. Error Paths → Remediations with @metadata
+### 6. Error Paths → Remediations with metadata
 
-Transform error_path_generic steps into remediations array. Extract visual effects to @metadata.events:
+Transform error_path_generic steps into remediations array. Extract visual effects to metadata.events:
 
 Input:
 ```json
-"error_path_generic": {{
+"error_path_generic": {
   "steps": [
-    {{
+    {
       "scaffolding_level": "light",
       "dialogue": "Not quite..."
-    }},
-    {{
+    },
+    {
       "scaffolding_level": "medium",
       "dialogue": "Let's think...",
-      "visual": {{
+      "visual": {
         "effects": [
-          {{
+          {
             "animation": "pulse_sections",
             "description": "All sections pulse"
-          }}
+          }
         ]
-      }}
-    }},
-    {{
+      }
+    },
+    {
       "scaffolding_level": "heavy",
       "dialogue": "This is tricky...",
-      "visual": {{
+      "visual": {
         "effects": [
-          {{"animation": "label_sections", "description": "Labels appear"}},
-          {{"animation": "shade_one", "description": "One section shades"}}
+          {"animation": "label_sections", "description": "Labels appear"},
+          {"animation": "shade_one", "description": "One section shades"}
         ]
-      }}
-    }}
+      }
+    }
   ]
-}}
+}
 ```
 
 Output:
 ```json
 "remediations": [
-  {{
+  {
     "@type": "Remediation",
     "id": "light",
-    "step": {{
+    "step": {
       "@type": "Step",
       "dialogue": "Not quite..."
-    }}
-  }},
-  {{
+    }
+  },
+  {
     "@type": "Remediation",
     "id": "medium",
-    "step": {{
+    "step": {
       "@type": "Step",
-      "@metadata": {{
+      "metadata": {
         "events": [
-          {{"name": "pulse_sections", "description": "All sections pulse"}}
+          {"name": "pulse_sections", "description": "All sections pulse"}
         ]
-      }},
+      },
       "dialogue": "Let's think..."
-    }}
-  }},
-  {{
+    }
+  },
+  {
     "@type": "Remediation",
     "id": "heavy",
-    "step": {{
+    "step": {
       "@type": "Step",
-      "@metadata": {{
+      "metadata": {
         "events": [
-          {{"name": "label_sections", "description": "Labels appear"}},
-          {{"name": "shade_one", "description": "One section shades"}}
+          {"name": "label_sections", "description": "Labels appear"},
+          {"name": "shade_one", "description": "One section shades"}
         ]
-      }},
+      },
       "dialogue": "This is tricky..."
-    }}
-  }}
+    }
+  }
 ]
 ```
 
 **Rules:**
 - Extract event name from `animation` field, description stays as-is
-- @metadata is OPTIONAL - only add if visual effects exist
+- metadata is OPTIONAL - only add if visual effects exist
 - Remediation IDs: "light", "medium", "heavy" (lowercase, in order)
 
-### 6. Success Path → on_correct
+### 7. Success Path → on_correct
 
 Add success_path dialogue to prompt as `on_correct` field:
 
 Input:
 ```json
-"success_path": {{
-  "steps": [{{"dialogue": "Perfect! You got it right."}}]
-}}
+"success_path": {
+  "steps": [{"dialogue": "Perfect! You got it right."}]
+}
 ```
 
 Output (in prompt object):
 ```json
-"on_correct": {{
+"on_correct": {
   "@type": "Step",
   "dialogue": "Perfect! You got it right."
-}}
+}
 ```
 
 If no success_path or empty, set `on_correct: null`.
 
-### 7. Multiple Choice → choices
+### 8. Multiple Choice → choices
 
 If input has `choices` array, add to prompt:
 
 ```json
-"prompt": {{
+"prompt": {
   "@type": "Prompt",
   "text": "...",
-  "validator": {{
+  "validator": {
     "@type": "MultipleChoiceValidator",
     "answer": [2]
-  }},
-  "choices": {{
+  },
+  "choices": {
     "@type": "WorkspaceChoices",
     "allow_multiple": false,
     "options": ["1/2", "1/3", "1/4"]
-  }}
-}}
+  }
+}
 ```
 
 **Note**: MCQs do NOT have a "tool" field.
 
-### 8. Fraction Formatting in Dialogue
-
-ALL fractions in dialogue must use BBCode format for rendering:
-
-**Format:** `[fraction numerator=N denominator=D]text[/fraction]`
-
-**Examples:**
-- `3/4` → `[fraction numerator=3 denominator=4]three fourths[/fraction]`
-- `1/2` → `[fraction numerator=1 denominator=2]one half[/fraction]`
-- `2/3` → `[fraction numerator=2 denominator=3]two thirds[/fraction]`
-
-Apply to ALL dialogue in steps, remediations, and on_correct.
-
-### 9. Vocabulary Tag Formatting
-
-Wrap vocabulary terms with `[vocab]...[/vocab]` tags for emphasis and tracking.
-
-**Vocabulary terms to wrap:** {vocabulary_terms}
-
-**Rules:**
-- Only wrap terms that appear in the provided vocabulary list
-- Wrap the exact term as it appears (case-sensitive)
-- Don't wrap if already inside another tag (e.g., inside [fraction])
-- Apply to ALL dialogue in steps, remediations, and on_correct
-
-**Examples:**
-- "equal parts" → `[vocab]equal parts[/vocab]`
-- "partition the bar" → `[vocab]partition[/vocab] the bar`
-- "shade one half" → `[vocab]shade[/vocab] [fraction numerator=1 denominator=2]one half[/fraction]`
-
 ## KEY TRANSFORMATION POINTS
 
-1. **@metadata in Sequence**: Add problem_id, difficulty, verb, goal from input
+1. **metadata in Sequence**: Include all fields from section 1 (problem_id, goal_id, goal_text, verb, variables_covered, plus placeholder mastery fields)
 2. **Workspace structure**: Change workspace array → workspace object with tangibles array
-3. **FracShape conversion**: state + sections → fractions field (see section 3)
+3. **FracShape conversion**: state + sections → fractions field (see section 4)
 4. **LCM calculation**: partition tasks use sections*2, others use 24
 5. **Remove input fields**: id, type, state, position (not in Godot schema)
-6. **Event metadata**: Extract animation name + description to @metadata.events
-7. **Fraction BBCode**: Replace all "N/D" with BBCode format in dialogue
-8. **Vocabulary tags**: Wrap vocabulary terms with [vocab]...[/vocab] tags
-9. **Remediation order**: Must be light, medium, heavy
-10. **Tool mapping**: Use section 2 mappings (shade→paint, etc.)
-11. **Validator selection**: Read correct_answer.context to determine type
-12. **MCQ structure**: No tool field, use choices in prompt
-13. **Answer extraction**: Use correct_answer.value only (context is for understanding)
+6. **Event metadata**: Extract animation name + description to metadata.events
+7. **Remediation order**: Must be light, medium, heavy
+8. **Tool mapping**: Use section 3 mappings (shade→paint, etc.)
+9. **Validator selection**: Read correct_answer.context to determine type
+10. **MCQ structure**: No tool field, use choices in prompt
+11. **Answer extraction**: Use correct_answer.value only (context is for understanding)
+12. **Text formatting**: Leave all text AS-IS (fractions like "3/4", vocabulary words unchanged). BBCode formatting will be applied in post-processing.
 
 Return ONLY valid JSON with Godot schema structure.
 """
@@ -364,25 +369,30 @@ Return ONLY valid JSON with Godot schema structure.
 GODOT_FORMATTER_STRUCTURE = """
 {
   "@type": "SequencePool",
-  "@metadata": {
-  "goal_ids": 5,
-  "variables_covered": [
-    {"fractions": ["1/2", "1/3", "1/4", "1/6", "1/8"]}
-  ],
+  "metadata": {
+    "goal_ids": [5],
+    "variables_covered": [
+      {"fractions": ["1/2", "1/3", "1/4", "1/6", "1/8"]}
+    ]
+  },
   "sequences": [
     {
       "@type": "Sequence",
-      "@metadata": {
-        "problem_id": 1,
-        "difficulty": 0,
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 123,
+        "goal_id": 5,
+        "goal_text": "The student can partition shapes into equal parts",
         "verb": "partition",
-        "goal": "Students can partition shapes",
-        "goal_id": 1,
-        "fractions": []
+        "variables_covered": {"fractions": ["1/4"]},
+        "mastery_tier": "2",
+        "mastery_component": "PROCEDURAL",
+        "mastery_verbs": ["APPLY"]
       },
       "steps": [
         {
           "@type": "Step",
+          "dialogue": "...",
           "workspace": {
             "@type": "WorkspaceData",
             "tangibles": [
@@ -392,7 +402,6 @@ GODOT_FORMATTER_STRUCTURE = """
         },
         {
           "@type": "Step",
-          "dialogue": "...",
           "prompt": {
             "@type": "Prompt",
             "text": "...",
@@ -400,8 +409,8 @@ GODOT_FORMATTER_STRUCTURE = """
             "validator": {"@type": "ShadedPartsValidator", "answer": 2},
             "remediations": [
               {"@type": "Remediation", "id": "light", "step": {"@type": "Step", "dialogue": "..."}},
-              {"@type": "Remediation", "id": "medium", "step": {"@type": "Step", "@metadata": {"events": [{"name": "pulse", "description": "..."}]}, "dialogue": "..."}},
-              {"@type": "Remediation", "id": "heavy", "step": {"@type": "Step", "@metadata": {"events": [{"name": "label", "description": "..."}]}, "dialogue": "..."}}
+              {"@type": "Remediation", "id": "medium", "step": {"@type": "Step", "metadata": {"events": [{"name": "pulse", "description": "..."}]}, "dialogue": "..."}},
+              {"@type": "Remediation", "id": "heavy", "step": {"@type": "Step", "metadata": {"events": [{"name": "label", "description": "..."}]}, "dialogue": "..."}}
             ],
             "on_correct": {"@type": "Step", "dialogue": "Success!"}
           }

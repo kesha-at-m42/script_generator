@@ -5,7 +5,7 @@ Generates diverse, engaging questions with maximum structured creativity while e
 
 QUESTION_GENERATOR_ROLE = """
 You are an expert educational content designer creating practice questions for grade 3 students.
-Generate diverse, clear question variations using the module's available visuals and vocabulary, with age-appropriate language and relatable contexts.
+Generate diverse, clear question variations using the module's available visuals and vocabulary, with age-appropriate contexts within the constraints of one question per variable.
 """
 
 QUESTION_GENERATOR_DOCS = [
@@ -13,7 +13,7 @@ QUESTION_GENERATOR_DOCS = [
     "question_types.md"
 ]
 
-QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables"]
+QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables_used", "question_type"]
 
 QUESTION_GENERATOR_EXAMPLES = []
 
@@ -34,17 +34,22 @@ Generate diverse, engaging questions for independent practice of the learning go
 - **Difficulty Range:** {difficulty_level}
 - **Variables to Cover:** {variables}
 - **Example Questions:** {example_questions}
-
-Generate ONE question per variable value. 
-For example, if the variable is "fractions" with values [1/2, 1/3, 1/4], generate one question using 1/2, another using 1/3, and another using 1/4. Only use listed variable values.
-Maximize variety by varying language, question type (from examples), difficulty, and visual context for each variable.
+- **Question Type:** {question_types}
 
 ## GENERATION STRATEGY
 
 **Core Rule: One Question Per Variable Per Goal**
-- For each unique variable value in {variables}, create exactly ONE question
-- Each question should use a DIFFERENT variable value
-- Vary the following dimensions across these questions:
+- For each unique value in {variables}, create exactly ONE question. In general, each goal will have 4-8 questions.
+- Only use variable values explicitly listed in {variables} - do not add new values
+- Meaningfully different questions - different question_type, visual context, or variable.
+- If meaningful differentiation is not possible for a particular variable combination, skip that combination rather than force repetition
+- Maximize variation across multiple dimensions to ensure questions feel distinct, not template-based
+
+- For each unique variable value in {variables} for the goal, create only ONE question.
+- For example, if the variable is "fractions" with values [1/2, 1/3, 1/6], generate one question using 1/2, another using 1/3, and another using 1/6. Don't make 1/5 if not listed. Only use listed variable values.
+- If a meaningfully different question cannot be created for an example_question, difficulty_level and variable set, it is okay to skip that variable at that level.
+- A meaningfully different question is one that differs significantly in visual context, cognitive demand, or variable used.
+Since you'll create one question per variable value, differentiate questions through:
 
 ## CREATIVITY DIMENSIONS TO VARY
 
@@ -55,12 +60,9 @@ Maximize variety by varying language, question type (from examples), difficulty,
 - Use number lines with different tick configurations
 
 ### 2. Cognitive Dimension
-- Distribute across difficulty levels {difficulty_level} 
-- Vary question types within the constraints of example questions (see question_types.md)
+- Distribute across difficulty levels {difficulty_level} (see difficulty_levels.md)
+- Vary question types within the constraints of example questions and available {question_types} (see question_types.md)
 - Include age-appropriate real-world contexts when using APPLY/CONNECT
-- **Rule:** Follow difficulty distribution from {difficulty_level}
-
-### 3. Variable Coverage
 
 
 ## CREATING EACH QUESTION
@@ -131,8 +133,8 @@ Before submitting, verify maximum creativity:
 
 **Coverage Requirements:**
 - Every value in {variables} appears at least once
-- Where question prompt is similar, visual_context differs significantly
-- Difficulty spread across full range {difficulty_level}
+- The same visual context is never repeated for the same variable value
+- Difficulty spread across full range {difficulty_level}, never forced
 - Question types balanced appropriately
 
 **Quality Requirements:**
