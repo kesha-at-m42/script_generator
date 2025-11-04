@@ -10,7 +10,7 @@ Generate diverse, clear question variations using the module's available visuals
 
 QUESTION_GENERATOR_DOCS = [
     "difficulty_levels.md",
-    "question_types.md"
+    "cognitive_types.md"
 ]
 
 QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables_used", "question_type"]
@@ -34,7 +34,7 @@ Generate diverse, engaging questions for independent practice of the learning go
 - **Difficulty Range:** {difficulty_level}
 - **Variables to Cover:** {variables}
 - **Example Questions:** {example_questions}
-- **Question Type:** {question_types}
+- **Question Type:** {cognitive_types}
 
 ## GENERATION STRATEGY
 
@@ -61,7 +61,7 @@ Since you'll create one question per variable value, differentiate questions thr
 
 ### 2. Cognitive Dimension
 - Distribute across difficulty levels {difficulty_level} (see difficulty_levels.md)
-- Vary question types within the constraints of example questions and available {question_types} (see question_types.md)
+- Vary question types within the constraints of example questions and available {cognitive_types} (see cognitive_types.md)
 - Include age-appropriate real-world contexts when using APPLY/CONNECT
 
 
@@ -114,7 +114,7 @@ For each question variation, construct these fields thoughtfully:
    - question_prompt: "Which shows thirds?" (variable in question)
    - visual_context: "2 circles and 1 horizontal_bar, each divided into 3 equal parts" (variable in visual)
 
-**5. question_type:** Choose based on cognitive demand (see question_types.md)
+**5. question_type:** Choose based on cognitive demand (see cognitive_types.md)
 
 **6. difficulty_level:** Assign 0-4 based on (see difficulty_levels.md):
 

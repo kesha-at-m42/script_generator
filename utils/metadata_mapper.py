@@ -13,7 +13,7 @@ def map_to_mastery_metadata(sequence):
     Returns:
         dict: Metadata structure for Godot schema with:
             - @type: "SequenceMetadata"
-            - mastery_tier: int (0-4, maps from difficulty)
+            - mastery_tier: str ("0"-"4", maps from difficulty)
             - mastery_component: str ("PROCEDURAL" or "CONCEPTUAL" or "TRANSFER)
             - mastery_verb: str (Bloom's taxonomy verb)
             - goal_id: int
@@ -21,11 +21,11 @@ def map_to_mastery_metadata(sequence):
             - variables_covered: dict with fractions list
     
     Examples:
-        >>> seq = {"difficulty": 2, "verb": "CREATE", "goal_id": 1, 
+        >>> seq = {"difficulty": 2, "verb": "CREATE", "goal_id": 1,
         ...        "goal": "Student can partition", "fractions": ["1/4"]}
         >>> metadata = map_to_mastery_metadata(seq)
         >>> metadata["mastery_tier"]
-        2
+        '2'
         >>> metadata["mastery_component"]
         'PROCEDURAL'
     """
@@ -35,8 +35,8 @@ def map_to_mastery_metadata(sequence):
     goal_text = sequence.get('goal', '')
     fractions = sequence.get('fractions', [])
     
-    # Map difficulty → mastery_tier (numeric: 0, 1, 2, 3)
-    # Direct mapping: difficulty value = tier value
+    # Map difficulty → mastery_tier (string: "0", "1", "2", "3", "4")
+    # Direct mapping: difficulty value = tier value (converted to string)
     mastery_tier = difficulty
     
     # Map verb → mastery_component
@@ -58,7 +58,7 @@ def map_to_mastery_metadata(sequence):
     
     return {
         "@type": "SequenceMetadata",
-        "mastery_tier": mastery_tier,
+        "mastery_tier": str(mastery_tier),
         "mastery_component": mastery_component,
         "mastery_verbs": mastery_verbs,
         "goal_id": goal_id,

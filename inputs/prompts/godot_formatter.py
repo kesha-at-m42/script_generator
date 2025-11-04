@@ -398,10 +398,7 @@ GODOT_FORMATTER_STRUCTURE = """
             "tangibles": [
               {"@type": "FracShape", "fractions": "1/4", "shaded": [], "lcm": 24}
             ]
-          }
-        },
-        {
-          "@type": "Step",
+          },
           "prompt": {
             "@type": "Prompt",
             "text": "...",

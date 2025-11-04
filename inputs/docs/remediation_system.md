@@ -48,7 +48,7 @@ For the `error_path_generic`, do NOT assume or diagnose a specific error type. T
 
 Each error path must be structured with 3 scaffolding levels delivered as sequential steps. Each step includes dialogue, workspace_context, and visual specifications.
 
-#### LIGHT (10–20 words)
+#### LIGHT
 - **Purpose:** Simple redirect without diagnosis
 - **Dialogue:** Brief and direct, occasional error signalling.
 - **Visual:** `null` (no visual effects applied)
@@ -57,7 +57,7 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - "Not quite. Count seven fourths from zero."
   - "Count seven fourths from zero."
 
-#### MEDIUM (20–30 words)
+#### MEDIUM
 - **Purpose:** Specific hint + visual scaffolding
 - **Dialogue:** Acknowledge continued struggle, collaborative language
 - **Visual:** Effects object with highlight/pulse/arrow animations applied to tangibles
@@ -70,21 +70,40 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
   - "Here's a hint..."
   - "You're getting there..."
 
-#### HEAVY (30–60 words)
-- **Purpose:** Step-by-step walkthrough revealing the answer
-- **Dialogue:** Full emotional support, complete demonstration
+#### HEAVY
+- **Purpose:** Walkthrough revealing the answer
+- **Dialogue:** Emotional support, visual demonstration
 - **Visual:** Effects object with measurement/overlay/demonstration animations
   - `type`: "measurement", "overlay", "demonstration"
   - `target`: Specific tangible_id from workspace
   - `animation`: Animation name (e.g., "measure_sections_equal", "overlay_counting")
   - `description`: Human-readable description of the demonstration
+
 - **Dialogue structure:**
-  - Opening: Modeling introduction ("This is tricky, let's walk through it together...")
-  - Body: Modeling, or step-by-step demonstration with the answer revealed
+  - Opening: Modeling introduction ("Let's walk through it together...")
+  - Body: Modeling, or demonstration focused on the correct answer
   - Closing: Post-modeling acknowledgment (required)
 - **Dialogue patterns:**
   - "Let me help you with this one..."
   - "Here, I'll walk you through this one..."
+
+##### Modeling Guidelines
+
+**Key Principles:**
+- Show clear steps that lead to the correct answer. 
+- Use visual effects (refer visual_guide.md for inspiration) to support the demonstration
+
+**When you have to look at multiple tangibles to get to the correct answer:**
+- **Only focus on what makes the correct answer correct**
+- Do not demonstrate what makes the incorrect options incorrect.
+
+**Example Modeling Dialogues:**
+
+Multiple correct answers (bars 1 and 3):
+"Let me show you how to find this. We're looking for equal parts. Bar 1 has 4 sections that are all the same width - see how they match up perfectly? Bar 3 has 2 parts which are equal width too. So bars 1 and 3 have equal parts."
+
+Single correct answer (bar 1 only):
+"Here, let me show you. A unit fraction has exactly one part shaded. Bar 1 shows exactly one part shaded. That's what makes it a unit fraction."
 
 ##### Post-Modeling Acknowledgment Phrases
 
@@ -122,7 +141,6 @@ Use these phrases as templates. Do not repeat exact phrasing across 3 interactio
 
 **Heavy:**
 - "These can be challenging. Let's trace through step by step. Four fourths equals 1, then three more fourths gets us to 7/4."
-- "This can be tricky, so let's do it together.
 - "Let's work through this together..."
 - "Let me work through it with you..."
 - "Here, let me show you..."

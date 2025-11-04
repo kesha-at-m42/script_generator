@@ -5,14 +5,38 @@ Generates error remediation paths for interaction sequences
 All error patterns, detection rules, and language templates are in remediation_system.md
 """
 
+# ============================================================================
+# STANDARDIZED PROMPT CONFIG
+# See PROMPT_STRUCTURE.md for documentation
+# ============================================================================
+
+REMEDIATION_GENERATOR_CONFIG = {
+    "input_file": "interactions.json",           # From interaction_designer step
+    "input_variable": "interactions_context",    # Variable name in template
+    "docs": [
+        "remediation_system.md",                 # Error patterns, detection rules, language templates
+        "visual_guide.md"                        # Visual scaffolds and animation types
+    ],
+    "module_ref": [],                            # No module fields needed
+    "role": "REMEDIATION_GENERATOR_ROLE",        # Defined below
+    "instructions": "REMEDIATION_GENERATOR_INSTRUCTIONS",  # Defined below
+    "structure": "REMEDIATION_GENERATOR_STRUCTURE",        # Defined below
+    "examples": "REMEDIATION_GENERATOR_EXAMPLES",          # Defined below
+    "prefill": "REMEDIATION_GENERATOR_PREFILL"             # Defined below
+}
+
+# ============================================================================
+# PROMPT COMPONENTS
+# ============================================================================
+
 REMEDIATION_GENERATOR_ROLE = """You are an expert in designing error remediation for educational interactions.
 
 Your task: Add ERROR PATHS to existing sequences. Each error path has 3 remediation levels:
-- **Light** (10-20 words): Quick redirect, no visual changes
-- **Medium** (20-30 words): Explanation + visual hint (animations/highlights on workspace tangibles)
-- **Heavy** (30-60 words): Full demonstration with visual animations and annotations
+- **Light**: Quick redirect, no visual changes
+- **Medium**: Explanation + visual hint (animations/highlights on workspace tangibles)
+- **Heavy**: Full demonstration with visual animations and annotations
 
-Use remediation_system.md for error patterns, detection rules, and approved language templates."""
+Follow the <remediation_system> documentation for error patterns, detection rules, and approved language templates."""
 
 REMEDIATION_GENERATOR_DOCS = [
   "remediation_system.md",  # Error patterns, detection rules, language templates
@@ -38,28 +62,20 @@ For each step with expected_student_input, add error paths to the existing stude
 The success_path already exists - DO NOT modify it.
 ## ERROR PATH REQUIREMENTS
 
-1. **ALWAYS consult remediation_system.md**: 
-   - For approved language templates at each scaffolding level
-   - For scaffolding progression strategies
-   - For dialogue tone and student support approaches
-   
-2. **ALWAYS consult visual_guide.md**:
-   - For available visual effect types (highlight, pulse, arrow, measurement, overlay, demonstration)
-   - For animation specifications and tangible interactions
-   - For visual scaffolding best practices
+1. **Follow <remediation_system> documentation** for ALL remediation guidance:
+   - Language templates and dialogue patterns
+   - Visual effect specifications
+   - Progressive scaffolding strategies
 
-3. **Scaffolding Level at Step Level**: Each remediation step must have scaffolding_level field at the top level:
-   - "light": Brief redirect following remediation_system.md templates, visual = null
-   - "medium": Explanation + hint following remediation_system.md patterns, visual has effects from visual_guide.md
-   - "heavy": Full demo following remediation_system.md teaching strategies, visual has animations from visual_guide.md
+2. **Follow <visual_guide> documentation** for visual effects and animations
 
-5. **Workspace Context vs Visual Effects**:
+3. **Workspace Context vs Visual Effects**:
    - **workspace_context**: Metadata indicating which tangibles from main flow are present (for reference only)
-   - **visual**: Dynamic effects/animations applied TO those tangibles per visual_guide.md (or null for light)
+   - **visual**: Dynamic effects/animations applied TO those tangibles (or null for light)
 
-6. **Don't modify**: Keep original steps and success_path unchanged (success_path already exists from interaction designer)
+4. **Don't modify**: Keep original steps and success_path unchanged (success_path already exists from interaction designer)
 
-7. **Reference existing workspace**: Don't redefine tangibles; use workspace_context to indicate which ones from main flow are present
+5. **Reference existing workspace**: Don't redefine tangibles; use workspace_context to indicate which ones from main flow are present
 
 Return valid JSON only (see structure below).
 """
@@ -82,7 +98,7 @@ REMEDIATION_GENERATOR_STRUCTURE = """
           "steps": [
             {
               "scaffolding_level": "light",
-              "dialogue": "Light: 10-20 words",
+              "dialogue": "Follow <remediation_system> for appropriate light dialogue",
               "workspace_context": {
                 "tangibles_present": ["bar_a", "bar_b", "button_choice_1"],
                 "note": "Uses existing workspace from main flow"
@@ -91,7 +107,7 @@ REMEDIATION_GENERATOR_STRUCTURE = """
             },
             {
               "scaffolding_level": "medium",
-              "dialogue": "Medium: 20-30 words with hint",
+              "dialogue": "Follow <remediation_system> for appropriate medium dialogue",
               "workspace_context": {
                 "tangibles_present": ["bar_a", "bar_b", "button_choice_1"],
                 "note": "Uses existing workspace from main flow"
@@ -109,7 +125,7 @@ REMEDIATION_GENERATOR_STRUCTURE = """
             },
             {
               "scaffolding_level": "heavy",
-              "dialogue": "Heavy: 30-60 words with demo",
+              "dialogue": "Follow <remediation_system> for appropriate heavy dialogue with modeling",
               "workspace_context": {
                 "tangibles_present": ["bar_a", "bar_b", "button_choice_1"],
                 "note": "Uses existing workspace from main flow"

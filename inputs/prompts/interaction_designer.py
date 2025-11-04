@@ -20,6 +20,15 @@ INTERACTION_DESIGNER_DOCS = [
     "visual_guide.md",
 ]
 
+INTERACTION_DESIGNER_PREFILL = """
+{
+      "problem_id": {problem_id},
+      "difficulty": {difficulty},
+      "verb": {verb},
+      "goal": {goal_text},
+      "goal_id": {goal_id},
+"""
+
 INTERACTION_DESIGNER_EXAMPLES = []
 
 INTERACTION_DESIGNER_EXPECTED_INPUT="""
@@ -36,11 +45,6 @@ INTERACTION_DESIGNER_EXPECTED_INPUT="""
       },
       "application_context": "Leo partitions a granola bar into 6 equal pieces."
     }
-"""
-
-INTERACTION_DESIGNER_PREFILL = """{
-  "sequences": [
-    {
 """
 
 INTERACTION_DESIGNER_INSTRUCTIONS = """

@@ -105,7 +105,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
             variables_text = json.dumps(variables, indent=2)  # ← ADD THIS
     
     # Format question types as comma-separated list
-            question_types_text = ', '.join(question_type) 
+            cognitive_types_text = ', '.join(question_type) 
         else:
             goal_id = idx
             goal_text = str(goal)
@@ -122,7 +122,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
                 "goal": goal_text,
                 "difficulty_level": difficulty_level,
                 "example_questions": example_questions_text,
-                "question_types": question_types_text,
+                "cognitive_types": cognitive_types_text,
                 "variables": variables_text
             }
         )

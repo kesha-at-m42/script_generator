@@ -21,13 +21,14 @@ if str(prompts_path) not in sys.path:
 
 class PromptBuilder:
     """Builds prompts from structured components"""
-    
-    def __init__(self, module_number: int = None, path_letter: str = None):
+
+    def __init__(self, module_number: int = None, path_letter: str = None, verbose: bool = False):
         self.docs_dir = Path(__file__).parent.parent / "inputs" / "docs"
         self.modules_dir = Path(__file__).parent.parent / "inputs" / "modules"
-        self.prompts_dir = Path(__file__).parent.parent / "prompts"
+        self.prompts_dir = Path(__file__).parent.parent / "inputs" / "prompts"
         self.module_number = module_number
         self.path_letter = path_letter
+        self.verbose = verbose
         
         # Build module path like "module1/pathb" for accessing module-specific docs
         if module_number is not None and path_letter:
@@ -35,20 +36,38 @@ class PromptBuilder:
         else:
             self.module_path = None
     
-    def build_prompt(self, prompt_id: str, variables: Dict = None):
+    def build_prompt(self, prompt_id: str, input_file_path: str = None, variables: Dict = None):
         """Build a complete prompt from components
-        
+
+        Args:
+            prompt_id: ID of the prompt to build (e.g., "remediation_generator")
+            input_file_path: Optional path to input file from previous pipeline step
+            variables: Optional dict of variables to substitute in template
+
         Returns:
             tuple: (prompt_text, prefill_text) or just prompt_text if no prefill
         """
-        
+
         # Load prompt config
         config = self._get_prompt_config(prompt_id)
-        
-        # Auto-fetch module data if MODULE_REF is specified
+
+        # Initialize variables dict
         if variables is None:
             variables = {}
-        
+
+        # Auto-load input file if specified
+        if input_file_path and config.get("input_variable"):
+            input_var = config["input_variable"]
+            if input_var not in variables:  # Don't override if already provided
+                try:
+                    with open(input_file_path, 'r', encoding='utf-8') as f:
+                        variables[input_var] = f.read()
+                    if self.verbose:
+                        print(f"  📄 Loaded input file: {input_file_path} -> {input_var}")
+                except Exception as e:
+                    print(f"⚠️  Warning: Could not load input file {input_file_path}: {e}")
+
+        # Auto-fetch module data if MODULE_REF is specified
         if self.module_number and config.get("module_ref"):
             variables = self._auto_fetch_module_data(config["module_ref"], variables)
         
@@ -62,7 +81,8 @@ class PromptBuilder:
         # 2. Documentation references
         if config.get("docs"):
             docs_content = self._load_docs(config["docs"])
-            print("Adding document to prompt...")
+            if self.verbose:
+                print("Adding document to prompt...")
             sections.append(docs_content)
         
         # 3. Examples
@@ -91,26 +111,30 @@ class PromptBuilder:
 
             try:
                 instructions = instr_escaped.format(**variables)
-            except Exception as e:
-                # Fall back to a conservative replacement for question_data if formatting fails
-                # This ensures the builder doesn't crash for unexpected templates.
-                if 'question_data' in variables:
-                    instructions = instructions.replace('{question_data}', str(variables.get('question_data')))
-                else:
-                    # Last resort: leave instructions unformatted
-                    instructions = instructions
+            except KeyError as e:
+                print(f"⚠️  Warning: Missing variable in template: {e}")
+                print(f"    Available variables: {list(variables.keys())}")
+                raise ValueError(f"Template formatting failed: missing variable {e}")
         sections.append(instructions)
         
         final_prompt = "\n\n".join(sections)
-        print("Final prompt length:", len(final_prompt))
-        
+        if self.verbose:
+            print("Final prompt length:", len(final_prompt))
+
         # Return with prefill if specified
         prefill = config.get("prefill")
         if prefill:
-            # Format prefill with variables
-            prefill = prefill.format(**variables)
-            print(f"Using prefill: {prefill}")
-            return final_prompt, prefill
+            # Format prefill with variables if needed
+            try:
+                prefill = prefill.format(**variables)
+                if self.verbose:
+                    print(f"Using prefill: {prefill}")
+                return final_prompt, prefill
+            except KeyError as e:
+                if self.verbose:
+                    print(f"⚠️  Prefill has missing variable {e}, skipping prefill")
+                # Return without prefill if variables are missing
+                return final_prompt
         return final_prompt
     
     def _auto_fetch_module_data(self, module_ref_fields: List[str], variables: Dict) -> Dict:
@@ -127,25 +151,30 @@ class PromptBuilder:
         
         # Handle case where module_ref_fields might not be a list
         if not isinstance(module_ref_fields, list):
-            print(f"  ⚠️ MODULE_REF is not a list, got: {type(module_ref_fields)}")
+            if self.verbose:
+                print(f"  ⚠️ MODULE_REF is not a list, got: {type(module_ref_fields)}")
             return variables
-        
-        print(f"  📦 Auto-fetching module data for fields: {module_ref_fields}")
-        
+
+        if self.verbose:
+            print(f"  📦 Auto-fetching module data for fields: {module_ref_fields}")
+
         for field_name in module_ref_fields:
             # Skip if already provided in variables
             if field_name in variables:
-                print(f"     ↪ Skipping '{field_name}' (already provided)")
+                if self.verbose:
+                    print(f"     ↪ Skipping '{field_name}' (already provided)")
                 continue
-            
+
             try:
                 # Fetch from modules.py
                 field_value = get_module_field(self.module_number, field_name, required=False)
                 if field_value is not None:
                     variables[field_name] = field_value
-                    print(f"     ✓ Fetched '{field_name}' from module {self.module_number}")
+                    if self.verbose:
+                        print(f"     ✓ Fetched '{field_name}' from module {self.module_number}")
                 else:
-                    print(f"     ⚠️ Field '{field_name}' not found in module {self.module_number}")
+                    if self.verbose:
+                        print(f"     ⚠️ Field '{field_name}' not found in module {self.module_number}")
             except Exception as e:
                 print(f"     ✗ Error fetching '{field_name}': {e}")
         
@@ -153,9 +182,10 @@ class PromptBuilder:
     
     def _get_prompt_config(self, prompt_id: str) -> Dict:
         """Get prompt configuration by ID"""
-        
-        print(f"\nDEBUG: Requested prompt_id = '{prompt_id}'")
-        
+
+        if self.verbose:
+            print(f"\nDEBUG: Requested prompt_id = '{prompt_id}'")
+
         # Map prompt IDs to their config methods (don't call them yet!)
         config_methods = {
             "question_generator": self._question_generator_config,
@@ -163,19 +193,27 @@ class PromptBuilder:
             "remediation_generator": self._remediation_generator_config,
             "godot_formatter": self._godot_formatter_config,
         }
-        
+
         # Only call the specific config method we need
         if prompt_id in config_methods:
-            print(f"DEBUG: Loading config for '{prompt_id}'")
+            if self.verbose:
+                print(f"DEBUG: Loading config for '{prompt_id}'")
             return config_methods[prompt_id]()  # ← Note the () here - call it now
         else:
-            print(f"WARNING: Unknown prompt_id '{prompt_id}'")
+            print(f"⚠️  WARNING: Unknown prompt_id '{prompt_id}'")
             return {}
     
-    def _load_docs(self, doc_refs: List[str]) -> str:
-        """Load documentation files with module-specific override support"""
+    def _load_docs(self, doc_refs: List[str], required: bool = False) -> str:
+        """Load documentation files with module-specific override support
+
+        Args:
+            doc_refs: List of document references (file paths or embedded dicts)
+            required: If True, raises error when doc not found. If False, logs warning.
+                     Default is False - docs are optional unless explicitly required.
+        """
         sections = []
-        
+        missing_docs = []
+
         for doc_ref in doc_refs:
             if isinstance(doc_ref, dict):
                 # Embedded doc content
@@ -188,12 +226,23 @@ class PromptBuilder:
                 if content:
                     tag = Path(doc_ref).stem
                     sections.append(f"<{tag}>\n{content}\n</{tag}>")
-        
+                else:
+                    missing_docs.append(doc_ref)
+
+        # Handle missing docs
+        if missing_docs:
+            error_msg = f"Missing documentation files: {', '.join(missing_docs)}"
+            if required:
+                raise FileNotFoundError(error_msg)
+            else:
+                if self.verbose:
+                    print(f"⚠️  {error_msg} (skipping)")
+
         return "\n\n".join(sections)
     
     def _load_doc_with_module_fallback(self, doc_ref: str) -> Optional[str]:
         """Load doc with module-specific override, fallback to base
-        
+
         Priority:
         1. Module-specific: inputs/modules/module{num}/path{letter}/{doc_ref}
         2. Base: inputs/docs/{doc_ref}
@@ -201,27 +250,29 @@ class PromptBuilder:
         # Try module-specific first
         if self.module_path:
             module_path = self.modules_dir / self.module_path / doc_ref
-            print("Loading document from:", module_path)
+            if self.verbose:
+                print(f"  Checking module-specific doc: {module_path}")
             if module_path.exists():
                 with open(module_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                print("Document content loaded:", len(content), "characters")
-                print("First 200 characters:", content[:200])
-                print(f"  📘 Loaded module-specific: {self.module_path}/{doc_ref}")
+                if self.verbose:
+                    print(f"  📘 Loaded module-specific: {self.module_path}/{doc_ref} ({len(content)} chars)")
+                    print(f"     Preview: {content[:200]}")
                 return content
-        
+
         # Fallback to base
         base_path = self.docs_dir / doc_ref
-        print("Loading document from:", base_path)
+        if self.verbose:
+            print(f"  Checking base doc: {base_path}")
         if base_path.exists():
             with open(base_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            print("Document content loaded:", len(content), "characters")
-            print("First 200 characters:", content[:200])
-            print(f"  📗 Loaded base: {doc_ref}")
+            if self.verbose:
+                print(f"  📗 Loaded base: {doc_ref} ({len(content)} chars)")
+                print(f"     Preview: {content[:200]}")
             return content
-        
-        print(f"  ⚠️  Doc not found: {doc_ref}")
+
+        # Doc not found - will be handled by _load_docs
         return None
     
     def _format_examples(self, examples: List[Dict]) -> str:
@@ -283,20 +334,31 @@ class PromptBuilder:
     
     def _remediation_generator_config(self) -> Dict:
         """Configuration for remediation generation prompt"""
-        from remediation_generator import (
-            REMEDIATION_GENERATOR_ROLE,
-            REMEDIATION_GENERATOR_DOCS,
-            REMEDIATION_GENERATOR_EXAMPLES,
-            REMEDIATION_GENERATOR_INSTRUCTIONS,
-            REMEDIATION_GENERATOR_STRUCTURE
-        )
-        
+        import remediation_generator as rg
+
+        # Try to use new CONFIG structure
+        if hasattr(rg, 'REMEDIATION_GENERATOR_CONFIG'):
+            config = rg.REMEDIATION_GENERATOR_CONFIG.copy()
+
+            # Resolve string references to actual variables
+            for key in ['role', 'instructions', 'structure', 'examples', 'prefill']:
+                if isinstance(config.get(key), str) and hasattr(rg, config[key]):
+                    config[key] = getattr(rg, config[key])
+
+            if self.verbose:
+                print(f"  ✓ Using standardized CONFIG structure")
+            return config
+
+        # Fallback to old structure for backward compatibility
+        if self.verbose:
+            print(f"  ⚠️  Using legacy config structure (consider migrating to CONFIG)")
+
         return {
-            "role": REMEDIATION_GENERATOR_ROLE,
-            "docs": REMEDIATION_GENERATOR_DOCS,
-            "examples": REMEDIATION_GENERATOR_EXAMPLES,
-            "structure": REMEDIATION_GENERATOR_STRUCTURE,
-            "instructions": REMEDIATION_GENERATOR_INSTRUCTIONS
+            "role": rg.REMEDIATION_GENERATOR_ROLE,
+            "docs": rg.REMEDIATION_GENERATOR_DOCS,
+            "examples": rg.REMEDIATION_GENERATOR_EXAMPLES,
+            "structure": rg.REMEDIATION_GENERATOR_STRUCTURE,
+            "instructions": rg.REMEDIATION_GENERATOR_INSTRUCTIONS
         }
     
     def _godot_formatter_config(self) -> Dict:
@@ -317,16 +379,31 @@ class PromptBuilder:
             "instructions": GODOT_FORMATTER_INSTRUCTIONS
         }
     
-    def build_remediation_generator_prompt(self, interactions_context: str) -> str:
-        """Build prompt for remediation generation"""
+    def build_remediation_generator_prompt(self, interactions_context: str = None, input_file_path: str = None) -> str:
+        """Build prompt for remediation generation
+
+        Args:
+            interactions_context: Direct context string (legacy)
+            input_file_path: Path to interactions.json file (new method)
+
+        Returns:
+            Prompt string (or tuple with prefill if specified)
+        """
+        variables = {}
+        if interactions_context:
+            variables["interactions_context"] = interactions_context
+
         return self.build_prompt(
             "remediation_generator",
-            {"interactions_context": interactions_context}
+            input_file_path=input_file_path,
+            variables=variables if variables else None
         )
 
 
 # Test it
 if __name__ == "__main__":
+    import json
+
     # Ask user for module number and path letter
     try:
         module_number = int(input("Enter module number: "))
@@ -335,19 +412,53 @@ if __name__ == "__main__":
         module_number = 1
     path_letter = input("Enter path letter (e.g., 'a', 'b'): ").strip() or "a"
 
-    builder = PromptBuilder(module_number=module_number, path_letter=path_letter)
+    # Ask for interactions file path
+    interactions_file = input("Enter path to interactions JSON file (or press Enter to skip): ").strip()
+    if not interactions_file:
+        print("No interactions file provided. Testing with empty context.")
+        interactions_context = "{}"
+    else:
+        try:
+            with open(interactions_file, 'r', encoding='utf-8') as f:
+                interactions_context = f.read()
+        except Exception as e:
+            print(f"Error reading file: {e}")
+            interactions_context = "{}"
+
+    builder = PromptBuilder(module_number=module_number, path_letter=path_letter, verbose=True)
 
     print("=" * 70)
-    print(f"Testing loading of visual_guide.md for module {module_number} path {path_letter}")
+    print(f"Testing prompt builder for module {module_number} path {path_letter}")
     print("=" * 70)
 
-    # Build a prompt using visual_guide.md as the only doc reference
-    print("\nBuilding prompt with visual_guide.md as doc reference...")
-    prompt = builder.build_prompt(
-        prompt_id="remediation_generator",
-        variables={
-          "interactions_context": "C:\\git\\script_generator\\outputs\\test_interaction_20251017_152028\\sequences.json"
-        }
-    )
-    print("\nFull prompt output:\n")
-    print(prompt)
+    # Build a remediation generator prompt
+    print("\nBuilding remediation_generator prompt...")
+
+    # Method 1: Using input_file_path (NEW - recommended)
+    if interactions_file:
+        print("  Using new method: input_file_path")
+        result = builder.build_prompt(
+            prompt_id="remediation_generator",
+            input_file_path=interactions_file
+        )
+    # Method 2: Using variables dict (OLD - still supported)
+    else:
+        print("  Using legacy method: variables dict")
+        result = builder.build_prompt(
+            prompt_id="remediation_generator",
+            variables={"interactions_context": interactions_context}
+        )
+
+    # Handle prefill if returned
+    if isinstance(result, tuple):
+        prompt, prefill = result
+        print(f"\n✓ Prompt built successfully with prefill!")
+        print(f"  Prompt length: {len(prompt)} characters")
+        print(f"  Prefill: {prefill[:100]}...")
+    else:
+        prompt = result
+        print(f"\n✓ Prompt built successfully!")
+        print(f"  Total length: {len(prompt)} characters")
+
+    print("\nFirst 500 characters:")
+    print(prompt[:500])
