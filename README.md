@@ -19,6 +19,25 @@ Each step processes items individually and applies deterministic post-processing
 - Python 3.8+
 - Anthropic API key
 
+  ### Installing Python
+
+  If you don't have Python installed, download it from the official website:
+
+  **Windows/Mac/Linux:**
+  1. Visit [python.org/downloads](https://www.python.org/downloads/)
+  2. Download the latest Python 3.x version (3.8 or higher)
+  3. Run the installer
+     - **Windows**: Check "Add Python to PATH" during installation
+     - **Mac**: Follow the installer prompts
+     - **Linux**: Use your package manager (e.g., `sudo apt install python3`)
+
+  **Verify installation:**
+  ```bash
+  python --version  # Should show Python 3.8 or higher
+
+  If python --version doesn't work, try:
+  python3 --version  # Linux/Mac often use python3 command
+
 ### Installation
 
 1. Clone and navigate to the repository:
