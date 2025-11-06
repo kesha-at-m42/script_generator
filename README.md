@@ -142,7 +142,7 @@ script_generator/
 ## 🔄 Pipeline Steps
 
 ### 1. Question Generator
-**Input**: Learning goals from `inputs/modules/moduleN/decomposed_goals.json`
+**Input**: Learning goals from `inputs/modules/moduleN/problem_templates.json`
 **Output**: `questions.json` - Assessment questions for each goal
 **Processing**: Item-by-item (one goal at a time)
 
@@ -201,7 +201,7 @@ Prefills ensure consistent JSON structure and reduce hallucination.
 
 ### Deterministic Post-Processing
 After AI transformation, deterministic functions correct and enhance output:
-- **Metadata Mapper** (`utils/metadata_mapper.py`): Corrects mastery tier/component/verbs based on difficulty and question type
+- **Metadata Mapper** (`utils/metadata_mapper.py`): Corrects mastery tier/component/verbs based on difficulty and cognitive type
 - **BBCode Formatter** (`utils/bbcode_formatter.py`): Wraps fractions with `[fraction]` tags and adds `[vocab]` tags for vocabulary terms
 
 ### Item-by-Item Processing
@@ -278,7 +278,7 @@ result = runner.run_pipeline([
         "name": "Question Generator",
         "prompt_id": "question_generator",
         "processing_mode": "item_by_item",
-        "input_file": "inputs/modules/module2/decomposed_goals.json",
+        "input_file": "inputs/modules/module2/problem_templates.json",
         "item_key": "goals",
         "extract_fields": {"goal_id": "id", "goal": "text"},
         "collect_key": "questions",
@@ -359,7 +359,7 @@ These are excluded in `.gitignore`.
 - These are included in prompts as reference material
 
 **Module Data** (`inputs/modules/moduleN/`):
-- `decomposed_goals.json`: Add/modify learning goals
+- `problem_templates.json`: Add/modify learning goals
 - `modules.py`: Change fields
 
 #### ⚠️ Be Careful With

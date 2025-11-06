@@ -13,7 +13,7 @@ QUESTION_GENERATOR_DOCS = [
     "cognitive_types.md"
 ]
 
-QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables_used", "question_type"]
+QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables_used", "cognitive_type"]
 
 QUESTION_GENERATOR_EXAMPLES = []
 
@@ -23,7 +23,7 @@ QUESTION_GENERATOR_PREFILL = """{{
   "questions": [
     {{
       "goal_id": {goal_id},
-      "goal_text": "{goal}","""
+      "goal": "{goal}","""
 
 QUESTION_GENERATOR_INSTRUCTIONS = """
 ## TASK
@@ -34,14 +34,14 @@ Generate diverse, engaging questions for independent practice of the learning go
 - **Difficulty Range:** {difficulty_level}
 - **Variables to Cover:** {variables}
 - **Example Questions:** {example_questions}
-- **Question Type:** {cognitive_types}
+- **Question Type:** {cognitive_type}
 
 ## GENERATION STRATEGY
 
 **Core Rule: One Question Per Variable Per Goal**
 - For each unique value in {variables}, create exactly ONE question. In general, each goal will have 4-8 questions.
 - Only use variable values explicitly listed in {variables} - do not add new values
-- Meaningfully different questions - different question_type, visual context, or variable.
+- Meaningfully different questions - different cognitive_type, visual context, or variable.
 - If meaningful differentiation is not possible for a particular variable combination, skip that combination rather than force repetition
 - Maximize variation across multiple dimensions to ensure questions feel distinct, not template-based
 
@@ -61,7 +61,7 @@ Since you'll create one question per variable value, differentiate questions thr
 
 ### 2. Cognitive Dimension
 - Distribute across difficulty levels {difficulty_level} (see difficulty_levels.md)
-- Vary question types within the constraints of example questions and available {cognitive_types} (see cognitive_types.md)
+- Vary cognitive types within the constraints of example questions and available {cognitive_type} (see <cognitive_types>)
 - Include age-appropriate real-world contexts when using APPLY/CONNECT
 
 
@@ -69,7 +69,7 @@ Since you'll create one question per variable value, differentiate questions thr
 
 For each question variation, construct these fields thoughtfully:
 
-**1. goal_id & goal_text:** Copy from prefill (will auto-populate)
+**1. goal_id & goal:** Copy from prefill (will auto-populate)
 
 **2. question_id:** Sequential number (1, 2, 3, ...)
 
@@ -114,7 +114,7 @@ For each question variation, construct these fields thoughtfully:
    - question_prompt: "Which shows thirds?" (variable in question)
    - visual_context: "2 circles and 1 horizontal_bar, each divided into 3 equal parts" (variable in visual)
 
-**5. question_type:** Choose based on cognitive demand (see cognitive_types.md)
+**5. cognitive_type:** Choose based on cognitive demand (see <cognitive_types>)
 
 **6. difficulty_level:** Assign 0-4 based on (see difficulty_levels.md):
 
@@ -122,7 +122,7 @@ For each question variation, construct these fields thoughtfully:
    - Record the value from question_prompt OR visual_context (whatever defines the math, and record the answerable value in case of multiple variables)
    - Should be a single key-value pair, e.g., {"fractions": "1/2"} or {"parts": "4"}
 
-**8. application_context:** (ONLY for APPLY/CONNECT question types)
+**8. application_context:** (ONLY for APPLY/CONNECT cognitive types)
    - Brief real-world scenario or context, 10-20 words
    - Draw from contexts in {variables} when available
    - Age-appropriate, relatable, and fun
@@ -135,7 +135,7 @@ Before submitting, verify maximum creativity:
 - Every value in {variables} appears at least once
 - The same visual context is never repeated for the same variable value
 - Difficulty spread across full range {difficulty_level}, never forced
-- Question types balanced appropriately
+- Cognitive types balanced appropriately
 
 **Quality Requirements:**
 - All questions aligned to goal: {goal}
@@ -151,11 +151,11 @@ QUESTION_GENERATOR_STRUCTURE = """
   "questions": [
     {
       "goal_id": <from prefill>,
-      "goal_text": <from prefill>,
+      "goal": <from prefill>,
       "question_id": 1,
       "question_prompt": "Variation of example 1 with variable swapped",
       "visual_context": "Description of what appears on screen",
-      "question_type": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
+      "cognitive_type": "CREATE|IDENTIFY|COMPARE|APPLY|CONNECT",
       "difficulty_level": 0-4,
       "variables_used": {
         "fractions": "1/2"

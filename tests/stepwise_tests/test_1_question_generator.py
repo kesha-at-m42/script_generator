@@ -31,8 +31,8 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     print("STEPWISE TEST 1: QUESTION GENERATOR")
     print("=" * 70)
     
-    # Load learning goals from decomposed_goals.json
-    goals_file = Path(__file__).parent.parent.parent / "inputs" / "modules" / f"module{module_number}" / "decomposed_goals.json"
+    # Load learning goals from problem_templates.json
+    goals_file = Path(__file__).parent.parent.parent / "inputs" / "modules" / f"module{module_number}" / "problem_templates.json"
     
     if not goals_file.exists():
         raise FileNotFoundError(f"Could not find decomposed goals file: {goals_file}")
@@ -97,15 +97,15 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
             goal_text = goal.get('text', str(goal))
             difficulty_level = goal.get('difficulty_level', '0-4')
             example_questions = goal.get('example_questions', [])
-            question_type = goal.get('question_type', [])
+            cognitive_type = goal.get('cognitive_type', [])
             variables = goal.get('variables', {})
             
             # Format example questions as bullet list
             example_questions_text = '\n'.join([f"  - {ex}" for ex in example_questions])
             variables_text = json.dumps(variables, indent=2)  # ← ADD THIS
     
-    # Format question types as comma-separated list
-            cognitive_types_text = ', '.join(question_type) 
+    # Format cognitive types as comma-separated list
+            cognitive_type_text = ', '.join(cognitive_type) 
         else:
             goal_id = idx
             goal_text = str(goal)
@@ -122,7 +122,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
                 "goal": goal_text,
                 "difficulty_level": difficulty_level,
                 "example_questions": example_questions_text,
-                "cognitive_types": cognitive_types_text,
+                "cognitive_type": cognitive_type_text,
                 "variables": variables_text
             }
         )
@@ -188,7 +188,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
         "by_goal": {},
         "by_variable_value": {},
         "by_difficulty_level": {0: 0, 1: 0, 2: 0, 3: 0, 4: 0},
-        "by_question_type": {}
+        "by_cognitive_type": {}
     }
     
     for q in all_questions:
@@ -207,9 +207,9 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
         if diff_level in summary['by_difficulty_level']:
             summary['by_difficulty_level'][diff_level] += 1
         
-        # Count by question type
-        q_type = q.get('question_type', 'unknown')
-        summary['by_question_type'][q_type] = summary['by_question_type'].get(q_type, 0) + 1
+        # Count by cognitive type
+        q_type = q.get('cognitive_type', 'unknown')
+        summary['by_cognitive_type'][q_type] = summary['by_cognitive_type'].get(q_type, 0) + 1
     
     # Combine all questions with summary
     questions_data = {
@@ -248,8 +248,8 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
         print(f"  Level {level}: {count} questions ({pct:.1f}%)")
     
     print("\nQuestions per Question Type:")
-    for q_type in sorted(summary['by_question_type'].keys()):
-        count = summary['by_question_type'][q_type]
+    for q_type in sorted(summary['by_cognitive_type'].keys()):
+        count = summary['by_cognitive_type'][q_type]
         pct = (count / len(all_questions) * 100) if len(all_questions) > 0 else 0
         print(f"  {q_type}: {count} questions ({pct:.1f}%)")
     
@@ -269,7 +269,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     # Required fields for question generator output
     required_fields = [
         "goal_id", "goal_text", "question_id", "question_prompt", 
-        "question_type", "difficulty_level", "visual_context", "variables_used"
+        "cognitive_type", "difficulty_level", "visual_context", "variables_used"
     ]
     
     # Optional fields
@@ -277,7 +277,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     
     # Track distributions
     difficulty_dist = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
-    question_type_dist = {"procedural": 0, "conceptual": 0, "transfer": 0}
+    cognitive_type_dist = {"procedural": 0, "conceptual": 0, "transfer": 0}
     interaction_type_dist = {}
     
     for idx, q in enumerate(questions_data.get('questions', []), 1):
@@ -327,8 +327,8 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
         if diff_level in difficulty_dist:
             difficulty_dist[diff_level] += 1
         
-        q_type = q.get('question_type', '').upper()
-        # Question types are CREATE, IDENTIFY, COMPARE, APPLY, CONNECT (not procedural/conceptual/transfer)
+        q_type = q.get('cognitive_type', '').upper()
+        # Cognitive types are CREATE, IDENTIFY, COMPARE, APPLY, CONNECT (not procedural/conceptual/transfer)
         
         i_type = q.get('interaction_type', 'N/A')
         interaction_type_dist[i_type] = interaction_type_dist.get(i_type, 0) + 1
@@ -371,7 +371,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     print("\nQuestion Type Distribution:")
     target_qtype = {"procedural": "25%", "conceptual": "45%", "transfer": "30%"}
     for qtype in ["procedural", "conceptual", "transfer"]:
-        count = question_type_dist[qtype]
+        count = cognitive_type_dist[qtype]
         pct = (count / total * 100) if total > 0 else 0
         target = target_qtype[qtype]
         status = "✓" if pct >= 20 else "⚠️"
@@ -384,7 +384,7 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     
     # Save validation report
     validation_results['difficulty_distribution'] = difficulty_dist
-    validation_results['question_type_distribution'] = question_type_dist
+    validation_results['cognitive_type_distribution'] = cognitive_type_dist
     validation_results['interaction_type_distribution'] = interaction_type_dist
     
     validation_path = f"{output_dir}/validation_report.json"
@@ -422,9 +422,9 @@ def test_question_generator(module_number=2, num_questions=8, path_letter=None, 
     
     print("\n📊 Expected Schema:")
     print("  ✓ Required fields: goal_id, goal_text, question_id, question_prompt")
-    print("  ✓ question_type, difficulty_level, visual_context, variables_used")
+    print("  ✓ cognitive_type, difficulty_level, visual_context, variables_used")
     print("  ✓ Optional fields: application_context (for APPLY/CONNECT types)")
-    print("  ✓ Question types: CREATE, IDENTIFY, COMPARE, APPLY, CONNECT")
+    print("  ✓ Cognitive types: CREATE, IDENTIFY, COMPARE, APPLY, CONNECT")
     print("  ✓ question_prompt should be close to example with variables swapped")
     
     print("\n" + "=" * 70)

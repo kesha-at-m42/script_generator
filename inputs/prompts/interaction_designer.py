@@ -13,23 +13,26 @@ Your task: Create step-by-step MAIN INSTRUCTION FLOW sequences for math problems
 - **prompt**: A concise, task-focused instruction telling the student exactly what to do. 
 - **workspace**: The interactive space where visuals appear and student interactions happen - defines what tangibles (shapes, buttons, objects) are present and their states
 
-Use guide_design.md for Kim's voice and visual_guide.md for workspace elements."""
+Use guide_design.md for Kim's voice and visual_context for workspace elements."""
 
 INTERACTION_DESIGNER_DOCS = [
-    "guide_design.md",
-    "visual_guide.md",
+    "guide_design.md"
 ]
 
 INTERACTION_DESIGNER_PREFILL = """
 {
-      "problem_id": {problem_id},
+      "problem_id": {goal_id}_{question_id},
       "difficulty": {difficulty},
       "verb": {verb},
-      "goal": {goal_text},
+      "goal": {goal},
       "goal_id": {goal_id},
 """
 
 INTERACTION_DESIGNER_EXAMPLES = []
+
+INTERACTION_DESIGNER_TEMPLATE_GOAL_ID= "{goal_id}"
+
+INTERACTION_DESIGNER_TEMPLATE_REF= ["tools", "no_of_steps"]
 
 INTERACTION_DESIGNER_EXPECTED_INPUT="""
     {
@@ -37,7 +40,7 @@ INTERACTION_DESIGNER_EXPECTED_INPUT="""
       "goal_text": "The student can understand that all parts must be equal for unit fractions",
       "question_id": 3,
       "question_prompt": "Select the bar that represents 1/6.",
-      "question_type": "IDENTIFY",
+      "cognitive_type": "IDENTIFY",
       "difficulty_level": 2,
       "visual_context": "Three rectangle bars shown horizontally, each divided into 6 parts with one part shaded; only one bar has equal parts",
       "variables_used": {
@@ -52,20 +55,25 @@ INTERACTION_DESIGNER_INSTRUCTIONS = """
 
 Design an interactive sequence for the given question idea:
 
-<question>
+<question_data>
 {question_data}
-</question>
+</question_data>
 
-Generally, each sequence has 1 step. Each step can include the following fields:
+  **Number of Steps:**
+  The sequence should have {no_of_steps} number of steps. Multi-step sequences require the student to complete actions sequentially (e.g., first partition a bar, then shade a part).
+  - If number of steps is not provided or is "1", create a single-step sequence
+  - If number of steps is "2" or more, create that many steps, with each step building on the previous one
+  - Use the available tools ({tools}) to determine what action each step should perform.
+
+  Each step can include the following fields:
 
 **Step 1: Write the prompt**
-- Derive the `prompt` from `question_prompt`, and ensure it doesn't give away the answer.
+- Derive the `prompt` from `question_prompt` of <question_data>, and ensure it doesn't give away the answer.
 - Clear mathematical action language focused on the concept in 5-15 words.
 
 **Step 2: Map visual_context to workspace and choose interaction_tool**
-- Read the `question_prompt`, `application_context` (if present) and `visual_context` to understand what should appear on screen
-- Find matching tasks in visual_guide.md
-- Select the appropriate interaction_tool based on the task requirements
+- Read the `question_prompt`, `application_context` (if present) and `visual_context` of <question_data> to understand what should appear on screen
+- Refer to the {tools} in the problem template and determine the appropriate interaction_tool based on the action required:
   - `"shade"` - Student shades sections of shapes
   - `"cut"` - Student divides shapes into parts
   - `"select"` - Student selects one shape from multiple options
@@ -82,8 +90,9 @@ Generally, each sequence has 1 step. Each step can include the following fields:
 
 There are two types of dialogue to write:
 **3a. Main dialogue (setting up the question)**
-- Use `question_prompt` and `application_context` (if available) as your narrative base.
-- Match the language in the call to action with the prompt.
+- Use `question_prompt` and `application_context` (if available) from <question_data> as your narrative base.
+- Match the language in the call to action with the prompt as well as the visual_context from <question_data>. 
+  - Refer to bars as rectangle bars or bars.
 - Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the dialogue concise (10-30 words), clear, and supportive.
 - Focus on guiding students to practice the `goal_text` without introducing new concepts.
@@ -97,14 +106,14 @@ There are two types of dialogue to write:
 - Keep the feedback concise (5-10 words).
 
 **4. Map the fraction covered
-- Use the `variables_used` field from question data to identify which fraction is being practiced in this question.
+- Use the `variables_used` field from <question_data> to identify which fraction is being practiced in this question.
 - For parts without numerators or fractions mentioned, 2-8 maps to "1/2" through "1/8" respectively.
 
 **Example transformation:**
 ```
 Input question data:
   "question_prompt": "Select the bar that represents 1/4.",
-  "question_type": "IDENTIFY",
+  "cognitive_type": "IDENTIFY",
   "difficulty_level": 2,
   "application_context": "Maya is sharing a chocolate bar equally with 3 friends.",
   "visual_context": "Three rectangle bars shown horizontally, each divided into 4 parts with one part shaded; only one bar has equal parts",

@@ -22,7 +22,7 @@ Your task is to take a learning goal and create a simple question with feedback.
 
 DESIGNER_TEST_DOCS = [
     # Add documentation files here if needed
-    # Example: "cognitive_types.md"
+    # Example: "<cognitive_types>"
 ]
 
 

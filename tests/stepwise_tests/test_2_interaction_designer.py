@@ -111,7 +111,7 @@ def test_interaction_designer(questions_path, output_dir=None, limit=None, modul
         print(f"  [{idx+1}/{num_to_process}] Processing Question {question_id}...")
         
         # Pass the entire question object as a formatted JSON string
-        # The prompt will parse fields like goal, prompt, context, question_type, etc.
+        # The prompt will parse fields like goal, prompt, context, cognitive_type, etc.
         question_json = json.dumps(question, indent=2)
         
         print(f"\n  📋 Question data being passed to prompt:")

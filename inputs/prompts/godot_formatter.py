@@ -67,7 +67,7 @@ Every object needs a @type field for deserialization (see schema for complete li
 - Root: `"@type": "SequencePool"`
 - Sequence: `"@type": "Sequence"` (with metadata object as shown above)
 - Step: `"@type": "Step"`
-- Workspace: `"@type": "WorkspaceData"` (NOT "Workspace")
+- Workspace: `"@type": "WorkspaceData"` 
 - Tangibles: `"@type": "FracShape"` or `"@type": "NumberLine"`
 - Prompt, Validator, Remediation, Choices: Use appropriate @type (see schema)
 
@@ -136,29 +136,65 @@ See schema for validator field requirements and answer formats.
 
 ### 5. Example Transformations
 
-**Example A: Partition/cut interaction (verb="partition", tool="cut")**
+**Example A: Multi-select interaction (verb="IDENTIFY", tool="multi_select")**
 
-Input:
+Input (from remediation generator - all in ONE step):
 ```json
 {
-  "verb": "partition",
+  "problem_id": 2,
+  "verb": "IDENTIFY",
+  "goal": "The student can distinguish unit fractions from non-unit fractions",
+  "goal_id": 4,
+  "fractions": ["1/3", "1/4"],
   "steps": [
     {
+      "dialogue": "Unit fractions have exactly one part shaded. Which of these bars show unit fractions?",
+      "prompt": "Select all bars showing unit fractions",
+      "interaction_tool": "multi_select",
       "workspace": [
         {
+          "id": "bar_1",
           "type": "rectangle_bar",
-          "sections": 1,
-          "state": "undivided",
-          "shaded": []
+          "sections": 3,
+          "state": "divided_equal",
+          "shaded": [0]
+        },
+        {
+          "id": "bar_2",
+          "type": "rectangle_bar",
+          "sections": 3,
+          "state": "divided_equal",
+          "shaded": [0, 1]
         }
-      ]
-    },
-    {
-      "prompt": "Click to cut",
-      "interaction_tool": "cut",
+      ],
       "correct_answer": {
-        "value": "1/4",
-        "context": "Divide into fourths"
+        "value": ["bar_1"],
+        "context": "Bar 1 is a unit fraction (1/3) with exactly one part shaded"
+      },
+      "student_attempts": {
+        "success_path": {
+          "dialogue": "You identified the unit fraction!"
+        },
+        "error_path_generic": {
+          "steps": [
+            {
+              "scaffolding_level": "light",
+              "dialogue": "Not quite. Look for bars with exactly one part shaded."
+            },
+            {
+              "scaffolding_level": "medium",
+              "dialogue": "Let's think about this together.",
+              "visual": {
+                "effects": [
+                  {
+                    "animation": "pulse_shaded_section",
+                    "description": "The single shaded section in bar 1 pulses"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     }
   ]
@@ -169,57 +205,145 @@ Output:
 ```json
 {
   "@type": "Step",
+  "dialogue": "Unit fractions have exactly one part shaded. Which of these bars show unit fractions?",
   "workspace": {
     "@type": "WorkspaceData",
     "tangibles": [
       {
         "@type": "FracShape",
         "visual": 0,
-        "shaded": [],
-        "lcm": 8
-      }
-    ]
-  }
-}
-```
-*Note: state="undivided" → fractions omitted. lcm=8 because answer="1/4" means 4 sections → 4*2=8
-
-**Example B: Shading interaction (verb="shade")**
-
-Input:
-```json
-{
-  "verb": "shade",
-  "workspace": [
-    {
-      "type": "rectangle_bar",
-      "sections": 3,
-      "state": "divided",
-      "shaded": []
-    }
-  ]
-}
-```
-
-Output:
-```json
-{
-  "@type": "Step",
-  "workspace": {
-    "@type": "WorkspaceData",
-    "tangibles": [
-      {
-        "@type": "FracShape",
         "fractions": "1/3",
+        "shaded": [0],
+        "lcm": 24
+      },
+      {
+        "@type": "FracShape",
         "visual": 0,
-        "shaded": [],
+        "fractions": "1/3",
+        "shaded": [0, 1],
         "lcm": 24
       }
     ]
+  },
+  "prompt": {
+    "@type": "Prompt",
+    "text": "Select all bars showing unit fractions",
+    "tool": "multi_select",
+    "validator": {
+      "@type": "SelectionValidator",
+      "answer": [0]
+    },
+    "remediations": [
+      {
+        "@type": "Remediation",
+        "id": "light",
+        "step": {
+          "@type": "Step",
+          "dialogue": "Not quite. Look for bars with exactly one part shaded."
+        }
+      },
+      {
+        "@type": "Remediation",
+        "id": "medium",
+        "step": {
+          "@type": "Step",
+          "metadata": {
+            "events": [
+              {"name": "pulse_shaded_section", "description": "The single shaded section in bar 1 pulses"}
+            ]
+          },
+          "dialogue": "Let's think about this together."
+        }
+      }
+    ],
+    "on_correct": {
+      "@type": "Step",
+      "dialogue": "You identified the unit fraction!"
+    }
   }
 }
 ```
-*Note: sections=3 + state="divided" → fractions="1/3". lcm=24 (default for non-partition)*
+
+**Example B: Selection interaction with choices (verb="COMPARE", tool="click_choice")**
+
+Input (from remediation generator):
+```json
+{
+  "problem_id": 3,
+  "verb": "COMPARE",
+  "goal": "The student can distinguish unit fractions from non-unit fractions",
+  "goal_id": 4,
+  "fractions": ["1/4"],
+  "steps": [
+    {
+      "dialogue": "Look at this bar. What makes it different from a unit fraction?",
+      "prompt": "Explain why this is not a unit fraction",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_center",
+          "type": "rectangle_bar",
+          "sections": 4,
+          "state": "divided_equal",
+          "shaded": [0, 1, 2]
+        }
+      ],
+      "choices": [
+        {"id": "a", "text": "It has unequal parts"},
+        {"id": "b", "text": "More than one part is shaded"},
+        {"id": "c", "text": "It has too many parts"}
+      ],
+      "correct_answer": {
+        "value": "b",
+        "context": "This bar has 3 parts shaded, making it 3/4, not a unit fraction"
+      },
+      "student_attempts": {
+        "success_path": {
+          "dialogue": "That's right. Unit fractions have only one part shaded."
+        }
+      }
+    }
+  ]
+}
+```
+
+Output (keep all components together in ONE step):
+```json
+{
+  "@type": "Step",
+  "dialogue": "Look at this bar. What makes it different from a unit fraction?",
+  "workspace": {
+    "@type": "WorkspaceData",
+    "tangibles": [
+      {
+        "@type": "FracShape",
+        "visual": 0,
+        "fractions": "1/4",
+        "shaded": [0, 1, 2],
+        "lcm": 24
+      }
+    ]
+  },
+  "prompt": {
+    "@type": "Prompt",
+    "text": "Explain why this is not a unit fraction",
+    "validator": {
+      "@type": "MultipleChoiceValidator",
+      "answer": [1]
+    },
+    "choices": {
+      "@type": "WorkspaceChoices",
+      "allow_multiple": false,
+      "options": ["It has unequal parts", "More than one part is shaded", "It has too many parts"]
+    },
+    "remediations": [],
+    "on_correct": {
+      "@type": "Step",
+      "dialogue": "That's right. Unit fractions have only one part shaded."
+    }
+  }
+}
+```
 
 ### 6. Error Paths → Remediations with metadata
 
@@ -350,18 +474,33 @@ If input has `choices` array, add to prompt:
 
 ## KEY TRANSFORMATION POINTS
 
-1. **metadata in Sequence**: Include all fields from section 1 (problem_id, goal_id, goal_text, verb, variables_covered, plus placeholder mastery fields)
-2. **Workspace structure**: Change workspace array → workspace object with tangibles array
-3. **FracShape conversion**: state + sections → fractions field (see section 4)
-4. **LCM calculation**: partition tasks use sections*2, others use 24
-5. **Remove input fields**: id, type, state, position (not in Godot schema)
-6. **Event metadata**: Extract animation name + description to metadata.events
-7. **Remediation order**: Must be light, medium, heavy
-8. **Tool mapping**: Use section 3 mappings (shade→paint, etc.)
-9. **Validator selection**: Read correct_answer.context to determine type
-10. **MCQ structure**: No tool field, use choices in prompt
-11. **Answer extraction**: Use correct_answer.value only (context is for understanding)
-12. **Text formatting**: Leave all text AS-IS (fractions like "3/4", vocabulary words unchanged). BBCode formatting will be applied in post-processing.
+1. **STEP CONSOLIDATION (CRITICAL)**: The input already has dialogue, workspace, and prompt all in ONE step. KEEP THEM TOGETHER in the output.
+
+   Each step can contain one of all interaction components:
+   - dialogue (teacher instruction)
+   - workspace (tangibles the student sees)
+   - prompt (the student's task, including tool, validator, remediations, on_correct)
+
+   ```json
+   {
+     "@type": "Step",
+     "dialogue": "Here's a bar. Divide it into 2 parts.",
+     "workspace": {...},
+     "prompt": {...}
+   }
+   ```
+2. **metadata in Sequence**: Include all fields from section 1 (problem_id, goal_id, goal_text, verb, variables_covered, plus placeholder mastery fields)
+3. **Workspace structure**: Change workspace array → workspace object with tangibles array
+4. **FracShape conversion**: state + sections → fractions field (see section 4)
+5. **LCM calculation**: partition tasks use sections*2, others use 24
+6. **Remove input fields**: id, type, state, position (not in Godot schema)
+7. **Event metadata**: Extract animation name + description to metadata.events
+8. **Remediation order**: Must be light, medium, heavy
+9. **Tool mapping**: Use section 3 mappings (shade→paint, etc.)
+10. **Validator selection**: Read correct_answer.context to determine type
+11. **MCQ structure**: No tool field, use choices in prompt
+12. **Answer extraction**: Use correct_answer.value only (context is for understanding)
+13. **Text formatting**: Leave all text AS-IS (fractions like "3/4", vocabulary words unchanged). BBCode formatting will be applied in post-processing.
 
 Return ONLY valid JSON with Godot schema structure.
 """

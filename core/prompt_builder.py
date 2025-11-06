@@ -9,6 +9,7 @@ Each prompt has 5 components:
 5. instructions - What to do (the actual task)
 """
 
+from logging import config
 from pathlib import Path
 from typing import Dict, List, Optional
 import sys
@@ -70,6 +71,29 @@ class PromptBuilder:
         # Auto-fetch module data if MODULE_REF is specified
         if self.module_number and config.get("module_ref"):
             variables = self._auto_fetch_module_data(config["module_ref"], variables)
+
+         # Auto-fetch problem template data if PROBLEM_TEMPLATE_REF is specified
+        if self.module_number and config.get("problem_template_ref"):
+            # Require goal_id in variables for problem template fetching
+            goal_id = variables.get("goal_id")
+            if goal_id:
+                # Convert to int if it's a string
+                if isinstance(goal_id, str):
+                    try:
+                        goal_id = int(goal_id)
+                    except ValueError:
+                        if self.verbose:
+                            print(f"  ⚠️ goal_id '{goal_id}' is not a valid integer")
+                        goal_id = None
+
+                if goal_id:
+                    variables = self._auto_fetch_problem_template_data(
+                        config["problem_template_ref"],
+                        goal_id,
+                        variables
+                    )
+            elif self.verbose:
+                print(f"  ⚠️ PROBLEM_TEMPLATE_REF specified but goal_id not found in variables")
         
         # Build sections
         sections = []
@@ -180,6 +204,56 @@ class PromptBuilder:
         
         return variables
     
+    def _auto_fetch_problem_template_data(self, problem_template_ref_fields: List[str], goal_id: int, variables: Dict) -> Dict:
+        """Auto-fetch problem template data fields using problem_template_utils"""
+        import sys
+        from pathlib import Path
+
+        # Add utils directory to path if needed
+        utils_path = Path(__file__).parent.parent / "utils"
+        if str(utils_path) not in sys.path:
+            sys.path.insert(0, str(utils_path))
+
+        from problem_template_utils import get_fields_by_reference
+
+        # Handle case where problem_template_ref_fields might not be a list
+        if not isinstance(problem_template_ref_fields, list):
+            if self.verbose:
+                print(f"  ⚠️ PROBLEM_TEMPLATE_REF is not a list, got: {type(problem_template_ref_fields)}")
+            return variables
+
+        if self.verbose:
+            print(f"  📦 Auto-fetching problem template data for fields: {problem_template_ref_fields}")
+
+        try:
+            # Fetch all fields at once using get_fields_by_reference
+            fetched_fields = get_fields_by_reference(
+                self.module_number,
+                goal_id,
+                problem_template_ref_fields,
+                required=False
+            )
+
+            # Add fetched fields to variables (skip if already provided)
+            for field_name, field_value in fetched_fields.items():
+                if field_name in variables:
+                    if self.verbose:
+                        print(f"     ↪ Skipping '{field_name}' (already provided)")
+                    continue
+
+                if field_value is not None:
+                    variables[field_name] = field_value
+                    if self.verbose:
+                        print(f"     ✓ Fetched '{field_name}' from module {self.module_number}, goal {goal_id}")
+                else:
+                    if self.verbose:
+                        print(f"     ⚠️ Field '{field_name}' not found in problem template")
+
+        except Exception as e:
+            print(f"     ✗ Error fetching problem template fields: {e}")
+
+        return variables
+
     def _get_prompt_config(self, prompt_id: str) -> Dict:
         """Get prompt configuration by ID"""
 
@@ -321,44 +395,38 @@ class PromptBuilder:
             INTERACTION_DESIGNER_DOCS,
             INTERACTION_DESIGNER_EXAMPLES,
             INTERACTION_DESIGNER_STRUCTURE,
-            INTERACTION_DESIGNER_INSTRUCTIONS
+            INTERACTION_DESIGNER_INSTRUCTIONS,
+            INTERACTION_DESIGNER_TEMPLATE_REF 
         )
-        
+
         return {
             "role": INTERACTION_DESIGNER_ROLE,
             "docs": INTERACTION_DESIGNER_DOCS,
             "examples": INTERACTION_DESIGNER_EXAMPLES,
             "structure": INTERACTION_DESIGNER_STRUCTURE,
-            "instructions": INTERACTION_DESIGNER_INSTRUCTIONS
+            "instructions": INTERACTION_DESIGNER_INSTRUCTIONS,
+            "problem_template_ref": INTERACTION_DESIGNER_TEMPLATE_REF
         }
+
     
     def _remediation_generator_config(self) -> Dict:
-        """Configuration for remediation generation prompt"""
-        import remediation_generator as rg
-
-        # Try to use new CONFIG structure
-        if hasattr(rg, 'REMEDIATION_GENERATOR_CONFIG'):
-            config = rg.REMEDIATION_GENERATOR_CONFIG.copy()
-
-            # Resolve string references to actual variables
-            for key in ['role', 'instructions', 'structure', 'examples', 'prefill']:
-                if isinstance(config.get(key), str) and hasattr(rg, config[key]):
-                    config[key] = getattr(rg, config[key])
-
-            if self.verbose:
-                print(f"  ✓ Using standardized CONFIG structure")
-            return config
-
-        # Fallback to old structure for backward compatibility
-        if self.verbose:
-            print(f"  ⚠️  Using legacy config structure (consider migrating to CONFIG)")
+        """Remediation Generator prompt configuration"""
+        from remediation_generator import (
+            REMEDIATION_GENERATOR_ROLE,
+            REMEDIATION_GENERATOR_DOCS,
+            REMEDIATION_GENERATOR_EXAMPLES,
+            REMEDIATION_GENERATOR_STRUCTURE,
+            REMEDIATION_GENERATOR_INSTRUCTIONS,
+            REMEDIATION_GENERATOR_TEMPLATE_REF
+        )
 
         return {
-            "role": rg.REMEDIATION_GENERATOR_ROLE,
-            "docs": rg.REMEDIATION_GENERATOR_DOCS,
-            "examples": rg.REMEDIATION_GENERATOR_EXAMPLES,
-            "structure": rg.REMEDIATION_GENERATOR_STRUCTURE,
-            "instructions": rg.REMEDIATION_GENERATOR_INSTRUCTIONS
+            "role": REMEDIATION_GENERATOR_ROLE,
+            "docs": REMEDIATION_GENERATOR_DOCS,
+            "examples": REMEDIATION_GENERATOR_EXAMPLES,
+            "structure": REMEDIATION_GENERATOR_STRUCTURE,
+            "instructions": REMEDIATION_GENERATOR_INSTRUCTIONS,
+            "problem_template_ref": REMEDIATION_GENERATOR_TEMPLATE_REF
         }
     
     def _godot_formatter_config(self) -> Dict:

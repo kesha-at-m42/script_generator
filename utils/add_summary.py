@@ -126,7 +126,7 @@ def main():
         print("  python add_summary.py sequences_with_metadata.json")
         print("\nThis script will:")
         print("  - Read the JSON file")
-        print("  - Generate a summary of question types and difficulties")
+        print("  - Generate a summary of cognitive types and difficulties")
         print("  - Add @summary field after @type: SequencePool")
         print("  - Save output as <input>_with_summary.json")
         sys.exit(1)

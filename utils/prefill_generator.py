@@ -275,7 +275,7 @@ def truncate_for_interaction(question_data: Dict[str, Any]) -> str:
     {{
       "problem_id": {question_data.get('question_id', 1)},
       "difficulty": {question_data.get('difficulty_level', 0)},
-      "verb": "{question_data.get('question_type', 'IDENTIFY')}",
+      "verb": "{question_data.get('cognitive_type', 'IDENTIFY')}",
       "goal": "{question_data.get('goal_text', '')}",
       "goal_id": {question_data.get('goal_id', 1)},"""
 
@@ -386,7 +386,7 @@ if __name__ == "__main__":
         "question_id": 5,
         "goal_id": 2,
         "goal_text": "The student can create unit fractions",
-        "question_type": "CREATE",
+        "cognitive_type": "CREATE",
         "difficulty_level": 1,
         "question_prompt": "Shade 1/4 of the bar"
     }

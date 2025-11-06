@@ -121,7 +121,11 @@ class PipelineRunner:
                 # Field extraction mode: extract multiple fields from item
                 if extract_fields:
                     for var_name, field_path in extract_fields.items():
-                        field_value = item.get(field_path)
+                        # Special case: None field_path means pass entire item
+                        if field_path is None:
+                            field_value = item
+                        else:
+                            field_value = item.get(field_path)
 
                         # Everything becomes a string - prompts only handle strings anyway
                         if field_value is None or field_value == "":
@@ -493,7 +497,7 @@ EXAMPLE_PIPELINES = {
             "name": "Question Generator",
             "prompt_id": "question_generator",
             "processing_mode": "item_by_item",  # Process each goal separately
-            "input_file": "inputs/modules/module{module_number}/decomposed_goals.json",
+            "input_file": "inputs/modules/module{module_number}/problem_templates.json",
             "item_key": "goals",
             "extract_fields": { 
                 "goal_id": "id",
@@ -501,7 +505,7 @@ EXAMPLE_PIPELINES = {
                 "difficulty_level": "difficulty_level",
                 "example_questions": "example_questions",
                 "variables": "variables",
-                "cognitive_types": "question_type"  # May not exist in all goals
+                "cognitive_type": "cognitive_type"  # May not exist in all goals
             },
             "collect_key": "questions",
             "output_file": "questions.json",
@@ -510,22 +514,33 @@ EXAMPLE_PIPELINES = {
             "limit":1
         },
         {
-            "name": "Interaction Designer",
-            "prompt_id": "interaction_designer",
-            "processing_mode": "item_by_item",  # Process each question separately
-            "item_key": "questions",
-            "item_variable": "question_data",
-            "collect_key": "sequences",
-            "input_file": None,  # Will be auto-set from previous step
-            "output_file": "interactions.json",
-            "max_tokens": 12000
+        "name": "Interaction Designer",
+        "prompt_id": "interaction_designer",
+        "processing_mode": "item_by_item",
+        "item_key": "questions",
+        "extract_fields": {
+            "question_data": None,  # Pass entire item as JSON
+            "goal_id": "goal_id",    # Extract goal_id for template fetching
+            "difficulty": "difficulty_level",
+            "verb": "cognitive_type",
+            "question_id": "question_id",
+            "goal": "goal"
+        
+        },
+        "collect_key": "sequences",
+        "input_file": None,
+        "output_file": "interactions.json",
+        "max_tokens": 12000
         },
         {
             "name": "Remediation Generator",
             "prompt_id": "remediation_generator",
             "processing_mode": "item_by_item",  # Process each sequence separately
             "item_key": "sequences",
-            "item_variable": "interactions_context",  # Must match variable in prompt template
+             "extract_fields": {
+                "interactions_context": None,  # Pass entire item as JSON
+                "goal_id": "goal_id"           # Extract goal_id for template fetching
+             },  # Must match variable in prompt template
             "collect_key": "sequences",
             "input_file": None,  # Will be auto-set from previous step
             "output_file": "remediation.json",
@@ -550,9 +565,13 @@ EXAMPLE_PIPELINES = {
             "prompt_id": "remediation_generator",
             "processing_mode": "item_by_item",
             "item_key": "sequences",
+             "extract_fields": {
+                "interactions_context": None,  # Pass entire item as JSON
+                "goal_id": "goal_id"           # Extract goal_id for template fetching
+             }, 
             "item_variable": "interactions_context",  # Must match variable in prompt template
             "collect_key": "sequences",
-            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251104_150856\\interactions.json",  # Specify existing file
+            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_171624\\interactions.json",  # Specify existing file
             "output_file": "remediation.json",
             "max_tokens": 16000
         }
@@ -563,20 +582,42 @@ EXAMPLE_PIPELINES = {
             "name": "Question Generator",
             "prompt_id": "question_generator",
             "processing_mode": "item_by_item",
-            "input_file": "inputs/modules/module{module_number}/decomposed_goals.json",
+            "input_file": "inputs/modules/module{module_number}/problem_templates.json",
             "item_key": "goals",
-            "extract_fields": {
+            "extract_fields": { 
                 "goal_id": "id",
                 "goal": "text",
                 "difficulty_level": "difficulty_level",
                 "example_questions": "example_questions",
                 "variables": "variables",
-                "cognitive_types": "question_type"  # May not exist in all goals
+                "cognitive_type": "cognitive_type"  # May not exist in all goals
             },
             "collect_key": "questions",
             "output_file": "questions.json",
             "max_tokens": 16000,
             "temperature": 1.0,
+        }
+    ],
+
+    "interactions_only": [
+    {
+        "name": "Interaction Designer",
+        "prompt_id": "interaction_designer",
+        "processing_mode": "item_by_item",
+        "item_key": "sequences",
+        "extract_fields": {
+            "question_data": None,  # Pass entire item as JSON
+            "goal_id": "goal_id",    # Extract goal_id for template fetching
+            "difficulty": "difficulty_level",
+            "verb": "cognitive_type",
+            "question_id": "question_id",
+            "goal": "goal"
+        
+        },
+        "collect_key": "sequences",
+        "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_164511\\questions.json",
+        "output_file": "interactions.json",
+        "max_tokens": 12000
         }
     ],
     "godot_format_only": [
@@ -587,7 +628,7 @@ EXAMPLE_PIPELINES = {
             "item_key": "sequences",
             "item_variable": "complete_interaction_sequences",  # Must match variable in prompt template
             "collect_key": "sequences",  # Extract sequences array from each response
-            "input_file": "C:\\git\\script_generator\\outputs\\test_remediation_20251031_175149\\remediation.json",
+            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251104_151523\\remediation.json",
             "output_file": "final.json",
             "max_tokens": 16000
         }

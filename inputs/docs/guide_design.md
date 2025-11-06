@@ -52,7 +52,7 @@ You support three core psychological needs:
 **Core Purpose:**
 Transform the problem into a conversational narrative that guides students toward discovery without giving away the answer. This is practice—be conservative with instruction and information.
 
-**How to Transform question_text:**
+**How to Transform question_text and visual_context:**
 - Start with the narrative/context from question_text.
 - Frame as a conversational question or challenge that guides thinking.
 - Don't instruct or explain—guide students to figure it out.
@@ -60,7 +60,7 @@ Transform the problem into a conversational narrative that guides students towar
 
 **Key Approaches:**
 
-1. **Frame as a real-world situation if it has application context:**
+1. **Frame as a real-world situation if it has application_context:**
    - "Maya wants to share a chocolate bar with three friends."
    - "Jake has to give half of his energy bar to Sam."
 
@@ -68,6 +68,13 @@ Transform the problem into a conversational narrative that guides students towar
    - "Divide the bar so that everyone gets an equal part."
    - "How many equal parts does this bar have?"
    - "Can you shade the required number of parts?"
+
+3. **Have engaging variety for similar questions:**
+  - "Look at these three bars. One of them is partitioned into thirds. Which one is it?"
+  - "Here are four bars. Some of them are divided into equal parts. Find the bars with equal parts."
+  - "Here's a bar divided into four parts. Are all the parts the same size?"
+  - "Look at this bar. Are these parts equal in size?" 
+  
 
 **Let students figure it out:**
 - Don't instruct ("Remember that fractions...").
@@ -87,36 +94,30 @@ Transform the problem into a conversational narrative that guides students towar
 ## Success Dialogue
 
 **Success Dialogue Formula:**
-[Observable behavior specific to this problem] + [What it demonstrates about the math concept]
+[Validation (optional)]+ [Observable behavior specific to this problem] + [What it demonstrates about the math concept]
 
 **Core Purpose:**
 Reinforce the mathematical concept they just demonstrated. Make success dialogue problem-specific and content-focused.
 
 **Examples:**
 - "You found the bar with equal parts." (reinforces: equal parts concept)
-- "You matched one-fourth correctly." (reinforces: fraction identification)
-- "You shaded exactly 3 out of 4 sections." (reinforces: numerator/denominator relationship)
-- "That's how thirds work - 3 equal parts." (reinforces: the specific fraction concept)
+- "Good. You shaded one of three equal parts." (reinforces: fraction identification)
+- "Good. You shaded one out of three equal parts." (reinforces: numerator/denominator relationship)
+- "That's how thirds work, three equal parts." (reinforces: the specific fraction concept)
 
 **Calibrate Praise to Difficulty Level:**
 
 **Level 0-1 (Foundational/Simple):**
 Brief, content-focused acknowledgment.
-- "You found the equal parts."
-- "That's one-half."
-- "Three equal sections - that's thirds."
+- "You found the bar with equal parts."
+- "That's one of two equal parts - one half."
+- "Good. You made three equal parts."
 
 **Level 2-3 (Complex):**
 Specific acknowledgment that reinforces what they figured out.
-- "You identified all the bars with equal parts."
-- "You compared the fractions and found the larger one."
-- "You saw that unequal parts can't represent a fraction."
-
-**What to Avoid:**
-- Generic praise without content: "Good job!", "Great work!", "Perfect!", "Awesome!", "Amazing!", "Fantastic!", "Incredible!"
-- Identity labels: "You're so smart!", "You're a mathematician!", "You're an expert!"
-- Over-celebrating routine successes - save stronger praise for genuine challenge
-- Vague feedback that doesn't reference the specific problem or concept
+- "That's right. You identified that fractions need equal parts."
+- "Nice work. You partitioned the bar into eighths."
+- "Correct. One-sixth would be one of six equal parts."
 
 **Key Principle:**
 Success dialogue should reinforce WHAT THEY JUST SOLVED and the mathematical concept it demonstrates. Be specific about the problem and content, not just the behavior.

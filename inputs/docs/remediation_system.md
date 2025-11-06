@@ -100,7 +100,7 @@ Each error path must be structured with 3 scaffolding levels delivered as sequen
 **Example Modeling Dialogues:**
 
 Multiple correct answers (bars 1 and 3):
-"Let me show you how to find this. We're looking for equal parts. Bar 1 has 4 sections that are all the same width - see how they match up perfectly? Bar 3 has 2 parts which are equal width too. So bars 1 and 3 have equal parts."
+"Let me show you how to find this. We're looking for equal parts. Bar 1 has 4 parts that are all the same size - see how they match up perfectly? Bar 3 has 2 parts which are equal size too. So bars 1 and 3 have equal parts."
 
 Single correct answer (bar 1 only):
 "Here, let me show you. A unit fraction has exactly one part shaded. Bar 1 shows exactly one part shaded. That's what makes it a unit fraction."
