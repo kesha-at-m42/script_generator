@@ -35,9 +35,20 @@ def map_to_mastery_metadata(sequence):
     goal_text = sequence.get('goal', '')
     fractions = sequence.get('fractions', [])
     
-    # Map difficulty → mastery_tier (string: "0", "1", "2", "3", "4")
-    # Direct mapping: difficulty value = tier value (converted to string)
-    mastery_tier = difficulty
+    # Map difficulty → mastery_tier (EMasteryTiers enum)
+    # Mapping:
+    #   0-1: BASELINE (Core assessment, standard difficulty)
+    #   2: STRETCH (Extended assessment, moderately difficult)
+    #   3-4: CHALLENGE (Above-grade exploration, for high performers)
+    #   Note: SUPPORT and CONFIDENCE are dynamically assigned based on student performance
+    if difficulty <= 1:
+        mastery_tier = "BASELINE"
+    elif difficulty == 2:
+        mastery_tier = "STRETCH"
+    elif difficulty >= 3:
+        mastery_tier = "CHALLENGE"
+    else:
+        mastery_tier = "BASELINE"  # default
     
     # Map verb → mastery_component
     procedural_verbs = ['CREATE']

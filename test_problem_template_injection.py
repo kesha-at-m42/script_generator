@@ -90,7 +90,7 @@ def test_with_different_goals():
 
     test_cases = [
         {"goal_id": 1, "expected_tools": ["cut"]},
-        {"goal_id": 2, "expected_tools": ["select", "multi-select", "click_choice"]},
+        {"goal_id": 2, "expected_tools": ["select", "multi_select", "click_choice"]},
         {"goal_id": 3, "expected_tools": ["shade"]},
     ]
 

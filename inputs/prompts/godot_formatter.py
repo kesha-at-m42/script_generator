@@ -112,6 +112,7 @@ See schema for validator field requirements and answer formats.
 - `state`: Visual state ("undivided", "divided", "divided_unequal")
 - `shaded`: Array of 0-based indices
 - `position`: Screen location (not used in Godot)
+- `frac_la
 
 **Output FracShape fields:**
 - `@type`: "FracShape"

@@ -42,28 +42,111 @@ For each step with expected_student_input, add error paths to the existing stude
 
 The success_path already exists - DO NOT modify it.
 ## ERROR PATH REQUIREMENTS
-For each scaffolding level (light, medium, heavy), generate appropriate "dialogue" and "events" based on the following guidelines:
 
-1. **Follow {remediations_per_step} and refer to the <remediation_events> documentation** to understand the visual scaffolds that will appear on screen at each remediation level. Use this create an array of "events" for medium and heavy remediation levels.
-  **Reference existing workspace**: Don't redefine tangibles; use the workspace field to understand what is present on the screen.
-        "events":
-          [
-            {
-              "name": from {remediation_per_step} matching the scaffolding_level,
-              "target": from workspace,
-              "description": from <remediation_events> documentation
-            },
-            {
-              "name": from {remediation_per_step} matching the scaffolding_level,
-              "target": from workspace,
-              "description": from <remediation_events> documentation
-            }
-          ]
-  
+**IMPORTANT DESIGN FLOW**: Events drive dialogue, not the other way around. Follow this process:
 
-2. **Progressing from step 1, use the "events" generate corresponding and matching "dialogue". Refer <remediation_system> documentation**, especially for the language guidance.
+### STEP 1: Extract Events from {remediations_per_step}
 
-3. **Don't modify**: Keep original steps and success_path unchanged (success_path already exists from interaction designer)
+The {remediations_per_step} template field provides events IN ORDER for each scaffolding level. This is your authoritative guide.
+
+For each remediation level:
+1. Look up the events in {remediations_per_step} for the current scaffolding level (light/medium/heavy)
+2. The events are listed IN THE ORDER they should occur
+3. Find each event in <remediation_events> documentation to understand what it does
+4. Build the events array using the EXACT event names and order from {remediations_per_step}:
+
+```json
+"events": [
+  {
+    "name": "A_cut_hint_1_2",
+    "description": "Show visual guide for cutting bar at 1/2 mark"
+  }
+]
+```
+
+**Notes:**
+- Light remediation: Usually NO events (empty array or not specified in {remediations_per_step})
+- Medium remediation: 1-2 events (subtle hints/guides)
+- Heavy remediation: 2+ events (full demonstrations)
+- Use event names from {remediations_per_step} as a starting point
+- Preserve the ORDER of events from {remediations_per_step}
+
+**IMPORTANT - Adapting Events for Multiple Tangibles:**
+
+The {remediations_per_step} provides baseline events, but you should adapt them based on what's pedagogically appropriate for the remediation:
+
+**Event Prefixes for Multiple Tangibles:**
+- Events with "A_" prefix operate on the FIRST/TOP bar
+- Events with "B_" prefix operate on the SECOND bar
+- Events with "C_" prefix operate on the THIRD bar
+- Events with "D_" prefix operate on the FOURTH bar
+
+**Design Process:**
+1. Start with events from {remediations_per_step} (e.g., "A_compare")
+2. Consult <remediation_system> to understand what remediation is pedagogically needed
+3. Look at the workspace to see what tangibles are available
+4. Use the appropriate event prefixes (A_, B_, C_, D_) for the tangibles that need to be part of the remediation
+
+**Example:** If {remediations_per_step} suggests "A_compare" for medium remediation:
+- **Scenario 1**: Student needs to understand one bar has equal parts → Use only "A_compare"
+- **Scenario 2**: Student needs to compare two bars (one equal, one unequal) → Use "A_compare" and "B_compare"
+- **Scenario 3**: Student selected wrong bar from 3 options → Use event for the correct bar (could be A_, B_, or C_)
+
+**Key Principle:** Select events based on **what the student needs to learn**, not just how many tangibles exist. Refer to <remediation_system> for pedagogical guidance on error patterns and appropriate scaffolding.
+
+### STEP 2: Design Dialogue Around Events with [event: name] Markers
+
+**After extracting events from {remediations_per_step}**, write dialogue that integrates naturally with these animations and insert event markers at appropriate locations:
+
+**Event Marker Format:** `[event: event_name]`
+
+**Placement Guidelines:**
+- Place the [event: name] marker RIGHT BEFORE the dialogue text that describes or references that animation
+- The event triggers the animation, then the dialogue describes what's happening
+- Multiple events should each have their own marker: `[event: A_cut_1_3][event: A_cut_2_3]`
+- Events should appear in the SAME ORDER as listed in {remediations_per_step}
+
+**Examples by Level:**
+
+1. **Light (no events)**: Simple redirect using <remediation_system> language templates
+   ```
+   "dialogue": "Not quite. Try dividing the bar into 2 equal parts."
+   ```
+
+2. **Medium (1-2 events)**: Insert markers before describing the visual hints
+   ```
+   "events": [{"name": "A_cut_hint_1_2", "description": "Show visual guide for cutting bar at 1/2 mark"}]
+   "dialogue": "Let's think about this together. To make two equal parts, we need to cut [event: A_cut_hint_1_2] right in the middle of the bar."
+   ```
+
+3. **Heavy (2+ events)**: Insert markers in order before describing each demonstration step
+   ```
+   "events": [
+     {"name": "A_cut_1_2", "description": "Partition the bar in half (1/2)"}
+   ]
+   "dialogue": "Let me show you how to do this. To divide the bar into two equal parts, we need to cut [event: A_cut_1_2] right at the middle. See how this creates two parts that are exactly the same size?"
+   ```
+
+   **Multiple events example:**
+   ```
+   "events": [
+     {"name": "A_cut_1_3", "description": "Make a cut at 1/3 mark"},
+     {"name": "A_cut_2_3", "description": "Make a cut at 2/3 mark"}
+   ]
+   "dialogue": "Let me show you how to make three equal parts. To make thirds, we need to cut [event: A_cut_1_3][event: A_cut_2_3] at the one third mark and the two thirds mark. See how each part is exactly the same size?"
+   ```
+
+**Key Principles:**
+- Follow the EVENT ORDER from {remediations_per_step} exactly
+- Insert [event: name] markers at the point where each animation should trigger
+- Write dialogue that flows naturally with the animations
+- Use <remediation_system> language templates and vocabulary guidelines
+- Don't explicitly say "watch this animation" - describe the action naturally
+
+### STEP 3: Keep Original Content Unchanged
+
+- Don't modify existing steps or success_path
+- Only add error_path_generic to student_attempts
 
 Return valid JSON only (see structure below).
 """

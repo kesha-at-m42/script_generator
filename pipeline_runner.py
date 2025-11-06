@@ -224,11 +224,16 @@ class PipelineRunner:
                             seq['metadata'] = {}
                         seq['metadata'].update(correct_metadata)
 
+                          # Inject event names into dialogue
+                    # from utils.event_injector import process_godot_sequences_with_events
+                    # parsed = process_godot_sequences_with_events(parsed)
+
+
                     # Apply BBCode formatting
                     parsed = process_godot_sequences(parsed, vocabulary_list)
 
                     if self.verbose:
-                        print(f"      ⚙️  Applied metadata mapping and BBCode formatting")
+                        print(f"      ⚙️  Applied metadata mapping and BBCode formatting, and event injection")
 
                 if collect_key in parsed:
                     collected = parsed[collect_key]
@@ -510,8 +515,7 @@ EXAMPLE_PIPELINES = {
             "collect_key": "questions",
             "output_file": "questions.json",
             "max_tokens": 16000,
-            "temperature": 1.0,
-            "limit":1
+            "temperature": 0.5
         },
         {
         "name": "Interaction Designer",
@@ -558,6 +562,52 @@ EXAMPLE_PIPELINES = {
             "max_tokens": 16000
         }
     ],
+     "semi": [
+                {
+        "name": "Interaction Designer",
+        "prompt_id": "interaction_designer",
+        "processing_mode": "item_by_item",
+        "item_key": "questions",
+        "extract_fields": {
+            "question_data": None,  # Pass entire item as JSON
+            "goal_id": "goal_id",    # Extract goal_id for template fetching
+            "difficulty": "difficulty_level",
+            "verb": "cognitive_type",
+            "question_id": "question_id",
+            "goal": "goal"
+        
+        },
+        "collect_key": "sequences",
+        "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module3_pathb_20251106_140035\\questions.json",
+        "output_file": "interactions.json",
+        "max_tokens": 12000
+        },
+        {
+            "name": "Remediation Generator",
+            "prompt_id": "remediation_generator",
+            "processing_mode": "item_by_item",  # Process each sequence separately
+            "item_key": "sequences",
+             "extract_fields": {
+                "interactions_context": None,  # Pass entire item as JSON
+                "goal_id": "goal_id"           # Extract goal_id for template fetching
+             },  # Must match variable in prompt template
+            "collect_key": "sequences",
+            "input_file": None,  # Will be auto-set from previous step
+            "output_file": "remediation.json",
+            "max_tokens": 16000
+        },
+        {
+            "name": "Godot Formatter",
+            "prompt_id": "godot_formatter",
+            "processing_mode": "item_by_item",  # Process each sequence separately (like test)
+            "item_key": "sequences",
+            "item_variable": "complete_interaction_sequences",  # Must match variable in prompt template
+            "collect_key": "sequences",  # Extract sequences array from each response
+            "input_file": None,  # Will be auto-set from previous step
+            "output_file": "final.json",
+            "max_tokens": 16000
+        }
+    ],
 
     "remediation_only": [
         {
@@ -571,7 +621,7 @@ EXAMPLE_PIPELINES = {
              }, 
             "item_variable": "interactions_context",  # Must match variable in prompt template
             "collect_key": "sequences",
-            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_171624\\interactions.json",  # Specify existing file
+            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_201443\\interactions.json",  # Specify existing file
             "output_file": "remediation.json",
             "max_tokens": 16000
         }
@@ -615,7 +665,7 @@ EXAMPLE_PIPELINES = {
         
         },
         "collect_key": "sequences",
-        "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_164511\\questions.json",
+        "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251105_201443\\interactions.json",
         "output_file": "interactions.json",
         "max_tokens": 12000
         }
@@ -628,7 +678,7 @@ EXAMPLE_PIPELINES = {
             "item_key": "sequences",
             "item_variable": "complete_interaction_sequences",  # Must match variable in prompt template
             "collect_key": "sequences",  # Extract sequences array from each response
-            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251104_151523\\remediation.json",
+            "input_file": "C:\\git\\script_generator\\outputs\\pipeline_module1_pathb_20251106_121937\\remediation.json",
             "output_file": "final.json",
             "max_tokens": 16000
         }
