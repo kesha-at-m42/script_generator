@@ -428,10 +428,17 @@ or for multiple selections:
   "answer": [2, 4]
 }
 ```
-**Answer Type:** Array of integers (numerator values, e.g., [2, 4] for 2/6 and 4/6)
-**Required Tangibles:** One NumberLine
+or for multiple number lines:
+```json
+{
+  "@type": "PlaceTicksValidator",
+  "answer": [[2, 4], [1, 3, 5]]
+}
+```
+**Answer Type:** Array of integers (e.g., [2, 4] for single number line) OR array of arrays of integers (e.g., [[2, 4], [1, 3, 5]] for multiple number lines)
+**Required Tangibles:** One or more NumberLine
 **Required Properties:** NumberLine.tick_marks array, tick numerator property
-**Key Behavior:** Validates count and numerator values of user-placed ticks (excludes start/end ticks). Each tick's numerator must match answer[i].
+**Key Behavior:** Validates count and numerator values of user-placed ticks (excludes start/end ticks at 0 and denominator). For single array, each tick's numerator must match answer[i]. For nested arrays, validates each number line's ticks against corresponding answer array.
 **Use case:** Tasks where learner places tick marks at specific positions ("place ticks at 2/6 and 4/6")
 
 **SelectTicksValidator**
@@ -441,11 +448,31 @@ or for multiple selections:
   "answer": [3]
 }
 ```
-**Answer Type:** Array of integers (numerator values, e.g., [3] for 3/6)
-**Required Tangibles:** One NumberLine with existing tick marks
+or for multiple number lines:
+```json
+{
+  "@type": "SelectTicksValidator",
+  "answer": [[3], [2, 4]]
+}
+```
+**Answer Type:** Array of integers (e.g., [3] for single number line) OR array of arrays of integers (e.g., [[3], [2, 4]] for multiple number lines)
+**Required Tangibles:** One or more NumberLine with existing tick marks
 **Required Properties:** NumberLine.tick_marks array, tick is_shaded and numerator properties
-**Key Behavior:** Validates numerators of shaded ticks match answer array (order-independent). Rejects if end tick selected.
+**Key Behavior:** Validates numerators of shaded ticks match answer array (order-independent, uses sorting). For multiple number lines, validates each line's shaded ticks against corresponding answer array.
 **Use case:** Tasks where learner highlights/selects existing tick marks ("select the tick at 3/6")
+
+**IsTickLabelledValidator**
+```json
+{
+  "@type": "IsTickLabelledValidator",
+  "answer": ["1/3", "2/3"]
+}
+```
+**Answer Type:** Array of fraction strings (e.g., ["1/3", "2/3"])
+**Required Tangibles:** One NumberLine with tick marks
+**Required Properties:** NumberLine.tick_marks array, tick labelled property
+**Key Behavior:** Validates which tick marks have visible labels. Checks that ticks with fractions matching the answer array are labelled.
+**Use case:** Tasks where learner must label specific tick marks ("label the ticks at 1/3 and 2/3")
 
 ### WorkspaceChoices
 

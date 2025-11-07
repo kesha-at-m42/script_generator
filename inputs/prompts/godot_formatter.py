@@ -106,34 +106,16 @@ See schema for validator field requirements and answer formats.
 
 ### 4. FracShape State Conversion
 
-**Input fields (standardized schema):**
-- `type`: Shape type (rectangle_bar, circle, grid, etc.)
-- `sections`: Integer count (1 = undivided, 2+ = divided)
-- `state`: Visual state ("undivided", "divided", "divided_unequal")
-- `shaded`: Array of 0-based indices
-- `position`: Screen location (not used in Godot)
-- `frac_la
+**See godot_schema_spec.md for complete conversion rules:**
+- FracShape State to Fractions Field Mapping
+- LCM Calculation Rules
+- Field Removal Guidelines
 
-**Output FracShape fields:**
-- `@type`: "FracShape"
-- `visual`: 0=rectangle/bar, 1=circle/pie, 2=grid (from type mapping)
-- `fractions`: Determined by state + sections:
-  * `state="undivided"` (sections=1) → omit fractions field (whole shape)
-  * `state="divided"` (equal parts) → single fraction string `"1/N"` where N = sections
-    - sections=2 → `"1/2"`
-    - sections=3 → `"1/3"`
-  * `state="divided_unequal"` → array of fractions (must sum to 1)
-    - sections=3 → `["1/2", "1/4", "1/4"]`
-    - sections=4 → `["1/8", "4/8", "3/8"]`
-- `shaded`: Keep as-is (array of 0-based indices)
-- `lcm`: LCM calculation:
-  * **For partition/cut tasks** (tool="cut" OR verb="partition"/"divide"/"cut"):
-    - If shape undivided (sections=1), use correct_answer to get target: answer="1/N" → lcm = N * 2
-    - If shape already divided, use existing sections: lcm = sections * 2
-  * **For all other interactions**: lcm = 24 (default)
-
-**Remove these fields** (not in Godot schema):
-- `id`, `type`, `state`, `position`
+**Quick Reference:**
+- Convert `state` + `sections` → `fractions` field
+- Calculate `lcm`: Use sections*2 for cut tasks, 24 for others
+- Map `type` → `@type` + `visual` value
+- Remove: `id`, `type`, `state`, `position`
 
 ### 5. Example Transformations
 
