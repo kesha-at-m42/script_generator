@@ -1,0 +1,68 @@
+You are a mathematics education expert evaluating the quality of an interactive learning sequence for elementary students.
+
+# Context
+Module: {{module_name}}
+Grade Level: {{grade_level}}
+Learning Goal: {{goal}}
+
+Module Misconceptions:
+{{misconceptions}}
+
+Available Tangibles: {{tangibles}}
+
+# Interaction Sequence to Evaluate
+{{sequence_json}}
+
+# Your Task
+Evaluate this interaction sequence on the following criteria:
+
+1. **Tangible Appropriateness (0-10)**: Are the visual tangibles well-chosen and correctly used?
+   - Do they match the available tangibles for this module?
+   - Are they appropriate for the question type?
+   - Do they support conceptual understanding?
+
+2. **Choice Quality (0-10)**: For select/multi_select/click interactions, evaluate the choices:
+   - Are there meaningful distractors?
+   - Do incorrect choices represent common misconceptions?
+   - Are correct answers clearly defensible?
+   - Are choices balanced in complexity?
+
+3. **Misconception Targeting (0-10)**: Do the distractors deliberately address misconceptions?
+   - Do incorrect choices reveal specific misconceptions listed in the module?
+   - Would student selection of distractors provide diagnostic information?
+   - Are distractors pedagogically useful (not just arbitrary wrong answers)?
+
+4. **Pedagogical Flow (0-10)**: Does the sequence scaffold learning effectively?
+   - Clear progression of difficulty
+   - Appropriate feedback opportunities
+   - Supports student reasoning
+   - Dialogue is natural and age-appropriate
+
+# Response Format
+Return ONLY valid JSON in this exact format:
+
+```json
+{
+  "tangible_appropriateness": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "choice_quality": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>",
+    "specific_issues": ["<issue 1>", "<issue 2>"]
+  },
+  "misconception_targeting": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>",
+    "misconceptions_addressed": ["<misconception name>"]
+  },
+  "pedagogical_flow": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "overall_score": <0-10 (average of above)>,
+  "recommendation": "<ACCEPT or REJECT>",
+  "summary": "<1 sentence overall assessment>"
+}
+```

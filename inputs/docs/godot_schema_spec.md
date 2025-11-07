@@ -323,11 +323,22 @@ When `fractions` is an array, each element represents one part's fraction value.
 **NumberLine Properties:**
 - `@type`: Always "NumberLine"
 - `lcd`: Integer - Least common denominator (required, maximum value: 9)
+  * **For place_tick tasks**: Set to `denominator × 2` (e.g., thirds → lcd = 6, fourths → lcd = 8)
+  * **For other tasks**: Use default 12
 - `tick_marks`: Array - Mix of integers (0, 1) and fraction strings ("1/6") for tick positions (required)
   * **Fraction format:** Pattern `^[1-9]+/[1-9]+$` (e.g., "1/6", "2/9")
   * **Maximum denominator:** 9 (smallest supported fraction is 1/9)
 - `labelled`: Array<Boolean> - Whether each tick shows label - Optional
 - `dots`: Array<Integer> - Indices of tick marks with dots/markers - Optional
+
+**LCD Calculation Rules:**
+
+Determining the denominator for place_tick tasks:
+- If answer is numerator array like `[1, 2]`, denominator = `length(answer) + 1`
+  - `[1, 2]` → 2 ticks needed → 3 intervals created → denominator = 3 → lcd = 6
+  - `[1, 2, 3]` → 3 ticks needed → 4 intervals created → denominator = 4 → lcd = 8
+- If answer contains fractions like `["1/3", "2/3"]`, extract denominator from the fractions
+  - `["1/3", "2/3"]` → denominator = 3 → lcd = 6
 
 ### Validator Types
 

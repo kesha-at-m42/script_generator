@@ -32,8 +32,8 @@ def test_get_fields_by_reference():
     print("TEST 1: Direct field fetching from problem_templates.json")
     print("=" * 70)
 
-    # Test with INTERACTION_DESIGNER_TEMPLATE_REF = ["tools"]
-    INTERACTION_DESIGNER_TEMPLATE_REF = ["tools"]
+    # Test with INTERACTION_DESIGNER_TEMPLATE_REF = ["tools_available"]
+    INTERACTION_DESIGNER_TEMPLATE_REF = ["tools_available"]
 
     print(f"\nFetching fields: {INTERACTION_DESIGNER_TEMPLATE_REF}")
     print(f"From: Module 1, Goal 1")
@@ -42,7 +42,7 @@ def test_get_fields_by_reference():
         fields = get_fields_by_reference(1, 1, INTERACTION_DESIGNER_TEMPLATE_REF)
         print(f"\nResult: {fields}")
 
-        if "tools" in fields:
+        if "tools_available" in fields:
             print(f"SUCCESS: 'tools' field fetched: {fields['tools']}")
         else:
             print("FAIL: 'tools' field not in result")
@@ -62,7 +62,7 @@ def test_multiple_goals():
     print("TEST 2: Fetching tools for different goals")
     print("=" * 70)
 
-    TEMPLATE_REF = ["tools", "cognitive_type"]
+    TEMPLATE_REF = ["tools_available", "cognitive_type"]
 
     for goal_id in [1, 2, 3, 4, 5, 6]:
         try:
@@ -125,14 +125,14 @@ def test_full_integration():
             print("\nTesting direct call to _auto_fetch_problem_template_data...")
             variables = {}
             result = builder._auto_fetch_problem_template_data(
-                ["tools", "remediations_per_step.0.0.scaffolding_level"],
+                ["tools_available", "remediations_per_step.0.0.scaffolding_level"],
                 1,
                 variables
             )
 
             print(f"Result variables: {result}")
 
-            if "tools" in result:
+            if "tools_available" in result:
                 print(f"SUCCESS: tools auto-fetched: {result['tools']}")
             if "remediations_per_step.0.0.scaffolding_level" in result:
                 print(f"SUCCESS: remediations_per_step.0.0.scaffolding_level auto-fetched: {result['remediations_per_step.0.0.scaffolding_level']}")

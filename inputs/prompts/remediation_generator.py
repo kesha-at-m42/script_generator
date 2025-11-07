@@ -28,6 +28,8 @@ REMEDIATION_GENERATOR_EXAMPLES = []
 
 REMEDIATION_GENERATOR_PREFILL = """{prefill_sequence}"""
 
+REMEDIATION_GENERATOR_MODULE_REF = ["misconceptions", "language_constraints"]
+
 REMEDIATION_GENERATOR_INSTRUCTIONS = """
 ## YOUR TASK
 
@@ -41,6 +43,9 @@ For each step with expected_student_input, add error paths to the existing stude
 - **error_path_generic**: Generic fallback (REQUIRED - only error path to add for now)
 
 The success_path already exists - DO NOT modify it.
+
+**Note on Workspace Tangibles:** Tangibles may include a `visual_description` field (especially in comparison sets) that describes the visual characteristics of that specific tangible. This field helps maintain context about features like equal vs unequal spacing, segment sizes, etc.
+
 ## ERROR PATH REQUIREMENTS
 
 **IMPORTANT DESIGN FLOW**: Events drive dialogue, not the other way around. Follow this process:

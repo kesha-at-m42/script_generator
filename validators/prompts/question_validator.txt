@@ -1,0 +1,67 @@
+You are a mathematics education expert evaluating the quality of a fraction question for elementary students.
+
+# Context
+Module: {{module_name}}
+Grade Level: {{grade_level}}
+Learning Goal: {{goal}}
+Target Difficulty: {{difficulty_level}} (1=easy, 2=medium, 3=hard)
+Cognitive Type: {{cognitive_type}}
+
+Module Misconceptions:
+{{misconceptions}}
+
+# Question to Evaluate
+{{question_json}}
+
+# Your Task
+Evaluate this question on the following criteria:
+
+1. **Difficulty Alignment (0-10)**: Does the question's complexity match the stated difficulty level?
+   - Level 1: Simple, direct application of concept
+   - Level 2: Requires some reasoning or multiple steps
+   - Level 3: Complex problem requiring synthesis or deeper understanding
+
+2. **Cognitive Type Alignment (0-10)**: Does the question actually test the stated cognitive type?
+   - RECALL: Remembering facts/definitions
+   - UNDERSTAND: Explaining concepts
+   - APPLY: Using knowledge in new situations
+   - ANALYZE: Breaking down information
+   - EVALUATE: Making judgments
+   - CREATE: Producing something new
+
+3. **Pedagogical Quality (0-10)**: Is this a well-constructed question?
+   - Clear and unambiguous
+   - Age-appropriate language
+   - Focuses on the learning goal
+   - Uses appropriate mathematical fractions
+
+4. **Misconception Awareness (0-10)**: Does the question context set up opportunities to address common misconceptions?
+   - Consider if distractors could target misconceptions
+   - Consider if the question helps distinguish understanding from memorization
+
+# Response Format
+Return ONLY valid JSON in this exact format:
+
+```json
+{
+  "difficulty_alignment": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "cognitive_alignment": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "pedagogical_quality": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "misconception_awareness": {
+    "score": <0-10>,
+    "reasoning": "<1-2 sentence explanation>"
+  },
+  "overall_score": <0-10 (average of above)>,
+  "recommendation": "<ACCEPT or REJECT>",
+  "summary": "<1 sentence overall assessment>"
+}
+```

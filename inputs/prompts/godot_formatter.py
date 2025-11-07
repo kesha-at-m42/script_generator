@@ -88,6 +88,7 @@ ALL fraction shapes use unified `FracShape` type:
 - `select` → `"select"` (for selecting single tangible)
 - `multi_select` → `"multi_select"` (for selecting multiple tangibles)
 - `place_tick` → `"place_tick"` (unchanged)
+- `select_tick` → `single_paint` (you can select only one tick at a time)
 - `click_choice` → omit tool (MCQs don't use tools, only workspace.choices)
 
 **Validator Selection:**
@@ -104,18 +105,29 @@ Read `correct_answer.context` to understand what's being validated, then determi
 
 See schema for validator field requirements and answer formats.
 
-### 4. FracShape State Conversion
+### 4. Tangible Conversions
 
-**See godot_schema_spec.md for complete conversion rules:**
-- FracShape State to Fractions Field Mapping
-- LCM Calculation Rules
-- Field Removal Guidelines
+**Common fields to remove from all tangibles:**
+- `id`, `type`, `state`, `intervals`, `interval_pattern`, `description` (parse, then discard)
 
-**Quick Reference:**
-- Convert `state` + `sections` → `fractions` field
-- Calculate `lcm`: Use sections*2 for cut tasks, 24 for others
-- Map `type` → `@type` + `visual` value
-- Remove: `id`, `type`, `state`, `position`
+**FracShape (@type: "FracShape"):**
+- `visual`: 0=rectangle/bar, 1=circle/pie, 2=grid
+- `fractions`: Based on state + intervals:
+  * `state="undivided"` → omit field (whole shape)
+  * `state="divided_equal"` → single string `"1/N"` where N = intervals
+  * `state="divided_unequal"` → array summing to 1, parse `interval_pattern`/`description`:
+    - `"middle_larger"` + intervals=3 → `["1/4", "1/2", "1/4"]`
+    - `"first_larger"` + intervals=3 → `["1/2", "1/4", "1/4"]`
+    - Use denominators: 6, 8, 10, 12
+- `shaded`: Array of section indices (e.g., `[0, 1]`)
+- `lcm`: For cut tasks: intervals×2; others: 24
+
+**NumberLine (@type: "NumberLine"):**
+- `range`: Keep (e.g., `[0, 1]`)
+- `labelled`: Keep (boolean array matching tick count)
+- `shaded`: **Boolean array** matching tick count (e.g., `[false, false, true, false]`)
+- `lcd`: For place_tick tasks: intervals; others: 9
+
 
 ### 5. Example Transformations
 
@@ -138,15 +150,15 @@ Input (from remediation generator - all in ONE step):
         {
           "id": "bar_1",
           "type": "rectangle_bar",
-          "sections": 3,
           "state": "divided_equal",
+          "intervals": 3,
           "shaded": [0]
         },
         {
           "id": "bar_2",
           "type": "rectangle_bar",
-          "sections": 3,
           "state": "divided_equal",
+          "intervals": 3,
           "shaded": [0, 1]
         }
       ],
@@ -266,8 +278,8 @@ Input (from remediation generator):
         {
           "id": "bar_center",
           "type": "rectangle_bar",
-          "sections": 4,
           "state": "divided_equal",
+          "intervals": 4,
           "shaded": [0, 1, 2]
         }
       ],

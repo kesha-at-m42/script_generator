@@ -134,11 +134,11 @@ module_3 = {
         "unit fractions",
         "numerator",
         "denominator",
-        "compose",
         "fraction",
         "fractions",
         "halves",
         "thirds",
+        "fifths",
         "fourths",
         "sixths",
         "eighths",
@@ -192,14 +192,15 @@ module_4 = {
         "number line",
         "interval",
         "equal intervals",
-        "unit segment",
         "partition",
         "position",
-        "iterate",
         "tick mark",
         "numerator",
         "denominator",
-        "unit fraction"
+        "unit fraction",
+        "unit fractions",
+        "fraction",
+        "fractions"
     ],
     "standards": {
         "building_on": [
@@ -223,12 +224,13 @@ module_4 = {
         "tangibles": ["number line"],
         "description": "number lines are the primary visual for this module. Number lines show equal intervals with tick marks and fraction positions.",
         "constraints": [
+            "Number lines are always labelled with 1 and 0",
             "All fractions are shown as positions on number lines",
-            "Number lines must show equal intervals between tick marks",
-            "The unit segment (0 to 1) must be clearly defined",
-            "Number lines can extend beyond 1 to show iteration",
+            "Numerators can be less than or equal to denominators",
             "Denominators of 2, 3, 4, 6, or 8 determine number of equal intervals in the unit segment",
-            "Path B (Singapore): Step-by-step interval creation with click-to-partition and progressive labeling"
+            "A maximum of 3 number lines can be shown for comparison",
+            "Some of the ticks can be labelled with fractions depending on the problem",
+            "Ticks can be highlighted to support the question being asked"
         ]
     },
     "misconceptions": [
@@ -248,7 +250,8 @@ module_4 = {
             "misconception": "Counting Tick Marks Instead of Spaces",
             "description": "Understanding intervals (spaces) not ticks define fractions"
         }
-    ]
+    ],
+    "language_constraints": "Use a mix numeric notation (1/2) and word form (one-half) when referring to fractions to build familiarity with both representations, but have higher emphasis on numeric notation."
 }
 
 # Dictionary of all modules for easy lookup

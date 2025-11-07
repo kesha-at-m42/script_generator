@@ -32,7 +32,9 @@ INTERACTION_DESIGNER_EXAMPLES = []
 
 INTERACTION_DESIGNER_TEMPLATE_GOAL_ID= "{goal_id}"
 
-INTERACTION_DESIGNER_TEMPLATE_REF= ["tools", "no_of_steps"]
+INTERACTION_DESIGNER_TEMPLATE_REF= ["tools_available", "no_of_steps"]
+
+INTERACTION_DESIGNER_MODULE_REF = ["misconceptions", "language_constraints"]
 
 INTERACTION_DESIGNER_EXPECTED_INPUT="""
     {
@@ -78,21 +80,35 @@ Design an interactive sequence for the given question idea:
   - `"cut"` - Student divides shapes into parts
   - `"select"` - Student selects one shape from multiple options
   - `"multi_select"` - Student selects multiple shapes
-  - `"place_tick"` - Student places ticks on a number line
+  - `"place_tick"` - Student places tick marks on a number line
+  - `"select_tick"` - Student selects/highlights existing ticks on a number line
   - `"click_choice"` - Student picks from multiple choice answers
+
 - Build workspace array with tangible objects:
-  Array of tangible objects with these required fields:
+
+**Unified Tangible Structure (all types):**
   - `id`: Unique identifier string
-  - `type`: Shape type (rectangle_bar, circle, grid, number_line, etc.)
-  - `state`: Visual state - "undivided", "divided_equal", or "divided_unequal"
-  - `sections`: Number of parts, omit if not applicable
-  - `shaded`: Array of shaded section indices, omit if not applicable
+  - `type`: "rectangle_bar" | "circle" | "grid" | "number_line"
+  - `state`: "undivided" | "divided_equal" | "divided_unequal"
+  - `intervals`: Number of intervals (parts/sections/spaces)
+  - `interval_pattern`: For "divided_unequal" only - describes relative sizes (e.g., "middle_larger")
+  - `shaded`: Array of indices - for bars/circles: shaded sections; for number_lines: highlighted ticks
+  - `description`: Optional - comparative visual context (REQUIRED for comparison sets)
+
+**Number Line Additional Fields:**
+  - `range`: [start, end] (e.g., [0, 1] or [0, 2])
+  - `labelled`: Array of booleans indicating which ticks show labels (e.g., [true, false, false, false, true])
+
+**For Comparison Sets:**
+When `visual_context` contains comparison information, extract and assign the description for each tangible:
+- Parse the visual_context to identify each option's specific characteristics
+- Add `description` field with details about equal vs unequal spacing, interval sizes, etc.
 
 There are two types of dialogue to write:
 **3a. Main dialogue (setting up the question)**
 - Use `question_prompt` and `application_context` (if available) from <question_data> as your narrative base.
 - Match the language in the call to action with the prompt as well as the visual_context from <question_data>. 
-  - Refer to bars as rectangle bars or bars.
+  - Refer to bars as rectangle bars or bars. Do not call them "blank bars".
 - Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the dialogue concise (10-30 words), clear, and supportive.
 - Focus on guiding students to practice the `goal_text` without introducing new concepts.
@@ -124,9 +140,9 @@ Output sequence step:
   "dialogue": "Maya wants to share a chocolate bar with three friends. Everyone will receive one part. How should she divide the bar so that everyone receives an equal part?" (based on guide_design.md),
   "interaction_tool": "select",
   "workspace": [
-    {"id": "bar_top", "type": "rectangle_bar", "sections": 4, "state": "divided_unequal", "shaded": [0]},
-    {"id": "bar_middle", "type": "rectangle_bar", "sections": 4, "state": "divided_unequal", "shaded": [0]},
-    {"id": "bar_bottom", "type": "rectangle_bar", "sections": 4, "state": "divided_equal", "shaded": [0]}
+    {"id": "bar_top", "type": "rectangle_bar", "state": "divided_unequal", "intervals": 4, "shaded": [0]},
+    {"id": "bar_middle", "type": "rectangle_bar", "state": "divided_unequal", "intervals": 4, "shaded": [0]},
+    {"id": "bar_bottom", "type": "rectangle_bar", "state": "divided_equal", "intervals": 4, "shaded": [0]}
   ],
   "correct_answer": {"value": "bar_bottom", "context": "It's the bar with equal parts."},
   "student_attempts": {"success_path": {"dialogue": "You selected the bar divided in fourths."}}}
@@ -135,14 +151,14 @@ Output sequence step:
 **Example: Shading interaction:**
 ```json
 {{
-  "prompt": "Shade three-fourths of the bar",
+  "prompt": "Shade three-fourths of the bar.",
   "interaction_tool": "shade",
   "workspace": [
     {{
       "id": "bar_center",
       "type": "rectangle_bar",
-      "sections": 4,
       "state": "divided_equal",
+      "intervals": 4,
       "shaded": []
     }}
   ],
@@ -162,8 +178,8 @@ Output sequence step:
        {{
          "id": "bar_center",
          "type": "rectangle_bar",
-         "sections": 1,
          "state": "undivided",
+         "intervals": 1,
          "shaded": []
        }}
      ],
@@ -173,8 +189,8 @@ Output sequence step:
      }}
    }}
    ```
-   
-   **Example: Multiple choice**
+
+   **Example: Multiple choice with bar**
    {{
      "prompt": "Select the correct fraction",
      "interaction_tool": "click_choice",
@@ -182,8 +198,8 @@ Output sequence step:
        {{
          "id": "bar_1",
          "type": "rectangle_bar",
-         "sections": 4,
-         "state": "divided",
+         "state": "divided_equal",
+         "intervals": 4,
          "shaded": [0, 1, 2]
        }}
      ],
@@ -198,23 +214,128 @@ Output sequence step:
      }}
    }}
    ```
-   
-     
-   **Example: Selection interaction**
+
+**NUMBER LINE EXAMPLES:**
+
+**Example: Place tick marks (partition number line)**
    ```json
    {{
-     "prompt": "Select the bar showing the correct fraction",
-     "interaction_tool": "select",
+     "prompt": "Place tick marks to divide the number line into thirds",
+     "interaction_tool": "place_tick",
      "workspace": [
-       {{"id": "bar_top", "type": "rectangle_bar", "sections": 3, "state": "divided", "shaded": [0, 1]}},
-       {{"id": "bar_bottom", "type": "rectangle_bar", "sections": 3, "state": "divided", "shaded": [0]}}
+       {{
+         "id": "line_1",
+         "type": "number_line",
+         "state": "undivided",
+         "intervals": 1,
+         "range": [0, 1],
+         "labelled": [true, true],
+         "shaded": []
+       }}
      ],
      "correct_answer": {{
-       "value": "bar_bottom",
-       "context": "The bottom bar has exactly 1 out of 3 parts shaded, representing one-third"
+       "value": ["1/3", "2/3"],
+       "context": "Ticks should be placed at 1/3 and 2/3 to create three equal intervals"
      }}
    }}
    ```
+
+**Example: Select number line (comparison set - equal vs unequal)**
+   ```json
+   {{
+     "prompt": "Select the number line that shows fourths",
+     "interaction_tool": "select",
+     "workspace": [
+       {{
+         "id": "line_equal",
+         "type": "number_line",
+         "state": "divided_equal",
+         "intervals": 4,
+         "range": [0, 1],
+         "labelled": [true, false, false, false, true],
+         "shaded": [],
+         "description": "4 equal intervals from 0 to 1"
+       }},
+       {{
+         "id": "line_unequal",
+         "type": "number_line",
+         "state": "divided_unequal",
+         "intervals": 4,
+         "interval_pattern": "middle_larger",
+         "range": [0, 1],
+         "labelled": [true, false, false, false, true],
+         "shaded": [],
+         "description": "4 unequal intervals where middle segments are longer"
+       }}
+     ],
+     "correct_answer": {{
+       "value": "line_equal",
+       "context": "The first number line has 4 equal intervals showing fourths"
+     }}
+   }}
+   ```
+
+**Example: Identify tick mark with MCQ (tick highlighted)**
+   ```json
+   {{
+     "prompt": "What fraction does the marked tick represent?",
+     "interaction_tool": "click_choice",
+     "workspace": [
+       {{
+         "id": "line_1",
+         "type": "number_line",
+         "state": "divided_equal",
+         "intervals": 6,
+         "range": [0, 1],
+         "labelled": [true, false, false, false, false, false, true],
+         "shaded": [3]
+       }}
+     ],
+     "choices": [
+       {{"id": "a", "text": "2/6"}},
+       {{"id": "b", "text": "3/6"}},
+       {{"id": "c", "text": "4/6"}}
+     ],
+     "correct_answer": {{
+       "value": "b",
+       "context": "The highlighted tick (index 3) is at position 3/6"
+     }}
+   }}
+   ```
+
+**Example: Select tick mark**
+   ```json
+   {{
+     "prompt": "Select the tick mark at 2/5",
+     "interaction_tool": "select_tick",
+     "workspace": [
+       {{
+         "id": "line_1",
+         "type": "number_line",
+         "state": "divided_equal",
+         "intervals": 5,
+         "range": [0, 1],
+         "labelled": [true, true, true, true, true, true],
+         "shaded": []
+       }}
+     ],
+     "correct_answer": {{
+       "value": [2],
+       "context": "The tick at index 2 represents 2/5"
+     }}
+   }}
+   ```
+
+**Number Line Guidelines:**
+- Use `intervals` to specify number of equal spaces
+- Use `shaded` array to highlight specific ticks
+- Use `labelled` to control which ticks show their values
+- Use `description` field for comparison sets to explain visual differences
+- Use "place_tick" when student adds new ticks
+- Use "select_tick" when student selects existing ticks
+- Use "cut" when student partitions the line
+- Use "select" when choosing between multiple number lines
+- Use "click_choice" for multiple choice questions about number lines
 
 Return valid JSON only (see structure below).
 """
@@ -238,8 +359,8 @@ INTERACTION_DESIGNER_STRUCTURE = """
             {{
               "id": "bar_center",
               "type": "rectangle_bar",
-              "sections": 4,
-              "state": "divided",
+              "state": "divided_equal",
+              "intervals": 4,
               "shaded": []
             }}
           ],
@@ -253,7 +374,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
             }}
           }}
         }},
-        
+
         // Multiple choice example
         {{
           "dialogue": "Take a look at this bar. Count the shaded parts and see what fraction they make.",
@@ -263,8 +384,8 @@ INTERACTION_DESIGNER_STRUCTURE = """
             {{
               "id": "bar_1",
               "type": "rectangle_bar",
-              "sections": 4,
-              "state": "divided",
+              "state": "divided_equal",
+              "intervals": 4,
               "shaded": [0, 1, 2]
             }}
           ],

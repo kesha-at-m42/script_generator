@@ -15,7 +15,7 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
         module_number: The module number (1, 2, etc.)
         goal_id: The goal ID to fetch template for
         field_path: Field to fetch, supports dot notation for nested fields
-                   Examples: "cognitive_type", "tools", "variables.0.fractions"
+                   Examples: "cognitive_type", "tools_available", "variables.0.fractions"
         required: If True, raises error if field is missing. If False, returns default.
         default: Value to return if field not found and not required
 
@@ -24,7 +24,7 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
 
     Examples:
         get_problem_template_field(1, 1, "cognitive_type")  # Top-level field
-        get_problem_template_field(1, 1, "tools")  # Array field
+        get_problem_template_field(1, 1, "tools_available")  # Array field
         get_problem_template_field(1, 1, "variables.0.fractions")  # Nested access
         get_problem_template_field(1, 1, "remediations_per_step.0.0.scaffolding_level")  # Deep nesting
 
@@ -138,7 +138,7 @@ def get_cognitive_type(module_number, goal_id):
 
 def get_tools(module_number, goal_id):
     """Get the tools list for a specific goal."""
-    return get_problem_template_field(module_number, goal_id, "tools", required=True)
+    return get_problem_template_field(module_number, goal_id, "tools_available", required=True)
 
 
 def get_template_variables(module_number, goal_id):
@@ -209,12 +209,12 @@ def get_fields_by_reference(module_number, goal_id, field_reference_list, requir
 
     Examples:
         # Simple fields
-        INTERACTION_DESIGNER_TEMPLATE_REF = ["tools", "cognitive_type", "difficulty_level"]
+        INTERACTION_DESIGNER_TEMPLATE_REF = ["tools_available", "cognitive_type", "difficulty_level"]
         fields = get_fields_by_reference(1, 1, INTERACTION_DESIGNER_TEMPLATE_REF)
-        # Returns: {"tools": ["cut"], "cognitive_type": ["create"], "difficulty_level": "0-2"}
+        # Returns: {"tools_available": ["cut"], "cognitive_type": ["create"], "difficulty_level": "0-2"}
 
         # With nested fields (using dot notation)
-        CUSTOM_REF = ["tools", "variables.0.fractions", "remediations_per_step.0.0.scaffolding_level"]
+        CUSTOM_REF = ["tools_available", "variables.0.fractions", "remediations_per_step.0.0.scaffolding_level"]
         fields = get_fields_by_reference(1, 1, CUSTOM_REF)
     """
     result = {}
@@ -308,7 +308,7 @@ if __name__ == "__main__":
 
     print("\n📖 Usage Examples:")
     print('  get_problem_template_field(1, 1, "cognitive_type")  # Top-level')
-    print('  get_problem_template_field(1, 1, "tools")           # Array field')
+    print('  get_problem_template_field(1, 1, "tools_available")           # Array field')
     print('  get_problem_template_field(1, 1, "variables.0.fractions")  # Nested')
     print('  get_cognitive_type(1, 1)                             # Convenience function')
     print('  get_all_goal_templates(1)                            # Get all templates')
