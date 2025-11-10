@@ -253,15 +253,6 @@ Variables are substituted using `{variable_name}` syntax.
 
 ## 🧪 Testing
 
-### Run Individual Step Tests
-```bash
-# Test each step independently
-python tests/stepwise_tests/test_1_question_generator.py
-python tests/stepwise_tests/test_2_interaction_designer.py
-python tests/stepwise_tests/test_3_remediation_generator.py
-python tests/stepwise_tests/test_4_godot_formatter.py
-```
-
 ### Run Custom Pipelines
 ```python
 from pipeline_runner import PipelineRunner
@@ -357,6 +348,46 @@ These are excluded in `.gitignore`.
 **Documentation Files** (`inputs/docs/*.md`):
 - Add new sections, update guidelines, refine language patterns
 - These are included in prompts as reference material
+- To add new documents, follow this process.
+
+  **Step-by-Step Process:**
+
+  1. **Create the documentation file** in `inputs/docs/`:
+     ```bash
+     # Example: Create a new events reference
+     inputs/docs/my_events_guide.md
+
+  2. Add the file to the prompt's DOCS list:
+  # In inputs/prompts/your_prompt.py
+  YOUR_PROMPT_DOCS = [
+      "existing_doc.md",
+      "my_events_guide.md"  # Add new doc here (include .md extension)
+  ]
+  3. Reference it in the prompt instructions using XML-style tags:
+  YOUR_PROMPT_INSTRUCTIONS = """
+  Follow the guidelines in <my_events_guide> for event naming conventions.
+
+  Refer to <existing_doc> for additional context.
+  """
+
+  Important Notes:
+  - The XML tag name is the filename without the .md extension
+  - For remediation_system.md, use <remediation_system> in instructions
+  - For remediation_events.json, use <remediation_events> (works for JSON too)
+  - The prompt builder automatically loads and injects doc content
+  - No changes to pipeline_runner.py or prompt_builder.py needed
+
+  Example:
+  # inputs/prompts/interaction_designer.py
+  INTERACTION_DESIGNER_DOCS = [
+      "guide_design.md",
+      "visual_guide.md"
+  ]
+
+  INTERACTION_DESIGNER_INSTRUCTIONS = """
+  Use Kim's voice from <guide_design> when writing dialogue.
+  Refer to <visual_guide> for tangible types and properties.
+  """
 
 **Module Data** (`inputs/modules/moduleN/`):
 - `problem_templates.json`: Add/modify learning goals

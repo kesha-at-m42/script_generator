@@ -273,7 +273,7 @@ def truncate_for_interaction(question_data: Dict[str, Any]) -> str:
     prefill = f"""{{
   "sequences": [
     {{
-      "problem_id": {question_data.get('question_id', 1)},
+      "problem_id": {question_data.get('goal_id', 1)}_{question_data.get('question_id', 1)},
       "difficulty": {question_data.get('difficulty_level', 0)},
       "verb": "{question_data.get('cognitive_type', 'IDENTIFY')}",
       "goal": "{question_data.get('goal_text', '')}",

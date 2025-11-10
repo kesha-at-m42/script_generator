@@ -515,7 +515,7 @@ EXAMPLE_PIPELINES = {
             "collect_key": "questions",
             "output_file": "questions.json",
             "max_tokens": 16000,
-            "temperature": 0.5
+            "temperature": 0.7
         },
         {
         "name": "Interaction Designer",

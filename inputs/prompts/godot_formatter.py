@@ -100,8 +100,38 @@ Read `correct_answer.context` to understand what's being validated, then determi
 - **Part sizes after cutting** (e.g., "cut into thirds") → `FractionShapePartsValidator` with fraction string/array
 - **Selecting tangible(s)** (e.g., "select the shape showing 1/2") → `SelectionValidator` with integer/array
 - **Multiple choice** (e.g., "which represents 3/4?") → `MultipleChoiceValidator` with array of indices
-- **Placing tick marks** (e.g., "place ticks at 1/3 and 2/3") → `PlaceTicksValidator` with numerator array
-- **Selecting tick marks** (e.g., "select the tick at 2/6") → `SelectTicksValidator` with numerator array
+- **Placing tick marks** (e.g., "place ticks at 1/3 and 2/3") → `PlaceTicksValidator` with numerator array **scaled to LCD**
+  - **Selecting tick marks** (e.g., "select the tick at 2/6") → `SelectTicksValidator` with numerator array **scaled to LCD**
+
+  **CRITICAL: LCD-Based Validator Answer Calculation**
+
+  For `PlaceTicksValidator` and `SelectTicksValidator`, the answer array must be expressed as numerators on the LCD scale, NOT as sequential indices.
+
+  **Formula for partitioning tasks:**
+  - If partitioning into N equal parts (creating N intervals):
+    - LCD = N × 2
+    - Each tick position = (tick_index × 2) where tick_index goes from 1 to (N-1)
+    - Answer array = [2, 4, 6, 8, ..., (N-1)×2]
+
+  **Examples:**
+  - **Sixths** (partition into 6 equal parts):
+    - LCD = 12
+    - Tick positions: 1/6, 2/6, 3/6, 4/6, 5/6
+    - Answer = [2, 4, 6, 8, 10] (NOT [1, 2, 3, 4, 5])
+
+  - **Eighths** (partition into 8 equal parts):
+    - LCD = 16
+    - Tick positions: 1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8
+    - Answer = [2, 4, 6, 8, 10, 12, 14] (NOT [1, 2, 3, 4, 5, 6, 7])
+
+  - **Thirds** (partition into 3 equal parts):
+    - LCD = 6
+    - Tick positions: 1/3, 2/3
+    - Answer = [2, 4] (NOT [1, 2])
+
+  **For selecting specific ticks:**
+  - Convert the fraction to LCD scale: tick at 3/6 with LCD=12 → numerator = 6
+  - Answer = [6] (NOT [3])
 
 See schema for validator field requirements and answer formats.
 
@@ -133,8 +163,8 @@ See schema for validator field requirements and answer formats.
   * `state="divided_unequal"` → array based on `interval_pattern`/`description`:
     - Parse pattern to determine tick positions (must match intervals count)
     - Example: `"middle_larger"` + intervals=3 → `[0, "1/4", "3/4", 1]`
-- `labelled`: Keep (boolean array matching tick_marks length)
-- `shaded`: **Boolean array** matching tick_marks length (e.g., `[false, false, true, false]`)
+ - `labelled`: Boolean array matching tick_marks length. **IMPORTANT: Omit this field entirely if using default behavior** (start and end ticks labeled, middle ticks unlabeled). Only include when you need custom label.
+ - `shaded`: **Boolean array** matching tick_marks length (e.g., `[false, false, true, false]`). **IMPORTANT: Omit this field entirely if no ticks are highlighted** (don't include `"shaded": []`)
 - `lcd`: For place_tick/select_tick tasks: intervals×2 (e.g., thirds → intervals=3 → lcd=6); others: 12
 
 

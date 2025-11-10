@@ -103,13 +103,18 @@ The {remediations_per_step} provides baseline events, but you should adapt them 
 
 **After extracting events from {remediations_per_step}**, write dialogue that integrates naturally with these animations and insert event markers at appropriate locations:
 
-**Event Marker Format:** `[event: event_name]`
+  **Event Marker Format:** `[event: event_name]`
 
-**Placement Guidelines:**
-- Place the [event: name] marker RIGHT BEFORE the dialogue text that describes or references that animation
-- The event triggers the animation, then the dialogue describes what's happening
-- Multiple events should each have their own marker: `[event: A_cut_1_3][event: A_cut_2_3]`
-- Events should appear in the SAME ORDER as listed in {remediations_per_step}
+  **Placement Guidelines:**
+  - Place [event: name] markers immediately before the noun/object being animated
+  - Pattern: "verb + [event: marker] + object"
+  - Multiple events use consecutive markers: `[event: A_cut_1_3][event: A_cut_2_3]`
+  - Events appear in the same order as {remediations_per_step}
+
+  **Placement Examples:**
+  "Look at [event: C_pulse] this bar"
+  "Let's divide [event: A_cut_1_2] the line in half"
+  "Notice [event: A_measure] these sections"
 
 **Examples by Level:**
 
@@ -118,27 +123,22 @@ The {remediations_per_step} provides baseline events, but you should adapt them 
    "dialogue": "Not quite. Try dividing the bar into 2 equal parts."
    ```
 
-2. **Medium (1-2 events)**: Insert markers before describing the visual hints
-   ```
-   "events": [{"name": "A_cut_hint_1_2", "description": "Show visual guide for cutting bar at 1/2 mark"}]
-   "dialogue": "Let's think about this together. To make two equal parts, we need to cut [event: A_cut_hint_1_2] right in the middle of the bar."
-   ```
+  2. **Medium (1-2 events)**: Insert markers before the object being animated
+     "events": [{"name": "A_cut_hint_1_2", "description": "Show visual guide for cutting bar at 1/2 mark"}]
+     "dialogue": "Let's think about this together. To make two equal parts, we need to cut [event: A_cut_hint_1_2] the bar right in the middle."
 
-3. **Heavy (2+ events)**: Insert markers in order before describing each demonstration step
-   ```
-   "events": [
-     {"name": "A_cut_1_2", "description": "Partition the bar in half (1/2)"}
-   ]
-   "dialogue": "Let me show you how to do this. To divide the bar into two equal parts, we need to cut [event: A_cut_1_2] right at the middle. See how this creates two parts that are exactly the same size?"
-   ```
+  3. **Heavy (2+ events)**: Narrate events in pedagogical groups that follow the teaching sequence from {remediations_per_step}
+     "events": [
+       {"name": "A_cut_1_2", "description": "Partition the number line at 1/2 mark"},
+       {"name": "A_cut_1_6", "description": "Make a cut at 1/6 mark"},
+       {"name": "A_cut_2_6", "description": "Make a cut at 2/6 mark"},
+       {"name": "A_cut_4_6", "description": "Make a cut at 4/6 mark"},
+       {"name": "A_cut_5_6", "description": "Make a cut at 5/6 mark"}
+     ]
+     "dialogue": "Let me show you how to make sixths. First, let's divide [event: A_cut_1_2] the line in half. Now let's divide [event: A_cut_1_6][event: A_cut_2_6] the left half into thirds. And let's divide [event: A_cut_4_6][event: A_cut_5_6] the right half into thirds too. See how that creates 6 equal     
+  intervals?"
 
-   **Multiple events example:**
-   ```
-   "events": [
-     {"name": "A_cut_1_3", "description": "Make a cut at 1/3 mark"},
-     {"name": "A_cut_2_3", "description": "Make a cut at 2/3 mark"}
-   ]
-   "dialogue": "Let me show you how to make three equal parts. To make thirds, we need to cut [event: A_cut_1_3][event: A_cut_2_3] at the one third mark and the two thirds mark. See how each part is exactly the same size?"
+  **Key principle for heavy remediation dialogue**: Group event markers to match the pedagogical sequence. Show foundational steps first (halves, thirds), then build to the target partition. The {remediations_per_step} provides events in the correct teaching order - narrate them in logical groups.
    ```
 
 **Key Principles:**
