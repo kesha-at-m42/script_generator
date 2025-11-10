@@ -254,12 +254,18 @@ module_4 = {
     "language_constraints": "Use a mix numeric notation (1/2) and word form (one-half) when referring to fractions to build familiarity with both representations, but have higher emphasis on numeric notation."
 }
 
+module_5 = {
+    "module_name": "Advanced Fraction Concepts",    
+    "module_number": 5
+}
+
 # Dictionary of all modules for easy lookup
 MODULES = {
     1: module_1,
     2: module_2,
     3: module_3,
-    4: module_4
+    4: module_4,
+    5: module_5
 }
 
 # Export for easy import

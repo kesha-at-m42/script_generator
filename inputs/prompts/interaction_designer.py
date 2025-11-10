@@ -34,7 +34,7 @@ INTERACTION_DESIGNER_TEMPLATE_GOAL_ID= "{goal_id}"
 
 INTERACTION_DESIGNER_TEMPLATE_REF= ["tools_available", "no_of_steps"]
 
-INTERACTION_DESIGNER_MODULE_REF = ["misconceptions", "language_constraints"]
+INTERACTION_DESIGNER_MODULE_REF = ["misconceptions", "language_constraints", "vocabulary"]
 
 INTERACTION_DESIGNER_EXPECTED_INPUT="""
     {
@@ -67,11 +67,22 @@ Design an interactive sequence for the given question idea:
   - If number of steps is "2" or more, create that many steps, with each step building on the previous one
   - Use the available tools ({tools}) to determine what action each step should perform.
 
+   **CRITICAL - Workspace Continuity for Multi-Step Sequences:**
+   When designing multi-step sequences, each step's workspace MUST reflect the COMPLETED STATE from the previous step.
+  This ensures students work with their previous work, maintaining continuity throughout the sequence.
+  
+   - **Step 2's workspace** shows the expected result after the student successfully completes Step 1
+   - **Step 3's workspace** shows the expected result after the student successfully completes Step 2
+   - And so on for additional steps
+
+   Example: If Step 1 asks "Divide the bar into 4 equal parts" (using "cut" tool on an undivided bar), then Step 2's workspace MUST show that same bar with "state": "divided_equal" and "intervals": 4 to reflect the division the student just made.
+
   Each step can include the following fields:
 
 **Step 1: Write the prompt**
 - Derive the `prompt` from `question_prompt` of <question_data>, and ensure it doesn't give away the answer.
 - Clear mathematical action language focused on the concept in 5-15 words.
+- Follow language constraints from {language_constraints} (if provided) for terminology and phrasing.
 
 **Step 2: Map visual_context to workspace and choose interaction_tool**
 - Read the `question_prompt`, `application_context` (if present) and `visual_context` of <question_data> to understand what should appear on screen
@@ -80,8 +91,8 @@ Design an interactive sequence for the given question idea:
   - `"cut"` - Student divides shapes into parts
   - `"select"` - Student selects one shape from multiple options
   - `"multi_select"` - Student selects multiple shapes
-  - `"place_tick"` - Student places tick marks on a number line
-  - `"select_tick"` - Student selects/highlights existing ticks on a number line
+  - `"place_tick"` - Student adds new tick marks to partition/divide a number line (use when line needs to be divided)
+  - `"select_tick"` - Student clicks on existing ticks to identify/highlight specific positions (use when line is already divided)
   - `"click_choice"` - Student picks from multiple choice answers
 
 - Build workspace array with tangible objects:
@@ -93,22 +104,28 @@ Design an interactive sequence for the given question idea:
   - `intervals`: Number of intervals (parts/sections/spaces)
   - `interval_pattern`: For "divided_unequal" only - describes relative sizes (e.g., "middle_larger")
   - `shaded`: Array of indices - for bars/circles: shaded sections; for number_lines: highlighted ticks
-  - `description`: Optional - comparative visual context (REQUIRED for comparison sets)
+  - `description`: Optional - additional visual context about the tangible (e.g., characteristics, positioning, distinguishing features)
 
 **Number Line Additional Fields:**
   - `range`: [start, end] (e.g., [0, 1] or [0, 2])
-  - `labelled`: Array of booleans indicating which ticks show labels (e.g., [true, false, false, false, true])
+  - `labelled`: Array of booleans indicating which ticks show labels (e.g., [true, false, false, false, true]). Use your judgment - this field is rarely needed. ONLY include if `visual_context` explicitly mentions which specific ticks are labeled. Otherwise, omit this field entirely.
 
-**For Comparison Sets:**
-When `visual_context` contains comparison information, extract and assign the description for each tangible:
-- Parse the visual_context to identify each option's specific characteristics
-- Add `description` field with details about equal vs unequal spacing, interval sizes, etc.
+**Using the Description Field:**
+The `description` field provides additional context about a tangible's visual characteristics:
+- **For comparison sets:** Describe distinguishing features between options (e.g., "4 equal intervals from 0 to 1" vs "4 unequal intervals where middle segments are longer")
+- **For general context:** Include relevant visual details that help clarify what the student sees (e.g., labelled or not, patterns)
+- Parse the `visual_context` from <question_data> to extract specific characteristics for each tangible when applicable
+
+**Step 3: Write dialogue**
 
 There are two types of dialogue to write:
+
 **3a. Main dialogue (setting up the question)**
 - Use `question_prompt` and `application_context` (if available) from <question_data> as your narrative base.
-- Match the language in the call to action with the prompt as well as the visual_context from <question_data>. 
-  - Refer to bars as rectangle bars or bars. Do not call them "blank bars".
+- Match the language in the call to action with the prompt as well as the visual_context from <question_data>.
+  - Refer to shapes by their type only: "rectangle bars" or "bars", "circles", "grids", "number lines"
+  - Do not use adjectives like "blank" or mention colors
+- **Follow {language_constraints} and required {vocabulary} to inform requirements.** (e.g., use "one-half" vs "1/2", "intervals" vs "spaces")
 - Refer to the "Problem Setup Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the dialogue concise (10-30 words), clear, and supportive.
 - Focus on guiding students to practice the `goal_text` without introducing new concepts.
@@ -120,8 +137,9 @@ There are two types of dialogue to write:
 - Provide brief, positive feedback when the student completes the task correctly.
 - Refer to the "Success Dialogue" section in `guide_design.md` for Kim's conversational voice and tone.
 - Keep the feedback concise (5-10 words).
+- **Follow {language_constraints} for vocabulary**.
 
-**4. Map the fraction covered
+**Step 4: Map the fraction covered
 - Use the `variables_used` field from <question_data> to identify which fraction is being practiced in this question.
 - For parts without numerators or fractions mentioned, 2-8 maps to "1/2" through "1/8" respectively.
 
@@ -172,7 +190,7 @@ Output sequence step:
 **Example: Dividing/partitioning interaction**
    ```json
    {{
-     "prompt": "Divide the bar into four equal parts",
+     "prompt": "Divide the bar into four equal parts.",
      "interaction_tool": "cut",
      "workspace": [
        {{
@@ -192,7 +210,7 @@ Output sequence step:
 
    **Example: Multiple choice with bar**
    {{
-     "prompt": "Select the correct fraction",
+     "prompt": "Select the correct fraction.",
      "interaction_tool": "click_choice",
      "workspace": [
        {{
@@ -220,7 +238,7 @@ Output sequence step:
 **Example: Place tick marks (partition number line)**
    ```json
    {{
-     "prompt": "Place tick marks to divide the number line into thirds",
+     "prompt": "Place tick marks to divide the number line into thirds.",
      "interaction_tool": "place_tick",
      "workspace": [
        {{
@@ -243,7 +261,7 @@ Output sequence step:
 **Example: Select number line (comparison set - equal vs unequal)**
    ```json
    {{
-     "prompt": "Select the number line that shows fourths",
+     "prompt": "Select the number line that shows fourths.",
      "interaction_tool": "select",
      "workspace": [
        {{
@@ -278,7 +296,7 @@ Output sequence step:
 **Example: Identify tick mark with MCQ (tick highlighted)**
    ```json
    {{
-     "prompt": "What fraction does the marked tick represent?",
+     "prompt": "What fraction does the marked tick represent?.",
      "interaction_tool": "click_choice",
      "workspace": [
        {{
@@ -306,7 +324,7 @@ Output sequence step:
 **Example: Select tick mark**
    ```json
    {{
-     "prompt": "Select the tick mark at 2/5",
+     "prompt": "Select the tick mark at 2/5.",
      "interaction_tool": "select_tick",
      "workspace": [
        {{
@@ -326,17 +344,6 @@ Output sequence step:
    }}
    ```
 
-**Number Line Guidelines:**
-- Use `intervals` to specify number of equal spaces
-- Use `shaded` array to highlight specific ticks
-- Use `labelled` to control which ticks show their values
-- Use `description` field for comparison sets to explain visual differences
-- Use "place_tick" when student adds new ticks
-- Use "select_tick" when student selects existing ticks
-- Use "cut" when student partitions the line
-- Use "select" when choosing between multiple number lines
-- Use "click_choice" for multiple choice questions about number lines
-
 Return valid JSON only (see structure below).
 """
 
@@ -353,7 +360,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
       "steps": [
         {{
           "dialogue": "Here's a rectangle divided into 4 equal parts. Shade three of them.",
-          "prompt": "Shade three-fourths",
+          "prompt": "Shade three-fourths.",
           "interaction_tool": "shade",
           "workspace": [
             {{
@@ -378,7 +385,7 @@ INTERACTION_DESIGNER_STRUCTURE = """
         // Multiple choice example
         {{
           "dialogue": "Take a look at this bar. Count the shaded parts and see what fraction they make.",
-          "prompt": "Which fraction represents the shaded parts?",
+          "prompt": "Which fraction represents the shaded parts?.",
           "interaction_tool": "click_choice",
           "workspace": [
             {{
@@ -405,6 +412,68 @@ INTERACTION_DESIGNER_STRUCTURE = """
             }}
           }}
         }}
+      ]
+    }},
+
+    // Multi-step example with workspace continuity
+    {{
+      "problem_id": 2,
+      "difficulty": 2,
+      "verb": "CREATE",
+      "goal": "Student can partition and shade to represent a fraction",
+      "goal_id": 2,
+      "fractions":["1/4", "3/4"],
+      "steps": [
+        // Step 1: Divide the bar
+        {{
+          "dialogue": "Let's create a visual for three-fourths. First, divide this bar into 4 equal parts.",
+          "prompt": "Divide the bar into fourths.",
+          "interaction_tool": "cut",
+          "workspace": [
+            {{
+              "id": "bar_center",
+              "type": "rectangle_bar",
+              "state": "undivided",
+              "intervals": 1,
+              "shaded": []
+            }}
+          ],
+          "correct_answer": {{
+            "value": "1/4",
+            "context": "The bar should be divided into 4 equal parts"
+          }},
+          "student_attempts": {{
+            "success_path": {{
+              "dialogue": "Perfect! You divided it into fourths."
+            }}
+          }}
+        }},
+
+        // Step 2: Shade parts - WORKSPACE SHOWS COMPLETED STATE FROM STEP 1
+        {{
+          "dialogue": "Now shade three of those parts.",
+          "prompt": "Shade three parts.",
+          "interaction_tool": "shade",
+          "workspace": [
+            {{
+              "id": "bar_center",
+              "type": "rectangle_bar",
+              "state": "divided_equal",
+              "intervals": 4,
+              "shaded": []
+            }}
+          ],
+          "correct_answer": {{
+            "value": "3/4",
+            "context": "3 out of 4 sections should be shaded"
+          }},
+          "student_attempts": {{
+            "success_path": {{
+              "dialogue": "Great! You showed three-fourths."
+            }}
+          }}
+        }}
+      ]
     }}
   ]
 }}

@@ -322,8 +322,8 @@ When `fractions` is an array, each element represents one part's fraction value.
 
 **NumberLine Properties:**
 - `@type`: Always "NumberLine"
-- `lcd`: Integer - Least common denominator (required, maximum value: 9)
-  * **For place_tick tasks**: Set to `denominator × 2` (e.g., thirds → lcd = 6, fourths → lcd = 8)
+- `lcd`: Integer - Least common denominator (required, maximum value: 12)
+  * **For place_tick/select_tick tasks**: Set to `intervals × 2` (e.g., thirds → intervals=3 → lcd=6, fourths → intervals=4 → lcd=8)
   * **For other tasks**: Use default 12
 - `tick_marks`: Array - Mix of integers (0, 1) and fraction strings ("1/6") for tick positions (required)
   * **Fraction format:** Pattern `^[1-9]+/[1-9]+$` (e.g., "1/6", "2/9")

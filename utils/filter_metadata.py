@@ -134,7 +134,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
         else:
             filter_parts.append(f"{field}_multiple")
 
-    output_name = f"godot_{'_'.join(filter_parts)}.json"
+    output_name = f"problem_pool_{'_'.join(filter_parts)}.json"
     output_file = input_path.parent / output_name
 
     output_data = {

@@ -123,10 +123,19 @@ See schema for validator field requirements and answer formats.
 - `lcm`: For cut tasks: intervals×2; others: 24
 
 **NumberLine (@type: "NumberLine"):**
+- `is_visible`: Always set to `true`
 - `range`: Keep (e.g., `[0, 1]`)
-- `labelled`: Keep (boolean array matching tick count)
-- `shaded`: **Boolean array** matching tick count (e.g., `[false, false, true, false]`)
-- `lcd`: For place_tick tasks: intervals; others: 9
+- `tick_marks`: Generate based on state + intervals (like fractions for FracShape):
+  * `state="undivided"` → `[0, 1]` (only endpoints)
+  * `state="divided_equal"` → array with N+1 ticks where N = intervals
+    - intervals=3 → `[0, "1/3", "2/3", 1]`
+    - intervals=4 → `[0, "1/4", "2/4", "3/4", 1]`
+  * `state="divided_unequal"` → array based on `interval_pattern`/`description`:
+    - Parse pattern to determine tick positions (must match intervals count)
+    - Example: `"middle_larger"` + intervals=3 → `[0, "1/4", "3/4", 1]`
+- `labelled`: Keep (boolean array matching tick_marks length)
+- `shaded`: **Boolean array** matching tick_marks length (e.g., `[false, false, true, false]`)
+- `lcd`: For place_tick/select_tick tasks: intervals×2 (e.g., thirds → intervals=3 → lcd=6); others: 12
 
 
 ### 5. Example Transformations
@@ -144,7 +153,7 @@ Input (from remediation generator - all in ONE step):
   "steps": [
     {
       "dialogue": "Unit fractions have exactly one part shaded. Which of these bars show unit fractions?",
-      "prompt": "Select all bars showing unit fractions",
+      "prompt": "Select all bars showing unit fractions.",
       "interaction_tool": "multi_select",
       "workspace": [
         {
@@ -272,7 +281,7 @@ Input (from remediation generator):
   "steps": [
     {
       "dialogue": "Look at this bar. What makes it different from a unit fraction?",
-      "prompt": "Explain why this is not a unit fraction",
+      "prompt": "Explain why this is not a unit fraction.",
       "interaction_tool": "click_choice",
       "workspace": [
         {

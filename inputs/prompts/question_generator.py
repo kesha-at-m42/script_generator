@@ -87,13 +87,13 @@ For each question variation, construct these fields thoughtfully:
      * Example: "Click on the circle showing 1/2" → Variations: "Click on the circle showing 1/3", "Click on the bar showing 1/4"
 
 **4. visual_context:** Detailed description of what appears on screen
-   - Only use visuals defined in {available_visuals}
+   - Only use visuals defined in {available_visuals} and adhere to {visual_context} requirements.
    - Vary the visual based on variables used (different shapes, states, configurations)
    - Be creative with which visual you choose and how you configure it
    - Use the variable values to determine visual parameters (number of parts, shading, etc.)
    - Format: "{shape_type} ({state}, {parts} equal/unequal parts, {shading})" or follow {available_visuals} spec
    - **For comparison sets:** Ensure each shape in the set is DIFFERENT - no two visuals should have the same configuration
-      - 1 circle and 1 bar, each divided into 3 equal parts (different shapes)
+      - 1 circle, 1 number line, 1 bar, each divided into 3 equal parts (different shapes)
       - 2 bars (1 has 4 equal parts, 1 has 6 unequal parts) (different configurations)
       - 2 circles (1 has 2 equal parts with 1 part shaded, 1 has 2 equal parts with no parts shaded) (different configurations)
    - Examples within constraints:
