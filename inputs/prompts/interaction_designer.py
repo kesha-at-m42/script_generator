@@ -2,7 +2,6 @@
 Interaction Designer Prompt Configuration
 Designs interactive visual sequences for educational questions
 
-All visual types, states, and animations are in visual_guide.md
 Kim's dialogue voice and style are in guide_design.md
 """
 

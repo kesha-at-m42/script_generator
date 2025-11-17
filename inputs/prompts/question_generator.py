@@ -10,7 +10,8 @@ Generate diverse, clear question variations using the module's available visuals
 
 QUESTION_GENERATOR_DOCS = [
     "difficulty_levels.md",
-    "cognitive_types.md"
+    "cognitive_types.md",
+    "visuals.md",
 ]
 
 QUESTION_GENERATOR_INPUTS = ["goal", "goal_id", "difficulty_level", "example_questions", "variables_used", "cognitive_type"]
@@ -19,7 +20,7 @@ QUESTION_GENERATOR_TEMPLATE_REF = ["visual_context"]
 
 QUESTION_GENERATOR_EXAMPLES = []
 
-QUESTION_GENERATOR_MODULE_REF = ["available_visuals", "vocabulary"]
+QUESTION_GENERATOR_MODULE_REF = ["vocabulary"]
 
 QUESTION_GENERATOR_PREFILL = """{{
   "questions": [
@@ -56,7 +57,7 @@ Since you'll create one question per variable value, differentiate questions thr
 ## CREATIVITY DIMENSIONS TO VARY
 
 ### 1. Visual Dimension
-- Rotate through available visual types from {available_visuals} and adhere to {visual_context} requirements.
+- Rotate through available visual types from <visuals> and adhere to {visual_context} requirements.
 - Mix visual states: blank shapes, partially shaded, fully labeled, partially labelled, comparison sets
 - Alternate between single shapes and multi-shape comparisons
 - Use number lines with different tick configurations when applicable
@@ -87,11 +88,11 @@ For each question variation, construct these fields thoughtfully:
      * Example: "Click on the circle showing 1/2" → Variations: "Click on the circle showing 1/3", "Click on the bar showing 1/4"
 
 **4. visual_context:** Detailed description of what appears on screen
-   - Only use visuals defined in {available_visuals} and adhere to {visual_context} requirements.
+   - Only use visuals defined in <visuals> and adhere to {visual_context} requirements.
    - Vary the visual based on variables used (different shapes, states, configurations)
    - Be creative with which visual you choose and how you configure it
    - Use the variable values to determine visual parameters (number of parts, shading, etc.)
-   - Format: "{shape_type} ({state}, {parts} equal/unequal parts, {shading})" or follow {available_visuals} spec
+   - Format: "{shape_type} ({state}, {parts} equal/unequal parts, {shading})" or follow <visuals> spec
    - **For comparison sets:** Ensure each shape in the set is DIFFERENT - no two visuals should have the same configuration
       - 1 circle, 1 number line, 1 bar, each divided into 3 equal parts (different shapes)
       - 2 bars (1 has 4 equal parts, 1 has 6 unequal parts) (different configurations)
