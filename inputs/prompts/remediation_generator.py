@@ -19,7 +19,7 @@ Follow the <remediation_system> documentation for error patterns, detection rule
 
 REMEDIATION_GENERATOR_DOCS = [
   "remediation_system.md",  # Language quidelines
- "remediation_events.json" # Event names and their visual animation descriptions
+ "animation_events.json" # Event names and their visual animation descriptions
     ]
 
 REMEDIATION_GENERATOR_TEMPLATE_REF = ["remediations_per_step"]
@@ -57,7 +57,7 @@ The {remediations_per_step} template field provides events IN ORDER for each sca
 For each remediation level:
 1. Look up the events in {remediations_per_step} for the current scaffolding level (light/medium/heavy)
 2. The events are listed IN THE ORDER they should occur
-3. Find each event in <remediation_events> documentation to understand what it does
+3. Find each event in <animation_events> documentation to understand what it does
 4. Build the events array using the EXACT event names and order from {remediations_per_step}:
 
 ```json

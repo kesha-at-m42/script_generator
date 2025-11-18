@@ -373,7 +373,7 @@ These are excluded in `.gitignore`.
   Important Notes:
   - The XML tag name is the filename without the .md extension
   - For remediation_system.md, use <remediation_system> in instructions
-  - For remediation_events.json, use <remediation_events> (works for JSON too)
+  - For animation_events.json, use <animation_events> (works for JSON too)
   - The prompt builder automatically loads and injects doc content
   - No changes to pipeline_runner.py or prompt_builder.py needed
 
