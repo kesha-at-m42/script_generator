@@ -126,19 +126,35 @@ class PromptBuilder:
         # braces first, then un-escape only the placeholders we actually provide in
         # `variables` so that only those are substituted.
         if variables:
-            # Escape all braces to treat them as literals
-            instr_escaped = instructions.replace('{', '{{').replace('}', '}}')
+              # First, escape any braces in the variable VALUES themselves
+              # (e.g., if warmup_data contains JSON with { and })
+              import json
+              safe_variables = {}
+              for key, value in variables.items():
+                  if isinstance(value, str):
+                      # Escape braces in the value so they're treated as literals after substitution
+                      safe_variables[key] = value.replace('{', '{{').replace('}', '}}')
+                  elif isinstance(value, (list, dict)):
+                        # Convert to JSON string and escape braces
+                        json_str = json.dumps(value)
+                        safe_variables[key] = json_str.replace('{', '{{').replace('}', '}}')
+                  else:
+                      safe_variables[key] = value
 
-            # Un-escape placeholders that we will provide so format can substitute them
-            for key in variables.keys():
-                instr_escaped = instr_escaped.replace('{{' + key + '}}', '{' + key + '}')
+              # Escape all braces in the template to treat them as literals
+              instr_escaped = instructions.replace('{', '{{').replace('}', '}}')
 
-            try:
-                instructions = instr_escaped.format(**variables)
-            except KeyError as e:
-                print(f"⚠️  Warning: Missing variable in template: {e}")
-                print(f"    Available variables: {list(variables.keys())}")
-                raise ValueError(f"Template formatting failed: missing variable {e}")
+              # Un-escape placeholders that we will provide so format can substitute them
+              for key in safe_variables.keys():
+                  instr_escaped = instr_escaped.replace('{{' + key + '}}', '{' + key + '}')
+
+              try:
+                  instructions = instr_escaped.format(**safe_variables)
+              except KeyError as e:
+                  print(f"⚠️  Warning: Missing variable in template: {e}")
+                  print(f"    Available variables: {list(safe_variables.keys())}")
+                  raise ValueError(f"Template formatting failed: missing variable {e}")
+              
         sections.append(instructions)
         
         final_prompt = "\n\n".join(sections)
@@ -266,6 +282,8 @@ class PromptBuilder:
             "interaction_designer": self._interaction_designer_config,
             "remediation_generator": self._remediation_generator_config,
             "godot_formatter": self._godot_formatter_config,
+            "warmup_generator": self._warmup_generator_config,
+            "lesson_generator": self._lesson_generator_config
         }
 
         # Only call the specific config method we need
@@ -445,6 +463,48 @@ class PromptBuilder:
             "examples": GODOT_FORMATTER_EXAMPLES,
             "structure": GODOT_FORMATTER_STRUCTURE,
             "instructions": GODOT_FORMATTER_INSTRUCTIONS
+        }
+    
+    def _warmup_generator_config(self) -> Dict:
+          """Warmup Generator prompt configuration"""
+          from warmup_generator import (
+              WARMUP_GENERATOR_ROLE,
+              WARMUP_GENERATOR_DOCS,
+              WARMUP_GENERATOR_INSTRUCTIONS,
+              WARMUP_GENERATOR_MODULE_REF,
+              WARMUP_GENERATOR_PREFILL,
+              WARMUP_GENERATOR_STRUCTURE
+          )
+
+          return {
+              "role": WARMUP_GENERATOR_ROLE,
+              "docs": WARMUP_GENERATOR_DOCS,
+              "examples": [],
+              "structure": WARMUP_GENERATOR_STRUCTURE,
+              "instructions": WARMUP_GENERATOR_INSTRUCTIONS,
+              "module_ref": WARMUP_GENERATOR_MODULE_REF,
+              "prefill": WARMUP_GENERATOR_PREFILL
+          }
+
+    def _lesson_generator_config(self) -> Dict:
+        """Lesson Generator prompt configuration"""
+        from lesson_generator import (
+            LESSON_GENERATOR_ROLE,
+            LESSON_GENERATOR_DOCS,
+            LESSON_GENERATOR_INSTRUCTIONS,
+            LESSON_GENERATOR_MODULE_REF,
+            LESSON_GENERATOR_PREFILL,
+            LESSON_GENERATOR_STRUCTURE
+        )
+
+        return {
+            "role": LESSON_GENERATOR_ROLE,
+            "docs": LESSON_GENERATOR_DOCS,
+            "examples": [],
+            "structure": LESSON_GENERATOR_STRUCTURE,
+            "instructions": LESSON_GENERATOR_INSTRUCTIONS,
+            "module_ref": LESSON_GENERATOR_MODULE_REF,
+            "prefill": LESSON_GENERATOR_PREFILL
         }
     
     def build_remediation_generator_prompt(self, interactions_context: str = None, input_file_path: str = None) -> str:

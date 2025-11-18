@@ -682,7 +682,42 @@ EXAMPLE_PIPELINES = {
             "output_file": "final.json",
             "max_tokens": 16000
         }
-    ]
+],
+"warmup_only": [
+    {
+        "name": "Warmup Generator",
+        "prompt_id": "warmup_generator",
+                    "processing_mode": "item_by_item",  # Process each sequence separately (like test)
+            "item_key": "lessons",
+        "item_variable": "warmup_data",
+        "input_file": "inputs/modules/module{module_number}/path{path_letter}/warmup_template.json",
+        "collect_key": "warmup_interactions",
+        "output_file": "warmup_interactions.json",
+        "variables": {
+            "warmup_data": None  # Will be loaded from input_file
+        },
+        "max_tokens": 8000,
+        "temperature": 0.5
+    }
+],
+
+"lesson_only": [
+    {
+        "name": "Lesson Generator",
+        "prompt_id": "lesson_generator",
+        "processing_mode": "batch",
+         "processing_mode": "item_by_item",  # Process each sequence separately (like test)
+            "item_key": "lessons",
+        "input_file": "inputs/modules/module{module_number}/path{path_letter}/lesson_template.json",
+        "output_file": "lesson_interactions.json",
+        "variables": {
+            "lesson_data": None  # Will be loaded from input_file
+        },
+        "collect_key": "lesson_interactions",
+        "max_tokens": 12000,
+        "temperature": 1
+    }
+]
 
 }
 
