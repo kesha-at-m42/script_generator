@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "core"))
 sys.path.insert(0, str(Path(__file__).parent / "utils"))
 
-from prompt_builder import PromptBuilder
+from prompt_builder_old import PromptBuilder
 
 def test_interaction_designer_with_template_ref():
     """Test that INTERACTION_DESIGNER_TEMPLATE_REF fields are auto-fetched"""

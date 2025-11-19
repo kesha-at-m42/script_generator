@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
-from core.prompt_builder import PromptBuilder
+from core.prompt_builder_old import PromptBuilder
 
 def test_question_generator(module_number=2, num_questions=8, path_letter=None, output_dir=None, test_mode=False, goal_number=None):
     """

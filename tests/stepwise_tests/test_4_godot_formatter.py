@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
-from core.prompt_builder import PromptBuilder
+from core.prompt_builder_old import PromptBuilder
 from utils.module_utils import get_module_field
 from utils.metadata_mapper import map_to_mastery_metadata
 from utils.bbcode_formatter import process_godot_sequences

@@ -9,7 +9,7 @@ sys.path.insert(0, str(root_dir / "core"))
 
 from problem_template_utils import get_fields_by_reference
 import traceback
-from prompt_builder import PromptBuilder
+from prompt_builder_old import PromptBuilder
 
 """
 Simple test for problem template field injection
@@ -74,7 +74,7 @@ def test_multiple_goals():
             print(f"\nGoal {goal_id}: ERROR - {e}")
 
 
-def test_prompt_builder_integration():
+def test_prompt_builder_old_integration():
     """Test that prompt builder can load the config with problem_template_ref"""
 
     print("\n" + "=" * 70)
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     # Run all tests
     test1 = test_get_fields_by_reference()
     test2 = test_multiple_goals()
-    test3 = test_prompt_builder_integration()
+    test3 = test_prompt_builder_old_integration()
     test4 = test_full_integration()
 
     print("\n" + "=" * 70)

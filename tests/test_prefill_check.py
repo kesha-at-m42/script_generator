@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "core"))
 sys.path.insert(0, str(Path(__file__).parent / "utils"))
 
-from prompt_builder import PromptBuilder
+from prompt_builder_old import PromptBuilder
 from prefill_generator import generate_prefill
 
 # Test data

@@ -104,7 +104,7 @@ python pipeline_runner.py --module 2 --path b --pipeline full --output-dir outpu
 script_generator/
 ├── core/                           # Core system components
 │   ├── claude_client.py           # Claude API wrapper
-│   ├── prompt_builder.py          # Prompt assembly and variable substitution
+│   ├── prompt_builder_old.py          # Prompt assembly and variable substitution
 ├── inputs/                        # Input data and prompts
 │   ├── modules/                   # Module-specific content│   │
 │   ├── prompts/                   # AI prompt definitions
@@ -375,7 +375,7 @@ These are excluded in `.gitignore`.
   - For remediation_system.md, use <remediation_system> in instructions
   - For animation_events.json, use <animation_events> (works for JSON too)
   - The prompt builder automatically loads and injects doc content
-  - No changes to pipeline_runner.py or prompt_builder.py needed
+  - No changes to pipeline_runner.py or prompt_builder_old.py needed
 
   Example:
   # inputs/prompts/interaction_designer.py
@@ -418,7 +418,7 @@ These are excluded in `.gitignore`.
 
 **Core System Files** (unless you know what you're doing):
 - `core/claude_client.py` - API wrapper
-- `core/prompt_builder.py` - Variable substitution logic
+- `core/prompt_builder_old.py` - Variable substitution logic
 - `pipeline_runner.py` - Orchestration logic (except EXAMPLE_PIPELINES)
 - `utils/prefill_generator.py` - Prefill truncation logic
 
@@ -426,7 +426,7 @@ These are excluded in `.gitignore`.
 ```python
 {
     "name": "...",           # Display name - safe to change
-    "prompt_id": "...",      # Must match function name in prompt_builder.py
+    "prompt_id": "...",      # Must match function name in prompt_builder_old.py
     "processing_mode": "...", # "item_by_item" or "batch" - don't change unless needed
     "item_key": "...",       # Field name in input JSON - must match actual data
     "collect_key": "...",    # Field name in output JSON - don't change
@@ -499,7 +499,7 @@ QUESTION_GENERATOR_EXAMPLES = [
 # New: {goal_text}  ← Must update pipeline config too!
 
 # ❌ DON'T: Change function names or imports
-# These are referenced by prompt_builder.py
+# These are referenced by prompt_builder_old.py
 ```
 
 ### Adding a New Pipeline Step
@@ -515,7 +515,7 @@ YOUR_STEP_PREFILL = """{{
       "field": {variable},"""
 ```
 
-2. **Register in prompt_builder.py**:
+2. **Register in prompt_builder_old.py**:
 ```python
 def _your_step_config(self) -> Dict:
     from your_step import (

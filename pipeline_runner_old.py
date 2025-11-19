@@ -13,7 +13,7 @@ from datetime import datetime
 # Add paths
 sys.path.insert(0, str(Path(__file__).parent / "core"))
 
-from prompt_builder import PromptBuilder
+from prompt_builder_old import PromptBuilder
 from claude_client import ClaudeClient
 
 

@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from core.claude_client import ClaudeClient
-from core.prompt_builder import PromptBuilder
+from core.prompt_builder_old import PromptBuilder
 
 def test_interaction_designer(questions_path, output_dir=None, limit=None, module_number=None, path_letter=None):
     """
