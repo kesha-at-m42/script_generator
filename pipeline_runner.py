@@ -2,7 +2,7 @@
 Pipelines - Define and run your pipelines here
 
 Usage:
-    python pipelines.py
+    python pipeline_runner.py
 """
 
 import sys
@@ -22,22 +22,58 @@ PIPELINES = {
     "test": [
         Step(
             prompt_name='test',
-            variables={'name': 'Alice'},
-            output_key='greeting'
+            variables={'name': 'Kesha'},
+            output_file='greeting.txt'
         ),
+        Step(
+            prompt_name='test_2',
+            # No input_file specified - auto-chains from greeting.txt
+            # Content will be available in <input> section of system prompt
+            output_file='response.txt'
+        )
     ],
 
-    # Example multi-step pipeline:
-    # "my_pipeline": [
+    # Example: Human-in-loop workflow with auto-chaining
+    # "draft_refine": [
     #     Step(
-    #         prompt_name='step1_prompt',
-    #         variables={'input': 'data'},
-    #         output_key='step1_result'
+    #         prompt_name='generate_draft',
+    #         variables={'topic': 'AI safety'},
+    #         output_file='draft.txt'
+    #     ),
+    #     # PAUSE HERE: Human can edit draft.txt before continuing
+    #     Step(
+    #         prompt_name='refine_draft',
+    #         # No input_file - auto-chains from draft.txt
+    #         # Edited content available in <input> section
+    #         output_file='refined.txt'
+    #     ),
+    # ],
+
+    # Example: Explicit input file (override auto-chain)
+    # "from_existing": [
+    #     Step(
+    #         prompt_name='analyze',
+    #         input_file='inputs/docs/existing_doc.txt',
+    #         output_file='analysis.txt'
+    #     ),
+    # ],
+
+    # Example: Three-step chain
+    # "multi_step": [
+    #     Step(
+    #         prompt_name='step1',
+    #         variables={'seed': 'robots'},
+    #         output_file='step1.txt'
     #     ),
     #     Step(
-    #         prompt_name='step2_prompt',
-    #         variables={},  # Can use {step1_result} in the prompt
-    #         output_key='step2_result'
+    #         prompt_name='step2',
+    #         # Auto-chains from step1.txt
+    #         output_file='step2.txt'
+    #     ),
+    #     Step(
+    #         prompt_name='step3',
+    #         # Auto-chains from step2.txt
+    #         output_file='final.txt'
     #     ),
     # ],
 }
@@ -92,10 +128,13 @@ if __name__ == "__main__":
         print("="*70)
         for key, value in results.items():
             print(f"\n{key}:")
-            preview = value[:200] if len(value) > 200 else value
-            print(preview)
-            if len(value) > 200:
-                print("...")
+            if isinstance(value, str):
+                preview = value[:200] if len(value) > 200 else value
+                print(preview)
+                if len(value) > 200:
+                    print("...")
+            else:
+                print(value)
 
     except Exception as e:
         print(f"\nError: {e}")

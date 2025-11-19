@@ -80,7 +80,7 @@ class Prompt:
             "output_structure": self.output_structure,
             "prefill": self.prefill,
             "module_ref": self.module_ref,
-            "template_ref": self.template_ref,
+            # "template_ref": self.template_ref,
             "cache_docs": self.cache_docs,
             "cache_ttl": self.cache_ttl,
             "temperature": self.temperature,
@@ -115,13 +115,13 @@ class PromptBuilderV2:
         if str(self.prompts_dir) not in sys.path:
             sys.path.insert(0, str(self.prompts_dir))
 
-    def build(self, prompt_name: str, variables: Dict = None, prefill_override: str = None) -> Dict:
+    def build(self, prompt_name: str, variables: Dict = None, input_content: str = None) -> Dict:
         """Build complete prompt with caching support
 
         Args:
             prompt_name: Name of the prompt (e.g., "godot_formatter")
             variables: Optional dict of variables to substitute in instructions
-            prefill_override: Optional prefill to use instead of prompt's prefill
+            input_content: Content to use as <input> in system prompt (from pipeline input_file)
 
         Returns:
             Dict with {system, user_message, prefill, api_params}
@@ -141,23 +141,23 @@ class PromptBuilderV2:
         if self.module_number and prompt.module_ref:
             variables = self._fetch_module_data(prompt.module_ref, variables)
 
-        # Auto-fetch template data if specified
-        if self.module_number and prompt.template_ref:
-            goal_id = variables.get("goal_id")
-            if goal_id:
-                # Convert to int if string
-                if isinstance(goal_id, str):
-                    try:
-                        goal_id = int(goal_id)
-                    except ValueError:
-                        if self.verbose:
-                            print(f"  [WARN] goal_id '{goal_id}' is not a valid integer")
-                        goal_id = None
+        # # Auto-fetch template data if specified
+        # if self.module_number and prompt.template_ref:
+        #     goal_id = variables.get("goal_id")
+        #     if goal_id:
+        #         # Convert to int if string
+        #         if isinstance(goal_id, str):
+        #             try:
+        #                 goal_id = int(goal_id)
+        #             except ValueError:
+        #                 if self.verbose:
+        #                     print(f"  [WARN] goal_id '{goal_id}' is not a valid integer")
+        #                 goal_id = None
 
-                if goal_id:
-                    variables = self._fetch_template_data(prompt.template_ref, goal_id, variables)
-            elif self.verbose:
-                print(f"  [WARN] template_ref specified but goal_id not found in variables")
+        #         if goal_id:
+        #             variables = self._fetch_template_data(prompt.template_ref, goal_id, variables)
+        #     elif self.verbose:
+        #         print(f"  [WARN] template_ref specified but goal_id not found in variables")
 
         # Build system blocks (for caching)
         system_blocks = []
@@ -174,6 +174,13 @@ class PromptBuilderV2:
         if prompt.doc_refs:
             doc_blocks = self._load_docs_as_blocks(prompt.doc_refs)
             system_blocks.extend(doc_blocks)
+        
+          # 2.5. Input content (from input_file in pipeline)
+        if input_content:
+            system_blocks.append({
+                "type": "text",
+                "text": f"<input>\n{input_content}\n</input>"
+            })
 
         # 3. Examples (static, in system for caching)
         if prompt.examples:
@@ -206,9 +213,7 @@ class PromptBuilderV2:
 
         # 4. Handle prefill
         final_prefill = None
-        if prefill_override:
-            final_prefill = prefill_override.rstrip()
-        elif prompt.prefill:
+        if prompt.prefill:
             final_prefill = self._substitute_variables(prompt.prefill, variables).rstrip()
 
         # 5. API parameters
@@ -415,7 +420,7 @@ class PromptBuilderV2:
 
         return variables
     
-    def run(self, prompt_name: str, variables: Dict = None) -> str:
+    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None) -> str:
         """Build and execute a prompt in one call
 
         Args:
@@ -437,7 +442,7 @@ class PromptBuilderV2:
         from claude_client import ClaudeClient
 
         # Build the prompt using existing build() method
-        built_prompt = self.build(prompt_name, variables)
+        built_prompt = self.build(prompt_name, variables, input_content=input_content)
 
         # Create client and execute
         client = ClaudeClient()

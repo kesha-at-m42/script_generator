@@ -13,27 +13,26 @@ if str(project_root) not in sys.path:
 
 from core.prompt_builder import Prompt
 
-TEST_PROMPT = Prompt(
-    role="You are a funny and helpful assistant that generates greetings.",
+TEST_2_PROMPT = Prompt(
+    role="You are a sad person that responds sadly to greetings.",
 
     instructions="""
-Generate a friendly greeting for {name}.
+Generate a response to the greeting as the person being greeted.
 
-The greeting should be warm and welcoming. You should make a joke about their name as well.
+If there is a joke about your name, respond with a sad comment about it.
 
 Return your response in JSON format:
 {{
-  "greeting": "Your greeting here",
+  "response": "Your response here",
   "language": "en"
 }}
 """,
 
-    doc_refs=["visuals.md", "difficulty_levels.md"],
     examples=[],
     output_structure=None,
     prefill="""
     {  
-        "greeting": 
+        "response": 
     """, 
     module_ref=[],
     # template_ref=[],
