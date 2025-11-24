@@ -41,7 +41,7 @@ class PromptBuilder:
         """Build a complete prompt from components
 
         Args:
-            prompt_id: ID of the prompt to build (e.g., "remediation_generator")
+            prompt_id: ID of the prompt to build (e.g., "pp_remediation_generator")
             input_file_path: Optional path to input file from previous pipeline step
             variables: Optional dict of variables to substitute in template
 
@@ -264,7 +264,7 @@ class PromptBuilder:
         config_methods = {
             "question_generator": self._question_generator_config,
             "interaction_designer": self._interaction_designer_config,
-            "remediation_generator": self._remediation_generator_config,
+            "pp_remediation_generator": self._pp_remediation_generator_config,
             "godot_formatter": self._godot_formatter_config,
         }
 
@@ -409,24 +409,24 @@ class PromptBuilder:
         }
 
     
-    def _remediation_generator_config(self) -> Dict:
+    def _pp_remediation_generator_config(self) -> Dict:
         """Remediation Generator prompt configuration"""
-        from remediation_generator import (
-            REMEDIATION_GENERATOR_ROLE,
-            REMEDIATION_GENERATOR_DOCS,
-            REMEDIATION_GENERATOR_EXAMPLES,
-            REMEDIATION_GENERATOR_STRUCTURE,
-            REMEDIATION_GENERATOR_INSTRUCTIONS,
-            REMEDIATION_GENERATOR_TEMPLATE_REF
+        from pp_remediation_generator import (
+            pp_remediation_generator_ROLE,
+            pp_remediation_generator_DOCS,
+            pp_remediation_generator_EXAMPLES,
+            pp_remediation_generator_STRUCTURE,
+            pp_remediation_generator_INSTRUCTIONS,
+            pp_remediation_generator_TEMPLATE_REF
         )
 
         return {
-            "role": REMEDIATION_GENERATOR_ROLE,
-            "docs": REMEDIATION_GENERATOR_DOCS,
-            "examples": REMEDIATION_GENERATOR_EXAMPLES,
-            "structure": REMEDIATION_GENERATOR_STRUCTURE,
-            "instructions": REMEDIATION_GENERATOR_INSTRUCTIONS,
-            "problem_template_ref": REMEDIATION_GENERATOR_TEMPLATE_REF
+            "role": pp_remediation_generator_ROLE,
+            "docs": pp_remediation_generator_DOCS,
+            "examples": pp_remediation_generator_EXAMPLES,
+            "structure": pp_remediation_generator_STRUCTURE,
+            "instructions": pp_remediation_generator_INSTRUCTIONS,
+            "problem_template_ref": pp_remediation_generator_TEMPLATE_REF
         }
     
     def _godot_formatter_config(self) -> Dict:
@@ -447,7 +447,7 @@ class PromptBuilder:
             "instructions": GODOT_FORMATTER_INSTRUCTIONS
         }
     
-    def build_remediation_generator_prompt(self, interactions_context: str = None, input_file_path: str = None) -> str:
+    def build_pp_remediation_generator_prompt(self, interactions_context: str = None, input_file_path: str = None) -> str:
         """Build prompt for remediation generation
 
         Args:
@@ -462,7 +462,7 @@ class PromptBuilder:
             variables["interactions_context"] = interactions_context
 
         return self.build_prompt(
-            "remediation_generator",
+            "pp_remediation_generator",
             input_file_path=input_file_path,
             variables=variables if variables else None
         )
@@ -500,20 +500,20 @@ if __name__ == "__main__":
     print("=" * 70)
 
     # Build a remediation generator prompt
-    print("\nBuilding remediation_generator prompt...")
+    print("\nBuilding pp_remediation_generator prompt...")
 
     # Method 1: Using input_file_path (NEW - recommended)
     if interactions_file:
         print("  Using new method: input_file_path")
         result = builder.build_prompt(
-            prompt_id="remediation_generator",
+            prompt_id="pp_remediation_generator",
             input_file_path=interactions_file
         )
     # Method 2: Using variables dict (OLD - still supported)
     else:
         print("  Using legacy method: variables dict")
         result = builder.build_prompt(
-            prompt_id="remediation_generator",
+            prompt_id="pp_remediation_generator",
             variables={"interactions_context": interactions_context}
         )
 

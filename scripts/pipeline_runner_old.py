@@ -140,7 +140,7 @@ class PipelineRunner:
                     item_json = json.dumps(item, indent=2)
                     prompt_variables[item_variable] = item_json
 
-                # Generate dynamic prefill if needed (for remediation_generator, etc.)
+                # Generate dynamic prefill if needed (for pp_remediation_generator, etc.)
                 from utils.prefill_generator import generate_prefill
                 prefill_text = generate_prefill(prompt_id, item)
                 if prefill_text:
@@ -538,7 +538,7 @@ EXAMPLE_PIPELINES = {
         },
         {
             "name": "Remediation Generator",
-            "prompt_id": "remediation_generator",
+            "prompt_id": "pp_remediation_generator",
             "processing_mode": "item_by_item",  # Process each sequence separately
             "item_key": "sequences",
              "extract_fields": {
@@ -584,7 +584,7 @@ EXAMPLE_PIPELINES = {
         },
         {
             "name": "Remediation Generator",
-            "prompt_id": "remediation_generator",
+            "prompt_id": "pp_remediation_generator",
             "processing_mode": "item_by_item",  # Process each sequence separately
             "item_key": "sequences",
              "extract_fields": {
@@ -612,7 +612,7 @@ EXAMPLE_PIPELINES = {
     "remediation_only": [
         {
             "name": "Remediation Generator",
-            "prompt_id": "remediation_generator",
+            "prompt_id": "pp_remediation_generator",
             "processing_mode": "item_by_item",
             "item_key": "sequences",
              "extract_fields": {

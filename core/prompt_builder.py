@@ -7,10 +7,11 @@ Key improvements:
 3. Auto-loading prompts from prompts folder
 4. Prompt caching support for 90% cost reduction
 5. Variable substitution in all text fields
+6. Support for both list and dict format in module_ref
 """
 
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Union
 import sys
 import importlib
 
@@ -26,8 +27,8 @@ class Prompt:
         examples: List[Dict] = None,
         output_structure: str = None,
         prefill: str = None,
-        module_ref: List[str] = None,
-        template_ref: List[str] = None,
+        module_ref: Union[List[str], Dict[str, str]] = None,
+        template_ref: Union[List[str], Dict[str, str]] = None,
         # Caching settings
         cache_docs: bool = True,
         cache_ttl: str = "5m",
@@ -44,8 +45,10 @@ class Prompt:
             examples: List of example outputs with format [{"description": "...", "output": "..."}]
             output_structure: Expected output schema/format (supports variable substitution)
             prefill: Template for prefilling assistant response (supports variable substitution)
-            module_ref: List of field names to fetch from modules.py
-            template_ref: List of field names to fetch from problem templates
+            module_ref: Fields to fetch from modules.py. Can be:
+                        - List of field paths: ["vocabulary", "phases.0.phase_name"]
+                        - Dict mapping variable names to paths: {"phase_name": "phases.0.phase_name"}
+            template_ref: Fields to fetch from problem templates (supports list or dict)
             cache_docs: Enable prompt caching for doc_refs (default: True)
             cache_ttl: Cache time-to-live: "5m" or "1h" (default: "5m")
             temperature: Sampling temperature 0.0-1.0 (default: None = use pipeline default)
@@ -58,8 +61,22 @@ class Prompt:
         self.examples = examples or []
         self.output_structure = output_structure
         self.prefill = prefill
-        self.module_ref = module_ref or []
-        self.template_ref = template_ref or []
+
+        # Normalize module_ref and template_ref to dict format
+        if isinstance(module_ref, list):
+            # Convert list to dict where key = value (simple format)
+            self.module_ref = {field: field for field in module_ref}
+        elif isinstance(module_ref, dict):
+            self.module_ref = module_ref
+        else:
+            self.module_ref = {}
+
+        if isinstance(template_ref, list):
+            self.template_ref = {field: field for field in template_ref}
+        elif isinstance(template_ref, dict):
+            self.template_ref = template_ref
+        else:
+            self.template_ref = {}
 
         # Caching settings
         self.cache_docs = cache_docs
@@ -174,8 +191,8 @@ class PromptBuilderV2:
         if prompt.doc_refs:
             doc_blocks = self._load_docs_as_blocks(prompt.doc_refs)
             system_blocks.extend(doc_blocks)
-        
-          # 2.5. Input content (from input_file in pipeline)
+
+        # 2.5. Input content (from input_file in pipeline)
         if input_content:
             system_blocks.append({
                 "type": "text",
@@ -350,8 +367,14 @@ class PromptBuilderV2:
 
         return None
 
-    def _fetch_module_data(self, module_ref_fields: List[str], variables: Dict) -> Dict:
-        """Fetch module data fields using module_utils"""
+    def _fetch_module_data(self, module_ref_mapping: Dict[str, str], variables: Dict) -> Dict:
+        """Fetch module data fields using module_utils
+
+        Args:
+            module_ref_mapping: Dict mapping variable names to field paths
+                                e.g., {"phase_name": "phases.0.phase_name", "vocab": "vocabulary"}
+            variables: Existing variables dict to update
+        """
         utils_path = self.project_root / "utils"
         if str(utils_path) not in sys.path:
             sys.path.insert(0, str(utils_path))
@@ -359,26 +382,29 @@ class PromptBuilderV2:
         from module_utils import get_module_field
 
         if self.verbose:
-            print(f"  [FETCH] Fetching module data: {module_ref_fields}")
+            print(f"  [FETCH] Fetching module data: {list(module_ref_mapping.keys())}")
 
-        for field_name in module_ref_fields:
+        for var_name, field_path in module_ref_mapping.items():
             # Skip if already provided
-            if field_name in variables:
+            if var_name in variables:
                 if self.verbose:
-                    print(f"     --> Skipping '{field_name}' (already provided)")
+                    print(f"     --> Skipping '{var_name}' (already provided)")
                 continue
 
             try:
-                field_value = get_module_field(self.module_number, field_name, required=False)
+                field_value = get_module_field(self.module_number, field_path, required=False)
                 if field_value is not None:
-                    variables[field_name] = field_value
+                    variables[var_name] = field_value
                     if self.verbose:
-                        print(f"     [OK] Fetched '{field_name}'")
+                        if field_path != var_name:
+                            print(f"     [OK] Fetched '{var_name}' from '{field_path}'")
+                        else:
+                            print(f"     [OK] Fetched '{var_name}'")
                 else:
                     if self.verbose:
-                        print(f"     [WARN] Field '{field_name}' not found")
+                        print(f"     [WARN] Field '{field_path}' not found")
             except Exception as e:
-                print(f"     [ERROR] Error fetching '{field_name}': {e}")
+                print(f"     [ERROR] Error fetching '{field_path}': {e}")
 
         return variables
 
@@ -419,7 +445,7 @@ class PromptBuilderV2:
             print(f"     [ERROR] Error fetching template fields: {e}")
 
         return variables
-    
+
     def run(self, prompt_name: str, variables: Dict = None, input_content: str = None) -> str:
         """Build and execute a prompt in one call
 

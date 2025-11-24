@@ -144,7 +144,7 @@ def truncate_for_remediation(sequence: Dict[str, Any]) -> str:
     Generate a prefill for remediation generator that includes the sequence structure
     up to the opening of error_path_generic.
 
-    This is a specialized truncation for the remediation_generator prompt that:
+    This is a specialized truncation for the pp_remediation_generator prompt that:
     1. Includes the entire sequence with success_path
     2. Opens student_attempts for adding error_path_generic
 
@@ -316,7 +316,7 @@ def generate_prefill(prompt_id: str, item: Dict[str, Any]) -> Optional[str]:
     This is the main entry point for the pipeline to generate prefills dynamically.
 
     Args:
-        prompt_id: The prompt identifier (e.g., "question_generator", "remediation_generator")
+        prompt_id: The prompt identifier (e.g., "question_generator", "pp_remediation_generator")
         item: The data item being processed
 
     Returns:
@@ -329,7 +329,7 @@ def generate_prefill(prompt_id: str, item: Dict[str, Any]) -> Optional[str]:
         if prefill_text:
             prompt_variables["prefill_sequence"] = prefill_text
     """
-    if prompt_id == "remediation_generator":
+    if prompt_id == "pp_remediation_generator":
         return truncate_for_remediation(item)
 
     elif prompt_id == "interaction_designer":
@@ -445,8 +445,8 @@ if __name__ == "__main__":
 
     # Test 4: Auto-generate based on prompt_id
     print("\n4. Auto-generation:")
-    auto_prefill = generate_prefill("remediation_generator", test_sequence)
-    print(f"Generated {len(auto_prefill)} characters for remediation_generator")
+    auto_prefill = generate_prefill("pp_remediation_generator", test_sequence)
+    print(f"Generated {len(auto_prefill)} characters for pp_remediation_generator")
 
     print("\n" + "=" * 70)
     print("All tests completed successfully!")

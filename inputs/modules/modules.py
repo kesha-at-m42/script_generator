@@ -60,7 +60,50 @@ module_1 = {
             "misconception": "Misidentifying the Whole",
             "description": "Losing track of what the '1' is; comparing parts of different wholes"
         }
-    ]
+    ],
+     "phases": [
+    {
+      "phase_name": "warm_up",
+      "purpose": "Activate prior knowledge about equal-sized pieces and create engagement",
+      "vocabulary_introduced_in_order": [],
+      "variables": [
+        {
+          "fraction_names": [
+            "halves",
+            "fourths"
+          ]
+        }
+      ],
+      "interaction_count": 3
+    },
+    {
+      "phase_name": "lesson",
+      "purpose": "Main teaching of equal parts and fraction concept",
+      "variables": [
+        {
+          "fraction_names": [
+            "halves",
+            "thirds",
+            "fourths",
+            "sixths",
+            "eighths"
+          ]
+        }
+      ],
+      "vocabulary_introduced_in_order": [
+        {
+          "partition": "divide shapes into equal parts"
+        },
+        {
+          "whole": "The entire shape together"
+        },
+        {
+          "equal parts": "Pieces that are all the same size"
+        }
+      ],
+      "interaction_count": 6
+    }
+  ]
 }
 
 module_2 = {
