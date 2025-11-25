@@ -25,6 +25,44 @@ if str(utils_dir) not in sys.path:
 
 from json_utils import extract_json, parse_json
 
+import time
+
+
+class PipelineControl:
+    """Control object for pause/stop functionality"""
+
+    def __init__(self):
+        self.should_stop = False
+        self.is_paused = False
+        self.status_callback = None
+
+    def stop(self):
+        """Signal the pipeline to stop"""
+        self.should_stop = True
+
+    def pause(self):
+        """Signal the pipeline to pause"""
+        self.is_paused = True
+
+    def resume(self):
+        """Resume the pipeline"""
+        self.is_paused = False
+
+    def check_and_wait(self):
+        """Check if stopped, and wait while paused"""
+        if self.should_stop:
+            raise StopIteration("Pipeline stopped by user")
+
+        while self.is_paused:
+            time.sleep(0.1)
+            if self.should_stop:
+                raise StopIteration("Pipeline stopped by user")
+
+    def update_status(self, message):
+        """Send status update to callback if available"""
+        if self.status_callback:
+            self.status_callback(message)
+
 
 class Step:
     """A single step in a pipeline - can be either an AI step or a formatting step"""
@@ -75,14 +113,15 @@ class Step:
 
 
 def run_pipeline(
-    steps: List[Step],
-    initial_variables: Dict = None,
-    module_number: int = None,
-    path_letter: str = None,
-    output_dir: str = None,
-    verbose: bool = True,
-    parse_json_output: bool = True
-) -> Dict:
+      steps: List[Step],
+      initial_variables: Dict = None,
+      module_number: int = None,
+      path_letter: str = None,
+      output_dir: str = None,
+      verbose: bool = True,
+      parse_json_output: bool = True,
+      control: PipelineControl = None
+  ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
     Args:
@@ -124,6 +163,11 @@ def run_pipeline(
         print(f"{'='*70}")
 
     for i, step in enumerate(steps, 1):
+        # Check for pause/stop
+        if control:
+            control.check_and_wait()
+            control.update_status(f"Running step {i}/{len(steps)}: {step_name}")
+
         step_type = "AI" if step.is_ai_step() else "FORMATTING"
         step_name = step.prompt_name if step.is_ai_step() else str(step.function)
 
