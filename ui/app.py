@@ -829,15 +829,68 @@ with tab4:
             with col2:
                 st.metric("Last Output File", result.get("last_output_file", "N/A"))
 
-            # Show final output preview
-            if result.get("final_output"):
-                st.markdown("##### Final Output Preview")
-                output_str = str(result["final_output"])
-                if len(output_str) > 1000:
-                    st.text_area("Output (first 1000 chars)", output_str[:1000], height=200)
-                    st.caption(f"... ({len(output_str)} total characters)")
+            # Show output files
+            st.divider()
+            st.markdown("##### 📄 Output Files")
+
+            # List all output files in the directory
+            output_path = Path(result.get("output_dir", output_dir))
+            if output_path.exists():
+                output_files = sorted(output_path.glob("*.*"))
+
+                if output_files:
+                    selected_file = st.selectbox(
+                        "Select file to preview",
+                        options=output_files,
+                        format_func=lambda x: x.name
+                    )
+
+                    if selected_file:
+                        try:
+                            with open(selected_file, 'r', encoding='utf-8') as f:
+                                content = f.read()
+
+                            # Check file type for rendering
+                            if selected_file.suffix == '.md':
+                                # Markdown preview
+                                st.markdown("**Markdown Preview:**")
+                                st.markdown(content)
+
+                                with st.expander("📝 Raw Markdown"):
+                                    st.code(content, language="markdown")
+
+                            elif selected_file.suffix == '.json':
+                                # JSON preview
+                                st.markdown("**JSON Preview:**")
+                                try:
+                                    import json
+                                    json_data = json.loads(content)
+                                    st.json(json_data)
+
+                                    with st.expander("📝 Raw JSON"):
+                                        st.code(content, language="json")
+                                except:
+                                    st.code(content, language="json")
+
+                            else:
+                                # Text preview
+                                st.markdown("**Text Preview:**")
+                                st.text_area("Content", content, height=400)
+
+                            # Download button
+                            st.download_button(
+                                label=f"⬇️ Download {selected_file.name}",
+                                data=content,
+                                file_name=selected_file.name,
+                                mime="text/plain"
+                            )
+
+                        except Exception as e:
+                            st.error(f"Failed to read file: {e}")
                 else:
-                    st.text_area("Output", output_str, height=200)
+                    st.info("No output files found")
+            else:
+                st.warning("Output directory not found")
 
 
 # Footer
