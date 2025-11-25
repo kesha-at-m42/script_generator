@@ -20,7 +20,7 @@ INTERACTION_GENERATOR_PROMPT = Prompt(
     instructions="""
 ## YOUR TASK
 
-You will receive interaction designs. Convert each interaction into a detailed sequence based on the phase requirements listed in {{phases[0]}}. Interactions can include:
+You will receive interaction designs. Convert each interaction into a detailed sequence based on the phase requirements listed in {{phase}}. Interactions can include:
 - The guide (Kim) demonstrating concepts using inline animation events
 - Students practicing actions in an interactive environment
 - Multiple steps combining demonstration and practice
@@ -309,7 +309,7 @@ output_structure="""
 """,
 
   examples=[],
-  module_ref={"vocabulary", "phases[0]:phases.0"},
+  module_ref={"vocabulary", "phase:phases.0"},
   cache_docs=True,
   cache_ttl="5m",
   temperature=1,

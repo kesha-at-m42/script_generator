@@ -21,7 +21,7 @@ WARMUP_GENERATOR_PROMPT = Prompt(
     - Activate prior knowledge relevant to the lesson. These are the learning goals for the module: {learning_goals}
     - Create engagement and build student confidence
     - Include 2-4 interactions based on what visuals are available in the module: <visuals>
-    - Use appropriate vocabulary and visuals as defined in the module data here {{phases[0]}}. Use the vocabulary naturally. No formal introduction yet.
+    - Use appropriate vocabulary and visuals as defined in the module data here {phase}. Use the vocabulary naturally. No formal introduction yet.
 
       INTERACTION DEFINITION:
   An interaction = visual demonstration + student input demand + response handling
@@ -61,7 +61,7 @@ WARMUP_GENERATOR_PROMPT = Prompt(
   }
   """,
     examples=[],
-    module_ref={"phases[0]:phases.0", "learning_goals"},
+    module_ref={"phase:phases.0", "learning_goals"},
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,

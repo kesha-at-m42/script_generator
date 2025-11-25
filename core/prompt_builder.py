@@ -66,6 +66,17 @@ class Prompt:
         if isinstance(module_ref, list):
             # Convert list to dict where key = value (simple format)
             self.module_ref = {field: field for field in module_ref}
+        elif isinstance(module_ref, set):
+            # Handle set format with colon syntax: {"vocabulary", "phase:phases.0"}
+            self.module_ref = {}
+            for item in module_ref:
+                if ':' in item:
+                    # Parse "var:path" format
+                    var, path = item.split(':', 1)
+                    self.module_ref[var] = path
+                else:
+                    # Simple field reference
+                    self.module_ref[item] = item
         elif isinstance(module_ref, dict):
             self.module_ref = module_ref
         else:
@@ -118,7 +129,7 @@ class PromptBuilderV2:
         self.project_root = Path(__file__).parent.parent
         self.docs_dir = self.project_root / "inputs" / "docs"
         self.modules_dir = self.project_root / "inputs" / "modules"
-        self.prompts_dir = self.project_root / "inputs" / "prompts"
+        self.prompts_dir = self.project_root / "steps" / "prompts"
 
         # Build module paths
         if module_number is not None and path_letter:
@@ -494,24 +505,32 @@ class PromptBuilderV2:
         """Safely substitute variables in text
 
         Handles templates that contain literal braces (like JSON examples)
-        by escaping all braces first, then unescaping only the variables we have.
+        and variables with special characters like {phases[0]}.
+        Uses direct string replacement instead of .format() to avoid parsing issues.
         """
         if not variables or not text:
             return text
 
-        # Escape all braces to treat them as literals
-        escaped = text.replace('{', '{{').replace('}', '}}')
+        result = text
 
-        # Un-escape only the placeholders we have values for
-        for key in variables.keys():
-            escaped = escaped.replace('{{' + key + '}}', '{' + key + '}')
+        # Sort keys by length (longest first) to handle overlapping variable names
+        sorted_keys = sorted(variables.keys(), key=len, reverse=True)
 
-        try:
-            return escaped.format(**variables)
-        except KeyError as e:
-            print(f"[WARN]  Warning: Missing variable in template: {e}")
-            print(f"    Available variables: {list(variables.keys())}")
-            raise ValueError(f"Template formatting failed: missing variable {e}")
+        for key in sorted_keys:
+            # Replace {key} with the actual value
+            placeholder = '{' + key + '}'
+            if placeholder in result:
+                # Convert value to string
+                value = variables[key]
+                if isinstance(value, (list, dict)):
+                    import json
+                    value_str = json.dumps(value, ensure_ascii=False)
+                else:
+                    value_str = str(value)
+
+                result = result.replace(placeholder, value_str)
+
+        return result
 
 
 # Test it

@@ -100,7 +100,7 @@ with st.sidebar:
 st.title("🔧 Pipeline Manager")
 
 # Tabs
-tab1, tab2, tab3 = st.tabs(["📋 Pipeline Steps", "✏️ Edit Prompts", "▶️ Run Pipeline"])
+tab1, tab2, tab3, tab4 = st.tabs(["📋 Pipeline Steps", "✏️ Edit Prompts", "📚 Module Viewer", "▶️ Run Pipeline"])
 
 # TAB 1: Pipeline Steps
 with tab1:
@@ -400,8 +400,18 @@ with tab2:
                         # Convert module_ref to list of tuples for visual editor
                         if isinstance(prompt_obj.module_ref, dict):
                             st.session_state.edit_module_ref_items = list(prompt_obj.module_ref.items())
-                        elif isinstance(prompt_obj.module_ref, list):
-                            st.session_state.edit_module_ref_items = [(field, field) for field in prompt_obj.module_ref]
+                        elif isinstance(prompt_obj.module_ref, (list, set)):
+                            # Handle both list and set formats
+                            items = []
+                            for field in prompt_obj.module_ref:
+                                # Check if it's in "var:path" format
+                                if ':' in str(field):
+                                    var, path = field.split(':', 1)
+                                    items.append((var, path))
+                                else:
+                                    # Simple field reference
+                                    items.append((field, field))
+                            st.session_state.edit_module_ref_items = items
                         else:
                             st.session_state.edit_module_ref_items = []
 
@@ -455,7 +465,12 @@ with tab2:
         st.caption(FIELD_TOOLTIPS["role"])
         st.text_area("Role", height=100, key="edit_role", label_visibility="collapsed")
         if st.session_state.edit_role:
-            st.markdown("**Variables used:** " + highlight_variables(st.session_state.edit_role))
+            import re
+            # Match {variable} patterns that would be substituted by prompt_builder
+            # Matches: {vocabulary}, {phase}, {animation_events}, etc.
+            role_vars = re.findall(r'\{(\w+(?:\[\d+\])?)\}', st.session_state.edit_role)
+            if role_vars:
+                st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in role_vars])}")
 
         # Instructions
         st.markdown(f"**Instructions** ℹ️")
@@ -463,9 +478,10 @@ with tab2:
         st.text_area("Instructions", height=400, key="edit_instructions", label_visibility="collapsed")
         if st.session_state.edit_instructions:
             import re
-            vars_found = re.findall(r'\{\{([^}]+)\}\}', st.session_state.edit_instructions)
+            # Match {variable} patterns that would be substituted by prompt_builder
+            vars_found = re.findall(r'\{(\w+(?:\[\d+\])?)\}', st.session_state.edit_instructions)
             if vars_found:
-                st.markdown(f"**Variables used:** {', '.join([f'`{{{{{v}}}}}`' for v in vars_found])}")
+                st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in vars_found])}")
 
         # Doc Refs
         st.markdown(f"**Doc Refs** ℹ️")
@@ -643,8 +659,102 @@ from core.prompt_builder import Prompt
                     st.error(f"Failed to save: {e}")
                     st.exception(e)
 
-# TAB 3: Run Pipeline
+# TAB 3: Module Viewer
 with tab3:
+    st.header("📚 Module Viewer")
+    st.caption("View and explore module data from modules.py")
+
+    # Import modules
+    modules_file = project_root / "inputs" / "modules" / "modules.py"
+
+    if modules_file.exists():
+        try:
+            # Import the modules file
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("modules", modules_file)
+            modules_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(modules_module)
+
+            # Find all module_N variables
+            available_modules = {}
+            for name, obj in modules_module.__dict__.items():
+                if name.startswith("module_") and isinstance(obj, dict):
+                    module_num = name.split("_")[1]
+                    if module_num.isdigit():
+                        available_modules[int(module_num)] = obj
+
+            if available_modules:
+                # Module selector
+                selected_module_num = st.selectbox(
+                    "Select Module",
+                    options=sorted(available_modules.keys()),
+                    format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', 'Unnamed')}"
+                )
+
+                if selected_module_num:
+                    module_data = available_modules[selected_module_num]
+
+                    st.divider()
+
+                    # Helper function to display data recursively
+                    def display_data(data, level=0):
+                        indent = "  " * level
+
+                        if isinstance(data, dict):
+                            for key, value in data.items():
+                                if isinstance(value, (dict, list)):
+                                    st.markdown(f"{indent}**{key}:**")
+                                    display_data(value, level + 1)
+                                else:
+                                    st.markdown(f"{indent}**{key}:** `{value}`")
+
+                        elif isinstance(data, list):
+                            for idx, item in enumerate(data):
+                                if isinstance(item, (dict, list)):
+                                    st.markdown(f"{indent}**[{idx}]:**")
+                                    display_data(item, level + 1)
+                                else:
+                                    st.markdown(f"{indent}• `{item}`")
+                        else:
+                            st.markdown(f"{indent}`{data}`")
+
+                    # Display all fields
+                    st.subheader(f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}")
+
+                    # Show field paths helper
+                    with st.expander("ℹ️ Field Path Reference", expanded=False):
+                        st.caption("Use these paths in module_ref to access fields:")
+                        st.code("""
+Examples:
+- module_name → "module_name"
+- vocabulary → "vocabulary"
+- phase → "phases.0"
+- phase.phase_name → "phases.0.phase_name"
+- phases[1].variables[0] → "phases.1.variables.0"
+                        """)
+
+                    # Display module data
+                    for key, value in module_data.items():
+                        with st.expander(f"**{key}**", expanded=(key in ["module_name", "vocabulary", "phases"])):
+                            display_data(value)
+
+                    st.divider()
+
+                    # JSON view
+                    with st.expander("📄 Raw JSON View", expanded=False):
+                        st.json(module_data)
+
+            else:
+                st.warning("No modules found in modules.py")
+
+        except Exception as e:
+            st.error(f"Failed to load modules.py: {e}")
+            st.exception(e)
+    else:
+        st.error(f"modules.py not found at: {modules_file}")
+
+# TAB 4: Run Pipeline
+with tab4:
     st.header("Run Pipeline")
 
     if not st.session_state.pipeline_steps:
