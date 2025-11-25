@@ -782,12 +782,12 @@ with tab3:
                     with st.expander(" Field Path Reference", expanded=False):
                         st.caption("Use these paths in module_ref to access fields:")
                         st.code("""
-Examples:
-- module_name → "module_name"
-- vocabulary → "vocabulary"
-- phase → "phases.0"
-- phase.phase_name → "phases.0.phase_name"
-- phases[1].variables[0] → "phases.1.variables.0"
+                        Examples:
+                        - module_name → "module_name"
+                        - vocabulary → "vocabulary"
+                        - phase → "phases.0"
+                        - phase.phase_name → "phases.0.phase_name"
+                        - phases[1].variables[0] → "phases.1.variables.0"
                         """)
 
                     # Display module data
@@ -843,36 +843,49 @@ with tab4:
 
         st.divider()
 
-        # Run button
         if st.button("▶️ Run Pipeline", type="primary"):
-            with st.spinner("Running pipeline..."):
-                try:
-                    # Calculate output directory with timestamp
-                    if use_timestamp:
-                        from datetime import datetime
-                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                        actual_output_dir = f"{output_dir_base}/{timestamp}"
-                    else:
-                        actual_output_dir = output_dir_base
+            # Create a container for console output
+            console_container = st.container()
 
-                    # Build Step objects
-                    steps = []
-                    for step_config in st.session_state.pipeline_steps:
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables"),
-                                output_file=step_config.get("output_file")
-                            )
-                        else:  # formatting
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args"),
-                                output_file=step_config.get("output_file")
-                            )
-                        steps.append(step)
+            with console_container:
+                st.subheader("Console Output")
+                console_output = st.empty()
 
-                    # Run pipeline
+            try:
+                # Calculate output directory with timestamp
+                if use_timestamp:
+                    from datetime import datetime
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    actual_output_dir = f"{output_dir_base}/{timestamp}"
+                else:
+                    actual_output_dir = output_dir_base
+
+                # Build Step objects
+                steps = []
+                for step_config in st.session_state.pipeline_steps:
+                    if step_config["type"] == "ai":
+                        step = Step(
+                            prompt_name=step_config["prompt_name"],
+                            variables=step_config.get("variables"),
+                            output_file=step_config.get("output_file")
+                        )
+                    else:  # formatting
+                        step = Step(
+                            function=step_config["function"],
+                            function_args=step_config.get("function_args"),
+                            output_file=step_config.get("output_file")
+                        )
+                    steps.append(step)
+
+                # Capture console output
+                import io
+                import contextlib
+
+                # Create string buffer to capture output
+                console_buffer = io.StringIO()
+
+                # Run pipeline with output capture
+                with contextlib.redirect_stdout(console_buffer):
                     result = run_pipeline(
                         steps=steps,
                         module_number=module_number,
@@ -882,12 +895,16 @@ with tab4:
                         parse_json_output=parse_json
                     )
 
-                    st.session_state.execution_result = result
-                    st.success("✅ Pipeline completed successfully!")
+                # Display captured output
+                captured_output = console_buffer.getvalue()
+                console_output.code(captured_output, language="log")
 
-                except Exception as e:
-                    st.error(f"❌ Pipeline failed: {str(e)}")
-                    st.exception(e)
+                st.session_state.execution_result = result
+                st.success("✅ Pipeline completed successfully!")
+
+            except Exception as e:
+                st.error(f"❌ Pipeline failed: {str(e)}")
+                st.exception(e)
 
         # Show results
         if st.session_state.execution_result:
