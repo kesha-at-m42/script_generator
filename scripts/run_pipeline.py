@@ -33,10 +33,24 @@ PIPELINES = {
             output_file='response.txt'
         )
     ],
-    "script_generator": [
+    "warmupscript_generator": [
         Step(
             prompt_name='warmup_generator',
             output_file='warmup.json'
+        ),
+        Step(
+            prompt_name='interaction_generator',
+            output_file='interactions.json'
+        ),
+        Step(
+          function="script_formatter.format_interactions_to_markdown",
+          output_file="script.md"
+      )
+    ],
+    "lessonscript_generator": [
+        Step(
+            prompt_name='lesson_generator',
+            output_file='lesson.json'
         ),
         Step(
             prompt_name='interaction_generator',

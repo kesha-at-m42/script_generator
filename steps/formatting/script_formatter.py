@@ -44,23 +44,8 @@ def _format_single_interaction(interaction: dict) -> str:
     # Header
     interaction_id = interaction.get("interaction_id", "?")
     interaction_name = interaction.get("interaction_name", "Unnamed Interaction")
-    difficulty = interaction.get("difficulty", 0)
-    verb = interaction.get("verb", "INTERACT")
 
-    # Difficulty names
-    difficulty_names = {
-        0: "Support",
-        1: "Confidence",
-        2: "Baseline",
-        3: "Stretch",
-        4: "Challenge"
-    }
-    difficulty_str = difficulty_names.get(difficulty, str(difficulty))
-
-    lines.append(f"# Interaction {interaction_id}: {verb.title()} | {difficulty_str}")
-    lines.append("")
-    lines.append(f"**Name:** {interaction_name}")
-    lines.append("")
+    lines.append(f"# Interaction {interaction_id}: {interaction_name}")
     lines.append("---")
     lines.append("")
 
@@ -95,7 +80,7 @@ def _format_step(step: dict) -> str:
     # Screen prompt (📱) with tool and answer inline
     prompt = step.get("prompt")
     if prompt:
-        lines.append(f"📱 **Screen Prompt:** {prompt}")
+        lines.append(f"⚪ **Prompt:** {prompt}")
 
         # Tool inline
         interaction_tool = step.get("interaction_tool")
@@ -200,8 +185,6 @@ if __name__ == "__main__":
             {
                 "interaction_id": 1,
                 "interaction_name": "Test Interaction",
-                "difficulty": 0,
-                "verb": "IDENTIFY",
                 "fractions": ["1/2", "1/4"],
                 "steps": [
                     {

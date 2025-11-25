@@ -209,8 +209,6 @@ Output sequence (multi-step with inline events):
 {
   "interaction_id": 2,
   "interaction_name": "Creating Fourths",
-  "difficulty": 0,
-  "verb": "CREATE",
   "fractions": ["1/4"],
   "steps": [
     {
@@ -275,8 +273,6 @@ output_structure="""
     {
       "interaction_id": 1,
       "interaction_name": "Pithy name (3-6 words)",
-      "difficulty": 0,
-      "verb": "IDENTIFY|CREATE|COMPARE",
       "fractions": ["1/2", "1/3"],
       "steps": [
         {
@@ -309,7 +305,7 @@ output_structure="""
 """,
 
   examples=[],
-  module_ref={"vocabulary", "phase:phases.0"},
+  module_ref={"vocabulary", "phase:phases.1"},
   cache_docs=True,
   cache_ttl="5m",
   temperature=1,

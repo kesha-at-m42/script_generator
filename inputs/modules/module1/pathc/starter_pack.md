@@ -1,810 +1,954 @@
-# **MODULE 1 PATH C (VPSS)**
+# **MODULE 1: WHAT MAKES A FRACTION?**
 
-### **LEARNING GOAL(S):**
+## **STARTER PACK \- VPSS PATH C ONLY**
 
-* Partition shapes into equal areas (2,3,4,6,8) and name parts; recognize that equal-size parts can be named with fractions. 
-* Express each equal part as a unit fraction of the whole using fraction notation; partition into halves, thirds, fourths, sixths, eighths.
+ **Path:** Visual Pattern Spatial Structure (VPSS) \- Path C Only  
+---
 
-### **CORE CONCEPTS:** 
+## **1.0 MODULE SNAPSHOT**
 
-* Equal Parts 
-* Defining the Whole
+### **THE ONE THING**
 
-### **STANDARDS:** 
+Students learn that **fractions require EQUAL parts and name them**, and they practice creating and recognizing equal partitions of shapes (2, 3, 4, 6, 8 parts).
 
-**Building On:** 2.G.A.3 
-**Addressing:** 3.G.A.2, 3.NF.A.1 
-**Building Toward:** 3.NF.A.2, 3.NF.A.2a
+### **CRITICAL PARAMETERS**
 
-### **VOCABULARY STAGING:**
+* **Critical Misconception:** Believing parts can be different sizes and still count as equal fractions (\#1)  
+* **Success Indicator:** Student consistently creates/identifies equal partitions and rejects unequal ones  
+* **Biggest Risk:** Accepting "close enough" instead of true equality; moving to fraction notation too quickly
 
-* Introduce partition, whole, equal parts during folding 
-* Introduce fraction; show '1/...' notation only after parts are named
+### **PATH PURPOSE \- VPSS (Path C)**
 
-### **MISCONCEPTIONS:** 
+**Approach:** Visual-first using pattern tiles as primary tool for creating and understanding equal partitions
 
-\#1 \- Unequal Parts: Believing parts can be different sizes and still count as equal fractions 
-\#2 \- Misidentifying the Whole: Losing track of what the '1' is; comparing parts of different wholes
+**Serves learners who:**
 
-## **PHASE METADATA TABLE**
+* Think spatially  
+* Benefit from tactile manipulation  
+* See whole patterns before analyzing parts
 
-| Phase | Duration | Purpose | Core Fractions |
-| ----- | ----- | ----- | ----- |
-| Warm-up | \~2-3 min | Activate prior knowledge and create engagement | 2, 4, 8 parts |
-| Lesson | \~8-10 min | Main teaching phase | 1/2, 1/3, 1/4, 1/6, 1/8 |
-| Exit Check | \~3 min | Gateway assessment to Practice | 1/3, 1/4 |
-| Practice | \~10-12 min | Independent application with scaffolded support | 1/2, 1/3, 1/4, 1/6, 1/8 |
-| Synthesis | \~7 min | Connect to broader mathematical understanding | Various unit fractions |
-| End-of-Day Recap | \~2 min | Celebrate effort and growth | N/A |
-| Start-of-Day Recap | \~45 sec | Bridge to today's learning | N/A |
+**Cognitive Strength:** Visual pattern recognition and spatial reasoning
+
+**Unique Approach:** Creating partitions develops understanding before naming (hands-on construction)
+
+### **CONVERGENCE COMMITMENT**
+
+All paths must reach:
+
+* Understanding that fractions require equal parts  
+* Ability to partition shapes into 2, 3, 4, 6, 8 equal parts  
+* Recognition of "the whole" as what we're dividing
 
 ---
 
-# **WARM-UP PHASE**
+## **1.1 SCOPE FENCE**
 
-**Duration:** \~3 minutes 
-**Purpose:** Activate prior knowledge about equal-sized pieces and create engagement 
-**Core Fractions:** Halves (2 parts), Fourths (4 parts) 
-**Primary Visual Tool:** Grid rectangles with pattern tiles 
+### **✅ JUST THIS \- What we MUST teach**
 
-## **OPENING HOOK**
+* Understanding that shapes must be divided into **EQUAL parts** for fractions  
+* Partitioning shapes into 2, 3, 4, 6, 8 equal parts  
+* Recognizing when parts are equal vs unequal  
+* Understanding "the whole" as what we're dividing
 
-⚫ **Guide:** "You know when you snap a chocolate bar and it breaks perfectly along those lines? Each piece ends up being exactly the same size. Today we're going to get really good at creating equal parts."
+### **❌ NOT THIS \- Boundaries we MUST respect**
 
+* Formal fraction notation beyond showing 1/b visually (Module 2\)  
+* Comparing fraction sizes (Module 10+)  
+* Adding fractions (Unit 6\)  
+* Equivalent fractions (Module 8\)  
+* Number lines (Module 4\)
 
+### **⚠️ THE TRAP TO AVOID**
 
-## **INTERACTION 1: Grid Recognition**
+When students see 1/4, they might want to know "what's 2/4?" **DON'T GO THERE.** We're only establishing equal parts. Also avoid explaining WHY we need equal parts beyond "that's how fractions work."
 
-\[Option to add transition/framing: Let’s start by looking at how shapes can be split into the same size using grids.\]
+### **🎯 PEDAGOGICAL COMMITMENT (Path C \- VPSS)**
 
-🔵 **Visual:** \ Two grids appear side by side:
-
-* Left: 2x3 grid (6 squares total) 
-* Right: 1x4 grid (4 squares total)
-
-⚫ **Guide:** "Look at these grids. Each one is divided into squares. How many equal parts does the first grid have?"
-
-**Prompt:** Click on the number of parts in the first grid.
-
-🔵 **Visual:** Number buttons appear below first grid: \[2\] \[4\] \[6\]
-
-\[Student clicks on answer\]
-
-**SUCCESS PATH:** 
-
-⚫ **Guide:** "That's it \- 6 equal squares. See how each square is exactly the same size?"
-
-**ERROR PATH:** 
-
-🟠 **Light Remediation :** "Not quite. Count each square in the grid \- there are 6 squares total."
-
-**CONTINUE:**
-
-⚫ **Guide:** “How many equal parts does the second grid have?”
-
-**Prompt:** Click the number of parts.
-
-🔵 **Visual:** Number buttons appear below second grid: \[3\] \[4\] \[6\]
-
-\[Student clicks on answer\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "That's it \- 4 equal squares. See how each square is exactly the same size?"
-
-**ERROR PATH:** 
-
-🟠 **Light Remediation :** "Give it another try. Remember to count each square in the grid."
-
-## **INTERACTION 2: Creating Equal Parts**
-
-## **WARM-UP PHASE \- INTERACTION 2**
-
-\[Option to add transition to help move from recognizing to creating equal parts: Now that you've seen what equal parts look like in a grid, try making some yourself.\]
-
-🔵 **Visual:** \ A solid rectangle appears with a dotted line tool available
-
-⚫ **Guide:** "Here's a rectangle. Where would you draw one line to make 2 equal parts? Click where the line should go."
-
-**Prompt:** Click to make 2 equal parts.
-
-\[Student clicks to place line\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "There we go \- right down the middle. Both parts are exactly the same size."
-
-**ERROR PATH:**
-
-🟠 **Light Remediation :** "The line needs to go through the center so both sides match."
-
-🟠 **Medium Remediation :** "Look at the rectangle's width. You need both pieces to be exactly the same. The line should split it so the left side matches the right side perfectly." *\[Visual: Rectangle briefly highlights left and right halves in different colors\]*
-
-## **INTERACTION 3: TILE ARRANGEMENTS**
-
-\[Option to add transition: Sometimes shapes look like they’re split into parts, but the parts aren’t actually equal.\]
-
-🔵 **Visual:** \ Two rectangles appear as pre-arranged options:
-
-* Option A: Rectangle divided into equal thirds 
-* Option B: Rectangle divided into unequal thirds (center third much larger than the other two)
-
-⚫ **Guide:** "Look at these rectangles \- which one has equal parts?"
-
-**Prompt:** Click the bar with equal parts 
-
-\[Student clicks selection\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Yes\! Each of the parts are the same size."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Let's look closer. Are all these pieces exactly the same size?"
-
-🟣**Heavy Remediation \ :** 
- "Let's figure this out together. See these pieces? One's bigger, one's smaller \- that won't work for fractions. But look over here \- these are all exactly the same size. That's what we need." 
- *\[Visual: System counts tiles in each part\]*
-
-\[Option for closing/transition: You’ve done a great job recognizing and making equal parts. Now we’ll use that skill to explore some new kinds of shapes and learn a few important math words.\]
-
-# **LESSON PHASE**
-
-**Duration:** \~8-10 minutes **Purpose:** Main teaching of equal parts and fraction concept **Core Fractions:** halves, thirds, fourths, sixths, eighths (ALL REQUIRED) **Primary Visual Tool:** Grids for counting, shapes for partitioning 
-
-### **Interaction 1: Introduction to Grids & "Equal Parts"**
-
-🔵 **Visual:** \ Two grids appear: 2x2 (4 squares), 1x3 (3 squares). Multiple choice options appear for the first grid ( \[2\] \[4\] \[6\] )
-
-⚫ **Guide:** "Look at these grids. Each square is exactly the same size. How many squares are in the first grid?"
-
-**Prompt:** Count the squares in the first grid
-
-\[Student selects between: \[2\]\[4\]\[6\] \]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Yes\! When pieces are all the same size like this, we call them EQUAL PARTS. So this grid has 4 equal parts\!"
-
-
-
-**ERROR PATHS:** 
-
-🟠 **Light :** "Count each square carefully." 
-
-🟠 **Medium :** "Count each square one by one \- you should find 4 squares that are all the same size." *\[Visual: Each square in the 2x2 grid pulses in sequence\]* 
-
-🟣 **Heavy :** "Watch me count: 1, 2, 3, 4 squares. All the same size \- that's 4 equal parts."
-
-🔵 **Visual:** Multiple choice options appear for the second grid ( \[2\] \[3\] \[6\] )
-
-**CONTINUE:**
-
-⚫ **Guide:** "How many squares are in the second grid?"
-
-**Prompt:** Count the squares in the second grid
-
-\[Student selects between: \[2\] \[3\] \[6\] \]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Three squares\! You noticed that each square is the same size \- when pieces are all the same size like this, we call them EQUAL PARTS. So this grid has 3 equal parts\!"
-
-
-
-🟠 **Light :** "Count each square carefully." 
-
-🟠 **Medium :** "Count each square one by one \- you should find 3 squares that are all the same size." *\[Visual: Each square in the 1x3 grid pulses in sequence\]* 
-
-🟣 **Heavy :** "Watch me count: 1, 2, 3 squares. All the same size \- that's 3 equal parts."
-
-### **Interaction 2: Eight Equal Parts & "Whole"**
-
-🔵 **Visual:** \ A 2x4 grid appears (8 squares)
-
-⚫ **Guide:** \ "Here's a bigger grid\! The entire grid together is called the WHOLE. How many equal parts make up this whole grid?"
-
-
-
-**Prompt:** Count the equal parts in the whole grid.
-
-\[Student selects between \[4\] \[6\] \[8\] \]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Right\! Eight equal parts make up the whole grid. The whole includes ALL the equal parts together."
-
-**ERROR PATHS:** 
-
-🟠 **Light :** "make sure you count all the equal parts" 
-
-🟠 **Medium :** "Remember, the WHOLE grid means all the squares together \- that's 8 equal parts total." 
-
-🟣 **Heavy :** "Let me show you \- the WHOLE grid has 8 equal parts: 1, 2, 3, 4, 5, 6, 7, 8."
-
-### **Interaction 3: Creating Thirds & "Partition"**
-
-🔵 **Visual:** \ A solid rectangle appears
-
-⚫ **Guide:** "When we divide shapes into equal parts, there is a special math word we use to describe it. We call it PARTITIONING. Let's partition this rectangle into 3 equal parts."
-
-
-
-**Prompt:** Partition into 3 equal parts.
-
-\[Student draws line\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Nice, you broke up, or partitioned, the whole into thirds\! You made three equal parts from one whole."
-
-**ERROR PATHS:** 
-
-🟠 **Light \:** "Check if you partitioned it into equal parts." 
-
-🟠 **Medium \:** "When we partition, each equal part must be the same size. Try spacing evenly." 
-
-🟣 **Heavy \ :** "This is tricky\! Watch me partition: lines here and here. Now the whole has 3 equal parts."
-
-### **Interaction 4: Partitioning into Fourths**
-
-🔵 **Visual:** \ A solid square appears
-
-⚫ **Guide:** \ "Let's partition another whole. Partition this square into 4 equal parts."
-
-**Prompt:** Partition into 4 equal parts.
-
-\[Student partitions the square\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Excellent\! You partitioned the whole square into fourths. You're really understanding how to create equal parts\!"
-
-**ERROR PATHS:** 
-
-🟠 **Light :** "Four equal parts means all pieces must be the same size."
-
-🟠 **Medium \:** "To get 4 equal parts in a square, try one line down the middle, then one line across the middle. Like a plus sign\!" *\[Visual: Faint plus sign appears as guide\]*
-
-🟣 **Heavy :** "Let me show how I would partition this square \- one line down, one across makes 4 equal parts of the whole."
-
-### **Interaction 5: Partitioning Circles**
-
-🔵 **Visual:** \ A circle appears
-
-⚫ **Guide:** "Circles are special \- we always partition from the center point, like cutting a pizza\! Partition the first whole circle into 2 equal parts."
-
-**Prompt:** Partition circles into 2 equal parts.
-
-\[Student partitions from center\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Nice work\! You partitioned the whole circle into halves."
-
-**ERROR PATHS:** 
-
-🟠 **Light :** "Equal slices always start from the center point." 
-
-🟠 **Medium :** "Remember, we're partitioning the WHOLE circle. Every line should go all the way across, passing through the center. That's how we get equal parts of the whole." *\[Visual: Lines extend fully across circle through center\]*
-
-🟣 **Heavy :** "Here's the secret to circle partitioning: Find the center first. Now watch \- for halves, one line through it. For fourths, imagine a plus sign centered right there. See? The whole circle is now perfectly partitioned\!" *\[Visual: System highlights center, then demonstrates each partition type with clear center crossing\]*
-
-### **Interaction 6: Same Equal Parts, Different representations**
-
-🔵 **Visual:** \ Side by side: 2x2 grid and circle partitioned into 4
-
-⚫ **Guide:** \ "This whole grid has 4 equal parts, and this whole circle is partitioned into 4 equal parts too. Different representations, same number of equal parts\!"
-
-**Prompt:** Which wholes both show 4 equal parts?
-
-\[Student identifies both\]
-
-**SUCCESS PATH:** ⚫ **Guide:** "Exactly\! Both wholes have 4 equal parts \- this is how partitioning works in different shapes\!"
-
-**ERROR PATHS:** 
-
-🟠 **Light :** "Count the equal parts in each whole." 
-
-🟠 **Medium :** "Count all equal parts in each WHOLE \- both have 6." 
-
-🟣 **Heavy :** "The whole grid: 1,2,3,4,5,6 equal parts. The whole rectangle: 1,2,3,4,5,6. There we go \- same number of parts\!"
-
-## **TRANSITION TO EXIT CHECK**
-
-⚫ **Guide:** "You practiced partitioning different shapes into equal parts \- halves, thirds, fourths, sixths, even eighths\! Remember that equal parts are all the same size, and that the whole includes all the parts together. Let's continue to practice with some more problems."
-
-🔵 **Visual:** \ Current visuals fade
-
-# **EXIT CHECK PHASE**
-
-**Duration:** \~3 minutes **Purpose:** Gateway assessment to Practice \- tests ability to create equal partitions **Core Skills:** Creating equal parts in rectangles and circles, identifying equal partitions 
+"Visual exploration through pattern tiles before symbols. Create equal parts through manipulation before naming them. Student discovery through visual patterns before teacher explanation. Every partition must be checked for equality through visual/tactile verification."
 
 ---
 
-## **ASSESSMENT ITEM 1: Rectangle Partitioning into Thirds**
+## **1.2 FOUNDATION**
 
-🔵 **Visual:** \ A solid rectangle appears
+### **1.2.1 LEARNING GOALS**
 
-⚫ **Guide:** "Let’s partition this rectangle into 3 equal parts."
+**OUR L1 (VERBATIM):**  
+ "Partition shapes into equal areas (2,3,4,6,8) and name parts; recognize that equal-size parts can be named with fractions."
 
-**Prompt:** Partition into 3 equal parts.
+**OUR L2 (VERBATIM):**  
+ "Express each equal part as a unit fraction of the whole using fraction notation; partition into halves, thirds, fourths, sixths, eighths."
 
-\[Student partitions\]
+**Integration Point:** After students successfully partition and verify equal parts, introduce notation as "the mathematical way to name what you just created." Visual first, symbols second.
 
-**SUCCESS PATH:** ⚫ **Guide:** "Excellent\! You spaced those lines evenly \- three equal parts."
+**Module Goal (Student-Facing):**  
+ "For our fraction work, you’ll learn what makes parts equal by splitting shapes into equal parts of a whole.You'll learn how to split shapes into equal parts and understand what makes parts equal for fractions."
 
-**ERROR PATHS:**
+**Exit Check Tests:** Can identify equal partitions AND match simple fraction names to visuals (e.g., "which shows thirds?")
 
-🟠 **Light Remediation :** "The three parts need to be equal \- check your spacing."
+### **1.2.2 STANDARDS CASCADE**
 
-🟠 **Medium Remediation \:** "Remember, equal parts means each piece is the same size. For thirds, imagine dividing into three fair shares." *\[Visual: Guide marks appear at 1/3 and 2/3 positions\]*
+| Building On | 2.G.A.3 \- Partition circles/rectangles into equal shares (halves, quarters) |
+| :---- | :---- |
+| **Addressing** | **3.G.A.2** \- Partition shapes into equal areas; **3.NF.A.1** \- Understand fractions |
+| **Building Toward** | **3.NF.A.2, 3.NF.A.2a** \- Understanding unit fractions and fraction notation |
 
-🟣 **Heavy Remediation \ :** "Let me show you. To partition into thirds, I place one line here, another here. See? Three parts, all the same size. That's what equal parts means." *\[Visual: System demonstrates correct partitioning into thirds\]*
+### **1.2.3 MODULE BRIDGES**
 
-## **ASSESSMENT ITEM 2: Circle Partitioning into Fourths**
+**From Grade 2:**  
+ Students can identify and partition basic shapes (circles, rectangles, squares) into 2-4 equal parts, using informal language like "half" and "quarter"
 
-🔵 **Visual:** \ A circle appears with center point marked
+**This Module:**  
+ Students learn to partition shapes into equal areas (2, 3, 4, 6, 8 parts) and recognize that equal-size parts can be named with fractions
 
-⚫ **Guide:** "Now let’s try with a circle. Partition this whole circle into 4 equal parts."
+**To Module 2:**  
+This prepares students to name unit fractions (1/b) and understand fraction notation formally. Module 2 also introduces circles as a new shape for partitioning, building on the hexagon work from Module 1\.
 
-**Prompt:** Partition into 4 equal parts.
+### **CONTINUITY LANGUAGE (Path C \- VPSS)**
 
-\[Student partitions\]
+**Callback to Grade 2:**  
+ "Previously in school, you’ve seen shapes divided into parts. Remember in Grade 2 when you saw shapes divided into parts? You might have noticed patterns in how shapes could be split."
 
-**SUCCESS PATH:** ⚫ **Guide:** "There we go\! Both lines through the center \- that's how we get 4 equal parts."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** "Remember, circles need lines through the center."
-
-🟠 **Medium Remediation \:** "For equal parts in a circle, all lines must pass through the center point. Like cutting a pizza into 4 equal slices." *\[Visual: Center point glows, showing correct line placement\]*
-
-🟣 **Heavy Remediation \ :** "This is tricky\! Watch \- I draw one line through the center, then another crossing it. Like a plus sign through the middle. Now we have 4 equal parts of the whole circle." *\[Visual: System demonstrates drawing two perpendicular lines through center\]*
-
-## **ASSESSMENT ITEM 3: Identifying Equal Halves**
-
-🔵 **Visual:** \ Three shapes appear:
-
-* Rectangle divided into 2 equal parts (correctly) 
-* Circle divided into 2 unequal parts (incorrectly) 
-* Square divided into 2 equal parts (correctly)
-
-⚫ **Guide:** "Which of these shapes show equal halves?"
-
-**Prompt:** Click all shapes showing equal halves.
-
-\[Student selects shapes\]
-
-**SUCCESS PATH:** ⚫ **Guide:** \ "Yes\! You checked the size of each part carefully \- the rectangle and square both have equal halves."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** "Look carefully \- are both parts the same size in each shape?"
-
-🟠 **Medium Remediation :** "Equal halves means the whole is divided into 2 parts that are exactly the same size. Check if both pieces match in each shape." *\[Visual: Parts briefly highlight to show size comparison\]*
-
-🟣 **Heavy Remediation :** "Let me help you see it. In the rectangle \- both parts match, equal halves\! In the circle \- one part is bigger than the other, NOT equal. In the square \- both parts match, equal halves\!" *\[Visual: System shows overlay comparison of parts in each shape\]*
-
-## **CLOSURE BASED ON PERFORMANCE**
-
-### **If Pass (2-3 correct):**
-
-⚫ **Guide:** \ "Great job\! You worked through how to create equal parts and identify when partitions are equal. You're ready for more practice\!"
-
-### **If Partial (1 correct):**
-
-⚫ **Guide:** "You're getting there\! You understand some things about equal partitions. Let's strengthen this with more practice."
-
-### **If Struggle (0 correct):**
-
-⚫ **Guide:** "These ideas about equal parts take time to master. No worries \- we'll practice more to help it click\!"
-
-# **PRACTICE PHASE**
-
-**Duration:** \~10-12 minutes 
- **Purpose:** Independent application with scaffolded support to build mastery 
- **Core Fractions:** All five types \- halves, thirds, fourths, sixths, eighths 
- **Primary Visual Tool:** Grid arrays and shapes for partitioning 
-
-## **OPENING TRANSITION**
-
-⚫ **Guide:** \ "You’ve worked on partitioning and identifying equal parts. Now let's practice creating and identifying them in different ways."
+**Setup for Module 2:**  
+ "Now that you understand equal parts of a wholeand wholes, you're ready to name those parts. In math, we call parts of a whole “fractions.”specific parts with special numbers called fractions. Together, we’ll exploreYou'll discover how to identify just 'one part' using your visual pattern skills."
 
 ---
 
-## **PROBLEM 1: \[BASELINE/COMP-A/TOOL-BASIC\] \- \[CREATE\] Halves**
+## **1.3 MISCONCEPTIONS TO ADDRESS**
 
-🔵 **Visual:** \ A solid rectangle appears
+**Note:** Student errors are universal. Interventions below are Path C guidance only. For complete remediation specifications and formatting requirements, see Remediation Addition Protocol document.
 
-⚫ **Guide:** "Let's start with something you might remember from a previous problem we worked on. Partition this rectangle into 2 equal parts."
+### **1.3.1 MISCONCEPTION M1.1: Unequal Parts**
 
-**Prompt:** Create 2 equal parts.
+**Trigger Behavior:**  
+ Student accepts or creates partitions where parts are visibly different sizes; suggests that "sort of equal" is acceptable for fractions
 
-\[Student partitions\]
+**Why It Happens:**  
+ Informal everyday language ("I'll split this") doesn't require precision; visual estimation without measurement tools; lack of understanding that fractions are based on exact equality
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** "Nice \- you split it right down the middle. Both halves match perfectly."
+#### **PATH C (VPSS) INTERVENTION**
 
-**ERROR PATHS:**
+**Visual Cue:**  
+ Use pattern tiles to overlay and directly compare part sizes; show grid arrays where equal parts fill identical grid units
 
-🟠 **Light Remediation :** 
- "Check if both parts match."
-
-🟠 **Medium Remediation \:** 
- "For equal halves, the line needs to split the rectangle so both sides are the same size." 
- *\[Visual: Guide line appears at center\]*
-
-🟣 **Heavy Remediation \ :** 
- "Let me help. Watch \- I draw the line right through the middle. Now we have two equal parts, each exactly half of the whole." 
- *\[Visual: System demonstrates perfect halving\]*
+**Prevention Strategy:**  
+ Start with grid rectangles where equality is built-in; use pattern tiles that physically match when overlaid; emphasize visual comparison and matching
 
 ---
 
-## **PROBLEM 2: \[BASELINE/COMP-A/TOOL-BASIC\] \- \[CREATE\] Fourths**
+### **1.3.2 MISCONCEPTION M1.2: Misidentifying the Whole**
 
-🔵 **Visual:** \ A square appears
+**Source:** From OUR extraction \- Misconception \#2
 
-⚫ **Guide:** "Now let’s partition this square into 4 equal parts."
+**Trigger Behavior:**  
+ Student loses track of what constitutes "one whole"; compares parts from different-sized wholes; treats part as whole or whole as part
 
-**Prompt:** Create 4 equal parts.
+**Why It Happens:**  
+ No clear boundary established for "the whole"; attention shifts to parts and loses sight of complete object; comparing across different contexts without resetting "whole" reference
 
-\[Student partitions\]
+#### **PATH C (VPSS) INTERVENTION**
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** "Great\! You made fourths \- four equal parts of the whole."
+**Visual Cue:**  
+ Highlight the entire shape before partitioning; show complete grid array with boundary clearly marked; use pattern tiles that show complete hexagon or rectangle as "one whole"
 
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Each of the 4 parts should be the same size."
-
-🟠 **Medium Remediation :** 
- "Try two lines \- one down, one across \- like a plus sign through the middle." 
- *\[Visual: Faint guide lines appear\]*
-
-🟣 **Heavy Remediation :** 
- "Here's how I partition into fourths: one line down the middle, another across. Four equal squares\!" 
- *\[Visual: System demonstrates with highlighting each quarter\]*
-
-## **PROBLEM 3: \[BASELINE/COMP-B/TOOL-BASIC\] \- \[IDENTIFY\] Equal Parts**
-
-🔵 **Visual:** \ Three shapes appear:
-
-* Rectangle with 4 equal parts 
-* Circle with 4 equal parts 
-* Square with 4 unequal parts
-
-⚫ **Guide:** "Click all of the shapes that show equal parts. There might be more than one\!"
-
-**Prompt:** Select all shapes with equal parts.
-
-\[Student selects\]
-
-**SUCCESS PATH:** 
- ⚫ **Guide:** "Yes\! You found both shapes where all the parts are the same size."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Look carefully at the size of each part."
-
-🟠 **Medium Remediation :** 
- "Equal parts means every piece is exactly the same size. Compare the pieces in each shape." 
- *\[Visual: Parts briefly pulse to show size\]*
-
-🟣 **Heavy Remediation :** 
- "Let me show you. In the rectangle \- all three parts match. In the circle \- one part is bigger. In the triangle \- all three match again\!" 
- *\[Visual: System highlights and compares parts\]*
-
-### **PROBLEM 4: \[BASELINE/COMP-A/TOOL-ACCURATE\] \- \[CREATE\] Sixths**
-
-🔵 **Visual:** \ A solid horizontal rectangle appears
-
-⚫ **Guide:** "Here's a whole rectangle. Can you partition this whole into 6 equal parts? Think about how to make six pieces that are all the same size."
-
-**Prompt:** Partition into 6 equal parts.
-
-\[Student creates partitions\]
-
-**SUCCESS PATH:** 
- ⚫ **Guide:** "Excellent\! You partitioned the whole rectangle into six equal parts \- each piece is exactly one-sixth of the whole\!"
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Count your parts \- does the whole have exactly 6 equal pieces?"
-
-🟠 **Medium Remediation \:** 
- "Remember, we need to divide the WHOLE rectangle into 6 equal parts. You could make 6 vertical slices, or try 2 rows with 3 parts each." 
- *\[Visual: Faint guide marks appear showing two possible arrangements\]*
-
-🟣 **Heavy Remediation \ :** 
- "Let me show you one way. I'll partition this whole rectangle into 6 equal parts by making 5 lines like this \- now the whole is divided into 6 equal strips. Each strip is exactly the same size\!" 
- *\[Visual: System demonstrates creating 6 equal vertical sections\]*
+**Prevention Strategy:**  
+ Always establish "this is our whole" before partitioning; use consistent shape sizes; keep whole shape visible even after partitioning; build vocabulary around "the whole shape"
 
 ---
 
-## **PROBLEM 5: \[BASELINE/COMP-B/TOOL-ACCURATE\] \- \[IDENTIFY\] Eighths**
+## **1.4 VOCABULARY & CONTENT SPECIFICATIONS**
 
-🔵 **Visual:** \ three shapes appear, each divided differently:
+### **1.4.1 VOCABULARY ARCHITECTURE**
 
-* Rectangle with 8 equal parts (2x4 grid) 
-* Circle with 4 parts 
-* Rectangle with 8 unequal parts
+**Assessment Vocabulary (appears on STAAR):**  
+ partition, equal parts, fraction, whole, halves, thirds, fourths, sixths, eighths
 
-⚫ **Guide:** "Which shape is partitioned into exactly 8 equal parts?"
+#### **Vocabulary Sequence by Phase**
 
-**Prompt:** Select all shapes with 8 equal parts.
+| Phase | Terms | Introduction Script |
+| ----- | ----- | ----- |
+| **Warm-Up** | equal, parts | Use naturally \- "Are these pieces equal?" No formal intro yet |
+| **Lesson** | "partition" | After visual folding/creating, say: \[Vocabulary\_Staging\] "When we split something into equal pieces, we call that PARTITIONING" |
+|  | "whole" | During first activity: "This entire shape \- all of it together \- is our WHOLE. That's what we're dividing." |
+|  | "fraction" | After multiple examples of equal parts: "These equal parts can be named with FRACTIONS \- the word we use for equal parts out of one whole.special numbers" |
+| **Practice** | halves, thirds, fourths, sixths, eighths | Use in question contexts naturally: "Which shows fourths?" "Find the one divided into thirds" |
+| **Synthesis** | equal parts, fraction | Expect student use: "You learned that fractions name equal parts" |
 
-\[Student selects\]
+**Avoid These Terms (save for later modules):**
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** \ "Nice work\! You counted all 8 parts and checked they were equal\!"
+* numerator, denominator (Module 2 introduces these formally)  
+* Unit fraction (Module 2\)  
+* equivalent (Module 8\)  
+* greater than, less than for fractions (Module 10\)  
+* improper fraction, mixed number (Module 6-7)
 
-**ERROR PATHS:**
+### **1.4.2 CONTENT PROGRESSION**
 
-🟠 **Light Remediation :** 
- "Count the parts and check if they're equal."
+#### **UNIVERSAL EXAMPLES (Required)**
 
-🟠 **Medium Remediation :** 
- "Eight equal parts means counting 8 pieces that are all the same size." 
- *\[Visual: Numbers appear on parts briefly\]*
+**Start:** Grid rectangles (built-in equality through counting)
 
-🟣 **Heavy Remediation :** 
- "Let's count together. First shape: 1, 2, 3...8, all equal\! Second: only 4\. Third: 8 but not equal." 
- *\[Visual: System counts and highlights\]*
+**Extend:** Hexagons (straight edges, visible angles)
 
-## **PRACTICE \- PROBLEM 6 (Changes \#9 and \#17)**
+**Save for Later:** Circles (radial partitioning requires stronger foundation)
 
-## **PROBLEM 6: \[BASELINE/COMP-A/TOOL-ACCURATE\] \- \[CREATE\] Thirds**
+**PATH C (VPSS) VERSION**
 
-🔵 **Visual:** \ A horizontal rectangle appears
+**Numbers:** 2, 3, 4, 6, 8 parts (all five types required)
 
-⚫ **Guide:** "Partition this rectangle into thirds \- that's 3 equal parts."
+**Context:**  
+ Pattern tiles showing various equal divisions; grid arrays; circles partitioned from center
 
-**Prompt:** Create 3 equal parts.
+**Shape Sequence (pedagogical progression):**
 
-\[Student partitions\]
+**Grid Rectangles** (Start \- Lesson beginning)
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** "You got thirds\! Nice even spacing \- each part is the same width."
+* Why first: Equality built-in through counting grid units  
+* Partitions: All types (2,3,4,6,8)  
+* Purpose: Foundation for visual verification  
+* Cognitive advantage: Grid structure makes "equal" mathematically provable
 
-**ERROR PATHS:**
+**Hexagons** (End of Lesson \- after rectangle mastery)
 
-🟠 **Light Remediation :** 
- "Make sure all three parts are equal."
+* Why second: Straight edges maintain clarity; natural symmetry  
+* Partitions: 2, 3, 6 (natural divisions of hexagon structure)  
+* Purpose: Extend to multi-sided shapes while preserving verification ease  
+* Key transition: Angles and edges provide structure; students can still verify equality through visual comparison  
+* Module 1 focus: Substantial work with hexagons to build familiarity before curves
 
-🟠 **Medium Remediation \:** 
- "For thirds, imagine splitting into three fair shares \- all the same width." 
- *\[Visual: Faint marks at 1/3 and 2/3 positions\]*
+**Circles** (Module 2 \- after hexagon familiarity established)
 
-🟣 **Heavy Remediation \ :** 
- "Thirds can be tricky\! Watch \- I place lines here and here to make three equal parts." 
- *\[Visual: System demonstrates equal spacing\]*
+* Why Module 2: Radial partitioning most challenging; requires solid foundation in straight-edge shapes  
+* Partitions: 2, 4, 8 only (simplest radial divisions)  
+* Purpose: Show equal parts work in curved shapes; extend partitioning to all shape types  
+* Pedagogical decision: Separating hexagons (Module 1\) and circles (Module 2\) gives students time to internalize multi-sided partitioning before tackling curves
 
-## **PROBLEM 7: \[STRETCH/COMP-C/TOOL-FLEXIBLE\] \- \[APPLY\] Mixed Creation**
+**Pedagogical Rationale:** Rectangle (grid-supported) → Hexagon (straight edges, angles) → Circle (curves). This progression increases spatial complexity systematically. Module 1 establishes grid and straight-edge partitioning; Module 2 extends to curves.
 
-🔵 **Visual:** \ Two shapes appear: a circle and a rectangle
+#### **SHAPE USAGE RULES FOR PATH C**
 
-⚫ **Guide:** "Here's something a bit different. Partition both shapes into 4 equal parts."
+* **Modules 1-2:** Basic shapes (rectangles, hexagons, circles)  
+* **Same Whole Principle:** Comparisons only between identical shapes/sizes  
+* **Circle Conventions:** Always partition from center point  
+* **Pattern Block Introduction:** Module 3 (not yet)
 
-**Prompt:** Create 4 equal parts.
+#### **PRESERVE FROM OUR (Universal)**
 
-\[Student partitions both\]
+* Must include all five fraction types: halves, thirds, fourths, sixths, eighths  
+* Must create partitions, not just identify them  
+* Must check for equality explicitly
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** \ "Nice\! You handled two different partition types at once. You're really getting this\!"
+#### **AVOID (Universal)**
 
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Both shapes need 4 equal parts \- check your count in each."
-
-🟠 **Medium Remediation \:** 
- "Each WHOLE shape needs 4 equal parts. For the circle, try two lines through the center like a plus sign. For the rectangle, you could do the same\!" 
- *\[Visual: Center point appears on circle, faint plus sign hint on rectangle\]*
-
-🟣 **Heavy Remediation \ :** 
- "Let me show you. For the circle whole: two lines through the center make 4 equal parts. For the rectangle whole: I'll use a plus sign too \- one line down, one across. Now both wholes have fourths\!" 
- *\[Visual: System demonstrates both partitions sequentially\]*
-
-## **PROBLEM 8: \[STRETCH/COMP-C/TOOL-FLEXIBLE\] \- \[ANALYZE\] Pattern Recognition**
-
-🔵 **Visual:** \ A pattern sequence: rectangle with 2 parts, circle with 4 parts, blank rectangle, square with 8 parts
-
-⚫ **Guide:** "Look at this pattern. How should the rectangle be partitioned to fit?"
-
-**Prompt:** Partition the rectangle to complete the pattern.
-
-\[Student partitions\]
-
-**SUCCESS PATH:** 
- ⚫ **Guide:** \ "Exactly right\! You recognized the pattern \- 2, 4, 6, 8 \- and created 6 equal parts."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Look at the number pattern: 2, 4, ?, 8."
-
-🟠 **Medium Remediation :** 
- "The pattern adds 2 each time. After 4 comes 6\!" 
- *\[Visual: Numbers appear under shapes\]*
-
-🟣 **Heavy Remediation :** 
- "The pattern goes 2, 4, 6, 8\. So the rectangle needs 6 equal parts. Watch me partition it into sixths." 
- *\[Visual: System creates 6 equal parts\]*
-
-## **PROBLEM 9: \[SUPPORT/CONFIDENCE\] \- \[CREATE\] Simple Halves (If Struggling)**
-
-🔵 **Visual:** \ A simple square with a dotted line guide
-
-⚫ **Guide:** "Let's practice another one. Follow the dotted line to make 2 equal parts."
-
-**Prompt:** Create 2 equal parts.
-
-\[Student follows guide\]
-
-**SUCCESS PATH:** 
- ⚫ **Guide:** "Nice\! Two equal halves. You've got this\!"
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Follow the dotted line."
-
-🟠 **Medium Remediation :** 
- "The dotted line shows where to partition." 
- *\[Visual: Dotted line glows\]*
-
-🟣 **Heavy Remediation :** 
- "I'll help \- watch the line appear right down the middle\!" 
- *\[Visual: System completes partition\]*
-
-### **PROBLEM 10: \[CHALLENGE/COMP-C\] \- \[CREATE\] Advanced Application (If Succeeding)**
-
-🔵 **Visual:** \ Three identical rectangles appear in a row
-
-⚫ **Guide:** "These three rectangles are exactly the same size \- they're identical wholes. Can you partition each one differently? First into 2 equal parts, second into 3 equal parts, third into 4 equal parts."
-
-**Prompt:** Partition each rectangle into the correct number of equal parts.
-
-\[Student partitions all three\]
-
-**SUCCESS PATH:** 
- ⚫ **Guide:** \ \ "Nice\! Same-sized rectangles, different partitions \- you showed real flexibility."
-
-**ERROR PATHS:**
-
-🟠 **Light Remediation :** 
- "Check each rectangle: first needs 2 parts, second needs 3, third needs 4."
-
-🟠 **Medium Remediation \:** 
- "Remember, each rectangle is a whole. The first whole gets 2 equal parts, the second whole gets 3 equal parts, the third whole gets 4 equal parts." 
- *\[Visual: Numbers 2, 3, 4 appear above each rectangle\]*
-
-🟣 **Heavy Remediation \ :** 
- "Let me help with one. For the middle rectangle to have thirds, I make two lines to create three equal parts. Now you try the others \- 2 parts for the first, 4 for the last." 
- *\[Visual: System demonstrates the middle rectangle only\]*
-
-# **SYNTHESIS PHASE**
-
-**Duration:** \~6-7 minutes 
- **Purpose:** Connect equal parts concept to broader mathematical understanding 
- **Core Fractions:** Review all five types \- halves, thirds, fourths, sixths, eighths 
- **Primary Visual Tool:** Grid arrays and shapes showing patterns 
-
-## **OPENING TRANSITION**
-
-⚫ **Guide:** "You've done some great work creating and identifying equal parts. Next, we will explore some patterns that connect lots of the problems that we worked on in this lesson."
-
-\[Processing\_Pause \- 2 seconds\]
+* Real-world contexts that introduce measurement complexity  
+* Partitions into 5, 7, 9, 10+ parts (beyond grade level scope)  
+* Comparing fraction sizes or values
 
 ---
 
-## **CONNECTION 1: Gallery Pattern Discovery**
+## **1.5 DIGITAL SPECIFICATIONS \- PATH C (VPSS)**
 
-🔵 **Visual:** \ Gallery view appears showing 5 rectangles:
+### **PEDAGOGICAL PHILOSOPHY**
 
-* Rectangle with 2 equal parts, 1 shaded 
-* Rectangle with 3 equal parts, 1 shaded 
-* Rectangle with 4 equal parts, 1 shaded 
-* Rectangle with 6 equal parts, 1 shaded 
-* Rectangle with 8 equal parts, 1 shaded
+**Approach:** Visual-first using pattern tiles and grid arrays; students CREATE partitions through manipulation
 
-⚫ **Guide:** \ "All these rectangles are exactly the same size \- they're identical wholes. What do you notice as the number of parts increases?"
+**Visual Priority:** Show complete "whole" first, then partition it; emphasize equal-sized parts through overlay/comparison
 
-**Prompt:** What pattern do you see?
+**Cognitive Focus:** Spatial reasoning; pattern recognition; visual verification of equality
 
-\[Student selects between: \[The pieces get larger\] \[the pieces get smaller\] \[they all have equal parts\] \]
+### **PRIMARY TOOLS**
 
-**SUCCESS PATH:** 
- ⚫ **Guide:** \ "Exactly\! The selected piece gets smaller when there are more pieces for the same whole\!"
+#### **Grid Arrays**
 
-**ERROR PATH:** 🟠 **Light Remediation :** 
- "Look at the size of each piece as you go from 2 parts to 8 parts."
+* **Interaction:** Click to partition array into units  \[2\]\[3\]\[4\]\[6\]\[8\]; click/drag to partition; click to shade units.  
+* **Feedback:** Clear partitions appear, Shaded parts highlight; visual cue shows selected vs. unselected parts  
+* **Validation:** System checks if all parts cover equal number of grid units/cells; tracks shaded count  
+* **Error State:** Unequal parts show size mismatch; prompt to try again; system counts number of total or shaded parts  
+* **Shading Purpose**: After partitioning, students shade parts to reinforce "1 of 2 equal parts" \= 1/2, "2 of 3 equal parts" \= 2/3, etc.  
+* **Purpose:** Builds understanding that equal parts have equal areas; provides built-in verification tool
 
-## **CONNECTION 2: Same Parts, Different Shapes**
+**Pattern Tiles (Visual Recognition)**
 
-🔵 **Visual:** \ Three different shapes appear, all divided into fourths with 1 part shaded:
+* **Interaction:** Tap/click to select pre-arranged patterns that show equal parts  
+* **Feedback:** Selected pattern highlights  
+* **Validation:** Visual symmetry and repeating units indicate equality  
+* **Error State:** Incorrect selection prompts visual comparison prompt  
+* **Purpose:** Visual pattern recognition of equality through symmetry and matching shapes  
+* **Note:** These are pre-arranged visual patterns for identification, NOT individual tiles students drag around
 
-* Left: Rectangle divided into 4 vertical strips (1 shaded) 
-* Middle: Circle divided into 4 wedges from center (1 shaded) 
-* Right: Square divided into 4 squares using grid pattern (1 shaded)
+#### **Hexagons (Pattern Block Shape)**
 
-⚫ **Guide:** \ \ "These shapes are all different: A rectangle, a circle, and a square. Does each shaded part represent the same part of the whole?"
+* **Interaction:** Click to partition lines to divide hexagon into equal parts (2, 3, 6 divisions for Module 1). click to shade units.  
+* **Feedback:**  Partition lines appear; shaded sections highlight; parts show as selected  
+* **Validation:** Visual symmetry; straight edges make equality verification clear; system tracks shaded section count  
+* **Error State:** Unequal parts show size mismatch; prompt to adjust; system counts number of total or shaded parts  
+* **Shading Purpose**: After partitioning, students shade sections to show "1 of 3 equal parts" \= 1/3, etc.  
+* **Purpose:** Extend partitioning to multi-sided shapes while maintaining straight edges for verification; shading reinforces fraction naming  
+* **Pedagogical Note:** Hexagons complete Module 1 shape progression; substantial practice builds foundation for circles in Module 2
 
-**Prompt:** Does each shape represent the same part of the whole?
+#### **Partition Drawing Tool**
 
-🔵 **Visual:** Options appear: \[Yes \- same amount\] \[No \- different amounts\]
+* **Interaction:** Click/drag to draw partition lines on shapes  
+* **Feedback:** Line snaps to create equal divisions; parts highlight when equal  
+* **Validation:** System measures areas and confirms equality  
+* **Purpose:** Allows student creation and experimentation with partitioning
 
-\[Student selects\]
+### **VISUAL MODEL**
 
-**SUCCESS PATH:** 
-**⚫ Guide:** \ \ "Yes\! You figured out something important \- it doesn't matter HOW you partition, as long as the parts are equal and the wholes are the same size. Fractions are about the relationship between parts and wholes, not just the shapes we draw."
+**Primary Representation:** Grid arrays (most common) and pattern tiles
 
-**ERROR PATH:** 🟠 **Light Remediation:**
+**Key Features:** Visual equality through matching grid unitsor tile sizes; clear "whole" boundary; ability to overlay/compare parts
 
-"Each shape is 1 whole. Each is divided into 4 equal parts. So each shaded part is 1/4 of 1 whole."
+**Interaction Pattern:** Student creates → system validates → student verifies visually → iterate if needed
 
-## **CONNECTION 3: Pattern Application**
+### **ENGINEERING QUICK REFERENCE**
 
-🔵 **Visual:** A sequence appears with a blank:
+**Path C Components:** Grid Arrays, Hexagons, Pattern Tiles (pre-arranged patterns for visual recognition)
 
-* Circle with 2 parts 
-* Square with 4 parts 
-* Hexagon with 6 parts 
-* \[Blank rectangle\]
+**Components Needed:**
 
-⚫ **Guide:** "Let's see if you can apply the patterns you've discovered. This sequence shows a pattern. How many equal parts should the rectangle have?"
+* Grid Arrays (multiple sizes: 2x1, 2x2, 3x1, 3x2, 4x1, 4x2, 6x1, 8x1)  
+* Pattern Tiles (various shapes for future modules; rectangles primary for Module 1\)  
+* Hexagons with partition capability (2, 3, 6 divisions)  
+* Partition Drawing Tool with snap-to-equal feature
 
-**Prompt:** How many equal parts fit the pattern?
+**Input Methods:**
 
-🔵 **Visual:** Options appear: \[2\] \[5\] \[6\] \[7\]
+* Partition Drawing (click/drag lines)  
+* Multiple choice \[Equal/Unequal\] for identification  
+* Click to shade/unshade sections   
+* Click/tap to shade/unshade individual grid units or hexagon sections (used throughout Lesson and Practice)
 
+**Special Features:**
 
-**SUCCESS PATH:**
+* Overlay comparison capability  
+* Visual equality verification (parts match)  
+* Must CREATE partitions, not just identify them  
+* Can shade Grid Array units, Pattern tiles, or Hexagon parts.   
+* Snap-to-equal guides for drawing tool
 
-⚫ **Guide:** "Nice pattern recognition\! You saw 2, 4, 6, 8 \- and knew the rectangle needed 8 equal parts. You're really understanding how patterns work with equal parts\!"
-
-**ERROR PATH:** 🟠 **Light Remediation :** 
- "Look at the pattern: 2, then 4, then 6, then ?. What comes 2 after 6?"
+**Note:** Circles introduced in Module 2 after hexagon familiarity established.
 
 ---
 
-## **IDENTITY CLOSURE**
+## **1.6 PRACTICE ARCHITECTURE**
 
-🔵 **Visual:** All visuals fade
+**Note on Practice Pool Generation:** Practice problems will be generated through a separate pipeline. The specifications below show question types, distribution, and Path C interaction patterns for Module 1\. Individual problem labeling (tiers, cognitive verbs, components) happens during practice pool generation, not in this Starter Pack.
 
-⚫ **Guide:** "You practiced partitioning shapes into equal parts. You worked with halves, thirds, fourths, sixths, and eighths. When you make more parts, each piece gets smaller. These patterns stayed the same in every problem you tried. The equal parts you practiced are the foundation for fraction work. Good work today."
+### **1.6.1 DISTRIBUTION REQUIREMENTS**
 
-# **START-OF-DAY RECAP**
+* **Required Mix:** 40% RECOGNITION | 40% CREATION | 20% APPLICATION
 
-**Duration:** \~1 minute 
- **Purpose:** Bridge to today's learning and reinforce readiness 
- **When:** First script of the day 
- **Interactions:** 0 (orientation only) 
+### **1.6.2 QUESTION SPECIFICATIONS \- PATH C (VPSS)**
 
-## **WELCOME & RE-ORIENTATION**
+#### **RECOGNITION QUESTIONS (4 questions \- 40%)**
 
-⚫ **Guide:** "Welcome back\! Today we're exploring something really useful in math \- how to divide things into equal parts so everyone gets exactly the same amount."
+**Purpose:** Identify equal vs unequal partitions; recognize "the whole"
 
-## **PRIOR LEARNING ACTIVATION**
+**Question Style:** "Which shows equal parts?" with visual grid/pattern options
 
-⚫ **Guide:** "If you've ever shared a pizza or broken a chocolate bar with friends, you already know something about this idea. You know that fair sharing means everyone gets the same amount."
+**Examples:**
 
-## **TODAY'S LEARNING FRAME**
+1. "Select the rectangle that’s been divided into equal fourths" \[3 grid options shown\]  
+2. "Which circle shows equal parts?" \[Pre-divided circle options\]  
+3. "Find the shape where all parts match" \[Pattern tile arrangements\]  
+4. "Which shows the whole divided equally?" \[Mixed shapes\]
 
-⚫ **Guide:** "In this session, you'll learn how to create equal parts in any shape \- rectangles, circles, squares. You'll learn that mathematicians have a special way to name these equal parts. They're called fractions\!"
+**Success Indicator:** Student consistently selects equal partitions; rejects unequal with confidence
 
-# **END-OF-DAY RECAP**
+**Cognitive Load:** Visual comparison only; no creation required yet
 
-**Duration:** \~2 minutes 
- **Purpose:** Celebrate effort and growth 
- **When:** Last script of the day 
- **Interactions:** 1 (optional reflection)
+---
 
-## **EFFORT RECOGNITION**
+#### **CREATION QUESTIONS (4 questions \- 40%)**
 
-⚫ **Guide:** "Nice work. You learned to partition shapes into equal parts \- halves, thirds, fourths, sixths, even eighths\!"
+**Purpose:** Build equal partitions using tools; demonstrate understanding through action
 
+**Question Style:** "Partition this shape into \[\#\] equal parts"
 
-## **SPECIFIC ACHIEVEMENT ACKNOWLEDGMENT**
+**Examples:**
 
-⚫ **Guide:** "You learned that more parts means smaller pieces and you found out that fractions only work when all the parts are equal."
+1. "Use the drawing tool to divide this rectangle into 2 equal parts"  
+2. "Create 4 equal parts in this grid rectangle" \[Grid array provided\]  
+3. "Partition this circle into 8 equal pieces" \[Radial partitioning\]  
+4. "Make 6 equal parts using pattern tiles" \[Tile manipulation\]
 
-## **IDENTITY BUILDING**
+**Success Indicator:** Created partitions pass equality verification; student checks own work
 
-⚫ **Guide:** "You practiced finding patterns in the problems. You checked whether parts were equal. You worked with wholes and their parts. These equal parts are what you'll use as you continue to work with fractions."
+**Cognitive Load:** Requires planning and execution; visual verification after creation
 
-## **FUTURE PREVIEW**
+---
 
-⚫ **Guide:** "Next time, you'll learn the special mathematical names for these equal parts \- like how one part out of four is called one-fourth. You've built a strong foundation. Keep up this careful thinking\!"
+#### **APPLICATION QUESTIONS (2 questions \- 20%)**
 
+**Purpose:** Apply understanding to novel contexts; demonstrate flexible thinking
 
-⚫ **Guide:** "Great work this session\!"
+**Question Style:** "Fix this partition" or "Explain why this doesn't work"
+
+**Examples:**
+
+1. "This shape has parts that aren't equal. How can you tell?" \[Visual analysis\]
+
+**Success Indicator:** Can identify and correct inequality
+
+**Cognitive Load:** Higher \- requires evaluation and problem-solving
+
+**Novel Element:** Given imperfect work to analyze/fix rather than create from scratch
+
+---
+
+## **1.7 PATH PHILOSOPHY & LEARNER PROFILE**
+
+### **PATH C: Visual Pattern Spatial Structure (VPSS)**
+
+#### **PEDAGOGICAL FOUNDATION**
+
+* **Research Base:** Spatial reasoning research; visual learning theory; constructivist approach through manipulation  
+* **Core Principle:** Visual patterns reveal mathematical structure; students discover through creating and comparing  
+* **UNIQUE PROGRESSION:** Rectangle (grid-based) → Hexagon (straight edges) → Circle (curves). This sequence leverages increasing spatial complexity while maintaining verification methods  
+* **Cognitive Pathway:** See whole patterns → Manipulate to create parts → Verify equality visually → Generalize understanding
+
+#### **UNIQUE STRENGTHS OF THIS PATH**
+
+1. Pattern tiles and grids make equality concrete and verifiable (overlay to check)  
+2. Spatial reasoning leveraged as cognitive strength rather than working around it  
+3. Visual verification provides immediate feedback without relying on teacher judgment  
+4. Creates foundation for array-based thinking that supports future multiplication/division connections
+
+#### **RISKS TO AVOID**
+
+1. Over-reliance on grid scaffolding without building toward independence (address in Modules 4-7)  
+2. Pattern recognition without understanding why patterns work  
+3. Visual comparison without connecting to numerical/symbolic meaning  
+4. Skipping the "create" phase and only showing pre-made partitions
+
+### **CONVERGENCE PHILOSOPHY**
+
+#### **ALL PATHS MUST DEVELOP**
+
+* Understanding that fractions require exactly equal parts (not approximately equal)  
+* Ability to partition shapes into 2, 3, 4, 6, 8 equal parts  
+* Recognition of "the whole" as complete shape before partitioning  
+* Foundation for Module 2's unit fraction naming
+
+#### **ACCEPTABLE PATH DIFFERENCES**
+
+* Visual tools used (Path C uses grids/tiles vs other paths' tools)  
+* Order of partition introduction (Path C: 2→4→8, then 3→6 based on visual patterns)  
+* Language emphasis (Path C emphasizes "pattern" and "visual matching" more than other paths)
+
+#### **NON-NEGOTIABLE SIMILARITIES**
+
+* Mastery of core vocabulary: partition, whole, equal parts, fraction  
+* Success on universal exit check (can identify equal partitions)  
+* Readiness for Module 2 (prepared to name unit fractions)  
+* Rejection of "close enough" \- precision required for equality
+
+---
+
+## **1.8 PHASE-SPECIFIC SCRIPT GUIDANCE \- PATH C (VPSS)**
+
+**FOR CLAUDE:** This is your primary section for script generation. Everything you need for Path C is consolidated here.
+
+**CRITICAL PACING PRINCIPLE:** All timing estimates guide script structure and relative emphasis, not rigid requirements. Good teaching always wins over hitting exact minutes. If students need more time to process, take it. If they're ready to move faster, do. The pedagogical flow and student understanding matter more than the clock.
+
+### **PATH VOICE & APPROACH**
+
+| Element | Details |
+| ----- | ----- |
+| **Core Method** | Visual-first pattern discovery using grid arrays and pattern tiles |
+| **Voice Calibration** | "Look with me at how these patterns show..." "See how the tiles..." "The grid reveals..." |
+| **Visual Commitment** | Always show whole before partitioning; emphasize visual verification through overlay/comparison |
+| **Unique Strength** | Concrete visual proof of equality through matching grid units or overlaying tiles |
+| **Risk to Manage** | Building too much dependence on grid scaffold (will address in Modules 4-7) |
+
+---
+
+### **🔥 WARM-UP** 
+
+**CORE PURPOSE:**  
+ Activate pattern recognition for equal parts; create engagement with visual exploration
+
+**STRUCTURE:**
+
+* **Hook:** "Let’s lookook at these tile arrangements \- which shows equal groups?" \[Show pre-arranged options\]  
+* **Discovery:** Students identify patterns of equality through visual comparison  
+* **Bridge:** "Can you make 2 equal parts using these rectangles?"
+
+#### **INTEGRATION REQUIREMENTS**
+
+* **Vocabulary:** Use "equal" and "parts" naturally \- callback only, no formal introduction  
+* **Continuity:** Light callback if relevant: "Remember seeing shapes divided into parts?"  
+* **Misconception Watch:** M1.1 may trigger if student accepts unequal "close enough"  
+* **Digital Tool:** \[Tool\_Intro\] Grid rectangles (familiar start) \- first exposure  
+* **Visual:** Pre-divided grid rectangles; pattern tile arrangements
+
+#### **SCRIPT REQUIREMENTS ✅ Must Include**
+
+* **Say:** "Look at these patterns \- what do they show?"  
+* **Say:** "Which rectangle is divided equally?"  
+* **Show:** Grid rectangles with 2-4 divisions (some equal, some unequal)  
+* **Do:** Student clicks/selects equal partition  
+* **Check:** "How can you tell those parts are equal?" (visual verification)
+
+#### **SCRIPT REQUIREMENTS ❌ Never Allow**
+
+* Don't use formal vocabulary yet (no "partition," "fraction")  
+* Don't exceed 3 minutes  
+* Don't introduce fraction notation  
+* Don't say: "These are called fractions" or other premature naming
+
+#### **TONE & PACING**
+
+* **Tone:** Curious, exploratory; "Let's explorediscover..." "What do you notice?"  
+* **Pacing:** Allow 10-15 seconds for visual scanning; pause after questions  
+* **Energy:** Calm but engaged; emphasis on visual discovery
+
+---
+
+### **📚 LESSON**
+
+#### **CORE PURPOSE:**  Develop understanding that fractions require equal parts; learn to create equal partitions; name them with words, then with mathematical notation
+
+#### **PEDAGOGICAL FLOW:** Module 1 teaches partitioning, shading, and naming as an integrated progression. The lesson moves through three sections: (1) Grid mastery with fraction words, (2) Notation introduction, (3) Hexagon extension with full naming. This sequence preserves immediate connection (partition→shade) while building from concrete spatial work to abstract notation, leveraging VPSS spatial reasoning strengths.
+
+#### **KEY PEDAGOGICAL PRINCIPLE:** Students partition and shade IMMEDIATELY throughout, but naming progresses: fraction words first (Section 1), then notation (Section 2+). This maintains engagement and immediate feedback while allowing spatial pattern mastery before introducing symbols. Shading reinforces "X of Y equal parts" from the start, creating concrete understanding that notation later names.
+
+#### 
+
+#### 
+
+#### **TEACHING SEQUENCE**
+
+ **1: GRID MASTERY WITH FRACTION WORDS (No Notation Yet)**
+
+**CRITICAL MOMENT 1: Introducing "The Whole"**
+
+| Element | Details |
+| ----- | ----- |
+| **What Happens** | Establish complete shape as "one whole" before any partitioning; students identify whole shapes |
+| **Key Visual** | Complete grid rectangle with clear boundary;  |
+| **Guide Questions** | "What's the complete shape?" "Before we divide it, this whole thing is...what?" |
+| **Vocabulary** | Introduce "whole" using script: "This entire shape \- all of it together \- is our WHOLE" |
+| **Check** | "Click the whole shape" (verification) |
+| **Misconception Prevention** | Establish clear boundary before partitioning prevents M1.2 (misidentified whole) |
+| **Tool** | Grid rectangles (entry point for VPSS) |
+| **Why This Tool** | Visual patterns and repeating grid structures most intuitive for spatial thinkers; "these shapes match" builds toward formal equality |
+
+---
+
+**CORE DEVELOPMENT** (This is the heart of the lesson \- give it time)
+
+**CRITICAL MOMENT 2: Creating and Naming with Words (Halves, Fourths)**
+
+| Element | Details |
+| ----- | ----- |
+| **Tool Orientation (Before Student Creates)** | **Guide demonstrates partition and eraser functionality:** "Before you try, let me show you a helpful toolsomething helpful. If you make a cut you don't like..." \[Guide places partition line\] "...you can hover over the line and click to erase it. Watch\!" \[Guide erases line\] **Student practices:** "Now you try \- hover over that line and click to erase it." \[Student erases a pre-placed line\] **Why now:** Students need to know they can fix mistakes before attempting their first partition. Reduces anxiety and encourages experimentation. |
+| **What Happens** | Students partition rectangles into 2 then 4 equal parts using grid arrays; immediately shade one part after each partition; use WORDS to name (no notation yet) |
+| **Builds From** | Whole concept just established |
+| **New Element** | Creating equal parts \+ selecting parts through shading \+ naming with fraction words |
+| **Sequence for Each Fraction:** | Partition: "Click to make two equal parts" (1x2 grid) Shade: "Shade one part" (immediate after partition) Name: "You shaded one of two equal parts \- that's one HALF" Verify: "Count grid units- are they equal?" |
+| **Example Progression:** | Halves (1x2 grid): Partition → Shade 1 → "That's one half" → Check equality Fourths (1x4 AND 2x2 grid): Partition → Shade 1 → "That's one fourth" → Check equality |
+| **Vocabulary Staging** | After creating halves/fourths: "When we split something into equal pieces, we call that PARTITIONING" After fourths: "When all parts are the same size, we call them EQUAL PARTS"  |
+| **Language Emphasis** | Use fraction words naturally throughout ("halves," "fourths") \- students hear mathematical language before seeing symbols |
+| **Check** | "How many equal parts did you make?" "Which part is shaded?" "What do we call that?" |
+| **Misconception Prevention** | Grid verification prevents M1.1 (unequal parts accepted) |
+| **Tool** | Grid arrays (1D and 2D options) |
+| **Why This Tool** | Countable units make equality provable; shading provides immediate visual feedback; grid structure supports both linear (1x4) and area-based (2x2) thinking |
+
+---
+
+**CRITICAL MOMENT 3: Pattern Extension (Thirds, Sixths, Eighths) \- Still Words Only**
+
+| Element | Details |
+| ----- | ----- |
+| **What Happens** | Extend to 3, 6, 8 equal parts; discover doubling pattern (2→4→8, 3→6); continue partition → shade → name with WORDS pattern |
+| **Builds From** | Success with halves/fourths AND understanding of sequence New Element: More complex partitions; 2D grids for sixths (area-based thinking) Sequence Maintained: For EACH new fraction type, students partition → shade immediately → name with word |
+| **New Element** | More complex partitions; pattern recognition across partition types |
+| **Example** | Thirds (1x3 grid): Partition: "Try makingMake three equal parts" Shade: "Please shadeShade one part" Name: "That's one THIRD" Pattern Prompt: "You've made halves, fourths, thirds \- do you notice a pattern in how these parts are named what pattern do you notice in the words?" Sixths (2x3 OR 3x2 grid \- AREA-BASED): Strategy: "First split in half, then split each half into three" (explicit demonstration) Partition: Student creates 2x3 array Shade: "Please shadeShade one part" Name: "That's one SIXTH" Check: "Let’s countCount all the grid units \- six equal parts" VPSS Advantage: 2D grid shows sixths as spatial arrangement (2 rows × 3 columns), not just linear division Eighths (2x4 OR 4x2 grid): Strategy: "Start with halves, then fourths, then eighths" (repeated halving shown) Partition: Student creates 2x4 array Shade: "Can you shadeShade one part?" Name: "That's one EIGHTH" Pattern Recognition: "What happens when we double the number of  parts? The pieces get smaller. |
+| **Vocabulary** | Introduce "equal parts" formally after multiple experiences |
+| **Language Pattern Discovery** | "Let’s look atListen to the words \- halves, thirds, fourths, sixths, eighths \- they describe how many parts" |
+| **Check** | "How many equal parts total?" "What do we call one of those parts?" Important: NO notation symbols yet \- building spatial mastery and fraction vocabulary |
+| **Tool** | Grid arrays (emphasize 2D arrangements for sixths and eighths) |
+| **Why This Tool** | 2D grids distinguish VPSS from Singapore's linear approach; students think about arranging equal regions in space, not just dividing length Why Words First: Students recognize and use mathematical language before abstract symbols; auditory pattern recognition ("thirds," "fourths") builds understanding that notation will later represent |
+| **End of Section 1** | Students can partition grids (1D and 2D), shade to show "one part," and name using fraction words. They've experienced all 5 fraction types with immediate partition→shade→name connection. Ready for notation introduction. |
+
+---
+
+**CRITICAL MOMENT 4: Mathematical Notation Bridge**
+
+| Element | Details |
+| ----- | ----- |
+| **What Happens** | After solid experience with fraction words across all types, introduce notation as the written form of what they've been saying |
+| **Builds From** | Fluency with partition → shade → name using words |
+| **New Element** | Mathematical symbols (1/2, 1/3, 1/4, 1/6, 1/8) |
+| **Key Bridge** | "You've been saying 'one- fourth' \- mathematicians can write ‘one-fourth’ using numbersmathematicians have a special way to WRITE that" |
+| **Notation Introduction Sequence:** | Show Example: Display a partitioned, shaded grid with fourths Connect Language: "We've been saying 'one fourth'" Reveal Symbol: "We write it like this: 1/4" Explain Structure: "The bottom number tells us how many equal parts we made. The top number tells us how many parts we selected." Demonstrate: Point to shaded grid \- "See? We made 4 equal parts, and shaded 1\. That's 1/4." |
+| **Vocabulary** | Introduce "fractions": \[Vocabulary\_Staging\] "These equal parts can be named with FRACTIONS \- special numbers that show parts of a whole" |
+| **Application (2-3 examples on grids):** | Example 1: Show partitioned thirds with one shaded → "We've been calling this 'one- third' \- now we write 1/3" Example 2: "Please pPartition a grid into sixths and, shade one part" → Student partitions and shades → Guide: "What fraction is shaded?" → "1/6" Example 3: Show multiple grids (halves, fourths, eighths) → "Match the notation: which shows 1/2? which shows 1/8?" |
+| **Notation Explanation Emphasis** | Bottom number \= denominator \= how many equal parts in the whole Top number \= numerator \= how many parts we're talking about (shaded) Connection: "You already KNOW these fractions \- now you know how to WRITE them" |
+| **Check** | "Which number tells us the total parts?" "Which number shows what's shaded?" "What fraction is this?" |
+| **Important** | Students RECOGNIZE notation matched to visuals they created; focus on reading and matching, not independent writing yet |
+| **Tool** | Grid arrays (same tool, new layer of abstraction) |
+| **Why Introduce Here** | Students have spatial mastery \+ vocabulary; notation names what they deeply understand; introducing on familiar tool (grids) keeps cognitive load manageable |
+| **End of Section 2** | Students understand notation structure, can match symbols to partitioned/shaded grids, and recognize that notation represents the words they've been using |
+
+---
+
+**Section 3: HEXAGON EXTENSION (Apply Full Skill)**
+
+**CRITICAL MOMENT 5: Shape Transfer with Complete Naming**
+
+| Element | Details |
+| ----- | ----- |
+| **What Happens** |  Extend equal partitioning to hexagons; students now apply full partition → shade → name with NOTATION sequence to new shape |
+| **Builds From** | Notation understanding from Section 2 |
+| **New Element** | Multi-sided shape with 6 sides; symmetrical structure with angles; complete naming skill applied |
+| **Transfer Challenge** | "You've worked withmastered grids. Can you show equal parts on a hexagondo this on a hexagon?" |
+| **Shape Introduction** | Show complete hexagon: "This is our whole \- a hexagon with 6 sides" Key Difference: "Instead of counting grid units, we'll look at sections with straight edges" Verification Method: "Count sides in each section to check equality" |
+| **Partitions Covered** | Halves, thirds, sixths (2, 3, 6\) \- natural divisions of hexagon |
+| **Sequence for Each (Full Skill)** | Partition: "Can you make Make \[X\] equal parts on this hexagon?" Shade: "Please shadeShade one part" Name WITH notation: "What fraction is shaded?" → "1/3" Verify: "When we count the sides, Count the sides \- are the sections equal?" |
+| **Example Progression** | Halves on hexagon: Partition → Shade → "That's 1/2" (TRANSFER from grid understanding) Thirds on hexagon: Partition → Shade → "That's 1/3" Sixths on hexagon: Partition → Shade → "That's 1/6" |
+| **Cross-Tool Comparison** | "After hexagon mastery, show side-by-side: Grid with fourths (2x2 shaded) showing 1/4 | Hexagon with thirds (1 section shaded) showing 1/3 Guide: "Different shapes, different partitions, but the same notation system works for both" Check: "What stayed the same? The notation shows equal parts on any shape" |
+| **Pedagogical Advantage** | Straight edges and visible angles make equality verifiable without grid Symmetry provides visual proof Students see that notation transcends specific tools Prepares for circles in Module 2 (curves are next complexity level) |
+| **Module 1 Focus** | Multiple hexagon partitioning experiences; build familiarity and confidence with angled shapes |
+| **Important Note** | Circles come in Module 2 \- "Hexagons have straight edges you can count. After more practice, you'll be ready for circles which have curves instead |
+| **Purpose** | Complete Module 1 shape progression from grid-supported (rectangles) to straight-edge multi-sided (hexagons); demonstrate that equal parts work across shapes; apply notation in new context |
+| **Tool** | Hexagons with partition drawing tool |
+| **Why This Tool** | After grid mastery \+ notation understanding, students ready for shape variation. Hexagons' straight edges are easier than curves while still increasing spatial complexity. Maintains verification methods (count sides/sections) while showing transferability. |
+| **Why After Notation** | Students arrive with full skill set (partition, shade, name), making transfer explicit rather than learning everything simultaneously |
+| **End of Section 3** | Students can partition, shade, and name with notation on BOTH grids and hexagons; understand that notation works across shapes |
+
+---
+
+**SYNTHESIS MOMENT: Connecting the Learning**
+
+| Element | Details |
+| ----- | ----- |
+| **What Happens** | Brief review connecting grids and hexagons; prepare for independent work |
+| **Visual Summary** | Show 2-3 examples of fractions on both tools |
+| **Key Message** | ""You learned to partition grids AND hexagons into equal parts, shade them, and name them with fractions. You're ready to practice on your own." |
+
+---
+
+#### **INTEGRATION REQUIREMENTS**
+
+* **Vocabulary:** whole (Section 1), partition (Section 1), equal parts (Section 1), fractions (Section 2), all fraction words throughout  
+* **Examples:** 2, 4, 8 parts (doubling pattern); 3, 6 parts (doubling pattern); all five types covered  
+* **Misconception Prevention:** Constant visual verification (grid counting in Section 1-2, symmetry checking in Section 3); immediate shading reinforces "X of Y parts" throughout  
+* **Digital Tools:** Grid arrays (1D and 2D) Sections 1-2, notation introduced on grids Section 2, hexagons Section 3,  
+* **Shape Emphasis:** Grids (all 5 fractions) → Notation bridge → Hexagons (3 fractions with notation) → Mixed application
+
+#### **SCRIPT REQUIREMENTS ✅ Must Include**
+
+* **Say:** "This entire shape is our WHOLE"  
+* **Say:** "When we split something into equal pieces, we call that PARTITIONING"  
+* **Say:** "These equal parts can be named with FRACTIONS"  
+* **Show:** Grid arrays for all five partition types (2, 3, 4, 6, 8\) in Section 1  
+* **Show:** 2D grids (2x3 for sixths, 2x4 for eighths) to emphasize area-based thinking  
+* **Show:** Notation introduction (1/4) with explanation of top/bottom numbers in Section 2  
+* **Show:** Hexagons with 2, 3, 6 partitions in Section 3  
+* **Do:** Student partitions → shades immediately → names (first with words, then notation)  
+* **Do:** Student matches notation to visuals (recognition practice)  
+* **Check:** Frequent equality verification \- "Count the grid units" or "Look at the symmetry"  
+* **Connect:** "You've been saying 'one- fourth' \- now you know how to write it: 1/4"  
+* Must use words: "halves", "thirds", "fourths", "sixths", "eighths"
+
+#### **SCRIPT REQUIREMENTS ❌ Never Allow**
+
+* Don't introduce numerator/denominator terminology (Module 2\)  
+* Don't skip immediate shading after partitioning (breaks connection)  
+* Don't introduce notation before Section 2 (spatial/language foundation first)  
+* Don't accept "close enough" \- precision required  
+* Don't compare fraction sizes (Module 10+)  
+* Don't introduce circles (Module 2 content)  
+* Don't make students partition without shading (loses immediate feedback)
+
+#### **TONE & PACING**
+
+* **Section 1 Tone:** Discovery-focused, building vocabulary; "Let's make equal parts" "What do we call this?"  
+* **Section 2 Tone:** Bridge-building, revealing; "You already know this \- here's how we write it"  
+* **Section 3 Tone:** Transfer and application; "Can you do this on a new shape?"  
+* **Pacing:** Processing pause after each new partition type (15-20 seconds); allow visual analysis time  
+* **Emphasis:**  
+  * Section 1: Visual patterns; equality verification; spatial relationships; fraction words  
+  * Section 2: Symbol-visual connection; notation structure  
+  * Section 3: Transferability; notation works across shapes  
+* **Wait Time:** After asking "Are these equal?" \- give 10-15 seconds for visual analysis  
+* **Wait Time:** After "What fraction is this?" \- give 10-15 seconds to match notation  
+* **Hexagon Emphasis:** Substantial time for hexagon work \- this is new spatial complexity
+
+---
+
+#### **PEDAGOGICAL RATIONALE FOR THIS SEQUENCE**
+
+**Why Grids First (Section 1):**
+
+* Grid counting provides mathematical proof of equality (not visual estimation)  
+* 1D AND 2D options distinguish VPSS from Singapore's linear-only approach  
+* Students build spatial mastery across all 5 fraction types on familiar tool  
+* Immediate partition→shade connection maintained throughout
+
+**Why Words Before Notation (Section 1):**
+
+* Auditory pattern recognition ("halves," "thirds," "fourths") builds linguistic foundation  
+* Students hear and use mathematical language before abstract symbols  
+* Reduces cognitive load \- one new layer at a time  
+* Notation later "names what they know" rather than introducing everything simultaneously
+
+**Why Notation on Grids (Section 2):**
+
+* Introduces symbols on familiar tool (grids already mastered)  
+* Students can focus on notation structure without wrestling with new visual format  
+* Grid counting reinforces top/bottom number meaning (parts shaded / total parts)
+
+**Why Hexagons After Notation (Section 3):**
+
+* Students arrive with complete skill (partition \+ shade \+ name with notation)  
+* Transfer becomes explicit: "Use your fraction skills on this new shape"  
+* Straight edges easier than curves; maintains verification methods  
+* Prepares for circles in Module 2
+
+**Why 2D Grids Matter:**
+
+* Distinguishes VPSS area-based thinking from Singapore's linear approach  
+* Sixths as 2x3 array \= spatial arrangement, not just division  
+* Leverages VPSS cognitive strength (pattern recognition in 2D space)  
+* Prepares for future array work in multiplication
+
+**Why Immediate Shading Throughout:**
+
+* Maintains engagement (no extended partitioning without payoff)  
+* Reinforces "X of Y equal parts" concept from start  
+* Provides immediate visual feedback  
+* Connects action to outcome (shade → see the relationship)
+
+---
+
+### **✓ EXIT CHECK (1-2 minutes)**
+
+**CORE PURPOSE:**  
+ Verify lesson understanding before practice \- can student identify equal partitions?
+
+**FORMAT & PROBLEM:**
+
+* **Format:** Visual identification (works for all paths)  
+* **Problem:** "Which shape is divided into equal parts?" \[3-4 options shown: some equal, some unequal\]  
+* **Path C Response:** Student clicks selection; uses visual comparison/pattern recognition  
+* **Success Indicator:** Correctly identifies equal partition; rejects unequal partitions
+
+**SCRIPT REQUIREMENTS:**
+
+* **Say:** "Let's see if you're ready to put these ideas into practice.practice"  
+* **Present:** Multiple grid rectangles or shapes (some with equal parts, some with unequal)  
+* **Wait:** 10-15 seconds for visual analysis  
+* **Assess:** Correct selection \= pass to Practice; incorrect \= re-teach brief concept
+
+---
+
+### **🎯 PRACTICE TRANSITION & PRACTICE PHASE (10-12 minutes)**
+
+#### **PRACTICE TRANSITION (Path C)**
+
+* **Bridge:** "You’re showing that you understand understand equal parts. Now you'll practice creating them and recognizing them in different shapes."  
+* **Identity Builder:** "You’re identifying visual patterns that will help you see when parts are equal.r visual pattern skills will help you see when parts are equal."  
+* **Setup:** "You'll use grids and tiles to create equal partitions."
+
+#### **PRACTICE PHASE (Path C)**
+
+**Distribution:** 40% Recognition / 40% Creation / 20% Application
+
+**Question Styles:** (See Section 1.6.2 for detailed examples)
+
+* **Recognition:** "Which shows equal fourths?" \[Visual selection\]  
+* **Creation:** "Can you partitionPartition this rectangle into 6 equal parts?" \[Using tools\]  
+* **Application:** "Try fixingFix this unequal partition" \[Problem-solving\]
+
+**Digital Tools:** Grid arrays; partition drawing tool; pattern tiles; hexagons; circles
+
+#### **INTEGRATION REQUIREMENTS**
+
+* **Vocabulary:** Students use "equal parts," "whole," "partition" naturally in responses  
+* **Misconception Watch:** M1.1 (unequal accepted) and M1.2 (wrong whole) \- Path C interventions from Section 1.3  
+* **Success Metric:** 80%+ accuracy on recognition; successful creation with tools; can verify equality
+
+#### **TONE & PACING**
+
+* **Tone:** Supportive but allowing independent work; "Now, you can try our strategy yourself.Try it yourself now"  
+* **Support:** Grid scaffolding available; overlay comparison tool if needed  
+* **Celebration:** "You created perfectly equal parts\!" or "Your visual checking worked\!"
+
+---
+
+### **💡 SYNTHESIS (2 minutes)**
+
+**CORE PURPOSE:**  
+ Cement learning using Path C visual language and spatial emphasis
+
+**STRUCTURE:**
+
+**Core Takeaway:**  
+ "You learned that we describe parts of a whole using fractionsfractions are a special way to describe equal parts of a whole. The key is that, for fractions to work, all parts must be exactly the same size. \- that's what makes them work for fractions."
+
+**Identity Moment:**  
+ "When you check that parts are equal by counting grid units or overlaying tiles, you're using visual proof to solve problems. Mathematicians use these strategies, too.thinking like a mathematician who uses visual proof."
+
+#### **INTEGRATION REQUIREMENTS**
+
+* **Vocabulary:** All Path C terms from 1.4.1 \- whole, partition, equal parts, fraction  
+* **Connection:** Bridge lesson and practice \- "You created equal parts in many shapes today"  
+* **Module Bridge:** Path C setup language: "Now that you understand equal parts and wholes, you're ready to name specific parts with special numbers called fractions. You'll discover how to identify 'one part' using your visual pattern skills."
+
+#### **SCRIPT REQUIREMENTS**
+
+* **Say:** Core takeaway above (or natural variation)  
+* **Say:** Identity moment above (or natural variation)  
+* **Invite:** Student reflection \- "What did you discover about equal parts today?"
+
+#### **TONE & PACING**
+
+* **Tone:** Reflective, celebratory; emphasis on visual discovery accomplished  
+* **Pacing:** Slower, allowing processing  
+* **Energy:** Warm acknowledgment of visual/spatial work
+
+---
+
+## **1.9 MODULE-SPECIFIC SCRIPT CONSTRAINTS**
+
+**Note:** These are MODULE-SPECIFIC constraints that override or supplement general script-writing rules from the Guide Design Prompt.
+
+### **1.9.1 CRITICAL LANGUAGE FOR THIS MODULE**
+
+#### **✅ REQUIRED PHRASES (must appear in scripts)**
+
+* "This entire shape is our WHOLE"  
+* "For fractions to work, all pieces must be exactly the same size"  
+* "When we split something into equal pieces, we call that PARTITIONING"  
+* "These equal parts can be named with FRACTIONS"  
+* Must use words: “halves”, “thirds”, “fourths”,”sixths”,”eighths”
+
+#### **❌ FORBIDDEN PHRASES (never use \- create misconceptions)**
+
+* "Close enough" or "about the same" (precision required)  
+* "This is 1/4" or any fraction notation in symbolic form (Module 2 content)  
+* "Which is bigger \- halves or fourths?" (comparison is Module 10+)  
+* "Numerator" or "denominator" (Module 2 vocabulary)
+
+### **1.9.2 PATH C (VPSS) CONSTRAINT OVERRIDES**
+
+**Must Always:**
+
+* Show complete 'whole' with clear boundary before partitioning  
+* Use grid counting or overlay comparison to verify equality  
+* Emphasize visual patterns
+
+**Never Allow:**
+
+* Accepting 'close enough'  
+* Introducing fraction notation before understanding equal parts  
+* Skipping visual verification step
+
+**Pacing Particular:**
+
+* Processing pause after each new partition type (15-20 seconds)  
+* Students need time for visual pattern analysis
+
+### **1.9.3 NON-NEGOTIABLES (from Scope Fence 1.1)**
+
+**ALWAYS:**
+
+* Visual before symbolic (show equal parts before naming "fractions")  
+* Verify equality explicitly (never assume \- count grid units or overlay)  
+* Establish "whole" before partitioning (prevent M1.2)
+
+**NEVER:**
+
+* Accept unequal parts as "close enough" (precision is the whole point)  
+* Introduce fraction notation like 1/2, 2/4 in symbolic form (Module 2\)  
+* Compare fraction sizes (Module 10+)  
+* Add or operate on fractions (Unit 6\)
+
+---
+
+## **1.10 QUALITY CONTROL CHECKLIST**
+
+### **CONTENT FIDELITY**
+
+* \[ \] Scope fence (1.1) prevents grade level creep \- no notation, no comparison  
+* \[ \] OUR learning goals (1.2.1) included verbatim  
+* \[ \] All five partition types appear: 2, 3, 4, 6, 8 parts  
+* \[ \] Standards alignment (1.2.2) complete
+
+### **PEDAGOGICAL INTEGRITY**
+
+* \[ \] Misconceptions (1.3) have specific triggers and Path C interventions  
+* \[ \] Vocabulary (1.4.1) has introduction scripts and sequence  
+* \[ \] Practice questions (1.6.2) distributed 40/40/20 (Recognition/Creation/Application)  
+* \[ \] Remediation uses variety from Project Instructions Remediation System section
+
+### **CURRICULAR CONTINUITY**
+
+* \[ \] Module bridges (1.2.3) explicit and complete  
+* \[ \] Callback language connects to Grade 2  
+* \[ \] Setup language foreshadows Module 2  
+* \[ \] Vocabulary progression mapped: \[equal, parts\] → \[partition, whole, fraction\] → \[unit fraction, 1/b\]
+
+### **DIGITAL SPECIFICATIONS**
+
+* \[ \] Animations (1.5) fully specified with timing  
+* \[ \] Digital tools (1.5) have interaction and validation details  
+* \[ \] Visual models (1.5) support conceptual development  
+* \[ \] Grid arrays serve as primary Path C tool
+
+### **PATH C SPECIFIC CHECKS**
+
+* \[ \] Pattern tiles and grid arrays used correctly throughout  
+* \[ \] Visual verification emphasized (overlay, grid counting)  
+* \[ \] Spatial reasoning language present  
+* \[ \] "Create then verify" sequence maintained
+
+### **CONVERGENCE VALIDATION**
+
+* \[ \] Reaches understanding: equal parts required for fractions  
+* \[ \] Exit check tests partition recognition  
+* \[ \] Can transition to Module 2 (ready for unit fraction naming)  
+* \[ \] Core vocabulary taught: whole, partition, equal parts, fraction
+
+### **SCRIPT GENERATION READINESS**
+
+* \[ \] Phase-specific guidance (1.8) consolidates all requirements  
+* \[ \] Module-specific constraints (1.9) clear  
+* \[ \] Decision points embedded for student variability  
+* \[ \] Tone and pacing guidance clear for Path C visual approach
+
+---
+
+## **FINAL VERIFICATION \- THE ESSENTIALS**
+
+### **THE ONE THING**
+
+Students understand that fractions require **EQUAL parts**, and they can create/recognize equal partitions (2, 3, 4, 6, 8 parts).
+
+### **BIGGEST RISK**
+
+Accepting "close enough" instead of true equality; rushing to fraction notation before understanding is solid.
+
+### **SUCCESS LOOKS LIKE**
+
+Student confidently creates equal partitions using grid arrays/tools; verifies equality by counting grid units or overlaying; rejects unequal partitions; understands "whole" concept; ready for Module 2's unit fraction naming.
+
+### **IF CLAUDE NEEDS MORE INFORMATION**
+
+If Claude can't find what it needs in Section 1.8, check:
+
+* **Misconceptions:** Section 1.3  
+* **Vocabulary:** Section 1.4.1  
+* **Content Examples:** Section 1.4.2  
+* **Digital Tools:** Section 1.5  
+* **Practice Distribution:** Section 1.6  
+* **Module Continuity:** Section 1.2.3  
+* **Remediation:** Use Project Instructions Remediation System section
+
+---
+
+**END OF MODULE 1 VPSS STARTER PACK**
 
