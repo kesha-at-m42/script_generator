@@ -335,10 +335,15 @@ def _load_function(function: Union[str, Callable], project_root: Path) -> Callab
 
     # Try to import the module
     try:
-        # Add utils directory to path if not already there
+        # Add utils for backwards compatibility (but lower priority)
         utils_dir = project_root / "utils"
         if str(utils_dir) not in sys.path:
             sys.path.insert(0, str(utils_dir))
+
+        # Add formatting directory to path (higher priority - inserted after utils so it comes first)
+        formatting_dir = project_root / "steps" / "formatting"
+        if str(formatting_dir) not in sys.path:
+            sys.path.insert(0, str(formatting_dir))
 
         module = importlib.import_module(module_name)
         func = getattr(module, func_name)

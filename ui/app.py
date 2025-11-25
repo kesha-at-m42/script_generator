@@ -76,7 +76,9 @@ with st.sidebar:
 
     st.divider()
 
-    output_dir = st.text_input("Output Directory", value="outputs/pipeline")
+    output_dir_base = st.text_input("Output Directory", value="outputs/pipeline")
+    use_timestamp = st.checkbox("Use Timestamp Folder", value=True,
+                                help="Create a timestamped subfolder for each run")
     verbose = st.checkbox("Verbose Logging", value=True)
     parse_json = st.checkbox("Parse JSON Output", value=True)
 
@@ -339,15 +341,15 @@ with tab2:
 
     # Field tooltips
     FIELD_TOOLTIPS = {
-        "role": "System role/identity for Claude. Defines who Claude is and how it should behave.",
-        "instructions": "The main task instructions. This is where you describe what Claude should do. Supports variable substitution with {{variable}}.",
-        "doc_refs": "List of documentation files to include as context. Files should be in inputs/modules/{module}/docs/.",
-        "module_ref": "Fields to fetch from modules.py. Map variable names to field paths.",
-        "output_structure": "Expected JSON schema or format for the output. Helps Claude understand the required structure.",
-        "prefill": "Template for prefilling Claude's response. Useful for ensuring consistent output format.",
-        "examples": "List of example inputs/outputs to guide Claude. Format: [{'description': '...', 'output': '...'}]",
-        "template_ref": "Fields to fetch from problem templates (similar to module_ref).",
-        "cache_docs": "Enable prompt caching for doc_refs to reduce API costs (90% savings).",
+        "role": "System role/identity for Claude. Defines who Claude is and how it should behave for this step.",
+        "instructions": "The main task instructions. This is where you describe what Claude should do, how it should reference documents and how to fill in the output structure. Supports variable substitution with {{variable}}.",
+        "doc_refs": "List of documentation files stored in input docs or module and path specific folders to include as context. Doc Refs should be entered on separate lines.",
+        "module_ref": "Fields to fetch from modules.py. Maps variable names to field paths.",
+        "output_structure": "Expected JSON schema or format for the output. Helps Claude understand the required output structure.",
+        "prefill": "Template for prefilling Claude's response. Useful for ensuring consistent output format and reducing unnecessary rewriting.",
+        "examples": "(WIP) List of example inputs/outputs to guide Claude.",
+        "template_ref": "(WIP) Fields to fetch from problem templates (similar to module_ref).",
+        "cache_docs": "Enable prompt caching for static doc_refs to reduce API costs (90% savings).",
         "cache_ttl": "Cache time-to-live: '5m' for 5 minutes or '1h' for 1 hour.",
         "temperature": "Sampling temperature 0.0-1.0. Higher = more creative, lower = more focused.",
         "max_tokens": "Maximum tokens to generate in the response.",
@@ -461,7 +463,7 @@ with tab2:
         st.subheader("Main Fields")
 
         # Role
-        st.markdown(f"**Role** ℹ️")
+        st.markdown(f"**Role** ")
         st.caption(FIELD_TOOLTIPS["role"])
         st.text_area("Role", height=100, key="edit_role", label_visibility="collapsed")
         if st.session_state.edit_role:
@@ -473,7 +475,7 @@ with tab2:
                 st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in role_vars])}")
 
         # Instructions
-        st.markdown(f"**Instructions** ℹ️")
+        st.markdown(f"**Instructions** ")
         st.caption(FIELD_TOOLTIPS["instructions"])
         st.text_area("Instructions", height=400, key="edit_instructions", label_visibility="collapsed")
         if st.session_state.edit_instructions:
@@ -484,13 +486,13 @@ with tab2:
                 st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in vars_found])}")
 
         # Doc Refs
-        st.markdown(f"**Doc Refs** ℹ️")
+        st.markdown(f"**Doc Refs** ")
         st.caption(FIELD_TOOLTIPS["doc_refs"])
         st.text_area("Doc Refs (one per line)", height=80, key="edit_doc_refs",
                     label_visibility="collapsed", placeholder="guide_design.md\nanimation_events.json")
 
         # Module Ref - Visual Editor
-        st.markdown(f"**Module Ref** ℹ️")
+        st.markdown(f"**Module Ref** ")
         st.caption(FIELD_TOOLTIPS["module_ref"])
 
         # Initialize if not exists
@@ -525,24 +527,24 @@ with tab2:
         with st.expander("⚙️ Advanced Fields", expanded=False):
 
             # Output Structure
-            st.markdown(f"**Output Structure** ℹ️")
+            st.markdown(f"**Output Structure** ")
             st.caption(FIELD_TOOLTIPS["output_structure"])
             st.text_area("Output Structure", height=200, key="edit_output_structure",
                         label_visibility="collapsed")
 
             # Prefill
-            st.markdown(f"**Prefill** ℹ️")
+            st.markdown(f"**Prefill** ")
             st.caption(FIELD_TOOLTIPS["prefill"])
             st.text_area("Prefill", height=80, key="edit_prefill", label_visibility="collapsed")
 
             # Examples
-            st.markdown(f"**Examples** ℹ️")
+            st.markdown(f"**Examples** ")
             st.caption(FIELD_TOOLTIPS["examples"])
             st.text_area("Examples (list of dicts)", height=150, key="edit_examples",
                         label_visibility="collapsed")
 
             # Template Ref
-            st.markdown(f"**Template Ref** ℹ️")
+            st.markdown(f"**Template Ref** ")
             st.caption(FIELD_TOOLTIPS["template_ref"])
             st.text_area("Template Ref (dict format)", height=80, key="edit_template_ref",
                         label_visibility="collapsed")
@@ -722,7 +724,7 @@ with tab3:
                     st.subheader(f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}")
 
                     # Show field paths helper
-                    with st.expander("ℹ️ Field Path Reference", expanded=False):
+                    with st.expander(" Field Path Reference", expanded=False):
                         st.caption("Use these paths in module_ref to access fields:")
                         st.code("""
 Examples:
@@ -763,6 +765,14 @@ with tab4:
         st.subheader("Pipeline Summary")
 
         # Show pipeline overview
+        # Calculate output directory
+        if use_timestamp:
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_dir = f"{output_dir_base}/{timestamp}"
+        else:
+            output_dir = output_dir_base
+
         st.write(f"**Total Steps:** {len(st.session_state.pipeline_steps)}")
         st.write(f"**Module:** {module_number}")
         st.write(f"**Path:** {path_letter}")
@@ -782,6 +792,14 @@ with tab4:
         if st.button("▶️ Run Pipeline", type="primary"):
             with st.spinner("Running pipeline..."):
                 try:
+                    # Calculate output directory with timestamp
+                    if use_timestamp:
+                        from datetime import datetime
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        actual_output_dir = f"{output_dir_base}/{timestamp}"
+                    else:
+                        actual_output_dir = output_dir_base
+
                     # Build Step objects
                     steps = []
                     for step_config in st.session_state.pipeline_steps:
@@ -804,7 +822,7 @@ with tab4:
                         steps=steps,
                         module_number=module_number,
                         path_letter=path_letter,
-                        output_dir=output_dir,
+                        output_dir=actual_output_dir,
                         verbose=verbose,
                         parse_json_output=parse_json
                     )
