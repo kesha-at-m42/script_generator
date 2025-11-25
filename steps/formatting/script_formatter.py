@@ -59,7 +59,7 @@ def _format_single_interaction(interaction: dict) -> str:
 
 
 def _format_step(step: dict) -> str:
-    """Format a single step into markdown (matching old script_formatter.py style)"""
+    """Format a single step into markdown"""
     lines = []
 
     # Guide dialogue (⚫)
@@ -67,6 +67,11 @@ def _format_step(step: dict) -> str:
     if dialogue:
         lines.append(f"⚫ **Guide:** \"{dialogue}\"")
         lines.append("")
+    
+    # Screen prompt (⚪)
+    prompt = step.get("prompt")
+    if prompt:
+        lines.append(f"⚪ **Prompt:** {prompt}")
 
     # Workspace / Visual (🔵)
     workspace = step.get("workspace", [])
@@ -77,15 +82,10 @@ def _format_step(step: dict) -> str:
             lines.append(ws_md)
         lines.append("")
 
-    # Screen prompt (📱) with tool and answer inline
-    prompt = step.get("prompt")
-    if prompt:
-        lines.append(f"⚪ **Prompt:** {prompt}")
-
-        # Tool inline
-        interaction_tool = step.get("interaction_tool")
-        if interaction_tool:
-            lines.append(f"   **Tool:** {interaction_tool}")
+    # Tool
+    interaction_tool = step.get("interaction_tool")
+    if interaction_tool:
+        lines.append(f"   **Interaction Tool:** {interaction_tool}")
 
         # Answer inline
         correct_answer = step.get("correct_answer")
@@ -105,7 +105,7 @@ def _format_step(step: dict) -> str:
         if success_path:
             success_dialogue = success_path.get("dialogue", "")
             if success_dialogue:
-                lines.append(f"⚫ **Guide:** \"{success_dialogue}\"")
+                lines.append(f"⚫ **Guide: (If student answers correctly)** \"{success_dialogue}\"")
                 lines.append("")
 
     return "\n".join(lines)
