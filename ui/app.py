@@ -485,11 +485,66 @@ with tab2:
             if vars_found:
                 st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in vars_found])}")
 
-        # Doc Refs
-        st.markdown(f"**Doc Refs** ")
-        st.caption(FIELD_TOOLTIPS["doc_refs"])
-        st.text_area("Doc Refs (one per line)", height=80, key="edit_doc_refs",
-                    label_visibility="collapsed", placeholder="guide_design.md\nanimation_events.json")
+            # Document Upload and Management (must be BEFORE doc_refs widget)
+            with st.expander("📤 Manage Documents", expanded=False):
+                col_upload, col_list = st.columns([1, 1])
+
+                with col_upload:
+                    st.markdown("**Upload New Documents**")
+                    uploaded_files = st.file_uploader(
+                        "Choose files",
+                        accept_multiple_files=True,
+                        type=['txt', 'md', 'json', 'py', 'csv', 'xml', 'yaml', 'yml'],
+                        key="doc_uploader",
+                        label_visibility="collapsed"
+                    )
+
+                    if uploaded_files:
+                        if st.button("💾 Save Uploaded Files"):
+                            docs_dir = project_root / "inputs" / "docs"
+                            docs_dir.mkdir(parents=True, exist_ok=True)
+
+                            uploaded_names = []
+                            for uploaded_file in uploaded_files:
+                                file_path = docs_dir / uploaded_file.name
+                                with open(file_path, "wb") as f:
+                                    f.write(uploaded_file.getbuffer())
+                                uploaded_names.append(uploaded_file.name)
+
+                            # Update doc_refs BEFORE widget creation
+                            if "edit_doc_refs" in st.session_state:
+                                current_refs = st.session_state.edit_doc_refs.strip()
+                                if current_refs:
+                                    existing_refs = set(line.strip() for line in current_refs.split('\n') if line.strip())
+                                else:
+                                    existing_refs = set()
+
+                                for name in uploaded_names:
+                                    existing_refs.add(name)
+
+                                st.session_state.edit_doc_refs = '\n'.join(sorted(existing_refs))
+
+                            st.success(f"✅ Uploaded {len(uploaded_names)} file(s) and added to doc_refs")
+                            st.rerun()
+
+                with col_list:
+                    st.markdown("**Available Documents**")
+                    docs_dir = project_root / "inputs" / "docs"
+                    if docs_dir.exists():
+                        doc_files = sorted([f.name for f in docs_dir.iterdir() if f.is_file()])
+                        if doc_files:
+                            for doc in doc_files:
+                                st.caption(f"📄 {doc}")
+                        else:
+                            st.caption("No documents yet")
+                    else:
+                        st.caption("docs directory not found")
+
+            # Doc Refs
+            st.markdown(f"**Doc Refs** ")
+            st.caption(FIELD_TOOLTIPS["doc_refs"])
+            st.text_area("Doc Refs (one per line)", height=80, key="edit_doc_refs",
+                        label_visibility="collapsed", placeholder="guide_design.md\nanimation_events.json")
 
         # Module Ref - Visual Editor
         st.markdown(f"**Module Ref** ")
