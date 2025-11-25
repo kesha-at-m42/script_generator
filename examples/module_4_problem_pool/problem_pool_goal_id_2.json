@@ -1,0 +1,593 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can distinguish between number lines divided into equal parts and number lines divided into unequal parts.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two number lines from 0 to 1. One is divided into equal parts, and one isn't. Which one has equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 4,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 4,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line divided into equal parts.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the [vocab]number line[/vocab] where both parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Equal parts means both sections are exactly the same size. [event:selected_compare] Look at the spacing between the marks on the [vocab]number line[/vocab] you chose."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find equal parts. [event:A_compare] The first number line has two parts that are exactly the same size - from 0 to [fraction numerator=1 denominator=2]one half[/fraction], and from [fraction numerator=1 denominator=2]one half[/fraction] to 1. Each section takes up the same amount of space. That's what equal parts means."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found the [vocab]number line[/vocab] with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can distinguish between number lines divided into equal parts and number lines divided into unequal parts.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two number lines from 0 to 1. One has [vocab]equal intervals[/vocab], the other doesn't. Which one has unequal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "3/4",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with unequal intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check the spacing between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:selected_compare]Compare the distances between each tick mark on the [vocab]number line[/vocab] you selected. Are they all the same size?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to tell the difference. [event:A_compare]On the second [vocab]number line[/vocab], look at the spaces between tick marks - see how some intervals are wider and some are narrower? That's what makes them unequal. The second number line has unequal intervals."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified the [vocab]number line[/vocab] with unequal intervals."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can distinguish between number lines divided into equal parts and number lines divided into unequal parts.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines from 0 to 1. Each has tick marks, but only one is divided into equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "4/6",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "5/6",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line divided into equal parts.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check the spacing between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected number line to show unequal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. For equal parts, [event:selected_compare] the distance between each [vocab]tick mark[/vocab] needs to be exactly the same."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all intervals of the first number line to demonstrate equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find equal parts. [event:A_compare] Look at the first [vocab]number line[/vocab] - see how the distance from 0 to the first tick, from the first tick to the second tick, and so on are all exactly the same? That's what equal parts means. Each [vocab]interval[/vocab] is the same size."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You identified the [vocab]number line[/vocab] with [vocab]equal intervals[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can distinguish between number lines divided into equal parts and number lines divided into unequal parts.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines from 0 to 1. Each has tick marks, but only two are divided into equal parts. Which one has unequal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "1/2",
+                  "3/4",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "3/8",
+                  "1/2",
+                  "5/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with unequal parts.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look closely at the spacing between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:selected_compare]Check the distances between each tick mark on the [vocab]number line[/vocab] you selected - are they all the same?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find unequal parts. [event:C_compare]On the third [vocab]number line[/vocab], notice how the spacing between tick marks changes - some gaps are wider and some are narrower. That's what makes the parts unequal. The first two number lines have consistent spacing throughout."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You identified the [vocab]number line[/vocab] with unequal spacing."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can distinguish between number lines divided into equal parts and number lines divided into unequal parts.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Three number lines are shown here. Which one has equal spacing between all the ticks?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with equal intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check the spacing between each [vocab]tick mark[/vocab] carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected number line to highlight spacing differences"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more closely. [event:selected_compare]Compare the distances between the tick marks on the [vocab]number line[/vocab] you selected. Are they all the same?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the correct number line (line_equal) to demonstrate equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find equal spacing. Look at the second [vocab]number line[/vocab].[event:B_compare] See how the distance between each [vocab]tick mark[/vocab] is exactly the same? That's what equal spacing looks like - every [vocab]interval[/vocab] is identical. That's the number line with equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. That [vocab]number line[/vocab] has equal spacing between all tick marks."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

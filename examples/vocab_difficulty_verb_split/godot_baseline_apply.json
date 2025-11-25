@@ -1,0 +1,87 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 20,
+        "difficulty": 2,
+        "verb": "APPLY",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "Now show which parts were used if 3 pieces were served.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade the parts that were served",
+            "tool": "paint",
+            "validator": {
+              "@type": "ShadedPartsValidator",
+              "answer": 3
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade exactly 3 pieces from the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_three_sections",
+                        "description": "Three consecutive sections of the bar pulse gently to indicate which pieces should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_three_sections]You're getting there. Remember, 3 pieces were served, so you need to shade exactly 3 sections out of the 8 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_sequential_shading",
+                        "description": "Animated demonstration showing three sections being shaded one at a time with counting overlay (1, 2, 3) and final annotation showing '3 out of 8 parts'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_sequential_shading]Let me help you with this one. If 3 pieces were served, we need to shade 3 sections. Watch as I shade 1, 2, 3 sections - that shows 3 out of 8 parts were used. See how 3 shaded sections out of 8 total shows the pieces that were served."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded exactly 3 out of 8 parts."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

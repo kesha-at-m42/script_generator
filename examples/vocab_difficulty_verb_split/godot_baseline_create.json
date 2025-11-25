@@ -1,0 +1,685 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 6,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A teacher wants to share a granola bar equally among four students. Divide the bar so everyone gets an equal part.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 8
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the bar into equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/4"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make four equal parts so each student gets the same amount."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Sequential division strategy shown - bar highlights in sections to demonstrate equal spacing for 4 parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Four students need equal shares, so the bar needs four parts that are exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_equal_division",
+                        "description": "Animated demonstration showing three cut lines appearing sequentially to divide bar into 4 equal sections, with measurement lines confirming equal width"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement overlay appears showing all four sections have identical width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_equal_division][event:measure_sections_equal]This can be tricky, so let's work through it together. Four students means we need four equal parts. Watch as I divide the bar into four sections that are exactly the same size. See how each part is equal? That's how we make sure everyone gets a fair share."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into four equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 7,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A fruit bar needs to be cut into very small pieces for eight children. Divide the bar so everyone gets an equal part.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 16
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/8"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check your cuts. Eight children need equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Bar shows faint guide lines suggesting equal division strategy - dividing in half, then half again, then half again to create 8 sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Eight children means you need eight equal parts. Try dividing the bar so each section is the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_sequential_division",
+                        "description": "Animated demonstration showing the bar being divided step-by-step: first cut creates 2 parts, second and third cuts create 4 parts, fourth through seventh cuts create 8 equal parts. Each cut appears sequentially with measurement lines confirming equal spacing."
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "After division is complete, measurement lines appear showing all 8 sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_sequential_division][event:measure_sections_equal]This can be tricky, so let's work through it together. Eight children need eight equal parts. Watch as I divide the bar in half, then divide each half in half to make four parts, then divide each of those in half again. That gives us eight equal parts - one for each child. That's how eighths work - 8 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into eight equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 8,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Six teammates want to share a protein bar after practice. Partition the bar so each person gets an equal part.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 12
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/6"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many teammates need to share the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Animated guide lines appear showing how to divide the bar into 6 equal sections sequentially"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Six teammates means you need six equal parts. Each part should be the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "complete_division_into_sixths",
+                        "description": "Animated demonstration showing the bar being divided into 6 equal sections with measurement lines confirming equal width"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement overlay appears showing all 6 sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:complete_division_into_sixths][event:measure_sections_equal]This can be tricky, so let's work through it together. Six teammates need to share, so we need six equal parts. Let me show you: we divide the bar into six sections, making sure each section is exactly the same size. That's how sixths work - 6 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into six equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 10,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A loaf of bread needs to be sliced for six sandwiches. Divide this bar so each sandwich gets an equal slice.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 12
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into 6 equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/6"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check your spacing. You need 6 equal parts for the sandwiches."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Sequential division strategy shown - bar highlights in sections demonstrating equal spacing for 6 parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Each sandwich needs the same amount of bread, so all six slices must be exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_equal_division",
+                        "description": "Animated demonstration showing cut lines appearing one by one to divide bar into 6 equal sections, with measurement overlay confirming equal widths"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear showing all 6 sections have identical width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_equal_division][event:measure_sections_equal]This can be tricky, so let's work through it together. To make 6 equal parts, we divide the whole bar into 6 slices of the same width. Watch as I show you where each cut goes. See how all six pieces are exactly the same size? That's how sixths work - 6 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into sixths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 12,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A birthday cake bar is being shared at a party with eight guests. Divide the bar so everyone gets an equal piece.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 16
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the bar into 8 equal pieces",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/8"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check your spacing. Make sure all eight pieces are equal."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Sequential division strategy shown: bar divides in half, then each half divides in half again, then each quarter divides in half to create 8 equal sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Eight equal pieces means the bar needs to be divided so each section is exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "step_by_step_division",
+                        "description": "Animated step-by-step demonstration: first cut appears dividing bar in half, then two cuts appear dividing into fourths, then four final cuts appear creating eighths with measurement lines confirming equal spacing"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement overlay appears showing all 8 sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:step_by_step_division][event:measure_sections_equal]This can be tricky, so let's work through it together. To divide into eight equal pieces, we can split the bar in half first, then split each half in half again to get four pieces, and finally split each of those in half to get eight equal pieces. That's how we make sure everyone at the party gets the same amount."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into eight equal pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 24,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A granola bar package has 6 servings. Divide the bar so each serving is equal.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 12
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into 6 equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/6"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between your cuts. You need 6 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "show_division_guides",
+                        "description": "Faint vertical guide lines appear showing where 6 equal divisions would be positioned"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:show_division_guides]Let's think about this together. For 6 equal servings, each part needs to be the same size. Try spacing your cuts evenly across the whole bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animate_equal_cuts",
+                        "description": "Animated sequence showing 5 cuts being made sequentially to create 6 equal sections, with each section briefly highlighting to confirm equal size"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear above each of the 6 sections showing they are all equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animate_equal_cuts][event:measure_sections_equal]This can be tricky, so let's work through it together. To make 6 equal parts, we need to divide the bar into 6 sections that are all the same size. Watch as I make 5 cuts that create 6 equal servings. See how each part is exactly the same width? That's how sixths work - 6 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into 6 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 5,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "The whole pizza is cut into 8 equal parts. Shade one part to show [fraction numerator=1 denominator=8]one eighth[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/8"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the pizza."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_one_piece",
+                        "description": "One piece of the bar is outlined to show which part should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_one_piece]Let's think about this together. The fraction [fraction numerator=1 denominator=8]one eighth[/fraction] means one part out of eight equal parts. Choose any single piece to shade."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration shading exactly one section of the bar to show 1/8"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_one_section]This can be tricky, so let's work through it together. The fraction [fraction numerator=1 denominator=8]one eighth[/fraction] has 1 on top, which tells us to shade one part. The 8 on the bottom tells us the whole is divided into 8 equal parts. So we shade just one of those 8 pieces. That's how unit fractions work - the top number is always 1."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [fraction numerator=1 denominator=8]one eighth[/fraction] of the bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 18,
+        "difficulty": 2,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "This bar is divided into 8 equal parts. Shade one part to show [fraction numerator=1 denominator=8]one eighth[/fraction].",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/8"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to indicate where to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_piece]Let's think about this together. For [fraction numerator=1 denominator=8]one eighth[/fraction], you need to shade exactly one piece out of the 8 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration shading exactly one section of the bar to show 1/8"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_one_section]This can be tricky, so let's work through it together. [fraction numerator=1 denominator=8]One eighth[/fraction] means 1 out of 8 equal parts. Watch as I shade just this one section here. That's how unit fractions work - the numerator 1 tells us to shade exactly one part."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [fraction numerator=1 denominator=8]one eighth[/fraction] of the bar."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

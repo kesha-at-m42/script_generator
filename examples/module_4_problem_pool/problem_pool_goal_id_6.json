@@ -1,0 +1,879 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with one part shaded. Place a tick on the [vocab]number line[/vocab] to show how much is shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick to match the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                3
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded on the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] The bar has three equal parts. [event:A_compare_shaded] One part is shaded, so we need the tick that shows one out of three parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on a number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match this. The bar shows one shaded part out of three equal parts. [event:A_arrow] We count from zero to the first tick - that's one-third. That's the tick that matches the shaded amount."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You matched the shaded part to one-third on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "2/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Place a tick on the [vocab]number line[/vocab] to show how much is shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick to match the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look at this more carefully. [event:A_compare][event:A_compare_shaded] The bar has 3 equal parts total, and 2 of them are shaded. Your tick should show two-thirds."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the two-thirds tick on the number line to show the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match the bar to the [vocab]number line[/vocab]. [event:A_arrow] The bar shows 2 out of 3 equal parts shaded, which is two-thirds. The tick goes at the two-thirds mark on the number line. That's how we connect the bar model to the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You placed the tick at two-thirds to match the shaded bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with one part shaded. Find where that same amount belongs on the [vocab]number line[/vocab] below.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick to match the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts the bar has and find the matching [vocab]position[/vocab] on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] The bar is divided into 4 equal parts, and [event:A_compare_shaded] one part is shaded. Find the tick that shows one out of four equal spaces on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on the number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match these. The bar has 4 equal parts with 1 part shaded. That's one-fourth. On the [vocab]number line[/vocab], [event:A_arrow] we count one space from zero to find one-fourth. That's the first tick after zero."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You matched the shaded part to one-fourth on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "3/4"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with three out of four parts shaded. Place a tick on the [vocab]number line[/vocab] to show where this [vocab]fraction[/vocab] belongs.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick mark to show the fraction.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] Look at the bar - it has four equal parts total. [event:A_compare_shaded] Three of those parts are shaded. Your tick should show three-fourths on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the 3/4 tick on the number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match the bar to the [vocab]number line[/vocab]. [event:A_arrow] The bar shows three out of four equal parts shaded, so we place the tick at the third mark - that's three-fourths. See how the shaded portion matches exactly where the tick goes?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You placed the tick at three-fourths to match the shaded bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with one part shaded. Place a tick on the [vocab]number line[/vocab] to show how much is shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick mark to represent the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] The bar shows six equal parts total, and [event:A_compare_shaded] only one part is shaded. Your tick should match that one shaded part."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on a number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how this works. The bar has six equal parts, and one part is shaded. That means we need to place the tick [event:A_arrow] at the first mark on the [vocab]number line[/vocab] - that's one-sixth. See how the tick lines up with the one shaded part?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You matched the shaded part to one-sixth on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "5/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with five out of six parts shaded. Find where that amount belongs on the [vocab]number line[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick mark to represent the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the shaded parts on the bar, then find that same [vocab]position[/vocab] on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] Look at how many parts are shaded on the bar. [event:A_compare_shaded] Five parts out of six are shaded, so we need to find the tick that shows five-sixths."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on the number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match the bar to the [vocab]number line[/vocab]. The bar has five out of six parts shaded. [event:A_arrow] We count five-sixths from zero on the number line, which brings us to this tick right here. That's how we match five-sixths on the bar to five-sixths on the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You matched five-sixths on the bar to five-sixths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "2/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Place a tick on the [vocab]number line[/vocab] to show how much is shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick to match the shaded amount.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded on the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look at this more carefully. [event:A_compare][event:A_compare_shaded] The bar has 4 equal parts total, and 2 of them are shaded. Find that same spot on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the 2/4 tick on the number line to show the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. The bar shows 2 out of 4 equal parts shaded. [event:A_arrow] We place the tick at [fraction numerator=2 denominator=4]two fourths[/fraction] on the [vocab]number line[/vocab] - that's 2 parts out of 4. See how the shaded amount matches the tick [vocab]position[/vocab]?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You matched the shaded amount to the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can place ticks on a number line matching to a shaded rectangle bar.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "3/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Place a [vocab]tick mark[/vocab] on the [vocab]number line[/vocab] to show the same [vocab]fraction[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick mark to match the shaded fraction.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare][event:A_compare_shaded] Look at the bar - it's divided into 6 equal parts, and 3 of them are shaded. Your tick mark should show three-sixths on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the 3/6 tick on the number line to show the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match the bar to the [vocab]number line[/vocab]. [event:A_arrow] The bar has 3 out of 6 parts shaded, so we place the tick at three-sixths on the number line. See how the tick lines up with the same [vocab]fraction[/vocab] shown in the bar?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You placed the tick at three-sixths to match the shaded bar."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

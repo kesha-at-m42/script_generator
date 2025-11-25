@@ -1,0 +1,657 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 8.0,
+        "goal_text": "The student can compare the size of equal intervals between number lines.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two number lines from 0 to 1. One has larger intervals than the other. Which one has the larger intervals?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with larger intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the distance between marks on each [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:selected_compare] Notice the spacing between the tick marks you selected - now compare that to the spacing on the other [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to compare intervals. [event:A_compare] Look at the top [vocab]number line[/vocab] - it has 2 intervals from 0 to 1. Each [vocab]interval[/vocab] is larger because there are fewer of them. The bottom number line has 4 intervals, so each one is smaller. Fewer intervals means larger spacing."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. Fewer intervals means each [vocab]interval[/vocab] is larger."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 8.0,
+        "goal_text": "The student can compare the size of equal intervals between number lines.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/6"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two number lines from 0 to 1. One is divided into thirds, the other into sixths. Which one has smaller intervals?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with smaller intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the spacing between the tick marks on each [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When we divide the same distance into more parts, [event:selected_compare] look at how the spacing changes. Which [vocab]number line[/vocab] has more divisions?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to compare these. [event:B_compare] The [vocab]number line[/vocab] with sixths divides the same distance from 0 to 1 into 6 parts, while the thirds line only has 3 parts. When we make more divisions in the same space, each [vocab]interval[/vocab] gets smaller. That's why sixths are smaller than thirds."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. More intervals means each one is smaller."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 8.0,
+        "goal_text": "The student can compare the size of equal intervals between number lines.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "1/2",
+            "1/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines from 0 to 1. Each one is divided into [vocab]equal intervals[/vocab]. Which one has the largest [vocab]denominator[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 4,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 16,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with the largest denominator.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many intervals each [vocab]number line[/vocab] has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:selected_compare]Let's think about this together. The larger the denominator, the more parts the whole is divided into. Notice the size of the intervals on the [vocab]number line[/vocab] you selected compared to the others."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. The denominator tells us how many equal parts the whole is divided into. [event:C_compare]The [vocab]number line[/vocab] with eighths has 8 intervals - that's more than fourths (4 intervals) or halves (2 intervals). The more intervals we have, the larger the denominator. That's why eighths has the largest denominator."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. The [vocab]number line[/vocab] divided into eighths has the largest [vocab]denominator[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 8.0,
+        "goal_text": "The student can compare the size of equal intervals between number lines.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/4",
+            "1/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines, each divided into [vocab]equal intervals[/vocab]. Which one has the smallest intervals?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with smaller intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the spacing between the marks on each [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:selected_compare]Let's think about this together. Look at the distance between each mark - which [vocab]number line[/vocab] has marks that are closest together?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. When we compare number lines, we need to look at the spacing between marks. [event:B_compare]LThe [vocab]number line[/vocab] with sixths has 6 intervals between 0 and 1, so each [vocab]interval[/vocab] is smaller than the thirds or fourths. More intervals means each one is smaller."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. More intervals means each one is smaller."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 8.0,
+        "goal_text": "The student can compare the size of equal intervals between number lines.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/8",
+            "1/3"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two number lines, both going from 0 to 1. One is divided into eighths, the other into thirds. Which one has larger intervals?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line with larger intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the spacing between the tick marks on each [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:selected_compare]Let's think about this together. When a [vocab]number line[/vocab] has fewer intervals, each [vocab]interval[/vocab] takes up more space. Look at the distance between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to compare these. [event:B_compare]The [vocab]number line[/vocab] divided into thirds has only 3 intervals, so each [vocab]interval[/vocab] is larger. The number line divided into eighths has 8 intervals, so each interval is smaller. When we divide the same distance into fewer parts, each part is bigger. That's why thirds are larger than eighths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. Thirds are larger intervals than eighths."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

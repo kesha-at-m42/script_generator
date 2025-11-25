@@ -1,0 +1,1473 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 17,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Both of these bars are divided into four parts. But one has equal parts and one doesn't. Which bar has equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "4/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with equal parts",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar where all four parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sections_glow_together",
+                        "description": "All four sections of the top bar glow together to show they are equal"
+                      },
+                      {
+                        "name": "largest_smallest_pulse",
+                        "description": "The largest and smallest sections of the bottom bar pulse alternately to show size differences"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sections_glow_together][event:largest_smallest_pulse]Let's think about this together. Equal parts means all sections have the same width. Look closely at each bar to see which one has matching sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated overlay showing measurement lines confirming all sections are equal width in the top bar"
+                      },
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting size differences in the bottom bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal][event:measure_sections_unequal]This can be tricky, so let's work through it together. Equal parts means every section is exactly the same size. The top bar has four parts that are all the same width. The bottom bar has four parts, but they're different sizes - some are wider, some are narrower. That's how we know the top bar has equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the bar with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 13,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Sophia cut a paper strip into parts. Are all the pieces the same size?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select yes or no",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Yes",
+                "No"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look closely at each piece. Are they all the same size?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_sections_sequentially",
+                        "description": "Each section of bar_1 pulses sequentially from left to right to draw attention to size differences"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_sections_sequentially]Let's think about this together. Compare the pieces carefully - do they look exactly the same width?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines on each section, highlighting the width differences between smallest and largest pieces"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal]This can be tricky, so let's look together. Watch as I measure each piece. See how some are wider and some are narrower? When pieces are different sizes, they're not equal. That's why the answer is no - these pieces aren't all the same size."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You saw that the parts aren't the same size."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 14,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A granola bar has partition lines. Are all the parts the same size?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is this bar divided into equal parts?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Yes",
+                "No"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look closely at each part. Are they all the same size?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sections_pulse_sequentially",
+                        "description": "Each section of bar_1 pulses in sequence to draw attention to comparing their sizes"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sections_pulse_sequentially]Let's think about this together. Compare the width of each section. Do they look the same or different?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated overlay showing measurement lines confirming all three sections are equal width, appearing sequentially across each section"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal]This can be tricky, so let's work through it together. Watch as we measure each part. See how all three sections have the same width? That means they're equal parts. That's how equal parts work - each piece must be exactly the same size."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that all three parts are equal."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 1,
+        "difficulty": 2,
+        "verb": "COMPARE",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two chocolate bars are shared equally. Which bar has the bigger shaded part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the bigger shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one shaded piece in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded pieces in both bars are outlined to draw attention for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a bar is cut into fewer pieces, each piece is bigger. Compare the shaded pieces carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_shaded_piece_comparison",
+                        "description": "Animated overlay showing the shaded piece from bar_halves overlaid on bar_thirds to demonstrate size difference"
+                      },
+                      {
+                        "name": "measure_piece_size",
+                        "description": "Measurement lines appear showing the smaller size of one-third compared to one-half"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_shaded_piece_comparison][event:measure_piece_size]This can be tricky, so let's work through it together. The bar with halves has 2 equal pieces, and the bar with thirds has 3 equal pieces. When we divide the same size bar into fewer pieces, each piece is bigger. So [fraction numerator=1 denominator=2]one half[/fraction] is bigger than [fraction numerator=1 denominator=3]one third[/fraction]. That's why the bar with halves has the bigger shaded part."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You compared the unit fractions and found the larger piece."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 2,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two pizza strips, each with one piece shaded. Which strip has the bigger shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the bigger shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of the shaded pieces in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "Outlines appear around the shaded pieces in both bars for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a bar is cut into more pieces, each piece gets smaller. Look at the shaded pieces side by side."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "extract_and_compare_shaded",
+                        "description": "Shaded pieces from both bars are extracted and positioned side by side, showing the fourth is larger than the sixth"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "The top bar (fourths) pulses to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:extract_and_compare_shaded][event:highlight_correct_answer]This is tricky, so let's work through it together. The top bar is divided into 4 equal parts, so each piece is [fraction numerator=1 denominator=4]one fourth[/fraction]. The bottom bar is divided into 6 equal parts, so each piece is [fraction numerator=1 denominator=6]one sixth[/fraction]. When we divide the same whole into more pieces, each piece gets smaller. That means [fraction numerator=1 denominator=4]one fourth[/fraction] is bigger than [fraction numerator=1 denominator=6]one sixth[/fraction]. See how the shaded piece in the top bar takes up more space?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that [fraction numerator=1 denominator=4]one fourth[/fraction] is bigger than [fraction numerator=1 denominator=6]one sixth[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 4,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two sandwiches are shared with friends. Which sandwich gives each person the biggest piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar where each person gets the biggest piece",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one piece from each sandwich."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece from each bar is outlined to show their sizes for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_piece]Let's think about this together. When you split something into fewer pieces, each piece gets bigger. Look at one piece from each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_single_section",
+                        "description": "Animated overlay showing measurement lines on one piece from each bar, displaying their widths"
+                      },
+                      {
+                        "name": "comparison_highlight",
+                        "description": "Top bar glows to indicate it has the bigger pieces"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_single_section][event:comparison_highlight]This is tricky, so let's work through it together. The top sandwich is split into 2 pieces - those are halves. The bottom sandwich is split into 4 pieces - those are fourths. When we divide into fewer pieces, each piece is bigger. So halves are bigger than fourths. That's why fewer pieces means bigger shares."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that halves are bigger than fourths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 5,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A granola bar is divided equally among children. Which bar gives each person the biggest piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the biggest pieces",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about which bar has fewer pieces total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece from each bar is outlined to show its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_piece]Let's think about this together. When you divide the same size bar into fewer pieces, each piece gets bigger. Compare one piece from each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_single_piece",
+                        "description": "Animated overlay showing measurement of one piece from each bar with size annotation"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "Top bar glows to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_single_piece][event:highlight_correct_answer]This is tricky, so let's work through it together. The top bar is divided into 3 equal pieces, and the bottom bar is divided into 6 equal pieces. When we split the same amount into fewer pieces, each piece is bigger. So thirds are bigger than sixths. That's why the top bar gives each person the biggest piece."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with bigger pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 7,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fruit bars. Each has one piece shaded. Which bar has the smallest shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click on the bar with the smallest shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of the shaded pieces in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "Outline appears around the shaded pieces in both bars"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a bar is divided into more pieces, each piece gets smaller. Look at the shaded pieces carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement lines show the width of the shaded pieces in both bars"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "The bar with thirds pulses to indicate it has the smallest shaded piece"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_shaded_width][event:pulse_correct_answer]This is tricky, so let's work through it together. The bar with 2 pieces has larger pieces - each is [fraction numerator=1 denominator=2]one half[/fraction]. The bar with 3 pieces has smaller pieces - each is [fraction numerator=1 denominator=3]one third[/fraction]. More pieces means smaller pieces. So [fraction numerator=1 denominator=3]one third[/fraction] is smaller than [fraction numerator=1 denominator=2]one half[/fraction]. That's why more pieces create smaller fractions."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the smaller unit fraction - [fraction numerator=1 denominator=3]one third[/fraction] is smaller than [fraction numerator=1 denominator=2]one half[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 8,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two paper strips each have one part shaded. Which strip has the smallest shaded part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click on the bar with the smallest shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one shaded piece in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "Outline comparison of the shaded pieces from both bars"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a bar is divided into more pieces, each piece gets smaller. Which bar has more pieces?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement lines showing the width of shaded pieces in both bars, demonstrating fourths are smaller"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "Bar with fourths pulses to indicate it has the smallest shaded part"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_shaded_width][event:pulse_correct_answer]This is tricky, so let's work through it together. The bar with three parts has bigger pieces - [fraction numerator=1 denominator=3]one third[/fraction]. The bar with four parts has smaller pieces - [fraction numerator=1 denominator=4]one fourth[/fraction]. More pieces means each piece is smaller. So [fraction numerator=1 denominator=4]one fourth[/fraction] is the smallest shaded part. That's how unit fractions work - more parts make smaller pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the smaller unit fraction - [fraction numerator=1 denominator=4]one fourth[/fraction] is less than [fraction numerator=1 denominator=3]one third[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 10,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two candy bars are divided into equal parts, and each has one part shaded. Which bar has the bigger shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the bigger shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one shaded piece in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "Outline appears around the shaded pieces in both bars for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a bar is divided into fewer parts, each piece is bigger. Look at the shaded pieces side by side."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "extract_and_enlarge_shaded",
+                        "description": "The shaded pieces from both bars are extracted and enlarged above with labels '1/3' and '1/4'"
+                      },
+                      {
+                        "name": "overlay_comparison",
+                        "description": "The two extracted pieces align side by side, showing visually that 1/3 is larger than 1/4"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:extract_and_enlarge_shaded][event:overlay_comparison]This can be tricky, so let's work through it together. The left bar is divided into 3 equal parts, so each piece is [fraction numerator=1 denominator=3]one third[/fraction]. The right bar is divided into 4 equal parts, so each piece is [fraction numerator=1 denominator=4]one fourth[/fraction]. When we compare them, [fraction numerator=1 denominator=3]one third[/fraction] is bigger than [fraction numerator=1 denominator=4]one fourth[/fraction]. That's how unit fractions work - fewer parts means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You compared the unit fractions and found the larger piece."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 14,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A banana bread is shared equally with family. Which bar shows where each person gets the biggest piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar where each person gets the biggest piece",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one piece from each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece from each bar is outlined to show its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_piece]Let's think about this together. When we divide the same whole into fewer parts, each piece gets bigger. Look at one piece from each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_single_piece_comparison",
+                        "description": "One piece from thirds bar is highlighted and labeled '1 third - bigger piece', one piece from fourths bar is highlighted and labeled '1 fourth - smaller piece'"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "The thirds bar pulses to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_single_piece_comparison][event:pulse_correct_answer]This is tricky, so let's work through it together. The top bar is divided into 3 equal pieces - each person gets [fraction numerator=1 denominator=3]one third[/fraction]. The bottom bar is divided into 4 equal pieces - each person gets [fraction numerator=1 denominator=4]one fourth[/fraction]. When we split the same banana bread into fewer pieces, each piece is bigger. So thirds are bigger than fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with bigger pieces - thirds are larger than fourths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 15,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two wholes are divided differently. One part is shaded in each. Which bar has the smaller shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click on the bar with the smallest shaded part",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded pieces in both bars are outlined to show their sizes for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_shaded_piece]Let's think about this together. When a whole is divided into more parts, each piece gets smaller. Look at how many parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "label_fraction",
+                        "description": "Labels '1/2' and '1/4' appear above the shaded sections of the top and bottom bars respectively"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "The bottom bar pulses to indicate it has the smaller shaded piece"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:label_fraction][event:pulse_correct_answer]This can be tricky, so let's work through it together. The top bar is divided into 2 equal parts, so each piece is [fraction numerator=1 denominator=2]one half[/fraction]. The bottom bar is divided into 4 equal parts, so each piece is [fraction numerator=1 denominator=4]one fourth[/fraction]. When we divide the same whole into more parts, each part becomes smaller. That means [fraction numerator=1 denominator=4]one fourth[/fraction] is smaller than [fraction numerator=1 denominator=2]one half[/fraction]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the smaller unit fraction - [fraction numerator=1 denominator=4]one fourth[/fraction] is less than [fraction numerator=1 denominator=2]one half[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 6,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar is divided into 3 parts with one part shaded. Why isn't the shaded part [fraction numerator=1 denominator=3]one third[/fraction]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [
+                  1
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the reason why this isn't [fraction numerator=1 denominator=3]one third[/fraction]",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The parts are not equal",
+                "There are too many parts",
+                "The wrong part is shaded",
+                "The bar is too small"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look closely at the size of each part in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting that the three sections have different widths"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal]Let's think about this together. For a fraction like [fraction numerator=1 denominator=3]one third[/fraction], all three parts must be the same size. Look at the parts in this bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines with labels indicating the different widths of each section (smallest, largest, medium)"
+                      },
+                      {
+                        "name": "overlay_equal_comparison",
+                        "description": "Overlay showing what equal thirds would look like compared to the current unequal divisions"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal][event:overlay_equal_comparison]This is tricky, so let's work through it together. For something to be [fraction numerator=1 denominator=3]one third[/fraction], we need 3 equal parts. Look at this bar - the parts are different sizes. The first part is smaller, the middle is bigger, and the last is medium. Since the parts aren't equal, the shaded part can't be [fraction numerator=1 denominator=3]one third[/fraction]. That's why all three parts need to be equal for thirds."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that fractions need equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 7,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar has 4 parts with one shaded. But something isn't right about calling it [fraction numerator=1 denominator=4]one fourth[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select what's wrong with this bar",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The parts are not equal",
+                "There are too many parts",
+                "The wrong part is shaded",
+                "There should be 3 parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look closely at the size of each part in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between the four sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal]Let's think about this together. For a fraction to work, what needs to be true about all the parts? Look at the sections in this bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines with numerical width labels highlighting the size differences between sections"
+                      },
+                      {
+                        "name": "highlight_smallest_largest",
+                        "description": "The smallest section pulses in red, then the largest section pulses in red, showing the contrast"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal][event:highlight_smallest_largest]This is tricky, so let's work through it together. For any fraction to be accurate, all the parts must be equal in size. Look at this bar - the four sections are different sizes. Some are wider, some are narrower. That means we can't call it [fraction numerator=1 denominator=4]one fourth[/fraction]. See how all four parts need to be equal for fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it - fractions need equal parts to work."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 10,
+        "difficulty": 2,
+        "verb": "compare",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar has two parts, and one is shaded. But something's not quite right about calling it [fraction numerator=1 denominator=2]one half[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/3",
+                  "2/3"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Why doesn't this show 1/2?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The parts are not equal",
+                "Only one part is shaded",
+                "The bar is too small",
+                "There are only 2 parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look closely at the two parts of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting the size difference between the two parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal]Let's think about this together. For a fraction like [fraction numerator=1 denominator=2]one half[/fraction], what needs to be true about the two parts? Look at the sizes of these sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines with labels indicating the different sizes of each section"
+                      },
+                      {
+                        "name": "show_equal_comparison",
+                        "description": "A semi-transparent overlay appears showing what equal halves would look like on the same bar for comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal][event:show_equal_comparison]This is tricky, so let's work through it together. For [fraction numerator=1 denominator=2]one half[/fraction] to be accurate, both parts must be exactly the same size. Look at this bar - one part is much larger than the other. They're unequal, so this can't show [fraction numerator=1 denominator=2]one half[/fraction]. That's why all parts need to be equal for fractions."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that the parts must be equal for [fraction numerator=1 denominator=2]one half[/fraction]."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

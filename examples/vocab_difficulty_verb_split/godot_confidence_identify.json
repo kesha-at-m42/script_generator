@@ -1,0 +1,540 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 14,
+        "difficulty": 1,
+        "verb": "identify",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these bars. Which one is divided into 4 equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/5",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar divided into fourths",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the equal parts in each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_sections",
+                        "description": "Top bar sections highlight sequentially showing 3 parts"
+                      },
+                      {
+                        "name": "highlight_sections",
+                        "description": "Middle bar sections highlight sequentially showing 4 parts"
+                      },
+                      {
+                        "name": "highlight_sections",
+                        "description": "Bottom bar sections highlight sequentially showing 5 parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_sections]Let's think about this together. We need fourths, which means 4 equal parts. Count the sections in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Numbers 1, 2, 3 appear sequentially over each section with label 'thirds'"
+                      },
+                      {
+                        "name": "overlay_counting",
+                        "description": "Numbers 1, 2, 3, 4 appear sequentially over each section with label 'fourths' and checkmark"
+                      },
+                      {
+                        "name": "overlay_counting",
+                        "description": "Numbers 1, 2, 3, 4, 5 appear sequentially over each section with label 'fifths'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting]This can be tricky, so let's work through it together. The top bar has 3 equal parts - that's thirds. The middle bar has 4 equal parts - that's fourths. The bottom bar has 5 equal parts - that's fifths. We need fourths, so the middle bar is correct. See how fourths means exactly 4 equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with 4 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 8,
+        "difficulty": 1,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Jake ate one equal part of a granola bar divided into fourths. Which bar shows what he ate?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Jake ate one equal part out of four."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_sections_bar_top",
+                        "description": "The two shaded sections in the top bar pulse to show there are two parts shaded"
+                      },
+                      {
+                        "name": "pulse_shaded_sections_bar_middle",
+                        "description": "The one shaded section in the middle bar pulses to show there is one part shaded"
+                      },
+                      {
+                        "name": "pulse_shaded_sections_bar_bottom",
+                        "description": "The three shaded sections in the bottom bar pulse to show there are three parts shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_sections_bar_top][event:pulse_shaded_sections_bar_middle][event:pulse_shaded_sections_bar_bottom]Let's think about this together. Jake ate [fraction numerator=1 denominator=4]one fourth[/fraction], which means one part out of four equal parts. Count how many parts are shaded in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_shaded_parts_bar_top",
+                        "description": "Numbers appear over each shaded section counting '1, 2' to show two parts are shaded"
+                      },
+                      {
+                        "name": "count_shaded_parts_bar_bottom",
+                        "description": "Numbers appear over each shaded section counting '1, 2, 3' to show three parts are shaded"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "The middle bar glows to indicate it is the correct answer, with the single shaded section emphasized"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_shaded_parts_bar_top][event:count_shaded_parts_bar_bottom][event:highlight_correct_answer]This can be tricky, so let's work through it together. Jake ate [fraction numerator=1 denominator=4]one fourth[/fraction] of the granola bar. That means one part out of four equal parts. The top bar has two parts shaded - that's [fraction numerator=2 denominator=4]two fourths[/fraction]. The bottom bar has three parts shaded - that's [fraction numerator=3 denominator=4]three fourths[/fraction]. The middle bar has exactly one part shaded out of four equal parts. That's [fraction numerator=1 denominator=4]one fourth[/fraction], which is what Jake ate."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar showing [fraction numerator=1 denominator=4]one fourth[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 9,
+        "difficulty": 1,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A ribbon is cut into 6 equal parts. Find the bar that shows just one part shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with just one part shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The shaded sections in all bars pulse to show how many parts are shaded in each"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_sections]Let's think about this together. We need one part shaded, not two or three. Check how many parts are shaded in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_shaded_with_numbers",
+                        "description": "Numbers appear sequentially over shaded sections in top and bottom bars, followed by X marks to indicate incorrect"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "The middle bar's single shaded section glows with a checkmark and pulses to indicate the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_shaded_with_numbers][event:highlight_correct_answer]This can be tricky, so let's work through it together. The top bar has two parts shaded - that's too many. The bottom bar has three parts shaded - also too many. The middle bar has exactly one part shaded out of six equal parts. That's [fraction numerator=1 denominator=6]one sixth[/fraction], which is what we need."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with [fraction numerator=1 denominator=6]one sixth[/fraction] shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 12,
+        "difficulty": 1,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into equal parts with one part shaded. Which fraction matches what you see?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded part",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1/2",
+                "1/3",
+                "2/3",
+                "3/3"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many equal parts are in the whole bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All three sections of bar_1 pulse sequentially to emphasize the total number of equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The bottom number tells us how many equal parts make the whole bar. How many parts do you see?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "label_shaded_and_total",
+                        "description": "Animated overlay labels the shaded section with '1' and then counts all sections '1, 2, 3' with arrows pointing to each, followed by displaying '1/3' above the bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:label_shaded_and_total]This can be tricky, so let's work through it together. The bar has 3 equal parts total, and 1 part is shaded. That means the fraction is 1 out of 3, which we write as [fraction numerator=1 denominator=3]one third[/fraction]. The top number shows shaded parts, and the bottom shows total equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You matched the shaded part to [fraction numerator=1 denominator=3]one third[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 13,
+        "difficulty": 1,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This whole bar is divided into fourths. One part is shaded. Which fraction matches that shaded part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded part",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1/4",
+                "2/4",
+                "3/4",
+                "4/4"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded out of the total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The single shaded section pulses to draw attention to it being only one part"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_section]Let's look more carefully. The bar has 4 equal parts total, and only 1 part is shaded. What fraction shows 1 out of 4?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "label_parts_with_counting",
+                        "description": "Animated overlay labels each of the 4 sections sequentially, then highlights the 1 shaded section with '1 out of 4 = 1/4' annotation"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:label_parts_with_counting]This can be tricky, so let's work through it together. The bar is divided into 4 equal parts. Only 1 part is shaded. That means 1 out of 4 parts, which we write as [fraction numerator=1 denominator=4]one fourth[/fraction]. The answer is [fraction numerator=1 denominator=4]one fourth[/fraction]. See how one-fourth means 1 out of 4 equal sections."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You matched [fraction numerator=1 denominator=4]one fourth[/fraction] to the shaded part."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can partition a number line into equal parts.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Place a [vocab]tick mark[/vocab] to divide it into two equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 4,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into 2 equal parts.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place the [vocab]tick mark[/vocab] right in the middle."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_2",
+                        "description": "Show visual guide for cutting shape at 1/2 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_cut_hint_1_2] To make two equal parts, the [vocab]tick mark[/vocab] needs to go exactly halfway between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_2",
+                        "description": "Partition the shape in half (1/2)"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to do this. [event:A_cut_1_2] To divide the [vocab]number line[/vocab] into two equal parts, we place the [vocab]tick mark[/vocab] at the halfway point. See how this creates two intervals that are exactly the same length? That's how halves work - 2 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the [vocab]number line[/vocab] into halves."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can partition a number line into equal parts.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into three equal parts. Place tick marks on the [vocab]number line[/vocab] to match it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3"
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into thirds.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place two tick marks to create three equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_3",
+                        "description": "Show visual guide for cutting shape at 1/3 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_2_3",
+                        "description": "Show visual guide for cutting shape at 2/3 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Look at the bar - it has three equal parts. [event:A_cut_hint_1_3][event:A_cut_hint_2_3] You need to place tick marks at these same positions on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_3",
+                        "description": "Make a cut at 1/3 mark"
+                      },
+                      {
+                        "name": "A_cut_2_3",
+                        "description": "Make a cut at 2/3 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to do this. To match the bar's three equal parts, we need to place [event:A_cut_1_3][event:A_cut_2_3] tick marks at one-third and two-thirds. See how this creates three [vocab]equal intervals[/vocab] on the [vocab]number line[/vocab], just like the three equal parts in the bar? That's how thirds work on a number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the [vocab]number line[/vocab] into three equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can partition a number line into equal parts.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Place tick marks to divide it into four equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into 4 equal parts.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between your tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_2",
+                        "description": "Show visual guide for cutting shape at 1/2 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_1_4",
+                        "description": "Show visual guide for cutting shape at 1/4 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_3_4",
+                        "description": "Show visual guide for cutting shape at 3/4 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. To make four equal parts, each section needs to be the same distance. [event:A_cut_hint_1_2][event:A_cut_hint_1_4][event:A_cut_hint_3_4] Try placing your tick marks at these positions."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_2",
+                        "description": "Partition the shape in half (1/2)"
+                      },
+                      {
+                        "name": "A_cut_1_4",
+                        "description": "Make a cut at 1/4 mark"
+                      },
+                      {
+                        "name": "A_cut_3_4",
+                        "description": "Make a cut at 3/4 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into fourths. First, we place a tick [event:A_cut_1_2] at the halfway point. Then we divide each half in half again by placing ticks [event:A_cut_1_4][event:A_cut_3_4] at the one-fourth and three-fourths marks. See how all four sections are exactly the same size? That's how fourths work on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the [vocab]number line[/vocab] into fourths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can partition a number line into equal parts.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into six equal parts. Place tick marks on the [vocab]number line[/vocab] to match it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6"
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into equal parts to match the bar.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between your tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_6",
+                        "description": "Show visual guide for placing tick at 1/6 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_2_6",
+                        "description": "Show visual guide for placing tick at 2/6 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_4_6",
+                        "description": "Show visual guide for placing tick at 4/6 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_5_6",
+                        "description": "Show visual guide for placing tick at 5/6 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bar shows six equal parts, so you need five tick marks that divide the [vocab]number line[/vocab] into six equal spaces. [event:A_cut_hint_1_6][event:A_cut_hint_2_6][event:A_cut_hint_4_6][event:A_cut_hint_5_6] Here's where each [vocab]tick mark[/vocab] should go."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_6",
+                        "description": "Place tick mark at 1/6 position"
+                      },
+                      {
+                        "name": "A_cut_2_6",
+                        "description": "Place tick mark at 2/6 position"
+                      },
+                      {
+                        "name": "A_cut_4_6",
+                        "description": "Place tick mark at 4/6 position"
+                      },
+                      {
+                        "name": "A_cut_5_6",
+                        "description": "Place tick mark at 5/6 position"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] this [vocab]number line[/vocab]. The bar has six equal parts, so we need five tick marks to create six [vocab]equal intervals[/vocab]. [event:A_cut_1_6][event:A_cut_2_6][event:A_cut_4_6][event:A_cut_5_6] First, we place a tick at one-sixth, then at two-sixths, then we skip the middle and place ticks at four-sixths and five-sixths. See how each space between the ticks is exactly the same size, matching the bar? That's how sixths work on a number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You partitioned the [vocab]number line[/vocab] into sixths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can partition a number line into equal parts.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Place tick marks to divide it into 8 equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 16,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into eighths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                4,
+                8,
+                12,
+                16,
+                20,
+                24,
+                28
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between your tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_2",
+                        "description": "Show visual guide for cutting shape at 1/2 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_1_4",
+                        "description": "Show visual guide for cutting shape at 1/4 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_3_4",
+                        "description": "Show visual guide for cutting shape at 3/4 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_8",
+                        "description": "Show visual guide for cutting shape into eighths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. To make eighths, you need 7 tick marks that divide the line into 8 equal parts. [event:A_cut_hint_1_2] Start by finding the halfway point, [event:A_cut_hint_1_4][event:A_cut_hint_3_4] then divide each half into fourths, [event:A_cut_hint_8] and finally divide those into eighths."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_2",
+                        "description": "Partition the shape in half (1/2)"
+                      },
+                      {
+                        "name": "A_cut_1_4",
+                        "description": "Make a cut at 1/4 mark"
+                      },
+                      {
+                        "name": "A_cut_3_4",
+                        "description": "Make a cut at 3/4 mark"
+                      },
+                      {
+                        "name": "A_cut_8",
+                        "description": "Make a cut at 1/2 mark, then cut each half into fourths to create eighths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] this into eighths. [event:A_cut_1_2] First, we place a tick at the halfway point - that's [fraction numerator=1 denominator=2]one half[/fraction]. [event:A_cut_1_4][event:A_cut_3_4] Now we divide each half in half again - that gives us [fraction numerator=1 denominator=4]one fourth[/fraction] and [fraction numerator=3 denominator=4]three fourths[/fraction]. [event:A_cut_8] Finally, we divide each of those sections in half to create eighths at [fraction numerator=1 denominator=8]one eighth[/fraction], [fraction numerator=2 denominator=8]two eighths[/fraction], [fraction numerator=3 denominator=8]three eighths[/fraction], [fraction numerator=4 denominator=8]four eighths[/fraction], [fraction numerator=5 denominator=8]five eighths[/fraction], [fraction numerator=6 denominator=8]six eighths[/fraction], and [fraction numerator=7 denominator=8]seven eighths[/fraction]. See how all 8 parts are exactly the same size? That's how eighths work - 8 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You partitioned the [vocab]number line[/vocab] into eighths."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

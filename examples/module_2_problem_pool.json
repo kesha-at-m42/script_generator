@@ -1,0 +1,4086 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "tier": 0.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with 1 out of 2 equal parts shaded. Which fraction matches it?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the unit fraction that matches this bar.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=2][/fraction]",
+                "[fraction numerator=1 denominator=3][/fraction]",
+                "[fraction numerator=1 denominator=4][/fraction]",
+                "[fraction numerator=1 denominator=8][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many equal parts the bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each section of the bar outlines sequentially with numbers 1, 2 appearing to show total parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Count the equal parts in the bar, then check how many are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_label_parts",
+                        "description": "Animation counts total sections (1, 2) with labels, then highlights the shaded section with '1 shaded' label, followed by arrow pointing to correct answer 1/2"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar has 2 equal parts total, and 1 part is shaded. That means we have 1 out of 2, which we write as [vocab]one-half[/vocab]. That's how halves work - 2 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You matched [vocab]one-half[/vocab] to the bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar has three equal parts. What [vocab]unit fraction[/vocab] does it show?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded part.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=2][/fraction]",
+                "[fraction numerator=1 denominator=3][/fraction]",
+                "[fraction numerator=1 denominator=4][/fraction]",
+                "[fraction numerator=3 denominator=3][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many equal parts there are total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the three sections outlines sequentially with numbers 1, 2, 3 appearing, then the shaded section pulses"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Count the total equal parts in the bar, then look at how many are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_label_parts",
+                        "description": "Animated overlay counts all three sections with numbers 1, 2, 3, then highlights the shaded section with '1 shaded' label, followed by fraction notation 1/3 appearing with arrow pointing to the bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar has three equal parts total. One part is shaded. That means one out of three, which we write as [fraction numerator=1 denominator=3][/fraction]. That's how [vocab]unit fractions[/vocab] work - the bottom number shows total equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. One out of three parts is [vocab]one-third[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. Which one shows [fraction numerator=1 denominator=4]one fourth[/fraction] shaded?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing [fraction numerator=1 denominator=4][/fraction] shaded.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with 4 equal parts and only 1 shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the 4 sections in bar_top outlines sequentially with numbers 1, 2, 3, 4, then the shaded section pulses"
+                      },
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the 3 sections in bar_middle outlines sequentially with numbers 1, 2, 3"
+                      },
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the 4 sections in bar_bottom outlines sequentially with numbers 1, 2, 3, 4, then both shaded sections pulse"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-fourth means 1 out of 4 equal parts. Check how many parts each bar has and how many are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_highlight_correct",
+                        "description": "Sections count 1-2-3-4 with labels, then shaded section glows green with checkmark and '1/4' label appears"
+                      },
+                      {
+                        "name": "count_and_dim_incorrect",
+                        "description": "Sections count 1-2-3 with labels, then entire bar dims with '3 parts, not 4' annotation"
+                      },
+                      {
+                        "name": "count_and_compare_shaded",
+                        "description": "Sections count 1-2-3-4 with labels, then both shaded sections highlight with '2 shaded = 2/4' annotation"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. One-fourth means 1 out of 4 equal parts. The top bar has 4 equal parts with exactly 1 shaded - that's [fraction numerator=1 denominator=4]one fourth[/fraction]. The middle bar has only 3 parts, so it can't show fourths. The bottom bar has 4 parts, but 2 are shaded, so that's [fraction numerator=2 denominator=4]two fourths[/fraction], not [fraction numerator=1 denominator=4]one fourth[/fraction]. That's how we match the fraction to the picture."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. That's the bar showing [vocab]one-fourth[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into 6 equal parts, with one part shaded. Which fraction matches what you see?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded portion.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                3
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=5 denominator=1][/fraction]",
+                "[fraction numerator=6 denominator=1][/fraction]",
+                "[fraction numerator=1 denominator=5][/fraction]",
+                "[fraction numerator=1 denominator=6][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many equal parts the bar has in total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequentially",
+                        "description": "Each of the 6 sections outlines one-by-one with numbers 1, 2, 3, 4, 5, 6 appearing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bottom number tells us how many equal parts in total. Count the sections in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_all_sections_then_highlight_shaded",
+                        "description": "All 6 sections outline sequentially with counting numbers 1-6, then the shaded section pulses with '1 out of 6' label appearing"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "The correct answer choice 1/6 pulses to indicate the match"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar has 6 equal parts total, and 1 part is shaded. That means we have 1 out of 6, which we write as [vocab]one-sixth[/vocab]. That's how [vocab]unit fractions[/vocab] work - the bottom number shows the total equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You matched [vocab]one-sixth[/vocab] to the bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into eight equal parts, with one part shaded. What fraction does that shaded part represent?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded part.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=4][/fraction]",
+                "[fraction numerator=1 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=8][/fraction]",
+                "[fraction numerator=8 denominator=1][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the total equal parts in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the eight sections outlines sequentially with numbers 1, 2, 3, 4, 5, 6, 7, 8 appearing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bottom number tells us how many equal parts the whole bar is divided into."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_all_sections_then_highlight_shaded",
+                        "description": "All eight sections outline and count sequentially (1-8), then the shaded section pulses with '1 out of 8' annotation, followed by '1/8' appearing above"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar has eight equal parts total. One part is shaded. That means one out of eight, which we write as [fraction numerator=1 denominator=8]one eighth[/fraction]. The top number shows how many parts are shaded, and the bottom shows the total equal parts. That's how eighths work - eight equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's one-eighth - one part out of eight equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the first bar. It shows [fraction numerator=1 denominator=3][/fraction]. Find the other bars that show the same fraction.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  4
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  1
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  2
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars showing one-third.",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check which bars have three equal parts with one shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar 1 sections outline sequentially showing 3 equal parts"
+                      },
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar 2 sections outline sequentially showing 6 equal parts"
+                      },
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar 3 sections outline sequentially showing 3 equal parts"
+                      },
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar 4 sections outline sequentially showing 4 equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-third means one part out of three equal parts. Look for bars divided into three sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_highlight_sections",
+                        "description": "Bar 1 sections count 1, 2, 3 with labels, then shaded section pulses"
+                      },
+                      {
+                        "name": "count_and_highlight_sections",
+                        "description": "Bar 3 sections count 1, 2, 3 with labels, then shaded section pulses"
+                      },
+                      {
+                        "name": "count_sections_different",
+                        "description": "Bar 2 sections count 1, 2, 3, 4, 5, 6 showing it's not three parts"
+                      },
+                      {
+                        "name": "count_sections_different",
+                        "description": "Bar 4 sections count 1, 2, 3, 4 showing it's not three parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. One-third means one out of three equal parts. Bar 1 has three parts with one shaded—that's [vocab]one-third[/vocab]. Bar 3 also has three parts with one shaded—that's one-third too. Bar 2 has six parts, and Bar 4 has four parts, so they show different fractions. That's how we match one-third."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Yes. You matched the bars showing [vocab]one-third[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. Which one shows [vocab]one-half[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  1
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing [fraction numerator=1 denominator=2][/fraction].",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with two equal parts and one shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar left sections outline one-by-one as numbers 1, 2"
+                      },
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar center sections outline one-by-one as numbers 1, 2, 3, 4"
+                      },
+                      {
+                        "name": "outline_sections",
+                        "description": "Bar right sections outline one-by-one as numbers 1, 2, 3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-half means one out of two equal parts. Check how many parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "Bar left glows with emphasis, sections labeled '1 out of 2 equal parts'"
+                      },
+                      {
+                        "name": "show_section_count",
+                        "description": "Overlay shows '4 parts - not one-half' with gentle fade"
+                      },
+                      {
+                        "name": "show_section_count",
+                        "description": "Overlay shows '3 parts - not one-half' with gentle fade"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this one. One-half means one out of two equal parts. The left bar has exactly two equal parts with one shaded - that's [vocab]one-half[/vocab]. The other bars have more than two parts, so they can't show one-half. That's how halves work - always two equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's [fraction numerator=1 denominator=2]one-half[/fraction] - one out of two equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify and match unit fraction notation to visual representations",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Three of these bars show [vocab]one-sixth[/vocab]. Find the one that's different.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  2
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  5
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar that does NOT show [fraction numerator=1 denominator=6][/fraction].",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look carefully at how many parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Sections outline one-by-one as numbers 1, 2, 3, 4, 5, 6 for bars 1, 2, and 4; numbers 1, 2, 3, 4, 5, 6, 7, 8 for bar 3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. For [vocab]one-sixth[/vocab], the bar needs six equal parts. Count the parts in each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_label_sections",
+                        "description": "Sections count sequentially with numbers appearing, then '6 parts = 1/6' label appears for bars 1, 2, and 4"
+                      },
+                      {
+                        "name": "count_and_label_sections_different",
+                        "description": "Sections count sequentially with numbers appearing, then '8 parts = 1/8' label appears with pulsing outline to indicate this is different for bar 3"
+                      }
+                    ]
+                  },
+                  "dialogue": "This is tricky, so let's work through it together. [vocab]One-sixth[/vocab] means one part out of six equal parts. Let's count each bar. The first bar has six parts - that's [vocab]one-sixth[/vocab]. The second bar also has six parts - [vocab]one-sixth[/vocab]. The third bar has eight parts, not six - that's [vocab]one-eighth[/vocab]. The fourth bar has six parts - [vocab]one-sixth[/vocab]. The third bar is different because it shows [vocab]one-eighth[/vocab], not [vocab]one-sixth[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. That bar shows [vocab]one-eighth[/vocab], not [vocab]one-sixth[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can create unit fractions by shading based on symbolic notation",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "tier": 0.0,
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a rectangle bar. Divide it into halves, then shade [fraction numerator=1 denominator=2]one-half[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "lcm": 4
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide into halves and shade one-half.",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/2"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Try dividing the bar into two equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "show_midpoint",
+                        "description": "The center point of the bar pulses to indicate where the division should occur"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. For halves, you need exactly 2 equal parts. Check that both sections are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "animate_division_into_halves",
+                        "description": "Animated line appears at the center and divides the bar into two equal sections"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear showing both sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. To make halves, we divide the bar right down the middle into 2 equal parts. Watch as I show you where to cut. See how both parts are exactly the same size? That's what makes them halves."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into two equal parts."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now shade one of the halves.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one-half.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/2"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Almost. Shade just one of the two parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_section",
+                        "description": "One section of the bar outlines with a pulsing border to indicate which part to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "You're getting there. Here's a hint - [vocab]one-half[/vocab] means you shade only 1 part out of the 2 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "animate_shading_one_section",
+                        "description": "One section gradually fills with shading while the other remains unshaded"
+                      },
+                      {
+                        "name": "show_fraction_label",
+                        "description": "The fraction 1/2 appears with an arrow pointing to the shaded section"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me help you with this one. One-half means 1 out of 2 equal parts. Watch as I shade just one section. See? We leave the other section unshaded. That's how [vocab]one-half[/vocab] works - 1 shaded part out of 2 total parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You shaded [vocab]one-half[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can create unit fractions by shading based on symbolic notation",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "tier": 0.0,
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this bar. Shade [fraction numerator=1 denominator=3]one-third[/fraction] of it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one-third.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/3"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the three sections outlines sequentially with numbers 1, 2, 3 to show individual parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bar has three equal parts, and you need to shade only one of them."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration shading exactly one section of the three-part bar to show the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar is divided into three equal parts. One-third means we shade just one of those three parts. I'll shade one section now. That's how thirds work - one out of three equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [vocab]one-third[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can create unit fractions by shading based on symbolic notation",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar. Shade [fraction numerator=1 denominator=4]one-fourth[/fraction] of it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one-fourth of the bar.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/4"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to show which section should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-fourth means shading only one piece out of the four equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration showing one section being shaded while the other three remain unshaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. One-fourth means we need to shade exactly one piece out of the four equal parts. Watch as I shade one section for you. That's how [vocab]one-fourth[/vocab] works - 1 out of 4 equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [vocab]one-fourth[/vocab] correctly."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can create unit fractions by shading based on symbolic notation",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar is divided into sixths. Shade [fraction numerator=1 denominator=6]one-sixth[/fraction] of it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one-sixth.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/6"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_section",
+                        "description": "One section of the bar outlines and pulses to show which piece to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [vocab]One-sixth[/vocab] means we shade only one piece out of the six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration showing one section being shaded while other sections remain unshaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. [vocab]One-sixth[/vocab] means 1 out of 6 equal parts. Watch as I shade just one piece. See how only one section is shaded? That's [vocab]one-sixth[/vocab] of the bar."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [vocab]one-sixth[/vocab] of the bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 2.0,
+        "goal_text": "The student can create unit fractions by shading based on symbolic notation",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this bar. Can you shade [fraction numerator=1 denominator=8]one-eighth[/fraction] of it?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one-eighth of the bar.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/8"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to indicate where to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-eighth means shading only one piece out of the eight equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "shade_single_piece",
+                        "description": "Animated demonstration showing one piece being shaded to represent one-eighth"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. One-eighth means we need to shade exactly one piece out of the eight equal parts. Watch as I shade one piece for you. That's how one-eighth works - 1 out of 8 equal sections."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded one-eighth of the bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/4"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Each has one part shaded. Which bar has the bigger shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the bigger shaded piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look closely at the size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece on bar_halves is outlined to draw attention"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece on bar_fourths is outlined to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Compare the shaded pieces side by side. Which one takes up more space?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_and_label_shaded",
+                        "description": "The shaded piece on bar_halves highlights and displays label '1 out of 2 parts'"
+                      },
+                      {
+                        "name": "highlight_and_label_shaded",
+                        "description": "The shaded piece on bar_fourths highlights and displays label '1 out of 4 parts'"
+                      },
+                      {
+                        "name": "size_comparison_overlay",
+                        "description": "Visual overlay shows the shaded piece from bar_halves is larger than the shaded piece from bar_fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the shaded piece on the first bar—it's one out of two equal parts. Now look at the shaded piece on the second bar—it's one out of four equal parts. When we divide into fewer parts, each piece is bigger. So [vocab]one-half[/vocab] is bigger than [vocab]one-fourth[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You compared the pieces and found that [vocab]one-half[/vocab] is bigger."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "APPLY",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/6"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_verbs": [
+          "APPLY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Which cake would you pick so that you get the bigger piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction you'd rather have.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the size of each shaded piece. Which one is bigger?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded one-third section pulses to draw attention to its size"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded one-sixth section pulses to draw attention to its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When you cut something into more pieces, each piece gets smaller. Compare the shaded sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line shows the width of the one-third shaded section"
+                      },
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line shows the width of the one-sixth shaded section"
+                      },
+                      {
+                        "name": "highlight_correct_choice",
+                        "description": "Green glow appears around bar_thirds to indicate the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the shaded pieces. The bar cut into 3 parts has bigger pieces than the bar cut into 6 parts. One-third is larger than [vocab]one-sixth[/vocab] because fewer parts means each piece is bigger. That's why you'd want [vocab]one-third[/vocab] of the cake."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You chose [vocab]one-third[/vocab]. Fewer parts means bigger pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. Each one has a single part shaded. Which bar has the smallest shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the smallest shaded part.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece in bar_left outlines to show its size"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece in bar_middle outlines to show its size"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece in bar_right outlines to show its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When a bar has more parts, each piece gets smaller. Look at how many parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_sections_with_labels",
+                        "description": "Numbers appear above each section counting 1, 2 to show total parts"
+                      },
+                      {
+                        "name": "count_sections_with_labels",
+                        "description": "Numbers appear above each section counting 1, 2, 3, 4 to show total parts"
+                      },
+                      {
+                        "name": "count_sections_with_labels",
+                        "description": "Numbers appear above each section counting 1, 2, 3, 4, 5, 6 to show total parts"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "The correct bar (bar_right) pulses to indicate it has the smallest shaded piece"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. This bar has 2 parts, so each piece is pretty big. This one has 4 parts, so each piece is smaller. And this one has 6 parts, making each piece the smallest. The bar with 6 parts has the smallest shaded piece. That's how fractions work - more parts means smaller pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found it. More parts means smaller pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "APPLY",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/8"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_verbs": [
+          "APPLY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "How would you divide the bar such that you'd get the bigger part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bigger fraction.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the size of each shaded piece. Which one is bigger?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_half pulses to draw attention to its size"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_eighth pulses to draw attention to its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When you split something into more pieces, each piece gets smaller. Compare the shaded sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Animated outline around the shaded half section with label '1/2 - bigger piece'"
+                      },
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Animated outline around the shaded eighth section with label '1/8 - smaller piece'"
+                      },
+                      {
+                        "name": "comparison_overlay",
+                        "description": "Visual overlay showing the shaded half piece is much larger than the shaded eighth piece through side-by-side comparison"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the chocolate split in half - that piece is much bigger. When we split into eighths, we get eight tiny pieces. One-half is the bigger piece, so that's what you'd want. See how fewer parts means bigger pieces?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You chose the larger piece. One-half is bigger than one-eighth."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can distinguish unit fractions from non-unit fractions",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar showing [fraction numerator=1 denominator=2]one half[/fraction]. Is this a [vocab]unit fraction[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is [fraction numerator=1 denominator=2][/fraction] a unit fraction?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Yes",
+                "No"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The single shaded section pulses to draw attention to the one part"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. A [vocab]unit fraction[/vocab] has exactly one part shaded. Count the shaded parts here."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Animated overlay counts the shaded section as '1', then shows both sections labeled '1 out of 2 equal parts'"
+                      },
+                      {
+                        "name": "highlight_unit_definition",
+                        "description": "The shaded section glows with a '1' label to emphasize the single part that defines a unit fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. This bar shows [fraction numerator=1 denominator=2]one half[/fraction]—that's one part shaded out of two equal parts. Since exactly one part is shaded, [fraction numerator=1 denominator=2]one half[/fraction] is a [vocab]unit fraction[/vocab]. That's what makes a fraction a unit fraction—just one part."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. [fraction numerator=1 denominator=2]one half[/fraction] is a [vocab]unit fraction[/vocab]—one part out of two."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can distinguish unit fractions from non-unit fractions",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this bar. What makes it different from a [vocab]unit fraction[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Explain why this is not a unit fraction.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "It has unequal parts",
+                "More than one part is shaded",
+                "It has too many parts",
+                "The parts are too small"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_shaded_sections_sequential",
+                        "description": "Each shaded section highlights one-by-one with numbers 1, 2, 3 appearing above them"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. A [vocab]unit fraction[/vocab] has exactly one part shaded. Count how many shaded parts this bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_label_shaded",
+                        "description": "Animated overlay counts each shaded section (1, 2, 3) then displays '3 parts shaded = NOT a unit fraction' with checkmark appearing next to choice B"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. A [vocab]unit fraction[/vocab] always has exactly one part shaded - that's what makes it 'unit.' This bar has three parts shaded out of four equal parts, so it shows [fraction numerator=3 denominator=4]three fourths[/fraction], not a unit fraction. See how more than one part is shaded? That's the key difference."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Unit fractions have only one part shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can read and interpret unit fraction notation correctly",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "It's a bar showing [fraction numerator=1 denominator=2]one-half[/fraction]. What does the 2 in this fraction represent?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What does the 2 represent?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The number of shaded parts",
+                "The total number of equal parts",
+                "The number of unshaded parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the bottom number in [vocab]one-half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_all_sections",
+                        "description": "All sections of the bar outline sequentially, counting 1, 2 to emphasize total parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bottom number tells us something about all the parts in the bar, not just the shaded ones."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_all_parts_with_labels",
+                        "description": "Animated counting overlay labels each section as 1, 2, then shows '2 equal parts total' with arrow pointing to denominator"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bottom number in a fraction is called the [vocab]denominator[/vocab]. It tells us the total number of equal parts the whole is divided into. Count the parts in this bar - there are 2 equal parts total. That's why the bottom number is 2. That's how the denominator works - it shows the total equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. The 2 shows the total equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can read and interpret unit fraction notation correctly",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "tier": 1.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar showing [fraction numerator=1 denominator=3]one-third[/fraction]. What does the 1 in the fraction tell us?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What does the 1 in [fraction numerator=1 denominator=3][/fraction] represent?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The number of shaded parts",
+                "The number of equal parts",
+                "The total number of parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the shaded part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The single shaded section pulses to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The top number in a fraction tells us something about what's shaded. Count the shaded parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_shaded_with_annotation",
+                        "description": "Animated overlay highlights the shaded section with a '1' annotation appearing above it, then an arrow connects it to the numerator position in the fraction notation"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. In the fraction [vocab]one-third[/vocab], the 1 on top is the [vocab]numerator[/vocab]. It tells us how many parts are shaded. Look at the bar - only 1 part is shaded. That's what the 1 represents: the number of shaded parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. The 1 shows how many parts are shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can read and interpret unit fraction notation correctly",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "The fraction [fraction numerator=1 denominator=4]one fourth[/fraction] has two numbers - 1 on top and 4 on bottom. What does each number tell us?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What do 1 and 4 represent here?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1- total shaded parts \n4 - total equal parts",
+                "1- total equal parts, \n4 - total shaded parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the bar and think about what each number describes."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_then_all",
+                        "description": "First the shaded section pulses, then all four sections pulse sequentially to emphasize the relationship between shaded parts and total parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Look at the shaded part and count the total parts. Which number matches which?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "annotate_shaded_with_1",
+                        "description": "Animated annotation appears above the shaded section showing '1 shaded part' with an arrow pointing to it"
+                      },
+                      {
+                        "name": "annotate_total_with_4",
+                        "description": "Animated annotation appears below the bar showing '4 total equal parts' with brackets encompassing all sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The top number, 1, tells us how many parts are shaded - count the shaded sections. The bottom number, 4, tells us the total equal parts - count all the sections. The correct answer is the first choice. That's how fraction notation works - top shows shaded, bottom shows total parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified what the [vocab]numerator[/vocab] and [vocab]denominator[/vocab] represent."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 6.0,
+        "goal_text": "The student can read and interpret unit fraction notation correctly",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 2.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar showing [vocab]one-sixth[/vocab]. Look at the fraction [fraction numerator=1 denominator=6]one sixth[/fraction]. What does the bottom number tell us?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What does the 6 represent here?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The number of shaded parts",
+                "The number of unshaded parts",
+                "The total number of equal parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the bottom number in the fraction and count the parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_sections_sequential",
+                        "description": "Each of the 6 sections outlines sequentially with numbers 1, 2, 3, 4, 5, 6 appearing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The bottom number in a fraction tells us something about all the parts. Count how many equal sections the bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_all_sections_with_labels",
+                        "description": "All 6 sections highlight together, then each section pulses sequentially as numbers 1-6 appear, with a final label showing '6 equal parts total'"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. In the fraction [fraction numerator=1 denominator=6]one sixth[/fraction], the bottom number is called the denominator. It tells us the total number of equal parts the whole is divided into. Let's count: this bar has 6 equal parts total. That's what the 6 represents - the total number of equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. The 6 tells us the total equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/4",
+            "1/6"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Three bars, each with one part shaded. Which bar has the largest shaded part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the largest shaded part.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_section",
+                        "description": "The shaded sections of all three bars outline to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When a bar has fewer parts, each piece is bigger. Look at how the shaded pieces compare."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_size_comparison",
+                        "description": "Animated overlay showing the shaded section from bar_left overlaying the other bars' shaded sections to demonstrate it is largest"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "Bar_left pulses to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. When we divide a bar into fewer parts, each part is larger. The left bar has 3 parts, so one-third is bigger than one-fourth or one-sixth. The left bar has the largest shaded piece. That's how [vocab]unit fractions[/vocab] work - fewer parts means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the largest [vocab]unit fraction[/vocab] - [vocab]one-third[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/3",
+            "1/4",
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these four bars. Each one shows a [vocab]unit fraction[/vocab] - one part shaded. Which bar has the smallest shaded piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the smallest shaded piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 3
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded pieces in all bars outline to show their sizes"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When a bar is divided into more equal parts, each piece gets smaller. Look at how many parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "compare_size_sequence",
+                        "description": "Shaded pieces are extracted and labeled sequentially: '1/2' (largest), '1/3', '1/4', and '1/8' (smallest, with glow)"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the first bar - it's divided into 2 parts, so each piece is one-half. The second bar has 3 parts, making each piece [vocab]one-third[/vocab]. The third bar has 4 parts, so each piece is one-fourth. The last bar has 8 parts, making each piece one-eighth. The more parts we divide into, the smaller each piece becomes. So one-eighth is the smallest."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You identified [fraction numerator=1 denominator=8]one-eighth[/fraction] as the smallest [vocab]unit fraction[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. One shows [vocab]one-third[/vocab], the other shows [vocab]one-eighth[/vocab]. Which shaded piece is bigger?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the bigger shaded piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded pieces in both bars are outlined to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Compare the shaded pieces side by side. Which one takes up more space?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_size_comparison",
+                        "description": "Animated overlay showing the shaded piece from bar_thirds overlaid on bar_eighths to demonstrate size difference"
+                      },
+                      {
+                        "name": "measure_piece_width",
+                        "description": "Measurement lines appear showing the width of the shaded piece in bar_eighths is smaller"
+                      }
+                    ]
+                  },
+                  "dialogue": "This is tricky, so let's work through it together. Look at the shaded piece in the first bar—it's one out of three equal parts. Now look at the second bar—it's one out of eight equal parts. When we divide the same whole into fewer pieces, each piece is bigger. So [vocab]one-third[/vocab] is bigger than one-eighth. See how fewer parts means bigger pieces?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Nice work. You found the bigger [vocab]unit fraction[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can compare unit fractions to determine which is larger or smaller",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "1/6",
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three bars, each showing one shaded part. Which bar has the largest piece?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the largest shaded piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece on bar_left outlines to draw attention to its size"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece on bar_center outlines to draw attention to its size"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece on bar_right outlines to draw attention to its size"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Look closely at how big each shaded piece is. When a bar has fewer parts, each piece is bigger."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line appears showing the width of the shaded piece with label '1/4'"
+                      },
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line appears showing the width of the shaded piece with label '1/6'"
+                      },
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line appears showing the width of the shaded piece with label '1/8'"
+                      },
+                      {
+                        "name": "pulse_correct_answer",
+                        "description": "Bar_left pulses to indicate it is the correct answer with the largest piece"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the first bar - it has 4 parts, so each piece is one-fourth. The second bar has 6 parts, so each piece is one-sixth. The third bar has 8 parts, so each piece is one-eighth. When we divide the same whole into more parts, each piece gets smaller. So one-fourth is the largest piece. That's how [vocab]unit fractions[/vocab] work - fewer parts means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the largest [vocab]unit fraction[/vocab] - [vocab]one-fourth[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can distinguish unit fractions from non-unit fractions",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "1/4"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Unit fractions have exactly one part shaded. Which of these bars show [vocab]unit fractions[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0,
+                  1
+                ],
+                "frac_label_visible": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "frac_label_visible": [
+                  0,
+                  1,
+                  2
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars showing unit fractions.",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for bars with exactly one part shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "The single shaded section in bar_1 pulses to emphasize one part"
+                      },
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "The two shaded sections in bar_2 pulse to show multiple parts"
+                      },
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "The single shaded section in bar_3 pulses to emphasize one part"
+                      },
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "The three shaded sections in bar_4 pulse to show multiple parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Unit fractions have just one shaded part. Check each bar and count how many parts are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_shaded_overlay",
+                        "description": "Number '1' appears over the shaded section with a checkmark indicating unit fraction"
+                      },
+                      {
+                        "name": "count_shaded_overlay",
+                        "description": "Numbers '1, 2' appear sequentially over shaded sections with an X indicating not a unit fraction"
+                      },
+                      {
+                        "name": "count_shaded_overlay",
+                        "description": "Number '1' appears over the shaded section with a checkmark indicating unit fraction"
+                      },
+                      {
+                        "name": "count_shaded_overlay",
+                        "description": "Numbers '1, 2, 3' appear sequentially over shaded sections with an X indicating not a unit fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. A unit fraction means exactly one part is shaded. Let's check each bar. Bar 1 has one part shaded - that's a unit fraction. Bar 2 has two parts shaded - not a unit fraction. Bar 3 has one part shaded - that's a unit fraction. Bar 4 has three parts shaded - not a unit fraction. So bars 1 and 3 are the [vocab]unit fractions[/vocab]. That's how unit fractions work - always just one part shaded."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Yes. You identified both [vocab]unit fractions[/vocab] -  [fraction numerator=1 denominator=3]one-third[/fraction] and  [fraction numerator=1 denominator=4]one-fourth[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can distinguish unit fractions from non-unit fractions",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "There are three bars. Which bar shows a [vocab]unit fraction[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "frac_label_visible": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "frac_label_visible": [
+                  0,
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing a unit fraction.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check which bars have exactly one part shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "The single shaded section in bar_left highlights to draw attention"
+                      },
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "All five shaded sections in bar_middle highlight sequentially"
+                      },
+                      {
+                        "name": "highlight_shaded_sections",
+                        "description": "All four shaded sections in bar_right highlight sequentially"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Unit fractions have exactly one shaded part. Count the shaded parts in each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Number '1' appears over the single shaded section with a green checkmark indicating this is a unit fraction"
+                      },
+                      {
+                        "name": "overlay_counting",
+                        "description": "Numbers '1, 2, 3, 4, 5' appear sequentially over shaded sections with an X indicating this is not a unit fraction"
+                      },
+                      {
+                        "name": "overlay_counting",
+                        "description": "Numbers '1, 2, 3, 4' appear sequentially over shaded sections with an X indicating this is not a unit fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. A unit fraction has exactly one part shaded. The left bar has one shaded part - that's a unit fraction. The middle bar has five shaded parts, and the right bar has four shaded parts, so neither of those are [vocab]unit fractions[/vocab]. Only the left bar is correct. That's how unit fractions work - just one part shaded."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the [vocab]unit fraction[/vocab] - one out of six parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can distinguish unit fractions from non-unit fractions",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these bars. Which bar shows a [vocab]unit fraction[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "frac_label_visible": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "frac_label_visible": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0,
+                  1
+                ],
+                "frac_label_visible": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar that shows a unit fraction.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. A [vocab]unit fraction[/vocab] has exactly one part shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The single shaded section in bar_1 pulses to draw attention"
+                      },
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The three shaded sections in bar_2 pulse sequentially"
+                      },
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The seven shaded sections in bar_3 pulse sequentially"
+                      },
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The two shaded sections in bar_4 pulse sequentially"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. A [vocab]unit fraction[/vocab] means only one part is shaded. Count how many shaded parts each bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "count_and_highlight_shaded",
+                        "description": "Number '1' appears above the single shaded section with a checkmark, indicating this is the unit fraction"
+                      },
+                      {
+                        "name": "count_and_highlight_shaded",
+                        "description": "Numbers '1, 2, 3' appear sequentially above shaded sections with an X mark, showing this is not a unit fraction"
+                      },
+                      {
+                        "name": "count_and_highlight_shaded",
+                        "description": "Numbers '1, 2, 3, 4, 5, 6, 7' appear sequentially above shaded sections with an X mark, showing this is not a unit fraction"
+                      },
+                      {
+                        "name": "count_and_highlight_shaded",
+                        "description": "Numbers '1, 2' appear sequentially above shaded sections with an X mark, showing this is not a unit fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. A unit fraction has exactly one part shaded. Let's check each bar. Bar 1 has one shaded part - that's a unit fraction. Bar 2 has three shaded parts, Bar 3 has seven shaded parts, and Bar 4 has two shaded parts - none of those are [vocab]unit fractions[/vocab]. That's how unit fractions work - just one part shaded out of the whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the [vocab]unit fraction[/vocab] - one part shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can understand the inverse relationship between denominator size and piece size",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "These two bars show [vocab]unit fractions[/vocab]. Which [vocab]unit fraction[/vocab] is smaller?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the smaller shaded piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_halves pulses to draw attention"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_eighths pulses to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. When a bar has more parts, each piece is smaller. Look at how the shaded pieces compare."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_comparison",
+                        "description": "Animated outline highlights the shaded piece from bar_halves with measurement indicators"
+                      },
+                      {
+                        "name": "outline_shaded_comparison",
+                        "description": "Animated outline highlights the shaded piece from bar_eighths with measurement indicators showing it's smaller"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "Bar_halves glows to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. The bar with 8 parts has much smaller pieces than the bar with 2 parts. When we divide something into more parts, each piece is smaller. So [vocab]one-eighth[/vocab] is smaller than one half. That's why the bar divided into eighths has the smaller shaded piece."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that more parts means smaller pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can understand the inverse relationship between denominator size and piece size",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/3",
+            "1/4",
+            "1/6"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are four bars, each showing a [vocab]unit fraction[/vocab]. Look at what happens to the piece size as the bottom number changes.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What happens to piece size as the bottom number increases?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The pieces get bigger",
+                "The pieces get smaller",
+                "The pieces stay the same size"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look closely at the shaded pieces. Compare their sizes across the bars."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_1 pulses to draw attention"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_2 pulses after bar_1"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_3 pulses after bar_2"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section of bar_4 pulses after bar_3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Watch how the shaded piece changes as we move from bar to bar. Notice the pattern in the denominators."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Shaded section outlined with label '1/2 - largest piece'"
+                      },
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Shaded section outlined with label '1/3 - smaller'"
+                      },
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Shaded section outlined with label '1/4 - even smaller'"
+                      },
+                      {
+                        "name": "outline_shaded_with_label",
+                        "description": "Shaded section outlined with label '1/6 - smallest piece'"
+                      },
+                      {
+                        "name": "comparison_arrows_descending",
+                        "description": "Arrows appear showing descending size relationship between shaded pieces"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Look at the first bar - it's divided into 2 parts, and [vocab]one-half[/vocab] is this big. Now the second bar has 3 parts, so [vocab]one-third[/vocab] is smaller. The third bar has 4 parts, making one-fourth even smaller. Finally, the fourth bar has 6 parts, so one-sixth is the smallest. See how the pieces get smaller as the number of parts increase? That's the pattern - more parts mean smaller pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Nice. You noticed more parts lead to smaller pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can understand the inverse relationship between denominator size and piece size",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "1/8"
+          ]
+        },
+        "tier": 3.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "You're choosing between one-fourth of a cake or one-eighth of a cake. Which piece gives you more?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the larger piece.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the size of one piece in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece in bar_fourths is outlined to draw attention"
+                      },
+                      {
+                        "name": "outline_shaded_piece",
+                        "description": "The shaded piece in bar_eighths is outlined to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Compare the shaded pieces side by side. Which single piece takes up more space?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "measure_single_piece",
+                        "description": "Animated overlay showing measurement lines on the shaded piece of bar_fourths, displaying its width"
+                      },
+                      {
+                        "name": "measure_single_piece",
+                        "description": "Animated overlay showing measurement lines on the shaded piece of bar_eighths, displaying its smaller width"
+                      },
+                      {
+                        "name": "highlight_correct_answer",
+                        "description": "Bar_fourths glows to indicate it is the correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. When we divide something into fewer parts, each part is bigger. The bar with 4 parts has larger pieces than the bar with 8 parts. So one-fourth is larger than one-eighth. That's how fractions work - fewer parts means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified that fewer parts means bigger pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can understand the inverse relationship between denominator size and piece size",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/2",
+            "1/6"
+          ]
+        },
+        "tier": 4.0,
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "The first bar is divided into 2 parts, the second bar is divided into 6 parts. What happens to the size of the shaded piece as we divide a bar into more parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "shaded": [
+                  0
+                ],
+                "frac_label_visible": [
+                  0
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Compare the size of the shaded pieces.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "The pieces get bigger",
+                "The pieces get smaller",
+                "The pieces stay the same size"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look closely at the shaded pieces in both bars."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section in the top bar pulses to draw attention"
+                      },
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded section in the bottom bar pulses to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Compare the width of the shaded piece in the top bar to the shaded piece in the bottom bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line shows the width of the shaded piece in the top bar"
+                      },
+                      {
+                        "name": "measure_shaded_width",
+                        "description": "Animated measurement line shows the width of the shaded piece in the bottom bar"
+                      },
+                      {
+                        "name": "overlay_comparison_arrows",
+                        "description": "Visual comparison showing the top shaded piece is wider than the bottom shaded piece with directional arrows"
+                      }
+                    ]
+                  },
+                  "dialogue": "This can be tricky, so let's work through it together. Watch as I compare the pieces. The top bar has 2 parts, so each piece is [vocab]one-half[/vocab]. The bottom bar has 6 parts, so each piece is one-sixth. One-sixth is smaller than one-half. When we divide into more parts, each piece gets smaller. The piece got smaller."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Yes. You noticed more parts made the piece smaller."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

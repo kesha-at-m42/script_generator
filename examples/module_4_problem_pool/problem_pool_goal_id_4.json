@@ -1,0 +1,1294 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Which [vocab]tick mark[/vocab] shows one-half?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=1 denominator=2][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                1
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the [vocab]tick mark[/vocab] halfway between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the shaded region showing the first half"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-half means halfway between the start and end. [event:A_compare][event:A_compare_shaded] See how the [vocab]number line[/vocab] is divided into two equal parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the tick at 1/2 to demonstrate the correct location"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find one-half on a [vocab]number line[/vocab]. [event:A_arrow] One-half is exactly halfway between 0 and 1 - right at the middle [vocab]tick mark[/vocab]. That's what makes it one-half."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found the [vocab]tick mark[/vocab] at one-half."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1, divided into thirds. Find the [vocab]tick mark[/vocab] at two-thirds.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=2 denominator=3][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count two thirds from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts showing two thirds"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]number line[/vocab] is divided into thirds. [event:A_compare] Each interval represents one third. [event:A_compare_shaded] We need to count two of those thirds starting from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 2/3 to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find two-thirds on this [vocab]number line[/vocab]. The line is divided into three equal parts. Starting from zero, [event:A_arrow] we count two intervals to reach two-thirds. That's the tick mark at [fraction numerator=2 denominator=3]two thirds[/fraction]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found two-thirds on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "3/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1, divided into fourths. Where would [fraction numerator=3 denominator=4]three fourths[/fraction] be?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=3 denominator=4][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                3
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count three fourths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts showing three fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Each [vocab]tick mark[/vocab] represents one fourth. [event:A_compare][event:A_compare_shaded] Start at zero and count three intervals to find [fraction numerator=3 denominator=4]three fourths[/fraction]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the third tick mark to show counting three fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. To locate [fraction numerator=3 denominator=4]three fourths[/fraction], we start at zero and count three fourths. [event:A_arrow] See how the arrow shows us counting from 0 to the third tick mark? That's where [fraction numerator=3 denominator=4]three fourths[/fraction] is located on the [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found three-fourths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "5/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This [vocab]number line[/vocab] goes from 0 to 1 and is divided into sixths. Which tick mark shows where [fraction numerator=5 denominator=6]five sixths[/fraction] is located?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=5 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                5
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count five sixths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the sections to show the counting pattern"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]number line[/vocab] is divided into sixths, so [event:A_compare] each section represents one-sixth. You need to count five of those sections from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the tick at 5/6 to demonstrate counting the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find five-sixths. Starting from zero, we count [event:A_arrow] five equal sections: one-sixth, two-sixths, three-sixths, four-sixths, five-sixths. The tick mark at the end of the fifth section is where five-sixths is located. That's how we find fractions on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You found the [vocab]tick mark[/vocab] at five-sixths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "7/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1, divided into eighths. Find the [vocab]tick mark[/vocab] at seven-eighths.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=7 denominator=8][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                7
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count seven eighths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts to highlight the counting pattern"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare]The number line is divided into 8 equal parts. [event:A_compare_shaded]To find [fraction numerator=7 denominator=8]seven eighths[/fraction], count seven intervals from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the seventh tick on the number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. [event:A_arrow]We start at zero and count seven equal jumps along the number line. Each jump represents one-eighth. So seven jumps gets us to the tick mark at seven-eighths. That's how we locate [fraction numerator=7 denominator=8]seven eighths[/fraction] on the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You found seven-eighths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with one part shaded. Find the [vocab]tick mark[/vocab] on the [vocab]number line[/vocab] that matches this [vocab]fraction[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark that represents the shaded fraction.",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                1
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many equal parts the bar has."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare]The bar shows one part shaded out of four equal parts. [event:A_compare_shaded]Now find the tick mark that shows the same position on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the first tick on the number line to show the fraction 1/4"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match these. The bar has 4 equal parts with 1 part shaded - that's one-fourth. [event:A_arrow]The arrow shows us that the first tick mark after zero represents one-fourth on the [vocab]number line[/vocab]. That's the tick mark that matches the shaded part."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You matched the shaded part to one-fourth on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "4/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1 divided into sixths. Where would [fraction numerator=4 denominator=6]four sixths[/fraction] be?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=4 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count four sixths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts showing the first four intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] Each space between tick marks represents one sixth. [event:A_compare_shaded] Count four of those spaces starting from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 4/6 to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find [fraction numerator=4 denominator=6]four sixths[/fraction] on the number line. [event:A_arrow] We start at zero and count four sixths - one, two, three, four. That's where [fraction numerator=4 denominator=6]four sixths[/fraction] is located. See how we counted four equal spaces from zero?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You found [fraction numerator=4 denominator=6]four sixths[/fraction] on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "6/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This [vocab]number line[/vocab] goes from 0 to 1 and is divided into eighths. Find the tick mark that shows [fraction numerator=6 denominator=8]six eighths[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  false,
+                  true,
+                  false,
+                  true,
+                  false,
+                  true,
+                  false,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=6 denominator=8][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count six eighths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts showing 6/8"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]number line[/vocab] is divided into eighths, so each space between tick marks represents one eighth. [event:A_compare] You need to count six of these equal spaces from zero to find [fraction numerator=6 denominator=8]six eighths[/fraction]. [event:A_compare_shaded] See how the shaded sections show you where [fraction numerator=6 denominator=8]six eighths[/fraction] is located?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 6/8 to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. To locate [fraction numerator=6 denominator=8]six eighths[/fraction] on the number line, we start at zero and count six equal spaces. [event:A_arrow] This arrow shows us counting from 0 to the sixth tick mark - that's where [fraction numerator=6 denominator=8]six eighths[/fraction] is located. Each space is one eighth, so six spaces gives us [fraction numerator=6 denominator=8]six eighths[/fraction]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You identified the [vocab]tick mark[/vocab] at [fraction numerator=6 denominator=8]six eighths[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 9.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1, divided into three equal parts. Which [vocab]tick mark[/vocab] shows where one-third is?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=1 denominator=3][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                1
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count one third from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts to highlight the first interval representing 1/3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]number line[/vocab] is divided into three equal parts. [event:A_compare][event:A_compare_shaded] Each part represents one third, so the first [vocab]tick mark[/vocab] after zero shows where one-third is."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the first tick mark to show the location of 1/3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find one-third on the [vocab]number line[/vocab]. [event:A_arrow] We start at zero and move to the first tick mark. That's one out of three equal parts, which is one-third. See how the first tick shows exactly where [fraction numerator=1 denominator=3]one third[/fraction] is located."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found one-third on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 10.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "3/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1, divided into eighths. Where would [fraction numerator=3 denominator=8]three eighths[/fraction] be?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=3 denominator=8][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                3
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count three eighths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the intervals being counted"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]number line[/vocab] is divided into eighths, so [event:A_compare] each [vocab]interval[/vocab] represents one eighth. You need to count three of those intervals from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 3/8 to show counting the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find [fraction numerator=3 denominator=8]three eighths[/fraction] on this number line. Starting at zero, we count three intervals: [event:A_arrow] one eighth, two eighths, three eighths. The third tick mark is where [fraction numerator=3 denominator=8]three eighths[/fraction] is located. See how we counted three equal jumps from zero?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found [fraction numerator=3 denominator=8]three eighths[/fraction] on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 11.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "2/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Below it is a [vocab]number line[/vocab] from 0 to 1. Which [vocab]tick mark[/vocab] shows the same [vocab]fraction[/vocab] as the shaded part?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark that represents the shaded fraction.",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded in the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare][event:A_compare_shaded] The bar shows 2 out of 3 equal parts shaded. Find the tick mark that shows the same position on the [vocab]number line[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on the number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to match these. The bar has 3 equal parts, and 2 are shaded - that's two-thirds. [event:A_arrow] The arrow shows us that the second tick mark from zero represents two-thirds on the [vocab]number line[/vocab]. That's how the bar and number line show the same [vocab]fraction[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Two-thirds on the bar matches two-thirds on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 12.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can select tick marks matching the given fraction on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "5/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This [vocab]number line[/vocab] goes from 0 to 1 and is divided into eighths. Find the tick mark that shows [fraction numerator=5 denominator=8]five eighths[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 16,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick mark at [fraction numerator=5 denominator=8][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                5
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count five eighths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts to emphasize counting from zero"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Each [vocab]tick mark[/vocab] represents one eighth. [event:A_compare] See how the number line is divided into equal parts? [event:A_compare_shaded] Count five of those eighths starting from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 5/8 to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find [fraction numerator=5 denominator=8]five eighths[/fraction] on this number line. The number line is divided into eighths, so each space represents one eighth. [event:A_arrow] Starting from zero, we count five eighths: one eighth, two eighths, three eighths, four eighths, five eighths. That's how we locate [fraction numerator=5 denominator=8]five eighths[/fraction] on the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You found the [vocab]tick mark[/vocab] at [fraction numerator=5 denominator=8]five eighths[/fraction]."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

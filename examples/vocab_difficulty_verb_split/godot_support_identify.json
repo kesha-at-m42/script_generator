@@ -1,0 +1,439 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 13,
+        "difficulty": 0,
+        "verb": "IDENTIFY",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. One of them is divided into 2 equal parts. Which one shows halves?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/3",
+                  "2/3"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar divided into 2 equal parts",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with 2 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_unequal_sections",
+                        "description": "Top bar's unequal sections pulse to show size difference"
+                      },
+                      {
+                        "name": "pulse_equal_sections_middle",
+                        "description": "Middle bar's equal sections pulse together"
+                      },
+                      {
+                        "name": "pulse_equal_sections_bottom",
+                        "description": "Bottom bar's equal sections pulse together"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_unequal_sections][event:pulse_equal_sections_middle][event:pulse_equal_sections_bottom]Let's think about this together. For halves, we need exactly 2 parts that are the same size. Check each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Measurement lines appear showing the two sections are different widths"
+                      },
+                      {
+                        "name": "count_sections",
+                        "description": "Numbers 1, 2, 3 appear sequentially over each section"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear confirming both sections are equal width, then the bar glows to indicate correct answer"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal][event:count_sections][event:measure_sections_equal]This can be tricky, so let's work through it together. Halves means 2 equal parts. The top bar has 2 parts, but they're different sizes. The bottom bar has equal parts, but there are 3 of them. The middle bar has exactly 2 equal parts - that's halves."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with 2 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 6,
+        "difficulty": 0,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. Each one is divided into thirds, but only one shows [fraction numerator=1 denominator=3]one third[/fraction] shaded correctly.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing 1/3 shaded",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check how many parts are shaded in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The shaded sections in each bar pulse to show the count"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_sections]Let's think about this together. [fraction numerator=1 denominator=3]One third[/fraction] means exactly 1 out of 3 equal parts is shaded. Count the shaded sections in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_shaded_with_label",
+                        "description": "Animated counting overlays appear on all bars showing shaded count and fraction labels"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_shaded_with_label]This can be tricky, so let's work through it together. [fraction numerator=1 denominator=3]One third[/fraction] means 1 out of 3 equal parts. The top bar has 2 parts shaded, so that's [fraction numerator=2 denominator=3]two thirds[/fraction]. The bottom bar has 0 parts shaded. The middle bar has exactly 1 part shaded out of 3 equal parts - that's [fraction numerator=1 denominator=3]one third[/fraction]. That's how unit fractions work - just one part shaded."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with [fraction numerator=1 denominator=3]one third[/fraction] shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 7,
+        "difficulty": 0,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "Look at these three bars. Each one is divided into 2 equal parts. Which bar shows exactly [fraction numerator=1 denominator=2]one half[/fraction] shaded?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing 1/2 shaded",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with exactly 1 out of 2 parts shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The two shaded sections in the top bar pulse to show both parts are shaded"
+                      },
+                      {
+                        "name": "pulse_shaded_sections",
+                        "description": "The one shaded section in the middle bar pulses to show only one part is shaded"
+                      },
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "Both sections in the bottom bar pulse to show no parts are shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_sections][event:pulse_shaded_sections][event:pulse_all_sections]Let's think about this together. [fraction numerator=1 denominator=2]One half[/fraction] means 1 part shaded out of 2 equal parts. Count how many parts are shaded in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting_shaded",
+                        "description": "Animated overlay counts the shaded sections: '1... 2' with an X mark appearing to indicate this is not 1/2"
+                      },
+                      {
+                        "name": "overlay_counting_shaded",
+                        "description": "Animated overlay shows '0 shaded' with an X mark appearing to indicate this is not 1/2"
+                      },
+                      {
+                        "name": "demonstrate_unit_fraction",
+                        "description": "Animated overlay counts '1 shaded out of 2 equal parts' with a checkmark and '1/2' label appearing to confirm this represents one-half"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting_shaded][event:overlay_counting_shaded][event:demonstrate_unit_fraction]This can be tricky, so let's work through it together. [fraction numerator=1 denominator=2]One half[/fraction] means 1 part shaded out of 2 equal parts. The top bar has 2 parts shaded - that's [fraction numerator=2 denominator=2]two halves[/fraction], not [fraction numerator=1 denominator=2]one half[/fraction]. The bottom bar has 0 parts shaded. The middle bar has exactly 1 part shaded out of 2 - that's [fraction numerator=1 denominator=2]one half[/fraction]. That's how halves work - 1 out of 2 equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with [fraction numerator=1 denominator=2]one half[/fraction] shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 11,
+        "difficulty": 0,
+        "verb": "IDENTIFY",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with one part shaded. Which fraction matches it?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that matches the shaded part",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1/2",
+                "2/2",
+                "1/3",
+                "1/4"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many equal parts the bar has total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_sections",
+                        "description": "Each section of bar_1 pulses sequentially to emphasize there are 2 equal parts total"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_sections]Let's think about this together. The bottom number tells how many equal parts total, and the top tells how many are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_total_parts",
+                        "description": "Animated overlay counts each section with numbers 1, 2 appearing sequentially to show 2 total parts"
+                      },
+                      {
+                        "name": "highlight_shaded",
+                        "description": "The shaded section glows to emphasize 1 part is shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_total_parts][event:highlight_shaded]This can be tricky, so let's work through it together. The bar has 2 equal parts total. One part is shaded. That means 1 out of 2 parts is shaded, which we write as [fraction numerator=1 denominator=2]one half[/fraction]. That's how fractions work - the bottom number shows total equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You matched [fraction numerator=1 denominator=2]one half[/fraction] correctly."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

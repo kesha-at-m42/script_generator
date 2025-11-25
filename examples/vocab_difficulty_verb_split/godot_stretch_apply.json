@@ -1,0 +1,105 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 12,
+        "difficulty": 3,
+        "verb": "APPLY",
+        "goal": "The student can identify and maintain the whole when working with fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Maya partitioned her whole bookmark into equal parts and shaded some purple. Count all the parts to find how many make up one whole.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How many equal parts make up the whole bar?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "2",
+                "4",
+                "6",
+                "8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the equal parts in the whole bar, not just the shaded ones."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All six sections of the bar pulse sequentially from top to bottom to emphasize counting all parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The whole bar includes both the shaded and unshaded parts. Count every section from top to bottom."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Animated counting overlay appears on each section sequentially, displaying numbers 1 through 6 as each part is counted from top to bottom"
+                      },
+                      {
+                        "name": "bracket_whole",
+                        "description": "A bracket appears along the side of the entire bar with label 'whole = 6 parts' to show all sections together form the whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting][event:bracket_whole]This can be tricky, so let's work through it together. The whole bookmark has all these parts - let me count them with you: one, two, three, four, five, six. Even though only two parts are shaded purple, the whole bar is made of 6 equal parts. That's how we identify the whole in fractions."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted all the parts that make up the whole."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

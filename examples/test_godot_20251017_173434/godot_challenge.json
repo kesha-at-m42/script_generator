@@ -1,0 +1,792 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 24,
+        "difficulty": 4,
+        "verb": "analyze",
+        "goal": "The student can express equal parts using unit fraction notation"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are four bars. Each one is divided differently, and some have shaded parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  2
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Find all the bars that show the same unit fraction. Remember, a unit fraction has 1 as the numerator.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars showing the same unit fraction",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check which bars have exactly one part shaded out of the total."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_bar_a",
+                        "description": "Shaded section in Bar A pulses to draw attention"
+                      },
+                      {
+                        "name": "pulse_shaded_bar_c",
+                        "description": "Shaded section in Bar C pulses to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_bar_a][event:pulse_shaded_bar_c]Let's think about this together. A unit fraction has 1 shaded part. Count the shaded parts in each bar and check the total parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "label_fraction_bar_a",
+                        "description": "Overlay displays '1/4' label next to Bar A with annotation showing 1 shaded, 4 total"
+                      },
+                      {
+                        "name": "label_fraction_bar_b",
+                        "description": "Overlay displays '1/8' label next to Bar B with annotation showing 1 shaded, 8 total"
+                      },
+                      {
+                        "name": "label_fraction_bar_c",
+                        "description": "Overlay displays '1/4' label next to Bar C with annotation showing 1 shaded, 4 total"
+                      },
+                      {
+                        "name": "label_fraction_bar_d",
+                        "description": "Overlay displays '2/4' label next to Bar D with annotation showing 2 shaded, 4 total"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:label_fraction_bar_a][event:label_fraction_bar_b][event:label_fraction_bar_c][event:label_fraction_bar_d]This is tricky, so let's work through it together. Bar A has 1 shaded out of 4 total\u2014that's [fraction numerator=1 denominator=4]one fourth[/fraction]. Bar B has 1 shaded out of 8\u2014that's [fraction numerator=1 denominator=8]one eighth[/fraction]. Bar C has 1 shaded out of 4\u2014that's [fraction numerator=1 denominator=4]one fourth[/fraction]. Bar D has 2 shaded out of 4\u2014that's [fraction numerator=2 denominator=4]two fourths[/fraction], not a unit fraction. Bars A and C both show [fraction numerator=1 denominator=4]one fourth[/fraction]. See how that works?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You got it. Both bars show [fraction numerator=1 denominator=4]one fourth[/fraction], even though different parts are shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 30,
+        "difficulty": 4,
+        "verb": "analyze",
+        "goal": "The student can count the total number of equal parts in a whole"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two bars showing different fractions. Bar A shows [fraction numerator=1 denominator=6]one sixth[/fraction] and Bar B shows [fraction numerator=1 denominator=4]one fourth[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Count all the equal parts in each whole bar. Which bar has more parts, and how many more?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select your answer",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Bar A has 2 more parts",
+                "Bar B has 2 more parts",
+                "Both have the same number of parts",
+                "Bar A has 3 more parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count the total parts in each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_sections_bar_a",
+                        "description": "Each section in Bar A pulses sequentially to support counting"
+                      },
+                      {
+                        "name": "pulse_sections_bar_b",
+                        "description": "Each section in Bar B pulses sequentially to support counting"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_sections_bar_a][event:pulse_sections_bar_b]Let's think about this together. Count all the sections in Bar A, then all the sections in Bar B. Which has more?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting_sequence_bar_a",
+                        "description": "Animated overlay showing numbers 1-6 appearing sequentially above each section in Bar A"
+                      },
+                      {
+                        "name": "overlay_counting_sequence_bar_b",
+                        "description": "Animated overlay showing numbers 1-4 appearing sequentially above each section in Bar B"
+                      },
+                      {
+                        "name": "show_total_label_bar_a",
+                        "description": "Label '6 parts' appears next to Bar A"
+                      },
+                      {
+                        "name": "show_total_label_bar_b",
+                        "description": "Label '4 parts' appears next to Bar B"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting_sequence_bar_a][event:overlay_counting_sequence_bar_b][event:show_total_label_bar_a][event:show_total_label_bar_b]This is tricky, so let's work through it together. Count Bar A's sections: 1, 2, 3, 4, 5, 6. That's 6 parts. Now Bar B: 1, 2, 3, 4. That's 4 parts. So Bar A has 2 more parts than Bar B. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted both wholes and found the difference. That's solid comparison work."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 36,
+        "difficulty": 4,
+        "verb": "analyze",
+        "goal": "The student can identify and maintain the whole when working with unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two students each have a bar divided into thirds. Look closely at their bars.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Each student shaded [fraction numerator=1 denominator=3]one third[/fraction] of their bar. But notice the bars are different sizes.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Could these two [fraction numerator=1 denominator=3]one thirds[/fraction] represent different amounts? Think about the size of each whole.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select True or False",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "True - They could be different amounts",
+                "False - One-third is always the same amount"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the size of each whole bar. Does that matter?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_shaded_section",
+                        "description": "The shaded 1/3 sections of both bars pulse to show their sizes"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_shaded_section]You're working on it. Compare the actual size of the shaded parts. Even though both are labeled [fraction numerator=1 denominator=3]one third[/fraction], look at how much space each takes up."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_whole_then_part",
+                        "description": "Animated overlay measures the full bars, then highlights and measures the 1/3 shaded sections"
+                      },
+                      {
+                        "name": "compare_shaded_amounts",
+                        "description": "Visual comparison showing Student 1's 1/3 is physically larger than Student 2's 1/3"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_whole_then_part][event:compare_shaded_amounts]This is tricky, so let's work through it together. Both students have [fraction numerator=1 denominator=3]one third[/fraction], but look at the wholes. Student 1's whole bar is much bigger, so [fraction numerator=1 denominator=3]one third[/fraction] of it is a larger amount. Student 2's whole bar is smaller, so [fraction numerator=1 denominator=3]one third[/fraction] of it is a smaller amount. The fraction depends on the size of the whole. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Exactly right. The fraction depends on the whole \u2013 different wholes, different amounts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 42,
+        "difficulty": 4,
+        "verb": "analyze",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two bars showing unit fractions. Bar A shows [fraction numerator=1 denominator=3]one third[/fraction], and Bar B shows [fraction numerator=1 denominator=8]one eighth[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "A student says: 'Unit fractions with bigger denominators are bigger because bigger numbers are always bigger.' Look at the shaded parts carefully."
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Is the student's reasoning correct? Compare the actual sizes of the shaded parts.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is this reasoning correct?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "True - Bigger denominators make bigger fractions",
+                "False - Bigger denominators make smaller unit fractions"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the actual size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_shaded_section",
+                        "description": "The shaded sections in both bars pulse to draw attention to their sizes"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_shaded_section]You're working on it. Compare the shaded parts visually - which piece takes up more space on the bar?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_section_width",
+                        "description": "Animated measurement overlays showing the width of one section in each bar"
+                      },
+                      {
+                        "name": "comparison_arrow_larger",
+                        "description": "Arrow annotation indicating Bar A's section is larger"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_section_width][event:comparison_arrow_larger]This is tricky, so let's work through it together. Look at Bar A - it's divided into 3 parts, so each piece is pretty big. Bar B is divided into 8 parts, so each piece is much smaller. The reasoning is false because bigger denominators make smaller unit fractions. See how that works?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Exactly right. You saw that [fraction numerator=1 denominator=8]one eighth[/fraction] is smaller than [fraction numerator=1 denominator=3]one third[/fraction], even though 8 is bigger than 3."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 48,
+        "difficulty": 4,
+        "verb": "connect",
+        "goal": "The student can apply partitioning strategies and recognize patterns with equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's Bar A. It was divided into 2 parts first, then each part was cut in half to make 4 equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now look at Bar B. It also has 4 equal parts, but there's no middle step\u2014it went straight to 4 parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "What strategy created Bar B's 4 equal parts directly?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the strategy used for Bar B",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Divide into 4 parts at once with evenly spaced lines",
+                "Divide into 3 parts first, then add one more",
+                "Start with 8 parts and combine them",
+                "Only the 2-then-2 method works"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at Bar B again. How many lines divide it into 4 parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_partition_lines",
+                        "description": "The 3 partition lines in Bar B pulse to emphasize even spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_partition_lines]You're working on it. Bar B has 3 evenly spaced lines creating 4 parts all at once. No intermediate step like Bar A's middle line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "trace_intermediate_line",
+                        "description": "Animated annotation traces Bar A's middle line, showing the 2-step process"
+                      },
+                      {
+                        "name": "trace_all_lines_simultaneously",
+                        "description": "Animated annotation traces all 3 lines in Bar B at once, showing direct partitioning"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:trace_intermediate_line][event:trace_all_lines_simultaneously]Let's look at this together. Bar A used the 2-then-2 method\u2014you can see that middle line. Bar B is different: it has 3 evenly spaced lines creating 4 equal parts directly, with no intermediate step. That's direct partitioning. See how that works?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Exactly right. Different strategies, same result\u20144 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 54,
+        "difficulty": 4,
+        "verb": "analyze",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two bars. Both have 6 parts with 1 part shaded.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  2
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "2/8",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  1
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Look closely at how the parts are divided. Bar A has equal parts. Bar B has unequal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  2
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "2/8",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  1
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Which statement is most accurate about these two bars?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the correct statement",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Both show 1/6",
+                "Only Bar A shows 1/6; Bar B cannot represent a unit fraction",
+                "Only Bar B shows 1/6",
+                "Neither can show a unit fraction"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the size of each part in both bars."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_sections",
+                        "description": "Bar A sections highlight in sequence to show equal sizing, then Bar B sections highlight in sequence to show unequal sizing"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_sections]Let's think about this together. For a fraction to work, all parts must be equal. Check which bar has equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated overlay showing measurement lines confirming all sections in Bar A are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting size differences in Bar B sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal][event:measure_sections_unequal]This is tricky, so let's work through it together. For any fraction to exist, all parts must be exactly equal. Bar A has 6 equal parts, so 1 shaded part is [fraction numerator=1 denominator=6]one sixth[/fraction]. Bar B has unequal parts\u2014see how some are bigger? That means Bar B can't represent a unit fraction. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Exactly right. Fractions only work when parts are equal\u2014that's the foundation."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

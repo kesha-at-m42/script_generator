@@ -1,0 +1,665 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 17,
+        "difficulty": 3,
+        "verb": "apply",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a pizza cut into 8 equal slices. The bar below shows the same thing\u20148 equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Shade one part to show what fraction one slice represents.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click to shade 1 part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/8"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check how many parts you shaded. We need exactly 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_single_section",
+                        "description": "One section of the bar pulses gently to show the target amount"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_single_section]You're working on it. One slice means one part shaded. Count your shaded sections\u2014we need just 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section_animated",
+                        "description": "Animated demonstration showing one section being shaded, with counting overlay showing '1 out of 8'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_one_section_animated]This is tricky, so let's work through it together. One slice out of eight means we shade exactly one part. Watch: I'll shade this section right here. That's [fraction numerator=1 denominator=8]one eighth[/fraction]\u2014one part out of eight total. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it! One slice out of eight is [fraction numerator=1 denominator=8]one eighth[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 29,
+        "difficulty": 3,
+        "verb": "apply",
+        "goal": "The student can count the total number of equal parts in a whole"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a sandwich cut into equal pieces for sharing.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Each person gets [fraction numerator=1 denominator=8]one eighth[/fraction] of the sandwich. How many equal parts is the whole sandwich divided into?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the total number of equal parts",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1",
+                "6",
+                "8",
+                "10"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the equal parts in the sandwich."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_all_sections",
+                        "description": "All 8 sections of the sandwich pulse sequentially to emphasize counting all parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_all_sections]Let's think about this together. The denominator in [fraction numerator=1 denominator=8]one eighth[/fraction] tells us how many equal parts make up the whole sandwich."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_sections_sequentially",
+                        "description": "Animated counting overlay that highlights and numbers each section sequentially from 1 to 8, with numbers appearing above each section"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_sections_sequentially]This can be tricky, so let's work through it together. The bottom number in a fraction tells us the total equal parts. Let's count each section: 1, 2, 3, 4, 5, 6, 7, 8. The whole sandwich has 8 equal parts. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it! The denominator tells you the total parts in the whole."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 35,
+        "difficulty": 3,
+        "verb": "apply",
+        "goal": "The student can identify and maintain the whole when working with unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Maria ate [fraction numerator=1 denominator=8]one eighth[/fraction] of a granola bar. Here are three different granola bars.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "missing": [
+                  7
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/7",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Which bar shows the whole granola bar before Maria ate any?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click the bar that shows the whole",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the complete bar. Which one has all its parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_complete",
+                        "description": "Bar A pulses to draw attention to its completeness"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_complete]You're working on it. The whole bar needs all 8 parts before Maria ate any. Check which bar is complete."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_sections_complete",
+                        "description": "Animated counting overlay showing all 8 sections present and complete in Bar A"
+                      },
+                      {
+                        "name": "highlight_missing_section",
+                        "description": "Red outline appears around the missing section in Bar B"
+                      },
+                      {
+                        "name": "count_sections_incomplete",
+                        "description": "Counting overlay shows only 7 sections in Bar C"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_sections_complete][event:highlight_missing_section][event:count_sections_incomplete]This is tricky, so let's work through it together. The whole bar is the one before Maria ate anything. Bar A has all 8 parts - that's the complete whole. Bar B is missing a piece, and Bar C only has 7 parts. Bar A shows the whole. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it. The whole granola bar had 8 equal parts before Maria ate one."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 41,
+        "difficulty": 3,
+        "verb": "apply",
+        "goal": "The student can compare sizes of unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two friends are sharing pizza. Friend A gets [fraction numerator=1 denominator=3]one third[/fraction] of a pizza. Friend B gets [fraction numerator=1 denominator=5]one fifth[/fraction] of an equal-sized pizza.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/5",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Look at the shaded parts. Who gets more pizza?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select who gets more",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Friend A",
+                "Friend B",
+                "They get equal amounts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at the actual size of each shaded piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_shaded_section",
+                        "description": "Shaded sections of both pizzas pulse to draw attention"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_shaded_section]You're working on it. Compare the shaded sections - which piece takes up more space on the pizza?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_section_width",
+                        "description": "Animated overlays showing width measurements of both sections"
+                      },
+                      {
+                        "name": "comparison_bracket",
+                        "description": "Visual bracket showing 1/3 is larger than 1/5"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_section_width][event:comparison_bracket]Let's work through this together. Look at Friend A's piece - it's 1 out of 3 parts. Now look at Friend B's piece - it's 1 out of 5 parts. When we cut into fewer pieces, each piece is bigger. Friend A gets more pizza. See how that works?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it. When the whole is split into fewer parts, each piece is bigger."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 47,
+        "difficulty": 3,
+        "verb": "predict",
+        "goal": "The student can apply partitioning strategies and recognize patterns with equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Check out these three bars. Each one is divided into equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/18",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Look at the pattern: 2 parts, then 6 parts, then 18 parts. What's the rule?"
+        },
+        {
+          "@type": "Step",
+          "dialogue": "If the pattern continues, how many equal parts would the next bar have?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number of parts",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "24",
+                "36",
+                "54",
+                "72"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Look at how the numbers change from one bar to the next."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_bar_1",
+                        "description": "Bar 1 pulses to highlight starting value of 2"
+                      },
+                      {
+                        "name": "pulse_bar_2",
+                        "description": "Bar 2 pulses to highlight value of 6"
+                      },
+                      {
+                        "name": "pulse_bar_3",
+                        "description": "Bar 3 pulses to highlight value of 18"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_bar_1][event:pulse_bar_2][event:pulse_bar_3]You're working on it. Compare each bar to the one before it. What operation gets you from 2 to 6? From 6 to 18?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "show_multiplication_arrow_1_to_2",
+                        "description": "Arrow appears from bar 1 to bar 2 with '\u00d7 3' label showing the pattern"
+                      },
+                      {
+                        "name": "show_multiplication_arrow_2_to_3",
+                        "description": "Arrow appears from bar 2 to bar 3 with '\u00d7 3' label showing the pattern"
+                      },
+                      {
+                        "name": "show_next_step",
+                        "description": "Arrow extends from bar 3 downward with '\u00d7 3 = 54' showing the next value"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:show_multiplication_arrow_1_to_2][event:show_multiplication_arrow_2_to_3][event:show_next_step]This is tricky, so let's work through it together. Look at the pattern: 2 times 3 equals 6, then 6 times 3 equals 18. Each bar has three times as many parts as the one before. So 18 times 3 equals 54. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found it! Each bar has three times as many parts as the one before."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 53,
+        "difficulty": 3,
+        "verb": "apply",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Three students each cut a sandwich into 4 pieces. Let's see how each one did it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Which sandwiches have pieces that each represent [fraction numerator=1 denominator=4]one fourth[/fraction]? Pick all that work.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all sandwiches with equal fourths",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the sizes of the pieces in each sandwich."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_sections_a",
+                        "description": "All four sections of sandwich A pulse to show equal sizing"
+                      },
+                      {
+                        "name": "pulse_sections_b",
+                        "description": "All four sections of sandwich B pulse to show unequal sizing"
+                      },
+                      {
+                        "name": "pulse_sections_c",
+                        "description": "All four sections of sandwich C pulse to show equal sizing"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_sections_a][event:pulse_sections_b][event:pulse_sections_c]Let's think about this together. For [fraction numerator=1 denominator=4]one fourth[/fraction] to work, all four pieces must be exactly the same size. Look closely at each sandwich."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_a",
+                        "description": "Animated overlay showing measurement lines confirming all sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_b",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_c",
+                        "description": "Animated overlay showing measurement lines confirming all sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_a][event:measure_sections_unequal_b][event:measure_sections_equal_c]This is tricky, so let's work through it together. For a piece to be [fraction numerator=1 denominator=4]one fourth[/fraction], all four pieces must be equal. Watch: Sandwich A has equal pieces\u2014each is [fraction numerator=1 denominator=4]one fourth[/fraction]. Sandwich B has unequal pieces\u2014this one is bigger, so they can't all be [fraction numerator=1 denominator=4]one fourth[/fraction]. Sandwich C has equal pieces\u2014each is [fraction numerator=1 denominator=4]one fourth[/fraction]. So A and C work. There we go."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it. Equal parts can look different, but they all have the same size."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

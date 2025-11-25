@@ -1,0 +1,2072 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 3,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "1/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "Which chocolate bar is partitioned into equal parts so each piece is exactly the same?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with all equal parts",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar where all pieces are exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_unequal_sections_bar1",
+                        "description": "Bar 1 sections pulse sequentially, with largest and smallest pieces pulsing to show size difference"
+                      },
+                      {
+                        "name": "glow_equal_sections_bar2",
+                        "description": "Bar 2 sections glow together to show they are all the same size"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar3",
+                        "description": "Bar 3 sections pulse sequentially, with largest and smallest pieces pulsing to show size difference"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar4",
+                        "description": "Bar 4 sections pulse sequentially, with largest and smallest pieces pulsing to show size difference"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_unequal_sections_bar1][event:glow_equal_sections_bar2][event:pulse_unequal_sections_bar3][event:pulse_unequal_sections_bar4]Let's think about this together. Equal parts means every piece is the same size. Look closely at each bar to compare the pieces."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal_bar1",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between smallest and largest pieces"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar2",
+                        "description": "Animated overlay showing measurement lines confirming all sections are equal width, with checkmarks appearing on each piece"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar3",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between smallest and largest pieces"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar4",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between smallest and largest pieces"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal_bar1][event:measure_sections_equal_bar2][event:measure_sections_unequal_bar3][event:measure_sections_unequal_bar4]This can be tricky, so let's work through it together. We need to find the bar where all pieces are exactly the same size. Let's check each bar. Bar 1 has pieces of different sizes - see how some are bigger than others? Bar 3 and Bar 4 also have unequal pieces. But Bar 2 has all equal pieces - each section is exactly the same. That's how equal parts work - every piece must be the same size."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the bar with equal sixths."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 5,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A baker made different bread loaves with partition lines. Which loaves are cut into equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/4",
+                  "1/8",
+                  "1/8",
+                  "1/4",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars showing equal parts",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2,
+                3
+              ]
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check each loaf carefully. Equal parts means all pieces are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "glow_equal_parts_bar_1",
+                        "description": "All four equal sections glow together to show uniformity"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_2",
+                        "description": "Largest and smallest sections pulse alternately to show size difference"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_3",
+                        "description": "All eight equal sections glow together to show uniformity"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_4",
+                        "description": "Both equal halves glow together to show uniformity"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_5",
+                        "description": "Largest and smallest sections pulse alternately to show size difference"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:glow_equal_parts_bar_1][event:pulse_largest_smallest_bar_2][event:glow_equal_parts_bar_3][event:glow_equal_parts_bar_4][event:pulse_largest_smallest_bar_5]Let's think about this together. Equal parts are all the same size. Look at each loaf and compare the pieces within it."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Animated measurement lines appear showing all four sections are identical width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Animated measurement lines highlight different widths between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_3",
+                        "description": "Animated measurement lines appear showing all eight sections are identical width"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_4",
+                        "description": "Animated measurement lines appear showing both halves are identical width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_5",
+                        "description": "Animated measurement lines highlight different widths between sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:measure_sections_equal_bar_3][event:measure_sections_equal_bar_4][event:measure_sections_unequal_bar_5]This can be tricky, so let's work through it together. Equal parts means every piece in that loaf is exactly the same size. Let me show you each one. These three loaves have equal parts - all pieces match perfectly. The other two have unequal parts - some pieces are bigger than others. That's how we identify equal versus unequal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified all the bars with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 6,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Some of these bars are divided into equal parts, and some aren't. Find all the bars where every part is the same size.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "3/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars with equal parts",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2,
+                4
+              ]
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check each bar carefully. Are all the parts in each bar the same size?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "glow_sections_together_bar_1",
+                        "description": "All sections of bar_1 glow together to show they are equal"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_2",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      },
+                      {
+                        "name": "glow_sections_together_bar_3",
+                        "description": "All sections of bar_3 glow together to show they are equal"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_4",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      },
+                      {
+                        "name": "glow_sections_together_bar_5",
+                        "description": "All sections of bar_5 glow together to show they are equal"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_6",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:glow_sections_together_bar_1][event:pulse_largest_smallest_bar_2][event:glow_sections_together_bar_3][event:pulse_largest_smallest_bar_4][event:glow_sections_together_bar_5][event:pulse_largest_smallest_bar_6]Let's think about this together. Equal parts means every section is exactly the same size. Look at how the parts compare in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Measurement lines appear showing all sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Measurement lines highlight size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_3",
+                        "description": "Measurement lines appear showing all sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_4",
+                        "description": "Measurement lines highlight size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_5",
+                        "description": "Measurement lines appear showing all sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_6",
+                        "description": "Measurement lines highlight size differences between sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:measure_sections_equal_bar_3][event:measure_sections_unequal_bar_4][event:measure_sections_equal_bar_5][event:measure_sections_unequal_bar_6]This can be tricky, so let's work through it together. We need bars where every part is exactly the same size. Bar 1 has three equal parts - they're all the same. Bar 2 has unequal parts - see how some are bigger? Bar 3 has six equal parts. Bar 4 has unequal parts. Bar 5 has four equal parts. Bar 6 has unequal parts. So bars 1, 3, and 5 all have equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified all the bars with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 9,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/16",
+                  "1/16",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "3/16",
+                  "3/16",
+                  "1/16"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "You need to find the bar that's correctly divided into eighths. Which one has 8 equal parts?",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar divided into eighths",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with 8 equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "glow_equal_parts_bar_1",
+                        "description": "Bar 1's 8 equal sections glow together to show uniformity"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_2",
+                        "description": "Bar 2's largest and smallest sections pulse to show size differences"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_3",
+                        "description": "Bar 3's 6 equal sections glow together"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_4",
+                        "description": "Bar 4's 4 equal sections glow together"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:glow_equal_parts_bar_1][event:pulse_largest_smallest_bar_2][event:glow_equal_parts_bar_3][event:glow_equal_parts_bar_4]Let's think about this together. For eighths, you need exactly 8 parts that are all the same size. Check each bar carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Animated overlay showing measurement lines confirming all 8 sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between the 8 sections"
+                      },
+                      {
+                        "name": "count_sections_bar_3",
+                        "description": "Numbers 1-6 appear sequentially over each section to show only 6 parts"
+                      },
+                      {
+                        "name": "count_sections_bar_4",
+                        "description": "Numbers 1-4 appear sequentially over each section to show only 4 parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:count_sections_bar_3][event:count_sections_bar_4]This can be tricky, so let's work through it together. We need 8 equal parts for eighths. Bar 1 has 8 parts that are all the same size. Bar 2 has 8 parts, but they're not equal. Bar 3 has only 6 parts, and Bar 4 has only 4 parts. That's why Bar 1 is divided into eighths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the bar with 8 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 10,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A ribbon is being cut into sixths. Find the bar where all six parts are exactly the same size.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar correctly partitioned into sixths",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sections_glow_together_bar_1",
+                        "description": "All six equal sections glow together in unison"
+                      },
+                      {
+                        "name": "largest_smallest_pulse_bar_2",
+                        "description": "Largest and smallest sections pulse alternately to show size differences"
+                      },
+                      {
+                        "name": "sections_glow_together_bar_3",
+                        "description": "All three equal sections glow together, but only three sections visible"
+                      },
+                      {
+                        "name": "sections_glow_together_bar_4",
+                        "description": "All eight equal sections glow together, but eight sections visible"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sections_glow_together_bar_1][event:largest_smallest_pulse_bar_2][event:sections_glow_together_bar_3][event:sections_glow_together_bar_4]Let's think about this together. We need six parts that are all exactly the same size. Watch as each bar highlights to show which parts are equal."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Animated overlay showing measurement lines confirming all six sections are equal width, with checkmark appearing"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between the six sections"
+                      },
+                      {
+                        "name": "count_sections_bar_3",
+                        "description": "Numbers 1, 2, 3 appear sequentially over sections showing only three parts"
+                      },
+                      {
+                        "name": "count_sections_bar_4",
+                        "description": "Numbers 1-8 appear sequentially over sections showing eight parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:count_sections_bar_3][event:count_sections_bar_4]This can be tricky, so let's work through it together. We need exactly six parts, and they all need to be the same size. Let me show you each bar. This first bar has six parts, and watch how they're all equal. The second bar has six parts, but they're different sizes. The third bar only has three parts. The fourth bar has eight parts. So the first bar is the one with six equal parts. That's how sixths work - six equal parts make the whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the bar with six equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 12,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A carpenter marked wood boards with different partition lines. Which boards are divided into equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "3/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select all bars showing equal parts",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2,
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look carefully at which boards have all sections the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "glow_sections_equal_bar_1",
+                        "description": "All three equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_2",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      },
+                      {
+                        "name": "glow_sections_equal_bar_3",
+                        "description": "All six equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_4",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      },
+                      {
+                        "name": "glow_sections_equal_bar_5",
+                        "description": "All eight equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_6",
+                        "description": "Largest and smallest sections pulse to show size difference"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:glow_sections_equal_bar_1][event:pulse_largest_smallest_bar_2][event:glow_sections_equal_bar_3][event:pulse_largest_smallest_bar_4][event:glow_sections_equal_bar_5][event:pulse_largest_smallest_bar_6]Let's think about this together. Equal parts means every section is exactly the same size. Check each board - do all its pieces match?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Measurement lines appear showing all three sections are identical width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Measurement lines appear highlighting different widths between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_3",
+                        "description": "Measurement lines appear showing all six sections are identical width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_4",
+                        "description": "Measurement lines appear highlighting different widths between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_5",
+                        "description": "Measurement lines appear showing all eight sections are identical width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_6",
+                        "description": "Measurement lines appear highlighting different widths between sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:measure_sections_equal_bar_3][event:measure_sections_unequal_bar_4][event:measure_sections_equal_bar_5][event:measure_sections_unequal_bar_6]This can be tricky, so let's work through it together. For equal parts, every section must be the same size. The first board has three equal thirds - all match. The second board's sections are different sizes - not equal. The third board has six equal sixths. The fourth board has unequal sections. The fifth board has eight equal eighths. The sixth board has unequal thirds. So boards one, three, and five show equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified all the bars with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 18,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can recognize and identify equal versus unequal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "3/8"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "dialogue": "Look closely at these bars. Some are divided into equal parts, some aren't. Click all the ones with equal parts.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click all bars showing equal parts",
+            "tool": "multi_select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": [
+                0,
+                2,
+                3
+              ]
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check each bar carefully. Are all the parts the same size?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "glow_equal_parts_bar_1",
+                        "description": "Bar 1's equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_2",
+                        "description": "Bar 2's largest and smallest sections pulse to show size difference"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_3",
+                        "description": "Bar 3's equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "glow_equal_parts_bar_4",
+                        "description": "Bar 4's equal sections glow together to show they match"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bar_5",
+                        "description": "Bar 5's largest and smallest sections pulse to show size difference"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:glow_equal_parts_bar_1][event:pulse_largest_smallest_bar_2][event:glow_equal_parts_bar_3][event:glow_equal_parts_bar_4][event:pulse_largest_smallest_bar_5]Let's think about this together. Equal parts means every section is exactly the same size. Look at each bar - do all sections match?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar_1",
+                        "description": "Animated measurement lines appear showing both sections of bar 1 are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Animated measurement lines highlight the different widths in bar 2's sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_3",
+                        "description": "Animated measurement lines appear showing all four sections of bar 3 are equal width"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_4",
+                        "description": "Animated measurement lines appear showing all six sections of bar 4 are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_5",
+                        "description": "Animated measurement lines highlight the different widths in bar 5's sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar_1][event:measure_sections_unequal_bar_2][event:measure_sections_equal_bar_3][event:measure_sections_equal_bar_4][event:measure_sections_unequal_bar_5]This can be tricky, so let's work through it together. We need bars where every part is the same size. Bar 1 has 2 equal halves - both match perfectly. Bar 3 has 4 equal fourths - all the same. Bar 4 has 6 equal sixths - every section matches. But bar 2 and bar 5 have parts that are different sizes, so they're not equal. That's how we identify equal parts - every section must be exactly the same size."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified all the bars with equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 3,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can identify and maintain the whole when working with fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this ribbon. Some sections are shaded to show the parts used for a project. How many equal parts does the whole ribbon have?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Count the total equal parts in the whole ribbon",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                3
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "5",
+                "6",
+                "7",
+                "8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the parts in the whole ribbon, not just the shaded ones."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All eight sections of the ribbon pulse sequentially from left to right to emphasize counting the entire whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The whole ribbon includes both the shaded parts and the unshaded parts. Count every section from end to end."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_all_sections",
+                        "description": "Animated counting overlay appears on each section sequentially with numbers 1-8, highlighting both shaded and unshaded sections to demonstrate counting the entire whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_all_sections]This can be tricky, so let's work through it together. The whole ribbon means every part, whether it's shaded or not. Let's count together: one, two, three, four, five, six, seven, eight. The whole ribbon has 8 equal parts. That's how we identify the whole - we count all the parts together."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted all the parts in the whole ribbon."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 5,
+        "difficulty": 3,
+        "verb": "identify",
+        "goal": "The student can identify and maintain the whole when working with fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bookshelf showing reading progress. Some parts are shaded for books read. Count all the equal parts in the whole bar.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Count the total equal parts in the whole bar",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "3",
+                "5",
+                "8",
+                "11"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the parts in the whole bar, both shaded and unshaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All sections of the bar pulse sequentially from left to right to emphasize counting all parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The whole bar includes both the shaded parts and the unshaded parts. Count every section from left to right."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Animated counting overlay appears on each section sequentially, numbering 1 through 8 from left to right across all sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting]This can be tricky, so let's work through it together. The whole bar has 8 equal parts total. Let's count them: 1, 2, 3 are shaded, then 4, 5, 6, 7, 8 are unshaded. That's 8 parts in the whole. See how the whole includes all sections, not just the shaded ones."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted all the parts in the whole bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 7,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can identify and maintain the whole when working with fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this garden row. Some sections show where vegetables are planted. Count all the equal parts in the whole row.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Count the total equal parts in the whole bar",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "4",
+                "5",
+                "6",
+                "2"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the sections in the whole row, not just the planted ones."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All six sections of bar_1 pulse together to emphasize counting the entire whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The whole row includes both the planted sections and the empty sections. Count every part from end to end."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "count_sections_sequentially",
+                        "description": "Animated counting overlay appears on each section sequentially from left to right, displaying numbers 1 through 6 as each section highlights in turn"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:count_sections_sequentially]This is tricky, so let's work through it together. When we count parts in the whole, we count every section - both planted and empty. Let's count: one, two, three, four, five, six. The whole row has 6 equal parts total. That's how fractions work - the whole includes all the parts, not just the shaded ones."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted all the parts in the whole row."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 9,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can identify and maintain the whole when working with fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This sidewalk path has chalk drawings on some sections. Count all the equal parts in the whole path.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Count the total equal parts in the whole bar",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "6",
+                "8",
+                "2",
+                "4"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count all the sections in the whole path, not just the chalk drawings."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_all_sections",
+                        "description": "All 8 sections of the bar pulse sequentially from left to right to emphasize counting the complete whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_all_sections]Let's think about this together. The whole path includes both the chalk drawings and the plain sections. Count every section from end to end."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "overlay_counting",
+                        "description": "Animated overlay shows numbers 1-8 appearing sequentially above each section as they are counted, with a final emphasis on '8 equal parts total'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:overlay_counting]This can be tricky, so let's work through it together. When we count parts in the whole, we count every section - both the chalk drawings and the plain ones. Let's count from left to right: 1, 2, 3, 4, 5, 6, 7, 8. The whole path has 8 equal parts. That's how fractions work - the whole includes all parts, not just the shaded ones."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You counted all the parts in the whole bar."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 3,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A chocolate bar is divided into sixths, with one piece shaded. Which bar shows the correct way to divide it into sixths?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "1/8",
+                  "1/4",
+                  "1/8",
+                  "1/4",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/9",
+                  "1/9",
+                  "2/9",
+                  "2/9",
+                  "1/9",
+                  "2/9"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar where all six pieces are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_unequal_sections_bar1",
+                        "description": "Bar 1 sections pulse sequentially, showing largest and smallest pieces to highlight inequality"
+                      },
+                      {
+                        "name": "glow_equal_sections_bar2",
+                        "description": "Bar 2 sections glow together to show all parts are equal"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar3",
+                        "description": "Bar 3 sections pulse sequentially, showing largest and smallest pieces to highlight inequality"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar4",
+                        "description": "Bar 4 sections pulse sequentially, showing largest and smallest pieces to highlight inequality"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_unequal_sections_bar1][event:glow_equal_sections_bar2][event:pulse_unequal_sections_bar3][event:pulse_unequal_sections_bar4]Let's think about this together. For sixths, all six parts need to be equal. Look closely at which bar has pieces that are all the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_equal_bar2",
+                        "description": "Animated overlay showing measurement lines confirming all six sections are equal width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar1",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar3",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar4",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_equal_bar2][event:measure_sections_unequal_bar1][event:measure_sections_unequal_bar3][event:measure_sections_unequal_bar4]This can be tricky, so let's work through it together. For a fraction like [fraction numerator=1 denominator=6]one sixth[/fraction], we need six equal parts. Let me show you - bar 2 has all six pieces the same size, so that's the correct one. See how all six parts are equal? That's what makes it sixths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with six equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 4,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Jamie divided a fruit bar into 8 pieces. Each person gets one piece. Which bar shows pieces that are truly equal?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/8",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check if all 8 pieces are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_largest_smallest_top",
+                        "description": "The largest and smallest pieces in the top bar pulse to show size differences"
+                      },
+                      {
+                        "name": "glow_equal_parts",
+                        "description": "All sections in the middle bar glow together to show they are equal"
+                      },
+                      {
+                        "name": "pulse_largest_smallest_bottom",
+                        "description": "The largest and smallest pieces in the bottom bar pulse to show size differences"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_largest_smallest_top][event:glow_equal_parts][event:pulse_largest_smallest_bottom]Let's think about this together. For fractions to work, all parts need to be equal. Look closely at each bar's pieces."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal_top",
+                        "description": "Animated measurement lines appear showing the width differences between sections in the top bar"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated measurement lines appear showing all sections in the middle bar are exactly the same width"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bottom",
+                        "description": "Animated measurement lines appear showing the width differences between sections in the bottom bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal_top][event:measure_sections_equal][event:measure_sections_unequal_bottom]This can be tricky, so let's work through it together. For eighths to be fair, all 8 pieces must be exactly the same size. The top and bottom bars have uneven pieces - some are bigger than others. Only the middle bar has all 8 pieces equal. That's how eighths work - 8 equal parts make the whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with 8 equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 11,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Three friends are sharing a brownie equally. Which bar shows that each friend gets exactly [fraction numerator=1 denominator=3]one third[/fraction]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/4",
+                  "1/2",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/6",
+                  "1/3",
+                  "1/2"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. For [fraction numerator=1 denominator=3]one third[/fraction], all three parts must be exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_unequal_sections_bar1",
+                        "description": "Bar 1 sections pulse sequentially showing size differences between parts"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar2",
+                        "description": "Bar 2 sections pulse sequentially showing size differences between parts"
+                      },
+                      {
+                        "name": "glow_equal_sections",
+                        "description": "Bar 3 sections glow together showing all parts are equal"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar4",
+                        "description": "Bar 4 sections pulse sequentially showing size differences between parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_unequal_sections_bar1][event:pulse_unequal_sections_bar2][event:glow_equal_sections][event:pulse_unequal_sections_bar4]Let's think about this together. For equal sharing, each friend needs the exact same amount. Look for the bar where all three sections are identical."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal_bar1",
+                        "description": "Animated overlay showing measurement lines highlighting size differences, with smallest and largest sections pulsing"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar2",
+                        "description": "Animated overlay showing measurement lines highlighting size differences, with smallest and largest sections pulsing"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated overlay showing measurement lines confirming all three sections are equal width, with checkmarks appearing on each section"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar4",
+                        "description": "Animated overlay showing measurement lines highlighting size differences, with smallest and largest sections pulsing"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal_bar1][event:measure_sections_unequal_bar2][event:measure_sections_equal][event:measure_sections_unequal_bar4]This can be tricky, so let's work through it together. For [fraction numerator=1 denominator=3]one third[/fraction], we need exactly 3 equal parts. Let me show you each bar. These bars have unequal parts - some pieces are bigger than others. But this bar has all three parts exactly the same size. That's how thirds work - 3 equal parts make the whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with equal parts showing [fraction numerator=1 denominator=3]one third[/fraction]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 12,
+        "difficulty": 3,
+        "verb": "IDENTIFY",
+        "goal": "The student can understand that all parts must be equal for unit fractions"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "A garden bed is divided into fourths. One part is shaded in each bed. Which partition shows equal parts?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/8",
+                  "4/8",
+                  "2/8",
+                  "1/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "2/8",
+                  "1/8",
+                  "3/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "3/8",
+                  "1/8",
+                  "2/8",
+                  "2/8"
+                ],
+                "visual": 0,
+                "shaded": [
+                  0
+                ],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing the correct fraction",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 2
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check which bar has all four parts the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_unequal_sections_bar_1",
+                        "description": "Bar 1 sections pulse sequentially, showing largest and smallest sections to highlight inequality"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar_2",
+                        "description": "Bar 2 sections pulse sequentially, showing largest and smallest sections to highlight inequality"
+                      },
+                      {
+                        "name": "glow_equal_sections_bar_3",
+                        "description": "Bar 3 sections glow together uniformly, indicating all parts are equal"
+                      },
+                      {
+                        "name": "pulse_unequal_sections_bar_4",
+                        "description": "Bar 4 sections pulse sequentially, showing largest and smallest sections to highlight inequality"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_unequal_sections_bar_1][event:pulse_unequal_sections_bar_2][event:glow_equal_sections_bar_3][event:pulse_unequal_sections_bar_4]Let's think about this together. For fourths, all four parts need to be equal. Look closely at each bar to find which one has parts that are all the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal_bar_1",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_2",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      },
+                      {
+                        "name": "measure_sections_equal_bar_3",
+                        "description": "Animated overlay showing measurement lines confirming all sections are equal width, with checkmarks appearing"
+                      },
+                      {
+                        "name": "measure_sections_unequal_bar_4",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal_bar_1][event:measure_sections_unequal_bar_2][event:measure_sections_equal_bar_3][event:measure_sections_unequal_bar_4]This can be tricky, so let's work through it together. To show fourths correctly, we need all four parts to be exactly the same size. Let me show you each bar. Bars 1, 2, and 4 have parts that are different sizes - some bigger, some smaller. But bar 3 has all four parts the same size. That's how fourths work - all parts must be equal."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You identified the bar with equal fourths."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

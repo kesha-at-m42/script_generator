@@ -1,0 +1,605 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 7.0,
+        "goal_text": "The student can identify the number of equal intervals on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Count the equal spaces between the tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How many equal intervals are on this number line?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the spaces between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. We're counting the spaces, not the tick marks. [event:selected_compare][event:A_compare] See how the spaces between the marks are what we count as intervals?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to count intervals. [event:A_count] We count the spaces between the tick marks, not the marks themselves. From 0 to the middle mark is one interval, and from the middle mark to 1 is another interval. That gives us two [vocab]equal intervals[/vocab] total."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. There are two [vocab]equal intervals[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 7.0,
+        "goal_text": "The student can identify the number of equal intervals on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines. Each one is divided differently. Find the one with exactly 3 [vocab]equal intervals[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/2",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/3",
+                  "2/3",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ],
+                "labelled": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the line showing 3 equal intervals.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the intervals between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected shape"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. An [vocab]interval[/vocab] is the space between two tick marks. [event:selected_compare][event:A_compare] Count the spaces on each line carefully."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top shape"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. We need to count the intervals - the spaces between tick marks. [event:C_count] The second line has exactly 3 [vocab]equal intervals[/vocab] from 0 to 1. That's the one we're looking for."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. That line has 3 [vocab]equal intervals[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 7.0,
+        "goal_text": "The student can identify the number of equal intervals on a number line.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three number lines. One of them is divided into fourths. Which one is it?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/4",
+                  "2/4",
+                  "3/4",
+                  1
+                ]
+              },
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the number line divided into fourths.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the [vocab]equal intervals[/vocab] between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected number line"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the correct number line with equal intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Fourths means we need exactly 4 [vocab]equal intervals[/vocab]. [event:selected_compare]Look at the number line you selected - count how many intervals it has. [event:B_compare]Now look at the second number line and count its intervals."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the 4 equal intervals on the correct number line"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find fourths on a number line. The second number line has 4 [vocab]equal intervals[/vocab] between 0 and 1 - that's what fourths means.[event:B_count]L See how it's divided into exactly 4 parts of the same size? That's the number line divided into fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified the [vocab]number line[/vocab] with four [vocab]equal intervals[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 7.0,
+        "goal_text": "The student can identify the number of equal intervals on a number line.",
+        "verb": "CONNECT",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "TRANSFER",
+        "mastery_verbs": [
+          "CONNECT"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This [vocab]number line[/vocab] goes from 0 to 1. Count the equal spaces between the tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "What is the denominator of the fraction representing the intervals?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "4",
+                "5",
+                "6",
+                "7"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the equal spaces between the tick marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the intervals on the number line to show they are equal"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. The [vocab]denominator[/vocab] tells us how many [vocab]equal intervals[/vocab] the number line is divided into. [event:A_compare] Look at the spaces between each [vocab]tick mark[/vocab] - they're all the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label each interval on the number line from 0 to 1"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me help you with this one. To find the [vocab]denominator[/vocab], we need to count the [vocab]equal intervals[/vocab]. [event:A_count] Starting from 0, we have one, two, three, four, five, six equal spaces. That's how we know the denominator is 6."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. Six [vocab]equal intervals[/vocab] means the [vocab]denominator[/vocab] is 6."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 7.0,
+        "goal_text": "The student can identify the number of equal intervals on a number line.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This [vocab]number line[/vocab] goes from 0 to 1. Count the spaces between the tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 9,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  "1/8",
+                  "2/8",
+                  "3/8",
+                  "4/8",
+                  "5/8",
+                  "6/8",
+                  "7/8",
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How many equal intervals are on this number line?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "6",
+                "7",
+                "8",
+                "9"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the spaces between the tick marks, not the tick marks themselves."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the intervals on the number line to show they are equal"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. We need to count the spaces, not the marks. [event:A_compare] Notice how each space between the marks is the same size - that's one [vocab]interval[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label each interval on the number line from 0 to 1"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to count intervals. An interval is the space between two tick marks. [event:A_count] Starting from 0, we count each space: one, two, three, four, five, six, seven, eight. There are 8 [vocab]equal intervals[/vocab] on this [vocab]number line[/vocab]. That's how intervals work - we count the spaces, not the marks."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. You counted eight [vocab]equal intervals[/vocab] on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

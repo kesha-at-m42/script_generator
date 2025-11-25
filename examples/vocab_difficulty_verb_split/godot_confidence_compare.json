@@ -1,0 +1,107 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 16,
+        "difficulty": 1,
+        "verb": "compare",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Compare these two bars. Which one shows thirds correctly? Look for 3 equal parts, not just 3 parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": [
+                  "1/2",
+                  "1/4",
+                  "1/4"
+                ],
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing thirds",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 1
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar where all three parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "highlight_smallest_largest",
+                        "description": "The smallest and largest sections of the top bar pulse to show size differences"
+                      },
+                      {
+                        "name": "glow_equal_parts",
+                        "description": "All three sections of the bottom bar glow together to show they are equal"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:highlight_smallest_largest][event:glow_equal_parts]Let's think about this together. For thirds, we need 3 equal parts. Check if each part in your selected bar is exactly the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "measure_sections_unequal",
+                        "description": "Animated overlay showing measurement lines highlighting size differences between sections in the top bar"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Animated overlay showing measurement lines confirming all sections in the bottom bar are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:measure_sections_unequal][event:measure_sections_equal]This is tricky, so let's work through it together. Thirds means 3 equal parts. The top bar has 3 parts, but they're different sizes. The bottom bar has 3 parts that are all the same size. That's how thirds work - all three parts need to be equal."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You found the bar with 3 equal parts."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

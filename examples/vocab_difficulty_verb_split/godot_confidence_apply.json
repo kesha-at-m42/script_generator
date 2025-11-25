@@ -1,0 +1,88 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 19,
+        "difficulty": 1,
+        "verb": "APPLY",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Now shade one part to show what gets packaged.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/2"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Almost. Shade just one of the two parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_section",
+                        "description": "One piece of the bar is outlined with a pulsing border to indicate which section should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_section]You're getting there. Here's a hint - you only need to shade one piece of the bar, not both pieces."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_shading_single_section",
+                        "description": "Animated demonstration showing one section of the bar gradually filling with shading while the other section remains unshaded, with an annotation indicating '1 out of 2 parts'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_shading_single_section]Let me help you with this one. To show what gets packaged, we shade just one of the two parts. Watch as I shade this section here - now [fraction numerator=1 denominator=2]one half[/fraction] is shaded. There we go - [fraction numerator=1 denominator=2]one half[/fraction] is 1 out of 2 equal sections."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded [fraction numerator=1 denominator=2]one half[/fraction] of the bar."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

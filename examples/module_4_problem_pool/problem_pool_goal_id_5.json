@@ -1,0 +1,2107 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into two equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 4,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a tick mark to divide into halves.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place the [vocab]tick mark[/vocab] in the middle."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal spacing highlighted"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. To make two equal parts, [event:A_compare] the distance from 0 to your [vocab]tick mark[/vocab] should equal the distance from your tick mark to 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the 1/2 tick mark to demonstrate the correct placement"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into halves. To split the [vocab]number line[/vocab] into two equal parts, [event:A_arrow] we place the [vocab]tick mark[/vocab] exactly halfway between 0 and 1. See how the two intervals are exactly the same length? That's what makes them halves."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the line into halves."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at one-half.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=1 denominator=2][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check which [vocab]tick mark[/vocab] is halfway between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to highlight equal intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. One-half is the point that divides the line into two equal parts. [event:A_compare] Look at which [vocab]tick mark[/vocab] creates equal distances on both sides."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the 1/2 tick mark to show the correct location"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. One-half is located [event:A_arrow] at the middle tick mark between 0 and 1. This tick divides the number line into two equal parts, so it represents one-half. That's how we identify [fraction numerator=1 denominator=2]one half[/fraction] on a number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified one-half on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "2/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into three equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to partition into thirds.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place two tick marks to make three equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing needed"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] To make thirds, you need three equal spaces between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_3",
+                        "description": "Make a cut at 1/3 mark"
+                      },
+                      {
+                        "name": "A_cut_2_3",
+                        "description": "Make a cut at 2/3 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] into thirds. [event:A_cut_1_3][event:A_cut_2_3] We place one tick at one-third and another at two-thirds. See how this creates three [vocab]equal intervals[/vocab]? That's how thirds work on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into thirds."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the tick that shows two-thirds.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=2 denominator=3][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Count two thirds from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts to highlight the two-thirds position"
+                      }
+                    ]
+                  },
+                  "dialogue": "You're working on it. Here's what helps - [event:A_compare_shaded] two-thirds means two of the three equal parts from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the 2/3 tick to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_arrow] To find two-thirds, we count two equal jumps from zero. The first tick is one-third, and the second tick is two-thirds. That's the tick that shows two out of three equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified two-thirds on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "3/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into fourths by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into fourths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] You need to make 4 equal parts, so the space between each [vocab]tick mark[/vocab] should be the same."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal spacing"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight and compare each interval to show they are equal"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into fourths. [event:A_compare] To make four equal parts, we need three tick marks that split the line evenly. [event:A_compare_shaded] Each section from 0 to [fraction numerator=1 denominator=4]one fourth[/fraction], then [fraction numerator=1 denominator=4]one fourth[/fraction] to [fraction numerator=2 denominator=4]two fourths[/fraction], then [fraction numerator=2 denominator=4]two fourths[/fraction] to [fraction numerator=3 denominator=4]three fourths[/fraction], and finally [fraction numerator=3 denominator=4]three fourths[/fraction] to 1 should be exactly the same length. That's how fourths work - 4 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the [vocab]number line[/vocab] into fourths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at three-fourths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=3 denominator=4][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count three fourths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show the intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the first three intervals to show three-fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare] Three-fourths means we count three intervals of one-fourth each, starting from zero. [event:A_compare_shaded] Look at where the third interval ends."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the 3/4 tick mark to show counting three intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_arrow] To find three-fourths, we start at zero and count three equal jumps. The first jump takes us to [fraction numerator=1 denominator=4]one fourth[/fraction], the second jump to [fraction numerator=2 denominator=4]two fourths[/fraction], and the third jump lands us right here at [fraction numerator=3 denominator=4]three fourths[/fraction]. See how we counted three intervals of one-fourth each to reach three-fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified three-fourths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6",
+            "5/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into six equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into sixths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place five ticks to create six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] To make sixths, you need six equal spaces between 0 and 1. That means placing five tick marks evenly along the line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow showing equal spacing for all six intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] this into sixths. [event:A_arrow] To create six equal parts, we place five ticks that divide the line evenly from 0 to 1. See how each space between the ticks is exactly the same size? That's how sixths work - six [vocab]equal intervals[/vocab] on the [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into sixths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] that shows five-sixths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=5 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Count five intervals from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line highlighting the five intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare] Five-sixths means we count five equal parts starting from zero. Look at which [vocab]tick mark[/vocab] comes after the fifth [vocab]interval[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 5/6 to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_arrow] To find five-sixths, we start at zero and count five [vocab]equal intervals[/vocab] along the [vocab]number line[/vocab]. The [vocab]tick mark[/vocab] at the end of the fifth interval is five-sixths. That's how we locate [vocab]fractions[/vocab] on a number line - by counting the intervals from zero."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified five-sixths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 5.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/3"
+          ]
+        },
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into thirds by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into thirds.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place two tick marks to create three equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing needed"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. For thirds, you need [event:A_compare] two tick marks that divide the line into three equal sections."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal spacing demonstration"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into thirds. We need to place [event:A_compare] two tick marks that split the line into three equal parts - one at the one-third [vocab]position[/vocab] and one at the two-thirds position. See how each section is exactly the same length? That's what makes them thirds."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the line into three equal parts."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at one-third.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=1 denominator=3][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Find the first [vocab]tick mark[/vocab] after zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts to highlight the first interval representing 1/3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. One-third is [event:A_compare] the first [vocab]tick mark[/vocab] you reach when counting from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the first tick mark at 1/3"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me help you with this. To find one-third, we start at zero and [event:A_arrow] move to the first [vocab]tick mark[/vocab]. That first tick represents one out of three equal parts. That's one-third."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified one-third on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into four equal parts by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to partition into fourths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] You need four equal parts between 0 and 1, so the spacing between each [vocab]tick mark[/vocab] should be exactly the same."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Demonstrate equal spacing by showing measurement of all four intervals on the number line"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] this into fourths. [event:A_compare] To make four equal parts, we need to divide the distance from 0 to 1 into four sections that are all the same size. That means placing tick marks at one-fourth, two-fourths, and three-fourths. See how each [vocab]interval[/vocab] is exactly the same length?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into fourths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] that shows one-fourth.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=1 denominator=4][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count one fourth from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Highlight all four equal intervals on the number line"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the first interval from 0 to the first tick mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare] One-fourth means one part out of four equal parts. [event:A_compare_shaded] Start at zero and move to the first [vocab]tick mark[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the first tick mark to show one-fourth"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_arrow] One-fourth is the first tick mark after zero. We start at 0 and count one equal part forward - that's the first tick mark, which represents one-fourth. That's how we locate one-fourth on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified one-fourth on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6",
+            "4/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into six equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into sixths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check the spacing between marks."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. You need to make six equal parts between 0 and 1. [event:A_compare] Try spacing the tick marks evenly."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Demonstrate equal spacing by showing measurement of all six equal intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into sixths. To make six equal parts, we need to place five tick marks [event:A_compare] that divide the line evenly from 0 to 1. See how each section is exactly the same size? That's how sixths work - six equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the line into sixths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at four-sixths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=4 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                8
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count four sixths from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the first four intervals to show counting to 4/6"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare_shaded] Four-sixths means we count four equal jumps from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the 4/6 tick mark showing the counting progression"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. To find four-sixths, we start at zero and count four equal parts: [event:A_arrow] one-sixth, two-sixths, three-sixths, four-sixths. That's how we locate four-sixths on the [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified four-sixths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/3",
+            "2/3",
+            "3/3"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into three equal parts by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to partition into thirds.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place two tick marks to create three equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. To make thirds, you need [event:A_compare] three equal spaces along the [vocab]number line[/vocab]. Try placing the tick marks so each part is the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Demonstrate equal spacing by showing measurement of three equal intervals on the number line"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] into thirds. To divide the [vocab]number line[/vocab] into three equal parts, we need to place [event:A_compare] tick marks at [fraction numerator=1 denominator=3]one third[/fraction] and [fraction numerator=2 denominator=3]two thirds[/fraction]. See how this creates three spaces that are exactly the same size? That's how thirds work - three equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into thirds."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the tick that represents [fraction numerator=3 denominator=3]3 thirds[/fraction].",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=3 denominator=3][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Count three thirds from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Highlight the three equal intervals to show how they add up to one whole"
+                      }
+                    ]
+                  },
+                  "dialogue": "You're working on it. Here's what helps - [event:A_compare] three thirds equals one whole, so [fraction numerator=3 denominator=3]3 thirds[/fraction] is at the same place as 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the tick at 1 to show counting three thirds"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. We need to find [fraction numerator=3 denominator=3]3 thirds[/fraction]. [event:A_arrow] Starting at zero, we count three thirds: one third, two thirds, three thirds. Three thirds equals one whole, so [fraction numerator=3 denominator=3]3 thirds[/fraction] is right at the 1 mark. That's how thirds work - three equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. [fraction numerator=3 denominator=3]3 thirds[/fraction] is at the end, equal to one whole."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 9.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "2/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into fourths by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into fourths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place three tick marks to make four equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing needed"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] To make fourths, you need four equal spaces between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws arrows showing the placement of tick marks at 1/4, 2/4, and 3/4 to demonstrate equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how this works. To divide into fourths, we need three tick marks that create four equal spaces. [event:A_arrow] The first tick goes at one-fourth, the second at two-fourths, and the third at three-fourths. See how each space between the marks is exactly the same size? That's what makes them fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the [vocab]number line[/vocab] into fourths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at two-fourths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=2 denominator=4][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Count two jumps from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare and highlight the first two intervals on the number line to show two-fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare_shaded] Two-fourths means you count two equal parts starting from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the tick at 2/4, demonstrating counting two equal intervals"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_arrow] To find two-fourths, we start at zero and count two equal jumps. The first jump takes us to one-fourth, and the second jump takes us to two-fourths, right here at the second tick mark. That's how we locate two-fourths on the [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified two-fourths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 10.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6",
+            "3/6"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into six equal parts by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 6,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition the number line into sixths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place five tick marks to create six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] To make six equal parts, each section needs to be the same size from 0 to 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw arrows showing equal spacing for all six intervals on the number line"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to do this. To divide the line into sixths, we need five tick marks that split the line into six equal sections. [event:A_arrow] See how each part from 0 to 1 is exactly the same length? That's how we create six equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into six equal parts."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] that shows three-sixths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=3 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check your count. Find the third [vocab]tick mark[/vocab] from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all parts of the number line showing equal intervals"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Highlight the first three sections to show three-sixths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare] Three-sixths means we count three equal jumps from zero. [event:A_compare_shaded] Look at where the third section ends."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the tick at 3/6, counting through each interval"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. To find three-sixths, we start at zero and count three equal parts. [event:A_arrow] One-sixth, two-sixths, three-sixths. The tick at the end of the third section shows three-sixths. That's how we locate fractions on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified three-sixths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 11.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into sixths by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into sixths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place five tick marks to create six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. To make sixths, you need six [vocab]equal intervals[/vocab]. That means placing five tick marks between 0 and 1, with equal spacing between each mark."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] into sixths. To create six equal parts, we need to place five tick marks that divide the line evenly. Each interval should be exactly the same size, creating six equal sections from 0 to 1. That's how sixths work on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into sixths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at one-sixth.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=1 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                2
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Find the first [vocab]tick mark[/vocab] after zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "You're working on it. Here's what helps - one-sixth is the first [vocab]tick mark[/vocab] you reach when you move from zero. It's one jump out of six equal jumps to get to 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the first tick mark to show one-sixth"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:A_arrow]Let me help you with this one. One-sixth is the very first [vocab]tick mark[/vocab] after zero. See how the arrow shows one jump out of the six equal parts? That first tick is at one-sixth."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified one-sixth on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 12.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/6",
+            "2/6"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into six equal parts.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 12,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to partition into sixths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Place five tick marks to create six equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_hint_1_6",
+                        "description": "Show visual guide for cutting shape at 1/6 mark"
+                      },
+                      {
+                        "name": "A_cut_hint_2_6",
+                        "description": "Show visual guide for cutting shape at 2/6 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. To make sixths, you need exactly five tick marks that divide the line into six equal spaces. [event:A_cut_hint_1_6][event:A_cut_hint_2_6] Try spacing them evenly between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_cut_1_6",
+                        "description": "Make a cut at 1/6 mark"
+                      },
+                      {
+                        "name": "A_cut_2_6",
+                        "description": "Make a cut at 2/6 mark"
+                      },
+                      {
+                        "name": "A_cut_4_6",
+                        "description": "Make a cut at 4/6 mark"
+                      },
+                      {
+                        "name": "A_cut_5_6",
+                        "description": "Make a cut at 5/6 mark"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to [vocab]partition[/vocab] into sixths. To create six equal parts, we place [event:A_cut_1_6][event:A_cut_2_6][event:A_cut_4_6][event:A_cut_5_6] five tick marks evenly spaced between 0 and 1. See how this creates six [vocab]equal intervals[/vocab]? That's how sixths work on a [vocab]number line[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You partitioned the line into sixths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at two-sixths.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=2 denominator=6][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                4
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count two jumps from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top shape with equal parts"
+                      },
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top shape with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "You're working on it. Here's what helps - [event:A_compare][event:A_compare_shaded] two-sixths means counting two equal parts from zero. Look at the second [vocab]tick mark[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_arrow",
+                        "description": "Draws an arrow from 0 to the shaded tick on a number line to help count the fraction"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find two-sixths. Starting at zero, we count [event:A_arrow] two equal jumps along the [vocab]number line[/vocab]. The second [vocab]tick mark[/vocab] is at two-sixths. That's how we locate [vocab]fractions[/vocab] on a number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You identified two-sixths on the [vocab]number line[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 13.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can partition a number line into equal parts and label the given fraction.",
+        "verb": "CREATE",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_verbs": [
+          "CREATE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a [vocab]number line[/vocab] from 0 to 1. Divide it into fourths by placing tick marks.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumberLine",
+                "lcd": 8,
+                "is_visible": true,
+                "tick_marks": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to divide into fourths.",
+            "tool": "place_tick",
+            "validator": {
+              "@type": "PlaceTicksValidator",
+              "answer": [
+                2,
+                4,
+                6
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make sure you place three tick marks to create four equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line to show equal spacing"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare] To make fourths, you need four equal spaces between 0 and 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal parts"
+                      },
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw arrows showing the four equal intervals on the number line"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to divide this into fourths. [event:A_compare] We need to place tick marks so the distance from 0 to the first tick, the first tick to the second tick, the second tick to the third tick, and the third tick to 1 are all equal. [event:A_arrow] That creates four equal parts called fourths."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You divided the [vocab]number line[/vocab] into fourths."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now find the [vocab]tick mark[/vocab] at [fraction numerator=4 denominator=4]4 fourths[/fraction].",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the tick at [fraction numerator=4 denominator=4][/fraction].",
+            "tool": "single_paint",
+            "validator": {
+              "@type": "SelectTicksValidator",
+              "answer": [
+                8
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check again. Think about how many fourths make one whole."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Here's a hint. [event:A_compare] Count all four parts from 0. Four fourths equals one whole, so [fraction numerator=4 denominator=4]4 fourths[/fraction] is at the same place as 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the number line with equal parts"
+                      },
+                      {
+                        "name": "A_arrow",
+                        "description": "Draw an arrow from 0 to the endpoint at 1 to show counting four fourths"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_compare] We have four equal parts on this number line. [event:A_arrow] When we count all four fourths from 0, we end up at 1. That's because [fraction numerator=4 denominator=4]4 fourths[/fraction] equals one whole. See how [fraction numerator=4 denominator=4]4 fourths[/fraction] and 1 are at the exact same spot?"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. [fraction numerator=4 denominator=4]4 fourths[/fraction] is at the end, equal to 1 whole."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

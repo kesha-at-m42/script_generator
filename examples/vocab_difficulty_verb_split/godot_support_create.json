@@ -1,0 +1,591 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 1,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Sam wants to share a candy bar fairly with a friend. Divide it so each person gets the same amount.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 4
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into 2 equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/2"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make sure both parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_center",
+                        "description": "Center point of bar pulses to indicate where equal division should occur"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_center]Let's think about this together. For equal parts, each section needs to be exactly the same width. Try dividing right in the middle."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "show_equal_division_line",
+                        "description": "Animated line appears at center showing correct division point, then demonstrates cutting motion"
+                      },
+                      {
+                        "name": "measure_halves_equal",
+                        "description": "Measurement overlay appears showing both resulting sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:show_equal_division_line][event:measure_halves_equal]This can be tricky, so let's work through it together. To divide into 2 equal parts, we need to cut right at the halfway point. Watch as I show you where to place the cut so both pieces are exactly the same size. That's how equal parts work - each section must be identical."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into two equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 4,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "You want to split a brownie with your sister. Cut the bar so you each get an equal part.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 4
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into halves",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/2"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Cut the bar into two equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_center",
+                        "description": "The center point of the bar pulses to indicate where to cut"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_center]Let's think about this together. You need to make two parts that are exactly the same size. Try cutting right through the middle."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "show_cut_line_center",
+                        "description": "Animated cut line appears at the center of the bar, dividing it into two equal sections"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear showing both halves are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:show_cut_line_center][event:measure_sections_equal]This can be tricky, so let's work through it together. To make halves, we need two equal parts. Watch as I cut right down the middle of the bar. See how both pieces are exactly the same size? That's how halves work - two equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into two equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 11,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 6
+              }
+            ]
+          },
+          "dialogue": "Three puppies are sharing a treat. Divide the bar so each puppy gets the same amount.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into 3 equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/3"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make sure all three parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Bar shows faint guide marks indicating where equal divisions would be placed"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:sequential_division_strategy]Let's think about this together. Each puppy needs the same amount, so the three parts need to be equal. Try spacing your cuts evenly."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "animated_equal_division",
+                        "description": "Animated demonstration showing two cut lines appearing sequentially to divide the bar into three equal sections, with measurement lines confirming equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:animated_equal_division]This can be tricky, so let's work through it together. To give each puppy the same amount, we need three equal parts. Watch as I divide the bar - one cut here, and another cut here, making three parts that are all the same size. That's how thirds work - three equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into three equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 23,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can partition shapes into equal parts"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 4
+              }
+            ]
+          },
+          "dialogue": "Two friends want to share this snack bar fairly. Divide it so each friend gets an equal part.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into 2 equal parts",
+            "tool": "cut",
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/2"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make sure both parts are the same size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "pulse_center",
+                        "description": "The center point of the bar pulses to indicate where the equal division should occur"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:pulse_center]Let's think about this together. For equal parts, each friend needs the exact same amount. Check if your two parts match in size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "show_equal_division_line",
+                        "description": "Animated line appears at the center of the bar, then divides it into two equal sections with measurement indicators showing both parts are the same size"
+                      },
+                      {
+                        "name": "measure_sections_equal",
+                        "description": "Measurement lines appear on both resulting sections confirming they are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:show_equal_division_line][event:measure_sections_equal]This can be tricky, so let's work through it together. To divide into 2 equal parts, we need to cut right through the middle. Watch as I show you where to place the cut so both friends get exactly the same amount. That's how halves work - 2 equal parts make a whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into two equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 1,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This bar is divided into two equal parts. Shade one part to show [fraction numerator=1 denominator=2]one-half[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/2"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_one_piece",
+                        "description": "One piece of the bar is outlined to show which section to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_one_piece]Let's think about this together. [fraction numerator=1 denominator=2]One-half[/fraction] means one out of two equal parts. Choose just one section to shade."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration showing one section being shaded while the other remains unshaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_one_section]This can be tricky, so let's work through it together. [fraction numerator=1 denominator=2]One-half[/fraction] means we need one out of two equal parts. I'll shade one section now. See how just one of the two parts is shaded? That's how [fraction numerator=1 denominator=2]one-half[/fraction] works - one part out of two equal parts."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded one of the two equal parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 3,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into 4 equal parts. Shade one of them to show [fraction numerator=1 denominator=4]one fourth[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/4"
+            },
+            "choices": null,
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to show which single part should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_single_piece]You're working on it. Here's what helps - [fraction numerator=1 denominator=4]one fourth[/fraction] means choosing just one piece out of the four equal parts."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_single_section",
+                        "description": "Animated demonstration showing one section being shaded while the other three remain unshaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_single_section]This can be tricky, so let's do it together. [fraction numerator=1 denominator=4]One fourth[/fraction] means 1 out of 4 equal parts. I'll shade one piece now - see how just one section is filled? That's how [fraction numerator=1 denominator=4]one fourth[/fraction] works - 1 part out of 4 equal sections."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded one part out of four."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "@metadata": {
+        "problem_id": 16,
+        "difficulty": 0,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar divided into 3 equal parts. Shade one part to show [fraction numerator=1 denominator=3]one third[/fraction].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 0,
+                "shaded": [],
+                "lcm": 24
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "1/3"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Shade just one part of the bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "outline_one_piece",
+                        "description": "One piece of the bar is outlined to show which section to shade"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:outline_one_piece]Let's think about this together. [fraction numerator=1 denominator=3]One third[/fraction] means one part out of three equal parts. Try shading just one section."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "@metadata": {
+                    "events": [
+                      {
+                        "name": "shade_one_section",
+                        "description": "Animated demonstration showing one section being shaded while the other two remain unshaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:shade_one_section]This can be tricky, so let's work through it together. [fraction numerator=1 denominator=3]One third[/fraction] means we take one part out of three equal parts. Watch as I shade this first section. That's [fraction numerator=1 denominator=3]one third[/fraction] - one part shaded out of three equal parts total."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded one out of three parts."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
