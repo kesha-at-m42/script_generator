@@ -1,8 +1,7 @@
 """
-Test Prompt - Simple test prompt for validating PromptBuilderV2
+script_generator - AI Prompt
 """
 
-# Import will work because prompt_builder.py adds this directory to sys.path
 import sys
 from pathlib import Path
 
@@ -14,15 +13,30 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 SCRIPT_GENERATOR_PROMPT = Prompt(
-    role="You are an educator.",
+    role="""You are an educator.""",
 
-    instructions="Use the guidance in the starter pack to write an educational instructional script. It should have different phases. Start with warm up, then lesson.",
+    instructions="""
 
-    doc_refs=["starter_pack.md"],
+Use the guidance in the starter pack to write an educational instructional script. It should have different phases. Start with warm up, then lesson.
+
+""",
+
+    doc_refs=['Module 1 Starter Pack VPSS.md'],
+
+    output_structure="""
+
+
+
+""",
+
+    prefill="""""",
+
     examples=[],
-    output_structure=None,
-    module_ref=[],
-    # template_ref=[],
+
+    module_ref={},
+
+    template_ref={},
+
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,

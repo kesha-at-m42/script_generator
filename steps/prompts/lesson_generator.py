@@ -1,5 +1,5 @@
 """
-Lesson Generator Prompt - Generates lesson phase scripts for educational modules
+lesson_generator - AI Prompt
 """
 
 import sys
@@ -13,28 +13,18 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 LESSON_GENERATOR_PROMPT = Prompt(
-    role="You are an expert educational script writer specializing in lesson development and familiar with interactive design patterns.",
+    role="""You are an expert educational script writer specializing in lesson development and familiar with interactive design patterns.""",
 
-    instructions="""Generate a lesson phase script for an educational module. The lesson should:
+    instructions="""
 
-    - Teach the core concepts defined in learning goals: {learning_goals}
-    - Follow the three-section pedagogical structure from the <starter_pack>
-    - Use vocabulary and visuals as defined in the lesson phase data: {phase}
-    - Include interactions based on what visuals are available in the module: <visuals>
-    - Address misconceptions: {misconceptions}
 
-    LESSON STRUCTURE (from starter pack):
 
-    Section 1: Grid Mastery with Fraction Words (No Notation)
-      - Critical Moment 1: Introducing "The Whole"
-      - Critical Moment 2: Creating and Naming with Words (Halves, Fourths)
-      - Critical Moment 3: Pattern Extension (Thirds, Sixths, Eighths)
+Generate a lesson phase script for an educational module. The lesson should:
 
-    Section 2: Mathematical Notation Bridge
-      - Critical Moment 4: Introduce notation as written form of fraction words
-
-    Section 3: Hexagon Extension
-      - Critical Moment 5: Shape Transfer with Complete Naming
+    - Teach the core concepts defined in learning goals.
+    - Follow the pedagogical structure from the <Module 1 Starter Pack VPSS.md>
+    - Use  <Lesson Phase Playbook.md> to understand constraints
+    - Use vocabulary and visuals as defined in the lesson phase
 
     INTERACTION DEFINITION:
   An interaction = visual demonstration + student input demand + response handling
@@ -45,16 +35,20 @@ LESSON_GENERATOR_PROMPT = Prompt(
   - interaction_description: Conceptual flow - what's shown, what's asked, how it's handled (not full script)
   - visual_context: General visual needs (e.g., "1x2 grid rectangle for halves", "hexagon with partition tool")
 
-  Requirements:
-  - Generate interactions covering all 5 Critical Moments
-  - Include vocabulary staging at key moments based of how it is defined in phase.
-  - Emphasize partition → shade → name pattern throughout
 
-    The lesson phase is the main teaching section where core concepts are developed through structured discovery.""",
+    The lesson phase is the main teaching section where core concepts are developed through structured discovery.
 
-    doc_refs=["visuals.md", "starter_pack.md"],
+
+
+""",
+
+    doc_refs=['Module 1 Starter Pack VPSS.md', 'Lesson Phase Playbook.md'],
 
     output_structure="""
+
+
+
+
 
   {
     "phase": "lesson",
@@ -73,14 +67,20 @@ LESSON_GENERATOR_PROMPT = Prompt(
       }
     ]
   }
-  """,
+  
+
+
+
+""",
+
+    prefill="""""",
+
     examples=[],
-    module_ref={
-        "phase": "phases.1",  # Lesson phase
-        "learning_goals": "learning_goals",
-        "vocabulary": "vocabulary",
-        "misconceptions": "misconceptions"
-    },
+
+    module_ref={},
+
+    template_ref={},
+
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
