@@ -33,8 +33,8 @@ SAVED_PIPELINES_FILE = Path(__file__).parent / "saved_pipelines.json"
 CLAUDE_MODELS = {
     "claude-sonnet-4-5-20250929": "Sonnet 4.5 - Best balance of speed, cost, and intelligence",
     "claude-opus-4-5-20251101": "Opus 4.5 - Most capable model for complex tasks",
-    "claude-haiku-4-20250315": "Haiku 4 - Fastest and most cost-effective for simple tasks",
-    "claude-sonnet-3-5-v2": "Sonnet 3.5 v2 - Previous generation, still highly capable",
+    "claude-3-5-sonnet-20241022": "Sonnet 3.5 - Fast and capable for most tasks",
+    "claude-3-5-haiku-20241022": "Haiku 3.5 - Fastest and most cost-effective for simple tasks",
 }
 DEFAULT_MODEL = "claude-sonnet-4-5-20250929"
 
@@ -331,7 +331,7 @@ with tab1:
 
             # Model selection
             model_options = list(CLAUDE_MODELS.keys())
-            model_display_names = [f"{model.split('-')[1].capitalize()} {model.split('-')[2].replace('20', '').replace('v', 'v')}" + (f" - {CLAUDE_MODELS[model].split(' - ')[1]}" if ' - ' in CLAUDE_MODELS[model] else "") for model in model_options]
+            model_display_names = [CLAUDE_MODELS[model] for model in model_options]
 
             # Pre-populate model if editing
             default_model_idx = 0
@@ -349,9 +349,6 @@ with tab1:
                 help="Choose which Claude model to use for this step"
             )
             selected_model = model_options[selected_model_idx]
-
-            # Show model description
-            st.caption(CLAUDE_MODELS[selected_model])
 
             # Add or Update button
             button_label = "💾 Save Changes" if editing else "➕ Add AI Step"
