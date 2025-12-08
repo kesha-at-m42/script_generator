@@ -120,7 +120,8 @@ def run_pipeline(
       output_dir: str = None,
       verbose: bool = True,
       parse_json_output: bool = True,
-      control: PipelineControl = None
+      control: PipelineControl = None,
+      interactive: bool = False
   ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
@@ -132,6 +133,8 @@ def run_pipeline(
         output_dir: Directory for output files (default: outputs/pipeline_TIMESTAMP)
         verbose: Enable verbose logging
         parse_json_output: Enable JSON extraction and formatting for AI steps (default: True)
+        control: Optional PipelineControl object for pause/stop functionality
+        interactive: Enable step-by-step confirmation before each step (default: False)
 
     Returns:
         Dict with final_output and metadata
@@ -160,6 +163,8 @@ def run_pipeline(
         print(f"RUNNING PIPELINE")
         print(f"Steps: {len(steps)}")
         print(f"Output Directory: {output_dir_path}")
+        if interactive:
+            print(f"Mode: INTERACTIVE (step-by-step confirmation)")
         print(f"{'='*70}")
 
     for i, step in enumerate(steps, 1):
@@ -173,6 +178,40 @@ def run_pipeline(
 
         if verbose:
             print(f"\n[STEP {i}/{len(steps)}] [{step_type}] {step_name}")
+
+
+        # Interactive mode: Ask for confirmation
+        if interactive:
+            print("\n  [INTERACTIVE] About to execute this step.")
+            if step.input_file:
+                print(f"  Input: {step.input_file}")
+            elif last_output_file:
+                print(f"  Input: {last_output_file} (auto-chained)")
+            if step.output_file:
+                print(f"  Output: {step.output_file}")
+
+            while True:
+                response = input("\n  Proceed with this step? (y/n/q): ").strip().lower()
+                if response == 'y':
+                    print(f"  [INTERACTIVE] Proceeding with step {i}...")
+                    break
+                elif response == 'n':
+                    print(f"  [INTERACTIVE] Skipping step {i}")
+                    continue
+                elif response == 'q':
+                    print(f"  [INTERACTIVE] Quitting pipeline")
+                    return {
+                        'final_output': last_output,
+                        'output_dir': str(output_dir_path),
+                        'last_output_file': last_output_file,
+                        'status': 'stopped',
+                        'stopped_at_step': i
+                    }
+                else:
+                    print(f"  Invalid input. Please enter 'y' (yes), 'n' (no), or 'q' (quit)")
+
+            if response == 'n':
+                continue
 
         step_vars = initial_variables.copy()
         step_vars.update(step.variables)
@@ -289,6 +328,42 @@ def run_pipeline(
         'output_dir': str(output_dir_path),
         'last_output_file': last_output_file
     }
+
+
+def run_single_step(
+    step: Step,
+    module_number: int = None,
+    path_letter: str = None,
+    output_dir: str = None,
+    verbose: bool = True,
+    parse_json_output: bool = True
+) -> Dict:
+    """
+    Run a single pipeline step (convenience wrapper for UI/testing)
+
+    NOTE: This is a temporary wrapper. TODO: Refactor to make run_step()
+    the atomic operation and have run_pipeline() loop over run_step().
+    That would be cleaner architecture but requires larger refactor.
+
+    Args:
+        step: Step object to execute
+        module_number: Module number for context
+        path_letter: Path letter for context
+        output_dir: Directory for output files
+        verbose: Enable verbose logging
+        parse_json_output: Enable JSON extraction for AI steps
+
+    Returns:
+        Dict with step results (same format as run_pipeline)
+    """
+    return run_pipeline(
+        steps=[step],
+        module_number=module_number,
+        path_letter=path_letter,
+        output_dir=output_dir,
+        verbose=verbose,
+        parse_json_output=parse_json_output
+    )
 
 
 def _run_formatting_step(step: Step, input_data, input_content, module_number: int, path_letter: str, project_root: Path, verbose: bool):

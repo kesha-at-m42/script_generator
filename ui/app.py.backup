@@ -13,7 +13,7 @@ from datetime import datetime
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from core.pipeline import Step, run_pipeline, run_single_step
+from core.pipeline import Step, run_pipeline
 from core.prompt_builder import Prompt
 import importlib
 
@@ -851,187 +851,68 @@ with tab4:
 
         st.divider()
 
-        # Calculate output directory
-        if use_timestamp:
-            from datetime import datetime
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            actual_output_dir = f"{output_dir_base}/{timestamp}"
-        else:
-            actual_output_dir = output_dir_base
+        if st.button("▶️ Run Pipeline", type="primary"):
+            # Create a container for console output
+            console_container = st.container()
 
-        # Show progress if interactive mode is active
-        if interactive and st.session_state.interactive_step > 0:
-            st.markdown(f"### Step {st.session_state.interactive_step}/{len(st.session_state.pipeline_steps)}")
-            st.progress(st.session_state.interactive_step / len(st.session_state.pipeline_steps))
+            with console_container:
+                st.subheader("Console Output")
+                console_output = st.empty()
 
-        # Start or Continue button
-        if st.session_state.interactive_step == 0:
-            button_label = "🚀 Start Pipeline"
-        else:
-            button_label = f"▶️ Continue to Step {st.session_state.interactive_step + 1}"
+            try:
+                # Calculate output directory with timestamp
+                if use_timestamp:
+                    from datetime import datetime
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    actual_output_dir = f"{output_dir_base}/{timestamp}"
+                else:
+                    actual_output_dir = output_dir_base
 
-        if st.button(button_label, type="primary") or st.session_state.interactive_action == "proceed":
-            st.session_state.interactive_action = None
-
-            if not interactive:
-                # Original non-interactive execution
-                console_container = st.container()
-                with console_container:
-                    st.subheader("Console Output")
-                    console_output = st.empty()
-
-                try:
-                    steps = []
-                    for step_config in st.session_state.pipeline_steps:
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables"),
-                                output_file=step_config.get("output_file")
-                            )
-                        else:
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args"),
-                                output_file=step_config.get("output_file")
-                            )
-                        steps.append(step)
-
-                    import io
-                    import contextlib
-                    console_buffer = io.StringIO()
-
-                    with contextlib.redirect_stdout(console_buffer):
-                        result = run_pipeline(
-                            steps=steps,
-                            module_number=module_number,
-                            path_letter=path_letter,
-                            output_dir=actual_output_dir,
-                            verbose=verbose,
-                            parse_json_output=parse_json
+                # Build Step objects
+                steps = []
+                for step_config in st.session_state.pipeline_steps:
+                    if step_config["type"] == "ai":
+                        step = Step(
+                            prompt_name=step_config["prompt_name"],
+                            variables=step_config.get("variables"),
+                            output_file=step_config.get("output_file")
                         )
+                    else:  # formatting
+                        step = Step(
+                            function=step_config["function"],
+                            function_args=step_config.get("function_args"),
+                            output_file=step_config.get("output_file")
+                        )
+                    steps.append(step)
 
-                    captured_output = console_buffer.getvalue()
-                    console_output.code(captured_output, language="log")
+                # Capture console output
+                import io
+                import contextlib
 
-                    st.session_state.execution_result = result
-                    st.success("✅ Pipeline completed successfully!")
+                # Create string buffer to capture output
+                console_buffer = io.StringIO()
 
-                except Exception as e:
-                    st.error(f"❌ Pipeline failed: {str(e)}")
-                    st.exception(e)
+                # Run pipeline with output capture
+                with contextlib.redirect_stdout(console_buffer):
+                    result = run_pipeline(
+                        steps=steps,
+                        module_number=module_number,
+                        path_letter=path_letter,
+                        output_dir=actual_output_dir,
+                        verbose=verbose,
+                        parse_json_output=parse_json
+                    )
 
-            else:
-                # Interactive mode - execute one step
-                current_step_idx = st.session_state.interactive_step
+                # Display captured output
+                captured_output = console_buffer.getvalue()
+                console_output.code(captured_output, language="log")
 
-                if current_step_idx < len(st.session_state.pipeline_steps):
-                    step_config = st.session_state.pipeline_steps[current_step_idx]
+                st.session_state.execution_result = result
+                st.success("✅ Pipeline completed successfully!")
 
-                    with st.spinner(f"Executing step {current_step_idx + 1}..."):
-                        # Convert step_config to Step object
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables", {}),
-                                output_file=step_config.get("output_file")
-                            )
-                        else:
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args", {}),
-                                output_file=step_config.get("output_file")
-                            )
-
-                        # Capture console output
-                        import io
-                        import contextlib
-                        output_buffer = io.StringIO()
-
-                        with contextlib.redirect_stdout(output_buffer):
-                            result = run_single_step(
-                                step=step,
-                                module_number=module_number,
-                                path_letter=path_letter,
-                                output_dir=actual_output_dir,
-                                verbose=verbose,
-                                parse_json_output=parse_json
-                            )
-
-                        console_output = output_buffer.getvalue()
-
-                        step_output = {
-                            'result': result,
-                            'console': console_output,
-                            'step_name': step_config.get('name', 'Unknown'),
-                            'step_type': step_config.get('type', 'unknown')
-                        }
-
-                        st.session_state.interactive_outputs.append(step_output)
-                        st.session_state.interactive_step += 1
-
-                    st.rerun()
-
-        # Show step output and decision buttons (interactive mode)
-        if interactive and st.session_state.interactive_outputs:
-            st.divider()
-
-            # Show latest step output
-            latest = st.session_state.interactive_outputs[-1]
-
-            st.subheader(f"✅ Step {len(st.session_state.interactive_outputs)}: {latest['step_name']}")
-
-            st.markdown("#### Console Output")
-            st.code(latest['console'], language="log")
-
-            # Show output file if available
-            if latest['result'].get('last_output_file'):
-                output_path = Path(latest['result']['output_dir']) / latest['result']['last_output_file']
-                if output_path.exists():
-                    with st.expander("📄 View Output File", expanded=True):
-                        try:
-                            content = output_path.read_text(encoding='utf-8')
-                            if output_path.suffix == '.json':
-                                import json
-                                st.json(json.loads(content))
-                            else:
-                                st.code(content)
-                        except Exception as e:
-                            st.error(f"Could not display file: {e}")
-
-            # Check if pipeline is complete
-            if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
-                st.success("🎉 Pipeline Completed!")
-
-                if st.button("🔄 Start New Pipeline"):
-                    st.session_state.interactive_step = 0
-                    st.session_state.interactive_outputs = []
-                    st.rerun()
-            else:
-                st.divider()
-                st.markdown("#### What would you like to do?")
-
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
-                    if st.button("▶️ Continue to Next Step", type="primary", use_container_width=True):
-                        st.session_state.interactive_action = "proceed"
-                        st.rerun()
-
-                with col2:
-                    if st.button("⏭️ Skip Next Step", use_container_width=True):
-                        st.session_state.interactive_step += 1
-                        if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
-                            st.success("Pipeline completed (last step skipped)")
-                        st.rerun()
-
-                with col3:
-                    if st.button("⏹️ Stop Pipeline", use_container_width=True):
-                        st.warning("Pipeline stopped by user")
-                        st.session_state.interactive_step = 0
-                        st.session_state.interactive_outputs = []
-                        st.rerun()
-
+            except Exception as e:
+                st.error(f"❌ Pipeline failed: {str(e)}")
+                st.exception(e)
 
         # Show results
         if st.session_state.execution_result:
