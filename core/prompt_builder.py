@@ -457,12 +457,14 @@ class PromptBuilderV2:
 
         return variables
 
-    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None) -> str:
+    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None, model: str = None) -> str:
         """Build and execute a prompt in one call
 
         Args:
             prompt_name: Name of the prompt to run
             variables: Variables for substitution
+            input_content: Content to use as <input> in system prompt
+            model: Claude model to use (e.g., "claude-opus-4-5-20251101"). If None, uses default
 
         Returns:
             Claude's response text
@@ -488,6 +490,7 @@ class PromptBuilderV2:
             system=built_prompt['system'],
             user_message=built_prompt['user_message'],
             prefill=built_prompt.get('prefill'),
+            model=model,
             **built_prompt['api_params']
         )
 

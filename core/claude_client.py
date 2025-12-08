@@ -45,6 +45,7 @@ class ClaudeClient:
                  temperature: float = 1.0,
                  prefill: str = None,
                  stop_sequences=None,
+                 model: str = None,
                  # Legacy support
                  prompt: str = None) -> str:
         """Generate response from Claude with prompt caching support
@@ -56,6 +57,7 @@ class ClaudeClient:
             temperature: Temperature for generation
             prefill: Optional text to prefill the assistant's response
             stop_sequences: Optional list of stop sequences
+            model: Claude model to use (e.g., "claude-opus-4-5-20251101"). If None, uses self.model
             prompt: Legacy parameter for backwards compatibility
 
         Returns:
@@ -75,7 +77,7 @@ class ClaudeClient:
 
         # Build API parameters
         api_params = {
-            "model": self.model,
+            "model": model if model is not None else self.model,
             "max_tokens": max_tokens,
             "temperature": temperature,
             "messages": messages

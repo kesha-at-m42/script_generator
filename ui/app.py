@@ -29,6 +29,16 @@ FORMATTING_DIR = project_root / "steps" / "formatting"
 OUTPUTS_DIR = project_root / "outputs"
 SAVED_PIPELINES_FILE = Path(__file__).parent / "saved_pipelines.json"
 
+# Claude Models Configuration
+CLAUDE_MODELS = {
+    "claude-sonnet-4-5-20250929": "Sonnet 4.5 - Best balance of speed, cost, and intelligence",
+    "claude-opus-4-5-20251101": "Opus 4.5 - Most capable model for complex tasks",
+    "claude-haiku-4-20250315": "Haiku 4 - Fastest and most cost-effective for simple tasks",
+    "claude-sonnet-3-5-v2": "Sonnet 3.5 v2 - Previous generation, still highly capable",
+}
+DEFAULT_MODEL = "claude-sonnet-4-5-20250929"
+
+
 st.set_page_config(
     page_title="Pipeline Manager",
     page_icon="🔧",
@@ -65,6 +75,8 @@ if "current_prompt" not in st.session_state:
     st.session_state.current_prompt = None
 if "execution_result" not in st.session_state:
     st.session_state.execution_result = None
+if "edit_step_idx" not in st.session_state:
+    st.session_state.edit_step_idx = None
 
 
 # Sidebar - Configuration
@@ -72,7 +84,7 @@ with st.sidebar:
     st.title("⚙️ Pipeline Configuration")
 
     module_number = st.number_input("Module Number", min_value=1, max_value=10, value=1)
-    path_letter = st.text_input("Path Letter", value="a", max_chars=1)
+    path_letter = st.text_input("Path Letter", value="c", max_chars=1)
 
     st.divider()
 
@@ -150,7 +162,8 @@ with tab1:
                                     "type": "ai",
                                     "prompt_name": step_obj.prompt_name,
                                     "variables": step_obj.variables,
-                                    "output_file": step_obj.output_file
+                                    "output_file": step_obj.output_file,
+                                    "model": step_obj.model
                                 }
                             else:
                                 step_config = {
@@ -216,6 +229,14 @@ with tab1:
                     if step_type == "ai":
                         st.write(f"**Type:** AI Step")
                         st.write(f"**Prompt:** `{step.get('prompt_name')}`")
+                        
+                        # Display model if set
+                        model = step.get('model')
+                        if model:
+                            model_desc = CLAUDE_MODELS.get(model, model)
+                            st.write(f"**Model:** {model_desc}")
+                        else:
+                            st.write(f"**Model:** Default ({DEFAULT_MODEL})")
                     else:
                         st.write(f"**Type:** Formatting Step")
                         st.write(f"**Function:** `{step.get('function')}`")
@@ -226,18 +247,39 @@ with tab1:
                     st.write(f"**Output File:** {step.get('output_file', 'None')}")
 
                     col_edit, col_delete = st.columns(2)
+                    with col_edit:
+                        if st.button(f"✏️ Edit", key=f"edit_{idx}"):
+                            st.session_state.edit_step_idx = idx
+                            st.rerun()
                     with col_delete:
                         if st.button(f"🗑️ Delete", key=f"delete_{idx}"):
                             st.session_state.pipeline_steps.pop(idx)
+                            st.session_state.edit_step_idx = None  # Clear edit mode if deleting
                             st.rerun()
 
     with col2:
-        st.subheader("Add Step")
+        # Determine if we're in edit mode
+        editing = st.session_state.edit_step_idx is not None
 
-        step_type = st.radio("Step Type", ["AI Step", "Formatting Step"], key="new_step_type")
+        if editing:
+            st.subheader("✏️ Edit Step")
+            edit_step = st.session_state.pipeline_steps[st.session_state.edit_step_idx]
+            step_type_default = "AI Step" if edit_step.get("type") == "ai" else "Formatting Step"
+
+            # Cancel button
+            if st.button("❌ Cancel Edit"):
+                st.session_state.edit_step_idx = None
+                st.rerun()
+        else:
+            st.subheader("➕ Add Step")
+            step_type_default = "AI Step"
+
+        step_type = st.radio("Step Type", ["AI Step", "Formatting Step"],
+                            key="step_type_radio",
+                            index=0 if step_type_default == "AI Step" else 1)
 
         if step_type == "AI Step":
-            st.markdown("##### AI Step")
+            st.markdown("##### AI Step Configuration")
 
             # Get available prompts
             available_prompts = []
@@ -245,36 +287,96 @@ with tab1:
                 available_prompts = [pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"]
 
             if available_prompts:
+                # Pre-populate if editing
+                default_prompt = None
+                if editing and edit_step.get("type") == "ai":
+                    default_prompt = edit_step.get("prompt_name")
+                    if default_prompt in available_prompts:
+                        default_idx = available_prompts.index(default_prompt)
+                    else:
+                        default_idx = 0
+                else:
+                    default_idx = 0
+
                 prompt_name = st.selectbox(
                     "Prompt",
                     options=available_prompts,
-                    key="ai_prompt_select"
+                    index=default_idx,
+                    key="edit_ai_prompt_select" if editing else "ai_prompt_select"
                 )
             else:
                 st.warning("⚠️ No prompts found in steps/prompts/")
                 prompt_name = None
 
-            description = st.text_area("Description", key="ai_description", height=80,
+            # Pre-populate description if editing
+            default_desc = ""
+            if editing and edit_step.get("type") == "ai":
+                default_desc = edit_step.get("description", "")
+
+            description = st.text_area("Description",
+                                      value=default_desc,
+                                      key="edit_ai_description" if editing else "ai_description",
+                                      height=80,
                                       placeholder="What does this step do?")
 
-            output_file = st.text_input("Output File", key="ai_output_file",
+            # Pre-populate output file if editing
+            default_output = ""
+            if editing and edit_step.get("type") == "ai":
+                default_output = edit_step.get("output_file", "")
+
+            output_file = st.text_input("Output File",
+                                       value=default_output,
+                                       key="edit_ai_output_file" if editing else "ai_output_file",
                                        placeholder="e.g., interactions.json")
 
-            if st.button("➕ Add AI Step", disabled=not prompt_name):
-                new_step = {
+            # Model selection
+            model_options = list(CLAUDE_MODELS.keys())
+            model_display_names = [f"{model.split('-')[1].capitalize()} {model.split('-')[2].replace('20', '').replace('v', 'v')}" + (f" - {CLAUDE_MODELS[model].split(' - ')[1]}" if ' - ' in CLAUDE_MODELS[model] else "") for model in model_options]
+
+            # Pre-populate model if editing
+            default_model_idx = 0
+            if editing and edit_step.get("type") == "ai":
+                edit_model = edit_step.get("model")
+                if edit_model and edit_model in model_options:
+                    default_model_idx = model_options.index(edit_model)
+
+            selected_model_idx = st.selectbox(
+                "Claude Model",
+                options=range(len(model_options)),
+                format_func=lambda i: model_display_names[i],
+                index=default_model_idx,
+                key="edit_ai_model_select" if editing else "ai_model_select",
+                help="Choose which Claude model to use for this step"
+            )
+            selected_model = model_options[selected_model_idx]
+
+            # Show model description
+            st.caption(CLAUDE_MODELS[selected_model])
+
+            # Add or Update button
+            button_label = "💾 Save Changes" if editing else "➕ Add AI Step"
+            if st.button(button_label, disabled=not prompt_name, key="save_ai_step"):
+                step_data = {
                     "name": prompt_name,
                     "type": "ai",
                     "prompt_name": prompt_name,
                     "description": description,
                     "variables": {},
-                    "output_file": output_file
+                    "output_file": output_file,
+                    "model": selected_model
                 }
-                st.session_state.pipeline_steps.append(new_step)
-                st.success(f"✅ Added: {prompt_name}")
+
+                if editing:
+                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
+                    st.success(f"✅ Updated: {prompt_name}")
+                    st.session_state.edit_step_idx = None
+                else:
+                    st.session_state.pipeline_steps.append(step_data)
+                    st.success(f"✅ Added: {prompt_name}")
                 st.rerun()
 
         else:  # Formatting Step
-            st.markdown("##### Formatting Step")
+            st.markdown("##### Formatting Step Configuration")
 
             # Get available formatters
             formatters = {}
@@ -295,24 +397,50 @@ with tab1:
                             pass
 
             if formatters:
+                # Pre-populate if editing
+                default_formatter_idx = 0
+                if editing and edit_step.get("type") == "formatting":
+                    edit_function = edit_step.get("function")
+                    formatter_list = list(formatters.keys())
+                    if edit_function in formatter_list:
+                        default_formatter_idx = formatter_list.index(edit_function)
+
                 selected_formatter = st.selectbox(
                     "Formatter",
                     options=list(formatters.keys()),
-                    key="format_select"
+                    index=default_formatter_idx,
+                    key="edit_format_select" if editing else "format_select"
                 )
                 function = formatters[selected_formatter]
             else:
                 st.warning("⚠️ No formatters found in steps/formatting/")
                 function = None
 
-            description = st.text_area("Description", key="format_description", height=80,
+            # Pre-populate description if editing
+            default_desc = ""
+            if editing and edit_step.get("type") == "formatting":
+                default_desc = edit_step.get("description", "")
+
+            description = st.text_area("Description",
+                                      value=default_desc,
+                                      key="edit_format_description" if editing else "format_description",
+                                      height=80,
                                       placeholder="What does this step do?")
 
-            output_file = st.text_input("Output File", key="format_output_file",
+            # Pre-populate output file if editing
+            default_output = ""
+            if editing and edit_step.get("type") == "formatting":
+                default_output = edit_step.get("output_file", "")
+
+            output_file = st.text_input("Output File",
+                                       value=default_output,
+                                       key="edit_format_output_file" if editing else "format_output_file",
                                        placeholder="e.g., script.md")
 
-            if st.button("➕ Add Formatting Step", disabled=not function):
-                new_step = {
+            # Add or Update button
+            button_label = "💾 Save Changes" if editing else "➕ Add Formatting Step"
+            if st.button(button_label, disabled=not function, key="save_format_step"):
+                step_data = {
                     "name": function,
                     "type": "formatting",
                     "function": function,
@@ -320,9 +448,16 @@ with tab1:
                     "function_args": {},
                     "output_file": output_file
                 }
-                st.session_state.pipeline_steps.append(new_step)
-                st.success(f"✅ Added: {function}")
+
+                if editing:
+                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
+                    st.success(f"✅ Updated: {function}")
+                    st.session_state.edit_step_idx = None
+                else:
+                    st.session_state.pipeline_steps.append(step_data)
+                    st.success(f"✅ Added: {function}")
                 st.rerun()
+
 
 # TAB 2: Edit Prompts
 with tab2:
@@ -782,12 +917,12 @@ with tab3:
                     with st.expander(" Field Path Reference", expanded=False):
                         st.caption("Use these paths in module_ref to access fields:")
                         st.code("""
-Examples:
-- module_name → "module_name"
-- vocabulary → "vocabulary"
-- phase → "phases.0"
-- phase.phase_name → "phases.0.phase_name"
-- phases[1].variables[0] → "phases.1.variables.0"
+                        Examples:
+                        - module_name → "module_name"
+                        - vocabulary → "vocabulary"
+                        - phase → "phases.0"
+                        - phase.phase_name → "phases.0.phase_name"
+                        - phases[1].variables[0] → "phases.1.variables.0"
                         """)
 
                     # Display module data
@@ -843,36 +978,50 @@ with tab4:
 
         st.divider()
 
-        # Run button
         if st.button("▶️ Run Pipeline", type="primary"):
-            with st.spinner("Running pipeline..."):
-                try:
-                    # Calculate output directory with timestamp
-                    if use_timestamp:
-                        from datetime import datetime
-                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                        actual_output_dir = f"{output_dir_base}/{timestamp}"
-                    else:
-                        actual_output_dir = output_dir_base
+            # Create a container for console output
+            console_container = st.container()
 
-                    # Build Step objects
-                    steps = []
-                    for step_config in st.session_state.pipeline_steps:
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables"),
-                                output_file=step_config.get("output_file")
-                            )
-                        else:  # formatting
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args"),
-                                output_file=step_config.get("output_file")
-                            )
-                        steps.append(step)
+            with console_container:
+                st.subheader("Console Output")
+                console_output = st.empty()
 
-                    # Run pipeline
+            try:
+                # Calculate output directory with timestamp
+                if use_timestamp:
+                    from datetime import datetime
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    actual_output_dir = f"{output_dir_base}/{timestamp}"
+                else:
+                    actual_output_dir = output_dir_base
+
+                # Build Step objects
+                steps = []
+                for step_config in st.session_state.pipeline_steps:
+                    if step_config["type"] == "ai":
+                        step = Step(
+                            prompt_name=step_config["prompt_name"],
+                            variables=step_config.get("variables"),
+                            output_file=step_config.get("output_file"),
+                            model=step_config.get("model")
+                        )
+                    else:  # formatting
+                        step = Step(
+                            function=step_config["function"],
+                            function_args=step_config.get("function_args"),
+                            output_file=step_config.get("output_file")
+                        )
+                    steps.append(step)
+
+                # Capture console output
+                import io
+                import contextlib
+
+                # Create string buffer to capture output
+                console_buffer = io.StringIO()
+
+                # Run pipeline with output capture
+                with contextlib.redirect_stdout(console_buffer):
                     result = run_pipeline(
                         steps=steps,
                         module_number=module_number,
@@ -882,12 +1031,16 @@ with tab4:
                         parse_json_output=parse_json
                     )
 
-                    st.session_state.execution_result = result
-                    st.success("✅ Pipeline completed successfully!")
+                # Display captured output
+                captured_output = console_buffer.getvalue()
+                console_output.code(captured_output, language="log")
 
-                except Exception as e:
-                    st.error(f"❌ Pipeline failed: {str(e)}")
-                    st.exception(e)
+                st.session_state.execution_result = result
+                st.success("✅ Pipeline completed successfully!")
+
+            except Exception as e:
+                st.error(f"❌ Pipeline failed: {str(e)}")
+                st.exception(e)
 
         # Show results
         if st.session_state.execution_result:
