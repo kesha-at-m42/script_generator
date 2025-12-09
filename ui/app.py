@@ -71,6 +71,8 @@ if "interactive_outputs" not in st.session_state:
     st.session_state.interactive_outputs = []
 if "interactive_action" not in st.session_state:
     st.session_state.interactive_action = None
+if "pipeline_output_dir" not in st.session_state:
+    st.session_state.pipeline_output_dir = None
 
 
 # Sidebar - Configuration
@@ -851,13 +853,22 @@ with tab4:
 
         st.divider()
 
-        # Calculate output directory
-        if use_timestamp:
-            from datetime import datetime
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            actual_output_dir = f"{output_dir_base}/{timestamp}"
+        # Calculate output directory (or reuse existing one in interactive mode)
+        if interactive and st.session_state.pipeline_output_dir is not None:
+            # Reuse existing directory for subsequent steps
+            actual_output_dir = st.session_state.pipeline_output_dir
         else:
-            actual_output_dir = output_dir_base
+            # Create new directory (first step or non-interactive mode)
+            if use_timestamp:
+                from datetime import datetime
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                actual_output_dir = f"{output_dir_base}/{timestamp}"
+            else:
+                actual_output_dir = output_dir_base
+
+            # Store for reuse in interactive mode
+            if interactive:
+                st.session_state.pipeline_output_dir = actual_output_dir
 
         # Show progress if interactive mode is active
         if interactive and st.session_state.interactive_step > 0:
@@ -929,17 +940,25 @@ with tab4:
                     step_config = st.session_state.pipeline_steps[current_step_idx]
 
                     with st.spinner(f"Executing step {current_step_idx + 1}..."):
+                        # Get previous step's output file for auto-chaining
+                        previous_output_file = None
+                        if st.session_state.interactive_outputs:
+                            last_result = st.session_state.interactive_outputs[-1]['result']
+                            previous_output_file = last_result.get('last_output_file')
+
                         # Convert step_config to Step object
                         if step_config["type"] == "ai":
                             step = Step(
                                 prompt_name=step_config["prompt_name"],
                                 variables=step_config.get("variables", {}),
+                                input_file=previous_output_file,
                                 output_file=step_config.get("output_file")
                             )
                         else:
                             step = Step(
                                 function=step_config["function"],
                                 function_args=step_config.get("function_args", {}),
+                                input_file=previous_output_file,
                                 output_file=step_config.get("output_file")
                             )
 
@@ -986,18 +1005,38 @@ with tab4:
 
             # Show output file if available
             if latest['result'].get('last_output_file'):
-                output_path = Path(latest['result']['output_dir']) / latest['result']['last_output_file']
+                output_dir = Path(latest['result']['output_dir'])
+                output_path = output_dir / latest['result']['last_output_file']
+
                 if output_path.exists():
                     with st.expander("📄 View Output File", expanded=True):
                         try:
                             content = output_path.read_text(encoding='utf-8')
-                            if output_path.suffix == '.json':
+
+                            # Render based on file type
+                            if output_path.suffix == '.md':
+                                st.markdown(content)
+                            elif output_path.suffix == '.json':
                                 import json
                                 st.json(json.loads(content))
                             else:
                                 st.code(content)
                         except Exception as e:
                             st.error(f"Could not display file: {e}")
+
+                    # Button to open folder
+                    if st.button("📂 Open Output Folder", key=f"open_folder_{len(st.session_state.interactive_outputs)}"):
+                        import subprocess
+                        import platform
+                        try:
+                            if platform.system() == "Windows":
+                                subprocess.run(["explorer", str(output_dir.resolve())])
+                            elif platform.system() == "Darwin":  # macOS
+                                subprocess.run(["open", str(output_dir.resolve())])
+                            else:  # Linux
+                                subprocess.run(["xdg-open", str(output_dir.resolve())])
+                        except Exception as e:
+                            st.error(f"Could not open folder: {e}")
 
             # Check if pipeline is complete
             if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
@@ -1006,6 +1045,7 @@ with tab4:
                 if st.button("🔄 Start New Pipeline"):
                     st.session_state.interactive_step = 0
                     st.session_state.interactive_outputs = []
+                    st.session_state.pipeline_output_dir = None
                     st.rerun()
             else:
                 st.divider()
@@ -1030,6 +1070,7 @@ with tab4:
                         st.warning("Pipeline stopped by user")
                         st.session_state.interactive_step = 0
                         st.session_state.interactive_outputs = []
+                        st.session_state.pipeline_output_dir = None
                         st.rerun()
 
 
