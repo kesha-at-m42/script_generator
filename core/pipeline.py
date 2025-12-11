@@ -74,7 +74,8 @@ class Step:
         input_file: str = None,
         output_file: str = None,
         function: Union[str, Callable] = None,
-        function_args: Dict = None
+        function_args: Dict = None,
+        model: str = None
     ):
         """
         Args:
@@ -87,6 +88,8 @@ class Step:
                     - Callable: Direct function reference
             function_args: Dict of additional arguments to pass to the formatting function.
                         Note: module_number and path_letter are automatically passed if the function accepts them.
+            model: Claude model to use for AI steps (e.g., "claude-opus-4-5-20251101", "claude-sonnet-4-5-20250929").
+                   If not specified, uses the default model from ClaudeClient.
 
         Note: Either prompt_name OR function must be specified, not both.
         """
@@ -96,6 +99,7 @@ class Step:
         self.output_file = output_file
         self.function = function
         self.function_args = function_args or {}
+        self.model = model
 
         # Validation
         if prompt_name and function:
@@ -254,7 +258,7 @@ def run_pipeline(
         # Execute the step
         if step.is_ai_step():
             # AI step - call Claude
-            output = builder.run(step.prompt_name, step_vars, input_content=input_content)
+            output = builder.run(step.prompt_name, step_vars, input_content=input_content, model=step.model)
             last_output = output
         else:
             # Formatting step - call Python function

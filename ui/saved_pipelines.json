@@ -24,5 +24,32 @@
       "function_args": {},
       "output_file": "script.md"
     }
+  ],
+  "warmup_test_2": [
+    {
+      "name": "warmup_generator",
+      "type": "ai",
+      "prompt_name": "warmup_generator",
+      "description": "Creates base warmup interactions",
+      "variables": {},
+      "output_file": "warmup.json",
+      "model": "claude-opus-4-5-20251101"
+    },
+    {
+      "name": "interaction_generator",
+      "type": "ai",
+      "prompt_name": "interaction_generator",
+      "description": "Converts brainstormed interactions into fleshed out script.",
+      "variables": {},
+      "output_file": "interaction.json"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "Formats script into markdown",
+      "function_args": {},
+      "output_file": "script.md"
+    }
   ]
 }
