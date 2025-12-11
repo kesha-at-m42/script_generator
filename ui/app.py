@@ -691,7 +691,7 @@ with tab2:
             st.markdown(f"**Doc Refs** ")
             st.caption(FIELD_TOOLTIPS["doc_refs"])
             st.text_area("Doc Refs (one per line)", height=80, key="edit_doc_refs",
-                        label_visibility="collapsed", placeholder="guide_design.md\nanimation_events.json")
+                        label_visibility="collapsed")
 
         # Module Ref - Visual Editor
         st.markdown(f"**Module Ref** ")
