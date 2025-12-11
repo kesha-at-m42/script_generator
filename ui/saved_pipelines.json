@@ -50,5 +50,49 @@
       "function_args": {},
       "output_file": "script.md"
     }
+  ],
+  "Condensed_Pipeline": [
+    {
+      "name": "lesson_generator",
+      "type": "ai",
+      "prompt_name": "lesson_generator",
+      "description": "Creates a draft of the Lesson Interactions",
+      "variables": {},
+      "output_file": ""
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": ""
+    }
+  ],
+  "Condensed_Pipeline_working": [
+    {
+      "name": "lesson_generator",
+      "type": "ai",
+      "prompt_name": "lesson_generator",
+      "description": "Starts the lesson",
+      "variables": {},
+      "output_file": "lesson.json"
+    },
+    {
+      "name": "interaction_generator",
+      "type": "ai",
+      "prompt_name": "interaction_generator",
+      "description": "Starts the lesson",
+      "variables": {},
+      "output_file": "interactions.json"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": "script.md"
+    }
   ]
 }

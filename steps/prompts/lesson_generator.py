@@ -13,18 +13,15 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 LESSON_GENERATOR_PROMPT = Prompt(
-    role="""You are an expert educational script writer specializing in lesson development and familiar with interactive design patterns.""",
+    role="""You are an expert in teaching and pedagogical scaffolding, skilled at UX design, and a gifted script writer specializing in lesson development for children in grade 3""",
 
     instructions="""
 
-
-
-Generate a lesson phase script for an educational module. The lesson should:
-
+Generate a lesson phase script for an educational module. Read and fully understand the <Module 1 Starter Pack VPSS - AI Ready.md>.  
+The lesson should:
     - Teach the core concepts defined in learning goals.
-    - Follow the pedagogical structure from the <Module 1 Starter Pack VPSS.md>
-    - Use  <Lesson Phase Playbook.md> to understand constraints
-    - Use vocabulary and visuals as defined in the lesson phase
+    - Follow the entire pedagogical structure from the Phase Specifications of the <Module 1 Starter Pack VPSS - AI Ready.md>
+    - Use vocabulary and visuals as defined in <Module 1 Starter Pack VPSS - AI Ready.md>
 
     INTERACTION DEFINITION:
   An interaction = visual demonstration + student input demand + response handling
@@ -40,11 +37,17 @@ Generate a lesson phase script for an educational module. The lesson should:
 
 
 
+
+
+
+
 """,
 
-    doc_refs=['Module 1 Starter Pack VPSS.md', 'Lesson Phase Playbook.md'],
+    doc_refs=['Module 1 Starter Pack VPSS - AI Ready.md'],
 
     output_structure="""
+
+
 
 
 
@@ -68,6 +71,10 @@ Generate a lesson phase script for an educational module. The lesson should:
     ]
   }
   
+
+
+
+
 
 
 
