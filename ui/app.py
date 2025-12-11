@@ -599,9 +599,14 @@ with tab2:
 
         # Prompt name
         prompt_name_input = st.text_input("Prompt Name", value=st.session_state.edit_prompt_name,
-                                         help="Name of the prompt file (without .py)")
+                                        help="Name of the prompt file (without .py extension). Spaces will be replaced with underscores.")
+
+        # Update session state when name changes
+        if prompt_name_input != st.session_state.edit_prompt_name:
+            st.session_state.edit_prompt_name = prompt_name_input
 
         st.divider()
+
         st.subheader("Main Fields")
 
         # Role
@@ -783,6 +788,7 @@ with tab2:
                 try:
                     # Get values from session state
                     prompt_name = st.session_state.edit_prompt_name
+                    filename = prompt_name.replace(" ", "_")
                     role = st.session_state.edit_role
                     instructions = st.session_state.edit_instructions
                     doc_refs_text = st.session_state.edit_doc_refs
@@ -848,11 +854,11 @@ from core.prompt_builder import Prompt
 '''
 
                     # Save to file
-                    output_path = PROMPTS_DIR / f"{prompt_name}.py"
+                    output_path = PROMPTS_DIR / f"{filename}.py"
                     with open(output_path, 'w', encoding='utf-8') as f:
                         f.write(file_content)
 
-                    st.success(f"✅ Saved {prompt_name}.py")
+                    st.success(f"✅ Saved {filename}.py")
 
                 except Exception as e:
                     st.error(f"Failed to save: {e}")
