@@ -858,6 +858,7 @@ from core.prompt_builder import Prompt
                     with open(output_path, 'w', encoding='utf-8') as f:
                         f.write(file_content)
 
+                    st.rerun()
                     st.success(f"✅ Saved {filename}.py")
 
                 except Exception as e:
