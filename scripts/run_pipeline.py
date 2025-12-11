@@ -141,6 +141,10 @@ if __name__ == "__main__":
         path_input = input("Path letter (a/b/c): ").strip().lower()
         path_letter = path_input if path_input in ['a', 'b', 'c'] else None
 
+    # Ask for interactive mode
+    interactive_input = input("Enable interactive mode (step-by-step confirmation)? (y/n): ").strip().lower()
+    interactive = interactive_input == 'y'
+
     # Run pipeline
     try:
         print(f"\nRunning pipeline: {pipeline_name}")
@@ -149,7 +153,8 @@ if __name__ == "__main__":
             steps=PIPELINES[pipeline_name],
             module_number=module_number,
             path_letter=path_letter,
-            verbose=True
+            verbose=True,
+            interactive=interactive
         )
 
         print("\n" + "="*70)

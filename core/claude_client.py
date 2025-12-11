@@ -45,6 +45,7 @@ class ClaudeClient:
                  temperature: float = 1.0,
                  prefill: str = None,
                  stop_sequences=None,
+                 model: str = None,
                  # Legacy support
                  prompt: str = None) -> str:
         """Generate response from Claude with prompt caching support
@@ -56,6 +57,7 @@ class ClaudeClient:
             temperature: Temperature for generation
             prefill: Optional text to prefill the assistant's response
             stop_sequences: Optional list of stop sequences
+            model: Claude model to use (e.g., "claude-opus-4-5-20251101"). If None, uses self.model
             prompt: Legacy parameter for backwards compatibility
 
         Returns:
@@ -74,8 +76,10 @@ class ClaudeClient:
             messages.append({"role": "assistant", "content": prefill})
 
         # Build API parameters
+        # Use provided model, fallback to instance default, ensure it's not empty
+        final_model = model if model else self.model
         api_params = {
-            "model": self.model,
+            "model": final_model,
             "max_tokens": max_tokens,
             "temperature": temperature,
             "messages": messages
@@ -99,7 +103,7 @@ class ClaudeClient:
                 # Get final message for usage stats
                 final_message = stream.get_final_message()
                 self._track_usage(final_message.usage)
-                self._log_request(final_message.usage, max_tokens, temperature)
+                self._log_request(final_message.usage, max_tokens, temperature, final_model)
 
             # Prepend prefill to response if it was used
             if prefill:
@@ -111,7 +115,7 @@ class ClaudeClient:
 
             # Track tokens
             self._track_usage(message.usage)
-            self._log_request(message.usage, max_tokens, temperature)
+            self._log_request(message.usage, max_tokens, temperature, final_model)
 
             response_text = message.content[0].text
 
@@ -130,14 +134,14 @@ class ClaudeClient:
             self.total_cache_creation_tokens += usage.cache_creation_input_tokens
             self.total_cache_read_tokens += usage.cache_read_input_tokens
 
-    def _log_request(self, usage, max_tokens, temperature):
+    def _log_request(self, usage, max_tokens, temperature, model):
         """Log request details to file"""
         self.request_count += 1
 
         log_entry = {
             "timestamp": datetime.now().isoformat(),
             "request_number": self.request_count,
-            "model": self.model,
+            "model": model,
             "input_tokens": usage.input_tokens,
             "output_tokens": usage.output_tokens,
             "max_tokens": max_tokens,
