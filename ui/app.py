@@ -477,6 +477,11 @@ with tab2:
     st.header("Edit Prompts")
     st.caption("Visual editor for creating and editing prompts with all fields")
 
+    # Show success message if prompt was just saved
+    if "prompt_saved_message" in st.session_state:
+        st.success(st.session_state.prompt_saved_message)
+        del st.session_state.prompt_saved_message
+
     # Helper function to highlight variables in text
     def highlight_variables(text):
         """Return markdown with variables highlighted"""

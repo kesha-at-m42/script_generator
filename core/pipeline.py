@@ -154,6 +154,9 @@ def run_pipeline(
     output_dir_path = Path(output_dir)
     output_dir_path.mkdir(parents=True, exist_ok=True)
 
+    prompts_dir = output_dir_path / "prompts"
+    prompts_dir.mkdir(exist_ok=True)
+
     builder = PromptBuilderV2(module_number, path_letter, verbose)
 
     # Project root for path resolution
@@ -258,7 +261,16 @@ def run_pipeline(
         # Execute the step
         if step.is_ai_step():
             # AI step - call Claude
-            output = builder.run(step.prompt_name, step_vars, input_content=input_content, model=step.model)
+            # Save prompt to prompts folder
+            prompt_save_path = prompts_dir / f"step_{i:02d}_{step.prompt_name}.md"
+
+            output = builder.run(
+                prompt_name=step.prompt_name,
+                variables=step_vars,
+                input_content=input_content,
+                model=step.model,
+                save_prompt_to=str(prompt_save_path)
+            )
             last_output = output
         else:
             # Formatting step - call Python function
