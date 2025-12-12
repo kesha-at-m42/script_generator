@@ -17,6 +17,12 @@ from core.pipeline import Step, run_pipeline, run_single_step
 from core.prompt_builder import Prompt
 import importlib
 
+ # Import output utilities
+from ui.utils.output import (
+    capture_console_output_streaming,
+    display_unified_output
+)
+
 # Import predefined pipelines
 try:
     from config.pipelines import PIPELINES as PREDEFINED_PIPELINES
@@ -124,352 +130,111 @@ with st.sidebar:
 st.title("🔧 Pipeline Manager")
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📋 Pipeline Steps", "✏️ Edit Prompts", "📚 Module Viewer", "▶️ Run Pipeline"])
+tab1, tab2, tab3, tab4 = st.tabs(["📚 Module Viewer", "✏️ Edit Prompts", "📋 Pipeline Steps", "▶️ Run Pipeline"])
 
-# TAB 1: Pipeline Steps
+# TAB 1: Module Viewer
 with tab1:
-    st.header("Pipeline Steps")
+    st.header("📚 Module Viewer")
+    st.caption("View and explore module data from modules.py")
 
-    # Load pipeline section - combines predefined and saved
-    st.subheader("📦 Load Pipeline")
+    # Import modules
+    modules_file = project_root / "inputs" / "modules" / "modules.py"
 
-    # Get all available pipelines
-    saved_pipelines = load_saved_pipelines()
-    all_pipelines = {}
+    if modules_file.exists():
+        try:
+            # Import the modules file
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("modules", modules_file)
+            modules_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(modules_module)
 
-    # Add predefined pipelines with prefix
-    for name in PREDEFINED_PIPELINES.keys():
-        all_pipelines[f"[Predefined] {name}"] = ("predefined", name)
+            # Find all module_N variables
+            available_modules = {}
+            for name, obj in modules_module.__dict__.items():
+                if name.startswith("module_") and isinstance(obj, dict):
+                    module_num = name.split("_")[1]
+                    if module_num.isdigit():
+                        available_modules[int(module_num)] = obj
 
-    # Add saved pipelines with prefix
-    for name in saved_pipelines.keys():
-        all_pipelines[f"[Saved] {name}"] = ("saved", name)
+            if available_modules:
+                # Module selector
+                selected_module_num = st.selectbox(
+                    "Select Module",
+                    options=sorted(available_modules.keys()),
+                    format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', 'Unnamed')}"
+                )
 
-    if all_pipelines:
-        col_load1, col_load2, col_load3 = st.columns([3, 1, 1])
+                if selected_module_num:
+                    module_data = available_modules[selected_module_num]
 
-        with col_load1:
-            selected_pipeline_display = st.selectbox(
-                "Select a pipeline to load",
-                options=[""] + list(all_pipelines.keys()),
-                format_func=lambda x: "-- Select --" if x == "" else x
-            )
+                    st.divider()
 
-        with col_load2:
-            st.write("")  # Spacer
-            st.write("")  # Spacer
-            if st.button("📥 Load", use_container_width=True):
-                if selected_pipeline_display:
-                    pipeline_type, pipeline_name = all_pipelines[selected_pipeline_display]
+                    # Helper function to display data recursively
+                    def display_data(data, level=0):
+                        indent = "  " * level
 
-                    if pipeline_type == "predefined":
-                        # Convert predefined pipeline Step objects to UI format
-                        st.session_state.pipeline_steps = []
-                        for step_obj in PREDEFINED_PIPELINES[pipeline_name]:
-                            if step_obj.is_ai_step():
-                                step_config = {
-                                    "name": step_obj.prompt_name,
-                                    "type": "ai",
-                                    "prompt_name": step_obj.prompt_name,
-                                    "variables": step_obj.variables,
-                                    "output_file": step_obj.output_file,
-                                    "model": step_obj.model
-                                }
-                            else:
-                                step_config = {
-                                    "name": str(step_obj.function),
-                                    "type": "formatting",
-                                    "function": step_obj.function,
-                                    "function_args": step_obj.function_args,
-                                    "output_file": step_obj.output_file
-                                }
-                            st.session_state.pipeline_steps.append(step_config)
-                    else:  # saved
-                        # Load saved pipeline directly
-                        st.session_state.pipeline_steps = saved_pipelines[pipeline_name]
+                        if isinstance(data, dict):
+                            for key, value in data.items():
+                                if isinstance(value, (dict, list)):
+                                    st.markdown(f"{indent}**{key}:**")
+                                    display_data(value, level + 1)
+                                else:
+                                    st.markdown(f"{indent}**{key}:** `{value}`")
 
-                    st.success(f"✅ Loaded '{pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
-                    st.rerun()
-                else:
-                    st.warning("Please select a pipeline first")
-
-        with col_load3:
-            st.write("")  # Spacer
-            st.write("")  # Spacer
-            if selected_pipeline_display and all_pipelines.get(selected_pipeline_display, [""])[0] == "saved":
-                pipeline_name = all_pipelines[selected_pipeline_display][1]
-                if st.button("🗑️ Delete", use_container_width=True):
-                    delete_saved_pipeline(pipeline_name)
-                    st.success(f"Deleted '{pipeline_name}'")
-                    st.rerun()
-
-    # Save current pipeline section
-    if st.session_state.pipeline_steps:
-        st.markdown("##### 💾 Save Current Pipeline")
-        col_save1, col_save2 = st.columns([3, 1])
-
-        with col_save1:
-            save_name = st.text_input("Pipeline Name", key="save_pipeline_name", placeholder="my_pipeline")
-
-        with col_save2:
-            st.write("")  # Spacer
-            st.write("")  # Spacer
-            if st.button("💾 Save", use_container_width=True):
-                if save_name:
-                    save_pipeline_to_file(save_name, st.session_state.pipeline_steps)
-                    st.success(f"✅ Saved pipeline as '{save_name}'")
-                    st.rerun()
-                else:
-                    st.warning("Please enter a pipeline name")
-
-    st.divider()
-
-    col1, col2 = st.columns([3, 1])
-
-    with col1:
-        st.subheader("Current Pipeline")
-
-        if not st.session_state.pipeline_steps:
-            st.info("No steps added yet. Add a step below or load a pipeline above.")
-        else:
-            for idx, step in enumerate(st.session_state.pipeline_steps):
-                with st.expander(f"Step {idx + 1}: {step.get('name', 'Unnamed')}", expanded=False):
-                    step_type = step.get("type", "ai")
-
-                    if step_type == "ai":
-                        st.write(f"**Type:** AI Step")
-                        st.write(f"**Prompt:** `{step.get('prompt_name')}`")
-                        
-                        # Display model if set
-                        model = step.get('model')
-                        if model:
-                            model_desc = CLAUDE_MODELS.get(model, model)
-                            st.write(f"**Model:** {model_desc}")
+                        elif isinstance(data, list):
+                            for idx, item in enumerate(data):
+                                if isinstance(item, (dict, list)):
+                                    st.markdown(f"{indent}**[{idx}]:**")
+                                    display_data(item, level + 1)
+                                else:
+                                    st.markdown(f"{indent}• `{item}`")
                         else:
-                            st.write(f"**Model:** Default ({DEFAULT_MODEL})")
-                    else:
-                        st.write(f"**Type:** Formatting Step")
-                        st.write(f"**Function:** `{step.get('function')}`")
+                            st.markdown(f"{indent}`{data}`")
 
-                    if step.get("description"):
-                        st.write(f"**Description:** {step['description']}")
+                    # Display all fields
+                    st.subheader(f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}")
 
-                    st.write(f"**Output File:** {step.get('output_file', 'None')}")
+                    # Show field paths helper
+                    with st.expander(" Field Path Reference", expanded=False):
+                        st.caption("Use these paths in module_ref to access fields:")
+                        st.code("""
+                        Examples:
+                        - module_name → "module_name"
+                        - vocabulary → "vocabulary"
+                        - phase → "phases.0"
+                        - phase.phase_name → "phases.0.phase_name"
+                        - phases[1].variables[0] → "phases.1.variables.0"
+                        """)
 
-                    col_edit, col_delete = st.columns(2)
-                    with col_edit:
-                        if st.button(f"✏️ Edit", key=f"edit_{idx}"):
-                            st.session_state.edit_step_idx = idx
-                            st.rerun()
-                    with col_delete:
-                        if st.button(f"🗑️ Delete", key=f"delete_{idx}"):
-                            st.session_state.pipeline_steps.pop(idx)
-                            st.session_state.edit_step_idx = None  # Clear edit mode if deleting
-                            st.rerun()
+                    # Display module data
+                    for key, value in module_data.items():
+                        with st.expander(f"**{key}**", expanded=(key in ["module_name", "vocabulary", "phases"])):
+                            display_data(value)
 
-    with col2:
-        # Determine if we're in edit mode
-        editing = st.session_state.edit_step_idx is not None
+                    st.divider()
 
-        if editing:
-            st.subheader("✏️ Edit Step")
-            edit_step = st.session_state.pipeline_steps[st.session_state.edit_step_idx]
-            step_type_default = "AI Step" if edit_step.get("type") == "ai" else "Formatting Step"
+                    # JSON view
+                    with st.expander("📄 Raw JSON View", expanded=False):
+                        st.json(module_data)
 
-            # Cancel button
-            if st.button("❌ Cancel Edit"):
-                st.session_state.edit_step_idx = None
-                st.rerun()
-        else:
-            st.subheader("➕ Add Step")
-            step_type_default = "AI Step"
-
-        step_type = st.radio("Step Type", ["AI Step", "Formatting Step"],
-                            key="step_type_radio",
-                            index=0 if step_type_default == "AI Step" else 1)
-
-        if step_type == "AI Step":
-            st.markdown("##### AI Step Configuration")
-
-            # Get available prompts
-            available_prompts = []
-            if PROMPTS_DIR.exists():
-                available_prompts = [pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"]
-
-            if available_prompts:
-                # Pre-populate if editing
-                default_prompt = None
-                if editing and edit_step.get("type") == "ai":
-                    default_prompt = edit_step.get("prompt_name")
-                    if default_prompt in available_prompts:
-                        default_idx = available_prompts.index(default_prompt)
-                    else:
-                        default_idx = 0
-                else:
-                    default_idx = 0
-
-                prompt_name = st.selectbox(
-                    "Prompt",
-                    options=available_prompts,
-                    index=default_idx,
-                    key="edit_ai_prompt_select" if editing else "ai_prompt_select"
-                )
             else:
-                st.warning("⚠️ No prompts found in steps/prompts/")
-                prompt_name = None
+                st.warning("No modules found in modules.py")
 
-            # Pre-populate description if editing
-            default_desc = ""
-            if editing and edit_step.get("type") == "ai":
-                default_desc = edit_step.get("description", "")
-
-            description = st.text_area("Description",
-                                      value=default_desc,
-                                      key="edit_ai_description" if editing else "ai_description",
-                                      height=80,
-                                      placeholder="What does this step do?")
-
-            # Pre-populate output file if editing
-            default_output = ""
-            if editing and edit_step.get("type") == "ai":
-                default_output = edit_step.get("output_file", "")
-
-            output_file = st.text_input("Output File",
-                                       value=default_output,
-                                       key="edit_ai_output_file" if editing else "ai_output_file",
-                                       placeholder="e.g., interactions.json")
-
-            # Model selection
-            model_options = list(CLAUDE_MODELS.keys())
-            model_display_names = [CLAUDE_MODELS[model] for model in model_options]
-
-            # Pre-populate model if editing
-            default_model_idx = 0
-            if editing and edit_step.get("type") == "ai":
-                edit_model = edit_step.get("model")
-                if edit_model and edit_model in model_options:
-                    default_model_idx = model_options.index(edit_model)
-
-            selected_model_idx = st.selectbox(
-                "Claude Model",
-                options=range(len(model_options)),
-                format_func=lambda i: model_display_names[i],
-                index=default_model_idx,
-                key="edit_ai_model_select" if editing else "ai_model_select",
-                help="Choose which Claude model to use for this step"
-            )
-            selected_model = model_options[selected_model_idx]
-
-            # Add or Update button
-            button_label = "💾 Save Changes" if editing else "➕ Add AI Step"
-            if st.button(button_label, disabled=not prompt_name, key="save_ai_step"):
-                step_data = {
-                    "name": prompt_name,
-                    "type": "ai",
-                    "prompt_name": prompt_name,
-                    "description": description,
-                    "variables": {},
-                    "output_file": output_file,
-                    "model": selected_model
-                }
-
-                if editing:
-                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
-                    st.success(f"✅ Updated: {prompt_name}")
-                    st.session_state.edit_step_idx = None
-                else:
-                    st.session_state.pipeline_steps.append(step_data)
-                    st.success(f"✅ Added: {prompt_name}")
-                st.rerun()
-
-        else:  # Formatting Step
-            st.markdown("##### Formatting Step Configuration")
-
-            # Get available formatters
-            formatters = {}
-            if FORMATTING_DIR.exists():
-                for ff in FORMATTING_DIR.glob("*.py"):
-                    if ff.stem != "__init__":
-                        try:
-                            import importlib.util
-                            spec = importlib.util.spec_from_file_location(ff.stem, ff)
-                            module = importlib.util.module_from_spec(spec)
-                            spec.loader.exec_module(module)
-
-                            for name, obj in module.__dict__.items():
-                                if callable(obj) and not name.startswith("_"):
-                                    display_name = f"{ff.stem}.{name}"
-                                    formatters[display_name] = f"{ff.stem}.{name}"
-                        except:
-                            pass
-
-            if formatters:
-                # Pre-populate if editing
-                default_formatter_idx = 0
-                if editing and edit_step.get("type") == "formatting":
-                    edit_function = edit_step.get("function")
-                    formatter_list = list(formatters.keys())
-                    if edit_function in formatter_list:
-                        default_formatter_idx = formatter_list.index(edit_function)
-
-                selected_formatter = st.selectbox(
-                    "Formatter",
-                    options=list(formatters.keys()),
-                    index=default_formatter_idx,
-                    key="edit_format_select" if editing else "format_select"
-                )
-                function = formatters[selected_formatter]
-            else:
-                st.warning("⚠️ No formatters found in steps/formatting/")
-                function = None
-
-            # Pre-populate description if editing
-            default_desc = ""
-            if editing and edit_step.get("type") == "formatting":
-                default_desc = edit_step.get("description", "")
-
-            description = st.text_area("Description",
-                                      value=default_desc,
-                                      key="edit_format_description" if editing else "format_description",
-                                      height=80,
-                                      placeholder="What does this step do?")
-
-            # Pre-populate output file if editing
-            default_output = ""
-            if editing and edit_step.get("type") == "formatting":
-                default_output = edit_step.get("output_file", "")
-
-            output_file = st.text_input("Output File",
-                                       value=default_output,
-                                       key="edit_format_output_file" if editing else "format_output_file",
-                                       placeholder="e.g., script.md")
-
-            # Add or Update button
-            button_label = "💾 Save Changes" if editing else "➕ Add Formatting Step"
-            if st.button(button_label, disabled=not function, key="save_format_step"):
-                step_data = {
-                    "name": function,
-                    "type": "formatting",
-                    "function": function,
-                    "description": description,
-                    "function_args": {},
-                    "output_file": output_file
-                }
-
-                if editing:
-                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
-                    st.success(f"✅ Updated: {function}")
-                    st.session_state.edit_step_idx = None
-                else:
-                    st.session_state.pipeline_steps.append(step_data)
-                    st.success(f"✅ Added: {function}")
-                st.rerun()
-
+        except Exception as e:
+            st.error(f"Failed to load modules.py: {e}")
+            st.exception(e)
+    else:
+        st.error(f"modules.py not found at: {modules_file}")
 
 # TAB 2: Edit Prompts
 with tab2:
     st.header("Edit Prompts")
     st.caption("Visual editor for creating and editing prompts with all fields")
+
+    # Show success message if prompt was just saved
+    if "prompt_saved_message" in st.session_state:
+        st.success(st.session_state.prompt_saved_message)
+        del st.session_state.prompt_saved_message
 
     # Helper function to highlight variables in text
     def highlight_variables(text):
@@ -865,99 +630,344 @@ from core.prompt_builder import Prompt
                     st.error(f"Failed to save: {e}")
                     st.exception(e)
 
-# TAB 3: Module Viewer
+# TAB 3: Pipeline Steps
 with tab3:
-    st.header("📚 Module Viewer")
-    st.caption("View and explore module data from modules.py")
+    st.header("Pipeline Steps")
 
-    # Import modules
-    modules_file = project_root / "inputs" / "modules" / "modules.py"
+    # Load pipeline section - combines predefined and saved
+    st.subheader("📦 Load Pipeline")
 
-    if modules_file.exists():
-        try:
-            # Import the modules file
-            import importlib.util
-            spec = importlib.util.spec_from_file_location("modules", modules_file)
-            modules_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(modules_module)
+    # Get all available pipelines
+    saved_pipelines = load_saved_pipelines()
+    all_pipelines = {}
 
-            # Find all module_N variables
-            available_modules = {}
-            for name, obj in modules_module.__dict__.items():
-                if name.startswith("module_") and isinstance(obj, dict):
-                    module_num = name.split("_")[1]
-                    if module_num.isdigit():
-                        available_modules[int(module_num)] = obj
+    # Add predefined pipelines with prefix
+    for name in PREDEFINED_PIPELINES.keys():
+        all_pipelines[f"[Predefined] {name}"] = ("predefined", name)
 
-            if available_modules:
-                # Module selector
-                selected_module_num = st.selectbox(
-                    "Select Module",
-                    options=sorted(available_modules.keys()),
-                    format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', 'Unnamed')}"
-                )
+    # Add saved pipelines with prefix
+    for name in saved_pipelines.keys():
+        all_pipelines[f"[Saved] {name}"] = ("saved", name)
 
-                if selected_module_num:
-                    module_data = available_modules[selected_module_num]
+    if all_pipelines:
+        col_load1, col_load2, col_load3 = st.columns([3, 1, 1])
 
-                    st.divider()
+        with col_load1:
+            selected_pipeline_display = st.selectbox(
+                "Select a pipeline to load",
+                options=[""] + list(all_pipelines.keys()),
+                format_func=lambda x: "-- Select --" if x == "" else x
+            )
 
-                    # Helper function to display data recursively
-                    def display_data(data, level=0):
-                        indent = "  " * level
+        with col_load2:
+            st.write("")  # Spacer
+            st.write("")  # Spacer
+            if st.button("📥 Load", use_container_width=True):
+                if selected_pipeline_display:
+                    pipeline_type, pipeline_name = all_pipelines[selected_pipeline_display]
 
-                        if isinstance(data, dict):
-                            for key, value in data.items():
-                                if isinstance(value, (dict, list)):
-                                    st.markdown(f"{indent}**{key}:**")
-                                    display_data(value, level + 1)
-                                else:
-                                    st.markdown(f"{indent}**{key}:** `{value}`")
+                    if pipeline_type == "predefined":
+                        # Convert predefined pipeline Step objects to UI format
+                        st.session_state.pipeline_steps = []
+                        for step_obj in PREDEFINED_PIPELINES[pipeline_name]:
+                            if step_obj.is_ai_step():
+                                step_config = {
+                                    "name": step_obj.prompt_name,
+                                    "type": "ai",
+                                    "prompt_name": step_obj.prompt_name,
+                                    "variables": step_obj.variables,
+                                    "output_file": step_obj.output_file,
+                                    "model": step_obj.model
+                                }
+                            else:
+                                step_config = {
+                                    "name": str(step_obj.function),
+                                    "type": "formatting",
+                                    "function": step_obj.function,
+                                    "function_args": step_obj.function_args,
+                                    "output_file": step_obj.output_file
+                                }
+                            st.session_state.pipeline_steps.append(step_config)
+                    else:  # saved
+                        # Load saved pipeline directly
+                        st.session_state.pipeline_steps = saved_pipelines[pipeline_name]
 
-                        elif isinstance(data, list):
-                            for idx, item in enumerate(data):
-                                if isinstance(item, (dict, list)):
-                                    st.markdown(f"{indent}**[{idx}]:**")
-                                    display_data(item, level + 1)
-                                else:
-                                    st.markdown(f"{indent}• `{item}`")
+                    st.success(f"✅ Loaded '{pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
+                    st.rerun()
+                else:
+                    st.warning("Please select a pipeline first")
+
+        with col_load3:
+            st.write("")  # Spacer
+            st.write("")  # Spacer
+            if selected_pipeline_display and all_pipelines.get(selected_pipeline_display, [""])[0] == "saved":
+                pipeline_name = all_pipelines[selected_pipeline_display][1]
+                if st.button("🗑️ Delete", use_container_width=True):
+                    delete_saved_pipeline(pipeline_name)
+                    st.success(f"Deleted '{pipeline_name}'")
+                    st.rerun()
+
+    # Save current pipeline section
+    if st.session_state.pipeline_steps:
+        st.markdown("##### 💾 Save Current Pipeline")
+        col_save1, col_save2 = st.columns([3, 1])
+
+        with col_save1:
+            save_name = st.text_input("Pipeline Name", key="save_pipeline_name", placeholder="my_pipeline")
+
+        with col_save2:
+            st.write("")  # Spacer
+            st.write("")  # Spacer
+            if st.button("💾 Save", use_container_width=True):
+                if save_name:
+                    save_pipeline_to_file(save_name, st.session_state.pipeline_steps)
+                    st.success(f"✅ Saved pipeline as '{save_name}'")
+                    st.rerun()
+                else:
+                    st.warning("Please enter a pipeline name")
+
+    st.divider()
+
+    col1, col2 = st.columns([3, 1])
+
+    with col1:
+        st.subheader("Current Pipeline")
+
+        if not st.session_state.pipeline_steps:
+            st.info("No steps added yet. Add a step below or load a pipeline above.")
+        else:
+            for idx, step in enumerate(st.session_state.pipeline_steps):
+                with st.expander(f"Step {idx + 1}: {step.get('name', 'Unnamed')}", expanded=False):
+                    step_type = step.get("type", "ai")
+
+                    if step_type == "ai":
+                        st.write(f"**Type:** AI Step")
+                        st.write(f"**Prompt:** `{step.get('prompt_name')}`")
+
+                        # Display model if set
+                        model = step.get('model')
+                        if model:
+                            model_desc = CLAUDE_MODELS.get(model, model)
+                            st.write(f"**Model:** {model_desc}")
                         else:
-                            st.markdown(f"{indent}`{data}`")
+                            st.write(f"**Model:** Default ({DEFAULT_MODEL})")
+                    else:
+                        st.write(f"**Type:** Formatting Step")
+                        st.write(f"**Function:** `{step.get('function')}`")
 
-                    # Display all fields
-                    st.subheader(f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}")
+                    if step.get("description"):
+                        st.write(f"**Description:** {step['description']}")
 
-                    # Show field paths helper
-                    with st.expander(" Field Path Reference", expanded=False):
-                        st.caption("Use these paths in module_ref to access fields:")
-                        st.code("""
-                        Examples:
-                        - module_name → "module_name"
-                        - vocabulary → "vocabulary"
-                        - phase → "phases.0"
-                        - phase.phase_name → "phases.0.phase_name"
-                        - phases[1].variables[0] → "phases.1.variables.0"
-                        """)
+                    st.write(f"**Output File:** {step.get('output_file', 'None')}")
 
-                    # Display module data
-                    for key, value in module_data.items():
-                        with st.expander(f"**{key}**", expanded=(key in ["module_name", "vocabulary", "phases"])):
-                            display_data(value)
+                    col_edit, col_delete = st.columns(2)
+                    with col_edit:
+                        if st.button(f"✏️ Edit", key=f"edit_{idx}"):
+                            st.session_state.edit_step_idx = idx
+                            st.rerun()
+                    with col_delete:
+                        if st.button(f"🗑️ Delete", key=f"delete_{idx}"):
+                            st.session_state.pipeline_steps.pop(idx)
+                            st.session_state.edit_step_idx = None  # Clear edit mode if deleting
+                            st.rerun()
 
-                    st.divider()
+    with col2:
+        # Determine if we're in edit mode
+        editing = st.session_state.edit_step_idx is not None
 
-                    # JSON view
-                    with st.expander("📄 Raw JSON View", expanded=False):
-                        st.json(module_data)
+        if editing:
+            st.subheader("✏️ Edit Step")
+            edit_step = st.session_state.pipeline_steps[st.session_state.edit_step_idx]
+            step_type_default = "AI Step" if edit_step.get("type") == "ai" else "Formatting Step"
 
+            # Cancel button
+            if st.button("❌ Cancel Edit"):
+                st.session_state.edit_step_idx = None
+                st.rerun()
+        else:
+            st.subheader("➕ Add Step")
+            step_type_default = "AI Step"
+
+        step_type = st.radio("Step Type", ["AI Step", "Formatting Step"],
+                            key="step_type_radio",
+                            index=0 if step_type_default == "AI Step" else 1)
+
+        if step_type == "AI Step":
+            st.markdown("##### AI Step Configuration")
+
+            # Get available prompts
+            available_prompts = []
+            if PROMPTS_DIR.exists():
+                available_prompts = [pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"]
+
+            if available_prompts:
+                # Pre-populate if editing
+                default_prompt = None
+                if editing and edit_step.get("type") == "ai":
+                    default_prompt = edit_step.get("prompt_name")
+                    if default_prompt in available_prompts:
+                        default_idx = available_prompts.index(default_prompt)
+                    else:
+                        default_idx = 0
+                else:
+                    default_idx = 0
+
+                prompt_name = st.selectbox(
+                    "Prompt",
+                    options=available_prompts,
+                    index=default_idx,
+                    key="edit_ai_prompt_select" if editing else "ai_prompt_select"
+                )
             else:
-                st.warning("No modules found in modules.py")
+                st.warning("⚠️ No prompts found in steps/prompts/")
+                prompt_name = None
 
-        except Exception as e:
-            st.error(f"Failed to load modules.py: {e}")
-            st.exception(e)
-    else:
-        st.error(f"modules.py not found at: {modules_file}")
+            # Pre-populate description if editing
+            default_desc = ""
+            if editing and edit_step.get("type") == "ai":
+                default_desc = edit_step.get("description", "")
+
+            description = st.text_area("Description",
+                                      value=default_desc,
+                                      key="edit_ai_description" if editing else "ai_description",
+                                      height=80,
+                                      placeholder="What does this step do?")
+
+            # Pre-populate output file if editing
+            default_output = ""
+            if editing and edit_step.get("type") == "ai":
+                default_output = edit_step.get("output_file", "")
+
+            output_file = st.text_input("Output File",
+                                       value=default_output,
+                                       key="edit_ai_output_file" if editing else "ai_output_file",
+                                       placeholder="e.g., interactions.json")
+
+            # Model selection
+            model_options = list(CLAUDE_MODELS.keys())
+            model_display_names = [CLAUDE_MODELS[model] for model in model_options]
+
+            # Pre-populate model if editing
+            default_model_idx = 0
+            if editing and edit_step.get("type") == "ai":
+                edit_model = edit_step.get("model")
+                if edit_model and edit_model in model_options:
+                    default_model_idx = model_options.index(edit_model)
+
+            selected_model_idx = st.selectbox(
+                "Claude Model",
+                options=range(len(model_options)),
+                format_func=lambda i: model_display_names[i],
+                index=default_model_idx,
+                key="edit_ai_model_select" if editing else "ai_model_select",
+                help="Choose which Claude model to use for this step"
+            )
+            selected_model = model_options[selected_model_idx]
+
+            # Add or Update button
+            button_label = "💾 Save Changes" if editing else "➕ Add AI Step"
+            if st.button(button_label, disabled=not prompt_name, key="save_ai_step"):
+                step_data = {
+                    "name": prompt_name,
+                    "type": "ai",
+                    "prompt_name": prompt_name,
+                    "description": description,
+                    "variables": {},
+                    "output_file": output_file,
+                    "model": selected_model
+                }
+
+                if editing:
+                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
+                    st.success(f"✅ Updated: {prompt_name}")
+                    st.session_state.edit_step_idx = None
+                else:
+                    st.session_state.pipeline_steps.append(step_data)
+                    st.success(f"✅ Added: {prompt_name}")
+                st.rerun()
+
+        else:  # Formatting Step
+            st.markdown("##### Formatting Step Configuration")
+
+            # Get available formatters
+            formatters = {}
+            if FORMATTING_DIR.exists():
+                for ff in FORMATTING_DIR.glob("*.py"):
+                    if ff.stem != "__init__":
+                        try:
+                            import importlib.util
+                            spec = importlib.util.spec_from_file_location(ff.stem, ff)
+                            module = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(module)
+
+                            for name, obj in module.__dict__.items():
+                                if callable(obj) and not name.startswith("_"):
+                                    display_name = f"{ff.stem}.{name}"
+                                    formatters[display_name] = f"{ff.stem}.{name}"
+                        except:
+                            pass
+
+            if formatters:
+                # Pre-populate if editing
+                default_formatter_idx = 0
+                if editing and edit_step.get("type") == "formatting":
+                    edit_function = edit_step.get("function")
+                    formatter_list = list(formatters.keys())
+                    if edit_function in formatter_list:
+                        default_formatter_idx = formatter_list.index(edit_function)
+
+                selected_formatter = st.selectbox(
+                    "Formatter",
+                    options=list(formatters.keys()),
+                    index=default_formatter_idx,
+                    key="edit_format_select" if editing else "format_select"
+                )
+                function = formatters[selected_formatter]
+            else:
+                st.warning("⚠️ No formatters found in steps/formatting/")
+                function = None
+
+            # Pre-populate description if editing
+            default_desc = ""
+            if editing and edit_step.get("type") == "formatting":
+                default_desc = edit_step.get("description", "")
+
+            description = st.text_area("Description",
+                                      value=default_desc,
+                                      key="edit_format_description" if editing else "format_description",
+                                      height=80,
+                                      placeholder="What does this step do?")
+
+            # Pre-populate output file if editing
+            default_output = ""
+            if editing and edit_step.get("type") == "formatting":
+                default_output = edit_step.get("output_file", "")
+
+            output_file = st.text_input("Output File",
+                                       value=default_output,
+                                       key="edit_format_output_file" if editing else "format_output_file",
+                                       placeholder="e.g., script.md")
+
+            # Add or Update button
+            button_label = "💾 Save Changes" if editing else "➕ Add Formatting Step"
+            if st.button(button_label, disabled=not function, key="save_format_step"):
+                step_data = {
+                    "name": function,
+                    "type": "formatting",
+                    "function": function,
+                    "description": description,
+                    "function_args": {},
+                    "output_file": output_file
+                }
+
+                if editing:
+                    st.session_state.pipeline_steps[st.session_state.edit_step_idx] = step_data
+                    st.success(f"✅ Updated: {function}")
+                    st.session_state.edit_step_idx = None
+                else:
+                    st.session_state.pipeline_steps.append(step_data)
+                    st.success(f"✅ Added: {function}")
+                st.rerun()
 
 # TAB 4: Run Pipeline
 with tab4:
@@ -1025,11 +1035,6 @@ with tab4:
 
             if not interactive:
                 # Original non-interactive execution
-                console_container = st.container()
-                with console_container:
-                    st.subheader("Console Output")
-                    console_output = st.empty()
-
                 try:
                     steps = []
                     for step_config in st.session_state.pipeline_steps:
@@ -1046,26 +1051,29 @@ with tab4:
                                 output_file=step_config.get("output_file")
                             )
                         steps.append(step)
+                    
+                    #Create console output container with real-time streaming
+                    with st.expander("Console Output", expanded = True):
+                        console_display = st.empty()
 
-                    import io
-                    import contextlib
-                    console_buffer = io.StringIO()
+                        with capture_console_output_streaming(console_display) as console_buffer:
+                            result = run_pipeline(
+                                steps=steps,
+                                module_number=module_number,
+                                path_letter=path_letter,
+                                output_dir=actual_output_dir,
+                                verbose=verbose,
+                                parse_json_output=parse_json
+                            )
 
-                    with contextlib.redirect_stdout(console_buffer):
-                        result = run_pipeline(
-                            steps=steps,
-                            module_number=module_number,
-                            path_letter=path_letter,
-                            output_dir=actual_output_dir,
-                            verbose=verbose,
-                            parse_json_output=parse_json
-                        )
+                        captured_output = console_buffer.getvalue()
+                        st.session_state.execution_result = result
+                        st.session_state.console_output = captured_output
+                        st.success("✅ Pipeline completed successfully!")
 
-                    captured_output = console_buffer.getvalue()
-                    console_output.code(captured_output, language="log")
-
-                    st.session_state.execution_result = result
-                    st.success("✅ Pipeline completed successfully!")
+                        # Show console collapsed after completion
+                        with st.expander("📟 Console Output", expanded=False):
+                            st.code(captured_output, language="log")
 
                 except Exception as e:
                     st.error(f"❌ Pipeline failed: {str(e)}")
@@ -1100,21 +1108,21 @@ with tab4:
                                 input_file=previous_output_file,
                                 output_file=step_config.get("output_file")
                             )
+                        # Create console output container for real-time streaming
+                        st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
 
-                        # Capture console output
-                        import io
-                        import contextlib
-                        output_buffer = io.StringIO()
-
-                        with contextlib.redirect_stdout(output_buffer):
-                            result = run_single_step(
-                                step=step,
-                                module_number=module_number,
-                                path_letter=path_letter,
-                                output_dir=actual_output_dir,
-                                verbose=verbose,
-                                parse_json_output=parse_json
-                            )
+                        with st.expander("📟 Console Output", expanded=True):
+                            console_display = st.empty()
+                            # Capture console output with real-time streaming
+                            with capture_console_output_streaming(console_display) as output_buffer:
+                                result = run_single_step(
+                                    step=step,
+                                    module_number=module_number,
+                                    path_letter=path_letter,
+                                    output_dir=actual_output_dir,
+                                    verbose=verbose,
+                                    parse_json_output=parse_json
+                                )
 
                         console_output = output_buffer.getvalue()
 
@@ -1139,44 +1147,17 @@ with tab4:
 
             st.subheader(f"✅ Step {len(st.session_state.interactive_outputs)}: {latest['step_name']}")
 
-            st.markdown("#### Console Output")
-            st.code(latest['console'], language="log")
-
-            # Show output file if available
-            if latest['result'].get('last_output_file'):
+            # Use unified output display
+            if latest['result'].get('output_dir'):
                 output_dir = Path(latest['result']['output_dir'])
-                output_path = output_dir / latest['result']['last_output_file']
-
-                if output_path.exists():
-                    with st.expander("📄 View Output File", expanded=True):
-                        try:
-                            content = output_path.read_text(encoding='utf-8')
-
-                            # Render based on file type
-                            if output_path.suffix == '.md':
-                                st.markdown(content)
-                            elif output_path.suffix == '.json':
-                                import json
-                                st.json(json.loads(content))
-                            else:
-                                st.code(content)
-                        except Exception as e:
-                            st.error(f"Could not display file: {e}")
-
-                    # Button to open folder
-                    if st.button("📂 Open Output Folder", key=f"open_folder_{len(st.session_state.interactive_outputs)}"):
-                        import subprocess
-                        import platform
-                        try:
-                            if platform.system() == "Windows":
-                                subprocess.run(["explorer", str(output_dir.resolve())])
-                            elif platform.system() == "Darwin":  # macOS
-                                subprocess.run(["open", str(output_dir.resolve())])
-                            else:  # Linux
-                                subprocess.run(["xdg-open", str(output_dir.resolve())])
-                        except Exception as e:
-                            st.error(f"Could not open folder: {e}")
-
+                display_unified_output(
+                    output_dir=output_dir,
+                    console_output=None,
+                    show_all_files=True,
+                    result=latest['result'],
+                    button_key_prefix=f"step_{len(st.session_state.interactive_outputs)}"
+                )
+        
             # Check if pipeline is complete
             if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
                 st.success("🎉 Pipeline Completed!")
@@ -1215,79 +1196,20 @@ with tab4:
 
         # Show results
         if st.session_state.execution_result:
-            st.divider()
-            st.subheader("Results")
+              st.divider()
+              st.subheader("Results")
 
-            result = st.session_state.execution_result
+              result = st.session_state.execution_result
+              output_path = Path(result.get("output_dir", output_dir))
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Output Directory", result.get("output_dir", "N/A"))
-            with col2:
-                st.metric("Last Output File", result.get("last_output_file", "N/A"))
-
-            # Show output files
-            st.divider()
-            st.markdown("##### 📄 Output Files")
-
-            # List all output files in the directory
-            output_path = Path(result.get("output_dir", output_dir))
-            if output_path.exists():
-                output_files = sorted(output_path.glob("*.*"))
-
-                if output_files:
-                    selected_file = st.selectbox(
-                        "Select file to preview",
-                        options=output_files,
-                        format_func=lambda x: x.name
-                    )
-
-                    if selected_file:
-                        try:
-                            with open(selected_file, 'r', encoding='utf-8') as f:
-                                content = f.read()
-
-                            # Check file type for rendering
-                            if selected_file.suffix == '.md':
-                                # Markdown preview
-                                st.markdown("**Markdown Preview:**")
-                                st.markdown(content)
-
-                                with st.expander("📝 Raw Markdown"):
-                                    st.code(content, language="markdown")
-
-                            elif selected_file.suffix == '.json':
-                                # JSON preview
-                                st.markdown("**JSON Preview:**")
-                                try:
-                                    import json
-                                    json_data = json.loads(content)
-                                    st.json(json_data)
-
-                                    with st.expander("📝 Raw JSON"):
-                                        st.code(content, language="json")
-                                except:
-                                    st.code(content, language="json")
-
-                            else:
-                                # Text preview
-                                st.markdown("**Text Preview:**")
-                                st.text_area("Content", content, height=400)
-
-                            # Download button
-                            st.download_button(
-                                label=f"⬇️ Download {selected_file.name}",
-                                data=content,
-                                file_name=selected_file.name,
-                                mime="text/plain"
-                            )
-
-                        except Exception as e:
-                            st.error(f"Failed to read file: {e}")
-                else:
-                    st.info("No output files found")
-            else:
-                st.warning("Output directory not found")
+              # Use unified output display
+              display_unified_output(
+                  output_dir=output_path,
+                  console_output=None,
+                  show_all_files=True,
+                  result=result,
+                  button_key_prefix="final_result"
+              )
 
 
 # Footer

@@ -12,6 +12,7 @@ Key improvements:
 
 from pathlib import Path
 from typing import List, Dict, Optional, Union
+from datetime import datetime
 import sys
 import importlib
 
@@ -143,13 +144,14 @@ class PromptBuilderV2:
         if str(self.prompts_dir) not in sys.path:
             sys.path.insert(0, str(self.prompts_dir))
 
-    def build(self, prompt_name: str, variables: Dict = None, input_content: str = None) -> Dict:
+    def build(self, prompt_name: str, variables: Dict = None, input_content: str = None, save_prompt_to: str = None) -> Dict:
         """Build complete prompt with caching support
 
         Args:
             prompt_name: Name of the prompt (e.g., "godot_formatter")
             variables: Optional dict of variables to substitute in instructions
             input_content: Content to use as <input> in system prompt (from pipeline input_file)
+            save_prompt_to: Optional path to save the prompt to (for debugging/review)
 
         Returns:
             Dict with {system, user_message, prefill, api_params}
@@ -257,6 +259,16 @@ class PromptBuilderV2:
             print(f"  [OK] Built prompt with {len(system_blocks)} system blocks")
             if final_prefill:
                 print(f"  [OK] Prefill: {len(final_prefill)} chars")
+        # Save prompt to file if requested
+        if save_prompt_to:
+            self._save_prompt_to_file(
+                save_path=save_prompt_to,
+                prompt_name=prompt_name,
+                system_blocks=system_blocks,
+                user_message=user_message,
+                prefill=final_prefill,
+                api_params=api_params
+            )
 
         return {
             "system": system_blocks,
@@ -457,7 +469,7 @@ class PromptBuilderV2:
 
         return variables
 
-    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None, model: str = None) -> str:
+    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None, model: str = None, save_prompt_to: str = None) -> str:
         """Build and execute a prompt in one call
 
         Args:
@@ -481,7 +493,7 @@ class PromptBuilderV2:
         from claude_client import ClaudeClient
 
         # Build the prompt using existing build() method
-        built_prompt = self.build(prompt_name, variables, input_content=input_content)
+        built_prompt = self.build(prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to)
 
         # Create client and execute
         client = ClaudeClient()
@@ -534,6 +546,59 @@ class PromptBuilderV2:
                 result = result.replace(placeholder, value_str)
 
         return result
+    
+    def _save_prompt_to_file(self, save_path: str, prompt_name: str, system_blocks: list, user_message: str, prefill: str, api_params: dict):
+          """Save the complete prompt to a file in human-readable format
+
+          Args:
+              save_path: Path to save the prompt file
+              prompt_name: Name of the prompt
+              system_blocks: List of system blocks
+              user_message: User message content
+              prefill: Prefill content (if any)
+              api_params: API parameters
+          """
+          try:
+              save_path = Path(save_path)
+              save_path.parent.mkdir(parents=True, exist_ok=True)
+
+              with open(save_path, 'w', encoding='utf-8') as f:
+                  f.write(f"# Prompt: {prompt_name}\n")
+                  f.write(f"# Generated: {datetime.now().isoformat()}\n")
+                  f.write("="*70 + "\n\n")
+
+                  # Write API parameters
+                  f.write("## API Parameters\n")
+                  for key, value in api_params.items():
+                      f.write(f"- {key}: {value}\n")
+                  f.write("\n" + "="*70 + "\n\n")
+
+                  # Write system blocks
+                  f.write("## System Prompt\n\n")
+                  for i, block in enumerate(system_blocks, 1):
+                      f.write(f"### Block {i}\n")
+                      if 'cache_control' in block:
+                          f.write(f"*[CACHED: {block['cache_control']}]*\n\n")
+                      f.write(block['text'])
+                      f.write("\n\n" + "-"*70 + "\n\n")
+
+                  # Write user message
+                  f.write("## User Message\n\n")
+                  f.write(user_message)
+                  f.write("\n\n" + "="*70 + "\n\n")
+
+                  # Write prefill if exists
+                  if prefill:
+                      f.write("## Prefill\n\n")
+                      f.write(prefill)
+                      f.write("\n\n")
+
+              if self.verbose:
+                  print(f"  [SAVE] Saved prompt to: {save_path}")
+
+          except Exception as e:
+              if self.verbose:
+                  print(f"  [WARN] Failed to save prompt: {e}")
 
 
 # Test it
