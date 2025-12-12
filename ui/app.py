@@ -1051,6 +1051,16 @@ with tab4:
                                 output_file=step_config.get("output_file")
                             )
                         steps.append(step)
+
+                    # Show output directory info with option to browse files in real-time
+                    st.caption("💡 Open the folder below to watch intermediate files appear as the pipeline runs")
+
+                    col_open1, col_open2 = st.columns([1, 4])
+                    with col_open1:
+                        from ui.utils.output import open_output_folder
+                        open_output_folder(Path(actual_output_dir), button_key="open_folder_before_run")
+
+                    st.divider()
                     
                     #Create console output container with real-time streaming
                     with st.expander("Console Output", expanded = True):
@@ -1070,10 +1080,6 @@ with tab4:
                         st.session_state.execution_result = result
                         st.session_state.console_output = captured_output
                         st.success("✅ Pipeline completed successfully!")
-
-                        # Show console collapsed after completion
-                        with st.expander("📟 Console Output", expanded=False):
-                            st.code(captured_output, language="log")
 
                 except Exception as e:
                     st.error(f"❌ Pipeline failed: {str(e)}")
@@ -1110,19 +1116,17 @@ with tab4:
                             )
                         # Create console output container for real-time streaming
                         st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
-
-                        with st.expander("📟 Console Output", expanded=True):
-                            console_display = st.empty()
-                            # Capture console output with real-time streaming
-                            with capture_console_output_streaming(console_display) as output_buffer:
-                                result = run_single_step(
-                                    step=step,
-                                    module_number=module_number,
-                                    path_letter=path_letter,
-                                    output_dir=actual_output_dir,
-                                    verbose=verbose,
-                                    parse_json_output=parse_json
-                                )
+                        
+                        # Capture console output with real-time streaming
+                        with capture_console_output_streaming(console_display) as output_buffer:
+                            result = run_single_step(
+                                step=step,
+                                module_number=module_number,
+                                path_letter=path_letter,
+                                output_dir=actual_output_dir,
+                                verbose=verbose,
+                                parse_json_output=parse_json
+                            )
 
                         console_output = output_buffer.getvalue()
 
