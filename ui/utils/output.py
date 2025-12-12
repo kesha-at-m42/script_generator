@@ -25,7 +25,7 @@ class StreamingConsoleCapture(io.StringIO):
         result = super().write(text)
 
         # Also update the display in real-time
-        if text and text.strip():
+        if text:
             self.lines.append(text)
             # Update the display container with all accumulated output
             full_output = ''.join(self.lines)

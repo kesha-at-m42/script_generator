@@ -1049,23 +1049,27 @@ with tab4:
                         steps.append(step)
                     
                     #Create console output container with real-time streaming
-                    st.subheader("Console Output")
-                    console_display = st.empty()
+                    with st.expander("Console Output", expanded = True):
+                        console_display = st.empty()
 
-                    with capture_console_output_streaming(console_display) as console_buffer:
-                        result = run_pipeline(
-                            steps=steps,
-                            module_number=module_number,
-                            path_letter=path_letter,
-                            output_dir=actual_output_dir,
-                            verbose=verbose,
-                            parse_json_output=parse_json
-                        )
+                        with capture_console_output_streaming(console_display) as console_buffer:
+                            result = run_pipeline(
+                                steps=steps,
+                                module_number=module_number,
+                                path_letter=path_letter,
+                                output_dir=actual_output_dir,
+                                verbose=verbose,
+                                parse_json_output=parse_json
+                            )
 
-                    captured_output = console_buffer.getvalue()
-                    st.session_state.execution_result = result
-                    st.session_state.console_output = captured_output
-                    st.success("✅ Pipeline completed successfully!")
+                        captured_output = console_buffer.getvalue()
+                        st.session_state.execution_result = result
+                        st.session_state.console_output = captured_output
+                        st.success("✅ Pipeline completed successfully!")
+
+                        # Show console collapsed after completion
+                        with st.expander("📟 Console Output", expanded=False):
+                            st.code(captured_output, language="log")
 
                 except Exception as e:
                     st.error(f"❌ Pipeline failed: {str(e)}")
@@ -1102,18 +1106,19 @@ with tab4:
                             )
                         # Create console output container for real-time streaming
                         st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
-                        console_display = st.empty()
 
-                         # Capture console output with real-time streaming
-                        with capture_console_output_streaming(console_display) as output_buffer:
-                            result = run_single_step(
-                                step=step,
-                                module_number=module_number,
-                                path_letter=path_letter,
-                                output_dir=actual_output_dir,
-                                verbose=verbose,
-                                parse_json_output=parse_json
-                            )
+                        with st.expander("📟 Console Output", expanded=True):
+                            console_display = st.empty()
+                            # Capture console output with real-time streaming
+                            with capture_console_output_streaming(console_display) as output_buffer:
+                                result = run_single_step(
+                                    step=step,
+                                    module_number=module_number,
+                                    path_letter=path_letter,
+                                    output_dir=actual_output_dir,
+                                    verbose=verbose,
+                                    parse_json_output=parse_json
+                                )
 
                         console_output = output_buffer.getvalue()
 
