@@ -17,6 +17,12 @@ from core.pipeline import Step, run_pipeline, run_single_step
 from core.prompt_builder import Prompt
 import importlib
 
+ # Import output utilities
+from ui.utils.output import (
+    capture_console_output_streaming,
+    display_unified_output
+)
+
 # Import predefined pipelines
 try:
     from config.pipelines import PIPELINES as PREDEFINED_PIPELINES
@@ -1025,11 +1031,6 @@ with tab4:
 
             if not interactive:
                 # Original non-interactive execution
-                console_container = st.container()
-                with console_container:
-                    st.subheader("Console Output")
-                    console_output = st.empty()
-
                 try:
                     steps = []
                     for step_config in st.session_state.pipeline_steps:
@@ -1046,12 +1047,12 @@ with tab4:
                                 output_file=step_config.get("output_file")
                             )
                         steps.append(step)
+                    
+                    #Create console output container with real-time streaming
+                    st.subheader("Console Output")
+                    console_display = st.empty()
 
-                    import io
-                    import contextlib
-                    console_buffer = io.StringIO()
-
-                    with contextlib.redirect_stdout(console_buffer):
+                    with capture_console_output_streaming(console_display) as console_buffer:
                         result = run_pipeline(
                             steps=steps,
                             module_number=module_number,
@@ -1062,9 +1063,8 @@ with tab4:
                         )
 
                     captured_output = console_buffer.getvalue()
-                    console_output.code(captured_output, language="log")
-
                     st.session_state.execution_result = result
+                    st.session_state.console_output = captured_output
                     st.success("✅ Pipeline completed successfully!")
 
                 except Exception as e:
@@ -1100,13 +1100,12 @@ with tab4:
                                 input_file=previous_output_file,
                                 output_file=step_config.get("output_file")
                             )
+                        # Create console output container for real-time streaming
+                        st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
+                        console_display = st.empty()
 
-                        # Capture console output
-                        import io
-                        import contextlib
-                        output_buffer = io.StringIO()
-
-                        with contextlib.redirect_stdout(output_buffer):
+                         # Capture console output with real-time streaming
+                        with capture_console_output_streaming(console_display) as output_buffer:
                             result = run_single_step(
                                 step=step,
                                 module_number=module_number,
@@ -1139,44 +1138,17 @@ with tab4:
 
             st.subheader(f"✅ Step {len(st.session_state.interactive_outputs)}: {latest['step_name']}")
 
-            st.markdown("#### Console Output")
-            st.code(latest['console'], language="log")
-
-            # Show output file if available
-            if latest['result'].get('last_output_file'):
+            # Use unified output display
+            if latest['result'].get('output_dir'):
                 output_dir = Path(latest['result']['output_dir'])
-                output_path = output_dir / latest['result']['last_output_file']
-
-                if output_path.exists():
-                    with st.expander("📄 View Output File", expanded=True):
-                        try:
-                            content = output_path.read_text(encoding='utf-8')
-
-                            # Render based on file type
-                            if output_path.suffix == '.md':
-                                st.markdown(content)
-                            elif output_path.suffix == '.json':
-                                import json
-                                st.json(json.loads(content))
-                            else:
-                                st.code(content)
-                        except Exception as e:
-                            st.error(f"Could not display file: {e}")
-
-                    # Button to open folder
-                    if st.button("📂 Open Output Folder", key=f"open_folder_{len(st.session_state.interactive_outputs)}"):
-                        import subprocess
-                        import platform
-                        try:
-                            if platform.system() == "Windows":
-                                subprocess.run(["explorer", str(output_dir.resolve())])
-                            elif platform.system() == "Darwin":  # macOS
-                                subprocess.run(["open", str(output_dir.resolve())])
-                            else:  # Linux
-                                subprocess.run(["xdg-open", str(output_dir.resolve())])
-                        except Exception as e:
-                            st.error(f"Could not open folder: {e}")
-
+                display_unified_output(
+                    output_dir=output_dir,
+                    console_output=None,
+                    show_all_files=True,
+                    result=latest['result'],
+                    button_key_prefix=f"step_{len(st.session_state.interactive_outputs)}"
+                )
+        
             # Check if pipeline is complete
             if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
                 st.success("🎉 Pipeline Completed!")
@@ -1215,79 +1187,20 @@ with tab4:
 
         # Show results
         if st.session_state.execution_result:
-            st.divider()
-            st.subheader("Results")
+              st.divider()
+              st.subheader("Results")
 
-            result = st.session_state.execution_result
+              result = st.session_state.execution_result
+              output_path = Path(result.get("output_dir", output_dir))
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Output Directory", result.get("output_dir", "N/A"))
-            with col2:
-                st.metric("Last Output File", result.get("last_output_file", "N/A"))
-
-            # Show output files
-            st.divider()
-            st.markdown("##### 📄 Output Files")
-
-            # List all output files in the directory
-            output_path = Path(result.get("output_dir", output_dir))
-            if output_path.exists():
-                output_files = sorted(output_path.glob("*.*"))
-
-                if output_files:
-                    selected_file = st.selectbox(
-                        "Select file to preview",
-                        options=output_files,
-                        format_func=lambda x: x.name
-                    )
-
-                    if selected_file:
-                        try:
-                            with open(selected_file, 'r', encoding='utf-8') as f:
-                                content = f.read()
-
-                            # Check file type for rendering
-                            if selected_file.suffix == '.md':
-                                # Markdown preview
-                                st.markdown("**Markdown Preview:**")
-                                st.markdown(content)
-
-                                with st.expander("📝 Raw Markdown"):
-                                    st.code(content, language="markdown")
-
-                            elif selected_file.suffix == '.json':
-                                # JSON preview
-                                st.markdown("**JSON Preview:**")
-                                try:
-                                    import json
-                                    json_data = json.loads(content)
-                                    st.json(json_data)
-
-                                    with st.expander("📝 Raw JSON"):
-                                        st.code(content, language="json")
-                                except:
-                                    st.code(content, language="json")
-
-                            else:
-                                # Text preview
-                                st.markdown("**Text Preview:**")
-                                st.text_area("Content", content, height=400)
-
-                            # Download button
-                            st.download_button(
-                                label=f"⬇️ Download {selected_file.name}",
-                                data=content,
-                                file_name=selected_file.name,
-                                mime="text/plain"
-                            )
-
-                        except Exception as e:
-                            st.error(f"Failed to read file: {e}")
-                else:
-                    st.info("No output files found")
-            else:
-                st.warning("Output directory not found")
+              # Use unified output display
+              display_unified_output(
+                  output_dir=output_path,
+                  console_output=None,
+                  show_all_files=True,
+                  result=result,
+                  button_key_prefix="final_result"
+              )
 
 
 # Footer
