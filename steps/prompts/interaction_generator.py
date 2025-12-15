@@ -21,9 +21,6 @@ INTERACTION_GENERATOR_PROMPT = Prompt(
 ## YOUR TASK
 
 Convert the Module Starter Pack Section 1.7 (Lesson Phase) from prose into structured JSON.
-
-This is **TRANSLATION**, not creative writing. Every interaction, dialogue line, and prompt already exists in Section 1.7. You are reformatting, not inventing.
-
 ---
 
 ## BEFORE YOU GENERATE ANYTHING

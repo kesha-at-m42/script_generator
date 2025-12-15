@@ -17,6 +17,7 @@ LESSON_GENERATOR_PROMPT = Prompt(
 
     instructions="""
 
+
 Generate a lesson phase script for an educational module. Read and fully understand the <Module 1 Starter Pack VPSS - AI Ready.md>.  
 The lesson should:
     - Teach the core concepts defined in learning goals.
@@ -41,19 +42,13 @@ The lesson should:
 
 
 
+
 """,
 
     doc_refs=['Module 1 Starter Pack VPSS - AI Ready.md'],
 
     output_structure="""
-
-
-
-
-
-
-
-  {
+ {
     "phase": "lesson",
     "interactions": [
       {
@@ -70,14 +65,6 @@ The lesson should:
       }
     ]
   }
-  
-
-
-
-
-
-
-
 """,
 
     prefill="""""",

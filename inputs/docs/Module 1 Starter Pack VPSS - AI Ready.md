@@ -14,7 +14,6 @@ version: 2.0
 last_updated: 2025-12-02
 fractions_required: ["1/2", "1/3", "1/4", "1/6", "1/8"]
 misconception_ids: ["M1.1", "M1.2"]
-tools: ["Grid Arrays", "Hexagons", "Partition Drawing Tool"]
 phases: ["Warmup", "Lesson", "Exit Check", "Practice", "Synthesis"]
 ---
 ```
@@ -54,7 +53,8 @@ Students learn that **fractions require EQUAL parts and name them**, and they pr
 * Partitioning shapes into 2, 3, 4, 6, 8 equal parts  
 * Recognizing when parts are equal vs unequal  
 * Understanding "the whole" as what we're dividing  
-* Unit fraction notation (1/b) introduced AFTER visual/vocabulary grounding
+* Unit fraction notation (1/b) introduced AFTER visual/vocabulary grounding  
+* Relevant Vocabulary: whole, partition, equal parts, fraction
 
 ### **❌ MUST NOT INCLUDE**
 
@@ -266,7 +266,7 @@ This sequence preserves immediate connection (partition→shade) while building 
 - **Prompt:** "Click once in the middle to split the bar into 2 equal parts."  
 - **On Correct:** "You made two parts. Let's check—are they equal?"  
 - **Verification Prompt**: "Count the grid units. Are all parts equal?" \[click\_choice: yes/no\]  
-- **On Verify:** "You verified it—all parts have the same number of grid units. That's two halves."
+- **On Verify:** "You checked it—all parts have the same number of grid units. That's two halves."
 
 **Interaction 1.3: Shade One Half**
 
@@ -281,9 +281,9 @@ This sequence preserves immediate connection (partition→shade) while building 
 
 - **Visual:** New fraction bar  
 - **Guide:** "Here's one way we can split the bar into four equal parts: first split the bar in half, then split each half in half again." \[DEMONSTRATE visually\]  
-- **Cut Orientation Note:** "Notice I can cut across the bar like this \[horizontal demo\] OR down like this \[vertical demo\]. As long as each piece is the same size, we’ve created equal parts."  
-- **Guide:** "Your turn. Try clicking once in the middle, then click once in each half."  
-- **Prompt:** "Please click 3 times to split the bar into 4 equal parts."  
+- **Cut Orientation Note:** "Or I could also cut from the side. Notice I can cut across the bar like this \[horizontal demo\] OR down like this \[vertical demo\]. As long as each piece is the same size, we’ve created equal parts."  
+- **Guide:** "Your turn. Try clicking once in the middle of the top, then click once in the middle of the side."  
+- **Prompt:** "Please click 2 times to split the bar into 4 equal parts."  
 - **Remediation:** Full L-M-H (partition focus, strategy reminder)  
 - **On Correct:** "Right. Four equal parts."
 
@@ -451,7 +451,7 @@ This sequence preserves immediate connection (partition→shade) while building 
 - **Remediation:** Full L-M-H  
 - **On Correct:** "1/3—one out of three equal parts. The notation works the same way."
 
-**Interaction 3.5 (Optional): Partition Hexagon into Sixths**
+**Interaction 3.5: Partition Hexagon into Sixths**
 
 - **Visual:** New hexagon  
 - **Guide:** "One more. Can you make six equal parts?"  
@@ -460,7 +460,7 @@ This sequence preserves immediate connection (partition→shade) while building 
 - **Remediation:** Full L-M-H  
 - **On Correct:** "Six equal parts\!"
 
-**Interaction 3.6 (Optional): Shade One Sixth on Hexagon**
+**Interaction 3.6: Shade One Sixth on Hexagon**
 
 - **Visual:** Hexagon partitioned into sixths from 3.5  
 - **Guide:** "Try shading one part of the whole shape."  
@@ -644,8 +644,8 @@ Include at least 3 across the Lesson:
 | 3.2 | Shade Hex Halves | Shade prompt | ☐ |
 | 3.3 | Partition Hex Thirds | Radial partition prompt | ☐ |
 | 3.4 | Shade Hex Thirds | Shade prompt | ☐ |
-| 3.5 | Partition Hex Sixths | (Optional) Radial partition prompt | ☐ |
-| 3.6 | Shade Hex Sixths | (Optional) Shade prompt | ☐ |
+| 3.5 | Partition Hex Sixths | Radial partition prompt | ☐ |
+| 3.6 | Shade Hex Sixths | Shade prompt | ☐ |
 | — | Cross-shape connection | Bar \+ hexagon showing same fraction | ☐ |
 
 **→ SECTION 3 COMPLETE. LESSON COMPLETE.**

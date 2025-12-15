@@ -1,5 +1,5 @@
 """
-script_generator - AI Prompt
+interaction_generator_2 - AI Prompt
 """
 
 import sys
@@ -12,7 +12,7 @@ if str(project_root) not in sys.path:
 
 from core.prompt_builder import Prompt
 
-SCRIPT_GENERATOR_PROMPT = Prompt(
+INTERACTION_GENERATOR_2_PROMPT = Prompt(
     role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
 
     instructions="""
@@ -105,7 +105,7 @@ The `interaction_tool` field MUST match how Section 1.5 says students interact w
 | No student action / Guide demonstrates | `"none"` |
 
 ### Validation:
-If the prompt describes an interaction NOT supported by Section 1.5's tools → STOP and flag in generation_notes.
+If the prompt describes an interaction NOT supported by Section 1.5's tools → STOP. This indicates a mismatch between Section 1.5 and Section 1.7 that needs human review.
 
 ---
 
@@ -121,7 +121,7 @@ If the prompt describes an interaction NOT supported by Section 1.5's tools → 
 - If no Prompt line, use `"Watch the demonstration."` for demos or omit for observations
 
 ### Success Responses
-- Transfer **On Correct:** or success lines to `success_dialogue`
+- Transfer **On Correct:** or success lines to `student_attempts.success_path.dialogue`
 
 ### Vocabulary
 - Check Section 1.3 for which terms are introduced at which interaction
@@ -169,7 +169,7 @@ When Section 1.7 indicates Guide demonstrates an action, embed event tags.
 ❌ **Do NOT use forbidden items** — Section 1.2 is absolute  
 ❌ **Do NOT add interactions** — Follow Section 1.7 exactly  
 ❌ **Do NOT rewrite dialogue** — Transfer as-is (Stage 2 polishes)  
-❌ **Do NOT write remediation** — Use `"remediation_placeholder": true`  
+❌ **Do NOT write remediation** — Leave remediation for Stage 3  
 ❌ **Do NOT use generic type names** — Derive from Section 1.5 exactly
 
 ---
@@ -186,13 +186,6 @@ After generating, verify against Section 1.9 checklist:
 - [ ] Every workspace type is in ALLOWED TOOLS list
 - [ ] Nothing from FORBIDDEN list appears anywhere
 
-**Document any violations in `metadata.generation_notes`.**
-
----
-
-## OUTPUT
-
-Provide valid JSON matching the output structure schema.
 """,
 
     doc_refs=['Module 1 Starter Pack VPSS - AI Ready.md'],
@@ -204,6 +197,7 @@ Provide valid JSON matching the output structure schema.
       "interaction_id": 1,
       "interaction_name": "Pithy name (3-6 words)",
       "fractions": [],
+      "vocabulary_introduced": [],
       "steps": [
         {
           "dialogue": "Guide dialogue with [event:name] tags for demonstrations",
@@ -233,14 +227,6 @@ Provide valid JSON matching the output structure schema.
     }
   ]
 }
-
-
-
-
-
-
-
-
 """,
 
     prefill="""""",
@@ -254,6 +240,6 @@ Provide valid JSON matching the output structure schema.
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
-    max_tokens=16000,
+    max_tokens=18000,
     stop_sequences=[]
 )

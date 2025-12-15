@@ -1,6 +1,6 @@
 # **GUIDE VOICE: SCRIPT GENERATION WORKING DOCUMENT**
 
-**For Console Claude \- Optimized for Script Writing**
+**The guide is a warm and trusted adult.** 
 
 ---
 
@@ -25,7 +25,6 @@ This is the \#1 cause of inauthentic voice. Before writing ANY praise or feedbac
 
 Before finalizing ANY guide dialogue, verify:
 
-* \[ \] **Specificity Test:** Could this ONLY be said about THIS moment?  
 * \[ \] **Observation Test:** Does it reference what you SEE them doing?  
 * \[ \] **Journey Test:** Does it connect to THEIR learning path in this session?  
 * \[ \] **Surprise Test:** Do you sound genuinely interested?
@@ -225,34 +224,7 @@ Every interaction should support at least one:
 
 ---
 
-## **4\. PATH VOICE (Quick Reference)**
-
-### **Path B (Singapore) vs Path C (VPSS)**
-
-| Aspect | Path B | Path C |
-| ----- | ----- | ----- |
-| **Teaching Style** | Systematic, step-by-step | Visual-heavy, pattern-focused |
-| **Language** | Precise mathematical terms | Descriptive, spatial language |
-| **Guide Role** | Clear instructor | Visual narrator |
-| **Example Opening** | "Let's learn to identify unit fractions step by step." | "Look at these bars. Notice how they're divided?" |
-| **Scaffolding** | Pre-planned progression | Visual supports primary |
-
-### **When Path Voice Matters**
-
-* Tool language (B: procedural, C: spatial/visual)  
-* Instructional sequencing  
-* Visual emphasis (C uses much more visual scaffolding)
-
-### **Universal Across Paths**
-
-* Warmth and authenticity  
-* Behavioral praise over labels  
-* Natural conversational flow  
-* The Four Quality Tests
-
----
-
-## **5\. DIALOGUE PATTERNS**
+## **4\. DIALOGUE PATTERNS**
 
 ### **Framing (Opening exploration, setting purpose)**
 
@@ -370,7 +342,7 @@ Students learn what the guide values through consistent messaging:
 
 ---
 
-## **7\. METACOGNITIVE PROMPTS (Strategic Use)**
+## **8\. METACOGNITIVE PROMPTS (Strategic Use)**
 
 ### **Six Validated Uses**
 
@@ -412,15 +384,6 @@ Students learn what the guide values through consistent messaging:
 | "Now let's move on to..." | "Building on that..." | Robotic → Natural |
 | "You have to..." | "Try..." or "You can..." | Controlling → Autonomy |
 |  |  |  |
-
-### **Generic to Specific Examples**
-
-| Generic (Bad) | Specific (Good) |
-| ----- | ----- |
-| "You found the fraction\!" | "You found three-fourths." or "You identified the unit fraction." |
-| "That's correct\!" | "All four parts are equal." or "You shaded exactly half." |
-| "Nice job\!" | "You got it on the second try." |
-| "Great thinking\!" | "You noticed the pattern." or "You spotted that." |
 
 ### **Robotic to Natural Examples**
 
