@@ -118,6 +118,7 @@ class Step:
 
 def run_pipeline(
       steps: List[Step],
+      pipeline_name: str = None,
       initial_variables: Dict = None,
       module_number: int = None,
       path_letter: str = None,
@@ -146,10 +147,18 @@ def run_pipeline(
     if initial_variables is None:
         initial_variables = {}
 
-    # Create output directory
+    # Create output directory with date-based organization
     if output_dir is None:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_dir = f"outputs/pipeline_{timestamp}"
+        now = datetime.now()
+        date_folder = now.strftime("%Y-%m-%d")
+        time_str = now.strftime("%H%M%S")
+
+        if pipeline_name:
+            dir_name = f"{pipeline_name}_{time_str}"
+        else:
+            dir_name = f"pipeline_{time_str}"
+
+        output_dir = f"outputs/{date_folder}/{dir_name}"
 
     output_dir_path = Path(output_dir)
     output_dir_path.mkdir(parents=True, exist_ok=True)
@@ -262,7 +271,7 @@ def run_pipeline(
         if step.is_ai_step():
             # AI step - call Claude
             # Save prompt to prompts folder
-            prompt_save_path = prompts_dir / f"step_{i:02d}_{step.prompt_name}.md"
+            prompt_save_path = prompts_dir / f"{i:02d}_{step.prompt_name}.md"
 
             output = builder.run(
                 prompt_name=step.prompt_name,
@@ -279,7 +288,9 @@ def run_pipeline(
 
         # Save output file if specified
         if step.output_file:
-            output_path = output_dir_path / step.output_file
+            step_prefix = f"{i:02d}_"
+            output_filename = step_prefix + step.output_file
+            output_path = output_dir_path.joinpath(output_filename)
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
             # Handle JSON parsing for AI steps
@@ -332,7 +343,7 @@ def run_pipeline(
                     if verbose:
                         print(f"  [SAVE] Wrote {len(str(output))} chars to: {step.output_file}")
 
-            last_output_file = step.output_file
+            last_output_file = output_filename
 
     if verbose:
         print(f"\n{'='*70}")

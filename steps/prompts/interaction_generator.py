@@ -1,9 +1,7 @@
-
 """
-Interaction Generator Prompt - Converts high-level interaction concepts into detailed interaction sequences
+interaction_generator - AI Prompt
 """
 
-# Import will work because prompt_builder.py adds this directory to sys.path
 import sys
 from pathlib import Path
 
@@ -15,9 +13,10 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 INTERACTION_GENERATOR_PROMPT = Prompt(
-    role="You are an expert instructional interaction designer creating educational experiences. Your task is to convert high-level interaction concepts into detailed, step-by-step interactive sequences. These sequences are part of a continuous instructional flow, so maintain natural language continuity between interactions.",
+    role="""You are an expert instructional interaction designer creating educational experiences. Your task is to convert high-level interaction concepts into detailed, step-by-step interactive sequences. These sequences are part of a continuous instructional flow, so maintain natural language continuity between interactions.""",
 
     instructions="""
+
 ## YOUR TASK
 
 You will receive interaction designs. Convert each interaction into a detailed sequence based on the phase requirements listed in {{phase}}. Interactions can include:
@@ -263,11 +262,13 @@ Important Guidelines:
 - For comparison sets with multiple shapes, vary state/intervals appropriately
 
 Return valid JSON only with all sequences (see structure below).
+
 """,
 
-doc_refs=["guide_design.md", "animation_events.json"],
+    doc_refs=['lesson_phase_guide_design.md', 'animation_events.json'],
 
-output_structure="""
+    output_structure="""
+
 {
   "sequences": [
     {
@@ -302,13 +303,20 @@ output_structure="""
     }
   ]
 }
+
 """,
 
-  examples=[],
-  module_ref={"vocabulary", "phase:phases.1"},
-  cache_docs=True,
-  cache_ttl="5m",
-  temperature=1,
-  max_tokens=18000,
-  stop_sequences=[]
+    prefill="""""",
+
+    examples=[],
+
+    module_ref={'phase': 'phases.1', 'learning_goals': 'learning_goals'},
+
+    template_ref={},
+
+    cache_docs=True,
+    cache_ttl="5m",
+    temperature=1,
+    max_tokens=18000,
+    stop_sequences=[]
 )

@@ -151,6 +151,7 @@ if __name__ == "__main__":
 
         results = run_pipeline(
             steps=PIPELINES[pipeline_name],
+            pipeline_name=pipeline_name,
             module_number=module_number,
             path_letter=path_letter,
             verbose=True,

@@ -102,9 +102,6 @@ with st.sidebar:
 
     st.divider()
 
-    output_dir_base = st.text_input("Output Directory", value="outputs/pipeline")
-    use_timestamp = st.checkbox("Use Timestamp Folder", value=True,
-                                help="Create a timestamped subfolder for each run")
     verbose = st.checkbox("Verbose Logging", value=True)
     parse_json = st.checkbox("Parse JSON Output", value=True)
     interactive = st.checkbox("Interactive Mode (step-by-step)", value=False,
@@ -978,19 +975,10 @@ with tab4:
     else:
         st.subheader("Pipeline Summary")
 
-        # Show pipeline overview
-        # Calculate output directory
-        if use_timestamp:
-            from datetime import datetime
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_dir = f"{output_dir_base}/{timestamp}"
-        else:
-            output_dir = output_dir_base
-
+        #Show pipeline overview
         st.write(f"**Total Steps:** {len(st.session_state.pipeline_steps)}")
         st.write(f"**Module:** {module_number}")
         st.write(f"**Path:** {path_letter}")
-        st.write(f"**Output Directory:** {output_dir}")
 
         st.divider()
 
@@ -1002,22 +990,13 @@ with tab4:
 
         st.divider()
 
-        # Calculate output directory (or reuse existing one in interactive mode)
+        # Get output directory (reuse in interactive mode, otherwise let pipeline.py create it)
         if interactive and st.session_state.pipeline_output_dir is not None:
-            # Reuse existing directory for subsequent steps
+        # Reuse existing directory for subsequent steps in interactive mode
             actual_output_dir = st.session_state.pipeline_output_dir
         else:
-            # Create new directory (first step or non-interactive mode)
-            if use_timestamp:
-                from datetime import datetime
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                actual_output_dir = f"{output_dir_base}/{timestamp}"
-            else:
-                actual_output_dir = output_dir_base
-
-            # Store for reuse in interactive mode
-            if interactive:
-                st.session_state.pipeline_output_dir = actual_output_dir
+        # Let pipeline.py create the directory
+            actual_output_dir = None
 
         # Show progress if interactive mode is active
         if interactive and st.session_state.interactive_step > 0:
@@ -1052,16 +1031,6 @@ with tab4:
                             )
                         steps.append(step)
 
-                    # Show output directory info with option to browse files in real-time
-                    st.caption("💡 Open the folder below to watch intermediate files appear as the pipeline runs")
-
-                    col_open1, col_open2 = st.columns([1, 4])
-                    with col_open1:
-                        from ui.utils.output import open_output_folder
-                        open_output_folder(Path(actual_output_dir), button_key="open_folder_before_run")
-
-                    st.divider()
-                    
                     #Create console output container with real-time streaming
                     with st.expander("Console Output", expanded = True):
                         console_display = st.empty()
@@ -1069,6 +1038,7 @@ with tab4:
                         with capture_console_output_streaming(console_display) as console_buffer:
                             result = run_pipeline(
                                 steps=steps,
+                                pipeline_name=None,
                                 module_number=module_number,
                                 path_letter=path_letter,
                                 output_dir=actual_output_dir,
@@ -1079,6 +1049,8 @@ with tab4:
                         captured_output = console_buffer.getvalue()
                         st.session_state.execution_result = result
                         st.session_state.console_output = captured_output
+
+                        # Display completion message
                         st.success("✅ Pipeline completed successfully!")
 
                 except Exception as e:
@@ -1117,6 +1089,7 @@ with tab4:
                         # Create console output container for real-time streaming
                         st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
                         
+                        console_display = st.empty()
                         # Capture console output with real-time streaming
                         with capture_console_output_streaming(console_display) as output_buffer:
                             result = run_single_step(
@@ -1129,6 +1102,10 @@ with tab4:
                             )
 
                         console_output = output_buffer.getvalue()
+
+                        # Store output directory for subsequent steps
+                        if st.session_state.interactive_step == 0 and actual_output_dir is None:
+                            st.session_state.pipeline_output_dir = result.get('output_dir')
 
                         step_output = {
                             'result': result,
@@ -1204,7 +1181,7 @@ with tab4:
               st.subheader("Results")
 
               result = st.session_state.execution_result
-              output_path = Path(result.get("output_dir", output_dir))
+              output_path = Path(result.get("output_dir"))
 
               # Use unified output display
               display_unified_output(

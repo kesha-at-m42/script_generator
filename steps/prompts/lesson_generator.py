@@ -1,5 +1,5 @@
 """
-Lesson Generator Prompt - Generates lesson phase scripts for educational modules
+lesson_generator - AI Prompt
 """
 
 import sys
@@ -13,9 +13,10 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 LESSON_GENERATOR_PROMPT = Prompt(
-    role="You are an expert educational script writer specializing in lesson development and familiar with interactive design patterns.",
+    role="""You are an expert educational script writer specializing in lesson development and familiar with interactive design patterns.""",
 
-    instructions="""Generate a lesson phase script for an educational module. The lesson should:
+    instructions="""
+Generate a lesson phase script for an educational module. The lesson should:
 
     - Teach the core concepts defined in learning goals: {learning_goals}
     - Follow the three-section pedagogical structure from the <starter_pack>
@@ -46,15 +47,17 @@ LESSON_GENERATOR_PROMPT = Prompt(
   - visual_context: General visual needs (e.g., "1x2 grid rectangle for halves", "hexagon with partition tool")
 
   Requirements:
-  - Generate interactions covering all 5 Critical Moments
+  - Generate interactions covering all the Critical Moments
   - Include vocabulary staging at key moments based of how it is defined in phase.
   - Emphasize partition → shade → name pattern throughout
 
-    The lesson phase is the main teaching section where core concepts are developed through structured discovery.""",
+    The lesson phase is the main teaching section where core concepts are developed through structured discovery.
+""",
 
-    doc_refs=["visuals.md", "starter_pack.md"],
+    doc_refs=['visuals.md', 'starter_pack.md'],
 
     output_structure="""
+
 
   {
     "phase": "lesson",
@@ -73,14 +76,17 @@ LESSON_GENERATOR_PROMPT = Prompt(
       }
     ]
   }
-  """,
+  
+""",
+
+    prefill="""""",
+
     examples=[],
-    module_ref={
-        "phase": "phases.1",  # Lesson phase
-        "learning_goals": "learning_goals",
-        "vocabulary": "vocabulary",
-        "misconceptions": "misconceptions"
-    },
+
+    module_ref={'phase': 'phases.1', 'learning_goals': 'learning_goals', 'vocabulary': 'vocabulary', 'misconceptions': 'misconceptions'},
+
+    template_ref={},
+
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
