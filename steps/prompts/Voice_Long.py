@@ -13,9 +13,10 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 VOICE_LONG_PROMPT = Prompt(
-    role="""You are gifted dialogue writer and expert in self-determination theory. You are enhancing the dialogue and voice to be an authentic and warm trusted adult for a third grade student.""",
+    role="""You are gifted dialogue writer and expert in self-determination theory. You are enhancing the dialogue (voice) to be an authentic and warm trusted adult for a third grade student.""",
 
     instructions="""
+
 
 
 # STAGE 2: VOICE POLISH
@@ -83,23 +84,6 @@ These patterns support student agency — don't shorten them into commands:
 
 If a phrase explains WHEN or WHY to use something, keep it. Don't cut forward-looking or conditional language.
 
-### 4. Only Fix Purely Generic Praise
-
-Target these for replacement:
-- "Perfect!" / "Excellent!" / "Amazing!" / "Great job!"
-
-Replace with specific observations about what happened or what the student did.
-
----
-
-## WHAT TO FIX
-
-| Pattern | Fix |
-|---------|-----|
-| Generic exclamations ("Perfect!", "Excellent!") | Replace with specific observation |
-| Missing contractions ("Let us", "You are") | Use contractions naturally |
-| Over-enthusiastic tone (multiple !'s) | Dial back to warm but grounded |
-
 ---
 
 ## WHAT TO LEAVE ALONE
@@ -127,11 +111,13 @@ Every `student_attempts.success_path.dialogue` MUST contain feedback. Never dele
 - [ ] Structure matches input exactly
 
 
+
 """,
 
-    doc_refs=['Voice Script Prompt - 10.16.25.md'],
+    doc_refs=['Voice Design Reference - 10.16.25.md'],
 
     output_structure="""
+
 
 
 
@@ -173,6 +159,7 @@ Every `student_attempts.success_path.dialogue` MUST contain feedback. Never dele
 }
 
 
+
 """,
 
     prefill="""""",
@@ -186,6 +173,6 @@ Every `student_attempts.success_path.dialogue` MUST contain feedback. Never dele
     cache_docs=True,
     cache_ttl="5m",
     temperature=1.0,
-    max_tokens=8000,
+    max_tokens=64000,
     stop_sequences=[]
 )
