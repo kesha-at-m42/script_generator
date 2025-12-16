@@ -25,29 +25,129 @@
       "output_file": "script.md"
     }
   ],
-  "warmup_test_2": [
+  "lesson_test": [
     {
-      "name": "warmup_generator",
+      "name": "lesson_generator",
       "type": "ai",
-      "prompt_name": "warmup_generator",
-      "description": "Creates base warmup interactions",
+      "prompt_name": "lesson_generator",
+      "description": "Brainstorming, lesson plan",
       "variables": {},
-      "output_file": "warmup.json",
-      "model": "claude-opus-4-5-20251101"
+      "output_file": "lesson.json"
     },
     {
       "name": "interaction_generator",
       "type": "ai",
       "prompt_name": "interaction_generator",
-      "description": "Converts brainstormed interactions into fleshed out script.",
+      "description": "Fleshes it out into interaction",
       "variables": {},
-      "output_file": "interaction.json"
+      "output_file": "interactions.json"
     },
     {
       "name": "script_formatter.format_interactions_to_markdown",
       "type": "formatting",
       "function": "script_formatter.format_interactions_to_markdown",
-      "description": "Formats script into markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
+  "Condensed_Pipeline": [
+    {
+      "name": "interaction_generator_2",
+      "type": "ai",
+      "prompt_name": "interaction_generator_2",
+      "description": "",
+      "variables": {},
+      "output_file": "interactions.json",
+      "model": "claude-opus-4-5-20251101"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
+  "Condensed_Pipeline_working": [
+    {
+      "name": "lesson_generator",
+      "type": "ai",
+      "prompt_name": "lesson_generator",
+      "description": "Starts the lesson",
+      "variables": {},
+      "output_file": "lesson.json"
+    },
+    {
+      "name": "interaction_generator",
+      "type": "ai",
+      "prompt_name": "interaction_generator",
+      "description": "Starts the lesson",
+      "variables": {},
+      "output_file": "interactions.json"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
+  "Lesson_Test_SV": [
+    {
+      "name": "interaction_generator_2",
+      "type": "ai",
+      "prompt_name": "interaction_generator_2",
+      "description": "",
+      "variables": {},
+      "output_file": "interactions.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "Voice_Short",
+      "type": "ai",
+      "prompt_name": "Voice_Short",
+      "description": "",
+      "variables": {},
+      "output_file": "voice.json",
+      "model": "claude-opus-4-5-20251101"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
+  "Lesson_Test_LV": [
+    {
+      "name": "interaction_generator_2",
+      "type": "ai",
+      "prompt_name": "interaction_generator_2",
+      "description": "",
+      "variables": {},
+      "output_file": "interactions.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "Voice_Long",
+      "type": "ai",
+      "prompt_name": "Voice_Long",
+      "description": "",
+      "variables": {},
+      "output_file": "voice.json",
+      "model": "claude-opus-4-5-20251101"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "",
       "function_args": {},
       "output_file": "script.md"
     }
