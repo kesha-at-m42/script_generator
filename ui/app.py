@@ -1004,13 +1004,34 @@ with tab4:
             st.progress(st.session_state.interactive_step / len(st.session_state.pipeline_steps))
 
         # Start or Continue button
-        if st.session_state.interactive_step == 0:
-            button_label = "🚀 Start Pipeline"
+        if not interactive:
+            # Non-interactive mode
+            if st.session_state.execution_result:
+                button_label = "🔄 Re-run Pipeline"
+            else:
+                button_label = "🚀 Start Pipeline"
         else:
-            button_label = f"▶️ Continue to Step {st.session_state.interactive_step + 1}"
+            # Interactive mode
+            if st.session_state.interactive_step == 0:
+                button_label = "🚀 Start Pipeline"
+            elif st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
+                button_label = "🔄 Start Pipeline"
+            else:
+                button_label = f"▶️ Continue to Step {st.session_state.interactive_step + 1}"
 
         if st.button(button_label, type="primary") or st.session_state.interactive_action == "proceed":
             st.session_state.interactive_action = None
+
+            # Reset state if re-running
+            if not interactive and st.session_state.execution_result:
+                st.session_state.execution_result = None
+                st.rerun()
+            elif interactive and st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
+                st.session_state.interactive_step = 0
+                st.session_state.interactive_outputs = []
+                st.session_state.pipeline_output_dir = None
+                st.session_state.execution_result = None
+                st.rerun()
 
             if not interactive:
                 # Original non-interactive execution
@@ -1138,42 +1159,12 @@ with tab4:
                     result=latest['result'],
                     button_key_prefix=f"step_{len(st.session_state.interactive_outputs)}"
                 )
+
+            st.divider()
         
             # Check if pipeline is complete
             if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
                 st.success("🎉 Pipeline Completed!")
-
-                if st.button("🔄 Start New Pipeline"):
-                    st.session_state.interactive_step = 0
-                    st.session_state.interactive_outputs = []
-                    st.session_state.pipeline_output_dir = None
-                    st.rerun()
-            else:
-                st.divider()
-                st.markdown("#### What would you like to do?")
-
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
-                    if st.button("▶️ Continue to Next Step", type="primary", use_container_width=True):
-                        st.session_state.interactive_action = "proceed"
-                        st.rerun()
-
-                with col2:
-                    if st.button("⏭️ Skip Next Step", use_container_width=True):
-                        st.session_state.interactive_step += 1
-                        if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
-                            st.success("Pipeline completed (last step skipped)")
-                        st.rerun()
-
-                with col3:
-                    if st.button("⏹️ Stop Pipeline", use_container_width=True):
-                        st.warning("Pipeline stopped by user")
-                        st.session_state.interactive_step = 0
-                        st.session_state.interactive_outputs = []
-                        st.session_state.pipeline_output_dir = None
-                        st.rerun()
-
 
         # Show results
         if st.session_state.execution_result:
