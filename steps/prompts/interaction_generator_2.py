@@ -16,7 +16,6 @@ INTERACTION_GENERATOR_2_PROMPT = Prompt(
     role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
 
     instructions="""
-# STAGE 1: LESSON SCRIPT JSON CONVERSION
 
 ## YOUR TASK
 
@@ -164,13 +163,12 @@ When Section 1.7 indicates Guide demonstrates an action, embed event tags.
 ---
 
 ## WHAT NOT TO DO
-
-❌ **Do NOT invent tools** — Only Section 1.5 tools exist  
-❌ **Do NOT use forbidden items** — Section 1.2 is absolute  
-❌ **Do NOT add interactions** — Follow Section 1.7 exactly  
-❌ **Do NOT rewrite dialogue** — Transfer as-is (Stage 2 polishes)  
-❌ **Do NOT write remediation** — Leave remediation for Stage 3  
-❌ **Do NOT use generic type names** — Derive from Section 1.5 exactly
+**Do NOT invent tools** — Only Section 1.5 tools exist  
+**Do NOT use forbidden items** — Section 1.2 is absolute  
+**Do NOT add interactions** — Follow Section 1.7 exactly  
+**Do NOT rewrite dialogue** — Transfer as-is (Stage 2 polishes)  
+**Do NOT write remediation** — Leave remediation for Stage 3  
+**Do NOT use generic type names** — Derive from Section 1.5 exactly
 
 ---
 
