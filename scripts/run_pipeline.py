@@ -1,8 +1,11 @@
 """
-Pipelines - Define and run your pipelines here
+Pipelines - CLI runner for pipelines
 
 Usage:
-    python pipeline_runner.py
+    python scripts/run_pipeline.py
+
+Note: Pipelines are now centralized in ui/saved_pipelines.json
+      Edit pipelines through the UI or directly in the JSON file
 """
 
 import sys
@@ -12,100 +15,8 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from core.pipeline import Step, run_pipeline
-
-
-# =============================================================================
-# DEFINE YOUR PIPELINES HERE
-# =============================================================================
-
-PIPELINES = {
-    "test": [
-        Step(
-            prompt_name='test',
-            variables={'name': 'Kesha'},
-            output_file='greeting.txt'
-        ),
-        Step(
-            prompt_name='test_2',
-            # No input_file specified - auto-chains from greeting.txt
-            # Content will be available in <input> section of system prompt
-            output_file='response.txt'
-        )
-    ],
-    "warmupscript_generator": [
-        Step(
-            prompt_name='warmup_generator',
-            output_file='warmup.json'
-        ),
-        Step(
-            prompt_name='interaction_generator',
-            output_file='interactions.json'
-        ),
-        Step(
-          function="script_formatter.format_interactions_to_markdown",
-          output_file="script.md"
-      )
-    ],
-    "lessonscript_generator": [
-        Step(
-            prompt_name='lesson_generator',
-            output_file='lesson.json'
-        ),
-        Step(
-            prompt_name='interaction_generator',
-            output_file='interactions.json'
-        ),
-        Step(
-          function="script_formatter.format_interactions_to_markdown",
-          output_file="script.md"
-      )
-    ],
-
-    # Example: Human-in-loop workflow with auto-chaining
-    # "draft_refine": [
-    #     Step(
-    #         prompt_name='generate_draft',
-    #         variables={'topic': 'AI safety'},
-    #         output_file='draft.txt'
-    #     ),
-    #     # PAUSE HERE: Human can edit draft.txt before continuing
-    #     Step(
-    #         prompt_name='refine_draft',
-    #         # No input_file - auto-chains from draft.txt
-    #         # Edited content available in <input> section
-    #         output_file='refined.txt'
-    #     ),
-    # ],
-
-    # Example: Explicit input file (override auto-chain)
-    # "from_existing": [
-    #     Step(
-    #         prompt_name='analyze',
-    #         input_file='inputs/docs/existing_doc.txt',
-    #         output_file='analysis.txt'
-    #     ),
-    # ],
-
-    # Example: Three-step chain
-    # "multi_step": [
-    #     Step(
-    #         prompt_name='step1',
-    #         variables={'seed': 'robots'},
-    #         output_file='step1.txt'
-    #     ),
-    #     Step(
-    #         prompt_name='step2',
-    #         # Auto-chains from step1.txt
-    #         output_file='step2.txt'
-    #     ),
-    #     Step(
-    #         prompt_name='step3',
-    #         # Auto-chains from step2.txt
-    #         output_file='final.txt'
-    #     ),
-    # ],
-}
+from core.pipeline import run_pipeline
+from config.pipelines import PIPELINES
 
 
 # =============================================================================

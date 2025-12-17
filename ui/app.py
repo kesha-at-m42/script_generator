@@ -23,17 +23,13 @@ from ui.utils.output import (
     display_unified_output
 )
 
-# Import predefined pipelines
-try:
-    from config.pipelines import PIPELINES as PREDEFINED_PIPELINES
-except ImportError:
-    PREDEFINED_PIPELINES = {}
+# Note: All pipelines are now centralized in config/pipelines.json
 
 # Configuration
 PROMPTS_DIR = project_root / "steps" / "prompts"
 FORMATTING_DIR = project_root / "steps" / "formatting"
 OUTPUTS_DIR = project_root / "outputs"
-SAVED_PIPELINES_FILE = Path(__file__).parent / "saved_pipelines.json"
+PIPELINES_FILE = project_root / "config" / "pipelines.json"
 
 # Claude Models Configuration
 CLAUDE_MODELS = {
@@ -53,25 +49,25 @@ st.set_page_config(
 
 # Helper functions for saving/loading pipelines
 def load_saved_pipelines():
-    """Load saved pipelines from JSON file"""
-    if SAVED_PIPELINES_FILE.exists():
-        with open(SAVED_PIPELINES_FILE, 'r', encoding='utf-8') as f:
+    """Load pipelines from centralized JSON file"""
+    if PIPELINES_FILE.exists():
+        with open(PIPELINES_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
     return {}
 
 def save_pipeline_to_file(name: str, steps: list):
-    """Save a pipeline to the JSON file"""
+    """Save a pipeline to the centralized JSON file"""
     pipelines = load_saved_pipelines()
     pipelines[name] = steps
-    with open(SAVED_PIPELINES_FILE, 'w', encoding='utf-8') as f:
+    with open(PIPELINES_FILE, 'w', encoding='utf-8') as f:
         json.dump(pipelines, f, indent=2)
 
 def delete_saved_pipeline(name: str):
-    """Delete a saved pipeline"""
+    """Delete a pipeline from the centralized JSON file"""
     pipelines = load_saved_pipelines()
     if name in pipelines:
         del pipelines[name]
-        with open(SAVED_PIPELINES_FILE, 'w', encoding='utf-8') as f:
+        with open(PIPELINES_FILE, 'w', encoding='utf-8') as f:
             json.dump(pipelines, f, indent=2)
 
 # Initialize session state
@@ -631,26 +627,17 @@ from core.prompt_builder import Prompt
 with tab3:
     st.header("Pipeline Steps")
 
-    # Load pipeline section - combines predefined and saved
+    # Load pipeline section
     st.subheader("📦 Load Pipeline")
 
-    # Get all available pipelines
-    saved_pipelines = load_saved_pipelines()
-    all_pipelines = {}
-
-    # Add predefined pipelines with prefix
-    for name in PREDEFINED_PIPELINES.keys():
-        all_pipelines[f"[Predefined] {name}"] = ("predefined", name)
-
-    # Add saved pipelines with prefix
-    for name in saved_pipelines.keys():
-        all_pipelines[f"[Saved] {name}"] = ("saved", name)
+    # Get all available pipelines from centralized JSON
+    all_pipelines = load_saved_pipelines()
 
     if all_pipelines:
         col_load1, col_load2, col_load3 = st.columns([3, 1, 1])
 
         with col_load1:
-            selected_pipeline_display = st.selectbox(
+            selected_pipeline_name = st.selectbox(
                 "Select a pipeline to load",
                 options=[""] + list(all_pipelines.keys()),
                 format_func=lambda x: "-- Select --" if x == "" else x
@@ -660,36 +647,10 @@ with tab3:
             st.write("")  # Spacer
             st.write("")  # Spacer
             if st.button("📥 Load", use_container_width=True):
-                if selected_pipeline_display:
-                    pipeline_type, pipeline_name = all_pipelines[selected_pipeline_display]
-
-                    if pipeline_type == "predefined":
-                        # Convert predefined pipeline Step objects to UI format
-                        st.session_state.pipeline_steps = []
-                        for step_obj in PREDEFINED_PIPELINES[pipeline_name]:
-                            if step_obj.is_ai_step():
-                                step_config = {
-                                    "name": step_obj.prompt_name,
-                                    "type": "ai",
-                                    "prompt_name": step_obj.prompt_name,
-                                    "variables": step_obj.variables,
-                                    "output_file": step_obj.output_file,
-                                    "model": step_obj.model
-                                }
-                            else:
-                                step_config = {
-                                    "name": str(step_obj.function),
-                                    "type": "formatting",
-                                    "function": step_obj.function,
-                                    "function_args": step_obj.function_args,
-                                    "output_file": step_obj.output_file
-                                }
-                            st.session_state.pipeline_steps.append(step_config)
-                    else:  # saved
-                        # Load saved pipeline directly
-                        st.session_state.pipeline_steps = saved_pipelines[pipeline_name]
-
-                    st.success(f"✅ Loaded '{pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
+                if selected_pipeline_name:
+                    # Load pipeline directly from JSON
+                    st.session_state.pipeline_steps = all_pipelines[selected_pipeline_name]
+                    st.success(f"✅ Loaded '{selected_pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
                     st.rerun()
                 else:
                     st.warning("Please select a pipeline first")
@@ -697,11 +658,10 @@ with tab3:
         with col_load3:
             st.write("")  # Spacer
             st.write("")  # Spacer
-            if selected_pipeline_display and all_pipelines.get(selected_pipeline_display, [""])[0] == "saved":
-                pipeline_name = all_pipelines[selected_pipeline_display][1]
+            if selected_pipeline_name:
                 if st.button("🗑️ Delete", use_container_width=True):
-                    delete_saved_pipeline(pipeline_name)
-                    st.success(f"Deleted '{pipeline_name}'")
+                    delete_saved_pipeline(selected_pipeline_name)
+                    st.success(f"Deleted '{selected_pipeline_name}'")
                     st.rerun()
 
     # Save current pipeline section

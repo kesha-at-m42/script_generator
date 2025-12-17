@@ -1,4 +1,80 @@
 {
+  "test": [
+    {
+      "name": "test",
+      "type": "ai",
+      "prompt_name": "test",
+      "description": "First test step",
+      "variables": {"name": "Kesha"},
+      "output_file": "greeting.txt",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "test_2",
+      "type": "ai",
+      "prompt_name": "test_2",
+      "description": "Second test step (auto-chains from greeting.txt)",
+      "variables": {},
+      "output_file": "response.txt",
+      "model": "claude-sonnet-4-5-20250929"
+    }
+  ],
+  "warmupscript_generator": [
+    {
+      "name": "warmup_generator",
+      "type": "ai",
+      "prompt_name": "warmup_generator",
+      "description": "Creates base warmup interactions",
+      "variables": {},
+      "output_file": "warmup.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "interaction_generator",
+      "type": "ai",
+      "prompt_name": "interaction_generator",
+      "description": "Converts brainstormed interactions into fleshed out script",
+      "variables": {},
+      "output_file": "interactions.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "Formats script into markdown",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
+  "lessonscript_generator": [
+    {
+      "name": "lesson_generator",
+      "type": "ai",
+      "prompt_name": "lesson_generator",
+      "description": "Generates lesson plan",
+      "variables": {},
+      "output_file": "lesson.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "interaction_generator",
+      "type": "ai",
+      "prompt_name": "interaction_generator",
+      "description": "Converts lesson into script interactions",
+      "variables": {},
+      "output_file": "interactions.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "script_formatter.format_interactions_to_markdown",
+      "type": "formatting",
+      "function": "script_formatter.format_interactions_to_markdown",
+      "description": "Formats script into markdown",
+      "function_args": {},
+      "output_file": "script.md"
+    }
+  ],
   "warmup_test": [
     {
       "name": "warmup_generator",

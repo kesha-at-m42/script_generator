@@ -51,10 +51,10 @@ module_1 = {
             "Bars can show 2, 3, 4, 5, 6, or 8 parts based on the denominator"
         ]
     },
-    "scope_fence":[
+    "scope_fence": {
         "advanced_vocabulary": ["numerator", "denominator"],
         "advanced_concepts": ["comparing fraction sizes", "equivalent fractions", "number lines"]
-    ],
+    },
     "misconceptions": [
         {
             "id": "1",
