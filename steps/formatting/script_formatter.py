@@ -108,6 +108,54 @@ def _format_step(step: dict) -> str:
                 lines.append(f"⚫ **Guide: (If student answers correctly)** \"{success_dialogue}\"")
                 lines.append("")
 
+        # Error/Remediation paths
+        error_path_generic = student_attempts.get("error_path_generic")
+        if error_path_generic:
+            lines.append("---")
+            lines.append("**ERROR REMEDIATION PATH:**")
+            lines.append("")
+
+            remediation_steps = error_path_generic.get("steps", [])
+            for remediation in remediation_steps:
+                remediation_md = _format_remediation_step(remediation)
+                lines.append(remediation_md)
+                lines.append("")
+
+    return "\n".join(lines)
+
+
+
+def _format_remediation_step(remediation: dict) -> str:
+    """Format a single remediation step (light/medium/heavy)"""
+    lines = []
+
+    scaffolding_level = remediation.get("scaffolding_level", "unknown")
+    dialogue = remediation.get("dialogue", "")
+    events = remediation.get("events", [])
+
+    # Emoji for different levels
+    level_emoji = {
+        "light": "🟡",
+        "medium": "🟠",
+        "heavy": "🔴"
+    }
+    emoji = level_emoji.get(scaffolding_level, "⚫")
+
+    # Format level header and dialogue
+    lines.append(f"{emoji} **{scaffolding_level.upper()} Remediation:**")
+    if dialogue:
+        lines.append(f"   \"{dialogue}\"")
+
+    # Format events if present
+    if events:
+        lines.append(f"   **Events:** ({len(events)} animation(s))")
+        for event in events:
+            event_name = event.get("name", "unknown")
+            event_desc = event.get("description", "")
+            lines.append(f"   - `{event_name}`: {event_desc}")
+    else:
+        lines.append(f"   **Events:** None")
+
     return "\n".join(lines)
 
 

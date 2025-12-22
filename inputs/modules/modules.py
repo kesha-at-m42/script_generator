@@ -6,7 +6,15 @@ For new code, import directly from:
     from inputs.modules.starter_packs import MODULES
 """
 
-from .starter_packs import (
+import sys
+from pathlib import Path
+
+# Add project root to path if not already there
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+from inputs.modules.starter_packs import (
     MODULES,
     module_1,
     module_2,

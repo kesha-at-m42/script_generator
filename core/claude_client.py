@@ -94,35 +94,53 @@ class ClaudeClient:
             api_params["stop_sequences"] = stop_sequences
 
         # Use streaming for large outputs (>10K tokens) to avoid timeouts
-        if max_tokens > 10000:
-            full_response = ""
-            with self.client.messages.stream(**api_params) as stream:
-                for text in stream.text_stream:
-                    full_response += text
+        try:
+            if max_tokens > 10000:
+                full_response = ""
+                with self.client.messages.stream(**api_params) as stream:
+                    for text in stream.text_stream:
+                        full_response += text
 
-                # Get final message for usage stats
-                final_message = stream.get_final_message()
-                self._track_usage(final_message.usage)
-                self._log_request(final_message.usage, max_tokens, temperature, final_model)
+                    # Get final message for usage stats
+                    final_message = stream.get_final_message()
+                    self._track_usage(final_message.usage)
+                    self._log_request(final_message.usage, max_tokens, temperature, final_model)
 
-            # Prepend prefill to response if it was used
-            if prefill:
-                return prefill + full_response
-            return full_response
-        else:
-            # Standard non-streaming for smaller outputs
-            message = self.client.messages.create(**api_params)
+                # Prepend prefill to response if it was used
+                if prefill:
+                    return prefill + full_response
+                return full_response
+            else:
+                # Standard non-streaming for smaller outputs
+                message = self.client.messages.create(**api_params)
 
-            # Track tokens
-            self._track_usage(message.usage)
-            self._log_request(message.usage, max_tokens, temperature, final_model)
+                # Track tokens
+                self._track_usage(message.usage)
+                self._log_request(message.usage, max_tokens, temperature, final_model)
 
-            response_text = message.content[0].text
+                response_text = message.content[0].text
 
-            # Prepend prefill to response if it was used
-            if prefill:
-                return prefill + response_text
-            return response_text
+                # Prepend prefill to response if it was used
+                if prefill:
+                    return prefill + response_text
+                return response_text
+        except anthropic.BadRequestError as e:
+            # Check if this is a low credit balance error
+            error_message = str(e)
+            if "credit balance is too low" in error_message.lower():
+                raise anthropic.BadRequestError(
+                    f"\n{'='*70}\n"
+                    f"❌ INSUFFICIENT CREDITS\n"
+                    f"{'='*70}\n"
+                    f"Your Anthropic API credit balance is too low.\n\n"
+                    f"Please visit the billing page to add credits:\n"
+                    f"👉 https://console.anthropic.com/settings/billing\n"
+                    f"{'='*70}\n",
+                    response=e.response,
+                    body=e.body
+                )
+            # Re-raise other BadRequestErrors
+            raise
 
     def _track_usage(self, usage):
         """Track token usage including cache stats"""
