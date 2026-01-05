@@ -87,6 +87,8 @@ if "pipeline_output_dir" not in st.session_state:
     st.session_state.pipeline_output_dir = None
 if "edit_step_idx" not in st.session_state:
     st.session_state.edit_step_idx = None
+if "pipeline_name" not in st.session_state:
+    st.session_state.pipeline_name = None
 
 
 # Sidebar - Configuration
@@ -625,7 +627,7 @@ from core.prompt_builder import Prompt
 
 # TAB 3: Pipeline Steps
 with tab3:
-    st.header("Pipeline Steps")
+    st.header("Load Pipeline")
 
     # Load pipeline section
     st.subheader("📦 Load Pipeline")
@@ -650,6 +652,7 @@ with tab3:
                 if selected_pipeline_name:
                     # Load pipeline directly from JSON
                     st.session_state.pipeline_steps = all_pipelines[selected_pipeline_name]
+                    st.session_state.pipeline_name = selected_pipeline_name
                     st.success(f"✅ Loaded '{selected_pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
                     st.rerun()
                 else:
@@ -667,21 +670,52 @@ with tab3:
     # Save current pipeline section
     if st.session_state.pipeline_steps:
         st.markdown("##### 💾 Save Current Pipeline")
+
+        # Show currently loaded pipeline
+        if st.session_state.pipeline_name:
+            st.info(f"📁 Loaded from: **{st.session_state.pipeline_name}**")
+
         col_save1, col_save2 = st.columns([3, 1])
 
         with col_save1:
-            save_name = st.text_input("Pipeline Name", key="save_pipeline_name", placeholder="my_pipeline")
+            # Pre-fill with loaded pipeline name if exists
+            default_name = st.session_state.pipeline_name if st.session_state.pipeline_name else ""
+            save_name = st.text_input("Pipeline Name",
+                                     value=default_name,
+                                     key="save_pipeline_name",
+                                     placeholder="my_pipeline",
+                                     help="Change name to save as new pipeline, or keep same name to update")
+
+            # Detect if name changed (will create new pipeline)
+            if st.session_state.pipeline_name and save_name and save_name != st.session_state.pipeline_name:
+                st.caption(f"⚠️ Will create new pipeline '{save_name}' (original '{st.session_state.pipeline_name}' will remain)")
 
         with col_save2:
             st.write("")  # Spacer
             st.write("")  # Spacer
-            if st.button("💾 Save", use_container_width=True):
+
+            # Show appropriate button label
+            is_rename = st.session_state.pipeline_name and save_name and save_name != st.session_state.pipeline_name
+            button_label = "💾 Save As" if is_rename else "💾 Save"
+
+            if st.button(button_label, use_container_width=True):
                 if save_name:
                     save_pipeline_to_file(save_name, st.session_state.pipeline_steps)
+                    st.session_state.pipeline_name = save_name
                     st.success(f"✅ Saved pipeline as '{save_name}'")
                     st.rerun()
                 else:
                     st.warning("Please enter a pipeline name")
+
+        # Delete current pipeline button
+        if st.session_state.pipeline_name:
+            col_del1, col_del2 = st.columns([3, 1])
+            with col_del2:
+                if st.button("🗑️ Delete Pipeline", use_container_width=True, type="secondary"):
+                    delete_saved_pipeline(st.session_state.pipeline_name)
+                    st.success(f"🗑️ Deleted '{st.session_state.pipeline_name}'")
+                    st.session_state.pipeline_name = None
+                    st.rerun()
 
     st.divider()
 
@@ -717,11 +751,35 @@ with tab3:
 
                     st.write(f"**Output File:** {step.get('output_file', 'None')}")
 
-                    col_edit, col_delete = st.columns(2)
+                    col_up, col_down, col_edit, col_delete = st.columns(4)
+
+                    with col_up:
+                        if st.button(f"⬆️", key=f"up_{idx}", disabled=(idx == 0), help="Move up"):
+                            # Swap with previous step
+                            st.session_state.pipeline_steps[idx], st.session_state.pipeline_steps[idx-1] =                                 st.session_state.pipeline_steps[idx-1], st.session_state.pipeline_steps[idx]
+                            # Update edit_step_idx if in edit mode
+                            if st.session_state.edit_step_idx == idx:
+                                st.session_state.edit_step_idx = idx - 1
+                            elif st.session_state.edit_step_idx == idx - 1:
+                                st.session_state.edit_step_idx = idx
+                            st.rerun()
+
+                    with col_down:
+                        if st.button(f"⬇️", key=f"down_{idx}", disabled=(idx == len(st.session_state.pipeline_steps) - 1), help="Move down"):
+                            # Swap with next step
+                            st.session_state.pipeline_steps[idx], st.session_state.pipeline_steps[idx+1] =                                 st.session_state.pipeline_steps[idx+1], st.session_state.pipeline_steps[idx]
+                            # Update edit_step_idx if in edit mode
+                            if st.session_state.edit_step_idx == idx:
+                                st.session_state.edit_step_idx = idx + 1
+                            elif st.session_state.edit_step_idx == idx + 1:
+                                st.session_state.edit_step_idx = idx
+                            st.rerun()
+
                     with col_edit:
                         if st.button(f"✏️ Edit", key=f"edit_{idx}"):
                             st.session_state.edit_step_idx = idx
                             st.rerun()
+
                     with col_delete:
                         if st.button(f"🗑️ Delete", key=f"delete_{idx}"):
                             st.session_state.pipeline_steps.pop(idx)
@@ -1019,7 +1077,7 @@ with tab4:
                         with capture_console_output_streaming(console_display) as console_buffer:
                             result = run_pipeline(
                                 steps=steps,
-                                pipeline_name=None,
+                                pipeline_name=st.session_state.pipeline_name,
                                 module_number=module_number,
                                 path_letter=path_letter,
                                 output_dir=actual_output_dir,

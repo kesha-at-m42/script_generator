@@ -18,9 +18,10 @@ WARMUP_INTERACTION_GENERATOR_PROMPT = Prompt(
     instructions="""
 
 
+
 ## YOUR TASK
 
-You will receive interaction designs. Convert each interaction in the <Warmup Guidance - Detailed Version> into a detailed sequence.
+You will receive interaction designs. Convert each interaction in the <Warmup Guidance - Abstracted Version> into a detailed sequence and user <starter_pack> as reference.
 
  Interactions can include:
 - The guide (Kim) demonstrating concepts using inline animation events
@@ -267,11 +268,13 @@ Important Guidelines:
 Return valid JSON only with all sequences (see structure below).
 
 
+
 """,
 
-    doc_refs=['guide_design.md', 'animation_events.json', 'Warmup Guidance - Detailed Version.md'],
+    doc_refs=['guide_design.md', 'animation_events.json', 'Warmup Guidance - Abstracted Version.md', 'starter_pack.md'],
 
     output_structure="""
+
 
 
 {
@@ -308,6 +311,7 @@ Return valid JSON only with all sequences (see structure below).
     }
   ]
 }
+
 
 
 """,
