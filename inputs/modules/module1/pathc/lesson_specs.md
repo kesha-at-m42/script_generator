@@ -26,9 +26,9 @@ This sequence preserves immediate connection (partition→shade) while building 
 
 ---
 
-### **1.7.1 LESSON SECTION 1: Grid Mastery with Fraction Words**
+### LESSON SECTION 1: Grid Mastery with Fraction Words**
 
-**Interaction 1.1: Establishing the Whole \+ Toy Orientation**
+**Interaction 1: Establishing the Whole \+ Toy Orientation**
 
 * **Visual:** Complete undivided grid array appears  
 * **Guide:** "This rectangle is our WHOLE. It's like one chocolate bar. When we divide the whole into parts, each part is a piece of THIS whole."  
@@ -37,13 +37,13 @@ This sequence preserves immediate connection (partition→shade) while building 
 * **Vocabulary:** Introduce "whole"  
 * **Remediation:** Light only (Toy practice)
 
-**Interaction 1.2: Partition into Halves**
+**Interaction 2: Partition into Halves**
 
 * **Prompt:** "Click once in the middle to split the rectangle into 2 equal parts."  
 * **On Correct:** "You made two parts. Let's check—are they equal?"  
 * **Guide:** \[compares the parts\] “We checked the two parts are equal. That's two halves."
 
-**Interaction 1.3: Shade One Half**
+**Interaction 3: Shade One Half**
 
 * **Visual:** Bar partitioned into halves from 1.2  
 * **Guide:** "Now, please click one of those parts to shade it."  
@@ -52,7 +52,7 @@ This sequence preserves immediate connection (partition→shade) while building 
 * **On Correct:** "Yes. You selected one part out of two equal parts."  
 * **Vocabulary:** After shading, introduce "partition": "When mathematicians divide something into equal parts like you just did, they call it PARTITIONING."
 
-**Interaction 1.4: Partition into Fourths (CUT FLEXIBILITY INTRODUCTION)**
+**Interaction 4: Partition into Fourths (CUT FLEXIBILITY INTRODUCTION)**
 
 This is the key teaching moment for cut orientation. Students must see that "four equal parts" can look three different ways.
 
@@ -99,7 +99,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
     
   **⚠️ CRITICAL:** Accept ANY of the three configurations (or valid combinations). Do NOT express preference for one over another. The learning is that multiple valid solutions exist.
 
-**Interaction 1.5: Shade One Fourth**
+**Interaction 5: Shade One Fourth**
 
 * **Visual:** Bar partitioned into fourths from 1.4 (whatever configuration student created)  
 * **Guide:** "Now shade just one part."  
@@ -115,7 +115,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Guide:** "The bottom number tells us how many equal parts we made. The top number tells us how many parts we selected."  
 * **Reinforcement:** "No matter HOW you cut the bar—tall rectangles, wide rectangles, or smaller rectangles—if you have four equal parts and shade one, it's always 1/4."
 
-**Interaction 1.6: Partition into Thirds**
+**Interaction 6: Partition into Thirds**
 
 * **Visual:** New undivided grid array  
 * **Guide:** "Can you partition this one into three equal parts?"  
@@ -124,7 +124,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H (focus on equal parts count, NOT cut direction)  
 * **On Correct:** "Right. You partitioned the whole into three equal parts."
 
-**Interaction 1.7: Shade One Third**
+**Interaction 7: Shade One Third**
 
 * **Visual:** Bar partitioned into thirds from 1.6  
 * **Guide:** "Can you shade just one part?"  
@@ -133,7 +133,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **On Correct:** "Right. That's one out of three equal parts. We write one of three equal parts as 1/3."  
 * **Pattern callout:** "Notice the pattern? The bottom number always shows our total number of equal parts."
 
-**Interaction 1.8: Partition into Sixths**
+**Interaction 8: Partition into Sixths**
 
 * **Visual:** New undivided grid array  
 * **Guide:** "Let's partition this rectangle into six equal parts. This one is more advanced."  
@@ -144,7 +144,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H (strategy scaffold focus, not orientation correction)  
 * **On Correct:** "Correct\! Six equal parts."
 
-**Interaction 1.9: Shade One Sixth**
+**Interaction 9: Shade One Sixth**
 
 * **Visual:** grid array partitioned into sixths from 1.8  
 * **Guide:** "Now shade just 1 part, please."  
@@ -152,7 +152,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H (shade focus)  
 * **On Correct:** "Yes. One out of six equal parts. That's 1/6."
 
-**Interaction 1.10: Partition into Eighths**
+**Interaction 10: Partition into Eighths**
 
 * **Visual:** New undivided grid array (same fixed rectangle)  
 * **Guide:** "Let's do one more—eight equal parts this time. Remember how we made four parts? We can extend that strategy."  
@@ -174,7 +174,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 
   **⚠️ TECHNICAL NOTE:** The grid cannot support 8 horizontal strips (would require 7 cuts on the short side, which only allows 5). Remediation should guide toward 2×4, 4×2, or 8 vertical strips if student is stuck.
 
-**Interaction 1.11: Shade One Eighth**
+**Interaction 11: Shade One Eighth**
 
 * **Visual:** Bar partitioned into eighths from 1.10  
 * **Guide:** "Can you shade just one part?"  
@@ -192,11 +192,11 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 
 ---
 
-### **1.7.2 LESSON SECTION 2: Notation Bridge**
+### **LESSON SECTION 2: Notation Bridge**
 
 **Note:** Basic notation (1/4) was introduced embedded in Section 1 after fourths. Section 2 consolidates and extends notation understanding before shape transfer.
 
-**Interaction 2.1: Notation Matching**
+**Interaction 12: Notation Matching**
 
 * **Visual:** Three partitioned/shaded bars (1/2, 1/3, 1/4) with notation symbols inside one unit of each grid.  
 * **Guide:** "You've seen how we write fractions. Let's take what we’ve learned through writing fractions and practice matching symbols to the rectangles.   
@@ -204,7 +204,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H  
 * **On Correct:** "Right. The bottom number shows total parts, and the top number shows shaded parts."
 
-**Interaction 2.2: Notation Reading**
+**Interaction 13: Notation Reading**
 
 * **Visual:** Fraction symbol shown (e.g., 1/6), multiple bars to choose from  
 * **Guide:** "Which rectangle shows this fraction?"  
@@ -215,15 +215,13 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 **→ SECTION 2 COMPLETE. PROCEED TO SECTION 3: HEXAGON EXTENSION.**  
 ---
 
-### **1.7.3 LESSON SECTION 3: Hexagon Extension**
-
-**(5-7 interactions, 5-6 min)**
+### **LESSON SECTION 3: Hexagon Extension**
 
 **Purpose:** Transfer partitioning skill to new shape; demonstrate that notation works across representations.
 
 **Critical Toy Difference:** Hexagons (and later, circles) use RADIAL cuts—lines that start from the center and go outward to the edges. This is different from bars, where cuts can go anywhere. Students need explicit instruction on this technique.
 
-**Interaction 3.0: Radial Cutting Introduction (No Prompt—Demonstration Only)**
+**Interaction 14: Radial Cutting Introduction (No Prompt—Demonstration Only)**
 
 * **Visual:** Hexagon with center point marked  
 * **Guide:** "You've been cutting rectangles with lines that go straight across. For hexagons, we have to work differently to make our parts equal."  
@@ -235,7 +233,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 
 **Why This Matters:** Without explicit radial cutting instruction, students will attempt to draw horizontal/vertical lines across hexagons (like bars), which won't create equal parts. This is a Toy affordance, not a math concept—but it must be taught.
 
-**Interaction 3.1: Partition Hexagon into Halves**
+**Interaction 15: Partition Hexagon into Halves**
 
 * **Visual:** Fresh hexagon with center point visible  
 * **Guide:** "Your turn to try. Please draw a line from the center to one vertex, then from the center to the opposite vertex."  
@@ -246,7 +244,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
   * **Heavy:** \[Modeling\] "Follow along, and I’ll show you how I work it out. I click the center, then drag to the vertex. Then center again, to the opposite vertex. Two equal parts."  
 * **On Correct:** "Right. Two equal parts, just like with the rectangle, but with a different cutting technique."
 
-**Interaction 3.2: Shade One Half on Hexagon**
+**Interaction 16: Shade One Half on Hexagon**
 
 * **Visual:** Hexagon partitioned into halves from 3.1  
 * **Guide:** "Try shading one part."  
@@ -255,7 +253,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **On Correct:** "Yes. One out of two equal parts—1/2.”  
 * **Comparison:** (Reveal ½ Grid array \- labeled) “  Same fraction, different shape."
 
-**Interaction 3.3: Partition Hexagon into Thirds**
+**Interaction 17: Partition Hexagon into Thirds**
 
 * **Visual:** New hexagon with center point visible  
 * **Guide:** "Now try three equal parts. You'll need three cuts from the center, spaced evenly around the hexagon."  
@@ -267,7 +265,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
   * **Heavy:** \[Modeling\] "Let me show you. Center to here, center to here, center to here. Three equal sections."  
 * **On Correct:** "Three equal parts."
 
-**Interaction 3.4: Shade One Third on Hexagon**
+**Interaction 18: Shade One Third on Hexagon**
 
 * **Visual:** Hexagon partitioned into thirds from 3.3  
 * **Guide:** "Please shade one part."  
@@ -275,7 +273,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H  
 * **On Correct:** "1/3—one out of three equal parts. The notation works the same way."
 
-**Interaction 3.5: Partition Hexagon into Sixths**
+**Interaction 19: Partition Hexagon into Sixths**
 
 * **Visual:** New hexagon  
 * **Guide:** "One more. Can you make six equal parts?"  
@@ -284,7 +282,7 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 * **Remediation:** Full L-M-H  
 * **On Correct:** "Six equal parts\!"
 
-**Interaction 3.6: Shade One Sixth on Hexagon**
+**Interaction 20: Shade One Sixth on Hexagon**
 
 * **Visual:** Hexagon partitioned into sixths from 3.5  
 * **Guide:** "Try shading one part of the whole shape."  
@@ -296,73 +294,6 @@ This is the key teaching moment for cut orientation. Students must see that "fou
 
 * **Visual:** Grid array showing 1/3 alongside hexagon showing 1/3  
 * **Guide:** "Look: here we have different shapes, but the same fraction describes them both. 1/3 means one out of three equal parts, no matter what shape you're working with."
-
-### **REQUIRED PHRASES (Must Appear in Script)**
-
-* "This entire shape is our WHOLE"  
-* "When we split one whole into equal pieces, we call that PARTITIONING"  
-* "For fractions to work, all pieces must be exactly the same size"  
-* "These equal parts can be named with FRACTIONS"  
-* All five fraction words: "halves," "thirds," "fourths," "sixths," "eighths"
-
-### **FORBIDDEN PHRASES (Create Misconceptions)**
-
-* ❌ "Close enough" or "about the same" (undermines equality requirement)  
-* ❌ "Numerator" or "denominator" (Module 2 vocabulary)  
-* ❌ "These fractions are equal/equivalent" (equivalence is Module 8\)  
-* ❌ Any reference to circles (Module 2 content)
-
----
-
-### **CUT ORIENTATION FLEXIBILITY**
-
-**The Fourths Moment (Interaction 1.4):** Fourths is the critical teaching moment. Demonstrate ALL THREE configurations before student attempts:
-
-| Configuration | Cuts | Result |
-| :---- | :---- | :---- |
-| Vertical rectangles | 3 vertical cuts | 4 tall, narrow pieces |
-| Horizontal rectangles | 3 horizontal cuts | 4 wide, short pieces |
-| Quadrants (2x2) | 1 vertical \+ 1 horizontal | 4 squares |
-
-**Key teaching point:** "Three different ways to cut, but they ALL show fourths. What matters isn't how you cut—it's that you end up with four pieces that are exactly the same size."
-
-**Subsequent Interactions (1.6+):** Once flexibility is established at fourths, accept any valid configuration for thirds, sixths, and eighths without re-demonstrating alternatives. The principle has been taught.
-
-**Remediation Constraint:**
-
-* ❌ "Try making your cuts go the other way"  
-* ❌ "The squares method is easier"  
-* ✅ "Check that all your parts are the same size"  
-* ✅ "Count the grid squares in each part"
-
-**Validator Note:** Partition validation checks for equal parts count, not cut pattern. All configurations that produce the target number of equal parts are correct.  
----
-
-### **Misconception Prevention (Both Required)**
-
-**M1.1 (Unequal Parts):**
-
-* Include visual verification prompts throughout Section 1  
-* Include ONE interaction showing unequal parts being rejected (place between 1.7 and 1.8)
-
-**M1.2 (Misidentifying the Whole):**
-
-* Establish "whole" explicitly in Interaction 1.1  
-* Reference "this whole" when introducing each new bar
-
----
-
-#### Incomplete Script Flags
-
-**If ANY of these are true, STOP and complete the script:**
-
-- [ ] Section 2 missing or fewer than 2 interactions  
-- [ ] Section 3 missing or fewer than 5 interactions  
-- [ ] No radial cutting instruction before hexagon practice  
-- [ ] No unequal parts rejection interaction  
-- [ ] Total interaction count below 17  
-- [ ] Missing any required phrase  
-- [ ] Contains any forbidden phrase
 
 #### Success Criteria
 

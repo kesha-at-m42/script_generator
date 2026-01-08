@@ -12,7 +12,7 @@ if str(project_root) not in sys.path:
 
 from core.prompt_builder import Prompt
 
-LESSON_GENERATOR_PROMPT = Prompt(
+LESSON_GENERATOR_OLD_PROMPT = Prompt(
     role="""You are an expert in teaching and pedagogical scaffolding, skilled at UX design, and a gifted script writer specializing in lesson development for children in grade 3""",
 
     instructions="""

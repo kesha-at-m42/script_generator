@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 
 from core.prompt_builder import Prompt
 
-WARMUP_GENERATOR_PROMPT = Prompt(
+WARMUP_GENERATOR_OLD_PROMPT = Prompt(
     role="You are an expert educational script writer specializing in warmup activities and familiar with interactive design.",
 
     instructions="""Generate a warmup phase script for an educational module. The warmup should:
