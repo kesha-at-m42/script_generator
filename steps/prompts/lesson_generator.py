@@ -13,58 +13,150 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt
 
 LESSON_GENERATOR_PROMPT = Prompt(
-    role="""You are an expert in teaching and pedagogical scaffolding, skilled at UX design, and a gifted script writer specializing in lesson development for children in grade 3""",
+    role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
 
     instructions="""
 
 
-Generate a lesson phase script for an educational module. Read and fully understand the <Module 1 Starter Pack VPSS - AI Ready.md>.  
-The lesson should:
-    - Teach the core concepts defined in learning goals.
-    - Follow the entire pedagogical structure from the Phase Specifications of the <Module 1 Starter Pack VPSS - AI Ready.md>
-    - Use vocabulary and visuals as defined in <Module 1 Starter Pack VPSS - AI Ready.md>
+Convert each of the interactions listed in <lesson> into the structured JSOn format.
 
-    INTERACTION DEFINITION:
-  An interaction = visual demonstration + student input demand + response handling
+For each interaction,
+ #### Step 1: Understand Intent
+ - What is the **educational purpose** of this interaction?
+ - What **misconception** is it addressing or what **concept** is it activating?
+ - What makes this interaction different from others?
+ Using this, fill these fields of:
+  "interaction_id": 1,
+  "interaction_name": "Pithy name (3-6 words)"
+ 
 
-  Field Definitions:
-  - id: Unique identifier (e.g., "interaction_1", "interaction_2")
-  - purpose: Learning goal for this interaction
-  - interaction_description: Conceptual flow - what's shown, what's asked, how it's handled (not full script)
-  - visual_context: General visual needs (e.g., "1x2 grid rectangle for halves", "hexagon with partition tool")
+ #### Step 2: Analyze Visual Description and refer to <visuals> to Set Up Workspace
+ For each shape described:
+ 1. Determine **shape type** (rectangle or hexagon)
+ 2. Determine if **divided** or whole
+ 3. If divided, identify **cut type**:
+    - Vertical cuts? How many columns?
+    - Horizontal cuts? How many rows?
+    - Radial cuts (hexagon)?
+ 4. Determine if parts are **equal or unequal**
+ 5. Express cuts as **part size fractions**:
+    - Equal: all fractions identical (e.g., `[1/3, 1/3, 1/3]`)
+    - Unequal: fractions differ (e.g., `[1/2, 1/4, 1/4]`)
+ 6. Determine **shading** (if any)
 
+ Create workspace object:
+ ```json
+ {
+   "toy_id": "descriptive_id",
+   "toy_shape": "rectangle|hexagon",
+   "toy_description": "Clear description from <lesson>",
+   "divided": true|false,
+   "division_count": N,
+   "is_divided_equal": true|false,
+   "horizontal_cuts": [],
+   "vertical_cuts": [],
+   "radial_cuts": [],
+   "shaded": []
+ }
+ ```
 
-    The lesson phase is the main teaching section where core concepts are developed through structured discovery.
+ #### Step 4: Determine Dialogue and Correct Answer
+ Refer back to:
+ - **Visual**: What student sees
+ - **Purpose**: Why this interaction exists
+ - **Content**: What <lesson> says should happen
 
+ Write:
+ 1. **dialogue**: Guide speaks (include [event:name] tags if demonstration)
+    - Use only vocabulary from USE column
+    - Match tone from specifications
+    - Reference the visual purpose
+ 2. **prompt**: What student should do (clear action)
+ 3. **interaction_tool**: select, cut, shade, click_choice, or none
+ 4. **correct_answer**:
+    - value: toy_id of correct choice OR expected input
+    - context: Why this is correct (educational reasoning)
 
+ ---
 
+ ## CUT REPRESENTATION GUIDE:
 
+ Cuts are **part sizes** (fractions that sum to 1).
 
+ ### Simple divisions (1D array):
+ ```
+ ["1/2", "1/2"]           → 2 equal parts
+ ["1/3", "1/3", "1/3"]      → 3 equal parts
+ ["1/2", "1/4", "1/4"]      → 3 unequal parts
+ ```
 
+ ### Grids (both dimensions have 1D arrays):
+ ```
+ vertical_cuts: ["1/2", "1/2"]
+ horizontal_cuts: ["1/2", "1/2"]
+ → 2×2 grid = 4 equal parts
+ ```
+
+ ### Partial cuts (2D array for columns with different row divisions):
+ ```
+ vertical_cuts: ["1/2", "1/2"]           → 2 columns
+ horizontal_cuts: [["1/2, "1/2"], ["1"]]  → column 1: 2 rows, column 2: whole
+ → 3 total parts
+ ```
+ ---
+
+  CRITICAL: Output ONLY valid JSON as described in <output_structure>. No explanations. No analysis. No verification.
+  Your entire response must be ONLY the JSON object starting with { and ending with }.
 
 
 """,
 
-    doc_refs=['Module 1 Starter Pack VPSS - AI Ready.md'],
+    doc_refs=['visuals.md', 'lesson.md'],
 
     output_structure="""
- {
-    "phase": "lesson",
-    "interactions": [
-      {
-        "id": "interaction_1",
-        "purpose": "Brief description of what this interaction aims to achieve",
-        "interaction_description": "Detailed description of the interaction",
-        "visual_context": "Description of the visuals used in this interaction (shapes, grids, tools, etc.)"
-      },
-      {
-        "id": "interaction_2",
-        "purpose": "Brief description of the learning goal for this interaction",
-        "interaction_description": "Complete interaction script with all dialogue, prompts, and paths",
-        "visual_context": "Visual elements displayed and their configurations"
-      }
-    ]
-  }
+
+
+{
+  "sequences": [
+    {
+      "interaction_id": 1,
+      "interaction_name": "Pithy name (3-6 words)",
+      "fractions": [],
+      "vocabulary_introduced": [],
+      "steps": [
+        {
+          "dialogue": "Guide dialogue with [event:name] tags for demonstrations",
+          "prompt": "Student action instruction",
+          "interaction_tool": "cut|shade|select|multi_select|click_choice|none",
+          "workspace": [
+            {
+            "toy_id": "rect_unequal_2",
+            "toy_shape": "rectangle",
+            "toy_description": "Rectangle divided into 2 unequal parts",
+            "divided": true,
+            "division_count": 2,
+            "is_divided_equal": false,
+            "horizontal_cuts": [],
+            "vertical_cuts": ["1/3", "2/3"],
+            "radial_cuts": [],
+            "shaded": []
+          }
+          ],
+          "correct_answer": {
+            "value": "expected_answer",
+            "context": "Why this is correct"
+          },
+          "student_attempts": {
+            "success_path": {
+              "dialogue": "Brief positive feedback"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+  
 """,
 
     prefill="""""",
@@ -78,6 +170,6 @@ The lesson should:
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
-    max_tokens=20000,
+    max_tokens=18000,
     stop_sequences=[]
 )
