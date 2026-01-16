@@ -2,59 +2,75 @@
   {
     "template_id": "4001",
     "problem_type": "Student clicks tick mark to place unit fraction on pre-partitioned 0-1 number line",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "support"],
+      "mastery_tier": [
+        "baseline",
+        "support"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-01",
       "mastery_skill": "Place unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Step 14: 1/5 placement with PointValidator; similar pattern in all placement tasks",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["1/2", "1/3", "1/4", "1/5", "1/6", "1/8"]
+      "fractions": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "1/5",
+        "1/6",
+        "1/8"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["1/3", "1/4", "1/5"],
+        "fractions": [
+          "1/3",
+          "1/4",
+          "1/5"
+        ],
         "target_count": 5,
         "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled only"
       },
       "support": {
-        "fractions": ["1/2", "1/3", "1/4"],
+        "fractions": [
+          "1/2",
+          "1/3",
+          "1/4"
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled, intervals highlighted"
       }
     },
-    
     "prompt_examples": [
       "Place one-third on the number line.",
       "Click where one-fourth goes.",
       "Find one-fifth. Click its position.",
       "Where is 1/3? Place a point there."
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at all denominator positions",
         "labeled_endpoints": true,
         "scaffold": "none for baseline; interval bands for support"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks on the tick mark that represents the target unit fraction.",
-    
     "correct_end_state": "Point appears at the clicked tick mark; fraction label appears at that position",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -64,7 +80,6 @@
       ],
       "feedback_visual": "Point highlighted at correct position"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -73,70 +88,83 @@
         "detection_method": "click_position_off_by_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count the spaces from zero, not the marks.",
       "medium": "Start at zero. Count one space. That's where 1/3 goes.",
       "heavy": "Watch: starting from 0, I count one space. That first space ends at one-third."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction", "prompt wording"],
-      "hold_constant": ["0-1 range", "click_tick interaction", "horizontal orientation", "pre-placed ticks"],
+      "vary_by": [
+        "fraction",
+        "prompt wording"
+      ],
+      "hold_constant": [
+        "0-1 range",
+        "click_tick interaction",
+        "horizontal orientation",
+        "pre-placed ticks"
+      ],
       "difficulty_scaling": "Support tier uses simpler denominators (2, 3, 4) and may show interval bands"
     }
   },
-
   {
     "template_id": "4002",
     "problem_type": "Student clicks tick mark to place unit fraction with scaffolded visual hints (confidence builder)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["confidence"],
+      "mastery_tier": [
+        "confidence"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-01",
       "mastery_skill": "Place unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Step 14: 1/5 placement; simplified for confidence building",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["1/2", "1/3", "1/4"]
+      "fractions": [
+        "1/2",
+        "1/3",
+        "1/4"
+      ]
     },
-    
     "tier_constraints": {
       "confidence": {
-        "fractions": ["1/2", "1/3", "1/4"],
+        "fractions": [
+          "1/2",
+          "1/3",
+          "1/4"
+        ],
         "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-1 line with interval bands visible and numbered"
       }
     },
-    
     "prompt_examples": [
       "Click where one-half goes. Count one space from zero.",
       "Find one-third. It's one space from zero.",
       "Place one-fourth. That's one space."
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed. Interval bands are visually highlighted and may be numbered (1, 2, 3...) to support counting.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed",
         "labeled_endpoints": true,
         "scaffold": "interval_bands_numbered"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks on the first tick mark after zero.",
-    
     "correct_end_state": "Point appears at clicked position; label appears",
-    
     "success_dialogue": {
       "tone": "warm, encouraging",
       "examples": [
@@ -146,7 +174,6 @@
       ],
       "feedback_visual": "Point highlighted, interval band flashes"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -155,76 +182,96 @@
         "detection_method": "click_position_off_by_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Look at the numbered bands. Click after band 1.",
       "medium": "See the bands? Band 1 ends at one-third. Click there.",
       "heavy": "Let me show you: band 1 is here. One-third is at the end of band 1."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction"],
-      "hold_constant": ["scaffolded intervals", "simple denominators"],
+      "vary_by": [
+        "fraction"
+      ],
+      "hold_constant": [
+        "scaffolded intervals",
+        "simple denominators"
+      ],
       "difficulty_scaling": "Maximum scaffolding—this is for confidence building only"
     }
   },
-
   {
     "template_id": "4003",
     "problem_type": "Student clicks tick mark to place non-unit fraction on pre-partitioned 0-1 number line",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-02",
       "mastery_skill": "Place non-unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Steps 10 (3/4), 15 (3/5), 19 (3/8) — all use PointValidator",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["2/3", "3/4", "2/4", "3/5", "5/6", "3/6", "3/8"]
+      "fractions": [
+        "2/3",
+        "3/4",
+        "2/4",
+        "3/5",
+        "5/6",
+        "3/6",
+        "3/8"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["2/3", "3/4", "2/4", "3/5"],
+        "fractions": [
+          "2/3",
+          "3/4",
+          "2/4",
+          "3/5"
+        ],
         "target_count": 6,
         "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled only"
       },
       "stretch": {
-        "fractions": ["5/6", "3/6", "3/8"],
+        "fractions": [
+          "5/6",
+          "3/6",
+          "3/8"
+        ],
         "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-1 number line with more intervals"
       }
     },
-    
     "prompt_examples": [
       "Place three-fourths on the number line.",
       "Click where two-thirds goes.",
       "Find three-fifths. Click its position.",
       "Where is 3/8? Place a point there."
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at all denominator positions",
         "labeled_endpoints": true,
         "scaffold": "none"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks on the tick mark representing the target non-unit fraction by counting numerator intervals from zero.",
-    
     "correct_end_state": "Point appears at the clicked tick mark; fraction label appears",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -234,7 +281,6 @@
       ],
       "feedback_visual": "Point highlighted at correct position"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -249,70 +295,82 @@
         "detection_method": "click_position_equals_denominator"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count spaces from zero. The numerator tells you how many.",
       "medium": "The top number tells you how many spaces. Count 3 spaces from zero for three-fourths.",
       "heavy": "Watch: one space, two spaces, three spaces. That's three-fourths—three spaces out of four."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction", "prompt wording"],
-      "hold_constant": ["0-1 range", "click_tick interaction", "pre-placed ticks"],
+      "vary_by": [
+        "fraction",
+        "prompt wording"
+      ],
+      "hold_constant": [
+        "0-1 range",
+        "click_tick interaction",
+        "pre-placed ticks"
+      ],
       "difficulty_scaling": "Stretch tier uses larger denominators (6, 8) requiring more interval counting"
     }
   },
-
   {
     "template_id": "4004",
     "problem_type": "Student clicks tick mark to place non-unit fraction with scaffolded hints (support tier)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["support"],
+      "mastery_tier": [
+        "support"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-02",
       "mastery_skill": "Place non-unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Steps 10, 15, 19 — simplified with visual scaffolds",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["2/3", "3/4", "2/4"]
+      "fractions": [
+        "2/3",
+        "3/4",
+        "2/4"
+      ]
     },
-    
     "tier_constraints": {
       "support": {
-        "fractions": ["2/3", "3/4", "2/4"],
+        "fractions": [
+          "2/3",
+          "3/4",
+          "2/4"
+        ],
         "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-1 line with interval bands highlighted"
       }
     },
-    
     "prompt_examples": [
       "Place three-fourths. Count three spaces from zero.",
       "Find two-thirds. That's two spaces.",
       "Click where 3/4 goes. Count: 1, 2, 3."
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 1 with interval bands visually highlighted to support counting.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed",
         "labeled_endpoints": true,
         "scaffold": "interval_bands_visible"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks on tick mark after counting highlighted intervals.",
-    
     "correct_end_state": "Point appears at clicked position; label appears",
-    
     "success_dialogue": {
       "tone": "supportive, encouraging",
       "examples": [
@@ -322,7 +380,6 @@
       ],
       "feedback_visual": "Point highlighted, counted intervals flash"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -331,76 +388,88 @@
         "detection_method": "click_position_off_by_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count the colored bands from zero.",
       "medium": "Look at the bands: 1, 2, 3. Click at the end of band 3.",
       "heavy": "Let me count with you: band 1, band 2, band 3. Three-fourths is right there."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction"],
-      "hold_constant": ["scaffolded intervals", "simple denominators"],
+      "vary_by": [
+        "fraction"
+      ],
+      "hold_constant": [
+        "scaffolded intervals",
+        "simple denominators"
+      ],
       "difficulty_scaling": "Extra scaffolding for students needing support"
     }
   },
-
   {
     "template_id": "4005",
     "problem_type": "Student clicks tick mark to place fraction beyond 1 on extended 0-2 number line",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-03",
       "mastery_skill": "Place fraction beyond 1 on extended number line by counting intervals from zero",
       "lesson_alignment": "Step 16: 5/4 placement on 0-2 line with PointValidator",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["5/4", "6/4", "7/4"]
+      "fractions": [
+        "5/4",
+        "6/4",
+        "7/4"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["5/4"],
+        "fractions": [
+          "5/4"
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-2 number line, 0, 1, and 2 labeled"
       },
       "stretch": {
-        "fractions": ["6/4", "7/4"],
+        "fractions": [
+          "6/4",
+          "7/4"
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-2 number line, endpoints labeled only"
       }
     },
-    
     "prompt_examples": [
       "Place five-fourths on the number line.",
       "Where is 5/4? It's past 1.",
       "Find six-fourths. Click its position.",
       "Click where seven-fourths goes."
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 2 with tick marks pre-placed at all fourths positions (0, 1/4, 2/4, 3/4, 1, 5/4, 6/4, 7/4, 2). Labels at 0, 1, and 2.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 2],
+        "range": [
+          0,
+          2
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at all fourths positions",
         "labeled_endpoints": true,
         "scaffold": "none"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks on the tick mark beyond 1 that represents the target fraction.",
-    
     "correct_end_state": "Point appears at the clicked tick mark; fraction label appears",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -410,7 +479,6 @@
       ],
       "feedback_visual": "Point highlighted at correct position"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 2,
@@ -425,70 +493,78 @@
         "detection_method": "click_position_off_by_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Keep counting from zero—don't restart at 1.",
       "medium": "Five-fourths means five spaces from zero. Count all the way: 1, 2, 3, 4, 5.",
       "heavy": "Watch: from 0, I count 1, 2, 3, 4—that's one whole. Then 5. Five-fourths is one space past 1."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction", "prompt wording"],
-      "hold_constant": ["0-2 range", "fourths denomination", "click_tick interaction"],
+      "vary_by": [
+        "fraction",
+        "prompt wording"
+      ],
+      "hold_constant": [
+        "0-2 range",
+        "fourths denomination",
+        "click_tick interaction"
+      ],
       "difficulty_scaling": "Stretch tier uses fractions further from 1 (6/4, 7/4)"
     }
   },
-
   {
     "template_id": "4006",
     "problem_type": "Student clicks tick mark to place fraction beyond 1 with scaffolded support",
-    
     "goal_decomposition": {
-      "mastery_tier": ["support"],
+      "mastery_tier": [
+        "support"
+      ],
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-03",
       "mastery_skill": "Place fraction beyond 1 on extended number line by counting intervals from zero",
       "lesson_alignment": "Step 16: 5/4 placement — simplified with visual scaffolds",
-      "non_curriculum_skills": ["click_accuracy"]
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ]
     },
-    
     "parameter_coverage": {
-      "fractions": ["5/4"]
+      "fractions": [
+        "5/4"
+      ]
     },
-    
     "tier_constraints": {
       "support": {
-        "fractions": ["5/4"],
+        "fractions": [
+          "5/4"
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-2 line with interval bands and 4/4=1 labeled"
       }
     },
-    
     "prompt_examples": [
       "Find five-fourths. That's one space past 1.",
       "5/4 is one more than 4/4. Click where it goes.",
       "Place five-fourths. Count five spaces from zero."
     ],
-    
     "workspace_description": "Extended number line 0-2 with interval bands visible and 4/4=1 relationship shown.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 2],
+        "range": [
+          0,
+          2
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at fourths",
         "labeled_endpoints": true,
         "scaffold": "interval_bands_visible, 4/4_equals_1_label"
       }
     ],
-    
-    "action_list": ["click_tick"],
+    "action_list": [
+      "click_tick"
+    ],
     "action_description": "Student clicks tick mark one space after the 1 position.",
-    
     "correct_end_state": "Point appears at 5/4 position; label appears",
-    
     "success_dialogue": {
       "tone": "supportive",
       "examples": [
@@ -498,7 +574,6 @@
       ],
       "feedback_visual": "Point highlighted, path from 0 shown"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 2,
@@ -507,26 +582,30 @@
         "detection_method": "click_position_in_wrong_whole"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count from zero, not from 1.",
       "medium": "See where 4/4 is? That's 1. Five-fourths is one more space.",
       "heavy": "Let me show you: 1, 2, 3, 4 gets us to 1. Then 5 is one more. Click there."
     },
-    
     "design_notes": {
-      "vary_by": ["prompt wording"],
-      "hold_constant": ["5/4 only", "scaffolded visuals"],
+      "vary_by": [
+        "prompt wording"
+      ],
+      "hold_constant": [
+        "5/4 only",
+        "scaffolded visuals"
+      ],
       "difficulty_scaling": "Maximum support for beyond-1 concept"
     }
   },
-
   {
     "template_id": "4007",
     "problem_type": "Student counts intervals on number line to identify the denominator (MCQ)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "identify",
       "mastery_component": "conceptual",
       "mastery_skill_id": "M4-04",
@@ -534,36 +613,47 @@
       "lesson_alignment": "Steps 5, 8: 'How many spaces between 0 and 1?' with MultipleChoiceValidator",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "denominators": [3, 4, 5, 6, 8]
+      "denominators": [
+        3,
+        4,
+        5,
+        6,
+        8
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "denominators": [3, 4, 5],
+        "denominators": [
+          3,
+          4,
+          5
+        ],
         "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-1 number line, MCQ with 3 options"
       },
       "stretch": {
-        "denominators": [6, 8],
+        "denominators": [
+          6,
+          8
+        ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-1 number line with more tick marks"
       }
     },
-    
     "prompt_examples": [
       "How many equal spaces are between 0 and 1?",
       "Count the intervals. How many are there?",
       "Look at this number line. How many spaces from 0 to 1?"
     ],
-    
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed. MCQ options appear below with adjacent numbers (e.g., 3, 4, 5).",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at denominator positions",
         "labeled_endpoints": true
@@ -578,12 +668,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student selects the number that represents the count of intervals.",
-    
     "correct_end_state": "Selected answer highlighted as correct; intervals may flash to confirm",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -593,7 +682,6 @@
       ],
       "feedback_visual": "Correct answer highlighted"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -602,26 +690,30 @@
         "detection_method": "selection_equals_denominator_plus_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count the spaces, not the marks.",
       "medium": "Tick marks show where spaces end. Count the spaces between them.",
       "heavy": "Watch: space 1, space 2, space 3, space 4. Four spaces, not five marks."
     },
-    
     "design_notes": {
-      "vary_by": ["denominator", "prompt wording"],
-      "hold_constant": ["0-1 range", "MCQ format"],
+      "vary_by": [
+        "denominator",
+        "prompt wording"
+      ],
+      "hold_constant": [
+        "0-1 range",
+        "MCQ format"
+      ],
       "difficulty_scaling": "Stretch tier uses larger denominators with more intervals to count"
     }
   },
-
   {
     "template_id": "4008",
     "problem_type": "Student counts intervals on number line to identify denominator (confidence builder, simple)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["confidence"],
+      "mastery_tier": [
+        "confidence"
+      ],
       "mastery_verb": "identify",
       "mastery_component": "conceptual",
       "mastery_skill_id": "M4-04",
@@ -629,31 +721,37 @@
       "lesson_alignment": "Steps 5, 8 — simplified for confidence building",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "denominators": [2, 3, 4]
+      "denominators": [
+        2,
+        3,
+        4
+      ]
     },
-    
     "tier_constraints": {
       "confidence": {
-        "denominators": [2, 3, 4],
+        "denominators": [
+          2,
+          3,
+          4
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-1 line with interval bands numbered"
       }
     },
-    
     "prompt_examples": [
       "Count the spaces. How many?",
       "How many equal parts between 0 and 1?",
       "Look at the bands. Count them."
     ],
-    
     "workspace_description": "Number line 0-1 with interval bands numbered (1, 2, 3...) to support counting.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed",
         "labeled_endpoints": true,
@@ -668,12 +766,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student reads numbered bands and selects the count.",
-    
     "correct_end_state": "Correct answer highlighted",
-    
     "success_dialogue": {
       "tone": "warm, encouraging",
       "examples": [
@@ -683,7 +780,6 @@
       ],
       "feedback_visual": "Answer highlighted, bands flash"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -692,26 +788,30 @@
         "detection_method": "selection_off_by_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Read the numbers on the bands.",
       "medium": "The last band says 3. That means 3 spaces.",
       "heavy": "Let me help: band 1, band 2, band 3. Three spaces total."
     },
-    
     "design_notes": {
-      "vary_by": ["denominator"],
-      "hold_constant": ["numbered bands scaffold", "simple denominators"],
+      "vary_by": [
+        "denominator"
+      ],
+      "hold_constant": [
+        "numbered bands scaffold",
+        "simple denominators"
+      ],
       "difficulty_scaling": "Maximum scaffolding for confidence building"
     }
   },
-
   {
     "template_id": "4009",
     "problem_type": "Student identifies the fraction represented by a point already placed on 0-1 number line (MCQ)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "identify",
       "mastery_component": "conceptual",
       "mastery_skill_id": "M4-05",
@@ -719,36 +819,55 @@
       "lesson_alignment": "Inverse of all placement tasks; students see labels appear after correct placement",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "fractions": ["1/3", "2/3", "1/4", "3/4", "2/4", "1/5", "3/5", "5/6", "3/8"]
+      "fractions": [
+        "1/3",
+        "2/3",
+        "1/4",
+        "3/4",
+        "2/4",
+        "1/5",
+        "3/5",
+        "5/6",
+        "3/8"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["1/3", "2/3", "1/4", "3/4", "1/5"],
+        "fractions": [
+          "1/3",
+          "2/3",
+          "1/4",
+          "3/4",
+          "1/5"
+        ],
         "target_count": 3,
         "workspace_requirements": "Pre-partitioned 0-1 line with point shown, MCQ with 3 fraction options"
       },
       "stretch": {
-        "fractions": ["2/4", "3/5", "5/6", "3/8"],
+        "fractions": [
+          "2/4",
+          "3/5",
+          "5/6",
+          "3/8"
+        ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-1 line with more intervals"
       }
     },
-    
     "prompt_examples": [
       "What fraction does this point show?",
       "Look at where the point is. What fraction is that?",
       "Name the fraction at this position."
     ],
-    
     "workspace_description": "Number line 0-1 with a point already placed at a fraction position. MCQ options show possible fractions.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed",
         "labeled_endpoints": true,
@@ -764,12 +883,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student counts intervals from 0 to the point and selects the matching fraction.",
-    
     "correct_end_state": "Selected answer highlighted; fraction label appears at point",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -779,7 +897,6 @@
       ],
       "feedback_visual": "Answer highlighted, label appears at point"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -794,26 +911,32 @@
         "detection_method": "selection_is_reversed"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count spaces from zero to the point.",
       "medium": "The denominator tells you total spaces. Count how many to reach the point—that's your numerator.",
       "heavy": "Watch: 1 space, 2 spaces, 3 spaces to the point. Four total spaces. That's 3/4."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction", "point position"],
-      "hold_constant": ["0-1 range", "MCQ format", "point pre-placed"],
+      "vary_by": [
+        "fraction",
+        "point position"
+      ],
+      "hold_constant": [
+        "0-1 range",
+        "MCQ format",
+        "point pre-placed"
+      ],
       "difficulty_scaling": "Stretch tier uses larger denominators"
     }
   },
-
   {
     "template_id": "4010",
     "problem_type": "Student identifies the fraction represented by a point placed beyond 1 (MCQ)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "identify",
       "mastery_component": "conceptual",
       "mastery_skill_id": "M4-05",
@@ -821,36 +944,43 @@
       "lesson_alignment": "Step 17: 'Fractions can go beyond one whole'—inverse of placement",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "fractions": ["5/4", "6/4", "7/4"]
+      "fractions": [
+        "5/4",
+        "6/4",
+        "7/4"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["5/4"],
+        "fractions": [
+          "5/4"
+        ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-2 line with point shown beyond 1"
       },
       "stretch": {
-        "fractions": ["6/4", "7/4"],
+        "fractions": [
+          "6/4",
+          "7/4"
+        ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-2 line, less scaffolding"
       }
     },
-    
     "prompt_examples": [
       "What fraction does this point show?",
       "This point is past 1. What fraction is it?",
       "Name the fraction at this position."
     ],
-    
     "workspace_description": "Number line 0-2 with a point placed beyond 1. MCQ options show beyond-1 fractions.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 2],
+        "range": [
+          0,
+          2
+        ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at fourths",
         "labeled_endpoints": true,
@@ -866,12 +996,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student counts intervals from 0 past 1 to the point and selects the matching fraction.",
-    
     "correct_end_state": "Selected answer highlighted; fraction label appears at point",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -881,7 +1010,6 @@
       ],
       "feedback_visual": "Answer highlighted, label appears"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 2,
@@ -890,26 +1018,32 @@
         "detection_method": "selection_suggests_restart_at_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count from zero, not from 1.",
       "medium": "Keep counting past 1: 1, 2, 3, 4, 5. Five-fourths.",
       "heavy": "Let me show you: don't restart at 1. Count all the way from zero."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction", "point position"],
-      "hold_constant": ["0-2 range", "fourths denomination", "MCQ format"],
+      "vary_by": [
+        "fraction",
+        "point position"
+      ],
+      "hold_constant": [
+        "0-2 range",
+        "fourths denomination",
+        "MCQ format"
+      ],
       "difficulty_scaling": "Stretch uses positions further from 1"
     }
   },
-
   {
     "template_id": "4011",
     "problem_type": "Student matches denominator to interval count (pattern recognition, MCQ)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "confidence"],
+      "mastery_tier": [
+        "baseline",
+        "confidence"
+      ],
       "mastery_verb": "identify",
       "mastery_component": "conceptual",
       "mastery_skill_id": "M4-06",
@@ -917,32 +1051,40 @@
       "lesson_alignment": "Steps 6-7, 9: 'The denominator tells us how many equal spaces'",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "denominators": [3, 4, 5, 6, 8]
+      "denominators": [
+        3,
+        4,
+        5,
+        6,
+        8
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "denominators": [3, 4, 5],
+        "denominators": [
+          3,
+          4,
+          5
+        ],
         "target_count": 2,
         "workspace_requirements": "Fraction displayed with number line showing intervals"
       },
       "confidence": {
-        "denominators": [3, 4],
+        "denominators": [
+          3,
+          4
+        ],
         "target_count": 2,
         "workspace_requirements": "Fraction displayed with scaffolded number line"
       }
     },
-    
     "prompt_examples": [
       "This fraction has denominator 4. How many spaces should the line have?",
       "If the denominator is 5, how many equal intervals are between 0 and 1?",
       "The bottom number is 3. How many spaces does that mean?"
     ],
-    
     "workspace_description": "Fraction notation displayed prominently with denominator highlighted. MCQ asks for interval count.",
-    
     "workspace_detailed": [
       {
         "toy": "fraction_display",
@@ -957,12 +1099,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student recognizes denominator = interval count and selects matching number.",
-    
     "correct_end_state": "Correct answer highlighted",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -972,7 +1113,6 @@
       ],
       "feedback_visual": "Answer highlighted"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -981,26 +1121,29 @@
         "detection_method": "selection_equals_denominator_plus_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "The denominator IS the number of spaces.",
       "medium": "Denominator 4 means 4 equal spaces between 0 and 1.",
       "heavy": "Watch: if denominator is 4, we make 4 spaces. Denominator = spaces."
     },
-    
     "design_notes": {
-      "vary_by": ["denominator"],
-      "hold_constant": ["pattern recognition format"],
+      "vary_by": [
+        "denominator"
+      ],
+      "hold_constant": [
+        "pattern recognition format"
+      ],
       "difficulty_scaling": "Confidence tier uses smallest denominators"
     }
   },
-
   {
     "template_id": "4012",
     "problem_type": "Student selects which number line shows a specific fraction type (comparison)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "compare",
       "mastery_component": "transfer",
       "mastery_skill_id": "M4-07",
@@ -1008,52 +1151,65 @@
       "lesson_alignment": "Implicit in pattern recognition across thirds, fourths, fifths, eighths",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "target_types": ["thirds", "fourths", "fifths", "sixths", "eighths"]
+      "target_types": [
+        "thirds",
+        "fourths",
+        "fifths",
+        "sixths",
+        "eighths"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "target_types": ["thirds", "fourths", "fifths"],
+        "target_types": [
+          "thirds",
+          "fourths",
+          "fifths"
+        ],
         "target_count": 3,
         "workspace_requirements": "Three number lines shown, one with target intervals"
       },
       "stretch": {
-        "target_types": ["sixths", "eighths"],
+        "target_types": [
+          "sixths",
+          "eighths"
+        ],
         "target_count": 2,
         "workspace_requirements": "Three number lines with similar interval counts"
       }
     },
-    
     "prompt_examples": [
       "Which number line shows fourths?",
       "Find the line divided into thirds.",
       "One of these shows fifths. Which one?"
     ],
-    
     "workspace_description": "Three horizontal number lines (0-1) shown vertically stacked, each with different interval counts. Student selects the one matching the target.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
         "instance": "A",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "tick_marks": "pre-placed at one denominator"
       },
       {
         "toy": "extended_number_line",
         "instance": "B",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "tick_marks": "pre-placed at different denominator"
       }
     ],
-    
-    "action_list": ["select_line"],
+    "action_list": [
+      "select_line"
+    ],
     "action_description": "Student counts intervals on each line and selects the one with the target count.",
-    
     "correct_end_state": "Selected line highlighted; label appears",
-    
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
@@ -1063,7 +1219,6 @@
       ],
       "feedback_visual": "Correct line highlighted"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -1078,26 +1233,30 @@
         "detection_method": "selected_line_has_unequal_intervals"
       }
     ],
-    
     "remediation_approach": {
       "light": "Count the spaces on each line.",
       "medium": "Fourths means 4 spaces. Which line has exactly 4?",
       "heavy": "Let me count: Line A has 1, 2, 3 spaces. Line B has 1, 2, 3, 4 spaces. Four spaces = fourths."
     },
-    
     "design_notes": {
-      "vary_by": ["target fraction type", "distractor fraction type"],
-      "hold_constant": ["two-line comparison format"],
+      "vary_by": [
+        "target fraction type",
+        "distractor fraction type"
+      ],
+      "hold_constant": [
+        "two-line comparison format"
+      ],
       "difficulty_scaling": "Stretch uses closer interval counts (5 vs 6, 6 vs 8)"
     }
   },
-
   {
     "template_id": "4013",
     "problem_type": "Student compares two points on the same number line to identify which is larger (comparison, challenge)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["stretch", "challenge"],
+      "mastery_tier": [
+        "stretch",
+        "challenge"
+      ],
       "mastery_verb": "compare",
       "mastery_component": "transfer",
       "mastery_skill_id": "M4-07",
@@ -1105,47 +1264,79 @@
       "lesson_alignment": "Extension of placement understanding—position = size on number line",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "fraction_pairs": [["1/4", "3/4"], ["2/5", "4/5"], ["1/3", "2/3"], ["3/8", "5/8"]]
+      "fraction_pairs": [
+        [
+          "1/4",
+          "3/4"
+        ],
+        [
+          "2/5",
+          "4/5"
+        ],
+        [
+          "1/3",
+          "2/3"
+        ],
+        [
+          "3/8",
+          "5/8"
+        ]
+      ]
     },
-    
     "tier_constraints": {
       "stretch": {
-        "fraction_pairs": [["1/4", "3/4"], ["1/3", "2/3"]],
+        "fraction_pairs": [
+          [
+            "1/4",
+            "3/4"
+          ],
+          [
+            "1/3",
+            "2/3"
+          ]
+        ],
         "target_count": 2,
         "workspace_requirements": "Number line with both points shown, same denominator"
       },
       "challenge": {
-        "fraction_pairs": [["2/5", "4/5"], ["3/8", "5/8"]],
+        "fraction_pairs": [
+          [
+            "2/5",
+            "4/5"
+          ],
+          [
+            "3/8",
+            "5/8"
+          ]
+        ],
         "target_count": 2,
         "workspace_requirements": "Number line with both points, larger denominators"
       }
     },
-    
     "prompt_examples": [
       "Which point shows the larger fraction?",
       "Look at the two points. Which is more?",
       "Which fraction is greater?"
     ],
-    
     "workspace_description": "Number line 0-1 with two points placed and labeled. Student selects the larger one.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 1],
+        "range": [
+          0,
+          1
+        ],
         "tick_marks": "pre-placed",
         "points_shown": 2,
         "points_labeled": true
       }
     ],
-    
-    "action_list": ["select_point"],
+    "action_list": [
+      "select_point"
+    ],
     "action_description": "Student recognizes that further from zero = larger and selects accordingly.",
-    
     "correct_end_state": "Selected point highlighted",
-    
     "success_dialogue": {
       "tone": "brief, connecting",
       "examples": [
@@ -1155,7 +1346,6 @@
       ],
       "feedback_visual": "Selected point highlighted, distance from 0 may be emphasized"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 5,
@@ -1164,26 +1354,30 @@
         "detection_method": "selection_inconsistent_with_visual_position"
       }
     ],
-    
     "remediation_approach": {
       "light": "Which point is further from zero?",
       "medium": "On a number line, further right means larger. Which is further?",
       "heavy": "Watch: 1/4 is here, 3/4 is here. 3/4 is further from zero—it's larger."
     },
-    
     "design_notes": {
-      "vary_by": ["fraction pair"],
-      "hold_constant": ["same-denominator comparison", "visual position comparison"],
+      "vary_by": [
+        "fraction pair"
+      ],
+      "hold_constant": [
+        "same-denominator comparison",
+        "visual position comparison"
+      ],
       "difficulty_scaling": "Challenge uses larger denominators requiring more counting"
     }
   },
-
   {
     "template_id": "4014",
     "problem_type": "Student identifies fraction in context describing something beyond 1 (application)",
-    
     "goal_decomposition": {
-      "mastery_tier": ["baseline", "stretch"],
+      "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
       "mastery_verb": "apply",
       "mastery_component": "transfer",
       "mastery_skill_id": "M4-08",
@@ -1191,36 +1385,43 @@
       "lesson_alignment": "Step 17: 'Fractions can go beyond one whole'—conceptual application",
       "non_curriculum_skills": []
     },
-    
     "parameter_coverage": {
-      "fractions": ["5/4", "6/4", "7/4"]
+      "fractions": [
+        "5/4",
+        "6/4",
+        "7/4"
+      ]
     },
-    
     "tier_constraints": {
       "baseline": {
-        "fractions": ["5/4"],
+        "fractions": [
+          "5/4"
+        ],
         "target_count": 2,
         "workspace_requirements": "Context sentence with number line visual"
       },
       "stretch": {
-        "fractions": ["6/4", "7/4"],
+        "fractions": [
+          "6/4",
+          "7/4"
+        ],
         "target_count": 2,
         "workspace_requirements": "Context sentence with number line, less scaffolding"
       }
     },
-    
     "prompt_examples": [
       "Sam walked 5 spaces on a fourths number line starting at 0. What fraction did Sam reach?",
       "A frog jumped 6 equal fourths from 0. Where did it land?",
       "The marker shows 7 intervals from zero on a fourths line. What fraction is that?"
     ],
-    
     "workspace_description": "Brief context with number line 0-2 showing fourths. MCQ with fraction options.",
-    
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
-        "range": [0, 2],
+        "range": [
+          0,
+          2
+        ],
         "tick_marks": "pre-placed at fourths",
         "context_visual": true
       },
@@ -1233,12 +1434,11 @@
         }
       }
     ],
-    
-    "action_list": ["select_choice"],
+    "action_list": [
+      "select_choice"
+    ],
     "action_description": "Student connects context (intervals counted) to fraction and selects.",
-    
     "correct_end_state": "Selected answer highlighted",
-    
     "success_dialogue": {
       "tone": "brief, connecting",
       "examples": [
@@ -1248,7 +1448,6 @@
       ],
       "feedback_visual": "Answer highlighted"
     },
-    
     "misconceptions_targeted": [
       {
         "misconception_id": 2,
@@ -1257,16 +1456,20 @@
         "detection_method": "selection_suggests_restart_at_one"
       }
     ],
-    
     "remediation_approach": {
       "light": "The number of spaces becomes the numerator.",
       "medium": "5 spaces from zero on a fourths line means 5/4.",
       "heavy": "Watch: fourths means denominator is 4. Five spaces means numerator is 5. That's 5/4."
     },
-    
     "design_notes": {
-      "vary_by": ["context wording", "fraction"],
-      "hold_constant": ["fourths denomination", "context + MCQ format"],
+      "vary_by": [
+        "context wording",
+        "fraction"
+      ],
+      "hold_constant": [
+        "fourths denomination",
+        "context + MCQ format"
+      ],
       "difficulty_scaling": "Stretch uses larger numerators further from 1"
     }
   }
