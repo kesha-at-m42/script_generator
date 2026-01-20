@@ -824,32 +824,29 @@
         "3/4",
         "2/4",
         "1/5",
+        "2/5",
         "3/5",
+        "4/5",
+        "1/6",
+        "2/6",
+        "3/6",
+        "4/6",
         "5/6",
-        "3/8"
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8"
       ]
     },
     "tier_constraints": {
       "baseline": {
-        "fractions": [
-          "1/3",
-          "2/3",
-          "1/4",
-          "3/4",
-          "1/5"
-        ],
-        "target_count": 5,
-        "workspace_requirements": "Pre-partitioned 0-1 line with point shown, MCQ with 3 fraction options"
+        "target_count": 14
       },
       "stretch": {
-        "fractions": [
-          "2/4",
-          "3/5",
-          "5/6",
-          "3/8"
-        ],
-        "target_count": 4,
-        "workspace_requirements": "Pre-partitioned 0-1 line with more intervals"
+        "target_count": 7
       }
     },
     "prompt_examples": [
@@ -888,9 +885,9 @@
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
-        "Two-thirds. Two spaces from zero.",
-        "That's three-fourths.",
-        "Right—one-fifth."
+        "Yes, that's two-thirds. Two spaces from zero.",
+        "That's right, 3/4 is three [d:0.25] fourths from zero.",
+        "Right, you correctly selected one-fifth."
       ],
       "feedback_visual": "Answer highlighted, label appears at point"
     },
@@ -951,7 +948,12 @@
     "tier_constraints": {
       "baseline": {
         "fractions": [
-          "5/4"
+          "3/2",
+          "4/3",
+          "5/3",
+          "5/4",
+          "6/5",
+          "7/6"
         ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-2 line with point shown beyond 1"
@@ -959,7 +961,9 @@
       "stretch": {
         "fractions": [
           "6/4",
-          "7/4"
+          "7/4",
+          "7/5",
+          "8/6"
         ],
         "target_count": 2,
         "workspace_requirements": "Pre-partitioned 0-2 line, less scaffolding"
@@ -967,7 +971,7 @@
     },
     "prompt_examples": [
       "What fraction does this point show?",
-      "This point is past 1. What fraction is it?",
+      "Look at where the point is. What fraction is that?",
       "Name the fraction at this position."
     ],
     "workspace_description": "Number line 0-2 with a point placed beyond 1. MCQ options show beyond-1 fractions.",
@@ -1001,9 +1005,9 @@
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
-        "Five-fourths. Five spaces from zero.",
-        "That's six-fourths—two past 1.",
-        "Seven-fourths. You counted all the way."
+        "Yes, that's two-thirds. Two spaces from zero.",
+        "That's right, 3/4 is three [d:0.25] fourths from zero.",
+        "Right, you correctly selected one-fifth."
       ],
       "feedback_visual": "Answer highlighted, label appears"
     },
@@ -1469,5 +1473,32 @@
       ],
       "difficulty_scaling": "Stretch uses larger numerators further from 1"
     }
+  },
+  {
+    "template_id":"4015",
+    "problem_type": "Student identifies which fraction is closer to 0",
+    "workspace_description": "",
+    "prompt_examples": [
+      ""
+    ],
+    "action_description": "Student selects the correct option",
+    "mastery_tier": [
+        "baseline",
+        "stretch"
+      ],
+    "mastery_verb": "apply",
+    "parameter_coverage": {
+      "fractions": [
+        "5/4",
+        "6/4",
+        "7/4"
+      ]
+    },
+    "correct_end_state": "Selected answer highlighted",
+    "success_dialogue": [
+        "Five spaces from zero—five-fourths.",
+        "Right! Six intervals means 6/4.",
+        "Seven-fourths. Past one whole."
+      ]
   }
 ]
