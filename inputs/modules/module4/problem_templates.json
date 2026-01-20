@@ -10,7 +10,7 @@
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-01",
-      "mastery_skill": "Place unit fraction on 0-1 number line by counting intervals from zero",
+      "mastery_skill": "Place a unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Step 14: 1/5 placement with PointValidator; similar pattern in all placement tasks",
       "non_curriculum_skills": [
         "click_accuracy"
@@ -31,26 +31,24 @@
         "fractions": [
           "1/3",
           "1/4",
-          "1/5"
+          "1/5",
+          "1/6",
+          "1/8"
         ],
-        "target_count": 5,
-        "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled only"
+        "target_count": 5
       },
       "support": {
         "fractions": [
           "1/2",
-          "1/3",
-          "1/4"
+          "1/3"
         ],
-        "target_count": 3,
-        "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled, intervals highlighted"
+        "target_count": 3
       }
     },
     "prompt_examples": [
       "Place one-third on the number line.",
       "Click where one-fourth goes.",
-      "Find one-fifth. Click its position.",
-      "Where is 1/3? Place a point there."
+      "Where is 1/3? Select the correct tick mark."
     ],
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
     "workspace_detailed": [
@@ -62,23 +60,22 @@
         ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed at all denominator positions",
-        "labeled_endpoints": true,
-        "scaffold": "none for baseline; interval bands for support"
+        "labeled_endpoints": true
       }
     ],
     "action_list": [
       "click_tick"
     ],
     "action_description": "Student clicks on the tick mark that represents the target unit fraction.",
-    "correct_end_state": "Point appears at the clicked tick mark; fraction label appears at that position",
+    "correct_end_state": "The correct tick mark is in clicked or selected state.",
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
-        "One-third. One space from zero.",
-        "That's one-fourth.",
-        "Right there—one-fifth."
+        "That's right, one-third. One interval from zero.",
+        "Yes, that's one-fourth.",
+        "Correct, that's where one-fifth goes."
       ],
-      "feedback_visual": "Point highlighted at correct position"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -101,10 +98,8 @@
       "hold_constant": [
         "0-1 range",
         "click_tick interaction",
-        "horizontal orientation",
         "pre-placed ticks"
-      ],
-      "difficulty_scaling": "Support tier uses simpler denominators (2, 3, 4) and may show interval bands"
+      ]
     }
   },
   {
@@ -117,7 +112,7 @@
       "mastery_verb": "create",
       "mastery_component": "procedural",
       "mastery_skill_id": "M4-01",
-      "mastery_skill": "Place unit fraction on 0-1 number line by counting intervals from zero",
+      "mastery_skill": "Place a unit fraction on 0-1 number line by counting intervals from zero",
       "lesson_alignment": "Step 14: 1/5 placement; simplified for confidence building",
       "non_curriculum_skills": [
         "click_accuracy"
@@ -137,16 +132,15 @@
           "1/3",
           "1/4"
         ],
-        "target_count": 4,
-        "workspace_requirements": "Pre-partitioned 0-1 line with interval bands visible and numbered"
+        "target_count": 3
       }
     },
     "prompt_examples": [
-      "Click where one-half goes. Count one space from zero.",
-      "Find one-third. It's one space from zero.",
-      "Place one-fourth. That's one space."
+      "Click where one-half goes. One interval from zero.",
+      "Select 1/4 on the number line. One interval from zero.",
+      "Place one-fourth. One interval from zero."
     ],
-    "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed. Interval bands are visually highlighted and may be numbered (1, 2, 3...) to support counting.",
+   "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
@@ -156,8 +150,7 @@
         ],
         "orientation": "horizontal",
         "tick_marks": "pre-placed",
-        "labeled_endpoints": true,
-        "scaffold": "interval_bands_numbered"
+        "labeled_endpoints": true
       }
     ],
     "action_list": [
@@ -169,10 +162,10 @@
       "tone": "warm, encouraging",
       "examples": [
         "You found it! One space from zero.",
-        "That's it—one-half.",
-        "Perfect. One-third is one space."
+        "That's right, one-half is one interval from zero.",
+        "Good. One-third is one space from zero."
       ],
-      "feedback_visual": "Point highlighted, interval band flashes"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -189,13 +182,14 @@
     },
     "design_notes": {
       "vary_by": [
-        "fraction"
+        "fraction",
+        "prompt wording"
       ],
       "hold_constant": [
-        "scaffolded intervals",
-        "simple denominators"
-      ],
-      "difficulty_scaling": "Maximum scaffolding—this is for confidence building only"
+        "0-1 range",
+        "click_tick interaction",
+        "pre-placed ticks"
+      ]
     }
   },
   {
@@ -234,8 +228,7 @@
           "2/4",
           "3/5"
         ],
-        "target_count": 6,
-        "workspace_requirements": "Pre-partitioned 0-1 number line, endpoints labeled only"
+        "target_count": 4
       },
       "stretch": {
         "fractions": [
@@ -243,15 +236,13 @@
           "3/6",
           "3/8"
         ],
-        "target_count": 4,
-        "workspace_requirements": "Pre-partitioned 0-1 number line with more intervals"
+        "target_count": 3
       }
     },
     "prompt_examples": [
       "Place three-fourths on the number line.",
       "Click where two-thirds goes.",
-      "Find three-fifths. Click its position.",
-      "Where is 3/8? Place a point there."
+      "Where is 3/8? Select the correct tick mark."
     ],
     "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
     "workspace_detailed": [
@@ -275,11 +266,11 @@
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
-        "Three-fourths. Three spaces from zero.",
-        "That's two-thirds.",
-        "Right—three spaces gives you three-fifths."
+        "That's three-fourths, three intervals from zero.",
+        "Right, that's 2/3.",
+        "Correct, 3/5 is the third fifth from zero."
       ],
-      "feedback_visual": "Point highlighted at correct position"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -343,16 +334,15 @@
           "3/4",
           "2/4"
         ],
-        "target_count": 4,
-        "workspace_requirements": "Pre-partitioned 0-1 line with interval bands highlighted"
+        "target_count": 3
       }
     },
     "prompt_examples": [
-      "Place three-fourths. Count three spaces from zero.",
-      "Find two-thirds. That's two spaces.",
-      "Click where 3/4 goes. Count: 1, 2, 3."
+      "Place three-fourths, three intervals from zero.",
+      "Select 2/3 on the number line. That's two spaces.",
+      "Click where 3/4 goes. Count the intervals: 1, 2, 3."
     ],
-    "workspace_description": "Horizontal number line from 0 to 1 with interval bands visually highlighted to support counting.",
+    "workspace_description": "Horizontal number line from 0 to 1 with tick marks pre-placed at all fraction positions for the given denominator. Only 0 and 1 are labeled.",
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
@@ -371,14 +361,14 @@
     ],
     "action_description": "Student clicks on tick mark after counting highlighted intervals.",
     "correct_end_state": "Point appears at clicked position; label appears",
-    "success_dialogue": {
-      "tone": "supportive, encouraging",
+"success_dialogue": {
+      "tone": "brief, confirming",
       "examples": [
-        "Three spaces—that's three-fourths.",
-        "You counted it out!",
-        "Two spaces from zero. Two-thirds."
+        "That's three-fourths, three intervals from zero.",
+        "Right, that's 2/3.",
+        "Correct, 3/5 is the third fifth from zero."
       ],
-      "feedback_visual": "Point highlighted, counted intervals flash"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -423,32 +413,38 @@
     },
     "parameter_coverage": {
       "fractions": [
+        "4/3",
         "5/4",
         "6/4",
-        "7/4"
+        "7/4",
+        "7/6"
       ]
     },
     "tier_constraints": {
       "baseline": {
         "fractions": [
-          "5/4"
+          "4/3",
+          "5/4",
+          "6/5",
+          "5/3"
         ],
-        "target_count": 3,
+        "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-2 number line, 0, 1, and 2 labeled"
       },
       "stretch": {
         "fractions": [
           "6/4",
-          "7/4"
+          "7/4",
+          "7/6",
+          "5/3"
         ],
-        "target_count": 3,
+        "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-2 number line, endpoints labeled only"
       }
     },
     "prompt_examples": [
       "Place five-fourths on the number line.",
-      "Where is 5/4? It's past 1.",
-      "Find six-fourths. Click its position.",
+      "Locate 5/4 on the number line.",
       "Click where seven-fourths goes."
     ],
     "workspace_description": "Horizontal number line from 0 to 2 with tick marks pre-placed at all fourths positions (0, 1/4, 2/4, 3/4, 1, 5/4, 6/4, 7/4, 2). Labels at 0, 1, and 2.",
@@ -473,11 +469,11 @@
     "success_dialogue": {
       "tone": "brief, confirming",
       "examples": [
-        "Five-fourths—one space past 1.",
-        "That's six-fourths. Two past one whole.",
-        "Seven-fourths. The pattern keeps going."
+        "Yes, that's five-fourths, one interval past 1.",
+        "Good. That's 6/4, two fourths past 1.",
+        "Right, seven-fourths is seven intervals from 0."
       ],
-      "feedback_visual": "Point highlighted at correct position"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -529,16 +525,19 @@
     },
     "parameter_coverage": {
       "fractions": [
-        "5/4"
+          "5/4",
+          "4/3",
+          "3/2"
       ]
     },
     "tier_constraints": {
       "support": {
         "fractions": [
-          "5/4"
+          "5/4",
+          "4/3",
+          "3/2"
         ],
-        "target_count": 3,
-        "workspace_requirements": "Pre-partitioned 0-2 line with interval bands and 4/4=1 labeled"
+        "target_count": 3
       }
     },
     "prompt_examples": [
@@ -546,7 +545,7 @@
       "5/4 is one more than 4/4. Click where it goes.",
       "Place five-fourths. Count five spaces from zero."
     ],
-    "workspace_description": "Extended number line 0-2 with interval bands visible and 4/4=1 relationship shown.",
+    "workspace_description": "Extended number line 0-2 with 1 labelled.",
     "workspace_detailed": [
       {
         "toy": "extended_number_line",
@@ -568,11 +567,11 @@
     "success_dialogue": {
       "tone": "supportive",
       "examples": [
-        "Five-fourths! One past one whole.",
-        "You found it—past 1.",
-        "That's five spaces from zero."
+        "Good, you correctly selected five-fourths!",
+        "Correct, that's 3/2. Halfway between 1 and 2.",
+        "Nice, you placed four-thirds on the number line."
       ],
-      "feedback_visual": "Point highlighted, path from 0 shown"
+      "feedback_visual": "Fraction label appears at the correct position"
     },
     "misconceptions_targeted": [
       {
@@ -629,20 +628,18 @@
           4,
           5
         ],
-        "target_count": 4,
-        "workspace_requirements": "Pre-partitioned 0-1 number line, MCQ with 3 options"
+        "target_count": 3
       },
       "stretch": {
         "denominators": [
           6,
           8
         ],
-        "target_count": 2,
-        "workspace_requirements": "Pre-partitioned 0-1 number line with more tick marks"
+        "target_count": 2
       }
     },
     "prompt_examples": [
-      "How many equal spaces are between 0 and 1?",
+      "What would be the denominator of a fraction on this number line?",
       "Count the intervals. How many are there?",
       "Look at this number line. How many spaces from 0 to 1?"
     ],
@@ -841,7 +838,7 @@
           "3/4",
           "1/5"
         ],
-        "target_count": 3,
+        "target_count": 5,
         "workspace_requirements": "Pre-partitioned 0-1 line with point shown, MCQ with 3 fraction options"
       },
       "stretch": {
@@ -851,7 +848,7 @@
           "5/6",
           "3/8"
         ],
-        "target_count": 2,
+        "target_count": 4,
         "workspace_requirements": "Pre-partitioned 0-1 line with more intervals"
       }
     },
