@@ -12,11 +12,11 @@ if str(project_root) not in sys.path:
 
 from core.prompt_builder import Prompt
 
-NEW_PROMPT_PROMPT = Prompt(
-    role="""test""",
+TEST_PROMPT_PROMPT = Prompt(
+    role="""You are a test prompt for a pipeline.""",
 
     instructions="""
-test
+Please summarize the information you have received, and greet it as if it was a person.
 """,
 
     doc_refs=['test'],
