@@ -21,7 +21,7 @@ def get_template_by_id(module_number, template_id, required=True):
         The template object, or None if not found and not required
     """
     template_path = os.path.join(
-        "inputs", "modules", f"module{module_number}", "problem_templates.json"
+        "modules", f"module{module_number}", "problem_templates.json"
     )
 
     if not os.path.exists(template_path):
@@ -118,7 +118,7 @@ def get_all_fields(module_number, template_id):
 def get_all_templates(module_number):
     """Get all templates from a module's problem_templates.json."""
     template_path = os.path.join(
-        "inputs", "modules", f"module{module_number}", "problem_templates.json"
+        "modules", f"module{module_number}", "problem_templates.json"
     )
 
     if not os.path.exists(template_path):

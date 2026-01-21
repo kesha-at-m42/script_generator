@@ -3,7 +3,7 @@ Module Data - All Modules
 
 This file re-exports from starter_packs/ for backwards compatibility.
 For new code, import directly from:
-    from inputs.modules.starter_packs import MODULES
+    from modules.starter_packs import MODULES
 """
 
 import sys
@@ -14,7 +14,7 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from inputs.modules.starter_packs import (
+from modules.starter_packs import (
     MODULES,
     module_1,
     module_2,

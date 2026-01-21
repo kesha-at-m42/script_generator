@@ -37,7 +37,7 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
     print("="*70 + "\n")
 
     # Verify input file
-    input_file = "inputs/modules/module4/problem_templates.json"
+    input_file = "modules/module4/problem_templates.json"
     if not Path(input_file).exists():
         print(f"ERROR: Input file not found: {input_file}")
         return None

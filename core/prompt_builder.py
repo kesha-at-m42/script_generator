@@ -128,8 +128,8 @@ class PromptBuilderV2:
 
         # Base directories
         self.project_root = Path(__file__).parent.parent
-        self.docs_dir = self.project_root / "inputs" / "docs"
-        self.modules_dir = self.project_root / "inputs" / "modules"
+        self.docs_dir = self.project_root / "docs"
+        self.modules_dir = self.project_root / "modules"
         self.prompts_dir = self.project_root / "steps" / "prompts"
 
         # Build module paths

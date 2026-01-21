@@ -37,7 +37,7 @@ result = run_pipeline(
     steps=[
         Step(
             prompt_name="generate_problem",
-            input_file="inputs/modules/module4/problem_templates.json",
+            input_file="modules/module4/problem_templates.json",
             batch_mode=True,                      # Enable batch processing
             batch_id_field="template_id",         # Field to use as ID
             batch_output_id_field="problem_id",   # Add sequential IDs
@@ -216,7 +216,7 @@ result = run_pipeline(
     steps=[
         Step(
             prompt_name="generate_interaction",
-            input_file="inputs/modules/module4/problem_templates.json",
+            input_file="modules/module4/problem_templates.json",
             batch_mode=True,
             batch_id_field="template_id",
             batch_output_id_field="interaction_id",

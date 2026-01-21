@@ -2,7 +2,7 @@
 Pipelines - CLI runner for pipelines
 
 Usage:
-    python scripts/run_pipeline.py
+    python cli/run_pipeline.py
 
 Note: Pipelines are now centralized in ui/saved_pipelines.json
       Edit pipelines through the UI or directly in the JSON file

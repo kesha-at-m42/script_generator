@@ -142,7 +142,7 @@ script_generator/
 ## 🔄 Pipeline Steps
 
 ### 1. Question Generator
-**Input**: Learning goals from `inputs/modules/moduleN/problem_templates.json`
+**Input**: Learning goals from `modules/moduleN/problem_templates.json`
 **Output**: `questions.json` - Assessment questions for each goal
 **Processing**: Item-by-item (one goal at a time)
 
@@ -269,7 +269,7 @@ result = runner.run_pipeline([
         "name": "Question Generator",
         "prompt_id": "question_generator",
         "processing_mode": "item_by_item",
-        "input_file": "inputs/modules/module2/problem_templates.json",
+        "input_file": "modules/module2/problem_templates.json",
         "item_key": "goals",
         "extract_fields": {"goal_id": "id", "goal": "text"},
         "collect_key": "questions",
@@ -345,17 +345,17 @@ These are excluded in `.gitignore`.
 - `*_MODULE_REF`: Add/remove variables for reference from modules.py
 - `*_EXAMPLES`: Add more examples or modify existing ones
 
-**Documentation Files** (`inputs/docs/*.md`):
+**Documentation Files** (`docs/*.md`):
 - Add new sections, update guidelines, refine language patterns
 - These are included in prompts as reference material
 - To add new documents, follow this process.
 
   **Step-by-Step Process:**
 
-  1. **Create the documentation file** in `inputs/docs/`:
+  1. **Create the documentation file** in `docs/`:
      ```bash
      # Example: Create a new events reference
-     inputs/docs/my_events_guide.md
+     docs/my_events_guide.md
 
   2. Add the file to the prompt's DOCS list:
   # In inputs/prompts/your_prompt.py
@@ -389,7 +389,7 @@ These are excluded in `.gitignore`.
   Refer to <visual_guide> for tangible types and properties.
   """
 
-**Module Data** (`inputs/modules/moduleN/`):
+**Module Data** (`modules/moduleN/`):
 - `problem_templates.json`: Add/modify learning goals
 - `modules.py`: Change fields
 

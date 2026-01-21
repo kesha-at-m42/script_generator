@@ -133,7 +133,7 @@ with tab1:
     st.caption("View and explore module data from modules.py")
 
     # Import modules
-    modules_file = project_root / "inputs" / "modules" / "modules.py"
+    modules_file = project_root / "modules" / "modules.py"
 
     if modules_file.exists():
         try:
@@ -408,7 +408,7 @@ with tab2:
 
                     if uploaded_files:
                         if st.button("💾 Save Uploaded Files"):
-                            docs_dir = project_root / "inputs" / "docs"
+                            docs_dir = project_root / "docs"
                             docs_dir.mkdir(parents=True, exist_ok=True)
 
                             uploaded_names = []
@@ -436,7 +436,7 @@ with tab2:
 
                 with col_list:
                     st.markdown("**Available Documents**")
-                    docs_dir = project_root / "inputs" / "docs"
+                    docs_dir = project_root / "docs"
                     if docs_dir.exists():
                         doc_files = sorted([f.name for f in docs_dir.iterdir() if f.is_file()])
                         if doc_files:
