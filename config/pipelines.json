@@ -150,5 +150,23 @@
       "output_file": "voice.json",
       "model": "claude-opus-4-5-20251101"
     }
+  ],
+  "test_problem_generator": [
+    {
+      "name": "problem_generator",
+      "type": "ai",
+      "prompt_name": "problem_generator",
+      "description": "Generates specific problem instances from a problem template",
+      "variables": {},
+      "input_file": "modules/module4/problem_templates_v2.json",
+      "output_file": "problem_instances.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "template_id",
+      "batch_output_id_field": "problem_instance_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    }
   ]
 }
