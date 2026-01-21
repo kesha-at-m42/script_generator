@@ -1,24 +1,95 @@
-"""
-warmup_generator - AI Prompt
-"""
+# Prompt: lesson_generator
+# Generated: 2026-01-21T16:11:17.953496
+======================================================================
 
-import sys
-from pathlib import Path
+## API Parameters
+- temperature: 1
+- max_tokens: 18000
 
-# Add parent directory to path to find core module
-project_root = Path(__file__).parent.parent.parent
-if str(project_root) not in sys.path:
-    sys.path.insert(0, str(project_root))
+======================================================================
 
-from core.prompt_builder import Prompt
+## System Prompt
 
-WARMUP_GENERATOR_PROMPT = Prompt(
-    role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
+### Block 1: Role
+Purpose: Establishes AI role and task context
+Cacheable: Yes
 
-    instructions="""
+# ROLE & CONTEXT
+
+You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.
+
+----------------------------------------------------------------------
+
+### Block 2: Output Schema
+Purpose: Defines expected output structure
+Cacheable: Yes
+*[CACHED: {'type': 'ephemeral'}]*
+
+# OUTPUT STRUCTURE
+
+<output_structure>
 
 
-Convert each of the interactions listed in <warmup_specs> into the structured JSOn format.
+
+{
+  "sequences": [
+    {
+      "interaction_id": 1,
+      "interaction_name": "Pithy name (3-6 words)",
+      "fractions": [],
+      "vocabulary_introduced": [],
+      "steps": [
+        {
+          "dialogue": "Guide dialogue with [event:name] tags for demonstrations",
+          "prompt": "Student action instruction",
+          "interaction_tool": "cut|shade|select|multi_select|click_choice|none",
+          "workspace": [
+            {
+            "toy_id": "rect_unequal_2",
+            "toy_shape": "rectangle",
+            "toy_description": "Rectangle divided into 2 unequal parts",
+            "divided": true,
+            "division_count": 2,
+            "is_divided_equal": false,
+            "horizontal_cuts": [],
+            "vertical_cuts": ["1/3", "2/3"],
+            "radial_cuts": [],
+            "shaded": []
+          }
+          ],
+          "correct_answer": {
+            "value": "expected_answer",
+            "context": "Why this is correct"
+          },
+          "student_attempts": {
+            "success_path": {
+              "dialogue": "Brief positive feedback"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+  
+
+</output_structure>
+
+----------------------------------------------------------------------
+
+## User Message
+
+<input>
+<lesson>
+Test lesson content here.
+This is just a test to verify the metadata works.
+</lesson>
+</input>
+
+
+
+
+Convert each of the interactions listed in <lesson> into the structured JSOn format.
 
 For each interaction,
  #### Step 1: Understand Intent
@@ -49,7 +120,7 @@ For each interaction,
  {
    "toy_id": "descriptive_id",
    "toy_shape": "rectangle|hexagon",
-   "toy_description": "Clear description from warmup_specs",
+   "toy_description": "Clear description from <lesson>",
    "divided": true|false,
    "division_count": N,
    "is_divided_equal": true|false,
@@ -64,7 +135,7 @@ For each interaction,
  Refer back to:
  - **Visual**: What student sees
  - **Purpose**: Why this interaction exists
- - **Content**: What warmup_specs says should happen
+ - **Content**: What <lesson> says should happen
 
  Write:
  1. **dialogue**: Guide speaks (include [event:name] tags if demonstration)
@@ -109,67 +180,7 @@ For each interaction,
   Your entire response must be ONLY the JSON object starting with { and ending with }.
 
 
-""",
-
-    doc_refs=['visuals.md'],  # Only static reference docs - warmup_specs is input data
-
-    output_structure="""
 
 
-{
-  "sequences": [
-    {
-      "interaction_id": 1,
-      "interaction_name": "Pithy name (3-6 words)",
-      "fractions": [],
-      "vocabulary_introduced": [],
-      "steps": [
-        {
-          "dialogue": "Guide dialogue with [event:name] tags for demonstrations",
-          "prompt": "Student action instruction",
-          "interaction_tool": "cut|shade|select|multi_select|click_choice|none",
-          "workspace": [
-            {
-            "toy_id": "rect_unequal_2",
-            "toy_shape": "rectangle",
-            "toy_description": "Rectangle divided into 2 unequal parts",
-            "divided": true,
-            "division_count": 2,
-            "is_divided_equal": false,
-            "horizontal_cuts": [],
-            "vertical_cuts": ["1/3", "2/3"],
-            "radial_cuts": [],
-            "shaded": []
-          }
-          ],
-          "correct_answer": {
-            "value": "expected_answer",
-            "context": "Why this is correct"
-          },
-          "student_attempts": {
-            "success_path": {
-              "dialogue": "Brief positive feedback"
-            }
-          }
-        }
-      ]
-    }
-  ]
-}
-  
-""",
+======================================================================
 
-    prefill="""""",
-
-    examples=[],
-
-    module_ref={},
-
-    template_ref={},
-
-    cache_docs=True,
-    cache_ttl="5m",
-    temperature=1,
-    max_tokens=18000,
-    stop_sequences=[]
-)

@@ -37,6 +37,7 @@ def load_pipelines_from_json():
                 step = Step(
                     prompt_name=step_data.get("prompt_name"),
                     variables=step_data.get("variables", {}),
+                    input_file=step_data.get("input_file"),
                     output_file=step_data.get("output_file"),
                     model=step_data.get("model")
                 )

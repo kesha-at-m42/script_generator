@@ -317,6 +317,12 @@ def run_pipeline(
 
         # Auto-chain: If input_file is None, use previous step's output_file
         input_file = step.input_file
+
+        # Substitute variables in input_file path (e.g., module{module_number})
+        if input_file and module_number is not None and path_letter:
+            input_file = input_file.replace("{module_number}", str(module_number))
+            input_file = input_file.replace("{path_letter}", path_letter.lower())
+
         if input_file is None and last_output_file is not None:
             input_file = last_output_file
             if verbose:

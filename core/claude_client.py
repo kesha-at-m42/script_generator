@@ -87,7 +87,12 @@ class ClaudeClient:
 
         # Add system if provided (supports both list and string)
         if system:
-            api_params["system"] = system
+            # Strip metadata from system blocks before sending to API
+            # The API only accepts: type, text, cache_control
+            if isinstance(system, list):
+                api_params["system"] = self._strip_metadata(system)
+            else:
+                api_params["system"] = system
 
         # Add stop_sequences if provided
         if stop_sequences:
@@ -141,6 +146,34 @@ class ClaudeClient:
                 )
             # Re-raise other BadRequestErrors
             raise
+
+    def _strip_metadata(self, system_blocks):
+        """Strip metadata field from system blocks before sending to API
+
+        The Claude API only accepts specific fields (type, text, cache_control).
+        Our internal metadata field is useful for debugging/display but must be
+        removed before sending to the API.
+
+        Args:
+            system_blocks: List of system blocks with potential metadata
+
+        Returns:
+            List of system blocks with metadata removed
+        """
+        cleaned_blocks = []
+        for block in system_blocks:
+            # Create new block with only API-accepted fields
+            cleaned_block = {
+                "type": block["type"],
+                "text": block["text"]
+            }
+            # Preserve cache_control if present
+            if "cache_control" in block:
+                cleaned_block["cache_control"] = block["cache_control"]
+
+            cleaned_blocks.append(cleaned_block)
+
+        return cleaned_blocks
 
     def _track_usage(self, usage):
         """Track token usage including cache stats"""
