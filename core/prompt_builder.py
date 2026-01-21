@@ -190,63 +190,79 @@ class PromptBuilderV2:
         #         print(f"  [WARN] template_ref specified but goal_id not found in variables")
 
         # Build system blocks (for caching)
+        # Order: Role -> Reference Docs -> Task Instructions -> Examples -> Output Structure (all static)
         system_blocks = []
 
-        # 1. Role (not cached separately)
+        # 1. Role & Context (static)
         if prompt.role:
             role_text = self._substitute_variables(prompt.role, variables)
-            system_blocks.append({
-                "type": "text",
-                "text": role_text
-            })
+            system_blocks.append(
+                self._create_block(
+                    text=role_text,
+                    block_type="role",
+                    purpose="Establishes AI role and task context"
+                )
+            )
 
-        # 2. Docs (each doc as separate block for granular caching)
+        # 2. Reference Documentation (static, cacheable)
         if prompt.doc_refs:
             doc_blocks = self._load_docs_as_blocks(prompt.doc_refs)
             system_blocks.extend(doc_blocks)
 
-        # 2.5. Input content (from input_file in pipeline)
-        if input_content:
-            system_blocks.append({
-                "type": "text",
-                "text": f"<input>\n{input_content}\n</input>"
-            })
+        # 3. Task Instructions (static, cacheable)
+        if prompt.instructions:
+            instructions_text = self._substitute_variables(prompt.instructions, variables)
+            system_blocks.append(
+                self._create_block(
+                    text=instructions_text,
+                    block_type="instructions",
+                    purpose="Step-by-step task instructions"
+                )
+            )
 
-        # 3. Examples (static, in system for caching)
+        # 4. Examples (static, cacheable)
         if prompt.examples:
             examples_text = self._format_examples(prompt.examples, variables)
-            system_blocks.append({
-                "type": "text",
-                "text": f"<examples>\n{examples_text}\n</examples>"
-            })
+            system_blocks.append(
+                self._create_block(
+                    text=f"<examples>\n{examples_text}\n</examples>",
+                    block_type="examples",
+                    purpose="Demonstration of expected output format"
+                )
+            )
 
-        # 4. Output structure (static, in system for caching)
+        # 5. Output Structure (static, cacheable)
         if prompt.output_structure:
             structure_text = self._substitute_variables(prompt.output_structure, variables)
-            system_blocks.append({
-                "type": "text",
-                "text": f"<output_structure>\n{structure_text}\n</output_structure>"
-            })
+            system_blocks.append(
+                self._create_block(
+                    text=f"<output_structure>\n{structure_text}\n</output_structure>",
+                    block_type="output_schema",
+                    purpose="Defines expected output structure"
+                )
+            )
 
-        # 5. Add cache_control to last static block (if caching enabled)
+        # 6. Add cache_control to last block (if caching enabled)
+        # All system blocks are now static and cacheable
         if prompt.cache_docs and system_blocks:
             cache_control = {"type": "ephemeral"}
             if prompt.cache_ttl == "1h":
                 cache_control["ttl"] = "1h"
             system_blocks[-1]["cache_control"] = cache_control
 
-        # 5. Build user message (dynamic, changes per item)
-        if prompt.instructions:
-            user_message = self._substitute_variables(prompt.instructions, variables)
+        # 7. Build user message (dynamic - just the input data)
+        # User message contains ONLY the input content that changes per request
+        if input_content:
+            user_message = f"<input>\n{input_content}\n</input>"
         else:
             user_message = ""
 
-        # 4. Handle prefill
+        # 8. Handle prefill
         final_prefill = None
         if prompt.prefill:
             final_prefill = self._substitute_variables(prompt.prefill, variables).rstrip()
 
-        # 5. API parameters
+        # 9. API parameters
         api_params = {}
         if prompt.temperature is not None:
             api_params["temperature"] = prompt.temperature
@@ -336,14 +352,84 @@ class PromptBuilderV2:
             content = self._load_single_doc(doc_ref)
             if content:
                 tag = Path(doc_ref).stem
-                blocks.append({
-                    "type": "text",
-                    "text": f"<{tag}>\n{content}\n</{tag}>"
-                })
+                blocks.append(
+                    self._create_block(
+                        text=f"<{tag}>\n{content}\n</{tag}>",
+                        block_type="reference_doc",
+                        block_name=doc_ref,
+                        purpose="Reference documentation"
+                    )
+                )
             elif self.verbose:
                 print(f"  [WARN] Doc not found: {doc_ref}")
 
         return blocks
+
+    def _create_block(self, text: str, block_type: str, block_name: str = None,
+                      cacheable: bool = True, purpose: str = None,
+                      add_context_header: bool = True) -> Dict:
+        """Create a block with semantic metadata and optional context header
+
+        Args:
+            text: The actual text content of the block
+            block_type: Type of block (role|reference_doc|input|examples|output_schema|instructions)
+            block_name: Optional name for the block (e.g., filename for docs)
+            cacheable: Whether this block should be cacheable (default: True)
+            purpose: Optional human-readable description of block purpose
+            add_context_header: Whether to add a contextual header to the text (default: True)
+
+        Returns:
+            Dict with type, text, and metadata fields
+        """
+        # Add contextual header to help Claude understand block structure
+        final_text = text
+        if add_context_header:
+            header = self._get_context_header(block_type, block_name)
+            if header:
+                final_text = f"{header}\n\n{text}"
+
+        block = {
+            "type": "text",
+            "text": final_text,
+            "metadata": {
+                "block_type": block_type,
+                "cacheable": cacheable
+            }
+        }
+
+        if block_name:
+            block["metadata"]["block_name"] = block_name
+        if purpose:
+            block["metadata"]["purpose"] = purpose
+
+        return block
+
+    def _get_context_header(self, block_type: str, block_name: str = None) -> str:
+        """Generate contextual header for a block
+
+        Args:
+            block_type: Type of block
+            block_name: Optional name (e.g., filename for docs)
+
+        Returns:
+            Header string or empty string if no header needed
+        """
+        if block_type == "role":
+            return "# ROLE & CONTEXT"
+        elif block_type == "reference_doc":
+            if block_name:
+                return f"# REFERENCE DOCUMENTATION: {block_name}"
+            return "# REFERENCE DOCUMENTATION"
+        elif block_type == "input":
+            return "# INPUT DATA"
+        elif block_type == "examples":
+            return "# EXAMPLES"
+        elif block_type == "output_schema":
+            return "# OUTPUT STRUCTURE"
+        elif block_type == "instructions":
+            return "# TASK INSTRUCTIONS"
+        else:
+            return ""
 
     def _load_docs(self, doc_refs: List[str]) -> str:
         """Load documentation with fallback chain (legacy method)
@@ -546,7 +632,31 @@ class PromptBuilderV2:
                 result = result.replace(placeholder, value_str)
 
         return result
-    
+
+    def _get_blocks_by_type(self, blocks: List[Dict], block_type: str) -> List[Dict]:
+        """Get all blocks of a specific type
+
+        Args:
+            blocks: List of system blocks
+            block_type: Type to filter by (e.g., 'reference_doc', 'role', 'examples')
+
+        Returns:
+            List of blocks matching the specified type
+        """
+        return [b for b in blocks
+                if b.get("metadata", {}).get("block_type") == block_type]
+
+    def _get_cached_blocks(self, blocks: List[Dict]) -> List[Dict]:
+        """Get all blocks with cache_control
+
+        Args:
+            blocks: List of system blocks
+
+        Returns:
+            List of blocks that have cache_control applied
+        """
+        return [b for b in blocks if "cache_control" in b]
+
     def _save_prompt_to_file(self, save_path: str, prompt_name: str, system_blocks: list, user_message: str, prefill: str, api_params: dict):
           """Save the complete prompt to a file in human-readable format
 
@@ -576,11 +686,32 @@ class PromptBuilderV2:
                   # Write system blocks
                   f.write("## System Prompt\n\n")
                   for i, block in enumerate(system_blocks, 1):
-                      f.write(f"### Block {i}\n")
+                      metadata = block.get("metadata", {})
+                      block_type = metadata.get("block_type", "unknown")
+                      block_name = metadata.get("block_name", "")
+                      purpose = metadata.get("purpose", "")
+
+                      # Block header with type
+                      header = f"### Block {i}"
+                      if block_type != "unknown":
+                          header += f": {block_type.replace('_', ' ').title()}"
+                      if block_name:
+                          header += f" ({block_name})"
+
+                      f.write(f"{header}\n")
+
+                      # Purpose and cacheable status
+                      if purpose:
+                          f.write(f"Purpose: {purpose}\n")
+                      if metadata.get("cacheable"):
+                          f.write(f"Cacheable: Yes\n")
+
+                      # Cache control indicator
                       if 'cache_control' in block:
-                          f.write(f"*[CACHED: {block['cache_control']}]*\n\n")
-                      f.write(block['text'])
-                      f.write("\n\n" + "-"*70 + "\n\n")
+                          f.write(f"*[CACHED: {block['cache_control']}]*\n")
+
+                      f.write(f"\n{block['text']}\n\n")
+                      f.write("-"*70 + "\n\n")
 
                   # Write user message
                   f.write("## User Message\n\n")

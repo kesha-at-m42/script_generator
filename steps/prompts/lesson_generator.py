@@ -111,7 +111,7 @@ For each interaction,
 
 """,
 
-    doc_refs=['visuals.md', 'lesson_specs.md'],
+    doc_refs=['visuals.md'],  # Only static reference docs - lesson_specs is input data
 
     output_structure="""
 
