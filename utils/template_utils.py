@@ -8,28 +8,24 @@ import json
 import os
 
 
-def get_template_by_id(module_number, template_id, required=True):
+def get_template_by_id(template_file_path, template_id, required=True):
     """
-    Fetch a specific template by its template_id.
+    Fetch a specific template by its template_id from any JSON array file.
 
     Args:
-        module_number: The module number (4)
+        template_file_path: Full path to template file (e.g., "modules/module4/problem_templates_v2.json")
         template_id: The template ID to fetch (e.g., "4001")
         required: If True, raises error if template not found
 
     Returns:
         The template object, or None if not found and not required
     """
-    template_path = os.path.join(
-        "modules", f"module{module_number}", "problem_templates.json"
-    )
-
-    if not os.path.exists(template_path):
+    if not os.path.exists(template_file_path):
         raise FileNotFoundError(
-            f"problem_templates.json not found at {template_path}"
+            f"Template file not found at {template_file_path}"
         )
 
-    with open(template_path, 'r', encoding='utf-8') as f:
+    with open(template_file_path, 'r', encoding='utf-8') as f:
         templates = json.load(f)
 
     # Find template by ID
@@ -40,7 +36,7 @@ def get_template_by_id(module_number, template_id, required=True):
     if required:
         available_ids = [t.get("template_id") for t in templates]
         raise ValueError(
-            f"Template {template_id} not found in {template_path}. "
+            f"Template {template_id} not found in {template_file_path}. "
             f"Available template IDs: {available_ids}"
         )
     return None
@@ -115,15 +111,15 @@ def get_all_fields(module_number, template_id):
     return list(template.keys())
 
 
-def get_all_templates(module_number):
-    """Get all templates from a module's problem_templates.json."""
+def get_all_templates(module_number, template_file):
+    """Get all templates from a module's template file."""
     template_path = os.path.join(
-        "modules", f"module{module_number}", "problem_templates.json"
+        "modules", f"module{module_number}", template_file
     )
 
     if not os.path.exists(template_path):
         raise FileNotFoundError(
-            f"problem_templates.json not found at {template_path}"
+            f"{template_file} not found at {template_path}"
         )
 
     with open(template_path, 'r', encoding='utf-8') as f:
