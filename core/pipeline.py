@@ -18,12 +18,13 @@ if str(core_dir) not in sys.path:
 
 from prompt_builder import PromptBuilderV2
 
-# Add utils directory to path for json_utils
+# Add utils directory to path for json_utils and template_utils
 utils_dir = Path(__file__).parent.parent / "utils"
 if str(utils_dir) not in sys.path:
     sys.path.insert(0, str(utils_dir))
 
 from json_utils import extract_json, parse_json
+from template_utils import get_template_by_id
 
 import time
 
@@ -159,7 +160,8 @@ def run_pipeline(
       base_version: str = None,
       rerun_items: List[str] = None,
       pipeline_status: str = None,
-      notes: str = None
+      notes: str = None,
+      template_filename: str = "problem_templates_v2.json"
   ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
@@ -178,6 +180,8 @@ def run_pipeline(
         rerun_items: List of item IDs to rerun (enables rerun mode)
         pipeline_status: Status/maturity label (e.g., "alpha", "beta", "rc", "final", "deprecated")
         notes: Optional notes about this version (e.g., "Fixed prompt for template 4002")
+        template_filename: Template filename for template lookup (default: "problem_templates_v2.json")
+                          Path will be constructed as: modules/module{module_number}/{template_filename}
 
     Returns:
         Dict with final_output and metadata
@@ -253,6 +257,13 @@ def run_pipeline(
 
     # Project root for path resolution
     project_root = Path(__file__).parent.parent
+
+    # Construct template path for template lookup
+    template_path = None
+    if module_number is not None and template_filename:
+        template_path = project_root / "modules" / f"module{module_number}" / template_filename
+        if verbose and template_path.exists():
+            print(f"  [TEMPLATES] Using: {template_path.relative_to(project_root)}")
 
     last_output = None
     last_output_file = None
@@ -442,10 +453,37 @@ def run_pipeline(
                         # AI step - call Claude
                         prompt_save_path = prompts_dir / f"{i:02d}_{step.prompt_name}_{item_id}.md"
 
+                        # Load prompt to check for template_ref
+                        prompt = builder._load_prompt(step.prompt_name)
+
+                        # Always pass entire item as input JSON
+                        item_input = json.dumps(item, indent=2, ensure_ascii=False)
+
+                        # Template lookup: If template_ref exists, fetch template fields as variables
+                        if prompt.template_ref and len(prompt.template_ref) > 0:
+                            template_id = item.get("template_id")
+                            if template_id and template_path:
+                                try:
+                                    # Fetch template using constructed template_path
+                                    template = get_template_by_id(str(template_path), template_id)
+                                    # Extract specified fields and add to variables
+                                    template_vars = {k: template[k] for k in prompt.template_ref.keys()
+                                                   if k in template}
+                                    merged_vars.update(template_vars)
+                                    if verbose:
+                                        print(f"    [TEMPLATE] Loaded {template_id}: {list(template_vars.keys())}")
+                                except Exception as e:
+                                    if verbose:
+                                        print(f"    [WARN] Template lookup failed for {template_id}: {e}")
+                            elif not template_id and verbose:
+                                print(f"    [WARN] template_ref specified but no template_id found in item")
+                            elif not template_path and verbose:
+                                print(f"    [WARN] template_ref specified but no template_path configured")
+
                         item_output = builder.run(
                             prompt_name=step.prompt_name,
-                            variables=merged_vars,
-                            input_content=None,  # Don't pass full array, variables have item data
+                            variables=merged_vars,  # Includes template fields if lookup succeeded
+                            input_content=item_input,  # Always full item as input
                             model=step.model,
                             save_prompt_to=str(prompt_save_path)
                         )
@@ -462,33 +500,42 @@ def run_pipeline(
                         # Formatting step - call Python function
                         item_result = _run_formatting_step(step, item, None, module_number, path_letter, project_root, False)
 
-                    # Add sequential ID if specified
-                    if step.batch_output_id_field:
-                        item_result[step.batch_output_id_field] = sequential_id
-                        sequential_id += 1
-
-                    # Keep original ID for traceability
-                    if step.batch_id_field and step.batch_id_field in item:
-                        item_result[f"source_{step.batch_id_field}"] = item[step.batch_id_field]
-
-                    # Save individual result
+                    # Save individual result (unmodified)
                     item_dir = temp_dir / item_id
                     item_dir.mkdir(exist_ok=True)
                     item_output_file = item_dir / f"{i:02d}_output.json"
                     with open(item_output_file, 'w', encoding='utf-8') as f:
                         json.dump(item_result, f, indent=2, ensure_ascii=False)
 
-                    collated_results.append(item_result)
+                    # Collate results with sequential ID assignment
+                    if isinstance(item_result, list):
+                        # Flatten array and assign sequential IDs during collation
+                        for sub_item in item_result:
+                            if isinstance(sub_item, dict) and step.batch_output_id_field:
+                                sub_item[step.batch_output_id_field] = sequential_id
+                                sequential_id += 1
+                            collated_results.append(sub_item)
+                    else:
+                        # Single result - assign sequential ID if dict
+                        if isinstance(item_result, dict):
+                            if step.batch_output_id_field:
+                                item_result[step.batch_output_id_field] = sequential_id
+                                sequential_id += 1
+                            if step.batch_id_field and step.batch_id_field in item:
+                                item_result[f"source_{step.batch_id_field}"] = item[step.batch_id_field]
+                        collated_results.append(item_result)
                     processed_count += 1
 
                     if verbose:
                         print(f"    [OK] Completed")
 
                 except Exception as e:
+                    import traceback
                     error_info = {
                         "item_id": item_id,
                         "item_index": item_idx,
                         "error": str(e),
+                        "traceback": traceback.format_exc(),
                         "step": i
                     }
                     errors.append(error_info)

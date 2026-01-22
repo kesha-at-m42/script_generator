@@ -129,26 +129,23 @@ Generate problem instances NOW with maximum quality and coverage!
     doc_refs=[],
 
     output_structure="""
-{
-  "template_id": "4001",
-  "problem_instances": [
-    {
-      "problem_instance_id": 1,
-      "template_id": "4001",
-      "parameter_used": {
-        "fractions": "1/3"
-      },
-      "prompt": "Place one-third on the number line.",
-      "workspace_state": "Horizontal number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only 0 and 1 are labeled.",
-      "success_feedback": "That's right, one-third. One interval from zero.",
-      "mastery_tier": ["baseline", "support"],
-      "mastery_verb": "create"
-    }
-  ]
-}
+[
+  {
+    "problem_instance_id": 1,
+    "template_id": "4001",
+    "parameter_used": {
+      "fractions": "1/3"
+    },
+    "prompt": "Place one-third on the number line.",
+    "workspace_state": "Horizontal number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only 0 and 1 are labeled.",
+    "success_feedback": "That's right, one-third. One interval from zero.",
+    "mastery_tier": ["baseline", "support"],
+    "mastery_verb": "create"
+  }
+]
 """,
 
-    prefill="""{"template_id":""",
+    prefill="""[{"problem_instance_id":""",
 
     examples=[],
 
