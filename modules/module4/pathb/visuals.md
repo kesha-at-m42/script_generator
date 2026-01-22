@@ -1,16 +1,63 @@
-# Visual Constraints - Module 4 Path B
+# Visuals
 
-## Tangible Types
-- Number lines
+> A designer reference for different shapes, their division methods, and available student actions for the given module and path.
 
-## Description
-Number lines are the primary visual for this module. Number lines show equal intervals with tick marks and fraction positions.
+---
+  ## Shape: Number Line
 
-## Constraints
-- Number lines are always labelled with 0 and 1
-- All fractions are shown as positions on number lines
-- Numerators can be less than or equal to denominators
-- Denominators of 2, 3, 4, 6, or 8 determine number of equal intervals in the unit segment
-- A maximum of 3 number lines can be shown for comparison
-- Some of the ticks can be labelled with fractions depending on the problem
-- Ticks can be highlighted to support the question being asked
+  A 1D visual representation showing equal intervals with tick marks and fraction positions.
+
+  ### Properties
+  - **State**: Can be whole (showing only endpoints) or divided with tick marks
+  - **Range**: The numerical bounds [start, end], typically [0, 1] but can extend to show fractions greater than 1
+
+  ### Ticks
+  Marks at specific positions on the number line.
+
+  #### ticks
+  Vertical marks indicating specific positions.
+  - **Type**: Fraction OR array of fractions
+  - **Description**: Marks at fraction positions on the number line
+  - **Always includes**: Ticks at start and end points (e.g., 0 and 1)
+
+  #### points
+  Additional visual emphasis by placing dots or points on specific ticks.
+
+  - **Type**: Array of fractions (must correspond to tick positions)
+  - **Description**: Highlights specific ticks with dots
+
+  #### labels
+  Text annotations on specific ticks.
+
+  - **Type**: Array of fractions (must correspond to tick positions)
+  - **Description**: Display fraction values as text at tick positions
+  - **Boolean**: Enable/disable labels for all ticks
+ 
+  ### Example Configurations
+
+  **Basic number line with thirds:**
+  ```
+  range: [0, 1]
+  ticks: [0, 1/3, 2/3, 1]
+  // Creates: Number line from 0 to 1 with tick marks at thirds
+  ```
+
+  **Number line with partly labeled and emphasized points:**
+  ```
+  range: [0, 1]
+  ticks: [0, 1/4, 1/2, 3/4, 1]
+  points: [1/4, 3/4]
+  labels: [1/4, 3/4]
+  // Creates: Number line with fourths, highlighting and labeling 1/4 and 3/4
+  ```
+
+  ### Constraints
+  - Number lines are always labeled with start and end values (typically 0 and 1)
+  - Denominators are commonly limited to: 2, 3, 4, 6, or 8
+  - Maximum of 3 number lines can be shown for comparison
+  - Points and labels can only be attached to existing ticks
+
+  ### Allowed Student Actions
+  - **Select**: Choose which number line to work with when multiple are displayed
+  - **Point**: Point at specific tick marks by placing points on them
+  - **Label**: Label tick marks by dragging fraction labels from a palette onto them

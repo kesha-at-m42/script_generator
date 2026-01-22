@@ -126,7 +126,7 @@ Given template with parameter_coverage: {"fractions": ["1/2", "1/3", "1/4"]}, ge
 Generate problem instances NOW with maximum quality and coverage!
 """,
 
-    doc_refs=[],
+    doc_refs=["difficulty_levels.md", "visuals.md"],
 
     output_structure="""
 [

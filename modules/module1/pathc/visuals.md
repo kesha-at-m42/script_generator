@@ -9,33 +9,68 @@
 
   ### Properties
   - **Orientation**: Can be horizontal (default) or vertical
-  - **State**: Can be whole (undivided) or divided into parts
-  - **Available cut types**: Horizontal, Vertical
+  - **State**: Can be whole (undivided) or divided into equal intervals or divided into unequal intervals
 
-  ### Division Properties
-  - **Total intervals**: The number of distinct sections created by all cuts
+  ### Intervals
+  The distinct parts (sections) of the rectangle. Intervals are created by dividing horizontally (rows), vertically (columns), or both (grid).
 
-  - **Equal or unequal intervals**: Intervals can be equally or unequally sized
-    - **Equal intervals examples** (achieving 12 total intervals):
-      - 3 equally-spaced vertical cuts (4 equal columns) + 2 equally-spaced horizontal cuts (3 equal rows) = 12 equal parts
-      - 5 equally-spaced vertical cuts (6 equal columns) + 1 equally-spaced horizontal cut (2 equal rows) = 12 equal parts
+  #### horizontal_intervals
+  Row divisions across the height of the rectangle.
 
-    - **Unequal intervals examples** (achieving 12 total intervals):
-      - 5 unequally-spaced vertical cuts + 1 partial horizontal cut spanning only columns 1-5 = 12 unequal parts
-      - 3 equally-spaced vertical cuts (4 equal columns) + 2 unequally-spaced horizontal cuts = 12 unequal parts
+  - **Type**: Array of fractions OR nested array of arrays of fractions
+  - **Description**: Defines how the rectangle is divided into horizontal rows
+  - **Simple array**: Creates full-width rows that span the entire width
+    - Fractions represent the height of each row (must sum to 1)
+    - Example: `[1/3, 1/3, 1/3]` creates 3 equal rows
+  - **Nested array**: When vertical_intervals is a simple array, defines different column divisions within each row
+    - Each element is an array of fractions for that row's columns
+    - Example: `[[1/2, 1/2], [1], [1/3, 1/3, 1/3]]` = row 0 has 2 columns, row 1 is undivided, row 2 has 3 columns
+  - **Undivided**: Use `[1]` for no horizontal divisions
 
-  - **Vertical cuts**: Cut across the width to create columns
-    - Example: 3 vertical cuts = 4 columns
-    - Can be equally or unequally spaced
-    - Can be full cuts (spanning entire height) or partial cuts (spanning specific rows only)
+  #### vertical_intervals
+  Column divisions across the width of the rectangle.
 
-  - **Horizontal cuts**: Cut across the height to create rows
-    - Example: 2 horizontal cuts = 3 rows
-    - Can be equally or unequally spaced
-    - Can be full cuts (spanning entire width) or partial cuts (spanning specific columns only)
+  - **Type**: Array of fractions OR nested array of arrays of fractions
+  - **Description**: Defines how the rectangle is divided into vertical columns
+  - **Simple array**: Creates full-height columns that span the entire height
+    - Fractions represent the width of each column (must sum to 1)
+    - Example: `[1/4, 1/4, 1/2]` creates 3 unequal columns
+  - **Nested array**: When horizontal_intervals is a simple array, defines different row divisions within each column
+    - Each element is an array of fractions for that column's rows
+    - Example: `[[1/2, 1/2], [1/3, 1/3, 1/3], [1]]` = column 0 has 2 rows, column 1 has 3 rows, column 2 is undivided
+  - **Undivided**: Use `[1]` for no vertical divisions
 
-  - **Shaded intervals**: Which parts are shaded in the default layout
-    - Example: "2 out of 4 parts shaded" or "row 2 in column 1 and row 5 in column 3 shaded"
+  #### shaded_intervals
+  Which intervals are filled in versus left empty.
+
+  - **Type**: Array of integers (indices) OR position descriptor string
+  - **Description**: Specifies which of the created intervals should be shaded
+  - **Examples**:
+    - `[0, 2, 5]` shades intervals at indices 0, 2, and 5
+    - `"row 1, column 2"` shades the interval at that position
+
+  ### Example Configurations
+
+  **Full grid** (both simple arrays):
+  ```
+  horizontal_intervals: [1/3, 1/3, 1/3]
+  vertical_intervals: [1/4, 1/4, 1/4, 1/4]
+  // Creates: 3 × 4 = 12 intervals
+  ```
+
+  **Row-first with custom columns** (horizontal simple, vertical nested):
+  ```
+  horizontal_intervals: [1/3, 1/3, 1/3]
+  vertical_intervals: [[1/2, 1/2], [1], [1/6, 2/6, 3/6]]
+  // Creates: 2 + 1 + 3 = 6 intervals
+  ```
+
+  **Column-first with custom rows** (vertical simple, horizontal nested):
+  ```
+  vertical_intervals: [1/4, 1/4, 1/2]
+  horizontal_intervals: [[1/2, 1/2], [1/3, 1/3, 1/3], [1]]
+  // Creates: 2 + 3 + 1 = 6 intervals
+  ```
 
   ### Constraints
   - Cuts across longer side: maximum 7 (creates up to 8 intervals)
@@ -44,8 +79,8 @@
     - Shorter side = height when horizontal orientation, width when vertical orientation
 
   ### Allowed Student Actions
-  - **Cut**: Divide the whole into parts using available cut types
-  - **Shade**: Select parts to shade or unshade
+  - **Cut**: Divide the whole into intervals using available cut types
+  - **Shade**: Select intervals to shade or unshade
   - **Select**: Select the whole shape for interaction
 ---
 
@@ -55,35 +90,55 @@
 
   ### Properties
   - **Orientation**: Can be flat-top (default) or pointy-top
-  - **State**: Can be whole (undivided) or divided into parts
-  - **Available cut types**: Radial
+  - **State**: Can be whole (undivided) or divided into intervals
 
-  ### Division Properties
-  - **Total intervals**: The number of distinct sections created by all cuts
+  ### Intervals
+  The distinct wedge-shaped parts (sections) of the hexagon. Intervals are created by radial cuts from the center outward.
 
-  - **Equal or unequal intervals**: Intervals can be equally or unequally sized depending on cut placement
-    - **Equal intervals examples** (cuts along symmetry axes):
-      - 2 radial cuts along symmetry axes = 2 equal parts (halves)
-      - 3 radial cuts along symmetry axes = 3 equal parts (thirds)
-      - 6 radial cuts along symmetry axes = 6 equal parts (sixths)
-    - **Unequal intervals examples** (cuts not along symmetry axes):
-      - 2 radial cuts at non-symmetrical angles = 2 unequal parts
-      - 3 radial cuts at non-symmetrical angles = 3 unequal parts
-      - Up to 5 radial cuts can create up to 5 unequal parts
+  #### radial_intervals
+  Wedge divisions radiating from the center to the edges.
 
-  - **Radial cuts**: Cuts from center outward (toward vertices or edges)
-    - Example: 2 radial cuts = 2 parts
-    - Can follow symmetry axes (creating equal parts) or be placed freely (creating unequal parts)
+  - **Type**: Array of fractions
+  - **Description**: Defines how the hexagon is divided into wedge-shaped sections
+  - **Simple array**: Each fraction represents the angular proportion of the whole (must sum to 1)
+  - **Undivided**: Use `[1]` for no divisions
 
-  - **Shaded intervals**: Which parts are shaded in the default layout
-    - Example: "1 of 3 parts shaded"
+  #### shaded_intervals
+  Which intervals are filled in versus left empty.
+
+  - **Type**: Array of integers (indices) OR position descriptor string
+  - **Description**: Specifies which of the created intervals should be shaded
+  - **Examples**:
+    - `[0, 2]` shades intervals at indices 0 and 2
+    - `"wedge 1 of 3"` shades the interval at that position
+
+  ### Example Configurations
+
+  **Equal division - halves:**
+  ```
+  radial_intervals: [1/2, 1/2]
+  // Creates: 2 equal wedges
+  ```
+
+  **Equal division - thirds:**
+  ```
+  radial_intervals: [1/3, 1/3, 1/3]
+  // Creates: 3 equal wedges
+  ```
+
+  **Unequal division:**
+  ```
+  radial_intervals: [1/2, 1/4, 1/4]
+  // Creates: 3 unequal wedges
+  ```
 
   ### Constraints
-  - Maximum radial cuts: 6 (creates up to 6 parts)
-  - Symmetrical divisions only allow: 2, 3, or 6 equal parts
-  - Unequal divisions allow: 2 to 5 unequal parts
+  - Maximum intervals: 6 (array length ≤ 6)
+  - Symmetrical equal divisions only allow: 2, 3, or 6 equal intervals
+  - Unequal divisions allow: 2 to 5 intervals
+  - All fractions must sum to 1
 
   ### Allowed Student Actions
-  - **Cut**: Divide the whole into parts using radial cuts from center
-  - **Shade**: Select parts to shade or unshade
+  - **Cut**: Divide the whole into intervals using radial cuts from center
+  - **Shade**: Select intervals to shade or unshade
   - **Select**: Select the whole shape for interaction
