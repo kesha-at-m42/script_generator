@@ -34,64 +34,89 @@ The problem template contains:
 - **workspace_description**: What the student sees on screen
 - **prompt_examples**: Sample variations of how to ask the question
 - **action_description**: What the student does to solve (maps to allowed actions from visuals.md)
+  - Some templates may list multiple possible interactions (e.g., "Point at tick marks OR Label tick marks by dragging")
+  - Use these different interactions to create meaningful variation across questions
 - **parameter_coverage**: The mathematical parameters to vary (fractions, denominators, etc.)
 
 ## GENERATION STRATEGY
 
+### Parameter Repetition Rules
+
+**MCQ/Select Questions:** Create multiple questions with varied option sets. Same parameter can appear multiple times if option sets differ meaningfully.
+
+**Single Fraction Work (Point/Label/Create one at a time):**
+- **CRITICAL: One question per parameter value PER TIER**
+- Cannot repeat same parameter at same tier (e.g., two 1/3 questions both at baseline ✗)
+- Can repeat parameter across different tiers if pedagogically appropriate (e.g., 1/3 at support AND 1/3 at baseline ✓)
+- If template has only one tier (e.g., ["baseline"]), each parameter appears ONCE total
+- Example: ["support", "baseline"] with ["1/2", "1/3", "1/4"]
+  - Valid: Support has 1/2, 1/3; Baseline has 1/3, 1/4, 1/5
+  - Invalid: Support has 1/3 twice, or Baseline has 1/4 three times
+
 ### Axes of Variation
 
-**1. Parameter Coverage (Horizontal Variation)**
-- Generate problems covering the range of parameter values
-- Use fraction values from parameter_coverage
-- Track in **variables_used** field (use "fractions" as key when possible)
+**1. Parameters:** Use values from parameter_coverage. Track in variables_used (use "fractions" as key when possible).
 
-**2. Mastery Tier (Vertical Variation)**
-- Generate problems at different difficulty levels: support, confidence, baseline, stretch, challenge
-- Use <difficulty_levels> guidance to design appropriate complexity.
+**2. Mastery Tiers:** ONLY use tiers from template's mastery_tier field. Distribute problems across allowed tiers.
+
+**3. Visuals:** Vary workspace configurations, labeling schemes, tick mark densities. For comparison sets, make each option distinctly different.
+
+**4. Actions:** When template lists multiple interactions (e.g., "Point OR Label"), alternate between them.
 
 ### Mapping to Allowed Actions
 
-Use **visuals.md** to ensure workspace and actions align with allowed student actions
+Reference **visuals.md** for allowed student actions. Map template actions to closest approved action that sustains the pedagogical goal.
+
+**MCQs:** Allowed student action (not in visuals.md). Students select from array of options. Specify options in workspace_description.
 
 ## OUTPUT REQUIREMENTS
 
-For each problem instance, generate:
+**1. problem_instance_id:** Sequential (1, 2, 3...)
 
-**1. problem_instance_id:** Sequential number (1, 2, 3, ...)
+**2. template_id, problem_type:** Copy from template
 
-**2. template_id:** Copy from template
+**3. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
+   - Choose the most pedagogically and interactively similar allowed action
+   - If template lists multiple action options, alternate between them for variety
 
-**3. problem_type:** Copy from template
+**4. prompt:** Student-facing question
+   - **CRITICAL: Use ONLY sentence structures and verbs from prompt_examples**
+   - Variation = swap parameter values only
+   - VALID: "Place one-fourth" when example is "Place one-third"
+   - INVALID: "Put one-fourth" or "Show one-fourth" when example is "Place"
+   - Rotate through all prompt_examples structures
 
-**4. action_description:** Map from template's action_description to allowed actions in visuals.md
+**5. workspace_description:** Visual setup aligned with visuals.md and template
 
-**5. prompt:** Student-facing question based on prompt_examples
+**6. mastery_tier:** ONLY use values from template's mastery_tier field (e.g., if template has ["baseline"], all problems use "baseline")
 
-**6. workspace_description:** Visual setup based on workspace_description, aligned with visuals.md
+**7. variables_used:** Parameter values (use "fractions" as key when possible)
 
-**7. mastery_tier:** Single string (support, confidence, baseline, stretch, challenge) - use as axis of variation
-
-**8. variables_used:** Fraction values tested (use "fractions" as key when possible)
-
-**9. application_context:** (ONLY for "apply" problem_type with narrative context)
+**8. application_context:** (ONLY for "apply" problem_type)
 
 ## QUALITY CHECKLIST
 
-**Coverage:**
-- Problems span multiple mastery tiers (not all at same difficulty)
-- Parameter values are well-distributed
-- Workspace descriptions match mastery tier complexity
+**Parameter Coverage:**
+- Single fraction work: One question per parameter per tier (can repeat across tiers)
+- MCQ: Parameters can repeat if option sets differ meaningfully
+- Use ONLY tiers from template's mastery_tier field
 
-**Alignment:**
-- All prompts align with the template's **problem_type**
-- Workspace descriptions use allowed configurations from **visuals.md**
-- Actions described match allowed student actions (Select, Point, Label)
-- Language is grade 3 appropriate
+**Prompt Adherence:**
+- Use ONLY sentence structures and verbs from prompt_examples
+- Variation = swap parameter values ONLY
+- No invented phrasings or new action verbs
 
-**Variation:**
-- Prompts vary in phrasing while maintaining the same task
-- Mastery tiers create meaningful difficulty progression
-- No two problems are identical
+**Visual Variety:**
+- Vary workspace descriptions across problems
+- MCQ: Each option set has different combinations
+- Actions: Alternate when template allows multiple
+
+**STOP Signs:**
+- ✗ Using tiers not in template's mastery_tier field
+- ✗ Inventing new prompt language/verbs not in prompt_examples
+- ✗ Same parameter at same tier multiple times (single fraction work)
+- ✗ Creating more questions than needed (if 5 fractions and 1 tier, create 5 questions, not 10)
+- ✗ Identical option sets (MCQ)
 
 Generate problem instances NOW with maximum variation and quality!
 """,
@@ -113,7 +138,8 @@ Generate problem instances NOW with maximum variation and quality!
     }
   },
   {
-    "problem_instance_id": 2,
+
+      "problem_instance_id": 2,
     "template_id": "4002",
     "problem_type": "apply",
     "action_description": "Label tick marks by dragging",
