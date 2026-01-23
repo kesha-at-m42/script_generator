@@ -22,108 +22,78 @@ while maximizing engagement and coverage.""",
 ## TASK
 
 You will receive a problem template that defines a specific type of mathematical interaction.
-Your task is to generate concrete problem instances that cover all parameter values in the template.
+Your task is to generate concrete problem instances that create meaningful variation across:
+1. **Parameter values** (fractions tested)
+2. **Mastery tiers** (difficulty levels 0-4)
 
 ## INPUT STRUCTURE
 
 The problem template contains:
 - **template_id**: Unique identifier for this template type
-- **problem_type**: Description of the interaction type
+- **problem_type**: Type of cognitive action (identify, compare, create, apply)
 - **workspace_description**: What the student sees on screen
 - **prompt_examples**: Sample variations of how to ask the question
-- **action_description**: What the student does to solve
-- **mastery_tier**: Difficulty/support level (baseline, confidence, support, stretch, challenge)
-- **mastery_verb**: Cognitive action (create, identify, compare, apply)
-- **parameter_coverage**: The mathematical parameters to vary (e.g., fractions, denominators)
-- **correct_end_state**: What success looks like
-- **success_dialogue**: Example feedback phrases
+- **action_description**: What the student does to solve (maps to allowed actions from visuals.md)
+- **parameter_coverage**: The mathematical parameters to vary (fractions, denominators, etc.)
 
 ## GENERATION STRATEGY
 
-### Core Rule: One Problem Per Parameter Value
-- For each unique value in **parameter_coverage**, create exactly ONE problem instance
-- Only use parameter values explicitly listed - do not add new values
-- Ensure each problem feels meaningfully different through variation
+### Axes of Variation
 
-### Variation Dimensions
+**1. Parameter Coverage (Horizontal Variation)**
+- Generate problems covering the range of parameter values
+- Use fraction values from parameter_coverage
+- Track in **variables_used** field (use "fractions" as key when possible)
 
-**1. Prompt Variation**
-- Rotate through different phrasings inspired by **prompt_examples**
-- Maintain the same action/task structure
-- Use grade-appropriate, clear language
-- Vary sentence structure and word choice while keeping the task identical
+**2. Mastery Tier (Vertical Variation)**
+- Generate problems at different difficulty levels: support, confidence, baseline, stretch, challenge
+- Use <difficulty_levels> guidance to design appropriate complexity.
 
-**2. Success Dialogue Variation**
-- Draw from **success_dialogue** examples
-- Match the specific parameter value used in the problem
-- Keep feedback concise, encouraging, and mathematically specific
+### Mapping to Allowed Actions
 
-**3. Workspace Consistency**
-- Use **workspace_description** as the base
-- Adjust only the specific parameter (e.g., which fraction is highlighted, which denominator is shown)
-- Keep the visual structure consistent within the template
+Use **visuals.md** to ensure workspace and actions align with allowed student actions
 
 ## OUTPUT REQUIREMENTS
 
-For each parameter value, generate:
+For each problem instance, generate:
 
 **1. problem_instance_id:** Sequential number (1, 2, 3, ...)
 
-**2. template_id:** Copy from input template
+**2. template_id:** Copy from template
 
-**3. parameter_used:** The specific parameter value from parameter_coverage
-   - Format: {"parameter_name": "value"}
-   - Example: {"fractions": "1/3"} or {"denominators": 4}
+**3. problem_type:** Copy from template
 
-**4. prompt:** The student-facing question
-   - Must align with **prompt_examples** style
-   - Must incorporate the **parameter_used** value
-   - Must be clear and actionable
-   - Should feel different from other prompts while maintaining the same task
+**4. action_description:** Map from template's action_description to allowed actions in visuals.md
 
-**5. workspace_state:** Description of the specific visual setup
-   - Based on **workspace_description** from template
-   - Customized for the specific **parameter_used**
-   - Be specific about what's shown (e.g., "tick marks at 0, 1/3, 2/3, 1")
+**5. prompt:** Student-facing question based on prompt_examples
 
-**6. success_feedback:** What the student hears/sees on success
-   - Inspired by **success_dialogue** examples
-   - Must reference the specific **parameter_used**
-   - Should reinforce the mathematical concept
+**6. workspace_description:** Visual setup based on workspace_description, aligned with visuals.md
 
-**7. mastery_tier:** Copy from template
+**7. mastery_tier:** Single string (support, confidence, baseline, stretch, challenge) - use as axis of variation
 
-**8. mastery_verb:** Copy from template
+**8. variables_used:** Fraction values tested (use "fractions" as key when possible)
+
+**9. application_context:** (ONLY for "apply" problem_type with narrative context)
 
 ## QUALITY CHECKLIST
 
-Before submitting, verify:
-
 **Coverage:**
-- Every value in **parameter_coverage** has exactly one problem instance
-- No duplicate parameter values
-- No invented parameter values
+- Problems span multiple mastery tiers (not all at same difficulty)
+- Parameter values are well-distributed
+- Workspace descriptions match mastery tier complexity
 
-**Quality:**
+**Alignment:**
 - All prompts align with the template's **problem_type**
-- All prompts follow the style of **prompt_examples**
-- Workspace states are consistent with **workspace_description**
-- Success feedback is specific to the parameter used
+- Workspace descriptions use allowed configurations from **visuals.md**
+- Actions described match allowed student actions (Select, Point, Label)
 - Language is grade 3 appropriate
 
-**Diversity:**
+**Variation:**
 - Prompts vary in phrasing while maintaining the same task
-- No two prompts are identical or near-identical
-- Success feedback is varied and natural
+- Mastery tiers create meaningful difficulty progression
+- No two problems are identical
 
-## EXAMPLE
-
-Given template with parameter_coverage: {"fractions": ["1/2", "1/3", "1/4"]}, generate 3 problems:
-- Problem 1 uses 1/2 with prompt style A and success feedback style A
-- Problem 2 uses 1/3 with prompt style B and success feedback style B
-- Problem 3 uses 1/4 with prompt style C and success feedback style A
-
-Generate problem instances NOW with maximum quality and coverage!
+Generate problem instances NOW with maximum variation and quality!
 """,
 
     doc_refs=["difficulty_levels.md", "visuals.md"],
@@ -133,14 +103,27 @@ Generate problem instances NOW with maximum quality and coverage!
   {
     "problem_instance_id": 1,
     "template_id": "4001",
-    "parameter_used": {
-      "fractions": "1/3"
+    "problem_type": "identify",
+    "action_description": "Point at tick marks",
+    "prompt": "Point to one-third on the number line.",
+    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only endpoints labeled.",
+    "mastery_tier": "support",
+    "variables_used": {
+      "fractions": ["1/3"]
+    }
+  },
+  {
+    "problem_instance_id": 2,
+    "template_id": "4002",
+    "problem_type": "apply",
+    "action_description": "Label tick marks by dragging",
+    "prompt": "Maya ate 1/4 of a pizza. Show where 1/4 is on the number line.",
+    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/4, 1/2, 3/4, 1. Only endpoints labeled.",
+    "mastery_tier": "baseline",
+    "variables_used": {
+      "fractions": ["1/4"]
     },
-    "prompt": "Place one-third on the number line.",
-    "workspace_state": "Horizontal number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only 0 and 1 are labeled.",
-    "success_feedback": "That's right, one-third. One interval from zero.",
-    "mastery_tier": ["baseline", "support"],
-    "mastery_verb": "create"
+    "application_context": "Maya ate 1/4 of a pizza"
   }
 ]
 """,

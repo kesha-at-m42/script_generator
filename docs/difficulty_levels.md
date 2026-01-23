@@ -1,85 +1,70 @@
-# Difficulty Levels - Progressive Challenge Framework
+# Mastery Tiers - Progressive Challenge Framework
 
-**EDIT THIS FILE** to change question generation behavior.  
+**EDIT THIS FILE** to change problem generation behavior.
 This text is injected directly into the LLM prompt.
 
 ---
 
-## DIFFICULTY LEVELS (0-4)
+## MASTERY TIERS
 
-Difficulty increases through: **variable complexity**, **visual complexity**, and **cognitive demand**.
+Difficulty increases through: **parameter complexity**, **visual complexity**, **scaffolding**, and **cognitive demand**.
 
-### Level 0 - Support
-**Easiest 'wins'; boost motivation and early success**
+### Support
+**Simplified parameters with additional scaffolding**
 
-- **Purpose:** Confidence building after struggle
-- **Target:** ~10% of questions
+- **Purpose:** Build confidence after struggle; provide accessible entry point
+- **Target:** 15-20% of problem pool
 - **Key Principle:** Simpler versions of the same skill, NOT different concepts
-- **Variable Complexity:** Easiest variables (halves, 2 parts, familiar fractions)
+- **Parameter Complexity:** Easiest variables (halves, unit fractions, smaller denominators like 2-3)
 - **Visual Design:** Single, straightforward visual with obvious, high-contrast features
-- **Cognitive Demand:** Simple recognition or one-step action or heavily guided multi-step action
-- **Status:** Support only (does NOT count toward mastery)
+- **Scaffolding:** Additional guides, hints visible, or reference visuals shown
+- **Cognitive Demand:** Simple recognition or one-step action with heavy guidance
+- **Mastery Status:** Does NOT count toward mastery (support only)
 
-### Level 1 - Confidence
-**Slightly more challenging; builds confidence**
+### Confidence
+**Very simple problems with maximum scaffolding**
 
-- **Purpose:** Early practice with clear scaffolding
+- **Purpose:** Build confidence before retry; early practice with clear scaffolding
+- **Target:** 10-15% of problem pool
 - **Key Principle:** The simplest possible version of the skill being taught
-- **Variable Complexity:** Common variables (thirds, fourths, 3-4 parts)
+- **Parameter Complexity:** Common, familiar variables (thirds, fourths, simple unit fractions)
 - **Visual Design:** Single visual with clear, obvious features
-- **Cognitive Demand:** Direct application of one concept
-- **Status:** Support only (does NOT count toward mastery)
+- **Scaffolding:** Maximum scaffolding (labeled tick marks, highlighted features, reference examples)
+- **Cognitive Demand:** Direct application of one concept with step-by-step guidance
+- **Mastery Status:** Does NOT count toward mastery (confidence building only)
 
-### Level 2 - Baseline
-**Core assessments; mastery-level expectations begin here**
+### Baseline
+**Core grade-level problems; mastery expectations begin here**
 
-- **Purpose:** Standard mastery assessment
+- **Purpose:** Standard mastery assessment at grade-level expectations
+- **Target:** 40-50% of problem pool (largest portion)
 - **Key Principle:** Problems vary in difficulty but stay within grade-level expectations
-- **Variable Complexity:** Mix of common and less common variables
+- **Parameter Complexity:** Mix of common and less common variables (halves through sixths, mix of unit and non-unit fractions)
 - **Visual Design:** May include 2-3 visuals or moderate contrast between options
+- **Scaffolding:** Standard presentation without extra support
 - **Cognitive Demand:** Clear task requiring understanding, not just pattern-matching
-- **Status:** COUNTS TOWARD MASTERY
+- **Mastery Status:** COUNTS TOWARD MASTERY
 
-### Level 3 - Stretch
-**Deeper exploration; builds on core understanding**
+### Stretch
+**More challenging parameters with less scaffolding**
 
-- **Purpose:** Challenge students who show baseline mastery
+- **Purpose:** Challenge students who show baseline mastery; deeper exploration
+- **Target:** 20-25% of problem pool (second largest portion)
 - **Key Principle:** Extends thinking without introducing new concepts
-- **Variable Complexity:** Less familiar variables (sixths, eighths) or multiple fractions to consider
+- **Parameter Complexity:** Less familiar variables (sixths, eighths) or multiple fractions to consider
 - **Visual Design:** Multiple visuals (3-4) with reduced contrast, requiring careful comparison
-- **Cognitive Demand:** Multi-step reasoning or comparing multiple representations
-- **Status:** COUNTS TOWARD MASTERY
+- **Scaffolding:** Less scaffolding; fewer labeled elements
+- **Cognitive Demand:** Multi-step reasoning, comparing multiple representations, or inverse operations
+- **Mastery Status:** COUNTS TOWARD MASTERY
 
-### Level 4 - Challenge
-**Above-grade exploration; encourages creative and flexible thinking**
+### Challenge
+**Most difficult parameters with no scaffolding**
 
 - **Purpose:** Enrichment for advanced students
-- **Key Principle:** Extends thinking without introducing new concepts, but with maximum complexity
-- **Variable Complexity:** Most complex variables (eighths, mixed denominators) or abstract scenarios
+- **Target:** 5-10% of problem pool
+- **Key Principle:** Extends thinking to maximum complexity without leaving the core concept
+- **Parameter Complexity:** Most complex variables (eighths, larger numerators, mixed denominators) or abstract scenarios
 - **Visual Design:** Many visuals (4+) with subtle differences, or abstract/decontextualized representations
-- **Cognitive Demand:** Complex reasoning, ordering, or transferring across contexts
-- **Status:** COUNTS TOWARD MASTERY
-
----
-
-## DIFFICULTY PROGRESSION PRINCIPLES
-
-**Lower Difficulty (0-1):**
-- Use easier, more familiar variables
-- Provide straightforward, obvious visuals with high contrast
-- Keep task simple and direct
-- **All levels teach the SAME core skill, just at varying complexity**
-
-**Higher Difficulty (3-4):**
-- Use more complex, less familiar variables
-- Provide more visuals with less visual contrast (requires careful attention)
-- Increase cognitive steps or require deeper reasoning
-- **Extend thinking, never introduce different concepts**
-
----
-
-## KEY REMINDERS
-
-- **SUPPORT & CONFIDENCE (0-1):** Simpler versions, not different skills
-- **BASELINE (2):** Varies in difficulty but always grade-appropriate
-- **STRETCH & CHALLENGE (3-4):** Push boundaries without leaving the core concept
+- **Scaffolding:** No scaffolding; may include distractors
+- **Cognitive Demand:** Complex reasoning, ordering, transferring across contexts, or sophisticated pattern recognition
+- **Mastery Status:** COUNTS TOWARD MASTERY
