@@ -58,6 +58,6 @@
   - Points and labels can only be attached to existing ticks
 
   ### Allowed Student Actions
-  - **Select**: Choose which number line to work with when multiple are displayed
+  - **Select**: Choose which number line or number lines to work with when multiple are displayed
   - **Point**: Point at specific tick marks by placing points on them
   - **Label**: Label tick marks by dragging fraction labels from a palette onto them
