@@ -126,11 +126,15 @@ class PromptBuilderV2:
         self.path_letter = path_letter
         self.verbose = verbose
 
+        # Import path_manager
+        from path_manager import get_project_paths, get_module_paths
+
         # Base directories
-        self.project_root = Path(__file__).parent.parent
-        self.docs_dir = self.project_root / "docs"
-        self.modules_dir = self.project_root / "modules"
-        self.prompts_dir = self.project_root / "steps" / "prompts"
+        paths = get_project_paths()
+        self.project_root = paths['project_root']
+        self.docs_dir = paths['docs']
+        self.modules_dir = paths['modules']
+        self.prompts_dir = paths['prompts']
 
         # Build module paths
         if module_number is not None and path_letter:
@@ -451,29 +455,27 @@ class PromptBuilderV2:
 
     def _load_single_doc(self, doc_ref: str) -> Optional[str]:
         """Load a single doc with fallback chain"""
-        paths_to_try = []
+        from path_manager import resolve_doc_path
 
-        # 1. Module/path specific
-        if self.module_path:
-            paths_to_try.append(self.modules_dir / self.module_path / doc_ref)
+        if self.verbose:
+            print(f"    Resolving doc: {doc_ref}")
 
-        # 2. Module specific (no path)
-        if self.module_only_path:
-            paths_to_try.append(self.modules_dir / self.module_only_path / doc_ref)
+        resolved_path = resolve_doc_path(
+            doc_ref,
+            module_number=self.module_number,
+            path_letter=self.path_letter,
+            required=False
+        )
 
-        # 3. Base docs
-        paths_to_try.append(self.docs_dir / doc_ref)
-
-        for path in paths_to_try:
+        if resolved_path and resolved_path.exists():
+            with open(resolved_path, 'r', encoding='utf-8') as f:
+                content = f.read()
             if self.verbose:
-                print(f"    Checking: {path}")
-            if path.exists():
-                with open(path, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                if self.verbose:
-                    print(f"    [OK] Loaded from: {path}")
-                return content
+                print(f"    [OK] Loaded from: {resolved_path}")
+            return content
 
+        if self.verbose:
+            print(f"    [WARN] Not found: {doc_ref}")
         return None
 
     def _fetch_module_data(self, module_ref_mapping: Dict[str, str], variables: Dict) -> Dict:
@@ -484,7 +486,10 @@ class PromptBuilderV2:
                                 e.g., {"phase_name": "phases.0.phase_name", "vocab": "vocabulary"}
             variables: Existing variables dict to update
         """
-        utils_path = self.project_root / "utils"
+        from path_manager import get_project_paths
+
+        paths = get_project_paths()
+        utils_path = paths['utils']
         if str(utils_path) not in sys.path:
             sys.path.insert(0, str(utils_path))
 
@@ -519,7 +524,10 @@ class PromptBuilderV2:
 
     def _fetch_template_data(self, template_ref_fields: List[str], goal_id: int, variables: Dict) -> Dict:
         """Fetch problem template data fields"""
-        utils_path = self.project_root / "utils"
+        from path_manager import get_project_paths
+
+        paths = get_project_paths()
+        utils_path = paths['utils']
         if str(utils_path) not in sys.path:
             sys.path.insert(0, str(utils_path))
 

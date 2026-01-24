@@ -31,9 +31,10 @@ class ClaudeClient:
             self.log_file = Path(log_file)
         else:
             # Default log location: logs/claude_usage.jsonl
-            project_root = Path(__file__).parent.parent
-            logs_dir = project_root / "logs"
-            logs_dir.mkdir(exist_ok=True)
+            from path_manager import get_project_paths, ensure_dir
+
+            paths = get_project_paths()
+            logs_dir = ensure_dir(paths['logs'])
             self.log_file = logs_dir / "claude_usage.jsonl"
 
         self.request_count = 0

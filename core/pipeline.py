@@ -17,14 +17,37 @@ if str(core_dir) not in sys.path:
     sys.path.insert(0, str(core_dir))
 
 from prompt_builder import PromptBuilderV2
+from path_manager import get_project_paths, get_project_root, get_template_path, ensure_dir
 
 # Add utils directory to path for json_utils and template_utils
-utils_dir = Path(__file__).parent.parent / "utils"
+paths = get_project_paths()
+utils_dir = paths['utils']
 if str(utils_dir) not in sys.path:
     sys.path.insert(0, str(utils_dir))
 
 from json_utils import extract_json, parse_json
 from template_utils import get_template_by_id
+
+# Import refactored modules
+from path_manager import get_step_directory, get_step_output_paths, resolve_input_path
+from version_manager import (
+    get_next_version,
+    get_latest_version,  # Export for rerun.py
+    create_version_directory,
+    update_latest_symlink,
+    save_metadata
+)
+from batch_processor import BatchProcessor
+from pipeline_executor import flatten_dict, run_formatting_step
+
+# Re-export for external use
+__all__ = [
+    'PipelineControl',
+    'Step',
+    'run_pipeline',
+    'run_single_step',
+    'get_latest_version'  # For rerun.py
+]
 
 import time
 
@@ -146,6 +169,85 @@ class Step:
         return self.function is not None
 
 
+# =============================================================================
+# STEP RANGE HELPERS
+# =============================================================================
+
+def normalize_step_reference(step_ref: Union[int, str], steps: List[Step]) -> int:
+    """Convert step number or name to 1-indexed integer
+
+    Args:
+        step_ref: Step reference (int index or string name)
+        steps: List of Step objects
+
+    Returns:
+        1-indexed step number
+
+    Raises:
+        ValueError: If step name not found
+    """
+    if isinstance(step_ref, int):
+        return step_ref
+
+    # Find by name
+    for i, step in enumerate(steps, 1):
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+        if step_name == step_ref:
+            return i
+
+    # Not found - provide suggestions
+    available = [f"  {i}. {s.prompt_name if s.is_ai_step() else str(s.function).split('.')[-1]}"
+                 for i, s in enumerate(steps, 1)]
+    raise ValueError(
+        f"Step '{step_ref}' not found.\nAvailable steps:\n" + "\n".join(available)
+    )
+
+
+def validate_step_index(idx: int, total_steps: int):
+    """Validate step index is in valid range
+
+    Args:
+        idx: Step index to validate
+        total_steps: Total number of steps
+
+    Raises:
+        ValueError: If index is out of range
+    """
+    if idx < 1:
+        raise ValueError(f"Step index must be >= 1, got {idx}")
+    if idx > total_steps:
+        raise ValueError(f"Step index {idx} exceeds total steps ({total_steps})")
+
+
+def validate_base_version_outputs(base_dir: Path, steps: List[Step],
+                                  start_idx: int, end_idx: int):
+    """Validate base version has outputs for specified step range
+
+    Args:
+        base_dir: Base version directory path
+        steps: List of Step objects
+        start_idx: First step index to check (1-indexed)
+        end_idx: Last step index to check (1-indexed)
+
+    Raises:
+        FileNotFoundError: If any required outputs are missing
+    """
+    missing = []
+    for i in range(start_idx, end_idx + 1):
+        step = steps[i - 1]
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+        step_dir = get_step_directory(base_dir, i, step_name)
+        step_paths = get_step_output_paths(step_dir, step_name, step.batch_mode)
+
+        if not step_paths['main_output'].exists():
+            missing.append(f"Step {i} ({step_name}): {step_paths['main_output']}")
+
+    if missing:
+        raise FileNotFoundError(
+            f"Base version missing required outputs:\n  " + "\n  ".join(missing)
+        )
+
+
 def run_pipeline(
       steps: List[Step],
       pipeline_name: str = None,
@@ -159,6 +261,8 @@ def run_pipeline(
       interactive: bool = False,
       base_version: str = None,
       rerun_items: List[str] = None,
+      start_from_step: Union[int, str] = None,
+      end_at_step: Union[int, str] = None,
       pipeline_status: str = None,
       notes: str = None,
       template_filename: str = "problem_templates_v2.json"
@@ -178,6 +282,8 @@ def run_pipeline(
         interactive: Enable step-by-step confirmation before each step (default: False)
         base_version: Base version for reruns (e.g., "v0"). Automatically uses latest if None.
         rerun_items: List of item IDs to rerun (enables rerun mode)
+        start_from_step: Skip steps 1 through N-1, start from step N (int or step name)
+        end_at_step: Stop after step N (int or step name). Use with start_from_step for ranges.
         pipeline_status: Status/maturity label (e.g., "alpha", "beta", "rc", "final", "deprecated")
         notes: Optional notes about this version (e.g., "Fixed prompt for template 4002")
         template_filename: Template filename for template lookup (default: "problem_templates_v2.json")
@@ -202,6 +308,39 @@ def run_pipeline(
         "stats": {}
     }
 
+    # Normalize and validate step range
+    start_idx = 1  # default: start from step 1
+    end_idx = len(steps)  # default: run through last step
+
+    if start_from_step is not None:
+        # Auto-detect base_version if not provided
+        if base_version is None and pipeline_name:
+            full_pipeline_name = pipeline_name
+            if module_number is not None:
+                full_pipeline_name += f"_module_{module_number}"
+            if path_letter is not None:
+                full_pipeline_name += f"_path_{path_letter.lower()}"
+
+            outputs_dir = get_project_paths()['outputs']
+            pipeline_dir = outputs_dir / full_pipeline_name
+            base_version = get_latest_version(pipeline_dir)
+
+            if not base_version:
+                raise ValueError(
+                    f"start_from_step requires a base version, but no versions found for '{full_pipeline_name}'. "
+                    f"Run the full pipeline first."
+                )
+
+        start_idx = normalize_step_reference(start_from_step, steps)
+        validate_step_index(start_idx, len(steps))
+
+    if end_at_step is not None:
+        end_idx = normalize_step_reference(end_at_step, steps)
+        validate_step_index(end_idx, len(steps))
+
+        if end_idx < start_idx:
+            raise ValueError(f"end_at_step ({end_idx}) cannot be before start_from_step ({start_idx})")
+
     # Create output directory
     if output_dir is None:
         if pipeline_name:
@@ -215,24 +354,44 @@ def run_pipeline(
 
             if base_version is None and rerun_items:
                 # Auto-use latest version for reruns
-                project_root = Path(__file__).parent.parent
-                pipeline_dir = project_root / "outputs" / full_pipeline_name
-                base_version = _get_latest_version(pipeline_dir)
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / full_pipeline_name
+                base_version = get_latest_version(pipeline_dir)
 
-            version_dir, version_str, is_rerun, full_pipeline_name = _create_version_directory(
+            version_dir, version_str, is_rerun, full_pipeline_name = create_version_directory(
                 pipeline_name, module_number, path_letter, base_version
             )
             output_dir_path = version_dir
 
             metadata["version"] = version_str
             metadata["base_version"] = base_version
-            metadata["mode"] = "rerun" if is_rerun else "initial"
+
+            # Determine mode
+            if start_idx > 1 or end_idx < len(steps):
+                metadata["mode"] = "partial_rerun"
+                metadata["step_range"] = f"{start_idx}-{end_idx}"
+                metadata["skipped_steps"] = list(range(1, start_idx)) + list(range(end_idx + 1, len(steps) + 1))
+                metadata["executed_steps"] = list(range(start_idx, end_idx + 1))
+            elif base_version:
+                metadata["mode"] = "rerun"
+            else:
+                metadata["mode"] = "initial"
+
             metadata["full_pipeline_name"] = full_pipeline_name
+
+            # Validate base version has outputs for skipped steps
+            if start_idx > 1:
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / full_pipeline_name
+                base_version_dir = pipeline_dir / base_version
+                validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
 
             if verbose:
                 print(f"\n{'='*70}")
                 print(f"PIPELINE: {full_pipeline_name}")
-                print(f"Version: {version_str}" + (f" (rerun from {base_version})" if is_rerun else ""))
+                print(f"Version: {version_str}" + (f" (rerun from {base_version})" if base_version else ""))
+                if start_idx > 1 or end_idx < len(steps):
+                    print(f"Step Range: {start_idx}-{end_idx} (executing {end_idx - start_idx + 1} of {len(steps)} steps)")
                 print(f"Status: {metadata['pipeline_status']}")
                 if metadata.get('notes'):
                     print(f"Notes: {metadata['notes']}")
@@ -244,24 +403,19 @@ def run_pipeline(
             time_str = now.strftime("%H%M%S")
             dir_name = f"pipeline_{time_str}"
             output_dir = f"outputs/{date_folder}/{dir_name}"
-            output_dir_path = Path(output_dir)
-            output_dir_path.mkdir(parents=True, exist_ok=True)
+            output_dir_path = ensure_dir(Path(output_dir))
     else:
-        output_dir_path = Path(output_dir)
-        output_dir_path.mkdir(parents=True, exist_ok=True)
-
-    prompts_dir = output_dir_path / "prompts"
-    prompts_dir.mkdir(exist_ok=True)
+        output_dir_path = ensure_dir(Path(output_dir))
 
     builder = PromptBuilderV2(module_number, path_letter, verbose)
 
     # Project root for path resolution
-    project_root = Path(__file__).parent.parent
+    project_root = get_project_root()
 
     # Construct template path for template lookup
     template_path = None
     if module_number is not None and template_filename:
-        template_path = project_root / "modules" / f"module{module_number}" / template_filename
+        template_path = get_template_path(module_number, template_filename)
         if verbose and template_path.exists():
             print(f"  [TEMPLATES] Using: {template_path.relative_to(project_root)}")
 
@@ -278,16 +432,35 @@ def run_pipeline(
         print(f"{'='*70}")
 
     for i, step in enumerate(steps, 1):
+        step_type = "AI" if step.is_ai_step() else "FORMATTING"
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+
+        # Skip steps outside the execution range
+        if i < start_idx or i > end_idx:
+            if verbose:
+                print(f"\n[STEP {i}/{len(steps)}] [{step_type}] {step_name}")
+                print(f"  [SKIP] Outside execution range ({start_idx}-{end_idx})")
+            continue
+
         # Check for pause/stop
         if control:
             control.check_and_wait()
             control.update_status(f"Running step {i}/{len(steps)}: {step_name}")
 
-        step_type = "AI" if step.is_ai_step() else "FORMATTING"
-        step_name = step.prompt_name if step.is_ai_step() else str(step.function)
+        # Create step directory and get paths
+        step_dir = get_step_directory(output_dir_path, i, step_name)
+        step_paths = get_step_output_paths(step_dir, step_name, step.batch_mode)
+
+        # Create directories
+        ensure_dir(step_dir)
+        if step_paths['items_dir']:
+            ensure_dir(step_paths['items_dir'])
+        if step_paths['prompts_dir']:
+            ensure_dir(step_paths['prompts_dir'])
 
         if verbose:
             print(f"\n[STEP {i}/{len(steps)}] [{step_type}] {step_name}")
+            print(f"  [DIR] {step_dir.relative_to(output_dir_path)}")
 
 
         # Interactive mode: Ask for confirmation
@@ -326,7 +499,7 @@ def run_pipeline(
         step_vars = initial_variables.copy()
         step_vars.update(step.variables)
 
-        # Auto-chain: If input_file is None, use previous step's output_file
+        # Auto-chain: If input_file is None or empty, use previous step's main output
         input_file = step.input_file
 
         # Substitute variables in input_file path (e.g., module{module_number})
@@ -334,16 +507,57 @@ def run_pipeline(
             input_file = input_file.replace("{module_number}", str(module_number))
             input_file = input_file.replace("{path_letter}", path_letter.lower())
 
-        if input_file is None and last_output_file is not None:
-            input_file = last_output_file
-            if verbose:
-                print(f"  [AUTO-CHAIN] Using previous output: {input_file}")
+        # Auto-chaining logic
+        if (input_file is None or input_file == "") and i > 1:
+            # Get previous step's output
+            prev_step = steps[i-2]  # i is 1-indexed
+            prev_step_name = prev_step.prompt_name if prev_step.is_ai_step() else str(prev_step.function).split('.')[-1]
+
+            # If this is first executed step in partial rerun, load from base version
+            if i == start_idx and start_idx > 1:
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                prev_step_dir = get_step_directory(base_version_dir, i-1, prev_step_name)
+                prev_step_paths = get_step_output_paths(prev_step_dir, prev_step_name, prev_step.batch_mode)
+                input_file = str(prev_step_paths['main_output'])  # Use absolute path
+
+                if verbose:
+                    rel_path = prev_step_paths['main_output'].relative_to(base_version_dir)
+                    print(f"  [AUTO-CHAIN] Using base version: {base_version}/{rel_path}")
+            else:
+                # Normal auto-chaining from current version
+                prev_step_dir = get_step_directory(output_dir_path, i-1, prev_step_name)
+                prev_step_paths = get_step_output_paths(prev_step_dir, prev_step_name, prev_step.batch_mode)
+                input_file = str(prev_step_paths['main_output'].relative_to(output_dir_path))
+
+                if verbose:
+                    print(f"  [AUTO-CHAIN] Using previous step output: {input_file}")
 
         # Load input file if specified
         input_content = None
         input_data = None
         if input_file:
-            input_path = _resolve_input_path(input_file, output_dir_path, project_root)
+            # For partial reruns with explicit input, resolve from base version if first step
+            if i == start_idx and start_idx > 1 and not Path(input_file).is_absolute():
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                input_path = resolve_input_path(
+                    input_file,
+                    output_dir=base_version_dir,  # Use base version for resolution
+                    module_number=module_number,
+                    path_letter=path_letter
+                )
+            else:
+                # Normal resolution from current version
+                input_path = resolve_input_path(
+                    input_file,
+                    output_dir=output_dir_path,
+                    module_number=module_number,
+                    path_letter=path_letter
+                )
+
             if verbose:
                 print(f"  [LOAD] Reading: {input_path}")
             try:
@@ -382,56 +596,33 @@ def run_pipeline(
                 print(f"  [ERROR] Failed to parse input as JSON array: {e}")
                 raise
 
-            # Create temp directory for individual items
-            temp_dir = output_dir_path / "items"
-            temp_dir.mkdir(exist_ok=True)
+            # Initialize batch processor
+            batch_proc = BatchProcessor(
+                items=items,
+                batch_id_field=step.batch_id_field,
+                batch_id_start=step.batch_id_start,
+                batch_output_id_field=step.batch_output_id_field,
+                batch_only_items=rerun_items if rerun_items else step.batch_only_items,
+                batch_skip_items=step.batch_skip_items,
+                batch_skip_existing=step.batch_skip_existing,
+                items_dir=step_paths['items_dir']
+            )
 
-            # Track results and errors
-            collated_results = []
-            errors = []
-            sequential_id = step.batch_id_start
-
-            # Apply rerun filters if specified
-            items_to_process = items
-            if rerun_items:
-                if verbose:
-                    print(f"  [RERUN] Processing only: {rerun_items}")
-                step.batch_only_items = rerun_items
+            if rerun_items and verbose:
+                print(f"  [RERUN] Processing only: {rerun_items}")
 
             total_items = len(items)
-            processed_count = 0
-            skipped_count = 0
 
             for item_idx, item in enumerate(items, 1):
                 # Get item ID
                 item_id = str(item.get(step.batch_id_field, item_idx)) if step.batch_id_field else str(item_idx)
 
-                # Check skip conditions
-                should_skip = False
-                skip_reason = ""
-
-                if step.batch_only_items and item_id not in step.batch_only_items:
-                    should_skip = True
-                    skip_reason = "not in only_items"
-                elif step.batch_skip_items and item_id in step.batch_skip_items:
-                    should_skip = True
-                    skip_reason = "in skip_items"
-                elif step.batch_skip_existing:
-                    item_output_file = temp_dir / item_id / f"{i:02d}_output.json"
-                    if item_output_file.exists():
-                        should_skip = True
-                        skip_reason = "already exists"
-                        # Load existing result for collation
-                        try:
-                            with open(item_output_file, 'r', encoding='utf-8') as f:
-                                collated_results.append(json.load(f))
-                        except Exception as e:
-                            print(f"  [WARN] Failed to load existing result for {item_id}: {e}")
-
+                # Check if should skip
+                should_skip, skip_reason = batch_proc.should_skip_item(item, item_idx)
                 if should_skip:
                     if verbose:
                         print(f"  [SKIP {item_idx}/{total_items}] {item_id} ({skip_reason})")
-                    skipped_count += 1
+                    batch_proc.increment_skipped()
                     continue
 
                 # Process this item
@@ -440,7 +631,7 @@ def run_pipeline(
 
                 try:
                     # Flatten item to variables
-                    item_vars = _flatten_dict(item)
+                    item_vars = flatten_dict(item)
                     merged_vars = {**step_vars, **item_vars}
 
                     if verbose:
@@ -451,7 +642,7 @@ def run_pipeline(
                     # Execute step for this item
                     if step.is_ai_step():
                         # AI step - call Claude
-                        prompt_save_path = prompts_dir / f"{i:02d}_{step.prompt_name}_{item_id}.md"
+                        prompt_save_path = step_paths['prompts_dir'] / f"{item_id}.md"
 
                         # Load prompt to check for template_ref
                         prompt = builder._load_prompt(step.prompt_name)
@@ -498,47 +689,21 @@ def run_pipeline(
                             item_result = {"raw_output": item_output}
                     else:
                         # Formatting step - call Python function
-                        item_result = _run_formatting_step(step, item, None, module_number, path_letter, project_root, False)
+                        item_result = run_formatting_step(step, item, None, module_number, path_letter, project_root, False)
 
-                    # Save individual result (unmodified)
-                    item_dir = temp_dir / item_id
-                    item_dir.mkdir(exist_ok=True)
-                    item_output_file = item_dir / f"{i:02d}_output.json"
+                    # Save individual result
+                    item_output_file = step_paths['items_dir'] / f"{item_id}.json"
                     with open(item_output_file, 'w', encoding='utf-8') as f:
                         json.dump(item_result, f, indent=2, ensure_ascii=False)
 
-                    # Collate results with sequential ID assignment
-                    if isinstance(item_result, list):
-                        # Flatten array and assign sequential IDs during collation
-                        for sub_item in item_result:
-                            if isinstance(sub_item, dict) and step.batch_output_id_field:
-                                sub_item[step.batch_output_id_field] = sequential_id
-                                sequential_id += 1
-                            collated_results.append(sub_item)
-                    else:
-                        # Single result - assign sequential ID if dict
-                        if isinstance(item_result, dict):
-                            if step.batch_output_id_field:
-                                item_result[step.batch_output_id_field] = sequential_id
-                                sequential_id += 1
-                            if step.batch_id_field and step.batch_id_field in item:
-                                item_result[f"source_{step.batch_id_field}"] = item[step.batch_id_field]
-                        collated_results.append(item_result)
-                    processed_count += 1
+                    # Add result to batch processor (handles collation and ID assignment)
+                    batch_proc.add_result(item_result)
 
                     if verbose:
                         print(f"    [OK] Completed")
 
                 except Exception as e:
-                    import traceback
-                    error_info = {
-                        "item_id": item_id,
-                        "item_index": item_idx,
-                        "error": str(e),
-                        "traceback": traceback.format_exc(),
-                        "step": i
-                    }
-                    errors.append(error_info)
+                    batch_proc.add_error(item_id, item_idx, e, i)
 
                     if verbose:
                         print(f"    [ERROR] {e}")
@@ -548,29 +713,32 @@ def run_pipeline(
                         raise
 
             # Print batch summary
+            summary = batch_proc.get_summary()
             if verbose:
                 print(f"\n  [BATCH COMPLETE]")
-                print(f"    Processed: {processed_count}/{total_items}")
-                print(f"    Skipped: {skipped_count}")
-                print(f"    Errors: {len(errors)}")
+                print(f"    Processed: {summary['processed']}/{summary['total']}")
+                print(f"    Skipped: {summary['skipped']}")
+                print(f"    Errors: {summary['errors']}")
 
             # Save errors if any
+            errors = batch_proc.get_errors()
             if errors:
-                errors_file = output_dir_path / f"{i:02d}_errors.json"
+                errors_file = step_paths['errors_file']
                 with open(errors_file, 'w', encoding='utf-8') as f:
                     json.dump(errors, f, indent=2, ensure_ascii=False)
                 if verbose:
-                    print(f"    Saved errors to: {errors_file.name}")
+                    print(f"    Saved errors to: {errors_file.relative_to(output_dir_path)}")
 
             # Set output to collated array
+            collated_results = batch_proc.get_collated_results()
             last_output = json.dumps(collated_results, indent=2, ensure_ascii=False)
 
         else:
-            # NON-BATCH MODE: Single execution (existing logic)
+            # NON-BATCH MODE: Single execution
             if step.is_ai_step():
                 # AI step - call Claude
-                # Save prompt to prompts folder
-                prompt_save_path = prompts_dir / f"{i:02d}_{step.prompt_name}.md"
+                # Save prompt to step directory
+                prompt_save_path = step_paths['prompt_file']
 
                 output = builder.run(
                     prompt_name=step.prompt_name,
@@ -582,96 +750,83 @@ def run_pipeline(
                 last_output = output
             else:
                 # Formatting step - call Python function
-                output = _run_formatting_step(step, input_data, input_content, module_number, path_letter, project_root, verbose)
+                output = run_formatting_step(step, input_data, input_content, module_number, path_letter, project_root, verbose)
                 last_output = output
 
-        # Save output file if specified
-        if step.output_file:
-            if step.batch_mode:
-                # BATCH MODE: Save collated array to collated/ directory
-                collated_dir = output_dir_path / "collated"
-                collated_dir.mkdir(exist_ok=True)
+        # Save main output file (always save to step directory)
+        output_path = step_paths['main_output']
 
-                step_prefix = f"{i:02d}_"
-                output_filename = step_prefix + step.output_file
-                output_path = collated_dir / output_filename
+        if step.batch_mode:
+            # BATCH MODE: Save collated array
+            try:
+                collated_data = json.loads(last_output)
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    json.dump(collated_data, f, indent=2, ensure_ascii=False)
 
-                # Parse last_output as JSON array
+                if verbose:
+                    print(f"  [SAVE] Saved {len(collated_data)} items to: {output_path.relative_to(output_dir_path)}")
+
+            except Exception as e:
+                # Fallback to raw save
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(last_output)
+                if verbose:
+                    print(f"  [SAVE] Saved output to: {output_path.relative_to(output_dir_path)}")
+
+        else:
+            # NON-BATCH MODE: Save single output
+            # Handle JSON parsing for AI steps
+            if step.is_ai_step() and parse_json_output:
                 try:
-                    collated_data = json.loads(last_output)
+                    if verbose:
+                        print(f"  [JSON] Extracting JSON from output...")
+
+                    # Extract JSON from the output
+                    json_str = extract_json(last_output)
+
+                    # Parse to validate and format
+                    parsed = parse_json(json_str)
+
+                    # Save as formatted JSON
                     with open(output_path, 'w', encoding='utf-8') as f:
-                        json.dump(collated_data, f, indent=2, ensure_ascii=False)
+                        json.dump(parsed, f, indent=2, ensure_ascii=False)
 
                     if verbose:
-                        print(f"  [COLLATE] Saved {len(collated_data)} items to: collated/{output_filename}")
+                        if isinstance(parsed, list):
+                            print(f"  [SAVE] Saved JSON array with {len(parsed)} items to: {output_path.relative_to(output_dir_path)}")
+                        elif isinstance(parsed, dict):
+                            print(f"  [SAVE] Saved JSON object with {len(parsed)} keys to: {output_path.relative_to(output_dir_path)}")
+                        else:
+                            print(f"  [SAVE] Saved JSON to: {output_path.relative_to(output_dir_path)}")
+
+                    # Update last_output to be the JSON string for chaining
+                    last_output = json.dumps(parsed, indent=2, ensure_ascii=False)
 
                 except Exception as e:
-                    # Fallback to raw save
+                    if verbose:
+                        print(f"  [WARN] JSON parsing failed: {e}")
+                        print(f"  [WARN] Saving raw output instead")
+
+                    # Fall back to raw output
                     with open(output_path, 'w', encoding='utf-8') as f:
                         f.write(last_output)
-                    if verbose:
-                        print(f"  [SAVE] Saved output to: collated/{output_filename}")
-
-                last_output_file = f"collated/{output_filename}"
-
             else:
-                # NON-BATCH MODE: Save single output (existing logic)
-                step_prefix = f"{i:02d}_"
-                output_filename = step_prefix + step.output_file
-                output_path = output_dir_path.joinpath(output_filename)
-                output_path.parent.mkdir(parents=True, exist_ok=True)
-
-                # Handle JSON parsing for AI steps
-                if step.is_ai_step() and parse_json_output:
-                    try:
-                        if verbose:
-                            print(f"  [JSON] Extracting JSON from output...")
-
-                        # Extract JSON from the output
-                        json_str = extract_json(last_output)
-
-                        # Parse to validate and format
-                        parsed = parse_json(json_str)
-
-                        # Save as formatted JSON
-                        with open(output_path, 'w', encoding='utf-8') as f:
-                            json.dump(parsed, f, indent=2, ensure_ascii=False)
-
-                        if verbose:
-                            if isinstance(parsed, list):
-                                print(f"  [OK] Parsed and saved JSON array with {len(parsed)} items")
-                            elif isinstance(parsed, dict):
-                                print(f"  [OK] Parsed and saved JSON object with {len(parsed)} keys")
-                            else:
-                                print(f"  [OK] Parsed and saved JSON")
-
-                        # Update last_output to be the JSON string for chaining
-                        last_output = json.dumps(parsed, indent=2, ensure_ascii=False)
-
-                    except Exception as e:
-                        if verbose:
-                            print(f"  [WARN] JSON parsing failed: {e}")
-                            print(f"  [WARN] Saving raw output instead")
-
-                        # Fall back to raw output
-                        with open(output_path, 'w', encoding='utf-8') as f:
-                            f.write(last_output)
+                # Save output (for formatting steps or when parse_json_output=False)
+                if isinstance(last_output, (dict, list)):
+                    # Save as JSON
+                    with open(output_path, 'w', encoding='utf-8') as f:
+                        json.dump(last_output, f, indent=2, ensure_ascii=False)
+                    if verbose:
+                        print(f"  [SAVE] Saved JSON to: {output_path.relative_to(output_dir_path)}")
                 else:
-                    # Save output (for formatting steps or when parse_json_output=False)
-                    if isinstance(last_output, (dict, list)):
-                        # Save as JSON
-                        with open(output_path, 'w', encoding='utf-8') as f:
-                            json.dump(last_output, f, indent=2, ensure_ascii=False)
-                        if verbose:
-                            print(f"  [SAVE] Saved JSON output to: {step.output_file}")
-                    else:
-                        # Save as text
-                        with open(output_path, 'w', encoding='utf-8') as f:
-                            f.write(str(last_output))
-                        if verbose:
-                            print(f"  [SAVE] Wrote {len(str(last_output))} chars to: {step.output_file}")
+                    # Save as text
+                    with open(output_path, 'w', encoding='utf-8') as f:
+                        f.write(str(last_output))
+                    if verbose:
+                        print(f"  [SAVE] Saved {len(str(last_output))} chars to: {output_path.relative_to(output_dir_path)}")
 
-                last_output_file = output_filename
+        # Track last output file for reference
+        last_output_file = str(output_path.relative_to(output_dir_path))
 
     # Save metadata and update symlink
     if pipeline_name:
@@ -682,13 +837,13 @@ def run_pipeline(
         metadata["output_dir"] = str(output_dir_path)
 
         # Save metadata
-        _save_metadata(output_dir_path, metadata)
+        save_metadata(output_dir_path, metadata)
 
         # Update latest symlink
         version_str = metadata.get("version")
         full_pipeline_name = metadata.get("full_pipeline_name", pipeline_name)
         if version_str:
-            _update_latest_symlink(full_pipeline_name, version_str)
+            update_latest_symlink(full_pipeline_name, version_str)
 
         if verbose:
             print(f"\n{'='*70}")
@@ -748,329 +903,5 @@ def run_single_step(
     )
 
 
-def _run_formatting_step(step: Step, input_data, input_content, module_number: int, path_letter: str, project_root: Path, verbose: bool):
-    """Execute a deterministic formatting step
 
-    Args:
-        step: The Step object with function and function_args
-        input_data: Parsed JSON data (if input was JSON)
-        input_content: Raw input content (if input was not JSON)
-        module_number: Module number (automatically passed to function if it accepts it)
-        path_letter: Path letter (automatically passed to function if it accepts it)
-        project_root: Project root path for module imports
-        verbose: Verbose logging flag
 
-    Returns:
-        Output from the formatting function
-    """
-    if verbose:
-        print(f"  [EXEC] Running formatting function...")
-
-    # Load the function
-    func = _load_function(step.function, project_root)
-
-    # Prepare arguments - start with module context
-    args = {}
-
-    # Add module_number and path_letter if function accepts them
-    import inspect
-    sig = inspect.signature(func)
-    param_names = list(sig.parameters.keys())
-
-    # Check which parameters the function accepts and add them
-    if 'module_number' in param_names:
-        args['module_number'] = module_number
-        if verbose:
-            print(f"  [EXEC] Passing module_number={module_number}")
-
-    if 'path_letter' in param_names:
-        args['path_letter'] = path_letter
-        if verbose:
-            print(f"  [EXEC] Passing path_letter={path_letter}")
-
-    # Add custom function_args (these override if there's a conflict)
-    args.update(step.function_args)
-
-    # Pass input as first positional argument if function expects it
-    if len(param_names) > 0:
-        first_param = param_names[0]
-        # Check if first param is not in our keyword args (meaning it's positional)
-        if first_param not in args:
-            if verbose:
-                print(f"  [EXEC] Passing input to parameter '{first_param}'")
-            result = func(input_data if input_data is not None else input_content, **args)
-        else:
-            # All params are keyword args
-            result = func(**args)
-    else:
-        # Function takes no arguments
-        result = func(**args)
-
-    if verbose:
-        print(f"  [OK] Formatting complete")
-
-    return result
-
-
-def _load_function(function: Union[str, Callable], project_root: Path) -> Callable:
-    """Load a function from string reference or return callable
-
-    Args:
-        function: Either "module.function_name" string or callable
-        project_root: Project root for module imports
-
-    Returns:
-        The callable function
-    """
-    if callable(function):
-        return function
-
-    # Parse string like "bbcode_formatter.process_godot_sequences"
-    if not isinstance(function, str):
-        raise ValueError(f"function must be string or callable, got {type(function)}")
-
-    if '.' not in function:
-        raise ValueError(f"function string must be 'module.function_name', got '{function}'")
-
-    module_name, func_name = function.rsplit('.', 1)
-
-    # Try to import the module
-    try:
-        # Add utils for backwards compatibility (but lower priority)
-        utils_dir = project_root / "utils"
-        if str(utils_dir) not in sys.path:
-            sys.path.insert(0, str(utils_dir))
-
-        # Add formatting directory to path (higher priority - inserted after utils so it comes first)
-        formatting_dir = project_root / "steps" / "formatting"
-        if str(formatting_dir) not in sys.path:
-            sys.path.insert(0, str(formatting_dir))
-
-        module = importlib.import_module(module_name)
-        func = getattr(module, func_name)
-
-        if not callable(func):
-            raise ValueError(f"{module_name}.{func_name} is not callable")
-
-        return func
-    except ImportError as e:
-        raise ImportError(f"Could not import module '{module_name}': {e}")
-    except AttributeError as e:
-        raise AttributeError(f"Module '{module_name}' has no function '{func_name}': {e}")
-
-
-def _resolve_input_path(input_file: str, output_dir: Path, project_root: Path) -> Path:
-    """Resolve input file path with fallback chain
-
-    Resolution order:
-    1. Absolute path → use as-is
-    2. Relative to output_dir (for chained files)
-    3. Relative to project root
-    4. As-is (will fail if not found)
-    """
-    input_path = Path(input_file)
-
-    # 1. Absolute path
-    if input_path.is_absolute():
-        return input_path
-
-    # 2. Relative to output_dir (chained files)
-    output_relative = output_dir / input_file
-    if output_relative.exists():
-        return output_relative
-
-    # 3. Relative to project root
-    project_relative = project_root / input_file
-    if project_relative.exists():
-        return project_relative
-
-    # 4. Use as-is (will error if doesn't exist)
-    return input_path
-
-
-def _flatten_dict(obj, parent_key='', sep='__'):
-    """Flatten nested dict with __ separator
-
-    Example:
-        {"goal_decomposition": {"mastery_verb": "create"}}
-        → {"goal_decomposition__mastery_verb": "create"}
-
-    Args:
-        obj: Dictionary to flatten
-        parent_key: Parent key for recursion
-        sep: Separator for nested keys (default: __)
-
-    Returns:
-        Flattened dictionary
-    """
-    items = []
-
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            new_key = f"{parent_key}{sep}{k}" if parent_key else k
-            if isinstance(v, dict):
-                items.extend(_flatten_dict(v, new_key, sep=sep).items())
-            elif isinstance(v, list):
-                # Keep lists as-is, don't flatten further
-                items.append((new_key, v))
-            else:
-                items.append((new_key, v))
-    else:
-        # Not a dict, return as-is
-        return {parent_key: obj} if parent_key else {}
-
-    return dict(items)
-
-
-def _get_next_version(pipeline_dir: Path) -> str:
-    """Get the next version number for a pipeline
-
-    Args:
-        pipeline_dir: Path to pipeline directory (e.g., outputs/problem_generator/)
-
-    Returns:
-        Version string (e.g., "v0", "v1", "v2")
-    """
-    if not pipeline_dir.exists():
-        return "v0"
-
-    # Find all existing version directories
-    versions = []
-    for item in pipeline_dir.iterdir():
-        if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
-            versions.append(int(item.name[1:]))
-
-    if not versions:
-        return "v0"
-
-    return f"v{max(versions) + 1}"
-
-
-def _get_latest_version(pipeline_dir: Path) -> str:
-    """Get the latest version number for a pipeline
-
-    Args:
-        pipeline_dir: Path to pipeline directory
-
-    Returns:
-        Latest version string or None if no versions exist
-    """
-    if not pipeline_dir.exists():
-        return None
-
-    # Find all existing version directories
-    versions = []
-    for item in pipeline_dir.iterdir():
-        if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
-            versions.append(int(item.name[1:]))
-
-    if not versions:
-        return None
-
-    return f"v{max(versions)}"
-
-
-def _create_version_directory(pipeline_name: str, module_number: int = None, path_letter: str = None, base_version: str = None) -> tuple:
-    """Create a new version directory for a pipeline
-
-    Args:
-        pipeline_name: Name of the pipeline
-        module_number: Module number (optional, adds to directory name)
-        path_letter: Path letter (optional, adds to directory name)
-        base_version: Base version to build upon (for reruns)
-
-    Returns:
-        Tuple of (version_dir_path, version_str, is_rerun, full_pipeline_name)
-    """
-    project_root = Path(__file__).parent.parent
-    outputs_dir = project_root / "outputs"
-
-    # Build full pipeline name with module and path
-    full_pipeline_name = pipeline_name
-    if module_number is not None:
-        full_pipeline_name += f"_module_{module_number}"
-    if path_letter is not None:
-        full_pipeline_name += f"_path_{path_letter.lower()}"
-
-    pipeline_dir = outputs_dir / full_pipeline_name
-
-    # Determine version number
-    version_str = _get_next_version(pipeline_dir)
-    version_dir = pipeline_dir / version_str
-
-    # Create directory structure
-    version_dir.mkdir(parents=True, exist_ok=True)
-    (version_dir / "items").mkdir(exist_ok=True)
-    (version_dir / "collated").mkdir(exist_ok=True)
-    (version_dir / "prompts").mkdir(exist_ok=True)
-
-    is_rerun = base_version is not None
-
-    return version_dir, version_str, is_rerun, full_pipeline_name
-
-
-def _update_latest_symlink(pipeline_name: str, version_str: str):
-    """Update the 'latest' symlink to point to the newest version
-
-    Args:
-        pipeline_name: Name of the pipeline
-        version_str: Version to point to (e.g., "v1")
-    """
-    project_root = Path(__file__).parent.parent
-    outputs_dir = project_root / "outputs"
-    pipeline_dir = outputs_dir / pipeline_name
-    latest_link = pipeline_dir / "latest"
-
-    # Remove existing symlink if it exists
-    if latest_link.exists() or latest_link.is_symlink():
-        latest_link.unlink()
-
-    # Create new symlink (relative to pipeline_dir)
-    try:
-        latest_link.symlink_to(version_str, target_is_directory=True)
-    except OSError:
-        # On Windows, symlinks may require admin - create a text file instead
-        with open(latest_link.with_suffix('.txt'), 'w') as f:
-            f.write(version_str)
-
-
-def _save_metadata(version_dir: Path, metadata: Dict):
-    """Save metadata.json for a pipeline version
-
-    Args:
-        version_dir: Path to version directory
-        metadata: Metadata dictionary to save
-    """
-    metadata_path = version_dir / "metadata.json"
-    with open(metadata_path, 'w', encoding='utf-8') as f:
-        json.dump(metadata, f, indent=2, ensure_ascii=False)
-
-
-def _load_base_version_items(pipeline_name: str, base_version: str, step_number: int) -> Dict:
-    """Load items from a base version for merging
-
-    Args:
-        pipeline_name: Name of the pipeline
-        base_version: Base version (e.g., "v0")
-        step_number: Step number to load items from
-
-    Returns:
-        Dict mapping item_id to item data
-    """
-    project_root = Path(__file__).parent.parent
-    base_dir = project_root / "outputs" / pipeline_name / base_version / "items"
-
-    if not base_dir.exists():
-        return {}
-
-    items = {}
-    for item_dir in base_dir.iterdir():
-        if item_dir.is_dir():
-            item_id = item_dir.name
-            # Load the specific step output
-            step_file = item_dir / f"{step_number:02d}_output.json"
-            if step_file.exists():
-                with open(step_file, 'r', encoding='utf-8') as f:
-                    items[item_id] = json.load(f)
-
-    return items

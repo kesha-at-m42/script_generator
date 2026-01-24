@@ -57,7 +57,15 @@ Status Filtering Examples:
     else:
         filter_statuses = default_statuses
 
-    outputs_dir = Path(__file__).parent / "outputs"
+    # Add project root to path
+    project_root = Path(__file__).parent.parent
+    sys.path.insert(0, str(project_root))
+    sys.path.insert(0, str(project_root / "core"))
+
+    from path_manager import get_project_paths
+
+    paths = get_project_paths()
+    outputs_dir = paths['outputs']
 
     if not outputs_dir.exists():
         print("No outputs directory found")

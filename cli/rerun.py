@@ -1,115 +1,191 @@
 """
-Rerun CLI - Rerun specific items from a pipeline
+Rerun CLI - Rerun specific items or steps from a pipeline
+
+Supports two rerun modes:
+1. Item-level reruns: Rerun specific items within batch steps
+2. Step-level reruns: Rerun specific step ranges
 
 Usage:
-    python rerun.py <pipeline_name> <item_ids> [--note "reason"]
+    # Rerun specific items (existing functionality)
+    python rerun.py problem_generator 4001 4005 4012 --base v2
 
-Examples:
-    python rerun.py problem_generator 4002
-    python rerun.py problem_generator 4002 4007 4012
-    python rerun.py problem_generator 4002 --note "Fixed prompt"
+    # Rerun from step 3 onwards
+    python rerun.py problem_generator --start-from 3 --module 4 --path a
+
+    # Rerun only step 3
+    python rerun.py problem_generator --start-from 3 --end-at 3 --module 4
+
+    # Combine: rerun items 4001, 4005 within step range 2-4
+    python rerun.py problem_generator 4001 4005 --start-from 2 --end-at 4
 """
 
 import sys
 import argparse
 from pathlib import Path
 
-# Add core directory to path
-core_dir = Path(__file__).parent / "core"
-if str(core_dir) not in sys.path:
-    sys.path.insert(0, str(core_dir))
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
 
-from pipeline import run_pipeline, Step, _get_latest_version
+from core.pipeline import run_pipeline
+from core.version_manager import get_latest_version
+from core.path_manager import get_project_paths
+from config.pipelines import PIPELINES
 import json
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Rerun specific items from a pipeline",
+        description="Rerun specific items or steps from a pipeline",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python rerun.py problem_generator 4002
-  python rerun.py problem_generator 4002 4007 4012
-  python rerun.py problem_generator 4002 --note "Fixed prompt issue"
-  python rerun.py problem_generator 4002 --base v0
+  # Item-level reruns (rerun specific batch items)
+  python rerun.py problem_generator 4001 4005 4012
+  python rerun.py problem_generator 4001 --base v2 --note "Fixed prompt"
+
+  # Step-level reruns (skip to step N)
+  python rerun.py problem_generator --start-from 3 --module 4 --path a
+  python rerun.py problem_generator --start-from 3 --end-at 3 --module 4
+  python rerun.py problem_generator --start-from sequence_structurer --module 4
+
+  # Combined (rerun items within step range)
+  python rerun.py problem_generator 4001 4005 --start-from 2 --end-at 4
         """
     )
     parser.add_argument("pipeline_name", help="Name of the pipeline")
-    parser.add_argument("item_ids", nargs="+", help="Item IDs to rerun (space-separated)")
-    parser.add_argument("--note", default="", help="Optional note about this rerun")
+    parser.add_argument("item_ids", nargs="*", help="Item IDs to rerun (for batch steps)")
+
+    # Rerun options
     parser.add_argument("--base", default=None, help="Base version to rerun from (default: latest)")
+    parser.add_argument("--note", default="", help="Optional note about this rerun")
+
+    # Step range options
+    parser.add_argument("--start-from", help="Start from step N (int or name)")
+    parser.add_argument("--end-at", help="End at step N (int or name)")
+
+    # Module/path context (required for step-level reruns)
+    parser.add_argument("--module", type=int, help="Module number")
+    parser.add_argument("--path", choices=['a', 'b', 'c'], help="Path letter")
+
+    # Other
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
 
     args = parser.parse_args()
 
-    # Get pipeline directory
-    outputs_dir = Path(__file__).parent / "outputs"
-    pipeline_dir = outputs_dir / args.pipeline_name
-
-    if not pipeline_dir.exists():
-        print(f"Error: Pipeline '{args.pipeline_name}' not found in outputs/")
+    # Validate pipeline exists
+    if args.pipeline_name not in PIPELINES:
+        print(f"Error: Pipeline '{args.pipeline_name}' not found")
         print(f"Available pipelines:")
-        for p in outputs_dir.iterdir():
-            if p.is_dir():
-                print(f"  - {p.name}")
+        for p in PIPELINES.keys():
+            print(f"  - {p}")
         sys.exit(1)
+
+    # Get pipeline steps
+    steps = PIPELINES[args.pipeline_name]
+
+    # Build full pipeline name for path resolution
+    full_pipeline_name = args.pipeline_name
+    if args.module:
+        full_pipeline_name += f"_module_{args.module}"
+    if args.path:
+        full_pipeline_name += f"_path_{args.path.lower()}"
 
     # Get base version
     base_version = args.base
     if base_version is None:
-        base_version = _get_latest_version(pipeline_dir)
+        outputs_dir = get_project_paths()['outputs']
+        pipeline_dir = outputs_dir / full_pipeline_name
+        base_version = get_latest_version(pipeline_dir)
+
         if base_version is None:
-            print(f"Error: No versions found for pipeline '{args.pipeline_name}'")
+            print(f"Error: No versions found for '{full_pipeline_name}'")
+            print(f"Run the full pipeline first before attempting a rerun.")
             sys.exit(1)
 
+    # Determine rerun mode
+    has_item_ids = len(args.item_ids) > 0
+    has_step_range = args.start_from is not None or args.end_at is not None
+
+    # Validate combinations
+    if has_step_range and not args.module:
+        print("Error: --module required when using --start-from or --end-at")
+        sys.exit(1)
+
+    # Convert numeric step references to int
+    start_from = args.start_from
+    if start_from and start_from.isdigit():
+        start_from = int(start_from)
+
+    end_at = args.end_at
+    if end_at and end_at.isdigit():
+        end_at = int(end_at)
+
+    # Show confirmation
     print(f"\n{'='*70}")
-    print(f"RERUN: {args.pipeline_name}")
+    print(f"RERUN: {full_pipeline_name}")
+    print(f"{'='*70}")
     print(f"Base version: {base_version}")
-    print(f"Items: {', '.join(args.item_ids)}")
+
+    if has_step_range:
+        if start_from:
+            print(f"Start from: {start_from}")
+        if end_at:
+            print(f"End at: {end_at}")
+        if not start_from and not end_at:
+            print(f"Steps: All (full pipeline)")
+    else:
+        print(f"Steps: All (full pipeline)")
+
+    if has_item_ids:
+        print(f"Items: {', '.join(args.item_ids)}")
+    else:
+        print(f"Items: All (full rerun)")
+
     if args.note:
         print(f"Note: {args.note}")
     print(f"{'='*70}\n")
 
-    # Load metadata from base version to get pipeline config
-    base_metadata_path = pipeline_dir / base_version / "metadata.json"
-    if not base_metadata_path.exists():
-        print(f"Error: metadata.json not found in {base_version}/")
-        print(f"Cannot determine pipeline configuration.")
+    response = input("Proceed with rerun? (y/n): ").strip().lower()
+    if response != 'y':
+        print("Cancelled.")
+        sys.exit(0)
+
+    # Run pipeline with rerun parameters
+    try:
+        results = run_pipeline(
+            steps=steps,
+            pipeline_name=args.pipeline_name,
+            module_number=args.module,
+            path_letter=args.path,
+            base_version=base_version,
+            rerun_items=args.item_ids if has_item_ids else None,
+            start_from_step=start_from,
+            end_at_step=end_at,
+            notes=args.note,
+            pipeline_status=args.status,
+            verbose=True
+        )
+
+        print("\n" + "="*70)
+        print("RERUN COMPLETE")
+        print("="*70)
+
+        if 'metadata' in results:
+            meta = results['metadata']
+            print(f"\nNew version: {meta.get('version')}")
+            print(f"Mode: {meta.get('mode')}")
+            if meta.get('step_range'):
+                print(f"Steps executed: {meta.get('step_range')}")
+            print(f"Duration: {meta.get('duration_seconds', 0):.1f}s")
+
+    except Exception as e:
+        print(f"\nError: {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
-
-    with open(base_metadata_path, 'r', encoding='utf-8') as f:
-        base_metadata = json.load(f)
-
-    # Reconstruct steps from metadata (if available)
-    # Note: For now, user needs to provide steps manually or we need to save step config
-    print(f"Error: Automatic step reconstruction not yet implemented.")
-    print(f"\nTo rerun items, you need to:")
-    print(f"1. Load your pipeline configuration")
-    print(f"2. Call run_pipeline with:")
-    print(f"   - pipeline_name='{args.pipeline_name}'")
-    print(f"   - base_version='{base_version}'")
-    print(f"   - rerun_items={args.item_ids}")
-    print(f"\nExample code:")
-    print(f"""
-from core.pipeline import run_pipeline, Step
-
-# Define your steps
-steps = [
-    Step(prompt_name="your_prompt", batch_mode=True, batch_id_field="template_id", ...),
-    ...
-]
-
-# Run with rerun
-result = run_pipeline(
-    steps=steps,
-    pipeline_name='{args.pipeline_name}',
-    base_version='{base_version}',
-    rerun_items={args.item_ids},
-    module_number={base_metadata.get('module_number')},
-    verbose=True
-)
-    """)
 
 
 if __name__ == "__main__":

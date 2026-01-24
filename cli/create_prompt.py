@@ -10,10 +10,12 @@ from pathlib import Path
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
 
 
 def create_prompt_draft(prompt_name: str):
     """Generate a new prompt file with placeholder content"""
+    from path_manager import get_project_paths
 
     # Convert to snake_case
     prompt_name = prompt_name.lower().replace(" ", "_").replace("-", "_")
@@ -21,7 +23,9 @@ def create_prompt_draft(prompt_name: str):
     # Create filename and constant name
     filename = f"{prompt_name}.py"
     constant_name = f"{prompt_name.upper()}_PROMPT"
-    filepath = project_root / "steps" / "prompts" / filename
+
+    paths = get_project_paths()
+    filepath = paths['prompts'] / filename
 
     # Check if file already exists
     if filepath.exists():

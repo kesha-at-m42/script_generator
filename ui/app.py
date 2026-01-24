@@ -12,9 +12,11 @@ from datetime import datetime
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
 
 from core.pipeline import Step, run_pipeline, run_single_step
 from core.prompt_builder import Prompt
+from path_manager import get_project_paths
 import importlib
 
  # Import output utilities
@@ -26,10 +28,11 @@ from ui.utils.output import (
 # Note: All pipelines are now centralized in config/pipelines.json
 
 # Configuration
-PROMPTS_DIR = project_root / "steps" / "prompts"
-FORMATTING_DIR = project_root / "steps" / "formatting"
-OUTPUTS_DIR = project_root / "outputs"
-PIPELINES_FILE = project_root / "config" / "pipelines.json"
+paths = get_project_paths()
+PROMPTS_DIR = paths['prompts']
+FORMATTING_DIR = paths['formatting']
+OUTPUTS_DIR = paths['outputs']
+PIPELINES_FILE = paths['project_root'] / "config" / "pipelines.json"
 
 # Claude Models Configuration
 CLAUDE_MODELS = {

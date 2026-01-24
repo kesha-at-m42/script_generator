@@ -1,0 +1,246 @@
+# Validators
+
+> Reference for validator types based on Godot ValidatorSchema.
+
+---
+
+## Validator Types
+
+### ShadedValidator
+**Schema type**: `ShadedValidator`
+
+**Purpose**: Validates that shapes/intervals are shaded to match a target fraction.
+
+**Fields**:
+- `answer` (Fraction): The target fraction that should be shaded (e.g., `"3/4"`)
+
+**Type constant**: `TYPE_EQUAL_SHADED = "fraction_shading"`
+
+**Example**:
+```json
+{
+  "@type": "ShadedValidator",
+  "answer": "3/4"
+}
+```
+
+---
+
+### ShadedPartsValidator
+**Schema type**: `ShadedPartsValidator`
+
+**Purpose**: Validates that an exact count of parts are shaded (integer validation).
+
+**Fields**:
+- `answer` (optional, integer, min: 0): Number of parts that should be shaded
+
+**Type constant**: `TYPE_SHADED_PARTS = "fraction_shaded_parts"`
+
+**Example**:
+```json
+{
+  "@type": "ShadedPartsValidator",
+  "answer": 3
+}
+```
+
+---
+
+### SelectionValidator
+**Schema type**: `SelectionValidator`
+
+**Purpose**: Validates that correct tangible(s) are selected from workspace.
+
+**Fields**:
+- `answer` (integer OR array of integers): Index/indices of correct tangible(s)
+  - Single selection: `0` or `[0]`
+  - Multiple selection: `[0, 2]`
+
+**Type constant**: `TYPE_SELECTION = "tangible_selection"`
+
+**Examples**:
+
+Single selection:
+```json
+{
+  "@type": "SelectionValidator",
+  "answer": 0
+}
+```
+
+Multiple selection:
+```json
+{
+  "@type": "SelectionValidator",
+  "answer": [0, 2]
+}
+```
+
+---
+
+### MultipleChoiceValidator
+**Schema type**: `MultipleChoiceValidator`
+
+**Purpose**: Validates selection from multiple choice options.
+
+**Fields**:
+- `answer` (array of integers, min: 0): Indices of correct choice(s)
+  - 0-based indexing
+  - Can contain multiple indices for multi-select questions
+
+**Type constant**: `TYPE_MULTIPLE_CHOICE = "multiple_choice"`
+
+**Example**:
+```json
+{
+  "@type": "MultipleChoiceValidator",
+  "answer": [1]
+}
+```
+
+**Conversion notes**:
+- Choice id "a" → index `[0]`
+- Choice id "b" → index `[1]`
+- Choice id "c" → index `[2]`
+
+---
+
+### TickValidator
+**Schema type**: `TickValidator`
+
+**Purpose**: Validates the fraction size of parts (e.g., after cutting/dividing) and tick placement on number lines.
+
+**Fields**:
+- `answer` (Fraction OR array of Fractions): Expected tick position(s) or fraction size of parts
+
+**Type constant**: `TYPE_FRACTION_SHAPE_PARTS = "fraction_parts"`
+
+**Examples**:
+
+Single tick:
+```json
+{
+  "@type": "TickValidator",
+  "answer": "2/3"
+}
+```
+
+Multiple ticks:
+```json
+{
+  "@type": "TickValidator",
+  "answer": ["1/3", "2/3"]
+}
+```
+
+---
+
+### PointValidator
+**Schema type**: `PointValidator`
+
+**Purpose**: Validates that points are placed at correct positions on number line. Used with Move tool.
+
+**Fields**:
+- `answer` (array of Fractions): Expected point positions
+
+**Example**:
+```json
+{
+  "@type": "PointValidator",
+  "answer": ["2/7"]
+}
+```
+
+---
+
+### LabelValidator
+**Schema type**: `LabelValidator`
+
+**Purpose**: Validates dragged fraction labels placed on number line ticks. Used with Drag tool.
+
+**Fields**:
+- `answer` (array of Fractions): Expected labels at tick positions (in order from left to right)
+
+**Example**:
+```json
+{
+  "@type": "LabelValidator",
+  "answer": ["0", "1/4", "1"]
+}
+```
+
+**Note**: Answer array represents the complete set of labels on the number line after dragging, not just the labels being dragged.
+
+---
+
+## Validator Selection Guide
+
+**For Move tool (placing points)**:
+- Use: `PointValidator`
+- Answer format: `["2/7"]` (array of fractions)
+
+**For Place tool / "cut" (placing ticks)**:
+- Use: `TickValidator`
+- Answer format: `["2/3"]` or `"2/3"`
+
+**For Drag tool (dragging labels)**:
+- Use: `LabelValidator`
+- Answer format: Complete label array `["0", "1/3", "2/3", "1"]`
+
+**For Select tool (single)**:
+- Use: `SelectionValidator`
+- Answer format: `0` or `[0]`
+
+**For Select tool (multi)**:
+- Use: `SelectionValidator`
+- Answer format: `[0, 2]`
+
+**For MCQ (choices)**:
+- Use: `MultipleChoiceValidator`
+- Answer format: `[1]`
+
+**For Paint tool (proportion)**:
+- Use: `ShadedValidator`
+- Answer format: `"3/4"`
+
+**For Paint tool (count)**:
+- Use: `ShadedPartsValidator`
+- Answer format: `3`
+
+---
+
+## Answer Format Reference
+
+### Fraction Format
+Fractions are specified as strings:
+- Format: `"numerator/denominator"` (e.g., `"2/3"`, `"1/4"`)
+- Whole numbers: `"3"` or `"3/1"`
+- Always use strings, not numeric types
+
+### Index Format
+Tangible and choice indices are 0-based integers:
+- First item: `0`
+- Second item: `1`
+- Third item: `2`
+
+### Single vs Array
+- `SelectionValidator` accepts both single integer and array
+- `MultipleChoiceValidator` requires array (even for single choice)
+- `TickValidator` accepts both single fraction and array
+- `LabelValidator` requires array
+
+---
+
+## Validation Constants
+
+For reference, the internal type constants used by Godot:
+
+```
+TYPE_EQUAL_SHADED = "fraction_shading"
+TYPE_SHADED_PARTS = "fraction_shaded_parts"
+TYPE_FRACTION_SHAPE_PARTS = "fraction_parts"
+TYPE_SELECTION = "tangible_selection"
+TYPE_MULTIPLE_CHOICE = "multiple_choice"
+```
+
+These are internal identifiers and not typically needed in JSON schema output.

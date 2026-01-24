@@ -58,11 +58,8 @@ def load_pipelines_from_json():
 
             # Validate batch mode requirements
             if batch_kwargs.get("batch_mode"):
-                if not input_file:
-                    raise ValueError(
-                        f"Step '{step_data.get('name', 'unnamed')}': "
-                        "batch_mode=true requires 'input_file' pointing to a JSON array"
-                    )
+                # Note: input_file can be None for auto-chaining from previous step
+                # Runtime will validate that input is available
                 if not batch_kwargs.get("batch_id_field"):
                     # Just a warning, not an error
                     print(f"  [WARN] Step '{step_data.get('name')}': "
