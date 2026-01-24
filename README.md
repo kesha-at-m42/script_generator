@@ -4,14 +4,14 @@ An automated pipeline system for generating interactive educational content usin
 
 ## 🎯 Overview
 
-The pipeline generates educational content through 4 main steps:
+The pipeline generates educational content through multiple steps:
 
 ```
-Learning Goals → Questions → Interactions → Remediations → Godot Format
-     (input)        (AI)         (AI)          (AI)          (AI + deterministic)
+Templates → Problems → Sequences → BBCode Format → Godot Output
+  (input)      (AI)       (AI)       (formatting)    (formatting)
 ```
 
-Each step processes items individually and applies deterministic post-processing where needed (metadata correction, BBCode formatting).
+Each step processes items individually with AI and deterministic post-processing.
 
 ## 🚀 Quick Start
 
@@ -19,28 +19,9 @@ Each step processes items individually and applies deterministic post-processing
 - Python 3.8+
 - Anthropic API key
 
-  ### Installing Python
-
-  If you don't have Python installed, download it from the official website:
-
-  **Windows/Mac/Linux:**
-  1. Visit [python.org/downloads](https://www.python.org/downloads/)
-  2. Download the latest Python 3.x version (3.8 or higher)
-  3. Run the installer
-     - **Windows**: Check "Add Python to PATH" during installation
-     - **Mac**: Follow the installer prompts
-     - **Linux**: Use your package manager (e.g., `sudo apt install python3`)
-
-  **Verify installation:**
-  ```bash
-  python --version  # Should show Python 3.8 or higher
-
-  If python --version doesn't work, try:
-  python3 --version  # Linux/Mac often use python3 command
-
 ### Installation
 
-1. Clone and navigate to the repository:
+1. Clone and navigate:
 ```bash
 git clone https://github.com/kesha-at-m42/script_generator.git
 cd script_generator
@@ -59,228 +40,375 @@ source venv/Scripts/activate
 # Windows (PowerShell)
 venv\Scripts\Activate.ps1
 
-# Windows (Command Prompt)
-venv\Scripts\activate.bat
-
 # Linux/Mac
 source venv/bin/activate
 ```
-
-**Verify activation:** You should see `(venv)` at the start of your prompt:
-```bash
-(venv) user@computer ~/script_generator $  # ✅ Active
-user@computer ~/script_generator $         # ❌ Not active - need to activate
-```
-
-**Note:** Keep the terminal window open after activation. The environment stays active until you close the terminal or run `deactivate`.
 
 4. Install dependencies:
 ```bash
 pip install anthropic python-dotenv
 ```
 
-4. Create `.env` file:
+5. Create `.env` file:
 ```bash
 ANTHROPIC_API_KEY=your-api-key-here
 ```
 
 ### Running the Pipeline
 
+**Interactive Mode (Recommended):**
+```bash
+python cli/run_pipeline.py
+```
+Follow prompts to select pipeline, module, and path.
+
+**Command Line Mode:**
 ```bash
 # Run full pipeline
-python pipeline_runner.py --module 2 --path b --pipeline full
+python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a
 
-# Run specific steps only
-python pipeline_runner.py --module 2 --path b --pipeline questions_only
-python pipeline_runner.py --module 2 --path b --pipeline remediation_only
-
-# Run with custom output directory
-python pipeline_runner.py --module 2 --path b --pipeline full --output-dir outputs/custom
+# Run with custom status
+python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a --status alpha
 ```
 
 ## 📁 Project Structure
 
 ```
-script_generator/
-├── core/                           # Core system components
-│   ├── claude_client.py           # Claude API wrapper
-│   ├── prompt_builder_old.py          # Prompt assembly and variable substitution
-├── inputs/                        # Input data and prompts
-│   ├── modules/                   # Module-specific content│   │
-│   ├── prompts/                   # AI prompt definitions
-│   │   ├── question_generator.py      # Generates questions from goals
-│   │   ├── interaction_designer.py    # Creates interaction sequences
-│   │   ├── remediation_generator.py   # Adds error remediation paths
-│   │   └── godot_formatter.py         # Transforms to Godot schema
-│   │
-│   └── docs/                      # Reference documentation for prompts│
-├── utils/                         # Utility functions
-├── outputs/                       # Generated content (gitignored)
-│   └── pipeline_module2_pathb_TIMESTAMP/
-│       ├── questions.json             # Generated questions
-│       ├── interactions.json          # Interaction sequences
-│       ├── remediation.json          # With error paths added
-│       ├── final.json                # Godot-formatted output
-│       ├── question_generator/       # Raw LLM responses + prompts
-│       ├── interaction_designer/
-│       ├── remediation_generator/
-│       └── godot_formatter/
+script_generator-content/
+├── core/                           # Core pipeline components
+│   ├── pipeline.py                 # Main pipeline orchestration
+│   ├── claude_client.py            # Claude API wrapper
+│   ├── prompt_builder.py           # Prompt assembly
+│   ├── batch_processor.py          # Batch processing logic
+│   ├── version_manager.py          # Version control
+│   └── path_manager.py             # Path resolution
 │
-├── tests/                         # Test files
-│   ├── stepwise_tests/            # Individual step tests
-│   │   ├── test_1_question_generator.py
-│   │   ├── test_2_interaction_designer.py
-│   │   ├── test_3_remediation_generator.py
-│   │   └── test_4_godot_formatter.py
-│   └── archived_tests/            # Legacy test files
+├── cli/                            # Command-line interfaces
+│   ├── run_pipeline.py             # Interactive pipeline runner
+│   ├── rerun.py                    # Rerun specific items/steps
+│   ├── list.py                     # List versions/outputs
+│   └── create_prompt.py            # Create new prompts
 │
-├── pipeline_runner.py             # Main pipeline orchestration
-├── .env                          # API keys (gitignored)
-└── README.md                     # This file
+├── config/                         # Configuration
+│   ├── pipelines.json              # Pipeline definitions
+│   └── pipelines.py                # Pipeline loader
+│
+├── steps/                          # Step definitions
+│   ├── prompts/                    # AI prompt files
+│   │   ├── problem_generator.py
+│   │   ├── sequence_structurer.py
+│   │   └── ...
+│   └── formatting/                 # Deterministic formatters
+│       ├── bbcode_formatter.py
+│       └── ...
+│
+├── modules/                        # Module-specific content
+│   ├── module4/
+│   │   ├── problem_templates_v2.json
+│   │   ├── patha/
+│   │   │   ├── visuals.md
+│   │   │   └── ...
+│   │   └── pathb/
+│   │       └── ...
+│   └── module5/
+│       └── ...
+│
+├── docs/                           # Reference documentation
+│   ├── remediation_system.md
+│   ├── guide_design.md
+│   └── ...
+│
+├── outputs/                        # Generated content (gitignored)
+│   └── problem_generator_module_4_path_a/
+│       ├── v0/                     # Initial version
+│       │   ├── step_01_problem_generator/
+│       │   │   ├── items/          # Individual outputs
+│       │   │   ├── prompts/        # Prompts sent to Claude
+│       │   │   └── problem_generator.json
+│       │   ├── step_02_sequence_structurer/
+│       │   └── metadata.json
+│       ├── v1/                     # Rerun version
+│       └── latest -> v1            # Symlink to latest
+│
+└── utils/                          # Utility functions
+    ├── json_utils.py
+    └── template_utils.py
 ```
 
-## 🔄 Pipeline Steps
+## 🔄 Pipeline System
 
-### 1. Question Generator
-**Input**: Learning goals from `modules/moduleN/problem_templates.json`
-**Output**: `questions.json` - Assessment questions for each goal
-**Processing**: Item-by-item (one goal at a time)
+### Pipeline Configuration
 
-Generates multiple questions per learning goal, including:
-- Question prompts
-- Cognitive type (IDENTIFY, CREATE, COMPARE, etc.)
-- Visual context descriptions
-- Variables used
-- Difficulty level
+Pipelines are defined in `config/pipelines.json`:
 
-### 2. Interaction Designer
-**Input**: `questions.json`
-**Output**: `interactions.json` - Interactive sequences with workspace definitions
-**Processing**: Item-by-item (one question at a time)
-
-Creates step-by-step interaction flows with:
-- Workspace tangibles (bars, shapes, choice buttons)
-- Dialogue and prompts
-- Correct answers
-- Success path feedback
-
-### 3. Remediation Generator
-**Input**: `interactions.json`
-**Output**: `remediation.json` - Sequences with error paths
-**Processing**: Item-by-item (one sequence at a time)
-
-Adds three-tiered error remediation:
-- **Light**: Simple redirect (no visuals)
-- **Medium**: Hint + visual scaffolding
-- **Heavy**: Full demonstration with annotations
-
-**Uses dynamic prefills** to guide Claude's JSON structure.
-
-### 4. Godot Formatter
-**Input**: `remediation.json`
-**Output**: `final.json` - Godot-compatible schema
-**Processing**: Item-by-item (one sequence at a time)
-**Post-processing**: Metadata correction + BBCode formatting
-
-Transforms to Godot schema with:
-- `@type` annotations
-- Workspace → tangibles structure
-- Embedded visual effects as metadata.events
-- Corrected mastery metadata
-- BBCode-formatted fractions and vocabulary
-
-## 🛠️ Key Features
-
-### Dynamic Prefills
-The system uses dynamic prefills to guide Claude's JSON generation:
-- **Question Generator**: Includes goal_id and goal_text
-- **Interaction Designer**: Includes question metadata
-- **Remediation Generator**: Includes full sequence structure up to error path opening
-
-Prefills ensure consistent JSON structure and reduce hallucination.
-
-### Deterministic Post-Processing
-After AI transformation, deterministic functions correct and enhance output:
-- **Metadata Mapper** (`utils/metadata_mapper.py`): Corrects mastery tier/component/verbs based on difficulty and cognitive type
-- **BBCode Formatter** (`utils/bbcode_formatter.py`): Wraps fractions with `[fraction]` tags and adds `[vocab]` tags for vocabulary terms
-
-### Item-by-Item Processing
-Each step processes items individually (one API call per item) to:
-- Enable better error handling
-- Apply per-item post-processing
-- Support prefill generation
-- Maintain manageable context windows
-
-### Module System
-Content is organized by modules with:
-- Decomposed learning goals
-- Module-specific vocabulary
-- Path variations (path a, b, c, etc.)
-
-## 📋 Configuration
-
-### Pipeline Configs
-Located in `pipeline_runner.py` under `EXAMPLE_PIPELINES`:
-
-```python
-"full": [
+```json
+{
+  "problem_generator": [
     {
-        "name": "Question Generator",
-        "prompt_id": "question_generator",
-        "processing_mode": "item_by_item",
-        "item_key": "goals",
-        "extract_fields": {
-            "goal_id": "id",
-            "goal": "text",
-            "difficulty_level": "difficulty_level"
-        },
-        "collect_key": "questions",
-        "output_file": "questions.json"
+      "type": "ai",
+      "prompt_name": "problem_generator",
+      "batch_mode": true,
+      "batch_id_field": "template_id",
+      "batch_output_id_field": "problem_id",
+      "batch_id_start": 4001
     },
-    # ... more steps
-]
-```
-
-### Prompt Files
-Each prompt file (in `inputs/prompts/`) defines:
-- `ROLE`: System instructions
-- `DOCS`: Reference documentation to include
-- `EXAMPLES`: Example inputs/outputs
-- `INSTRUCTIONS`: Task-specific instructions
-- `PREFILL`: Optional prefill template
-
-Variables are substituted using `{variable_name}` syntax.
-
-## 🧪 Testing
-
-### Run Custom Pipelines
-```python
-from pipeline_runner import PipelineRunner
-
-runner = PipelineRunner(
-    module_number=2,
-    path_letter="b",
-    output_dir="outputs/test_run",
-    verbose=True
-)
-
-result = runner.run_pipeline([
     {
-        "name": "Question Generator",
-        "prompt_id": "question_generator",
-        "processing_mode": "item_by_item",
-        "input_file": "modules/module2/problem_templates.json",
-        "item_key": "goals",
-        "extract_fields": {"goal_id": "id", "goal": "text"},
-        "collect_key": "questions",
-        "output_file": "questions.json"
+      "type": "ai",
+      "prompt_name": "sequence_structurer",
+      "batch_mode": true,
+      "batch_id_field": "problem_id"
+    },
+    {
+      "type": "formatting",
+      "function": "bbcode_formatter.process_godot_sequences",
+      "batch_mode": true,
+      "batch_id_field": "problem_id"
     }
-])
+  ]
+}
 ```
 
-## 📊 Output Format
+### Step Types
 
-### Final Godot Schema
+**AI Steps:**
+- Call Claude API with prompt
+- Process items individually
+- Auto-chain outputs between steps
+
+**Formatting Steps:**
+- Run deterministic Python functions
+- Apply post-processing (BBCode, metadata)
+- No API calls
+
+### Batch Processing
+
+Steps can process items individually with:
+- `batch_mode: true` - Process array item-by-item
+- `batch_id_field` - Field to use as item ID
+- `batch_output_id_field` - Add sequential IDs to outputs
+- `batch_id_start` - Starting number for IDs
+
+## 🔁 Rerun System
+
+### Item-Level Reruns
+
+Rerun specific items from batch steps:
+
+```bash
+# Rerun items 4001 and 4005
+python cli/rerun.py problem_generator 4001 4005 --module 4 --path a
+
+# Rerun with note
+python cli/rerun.py problem_generator 4001 --note "Fixed prompt" --module 4 --path a
+
+# Rerun from specific base version
+python cli/rerun.py problem_generator 4001 --base v2 --module 4 --path a
+```
+
+### Step-Level Reruns (NEW)
+
+Rerun specific step ranges without re-running earlier steps:
+
+```bash
+# Run from step 3 onwards
+python cli/rerun.py problem_generator --start-from 3 --module 4 --path a
+
+# Run ONLY step 3
+python cli/rerun.py problem_generator --start-from 3 --end-at 3 --module 4 --path a
+
+# Run steps 2-4
+python cli/rerun.py problem_generator --start-from 2 --end-at 4 --module 4 --path a
+
+# Use step names instead of numbers
+python cli/rerun.py problem_generator --start-from sequence_structurer --module 4 --path a
+```
+
+**How it works:**
+- Steps outside the range are skipped
+- First executed step loads input from base version
+- Subsequent steps chain normally from current version
+- Creates a new version with only executed steps
+
+**Combined mode:**
+Rerun specific items within a step range:
+```bash
+python cli/rerun.py problem_generator 4001 4005 --start-from 2 --end-at 3 --module 4 --path a
+```
+
+### Use Cases for Step Reruns
+
+1. **Iterate on a specific step's prompt** - Change step 3's prompt, rerun only step 3
+2. **Debug a single step** - Isolate and test one step
+3. **Resume from failure** - Continue from where pipeline failed
+4. **Skip expensive steps** - Skip early steps that don't need changes
+
+## 📊 Version Control
+
+### Automatic Versioning
+
+Each pipeline run creates a new version:
+```
+outputs/problem_generator_module_4_path_a/
+├── v0/         # Initial run
+├── v1/         # First rerun
+├── v2/         # Second rerun
+└── latest/     # Symlink to latest version
+```
+
+### Metadata Tracking
+
+Each version includes `metadata.json`:
+
+```json
+{
+  "version": "v1",
+  "base_version": "v0",
+  "mode": "partial_rerun",
+  "step_range": "3-3",
+  "skipped_steps": [1, 2, 4, 5],
+  "executed_steps": [3],
+  "timestamp": "2026-01-24T10:30:00",
+  "duration_seconds": 12.5,
+  "pipeline_name": "problem_generator",
+  "module_number": 4,
+  "path_letter": "a",
+  "pipeline_status": "alpha",
+  "notes": "Testing updated prompt for step 3"
+}
+```
+
+**Modes:**
+- `initial` - First run of pipeline
+- `rerun` - Full pipeline rerun
+- `partial_rerun` - Step range execution
+
+## 🛠️ CLI Tools
+
+### run_pipeline.py
+
+Interactive pipeline execution:
+```bash
+python cli/run_pipeline.py
+# Prompts for: pipeline, module, path, status, notes
+```
+
+### rerun.py
+
+Rerun items or steps:
+```bash
+# Item reruns
+python cli/rerun.py <pipeline> <item_ids> --module N --path X
+
+# Step reruns
+python cli/rerun.py <pipeline> --start-from N --end-at N --module N --path X
+```
+
+### list.py
+
+List available pipelines and versions:
+```bash
+# List all pipelines
+python cli/list.py
+
+# List versions for a pipeline
+python cli/list.py problem_generator_module_4_path_a
+```
+
+### create_prompt.py
+
+Create new prompt files:
+```bash
+python cli/create_prompt.py my_new_prompt
+```
+
+## 📝 Development
+
+### Creating a New Pipeline
+
+1. **Define steps** in `config/pipelines.json`:
+```json
+{
+  "my_pipeline": [
+    {
+      "type": "ai",
+      "prompt_name": "my_prompt",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    }
+  ]
+}
+```
+
+2. **Create prompt** in `steps/prompts/my_prompt.py`:
+```python
+ROLE = "You are an expert..."
+DOCS = ["reference_doc.md"]
+MODULE_REF = ["field1", "field2"]
+INSTRUCTIONS = """
+Generate output based on {field1} and {field2}.
+"""
+EXAMPLES = ["example1", "example2"]
+```
+
+3. **Run pipeline**:
+```bash
+python cli/run_pipeline.py --pipeline my_pipeline --module 4 --path a
+```
+
+### Adding a Formatting Step
+
+1. **Create function** in `steps/formatting/my_formatter.py`:
+```python
+def process_data(data, module_number=None, path_letter=None):
+    """Process data deterministically"""
+    # Transform data
+    return processed_data
+```
+
+2. **Add to pipeline**:
+```json
+{
+  "type": "formatting",
+  "function": "my_formatter.process_data",
+  "batch_mode": true,
+  "batch_id_field": "id"
+}
+```
+
+### Modifying Prompts
+
+**Safe to modify:**
+- `ROLE` - Change persona/expertise
+- `INSTRUCTIONS` - Update task description
+- `DOCS` - Add/remove reference docs
+- `EXAMPLES` - Add more examples
+
+**Be careful with:**
+- Variable names in `{brackets}` - must match `MODULE_REF`
+- JSON structure in examples
+
+**Documentation references:**
+Add docs to `DOCS` list, then reference with XML tags:
+```python
+DOCS = ["my_guide.md"]
+INSTRUCTIONS = """
+Follow guidelines in <my_guide> for formatting.
+"""
+```
+
+## 🔐 Security
+
+Never commit:
+- `.env` (API keys)
+- `outputs/` (generated content)
+- `venv/` (virtual environment)
+
+These are in `.gitignore`.
+
+## 📋 Output Format
+
+### Final Output Structure
+
 ```json
 {
   "@type": "SequencePool",
@@ -289,32 +417,18 @@ result = runner.run_pipeline([
       "@type": "Sequence",
       "metadata": {
         "@type": "SequenceMetadata",
-        "problem_id": 1,
-        "goal_id": 5,
+        "problem_id": 4001,
+        "template_id": 5,
         "mastery_tier": 2,
-        "mastery_component": "PROCEDURAL",
-        "mastery_verbs": ["APPLY"]
+        "mastery_component": "PROCEDURAL"
       },
       "steps": [
         {
           "@type": "Step",
-          "dialogue": "Here's a bar divided into 4 parts.",
+          "dialogue": "Here's a [fraction]3/4[/fraction] bar.",
           "workspace": {
             "@type": "WorkspaceData",
             "tangibles": [...]
-          }
-        },
-        {
-          "@type": "Step",
-          "prompt": {
-            "@type": "Prompt",
-            "text": "Shade [fraction numerator=3 denominator=4]three fourths[/fraction]",
-            "validator": {...},
-            "remediations": [
-              {"@type": "Remediation", "id": "light", ...},
-              {"@type": "Remediation", "id": "medium", ...},
-              {"@type": "Remediation", "id": "heavy", ...}
-            ]
           }
         }
       ]
@@ -323,236 +437,50 @@ result = runner.run_pipeline([
 }
 ```
 
-## 🔐 Security
+## 💡 Best Practices
 
-**Never commit sensitive files:**
-- `.env` (contains API keys)
-- `outputs/` (generated content)
-- `venv/` (virtual environment)
+**Running pipelines:**
+1. Use interactive mode for first run
+2. Check outputs in `outputs/pipeline_name/latest/`
+3. Use step reruns to iterate on prompts
+4. Add notes to track changes
 
-These are excluded in `.gitignore`.
+**Debugging:**
+1. Check `prompts/` directory for exact prompts sent
+2. Check `items/` directory for individual outputs
+3. Look at `errors.json` for failed items
+4. Use `--verbose` for detailed logging
 
-## 📝 Development
+**Version management:**
+1. Keep base versions when iterating
+2. Use meaningful notes for reruns
+3. Use pipeline status (alpha/beta/rc/final) to track maturity
 
-### Experimenting with Prompts and Documentation
+## 🆘 Common Issues
 
-#### ✅ Safe to Modify
-
-**Prompt Content** (`inputs/prompts/*.py`):
-- `*_ROLE`: Change the persona or expertise level
-- `*_INSTRUCTIONS`: Modify task instructions, add examples, change formatting requirements
-- `*_DOCS`: Add/remove documentation files from the list
-- `*_MODULE_REF`: Add/remove variables for reference from modules.py
-- `*_EXAMPLES`: Add more examples or modify existing ones
-
-**Documentation Files** (`docs/*.md`):
-- Add new sections, update guidelines, refine language patterns
-- These are included in prompts as reference material
-- To add new documents, follow this process.
-
-  **Step-by-Step Process:**
-
-  1. **Create the documentation file** in `docs/`:
-     ```bash
-     # Example: Create a new events reference
-     docs/my_events_guide.md
-
-  2. Add the file to the prompt's DOCS list:
-  # In inputs/prompts/your_prompt.py
-  YOUR_PROMPT_DOCS = [
-      "existing_doc.md",
-      "my_events_guide.md"  # Add new doc here (include .md extension)
-  ]
-  3. Reference it in the prompt instructions using XML-style tags:
-  YOUR_PROMPT_INSTRUCTIONS = """
-  Follow the guidelines in <my_events_guide> for event naming conventions.
-
-  Refer to <existing_doc> for additional context.
-  """
-
-  Important Notes:
-  - The XML tag name is the filename without the .md extension
-  - For remediation_system.md, use <remediation_system> in instructions
-  - For animation_events.json, use <animation_events> (works for JSON too)
-  - The prompt builder automatically loads and injects doc content
-  - No changes to pipeline_runner.py or prompt_builder_old.py needed
-
-  Example:
-  # inputs/prompts/interaction_designer.py
-  INTERACTION_DESIGNER_DOCS = [
-      "guide_design.md",
-      "visual_guide.md"
-  ]
-
-  INTERACTION_DESIGNER_INSTRUCTIONS = """
-  Use Kim's voice from <guide_design> when writing dialogue.
-  Refer to <visual_guide> for tangible types and properties.
-  """
-
-**Module Data** (`modules/moduleN/`):
-- `problem_templates.json`: Add/modify learning goals
-- `modules.py`: Change fields
-
-#### ⚠️ Be Careful With
-
-**Variable Names** in prompts - must match pipeline config:
-```python
-# In prompt file
-"{goal_id}"  # Variable name
-
-# Must match in pipeline config
-"extract_fields": {
-    "goal_id": "id"  # ← Must be "goal_id"
-}
-```
-
-**JSON Structure** in `*_PREFILL`:
-- Keep proper indentation (2 spaces)
-- Use `{{` and `}}` for literal braces (Python f-string escaping)
-- Match the nesting level that Claude should continue from
-
-**Field Names** in `extract_fields`:
-- These pull data from input JSON - field must exist in source data
-
-#### ❌ Do Not Change
-
-**Core System Files** (unless you know what you're doing):
-- `core/claude_client.py` - API wrapper
-- `core/prompt_builder_old.py` - Variable substitution logic
-- `pipeline_runner.py` - Orchestration logic (except EXAMPLE_PIPELINES)
-- `utils/prefill_generator.py` - Prefill truncation logic
-
-**Pipeline Config Structure**:
-```python
-{
-    "name": "...",           # Display name - safe to change
-    "prompt_id": "...",      # Must match function name in prompt_builder_old.py
-    "processing_mode": "...", # "item_by_item" or "batch" - don't change unless needed
-    "item_key": "...",       # Field name in input JSON - must match actual data
-    "collect_key": "...",    # Field name in output JSON - don't change
-    "output_file": "..."     # Can change if you want different output names
-}
-```
-
-**Output Schema** (Godot format):
-- `@type` annotations - required by Godot
-- Field names in final.json - must match Godot's expectations
-
-#### 🧪 How to Test Changes
-
-**1. Test with Small Dataset**
-Modify pipeline config to use `"limit": 2` for testing:
-```python
-{
-    "name": "Question Generator",
-    "limit": 2,  # Only process first 2 items
-    ...
-}
-```
-
-**2. Check Raw Outputs**
-After running pipeline, check intermediate files:
+**Import errors:**
 ```bash
-outputs/pipeline_moduleN_pathX_TIMESTAMP/
-├── question_generator/
-│   ├── item_1_prompt.txt    # See actual prompt sent to Claude
-│   └── item_1_raw.txt       # See raw Claude response
+# Make sure you're in project root
+cd /path/to/script_generator-content
+
+# Activate virtual environment
+source venv/Scripts/activate  # Windows Git Bash
 ```
 
-#### 💡 Best Practices
-
-**When modifying prompts:**
-1. **Start with examples** - Add/modify examples in `*_EXAMPLES` first
-2. **Test incrementally** - Change one thing at a time
-3. **Check raw outputs** - Look at `*_prompt.txt` and `*_raw.txt` files
-4. **Use verbose mode** - Run with `--verbose` or check test outputs
-
-**When modifying documentation:**
-1. **Keep formatting consistent** - Use same markdown structure
-2. **Test with actual prompts** - Docs are included in prompts via `*_DOCS`
-3. **Update all references** - If you change a term, update everywhere.
-
-#### 📝 Example: Modifying Question Generator Prompt
-
-```python
-# inputs/prompts/question_generator.py
-
-# ✅ SAFE: Add more guidance
-QUESTION_GENERATOR_INSTRUCTIONS = """
-Generate 5 questions per learning goal.
-
-NEW: For difficulty 0-2, use concrete examples.
-NEW: For difficulty 3-4, use abstract reasoning.
-
-Variables:
-- {goal}: The learning goal text
-...
-"""
-
-# ✅ SAFE: Add examples
-QUESTION_GENERATOR_EXAMPLES = [
-    "NEW EXAMPLE HERE..."
-]
-
-# ⚠️ CAREFUL: Changing variables
-# Old: {goal}
-# New: {goal_text}  ← Must update pipeline config too!
-
-# ❌ DON'T: Change function names or imports
-# These are referenced by prompt_builder_old.py
+**API key not found:**
+```bash
+# Create .env file in project root
+echo "ANTHROPIC_API_KEY=your-key-here" > .env
 ```
 
-### Adding a New Pipeline Step
-
-1. **Create prompt file** in `inputs/prompts/your_step.py`:
-```python
-YOUR_STEP_ROLE = "You are an expert..."
-YOUR_STEP_DOCS = ["doc1.md", "doc2.md"]
-YOUR_STEP_INSTRUCTIONS = """Task description..."""
-YOUR_STEP_PREFILL = """{{
-  "output": [
-    {{
-      "field": {variable},"""
+**No versions found:**
+```bash
+# Run full pipeline first before rerun
+python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a
 ```
 
-2. **Register in prompt_builder_old.py**:
-```python
-def _your_step_config(self) -> Dict:
-    from your_step import (
-        YOUR_STEP_ROLE,
-        YOUR_STEP_DOCS,
-        YOUR_STEP_INSTRUCTIONS,
-        YOUR_STEP_PREFILL
-    )
-    return {
-        "role": YOUR_STEP_ROLE,
-        "docs": YOUR_STEP_DOCS,
-        "instructions": YOUR_STEP_INSTRUCTIONS,
-        "prefill": YOUR_STEP_PREFILL
-    }
-```
-
-3. **Add to pipeline config**:
-```python
-{
-    "name": "Your Step",
-    "prompt_id": "your_step",
-    "processing_mode": "item_by_item",
-    "item_key": "input_items",
-    "extract_fields": {"var1": "field1"},
-    "collect_key": "output_items",
-    "output_file": "your_output.json"
-}
-```
-
-### Adding Post-Processing
-
-For deterministic transformations after AI generation:
-
-1. **Create utility function** in `utils/your_processor.py`
-2. **Add to pipeline_runner.py** in `run_step_item_by_item()`:
-```python
-if prompt_id == "your_step":
-    from utils.your_processor import process_data
-    parsed = process_data(parsed)
+**Step range requires base version:**
+```bash
+# Either specify base version or run full pipeline first
+python cli/rerun.py problem_generator --start-from 3 --base v0 --module 4 --path a
 ```

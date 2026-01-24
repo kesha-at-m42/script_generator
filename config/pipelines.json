@@ -204,43 +204,13 @@
       "batch_stop_on_error": false
     }
   ],
-  "godot_pipeline": [
-    {
-      "name": "problem_generator",
-      "type": "ai",
-      "prompt_name": "problem_generator",
-      "description": "Generates specific problem instances from a problem template",
-      "variables": {},
-      "input_file": "modules/module4/problem_templates_v2.json",
-      "output_file": "problem_instances.json",
-      "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": true,
-      "batch_id_field": "template_id",
-      "batch_output_id_field": "problem_instance_id",
-      "batch_id_start": 1,
-      "batch_skip_existing": false,
-      "batch_stop_on_error": false
-    },
-    {
-      "name": "sequence_structurer",
-      "type": "ai",
-      "prompt_name": "sequence_structurer",
-      "description": "Transforms problem instances into structured interaction sequences",
-      "variables": {},
-      "output_file": "sequences.json",
-      "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": true,
-      "batch_id_field": "problem_instance_id",
-      "batch_output_id_field": "problem_id",
-      "batch_id_start": 1,
-      "batch_skip_existing": false,
-      "batch_stop_on_error": false
-    },
+  "test_godot_pipeline": [
     {
       "name": "godot_formatter",
       "type": "ai",
       "prompt_name": "godot_formatter",
       "description": "Transforms interaction sequences into Godot-processable format",
+      "input_file": "outputs/test_sequence_structurer_module_4_path_b/v1/step_01_sequence_structurer/sequence_structurer.json",
       "variables": {},
       "output_file": "godot_sequences.json",
       "model": "claude-sonnet-4-5-20250929",
@@ -250,6 +220,14 @@
       "batch_id_start": 1,
       "batch_skip_existing": false,
       "batch_stop_on_error": false
+    },
+    {
+      "name": "godot_wrapper",
+      "type": "formatting",
+      "function": "godot_wrapper.wrap_in_sequence_pool",
+      "description": "Wraps sequences in SequencePool structure",
+      "function_args": {},
+      "output_file": "sequence_pool.json"
     }
   ]
 }

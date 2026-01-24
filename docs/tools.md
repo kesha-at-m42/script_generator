@@ -112,7 +112,7 @@
 {
   "@type": "Drag",
   "palette": {
-    "fractions": ["1/3", "2/3"],
+    "labels": ["1/3", "2/3"],
     "quantities": [1, 1]
   }
 }

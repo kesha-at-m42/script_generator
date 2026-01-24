@@ -96,9 +96,17 @@ Convert `student_attempts.success_path.dialogue` to:
 Move choices from workspace to prompt and flatten:
 ```json
 "choices": {
-  "@type": "WorkspaceChoices",
   "allow_multiple": false,
   "options": ["1/3", "2/3", "3/3"]
+}
+```
+
+### 10. Palette Structure
+Palette objects do NOT have @type field:
+```json
+"palette": {
+  "labels": ["1/3", "2/3"],
+  "quantities": [1, 1]
 }
 ```
 
@@ -182,7 +190,6 @@ Move choices from workspace to prompt and flatten:
         "answer": [1]
       },
       "choices": {
-        "@type": "WorkspaceChoices",
         "allow_multiple": false,
         "options": ["1/3", "2/3"]
       },
@@ -215,7 +222,9 @@ Move choices from workspace to prompt and flatten:
 - NumLine can use either `ticks` (array or single fraction) or `intervals` - see workspace.md
 - Tools can be strings ("select") or objects ({"@type": "Select"}) - see tools.md
 - Validator answer formats vary by type - see validators.md
-- Always include @type for every object
+- Always include @type for objects EXCEPT: palette and choices (these have no @type)
+- Palette structure: {"labels": [...], "quantities": [...]} - NO @type field
+- Choices structure: {"allow_multiple": bool, "options": [...]} - NO @type field
 - Remove id, type fields from input tangibles
 - Set remediations to [] if no error paths provided
 
