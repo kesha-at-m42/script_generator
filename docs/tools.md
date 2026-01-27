@@ -20,7 +20,11 @@
 ```json
 {
   "@type": "Move",
-  "palette": {}
+  "palette": {
+    "@type": "Palette",
+    "labels": ["1/3", "2/3"],
+    "quantities": [1, 1]
+  }
 }
 ```
 
@@ -112,6 +116,7 @@
 {
   "@type": "Drag",
   "palette": {
+    "@type": "Palette",
     "labels": ["1/3", "2/3"],
     "quantities": [1, 1]
   }

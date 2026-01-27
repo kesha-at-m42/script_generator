@@ -42,10 +42,15 @@ Move sequence-level fields into metadata object:
 "metadata": {
   "@type": "SequenceMetadata",
   "problem_id": 123,
-  "difficulty": 2,
-  "verb": "IDENTIFY",
   "template_id": "4008",
-  "fractions": ["2/3"]
+  "template_skill": "Description of the skill being practiced",
+  "identifiers": {
+    "fractions": ["2/3"]
+  },
+  "mastery_tier": "BASELINE",
+  "mastery_component": "CONCEPTUAL",
+  "mastery_verb": "IDENTIFY",
+  "telemetry_data": {}
 }
 ```
 
@@ -96,15 +101,17 @@ Convert `student_attempts.success_path.dialogue` to:
 Move choices from workspace to prompt and flatten:
 ```json
 "choices": {
+  "@type": "WorkspaceChoices",
   "allow_multiple": false,
   "options": ["1/3", "2/3", "3/3"]
 }
 ```
 
 ### 10. Palette Structure
-Palette objects do NOT have @type field:
+Palette objects MUST have @type field:
 ```json
 "palette": {
+  "@type": "Palette",
   "labels": ["1/3", "2/3"],
   "quantities": [1, 1]
 }
@@ -161,10 +168,15 @@ Palette objects do NOT have @type field:
   "metadata": {
     "@type": "SequenceMetadata",
     "problem_id": 49,
-    "difficulty": 2,
-    "verb": "IDENTIFY",
     "template_id": "4008",
-    "fractions": ["2/3"]
+    "template_skill": "Student can identify fractions on number line",
+    "identifiers": {
+      "fractions": ["2/3"]
+    },
+    "mastery_tier": "BASELINE",
+    "mastery_component": "CONCEPTUAL",
+    "mastery_verb": "IDENTIFY",
+    "telemetry_data": {}
   },
   "steps": [{
     "@type": "Step",
@@ -190,6 +202,7 @@ Palette objects do NOT have @type field:
         "answer": [1]
       },
       "choices": {
+        "@type": "WorkspaceChoices",
         "allow_multiple": false,
         "options": ["1/3", "2/3"]
       },
@@ -222,9 +235,10 @@ Palette objects do NOT have @type field:
 - NumLine can use either `ticks` (array or single fraction) or `intervals` - see workspace.md
 - Tools can be strings ("select") or objects ({"@type": "Select"}) - see tools.md
 - Validator answer formats vary by type - see validators.md
-- Always include @type for objects EXCEPT: palette and choices (these have no @type)
-- Palette structure: {"labels": [...], "quantities": [...]} - NO @type field
-- Choices structure: {"allow_multiple": bool, "options": [...]} - NO @type field
+- Always include @type for ALL objects including palette and choices
+- Palette structure: {"@type": "Palette", "labels": [...], "quantities": [...]}
+- Choices structure: {"@type": "WorkspaceChoices", "allow_multiple": bool, "options": [...]}
+- Metadata must include: problem_id, template_id, template_skill, identifiers, mastery_tier, mastery_component, mastery_verb, telemetry_data
 - Remove id, type fields from input tangibles
 - Set remediations to [] if no error paths provided
 
@@ -242,10 +256,15 @@ Return ONLY valid JSON with Godot schema structure.
       "metadata": {
         "@type": "SequenceMetadata",
         "problem_id": 1,
-        "difficulty": 2,
-        "verb": "IDENTIFY",
         "template_id": "4001",
-        "fractions": ["1/3"]
+        "template_skill": "Student can place fractions on number line",
+        "identifiers": {
+          "fractions": ["1/3"]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verb": "IDENTIFY",
+        "telemetry_data": {}
       },
       "steps": [{
         "@type": "Step",
