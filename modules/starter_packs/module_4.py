@@ -10,18 +10,15 @@ module_4 = {
         "Denominator = number of equal intervals in the unit segment on the number line. Introduce non-unit fractions by iterating 1/b beyond 1."
     ],
     "vocabulary": [
-        "number line",
-        "interval",
-        "equal intervals",
-        "partition",
-        "position",
-        "tick mark",
-        "numerator",
         "denominator",
-        "unit fraction",
-        "unit fractions",
-        "fraction",
-        "fractions"
+        "interval",
+        "numerator",
+        "halves",
+        "thirds",
+        "fourths",
+        "fifths",
+        "sixths",
+        "eighths"
     ],
     "standards": {
         "building_on": [

@@ -10,21 +10,15 @@ module_5 = {
         "Locate unit fractions (1/b) on number lines with correct spacing. Partition number lines into equal intervals and locate a/b using tick marks and labels."
     ],
     "vocabulary": [
-        "number line",
-        "interval",
-        "equal intervals",
-        "partition",
-        "position",
-        "tick mark",
-        "numerator",
         "denominator",
-        "unit fraction",
-        "unit fractions",
-        "fraction",
-        "fractions",
-        "spacing",
-        "label",
-        "equal spaces"
+        "interval",
+        "numerator",
+        "halves",
+        "thirds",
+        "fourths",
+        "fifths",
+        "sixths",
+        "eighths"
     ],
     "standards": {
         "building_on": [
