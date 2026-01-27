@@ -19,7 +19,9 @@ Your task: Transform interaction sequences into Godot-processable format with @t
     instructions="""
 ## TASK
 
-Transform interaction sequences from sequence_structurer output to Godot-processable format.
+Transform interaction step (flat format) into Godot Sequence format (one step at a time).
+
+You will receive ONE flat item representing ONE step. Transform it into a Godot Sequence with proper @type annotations.
 
 Refer to documentation for complete specifications:
 - **tools.md** - Tool types (Move, Place, Drag, Select, Paint, etc.)
@@ -47,7 +49,7 @@ Move sequence-level fields into metadata object:
   "identifiers": {
     "fractions": ["2/3"]
   },
-  "mastery_tier": "BASELINE",
+  "mastery_tier": "baseline",  // Keep original: support, confidence, baseline, stretch, challenge
   "mastery_component": "CONCEPTUAL",
   "mastery_verb": "IDENTIFY",
   "telemetry_data": {}
@@ -88,13 +90,22 @@ Key field changes (see workspace.md for details):
 - Tangible IDs → indices: "line_1"→[0], "line_2"→[1]
 - Fractions: Keep as strings "2/3"
 
-### 8. Success Path
-Convert `student_attempts.success_path.dialogue` to:
+### 8. Success and Error Paths
+Convert flat fields to nested structure:
+- `success_path_dialogue` → `"on_correct": {"@type": "Step", "dialogue": "..."}`
+- `error_path_generic` → `"remediations": [{"@type": "Remediation", "pattern": "generic", ...}]`
+
+For error paths, transform each scaffolding level:
 ```json
-"on_correct": {
-  "@type": "Step",
-  "dialogue": "..."
-}
+"remediations": [
+  {
+    "@type": "Remediation",
+    "pattern": "generic",
+    "light": {"@type": "Step", "dialogue": "..."},
+    "medium": {"@type": "Step", "dialogue": "..."},
+    "heavy": {"@type": "Step", "dialogue": "..."}
+  }
+]
 ```
 
 ### 9. Choices Extraction
@@ -119,15 +130,15 @@ Palette objects MUST have @type field:
 
 ## EXAMPLE TRANSFORMATION
 
-**Input (from sequence_structurer)**:
+**Input (one flat item with remediation)**:
 ```json
 {
   "problem_id": 49,
-  "difficulty": 2,
+  "step_index": 0,
+  "mastery_tier": "baseline",
   "verb": "IDENTIFY",
   "template_id": "4008",
   "fractions": ["2/3"],
-  "steps": [{
     "dialogue": "Look at the point on the number line.",
     "prompt": "What fraction does this point show?",
     "interaction_tool": "click_choice",
@@ -152,16 +163,18 @@ Palette objects MUST have @type field:
       "value": "b",
       "context": "The point is at 2/3"
     },
-    "student_attempts": {
-      "success_path": {
-        "dialogue": "Yes, that's two-thirds."
-      }
+    "success_path_dialogue": "Yes, that's two-thirds.",
+    "error_path_generic": {
+      "steps": [
+        {"scaffolding_level": "light", "dialogue": "Not quite. Try again."},
+        {"scaffolding_level": "medium", "dialogue": "Look at where the point is..."},
+        {"scaffolding_level": "heavy", "dialogue": "The point is at 2 out of 3 parts..."}
+      ]
     }
-  }]
-}
+  }
 ```
 
-**Output (Godot format)**:
+**Output (Godot Sequence format - NO SequencePool wrapper)**:
 ```json
 {
   "@type": "Sequence",
@@ -173,7 +186,7 @@ Palette objects MUST have @type field:
     "identifiers": {
       "fractions": ["2/3"]
     },
-    "mastery_tier": "BASELINE",
+    "mastery_tier": "baseline",
     "mastery_component": "CONCEPTUAL",
     "mastery_verb": "IDENTIFY",
     "telemetry_data": {}
@@ -206,7 +219,15 @@ Palette objects MUST have @type field:
         "allow_multiple": false,
         "options": ["1/3", "2/3"]
       },
-      "remediations": [],
+      "remediations": [
+        {
+          "@type": "Remediation",
+          "pattern": "generic",
+          "light": {"@type": "Step", "dialogue": "Not quite. Try again."},
+          "medium": {"@type": "Step", "dialogue": "Look at where the point is..."},
+          "heavy": {"@type": "Step", "dialogue": "The point is at 2 out of 3 parts..."}
+        }
+      ],
       "on_correct": {
         "@type": "Step",
         "dialogue": "Yes, that's two-thirds."
@@ -217,20 +238,25 @@ Palette objects MUST have @type field:
 ```
 
 **Key transformations in this example**:
-1. Metadata extracted into separate object with @type
-2. All objects have @type annotations
-3. Workspace: array → object with tangibles array
-4. NumLine: Added visual, is_visible, lcm fields
-5. NumLine: ticks simplified to "1/3" (uniform spacing)
-6. NumLine: labels kept as array (workspace.md allows this)
-7. Choices: moved from workspace to prompt.choices
-8. Choices: options simplified from objects to strings
-9. Answer: "b" converted to index [1]
-10. Success path: converted to on_correct Step
-11. Removed: id and type fields from tangibles
+1. Flat item → Sequence (no SequencePool wrapper)
+2. Metadata extracted into separate object with @type
+3. All objects have @type annotations
+4. Workspace: array → object with tangibles array
+5. NumLine: Added visual, is_visible, lcm fields
+6. NumLine: ticks simplified to "1/3" (uniform spacing)
+7. NumLine: labels kept as array (workspace.md allows this)
+8. Choices: moved from workspace to prompt.choices
+9. Choices: options simplified from objects to strings
+10. Answer: "b" converted to index [1]
+11. Success path: success_path_dialogue → on_correct Step
+12. Error paths: error_path_generic.steps → remediations array with @type
+13. Removed: id and type fields from tangibles, step_index
+14. mastery_tier kept as original string value
 
 ## IMPORTANT NOTES
 
+- Input is ONE flat item - output is ONE Sequence (batch mode)
+- DO NOT wrap output in SequencePool (that happens in a separate step)
 - Refer to tools.md, validators.md, and workspace.md for complete specifications
 - NumLine can use either `ticks` (array or single fraction) or `intervals` - see workspace.md
 - Tools can be strings ("select") or objects ({"@type": "Select"}) - see tools.md
@@ -238,9 +264,10 @@ Palette objects MUST have @type field:
 - Always include @type for ALL objects including palette and choices
 - Palette structure: {"@type": "Palette", "labels": [...], "quantities": [...]}
 - Choices structure: {"@type": "WorkspaceChoices", "allow_multiple": bool, "options": [...]}
+- Remediation structure: {"@type": "Remediation", "pattern": "generic", "light": {...}, "medium": {...}, "heavy": {...}}
 - Metadata must include: problem_id, template_id, template_skill, identifiers, mastery_tier, mastery_component, mastery_verb, telemetry_data
-- Remove id, type fields from input tangibles
-- Set remediations to [] if no error paths provided
+- Remove: id, type fields from input tangibles, step_index from steps
+- Convert error_path_generic.steps array to remediations array with proper structure
 
 Return ONLY valid JSON with Godot schema structure.
 """,
@@ -249,55 +276,53 @@ Return ONLY valid JSON with Godot schema structure.
 
     output_structure="""
 {
-  "@type": "SequencePool",
-  "sequences": [
-    {
-      "@type": "Sequence",
-      "metadata": {
-        "@type": "SequenceMetadata",
-        "problem_id": 1,
-        "template_id": "4001",
-        "template_skill": "Student can place fractions on number line",
-        "identifiers": {
-          "fractions": ["1/3"]
-        },
-        "mastery_tier": "BASELINE",
-        "mastery_component": "CONCEPTUAL",
-        "mastery_verb": "IDENTIFY",
-        "telemetry_data": {}
-      },
-      "steps": [{
-        "@type": "Step",
-        "dialogue": "...",
-        "workspace": {
-          "@type": "WorkspaceData",
-          "tangibles": [
-            {
-              "@type": "NumLine",
-              "is_visible": true,
-              "visual": "line",
-              "range": [0, 1],
-              "ticks": "1/3",
-              "labels": ["0", "1"],
-              "lcm": 12
-            }
-          ]
-        },
-        "prompt": {
-          "@type": "Prompt",
-          "text": "...",
-          "tool": "move",
-          "validator": {"@type": "TickValidator", "answer": ["2/3"]},
-          "remediations": [],
-          "on_correct": {"@type": "Step", "dialogue": "..."}
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 1,
+    "template_id": "4001",
+    "template_skill": "Student can place fractions on number line",
+    "identifiers": {
+      "fractions": ["1/3"]
+    },
+    "mastery_tier": "baseline",
+    "mastery_component": "CONCEPTUAL",
+    "mastery_verb": "IDENTIFY",
+    "telemetry_data": {}
+  },
+  "steps": [{
+    "@type": "Step",
+    "dialogue": "...",
+    "workspace": {
+      "@type": "WorkspaceData",
+      "tangibles": [
+        {
+          "@type": "NumLine",
+          "is_visible": true,
+          "visual": "line",
+          "range": [0, 1],
+          "ticks": "1/3",
+          "labels": ["0", "1"],
+          "lcm": 12
         }
-      }]
+      ]
+    },
+    "prompt": {
+      "@type": "Prompt",
+      "text": "...",
+      "tool": "move",
+      "validator": {"@type": "TickValidator", "answer": ["2/3"]},
+      "remediations": [],
+      "on_correct": {"@type": "Step", "dialogue": "..."}
     }
-  ]
+  }]
 }
 """,
 
-    prefill="""{"@type":"SequencePool","sequences":[{"@type":"Sequence","metadata":{"@type":"SequenceMetadata","problem_id":""",
+    # Prefill forces proper Godot structure with @types
+    # Batch mode: processes one item at a time, outputs one Sequence
+    # Minimal prefill avoids variable substitution issues
+    prefill="""{"@type":"Sequence",""",
 
     examples=[],
 

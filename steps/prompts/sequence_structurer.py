@@ -19,7 +19,7 @@ detailed step-by-step sequences with precise workspace configurations and intera
     instructions="""
 ## TASK
 
-Transform problem instances into structured interactive sequences.
+Transform problem instances into a FLAT ARRAY of interaction steps (one step per array item).
 
 ## INPUT FORMAT
 
@@ -32,30 +32,29 @@ You receive problem instances with:
 - variables_used (fractions/denominators tested)
 - application_context (optional narrative)
 
-## OUTPUT FORMAT
+## OUTPUT FORMAT - FLAT ARRAY
 
-Generate sequences with structured steps containing:
+Generate a FLAT array where each item represents ONE step with ALL fields at the top level:
 
-**1. Metadata:**
+**Required Top-Level Fields:**
 - problem_id: Use problem_instance_id
-- difficulty: Map mastery_tier to 0-4 (support=0, confidence=1, baseline=2, stretch=3, challenge=4)
+- step_index: Step number (0-indexed, typically 0 for single-step problems)
+- mastery_tier: Copy from input (support, confidence, baseline, stretch, challenge)
 - verb: Map problem_type to CREATE|IDENTIFY|COMPARE|APPLY
 - template_id: Copy from input
-- fractions: Extract from variables_used
+- fractions: Extract from variables_used array
 
-**2. Step Structure:**
+**Step Content Fields:**
 
-Each step includes:
-
-**a. prompt:** Use the input prompt as-is
-
-**b. dialogue:** Create conversational setup (10-30 words)
+**dialogue:** Create conversational setup (10-30 words)
 - If application_context exists, incorporate it naturally
 - Reference visual elements generically ("number line", "bars", "circles")
 - Use supportive, clear language
-- Adjust scaffolding based on difficulty (lower=more guidance)
+- Adjust scaffolding based on mastery_tier (support=most guidance, challenge=least)
 
-**c. interaction_tool:** Map action_description to tool (refer to visuals.md allowed actions)
+**prompt:** Use the input prompt as-is
+
+**interaction_tool:** Map action_description to tool (refer to visuals.md allowed actions)
 
 Based on visuals.md allowed student actions:
 - "Point at tick marks" → "place_point" (student places points on ticks)
@@ -67,8 +66,7 @@ Based on visuals.md allowed student actions:
 Additional tools from lesson_generator.py:
 - "cut", "shade", "none" (for future use with other shapes)
 
-
-**d. workspace:** Parse workspace_description into structured toys
+**workspace:** Parse workspace_description into structured toys array
 
 Refer to <visuals> for the precise structure of number line elements.
 
@@ -103,11 +101,11 @@ Refer to <visuals> for the precise structure of number line elements.
 - Format: {"type": "choices", "options": [{"id": "a", "text": "1/2"}, {"id": "b", "text": "1/3"}, ...]}
 - If fractions are listed like "1/3, 2/3, 3/3", create sequential ids (a, b, c, etc.)
 
-**e. correct_answer:**
+**correct_answer:** Object with:
 - value: The expected answer (fraction like "2/3", tick index like [2], choice id like "b", tangible id like "line_equal")
 - context: Brief explanation of why this is correct
 
-**f. student_attempts.success_path.dialogue:** Brief positive feedback (5-10 words)
+**success_path_dialogue:** Brief positive feedback (5-10 words)
 - Examples: "Yes, that's two-thirds.", "Correct! You found fourths.", "Good work."
 
 ## EXAMPLE TRANSFORMATIONS
@@ -126,15 +124,16 @@ Refer to <visuals> for the precise structure of number line elements.
 }
 ```
 
-**Output:**
+**Output (FLAT ARRAY):**
 ```json
-{
-  "problem_id": 49,
-  "difficulty": 2,
-  "verb": "IDENTIFY",
-  "template_id": "4008",
-  "fractions": ["2/3"],
-  "steps": [{
+[
+  {
+    "problem_id": 49,
+    "step_index": 0,
+    "mastery_tier": "baseline",
+    "verb": "IDENTIFY",
+    "template_id": "4008",
+    "fractions": ["2/3"],
     "dialogue": "Look at the point on the number line. What fraction does it represent?",
     "prompt": "What fraction does this point show?",
     "interaction_tool": "click_choice",
@@ -160,66 +159,63 @@ Refer to <visuals> for the precise structure of number line elements.
       "value": "b",
       "context": "The point is at 2/3, the second tick mark"
     },
-    "student_attempts": {
-      "success_path": {
-        "dialogue": "Yes, that's two-thirds."
-      }
-    }
-  }]
-}
+    "success_path_dialogue": "Yes, that's two-thirds."
+  }
+]
 ```
 
 ## IMPORTANT NOTES
 
-- Each problem instance creates ONE sequence with ONE step (unless template specifies multi-step)
+- Output is a FLAT ARRAY, not nested objects
+- Each problem instance creates ONE array item (unless template specifies multi-step)
+- For multi-step problems, create multiple array items with same problem_id, different step_index
+- All metadata fields (problem_id, mastery_tier, verb, etc.) are at the TOP LEVEL of each item
+- NO nesting: no "sequences" wrapper, no nested "steps" array, no nested "student_attempts"
+- success_path_dialogue is a top-level string field, NOT nested under student_attempts
 - Keep dialogue conversational and supportive
 - Parse workspace descriptions carefully to create accurate tangible structures
 - Use description field in tangibles when workspace mentions specific characteristics
-- Map mastery tiers consistently to difficulty levels
+- Keep mastery_tier as original string value (don't convert to numbers)
 - Extract all fractions/denominators from variables_used into fractions array
 
-Generate structured sequences NOW!
+Generate FLAT ARRAY NOW!
 """,
 
     doc_refs=["visuals.md"],
 
     output_structure="""
-{
-  "sequences": [
-    {
-      "problem_id": 1,
-      "difficulty": 2,
-      "verb": "IDENTIFY",
-      "template_id": "4001",
-      "fractions": ["1/3"],
-      "steps": [{
-        "dialogue": "...",
-        "prompt": "...",
-        "interaction_tool": "place_point|drag_label|click_choice|select|multi_select",
-        "workspace": [
-          {
-            "id": "line_1",
-            "type": "number_line",
-            "range": [0, 1],
-            "ticks": ["0", "1/3", "2/3", "1"],
-            "points": [],
-            "labels": ["0", "1"]
-          },
-          {"type": "choices", "options": [{...}]}
-        ],
-        "correct_answer": {...},
-        "student_attempts": {
-          "success_path": {
-            "dialogue": "..."
-          }
-        }
-      }]
-    }
-  ]
-}
+[
+  {
+    "problem_id": 1,
+    "step_index": 0,
+    "mastery_tier": "baseline",
+    "verb": "IDENTIFY",
+    "template_id": "4001",
+    "fractions": ["1/3"],
+    "dialogue": "...",
+    "prompt": "...",
+    "interaction_tool": "place_point|drag_label|click_choice|select|multi_select",
+    "workspace": [
+      {
+        "id": "line_1",
+        "type": "number_line",
+        "range": [0, 1],
+        "ticks": ["0", "1/3", "2/3", "1"],
+        "points": [],
+        "labels": ["0", "1"]
+      },
+      {"type": "choices", "options": [{...}]}
+    ],
+    "correct_answer": {
+      "value": "...",
+      "context": "..."
+    },
+    "success_path_dialogue": "Great work!"
+  }
+]
 """,
 
-    prefill="""{"sequences":[{"problem_id":""",
+    prefill="""[{"problem_id":""",
 
     examples=[],
 

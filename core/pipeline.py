@@ -632,7 +632,8 @@ def run_pipeline(
                 try:
                     # Flatten item to variables
                     item_vars = flatten_dict(item)
-                    merged_vars = {**step_vars, **item_vars}
+                    # Keep both original and flattened versions for prefill compatibility
+                    merged_vars = {**step_vars, **item, **item_vars}
 
                     if verbose:
                         # Show some key variables
@@ -649,6 +650,9 @@ def run_pipeline(
 
                         # Always pass entire item as input JSON
                         item_input = json.dumps(item, indent=2, ensure_ascii=False)
+
+                        # Add full input JSON as variable for prefill support
+                        merged_vars['__input__'] = item_input
 
                         # Template lookup: If template_ref exists, fetch template fields as variables
                         if prompt.template_ref and len(prompt.template_ref) > 0:

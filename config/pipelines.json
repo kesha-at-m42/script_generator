@@ -292,6 +292,7 @@
       "batch_mode": true,
       "batch_id_field": "template_id",
       "batch_output_id_field": "problem_instance_id",
+      "batch_only_items":["4001"],
       "batch_id_start": 1,
       "batch_skip_existing": false,
       "batch_stop_on_error": false
@@ -308,6 +309,19 @@
       "batch_id_field": "problem_instance_id",
       "batch_output_id_field": "problem_id",
       "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+       {
+      "name": "generic_remediation_generator",
+      "type": "ai",
+      "prompt_name": "generic_remediation_generator",
+      "description": "Adds remediation to interaction sequences",
+      "variables": {},
+      "output_file": "remediations.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "",
       "batch_skip_existing": false,
       "batch_stop_on_error": false
     },
