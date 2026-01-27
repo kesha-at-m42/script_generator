@@ -114,7 +114,7 @@
     "problem_type": "Student clicks tick mark to place fraction beyond 1 with scaffolded support",
     "workspace_description": "Extended number line 0-2 with 1 labelled.",
     "prompt_examples": [
-      "Find five-fourths. That's one space past 1.",
+      "Find five-fourths, count five intervals from zero.",
       "5/4 is one more than 4/4. Click where it goes.",
       "Place five-fourths. Count five spaces from zero."
     ],
@@ -199,28 +199,6 @@
   },
   {
     "template_id": "4010",
-    "problem_type": "Student matches denominator to interval count (pattern recognition, MCQ)",
-    "workspace_description": "Fraction notation displayed prominently with denominator highlighted. MCQ asks for interval count.",
-    "prompt_examples": [
-      "This fraction has denominator 4. How many spaces should the line have?",
-      "If the denominator is 5, how many equal intervals are between 0 and 1?",
-      "The denominator is 3. How many spaces does that mean?"
-    ],
-    "action_description": "Student selects matching number from the options",
-    "mastery_tier": ["baseline", "confidence"],
-    "mastery_verb": "identify",
-    "parameter_coverage": {
-      "denominators": [3, 4, 5, 6, 8]
-    },
-    "correct_end_state": "Correct answer highlighted",
-    "success_dialogue": [
-      "Right, denominator 4 means 4 equal spaces.",
-      "Five. The denominator tells us.",
-      "Three intervals for thirds."
-    ]
-  },
-  {
-    "template_id": "4011",
     "problem_type": "Student selects which number line shows a specific fraction type (comparison)",
     "workspace_description": "Three horizontal number lines (0-1) shown vertically stacked, each with different interval counts. Student selects the one matching the target.",
     "prompt_examples": [
@@ -242,15 +220,15 @@
     ]
   },
   {
-    "template_id": "4012",
-    "problem_type": "Student compares two points on the same number line to identify which is larger (comparison, challenge)",
-    "workspace_description": "Number line 0-1 with two points placed and labeled. Student selects the larger one.",
+    "template_id": "4011",
+    "problem_type": "Student compares 2-3 points on different number lines to identify which is larger.",
+    "workspace_description": "2-3 number lines (labelled at 0 and 1) partitioned into same number of intervals with one unlabelled point placed on each line at different fraction positions for comparison and the options reflect the fractions on each of the labelled points",
     "prompt_examples": [
       "Which point shows the larger fraction?",
       "Look at the two points. Which is farther from 0?",
       "Which fraction is greater distance from 0?"
     ],
-    "action_description": "Student recognizes that further from zero = larger and selects accordingly",
+    "action_description": "Student selects the number line with a point at the larger fraction.",
     "mastery_tier": ["stretch", "challenge"],
     "mastery_verb": "compare",
     "parameter_coverage": {
@@ -258,21 +236,21 @@
     },
     "correct_end_state": "Selected point highlighted",
     "success_dialogue": [
-      "Three-fourths—further from zero means more.",
+      "Yes three-fourths, further from zero means more.",
       "Right. More spaces from zero show larger fraction.",
-      "Four-fifths is greater. You can see it's further from 0."
+      "Correct, four-fifths is greater. You can see it's further from 0."
     ]
   },
   {
-    "template_id": "4013",
+    "template_id": "4012",
     "problem_type": "Student identifies fraction in context describing something beyond 1 (application)",
-    "workspace_description": "Brief context with number line 0-2 showing fourths. MCQ with fraction options.",
+    "workspace_description": "Unlabelled number line from 0-2.",
     "prompt_examples": [
       "Sam walked 5 spaces on a fourths number line starting at 0. What fraction did Sam reach?",
       "A frog jumped 6 equal fourths from 0. Where did it land?",
       "The marker shows 7 intervals from zero on a fourths line. What fraction is that?"
     ],
-    "action_description": "Student connects context (intervals counted) to fraction and selects",
+    "action_description": "Student places a point at the appropriate fraction tick on the number line.",
     "mastery_tier": ["baseline", "stretch"],
     "mastery_verb": "apply",
     "parameter_coverage": {
@@ -286,14 +264,14 @@
     ]
   },
   {
-    "template_id": "4014",
+    "template_id": "4013",
     "problem_type": "Student identifies equal vs unequal intervals (identify)",
-    "workspace_description": "Three horizontal number lines (0-1) vertically stacked, two with different interval counts. One with distinctly unequal intervals. Student selects the one matching the target.",
+    "workspace_description": "Three horizontal number lines (0-1) vertically stacked, one of the number lines shows correct number of equal intervals, one shows incorrect number of equal intervals and one shows correct number of unequal intervals.",
     "prompt_examples": [
       "Select the number line that shows fourths.",
       "One of the lines is partitioned into thirds. Select this line."
     ],
-    "action_description": "Student identifies equally divided line and selects",
+    "action_description": "Student identifies the line with correct number of equal intervals and selects it.",
     "mastery_tier": ["baseline", "stretch"],
     "mastery_verb": "identify",
     "parameter_coverage": {

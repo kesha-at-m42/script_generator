@@ -38,7 +38,6 @@ Generate a FLAT array where each item represents ONE step with ALL fields at the
 
 **Required Top-Level Fields:**
 - problem_id: Use problem_instance_id
-- step_index: Step number (0-indexed, typically 0 for single-step problems)
 - mastery_tier: Copy from input (support, confidence, baseline, stretch, challenge)
 - verb: Map problem_type to CREATE|IDENTIFY|COMPARE|APPLY
 - template_id: Copy from input
@@ -119,7 +118,7 @@ Refer to <visuals> for the precise structure of number line elements.
   "action_description": "Select matching fraction from MCQ options",
   "prompt": "What fraction does this point show?",
   "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Point placed at 2/3. Only endpoints labeled. MCQ options: 1/3, 2/3, 3/3.",
-  "mastery_tier": "baseline",
+  "mastery_tier": "BASELINE",
   "variables_used": {"fractions": ["2/3"]}
 }
 ```
@@ -129,8 +128,7 @@ Refer to <visuals> for the precise structure of number line elements.
 [
   {
     "problem_id": 49,
-    "step_index": 0,
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "verb": "IDENTIFY",
     "template_id": "4008",
     "fractions": ["2/3"],
@@ -168,7 +166,6 @@ Refer to <visuals> for the precise structure of number line elements.
 
 - Output is a FLAT ARRAY, not nested objects
 - Each problem instance creates ONE array item (unless template specifies multi-step)
-- For multi-step problems, create multiple array items with same problem_id, different step_index
 - All metadata fields (problem_id, mastery_tier, verb, etc.) are at the TOP LEVEL of each item
 - NO nesting: no "sequences" wrapper, no nested "steps" array, no nested "student_attempts"
 - success_path_dialogue is a top-level string field, NOT nested under student_attempts
@@ -187,8 +184,7 @@ Generate FLAT ARRAY NOW!
 [
   {
     "problem_id": 1,
-    "step_index": 0,
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "verb": "IDENTIFY",
     "template_id": "4001",
     "fractions": ["1/3"],

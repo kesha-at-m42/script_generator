@@ -49,7 +49,7 @@ Move sequence-level fields into metadata object:
   "identifiers": {
     "fractions": ["2/3"]
   },
-  "mastery_tier": "baseline",  // Keep original: support, confidence, baseline, stretch, challenge
+  "mastery_tier": "BASELINE",  // Keep original: SUPPORT, CONFIDENCE, BASELINE, STRETCH, CHALLENGE
   "mastery_component": "CONCEPTUAL",
   "mastery_verb": "IDENTIFY",
   "telemetry_data": {}
@@ -93,17 +93,25 @@ Key field changes (see workspace.md for details):
 ### 8. Success and Error Paths
 Convert flat fields to nested structure:
 - `success_path_dialogue` → `"on_correct": {"@type": "Step", "dialogue": "..."}`
-- `error_path_generic` → `"remediations": [{"@type": "Remediation", "pattern": "generic", ...}]`
+- `error_path_generic` → `"remediations": [array of 3 Remediation objects]`
 
-For error paths, transform each scaffolding level:
+For error paths, transform each scaffolding level into a separate Remediation object:
 ```json
 "remediations": [
   {
     "@type": "Remediation",
-    "pattern": "generic",
-    "light": {"@type": "Step", "dialogue": "..."},
-    "medium": {"@type": "Step", "dialogue": "..."},
-    "heavy": {"@type": "Step", "dialogue": "..."}
+    "id": "light",
+    "step": {"@type": "Step", "dialogue": "..."}
+  },
+  {
+    "@type": "Remediation",
+    "id": "medium",
+    "step": {"@type": "Step", "dialogue": "..."}
+  },
+  {
+    "@type": "Remediation",
+    "id": "heavy",
+    "step": {"@type": "Step", "dialogue": "..."}
   }
 ]
 ```
@@ -134,8 +142,7 @@ Palette objects MUST have @type field:
 ```json
 {
   "problem_id": 49,
-  "step_index": 0,
-  "mastery_tier": "baseline",
+  "mastery_tier": "BASELINE",
   "verb": "IDENTIFY",
   "template_id": "4008",
   "fractions": ["2/3"],
@@ -186,7 +193,7 @@ Palette objects MUST have @type field:
     "identifiers": {
       "fractions": ["2/3"]
     },
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "mastery_component": "CONCEPTUAL",
     "mastery_verb": "IDENTIFY",
     "telemetry_data": {}
@@ -222,10 +229,18 @@ Palette objects MUST have @type field:
       "remediations": [
         {
           "@type": "Remediation",
-          "pattern": "generic",
-          "light": {"@type": "Step", "dialogue": "Not quite. Try again."},
-          "medium": {"@type": "Step", "dialogue": "Look at where the point is..."},
-          "heavy": {"@type": "Step", "dialogue": "The point is at 2 out of 3 parts..."}
+          "id": "light",
+          "step": {"@type": "Step", "dialogue": "Not quite. Try again."}
+        },
+        {
+          "@type": "Remediation",
+          "id": "medium",
+          "step": {"@type": "Step", "dialogue": "Look at where the point is..."}
+        },
+        {
+          "@type": "Remediation",
+          "id": "heavy",
+          "step": {"@type": "Step", "dialogue": "The point is at 2 out of 3 parts..."}
         }
       ],
       "on_correct": {
@@ -250,7 +265,7 @@ Palette objects MUST have @type field:
 10. Answer: "b" converted to index [1]
 11. Success path: success_path_dialogue → on_correct Step
 12. Error paths: error_path_generic.steps → remediations array with @type
-13. Removed: id and type fields from tangibles, step_index
+13. Removed: id and type fields from tangibles
 14. mastery_tier kept as original string value
 
 ## IMPORTANT NOTES
@@ -264,9 +279,9 @@ Palette objects MUST have @type field:
 - Always include @type for ALL objects including palette and choices
 - Palette structure: {"@type": "Palette", "labels": [...], "quantities": [...]}
 - Choices structure: {"@type": "WorkspaceChoices", "allow_multiple": bool, "options": [...]}
-- Remediation structure: {"@type": "Remediation", "pattern": "generic", "light": {...}, "medium": {...}, "heavy": {...}}
+- Remediation structure: Array of 3 objects: [{"@type": "Remediation", "id": "light", "step": {...}}, {"@type": "Remediation", "id": "medium", "step": {...}}, {"@type": "Remediation", "id": "heavy", "step": {...}}]
 - Metadata must include: problem_id, template_id, template_skill, identifiers, mastery_tier, mastery_component, mastery_verb, telemetry_data
-- Remove: id, type fields from input tangibles, step_index from steps
+- Remove: id, type fields from input tangibles from steps
 - Convert error_path_generic.steps array to remediations array with proper structure
 
 Return ONLY valid JSON with Godot schema structure.
@@ -285,7 +300,7 @@ Return ONLY valid JSON with Godot schema structure.
     "identifiers": {
       "fractions": ["1/3"]
     },
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "mastery_component": "CONCEPTUAL",
     "mastery_verb": "IDENTIFY",
     "telemetry_data": {}
