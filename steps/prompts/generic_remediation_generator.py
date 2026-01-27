@@ -97,7 +97,7 @@ Return valid JSON only (see structure below).
 [
   {
     "problem_id": 1,
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "verb": "IDENTIFY",
     "template_id": "4001",
     "fractions": ["1/3"],

@@ -101,8 +101,6 @@ class BatchProcessor:
                 if self.batch_output_id_field:
                     result[self.batch_output_id_field] = self.sequential_id
                     self.sequential_id += 1
-                if self.batch_id_field and self.batch_id_field in self.items[self.processed_count]:
-                    result[f"source_{self.batch_id_field}"] = self.items[self.processed_count][self.batch_id_field]
             self.collated_results.append(result)
 
         self.processed_count += 1

@@ -30,7 +30,7 @@ Your task is to generate concrete problem instances that create meaningful varia
 
 The problem template contains:
 - **template_id**: Unique identifier for this template type
-- **problem_type**: Type of cognitive action (identify, compare, create, apply)
+- **problem_type**: Descriptive statement of the problem type addressed in the template
 - **workspace_description**: What the student sees on screen
 - **prompt_examples**: Sample variations of how to ask the question
 - **action_description**: What the student does to solve (maps to allowed actions from visuals.md)
@@ -46,12 +46,12 @@ The problem template contains:
 
 **Single Fraction Work (Point/Label/Create one at a time):**
 - **CRITICAL: One question per parameter value PER TIER**
-- Cannot repeat same parameter at same tier (e.g., two 1/3 questions both at baseline ✗)
-- Can repeat parameter across different tiers if pedagogically appropriate (e.g., 1/3 at support AND 1/3 at baseline ✓)
-- If template has only one tier (e.g., ["baseline"]), each parameter appears ONCE total
-- Example: ["support", "baseline"] with ["1/2", "1/3", "1/4"]
-  - Valid: Support has 1/2, 1/3; Baseline has 1/3, 1/4, 1/5
-  - Invalid: Support has 1/3 twice, or Baseline has 1/4 three times
+- Cannot repeat same parameter at same tier (e.g., two 1/3 questions both at BASELINE ✗)
+- Can repeat parameter across different tiers if pedagogically appropriate (e.g., 1/3 at SUPPORT AND 1/3 at BASELINE ✓)
+- If template has only one tier (e.g., ["BASELINE"]), each parameter appears ONCE total
+- Example: ["SUPPORT", "BASELINE"] with ["1/2", "1/3", "1/4"]
+  - Valid: SUPPORT has 1/2, 1/3; BASELINE has 1/3, 1/4, 1/5
+  - Invalid: SUPPORT has 1/3 twice, or BASELINE has 1/4 three times
 
 ### Axes of Variation
 
@@ -73,26 +73,28 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **1. problem_instance_id:** Sequential (1, 2, 3...)
 
-**2. template_id, problem_type:** Copy from template
+**2. template_id:** Copy from template
 
-**3. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
+**3. problem_type:** Copy verbatim from template
+
+**4. workspace_description:** Visual setup aligned with visuals.md and template
+
+**5. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
    - Choose the most pedagogically and interactively similar allowed action
    - If template lists multiple action options, alternate between them for variety
 
-**4. prompt:** Student-facing question
+**6. prompt:** Student-facing question
    - **CRITICAL: Use ONLY sentence structures and verbs from prompt_examples**
    - Variation = swap parameter values only
    - VALID: "Place one-fourth" when example is "Place one-third"
    - INVALID: "Put one-fourth" or "Show one-fourth" when example is "Place"
    - Rotate through all prompt_examples structures
 
-**5. workspace_description:** Visual setup aligned with visuals.md and template
+**7. mastery_tier:** ONLY use values from template's mastery_tier field in UPPERCASE (e.g., if template has ["BASELINE"], all problems use "BASELINE")
 
-**6. mastery_tier:** ONLY use values from template's mastery_tier field (e.g., if template has ["baseline"], all problems use "baseline")
+**8. variables_used:** Parameter values (use "fractions" as key when possible)
 
-**7. variables_used:** Parameter values (use "fractions" as key when possible)
-
-**8. application_context:** (ONLY for "apply" problem_type)
+**9. application_context:** (ONLY for "apply" mastery_verb)
 
 ## QUALITY CHECKLIST
 
@@ -128,24 +130,23 @@ Generate problem instances NOW with maximum variation and quality!
   {
     "problem_instance_id": 1,
     "template_id": "4001",
-    "problem_type": "identify",
+    "problem_type": "Student clicks tick mark to place unit fraction on pre-partitioned 0-1 number line",
+    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only endpoints labeled.",
     "action_description": "Point at tick marks",
     "prompt": "Point to one-third on the number line.",
-    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only endpoints labeled.",
-    "mastery_tier": "support",
+    "mastery_tier": "SUPPORT",
     "variables_used": {
       "fractions": ["1/3"]
     }
   },
   {
-
-      "problem_instance_id": 2,
+    "problem_instance_id": 2,
     "template_id": "4002",
-    "problem_type": "apply",
+    "problem_type": "Student applies fraction knowledge to real-world context",
+    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/4, 1/2, 3/4, 1. Only endpoints labeled.",
     "action_description": "Label tick marks by dragging",
     "prompt": "Maya ate 1/4 of a pizza. Show where 1/4 is on the number line.",
-    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/4, 1/2, 3/4, 1. Only endpoints labeled.",
-    "mastery_tier": "baseline",
+    "mastery_tier": "BASELINE",
     "variables_used": {
       "fractions": ["1/4"]
     },

@@ -160,15 +160,13 @@
       "prompt_name": "problem_generator",
       "description": "Generates specific problem instances from a problem template",
       "variables": {},
-      "input_file": "modules/module4/problem_templates_v2.json",
+      "input_file": "problem_templates.json",
       "output_file": "problem_instances.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
       "batch_id_field": "template_id",
-      "batch_output_id_field": "problem_instance_id",
-      "batch_id_start": 1,
-      "batch_skip_existing": false,
-      "batch_stop_on_error": false
+      "batch_only_items":["4004"],
+      "batch_output_id_field": "problem_instance_id"
     },
     {
       "name": "sequence_structurer",
@@ -179,11 +177,7 @@
       "output_file": "sequences.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "problem_instance_id",
-      "batch_output_id_field": "problem_id",
-      "batch_id_start": 1,
-      "batch_skip_existing": false,
-      "batch_stop_on_error": false
+      "batch_id_field": "problem_instance_id"
     }
   ],
   "test_sequence_structurer": [
@@ -286,7 +280,7 @@
       "prompt_name": "problem_generator",
       "description": "Generates specific problem instances from a problem template",
       "variables": {},
-      "input_file": "modules/module4/problem_templates_v2.json",
+      "input_file": "problem_templates.json",
       "output_file": "problem_instances.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,

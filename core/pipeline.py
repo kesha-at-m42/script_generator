@@ -265,7 +265,7 @@ def run_pipeline(
       end_at_step: Union[int, str] = None,
       pipeline_status: str = None,
       notes: str = None,
-      template_filename: str = "problem_templates_v2.json"
+      template_filename: str = "problem_templates.json"
   ) -> Dict:
     """Run a pipeline of steps with file I/O support
 

@@ -19,7 +19,7 @@ detailed step-by-step sequences with precise workspace configurations and intera
     instructions="""
 ## TASK
 
-Transform problem instances into a FLAT ARRAY of interaction steps (one step per array item).
+Transform problem instances into a structured interaction schema.
 
 ## INPUT FORMAT
 
@@ -32,14 +32,14 @@ You receive problem instances with:
 - variables_used (fractions/denominators tested)
 - application_context (optional narrative)
 
-## OUTPUT FORMAT - FLAT ARRAY
+## OUTPUT FORMAT
 
-Generate a FLAT array where each item represents ONE step with ALL fields at the top level:
+Generate a structured interaction sequence using these fields:
 
 **Required Top-Level Fields:**
 - problem_id: Use problem_instance_id
 - mastery_tier: Copy from input (support, confidence, baseline, stretch, challenge)
-- verb: Map problem_type to CREATE|IDENTIFY|COMPARE|APPLY
+- mastery_verb: Map problem_type to CREATE|IDENTIFY|COMPARE|APPLY
 - template_id: Copy from input
 - fractions: Extract from variables_used array
 
@@ -123,13 +123,12 @@ Refer to <visuals> for the precise structure of number line elements.
 }
 ```
 
-**Output (FLAT ARRAY):**
+**Output:**
 ```json
-[
   {
     "problem_id": 49,
     "mastery_tier": "BASELINE",
-    "verb": "IDENTIFY",
+    "mastery_verb": "IDENTIFY",
     "template_id": "4008",
     "fractions": ["2/3"],
     "dialogue": "Look at the point on the number line. What fraction does it represent?",
@@ -159,15 +158,12 @@ Refer to <visuals> for the precise structure of number line elements.
     },
     "success_path_dialogue": "Yes, that's two-thirds."
   }
-]
 ```
 
 ## IMPORTANT NOTES
 
-- Output is a FLAT ARRAY, not nested objects
-- Each problem instance creates ONE array item (unless template specifies multi-step)
-- All metadata fields (problem_id, mastery_tier, verb, etc.) are at the TOP LEVEL of each item
-- NO nesting: no "sequences" wrapper, no nested "steps" array, no nested "student_attempts"
+- Each problem instance creates ONE item
+- All metadata fields (problem_id, mastery_tier, mastery_verb, etc.) are at the TOP LEVEL of each item
 - success_path_dialogue is a top-level string field, NOT nested under student_attempts
 - Keep dialogue conversational and supportive
 - Parse workspace descriptions carefully to create accurate tangible structures
@@ -175,17 +171,16 @@ Refer to <visuals> for the precise structure of number line elements.
 - Keep mastery_tier as original string value (don't convert to numbers)
 - Extract all fractions/denominators from variables_used into fractions array
 
-Generate FLAT ARRAY NOW!
+Generate NOW!
 """,
 
     doc_refs=["visuals.md"],
 
     output_structure="""
-[
   {
     "problem_id": 1,
     "mastery_tier": "BASELINE",
-    "verb": "IDENTIFY",
+    "mastery_verb": "IDENTIFY",
     "template_id": "4001",
     "fractions": ["1/3"],
     "dialogue": "...",
@@ -208,16 +203,20 @@ Generate FLAT ARRAY NOW!
     },
     "success_path_dialogue": "Great work!"
   }
-]
 """,
 
-    prefill="""[{"problem_id":""",
+    prefill="""{
+  "problem_id": {problem_instance_id},
+  "mastery_tier": "{mastery_tier}",
+  "mastery_verb": "{mastery_verb}",
+  "template_id": "{template_id}",
+  "fractions": """,
 
     examples=[],
 
     module_ref={},
 
-    template_ref={},
+    template_ref=["mastery_verb"],
 
     cache_docs=False,
     temperature=1,
