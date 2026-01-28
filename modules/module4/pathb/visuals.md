@@ -59,5 +59,5 @@
 
   ### Allowed Student Actions
   - **Select**: Select number lines (1 or more) that match the question requirements. For example, select the number line showing fifths.
-  - **Point**: Point at specific tick marks (1 or more) by placing points on them. For example, select the tick mark at 3/5.
-  - **Label**: Label tick marks by dragging fraction labels (1 or more) to them. For example, label the tick mark with a point.
+  - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 3/5 or place 3/5 on the line.
+  - **Label**: Label tick marks by dragging fraction labels (1 or more) to them. For example, place the label on the number line or place 3/5 on the line.

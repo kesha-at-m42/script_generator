@@ -63,7 +63,7 @@ All tangibles support these optional layout fields:
 
 **intervals** (Fraction or array of Fractions): Interval sizes (auto-generates ticks)
 
-**points** (array of Fractions): Highlighted point positions. Default: `[]`
+**points** (array of Fractions): Highlighted point positions. Must be fraction strings like "1/4", "2/3", not floats. Default: `[]`
 
 **labels** (boolean or array of Fractions): Which ticks show fraction labels. Default: `true`
 
@@ -85,6 +85,8 @@ All tangibles support these optional layout fields:
 
 **Tick Specification**:
 
+**IMPORTANT**: Ticks must be specified as **fraction strings** (e.g., "1/4", "2/4"), **NOT** as float arrays (e.g., 0.25, 0.5). Floats are not supported.
+
 Single fraction (uniform spacing):
 ```json
 "ticks": "1/3"
@@ -94,9 +96,13 @@ Single fraction (uniform spacing):
 Array of fractions (explicit positions):
 ```json
 "ticks": ["0", "1/3", "2/3", "1"]
+// ✓ CORRECT: Fraction strings
+// ✗ WRONG: [0, 0.333, 0.666, 1] - floats not supported
 ```
 
 **Interval Specification**:
+
+**IMPORTANT**: Intervals must be specified as **fraction strings**, **NOT** floats.
 
 Single fraction (uniform intervals):
 ```json
@@ -108,6 +114,8 @@ Array of fractions (explicit interval sizes):
 ```json
 "intervals": ["1/4", "1/4", "1/2"]
 // Generates ticks at: [0, "1/4", "1/2", 1]
+// ✓ CORRECT: Fraction strings
+// ✗ WRONG: [0.25, 0.25, 0.5] - floats not supported
 ```
 
 **Labels Specification**:
@@ -118,9 +126,11 @@ Boolean (all or none):
 "labels": false  // No ticks labeled
 ```
 
-Array (specific ticks):
+Array (specific ticks to label - must match tick fraction strings):
 ```json
 "labels": ["0", "1/2", "1"]  // Only these ticks labeled
+// ✓ CORRECT: Fraction strings matching tick positions
+// ✗ WRONG: [0, 0.5, 1] - floats not supported
 ```
 
 **Example - Basic Number Line**:
@@ -269,13 +279,18 @@ Omitted (whole shape):
 
 ## Fraction Format
 
-Fractions are specified as strings in "numerator/denominator" format:
+Fractions are specified as **strings** in "numerator/denominator" format:
 
 **Valid formats**:
 - `"1/3"` - proper fraction
 - `"2/3"` - proper fraction
 - `"4/4"` - whole number as fraction
-- `"3"` - whole number (equivalent to "3/1")
+- `"3"` or `"1"` or `"0"` - whole numbers (equivalent to "3/1", "1/1", "0/1")
+
+**Invalid formats** (will cause errors):
+- `0.25` - float/decimal (use `"1/4"` instead)
+- `[0.25, 0.5, 0.75]` - array of floats (use `["1/4", "2/4", "3/4"]` instead)
+- `1/4` - unquoted (use `"1/4"` with quotes)
 
 **Schema handling**:
 - Deserializer: Parses string to `Fraction` object with `numerator` and `denominator` fields

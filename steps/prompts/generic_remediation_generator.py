@@ -29,7 +29,7 @@ Follow the <remediation_system> documentation for error patterns, detection rule
 Add error_path_generic to interaction steps (flat array format).
 
 You will receive steps with:
-- problem_id, mastery_tier, verb, template_id, fractions
+- problem_id, mastery_tier, mastery_verb, template_id, fractions
 - dialogue, prompt, interaction_tool
 - workspace (array of tangibles)
 - correct_answer (value and context)
@@ -81,7 +81,7 @@ Create dialogue-only remediation at three levels of support:
 ### STEP 4: Output Format
 
 Your output should include:
-- ALL original fields from input (problem_id, mastery_tier, verb, template_id, fractions, dialogue, prompt, interaction_tool, workspace, correct_answer, success_path_dialogue)
+- ALL original fields from input (problem_id, mastery_tier, mastery_verb, template_id, fractions, dialogue, prompt, interaction_tool, workspace, correct_answer, success_path_dialogue)
 - PLUS the new error_path_generic field you generate
 
 The prefill will provide all the input fields - you only need to complete the error_path_generic section.
@@ -98,7 +98,7 @@ Return valid JSON only (see structure below).
   {
     "problem_id": 1,
     "mastery_tier": "BASELINE",
-    "verb": "IDENTIFY",
+    "mastery_verb": "IDENTIFY",
     "template_id": "4001",
     "fractions": ["1/3"],
     "dialogue": "existing dialogue",
@@ -132,7 +132,19 @@ Return valid JSON only (see structure below).
 
     # Prefill includes all input fields, Claude completes with error_path_generic
     # Variables like {correct_answer}, {workspace}, {fractions} are auto-converted to JSON
-    prefill='''[{"problem_id":{problem_id},"mastery_tier":"{mastery_tier}","verb":"{verb}","template_id":"{template_id}","fractions":{fractions},"dialogue":"{dialogue}","prompt":"{prompt}","interaction_tool":"{interaction_tool}","workspace":{workspace},"correct_answer":{correct_answer},"success_path_dialogue":"{success_path_dialogue}","error_path_generic":''',
+    prefill='''{
+  "problem_id": {problem_id},
+  "mastery_tier": "{mastery_tier}",
+  "mastery_verb": "{mastery_verb}",
+  "template_id": "{template_id}",
+  "fractions": {fractions},
+  "dialogue": "{dialogue}",
+  "prompt": "{prompt}",
+  "interaction_tool": "{interaction_tool}",
+  "workspace": {workspace},
+  "correct_answer": {correct_answer},
+  "success_path_dialogue": "{success_path_dialogue}",
+  "error_path_generic": ''',
 
     examples=[],
 

@@ -69,6 +69,18 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **MCQs:** Allowed student action (not in visuals.md). Students select from array of options. Specify options in workspace_description.
 
+### Option Design Best Practices
+
+**Applies to MCQ and select questions:**
+- Recommended: 3-4 options (avoid binary/2-option choices when possible)
+- Always ensure only ONE correct answer
+- Consider including one distractor (similar to correct answer)
+- Consider including one obviously incorrect option
+- Avoid equivalent fractions as separate options (e.g., don't have both "2/4" and "1/2", or "5/3" and "1 2/3")
+- Example patterns:
+  - Correct: "2/3" | Distractor: "3/2" or "2/5" | Wrong: "5/3"
+  - Correct: "1/4" | Distractor: "1/3" | Wrong: "3/4"
+
 ## OUTPUT REQUIREMENTS
 
 **1. problem_instance_id:** Sequential (1, 2, 3...)
@@ -95,6 +107,15 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 **8. variables_used:** Parameter values (use "fractions" as key when possible)
 
 **9. application_context:** (ONLY for "apply" mastery_verb)
+   - Create variety by varying subjects while keeping sentence structure the same
+   - Names: Vary between Sam, Alex, Maya, Jordan, Hannah, etc.
+   - Objects: If one says "chocolate bars", alternate to "cinnamon sticks", "vanilla wafers", "sugar cookies", etc.
+   - Actions/Subjects: If one says "frog jumped", alternate to "cricket hopped", "grasshopper leaped", "rabbit jumped", etc.
+   - Keep the sentence structure consistent but vary the nouns and subjects
+   - Example variations:
+     - "Sam walked 5 spaces..." → "Alex walked 5 spaces...", "Jordan walked 5 spaces..."
+     - "Recipe asks for chocolate bars" → "Recipe asks for cinnamon sticks", "Recipe asks for vanilla wafers"
+     - "Frog jumped 6 fourths" → "Cricket hopped 6 fourths", "Grasshopper leaped 6 fourths"
 
 ## QUALITY CHECKLIST
 

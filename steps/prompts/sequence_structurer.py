@@ -46,13 +46,20 @@ Generate a structured interaction sequence using these fields:
 **Step Content Fields:**
 
 **dialogue:** Create conversational setup (10-30 words)
+- IMPORTANT: Try to use the same verb as the prompt (if prompt says "Place", dialogue can say "Let's place..." or "place")
 - If application_context exists, incorporate it naturally
+- If prompt contains scaffolding hints, move them to dialogue
 - Reference visual elements generically ("number line", "bars", "circles")
 - Use supportive, clear language
 - Adjust scaffolding based on mastery_tier (support=most guidance, challenge=least)
 - Follow <guide_design> "Problem Setup Dialogue" section
 
-**prompt:** If clear and direct, use as-is. If it contains application_context (e.g., "Maya ate 1/4..."), strip the context from the prompt and use it in dialogue instead.
+**prompt:** Create a self-explanatory, direct call for action that the student can take with just the prompt alone
+- If the prompt already meets these criteria, keep it as-is
+- Strip any application_context (e.g., "Maya ate 1/4...") from the prompt and move it to dialogue instead
+- Strip any scaffolding hints (e.g., "One interval from zero", "That's two spaces", "Count the intervals...") from the prompt and move them to dialogue instead
+- Keep prompt focused on the core task (e.g., "Place three-fourths on the number line.")
+- The prompt should be clear enough to solve independently without relying on dialogue context
 
 **interaction_tool:** Derive from action_description (refer to visuals.md for allowed student actions)
 
@@ -101,16 +108,6 @@ Refer to <visuals> for the precise structure of number line elements.
 - Format: {"type": "choices", "options": [{"id": "a", "text": "1/2"}, {"id": "b", "text": "1/3"}, ...]}
 - If fractions are listed like "1/3, 2/3, 3/3", create sequential ids (a, b, c, etc.)
 - For select questions (e.g., "Select the number line showing thirds"), the same principles apply
-
-**Option Design Best Practices (applies to MCQ and select questions):**
-- Recommended: 3-4 options (avoid binary/2-option choices when possible)
-- Always ensure only ONE correct answer
-- Consider including one distractor (similar to correct answer)
-- Consider including one obviously incorrect option
-- Avoid equivalent fractions as separate options (e.g., don't have both "2/4" and "1/2", or "5/3" and "1 2/3")
-- Example patterns:
-  - Correct: "2/3" | Distractor: "3/2" or "2/5" | Wrong: "5/3"
-  - Correct: "1/4" | Distractor: "1/3" | Wrong: "3/4"
 
 **correct_answer:** Object with:
 - value: The expected answer (fraction like "2/3", tick index like [2], choice id like "b", tangible id like "line_equal")
@@ -193,7 +190,7 @@ Generate NOW!
     "fractions": ["1/3"],
     "dialogue": "...",
     "prompt": "...",
-    "interaction_tool": "point|label|select|cut|shade|none",
+    "interaction_tool": "place_point|drag_label|click_choice|select|multi_select|place_tick|cut_shape|shade",
     "workspace": [
       {
         "id": "line_1",
