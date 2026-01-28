@@ -50,10 +50,11 @@ Generate a structured interaction sequence using these fields:
 - Reference visual elements generically ("number line", "bars", "circles")
 - Use supportive, clear language
 - Adjust scaffolding based on mastery_tier (support=most guidance, challenge=least)
+- Follow <guide_design> "Problem Setup Dialogue" section
 
-**prompt:** Use the input prompt as-is
+**prompt:** If clear and direct, use as-is. If it contains application_context (e.g., "Maya ate 1/4..."), strip the context from the prompt and use it in dialogue instead.
 
-**interaction_tool:** Map action_description to tool (refer to visuals.md allowed actions)
+**interaction_tool:** Derive from action_description (refer to visuals.md for allowed student actions)
 
 Based on visuals.md allowed student actions:
 - "Point at tick marks" → "place_point" (student places points on ticks)
@@ -61,9 +62,6 @@ Based on visuals.md allowed student actions:
 - "Select from MCQ options" OR "Select matching fraction from MCQ options" → "click_choice"
 - "Select the number line" OR "Select" → "select" (choose one or more number lines/shapes)
 - "Select multiple" → "multi_select"
-
-Additional tools from lesson_generator.py:
-- "cut", "shade", "none" (for future use with other shapes)
 
 **workspace:** Parse workspace_description into structured toys array
 
@@ -94,19 +92,28 @@ Refer to <visuals> for the precise structure of number line elements.
 - Each gets its own ticks configuration
 - Use description field to explain distinguishing characteristics
 
-**MCQ Handling:**
+**MCQ and Select Question Handling:**
 - When workspace_description mentions "MCQ options:", add a choices element to workspace
 - Choices is a workspace element with type: "choices" and options array
 - Format: {"type": "choices", "options": [{"id": "a", "text": "1/2"}, {"id": "b", "text": "1/3"}, ...]}
 - If fractions are listed like "1/3, 2/3, 3/3", create sequential ids (a, b, c, etc.)
+- For select questions (e.g., "Select the number line showing thirds"), the same principles apply
+
+**Option Design Best Practices (applies to MCQ and select questions):**
+- Recommended: 3-4 options (avoid binary/2-option choices when possible)
+- Always ensure only ONE correct answer
+- Consider including one distractor (similar to correct answer)
+- Consider including one obviously incorrect option
+- Avoid equivalent fractions as separate options (e.g., don't have both "2/4" and "1/2", or "5/3" and "1 2/3")
+- Example patterns:
+  - Correct: "2/3" | Distractor: "3/2" or "2/5" | Wrong: "5/3"
+  - Correct: "1/4" | Distractor: "1/3" | Wrong: "3/4"
 
 **correct_answer:** Object with:
 - value: The expected answer (fraction like "2/3", tick index like [2], choice id like "b", tangible id like "line_equal")
 - context: Brief explanation of why this is correct
 
-**success_path_dialogue:** Brief positive feedback (5-10 words)
-- Examples: "Yes, that's two-thirds.", "Correct! You found fourths.", "Good work."
-
+**success_path_dialogue:** Rotate through the success_dialogue examples from the template here: {success_dialogue}
 ## EXAMPLE TRANSFORMATIONS
 
 **Input:**
@@ -133,7 +140,7 @@ Refer to <visuals> for the precise structure of number line elements.
     "fractions": ["2/3"],
     "dialogue": "Look at the point on the number line. What fraction does it represent?",
     "prompt": "What fraction does this point show?",
-    "interaction_tool": "click_choice",
+    "interaction_tool": "select",
     "workspace": [
       {
         "id": "line_1",
@@ -146,9 +153,9 @@ Refer to <visuals> for the precise structure of number line elements.
       {
         "type": "choices",
         "options": [
-          {"id": "a", "text": "1/3"},
-          {"id": "b", "text": "2/3"},
-          {"id": "c", "text": "3/3"}
+          {"id": "a", "text": "1/3"},   // Distractor (adjacent fraction on line)
+          {"id": "b", "text": "2/3"},   // Correct answer
+          {"id": "c", "text": "3/2"}    // Obviously incorrect (reversed, > 1)
         ]
       }
     ],
@@ -164,17 +171,15 @@ Refer to <visuals> for the precise structure of number line elements.
 
 - Each problem instance creates ONE item
 - All metadata fields (problem_id, mastery_tier, mastery_verb, etc.) are at the TOP LEVEL of each item
-- success_path_dialogue is a top-level string field, NOT nested under student_attempts
 - Keep dialogue conversational and supportive
 - Parse workspace descriptions carefully to create accurate tangible structures
 - Use description field in tangibles when workspace mentions specific characteristics
-- Keep mastery_tier as original string value (don't convert to numbers)
 - Extract all fractions/denominators from variables_used into fractions array
 
 Generate NOW!
 """,
 
-    doc_refs=["visuals.md"],
+    doc_refs=["visuals.md", "guide_design.md"],
 
     output_structure="""
   {
@@ -185,7 +190,7 @@ Generate NOW!
     "fractions": ["1/3"],
     "dialogue": "...",
     "prompt": "...",
-    "interaction_tool": "place_point|drag_label|click_choice|select|multi_select",
+    "interaction_tool": "point|label|select|cut|shade|none",
     "workspace": [
       {
         "id": "line_1",
@@ -216,7 +221,7 @@ Generate NOW!
 
     module_ref={},
 
-    template_ref=["mastery_verb"],
+    template_ref=["mastery_verb", "success_dialogue"],
 
     cache_docs=False,
     temperature=1,
