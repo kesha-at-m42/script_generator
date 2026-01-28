@@ -2,10 +2,12 @@
 Sampler - Creates test samples from generated content
 """
 
+import random
+
 
 def sample_per_template(data, sample_size=3, module_number=None, path_letter=None):
     """
-    Sample N sequences per template for testing
+    Sample N random sequences per template for testing
 
     Works with SequencePool structure where sequences have metadata.template_id
 
@@ -16,7 +18,7 @@ def sample_per_template(data, sample_size=3, module_number=None, path_letter=Non
         path_letter: Path letter (automatically passed by pipeline)
 
     Returns:
-        SequencePool dict with sampled sequences
+        SequencePool dict with randomly sampled sequences
     """
     # Validate input structure
     if not isinstance(data, dict) or "@type" not in data or data["@type"] != "SequencePool":
@@ -33,11 +35,15 @@ def sample_per_template(data, sample_size=3, module_number=None, path_letter=Non
                 by_template[template_id] = []
             by_template[template_id].append(seq)
 
-    # Take sample_size from each template
+    # Take random sample_size from each template
     sampled = []
     for template_id in sorted(by_template.keys()):
         template_sequences = by_template[template_id]
-        sampled.extend(template_sequences[:sample_size])
+        # Use random.sample if there are more sequences than sample_size
+        if len(template_sequences) <= sample_size:
+            sampled.extend(template_sequences)
+        else:
+            sampled.extend(random.sample(template_sequences, sample_size))
 
     # Return same structure with sampled sequences
     return {

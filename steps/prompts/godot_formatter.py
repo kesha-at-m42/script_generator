@@ -78,7 +78,7 @@ Map `interaction_tool` to Godot tool (see tools.md):
 - `shade` → Paint tool
 
 ### 4. Validator Mapping
-Choose validator based on interaction_tool (see validators.md):
+Choose validator based on interaction_tool (see validators.md for complete specifications and answer formats):
 - `place_point` → PointValidator
 - `drag_label` → LabelValidator
 - `click_choice` → MultipleChoiceValidator
@@ -90,16 +90,7 @@ Choose validator based on interaction_tool (see validators.md):
 - Move tool does NOT use palette (places points directly)
 - Drag tool REQUIRES palette (drags labels from palette)
 - `click_choice` is for MCQ, `select` is for tangible selection (different use cases)
-
-**LabelValidator Answer Construction**:
-The LabelValidator answer should ONLY include the labels that the student is being asked to place from the palette, NOT all possible tick positions.
-
-Example:
-- If palette has `["1/6"]` and student should place it → answer: `["1/6"]`
-- If palette has `["1/3", "2/3"]` and student should place both → answer: `["1/3", "2/3"]`
-- DO NOT include all tick marks or pre-existing labels unless they are being validated
-
-The answer array represents the labels that should be dragged from the palette to the correct positions.
+- See validators.md for correct answer format for each validator type
 
 ### 4a. Non-Curriculum Skills Mapping
 Determine non_curriculum_skills array based on interaction_tool and question type:
@@ -503,7 +494,7 @@ Return ONLY valid JSON with Godot schema structure.
     "template_skill": "{problem_type}",
     "identifiers": {fractions},
     "mastery_tier": "{mastery_tier}",
-    "mastery_verb": "{verb}",
+    "mastery_verb": "{mastery_verb}",
     "telemetry_data": {
       "mastery_skill": "{skill}",
       "cognitive_verb": "{mastery_verb}",

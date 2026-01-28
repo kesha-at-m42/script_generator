@@ -294,7 +294,6 @@
       "batch_mode": true,
       "batch_id_field": "template_id",
       "batch_output_id_field": "problem_instance_id",
-      "batch_only_items":["4001"],
       "batch_id_start": 1,
       "batch_skip_existing": false,
       "batch_stop_on_error": false
@@ -358,6 +357,14 @@
       "output_file": "sequence_pool.json"
     },
     {
+      "name": "add_summary",
+      "type": "formatting",
+      "function": "summary_generator.add_summary",
+      "description": "Add statistical summary to SequencePool",
+      "function_args": {},
+      "output_file": "with_summary.json"
+    },
+    {
       "name": "fraction_formatting",
       "type": "formatting",
       "function": "bbcode_formatter.apply_fraction_formatting",
@@ -372,6 +379,16 @@
       "description": "Apply vocabulary tags from module",
       "function_args": {},
       "output_file": "vocab_formatted.json"
+    },
+    {
+      "name": "sample_per_template",
+      "type": "formatting",
+      "function": "sampler.sample_per_template",
+      "description": "Sample random sequences per template for production",
+      "function_args": {
+        "sample_size": 3
+      },
+      "output_file": "sampled.json"
     }
   ]
 }
