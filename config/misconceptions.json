@@ -1,59 +1,182 @@
 {
   "misconceptions": [
     {
+      "misconception_id": 1,
+      "misconception_tag": "equal_vs_unequal_parts",
+      "description": "Believing parts can be different sizes and still count as equal fractions",
+      "best_visuals": [
+        "Folding Strips",
+        "Pattern Tiles"
+      ],
+      "risky_visuals": [
+        "Grid Arrays (if misaligned)",
+        "Estimation Grids"
+      ],
+      "tags": [
+        "Meta_Remediation",
+        "Context_Framing_Issue"
+      ]
+    },
+    {
       "misconception_id": 2,
       "misconception_tag": "misidentifying_the_whole",
-      "description": "Student restarts counting at 1 instead of continuing from 0",
-      "evidence_patterns": [
-        "Student restarts count at 1 instead of continuing from 0 (e.g., places 5/4 at what would be 1/4 in the second whole)",
-        "Student ignores continuous numbering",
-        "Student selects fraction that shows counting from 1 instead of 0",
-        "Restarts count at 1"
+      "description": "Losing track of what the \"1\" is; comparing parts of different wholes",
+      "best_visuals": [
+        "Grid Arrays",
+        "Folding Strips"
       ],
-      "detection_methods": [
-        "click_position_in_second_whole_but_wrong_interval",
-        "incorrect_position_despite_scaffold",
-        "selected_numerator_equals_position_past_one",
-        "position_suggests_restart_at_one"
+      "risky_visuals": [
+        "Cut & Overlay Strips (if wholes differ)",
+        "Gridded Overlays"
+      ],
+      "tags": [
+        "Needs_DevAdapt",
+        "Misconception_Spotlight"
+      ]
+    },
+    {
+      "misconception_id": 3,
+      "misconception_tag": "numerator_denominator_as_independent",
+      "description": "Seeing numerator and denominator as unrelated values or labels",
+      "best_visuals": [
+        "Shaded Bars",
+        "Stacked Bars",
+        "Grid Arrays"
+      ],
+      "risky_visuals": [
+        "Estimation Grids",
+        "Dual Visuals (if labels absent)"
+      ],
+      "tags": [
+        "Symbol_Link_Support",
+        "Meta_Prompt"
+      ]
+    },
+    {
+      "misconception_id": 4,
+      "misconception_tag": "improper_spacing_on_number_line",
+      "description": "Spacing units unevenly or inconsistently",
+      "best_visuals": [
+        "Folded Number Line",
+        "Extended Line"
+      ],
+      "risky_visuals": [
+        "Drawn lines without scaffold"
+      ],
+      "tags": [
+        "Meta_Remediation",
+        "Visual_Anchor"
       ]
     },
     {
       "misconception_id": 5,
-      "misconception_tag": "counting_ticks_not_spaces",
-      "description": "Student counts tick marks instead of intervals/spaces",
-      "evidence_patterns": [
-        "Student clicks tick at position (numerator + 1) or (numerator - 1)",
-        "Student selects (denominator + 1) — counted all tick marks",
-        "Student ignores interval numbers and counts ticks",
-        "Position off by one in either section",
-        "Student selects fraction with numerator off by 1",
-        "Student counts tick marks and selects wrong line",
-        "Error in extended counting",
-        "Position off by one or two"
+      "misconception_tag": "counting_tick_marks_instead_of_spaces",
+      "description": "Thinking each tick is a part, rather than the spaces between",
+      "best_visuals": [
+        "Folded Number Line",
+        "Pattern Tiles"
       ],
-      "detection_methods": [
-        "click_position_off_by_one",
-        "selected_answer_equals_denominator_plus_one",
-        "click_position_off_by_one despite scaffold",
-        "selected_numerator_off_by_one",
-        "selected_line_has_target_plus_one_ticks",
-        "position_off_by_one_or_two"
+      "risky_visuals": [
+        "Unmarked lines",
+        "compressed scales"
+      ],
+      "tags": [
+        "Meta_Remediation",
+        "AI_Peer_Opportunity"
       ]
     },
     {
       "misconception_id": 6,
-      "misconception_tag": "numerator_denominator_reversal",
-      "description": "Student confuses numerator and denominator roles",
-      "evidence_patterns": [
-        "Student clicks tick at denominator position instead of numerator position (e.g., clicks 4th tick for 3/4)",
-        "Student selects numerator value instead of denominator",
-        "Student selects reversed fraction"
+      "misconception_tag": "reversing_numerator_and_denominator",
+      "description": "Swapping top/bottom when labeling or reading fractions",
+      "best_visuals": [
+        "Shaded Bars",
+        "Grid Arrays",
+        "Stacked Bars"
       ],
-      "detection_methods": [
-        "click_position_equals_denominator",
-        "selected_answer_equals_numerator",
-        "selected_fraction_is_reversal"
+      "risky_visuals": [
+        "Cut & Overlay Strips (without label cue)"
+      ],
+      "tags": [
+        "Symbol_Link_Support",
+        "Needs_DevAdapt"
       ]
+    },
+    {
+      "misconception_id": 7,
+      "misconception_tag": "difficulty_recognizing_equivalence",
+      "description": "Not seeing that 2/4 = 1/2, even when visually aligned",
+      "best_visuals": [
+        "Stacked Bars",
+        "Gridded Overlays",
+        "Pattern Tiles"
+      ],
+      "risky_visuals": [
+        "Folding Strips (without overlay)",
+        "Estimation Grids"
+      ],
+      "tags": [
+        "Transfer_Thinking",
+        "Meta_Prompt"
+      ]
+    },
+    {
+      "misconception_id": 8,
+      "misconception_tag": "errors_comparing_unlike_fractions",
+      "description": "Believing larger denominator = larger fraction",
+      "best_visuals": [
+        "Gridded Overlays",
+        "Stacked Bars"
+      ],
+      "risky_visuals": [
+        "Shaded Bars (if different sizes)",
+        "Estimation Grids"
+      ],
+      "tags": [
+        "Benchmark_Anchor",
+        "Meta_Remediation"
+      ]
+    },
+    {
+      "misconception_id": 9,
+      "misconception_tag": "fractions_only_exist_in_shapes",
+      "description": "Not recognizing fractions on number lines or symbols",
+      "best_visuals": [
+        "Folded Line",
+        "Extended Line",
+        "Dual Visuals"
+      ],
+      "risky_visuals": [
+        "Only area-based visuals"
+      ],
+      "tags": [
+        "Transfer_Thinking",
+        "Symbol_Link_Support"
+      ]
+    },
+    {
+      "misconception_id": 10,
+      "misconception_tag": "overgeneralizing_rules",
+      "description": "Applying rules like \"larger number = bigger piece\" across contexts",
+      "best_visuals": [
+        "Estimation Grids",
+        "Dual Visuals"
+      ],
+      "risky_visuals": [
+        "Any symbol-only comparison"
+      ],
+      "tags": [
+        "Meta_Prompt",
+        "Needs_DevAdapt"
+      ]
+    },
+    {
+      "misconception_id": 11,
+      "misconception_tag": "fractions_cant_exceed_one",
+      "description": "",
+      "best_visuals": [],
+      "risky_visuals": [],
+      "tags": []
     }
   ]
 }

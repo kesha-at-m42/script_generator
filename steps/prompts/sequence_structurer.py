@@ -56,12 +56,15 @@ Generate a structured interaction sequence using these fields:
 
 **interaction_tool:** Derive from action_description (refer to visuals.md for allowed student actions)
 
-Based on visuals.md allowed student actions:
-- "Point at tick marks" → "place_point" (student places points on ticks)
+Map action_description to tool:
+- "Point at tick marks" → "place_point" (student places points on existing ticks)
 - "Label tick marks by dragging" → "drag_label" (student drags fraction labels onto ticks)
-- "Select from MCQ options" OR "Select matching fraction from MCQ options" → "click_choice"
-- "Select the number line" OR "Select" → "select" (choose one or more number lines/shapes)
-- "Select multiple" → "multi_select"
+- "Select from MCQ options" → "click_choice" (student clicks MCQ option)
+- "Select the number line" → "select" (student selects one tangible from workspace)
+- "Select multiple number lines" → "multi_select" (student selects multiple tangibles)
+- "Place ticks on number line" → "place_tick" (student partitions/divides number line)
+- "Cut shape into parts" → "cut_shape" (student divides shapes into parts)
+- "Shade parts" → "shade" (student shades/paints sections)
 
 **workspace:** Parse workspace_description into structured toys array
 
