@@ -138,7 +138,7 @@ Multiple ticks:
 ### PointValidator
 **Schema type**: `PointValidator`
 
-**Purpose**: Validates that points are placed at correct positions on number line. Used with Move tool.
+**Purpose**: Validates that points are placed at correct positions on number line. Used with Move tool (without palette).
 
 **Fields**:
 - `answer` (array of Fractions): Expected point positions
@@ -156,36 +156,39 @@ Multiple ticks:
 ### LabelValidator
 **Schema type**: `LabelValidator`
 
-**Purpose**: Validates dragged fraction labels placed on number line ticks. Used with Drag tool.
+**Purpose**: Validates dragged fraction labels placed on number line ticks. Used with Drag tool (with palette).
 
 **Fields**:
-- `answer` (array of Fractions): Expected labels at tick positions (in order from left to right)
+- `answer` (array of Fractions): The labels that should be dragged from the palette to correct positions
 
 **Example**:
 ```json
 {
   "@type": "LabelValidator",
-  "answer": ["0", "1/4", "1"]
+  "answer": ["1/4"]
 }
 ```
 
-**Note**: Answer array represents the complete set of labels on the number line after dragging, not just the labels being dragged.
+**Important**: Answer array should ONLY include the labels being validated from the palette, NOT all tick marks or pre-existing labels.
+- If palette has `["1/6"]` → answer: `["1/6"]`
+- If palette has `["1/3", "2/3"]` → answer: `["1/3", "2/3"]`
+- Do NOT include all possible tick positions
 
 ---
 
 ## Validator Selection Guide
 
-**For Move tool (placing points)**:
+**For Move tool (placing points, no palette)**:
 - Use: `PointValidator`
 - Answer format: `["2/7"]` (array of fractions)
+
+**For Drag tool (dragging labels, with palette)**:
+- Use: `LabelValidator`
+- Answer format: Labels from palette `["1/3"]` or `["1/3", "2/3"]`
 
 **For Place tool / "cut" (placing ticks)**:
 - Use: `TickValidator`
 - Answer format: `["2/3"]` or `"2/3"`
-
-**For Drag tool (dragging labels)**:
-- Use: `LabelValidator`
-- Answer format: Complete label array `["0", "1/3", "2/3", "1"]`
 
 **For Select tool (single)**:
 - Use: `SelectionValidator`

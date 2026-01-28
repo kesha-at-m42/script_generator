@@ -1,11 +1,8 @@
 """
 Formatting Steps - Deterministic post-processing functions
+
+NOTE: Formatting functions have been moved to steps/formatting/
+This package is kept for backwards compatibility but no longer exports functions.
 """
 
-from .script_formatter import format_interactions_to_markdown
-from .godot_wrapper import wrap_in_sequence_pool
-
-__all__ = [
-    'format_interactions_to_markdown',
-    'wrap_in_sequence_pool',
-]
+__all__ = []
