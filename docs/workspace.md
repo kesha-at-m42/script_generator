@@ -65,11 +65,11 @@ All tangibles support these optional layout fields:
 
 **points** (array of Fractions): Highlighted point positions. Must be fraction strings like "1/4", "2/3", not floats. Default: `[]`
 
-**labels** (boolean or array of Fractions): Which ticks show fraction labels. Default: `true`
+**labels** (boolean or array of Fractions): Which ticks show fraction labels (positioned below number line). INTERACTIVE - can be dragged with drag_label tool. Default: `true`
 
-**alt_labels** (boolean or array of Fractions): Alternative labels for ticks. Default: `false`
+**alt_labels** (boolean or array of Fractions): Alternative labels for ticks (positioned on top of number line). NON-INTERACTIVE - cannot be dragged into or out of. Used for fixed reference labels. Default: `false`
 
-**invert_labels** (boolean): Invert label display. Default: `false`
+**invert_labels** (boolean): Flips the position of labels and alt_labels. When `true`, labels appear on top (interactive) and alt_labels appear below (non-interactive). Use this to allow dragging labels to the top position. Default: `false`
 
 **intervals_is_frac_label_visible** (boolean or array of integers): Show labels on intervals. Default: `false`
 
@@ -120,18 +120,39 @@ Array of fractions (explicit interval sizes):
 
 **Labels Specification**:
 
+**labels** (interactive, positioned below by default):
+
 Boolean (all or none):
 ```json
-"labels": true   // All ticks labeled
+"labels": true   // All ticks labeled below (can be dragged)
 "labels": false  // No ticks labeled
 ```
 
 Array (specific ticks to label - must match tick fraction strings):
 ```json
-"labels": ["0", "1/2", "1"]  // Only these ticks labeled
+"labels": ["0", "1/2", "1"]  // Only these ticks labeled below
 // ✓ CORRECT: Fraction strings matching tick positions
 // ✗ WRONG: [0, 0.5, 1] - floats not supported
 ```
+
+**alt_labels** (non-interactive, positioned on top by default):
+
+Same format as labels but NON-DRAGGABLE, displays on top:
+```json
+"alt_labels": true              // All ticks labeled on top (fixed, cannot drag)
+"alt_labels": ["0", "1"]        // Only these ticks labeled on top (fixed)
+```
+
+**invert_labels** (swaps positions):
+
+```json
+"invert_labels": false  // Default: labels below (draggable), alt_labels on top (fixed)
+"invert_labels": true   // Inverted: labels on top (draggable), alt_labels below (fixed)
+```
+
+**Use case for invert_labels:** When you want students to drag labels to the TOP position, set `"invert_labels": true`. This places the interactive labels on top while keeping fixed reference labels below.
+
+**Note:** Both `labels` and `alt_labels` can be used simultaneously. Only `labels` can be dragged; `alt_labels` are always fixed display-only.
 
 **Example - Basic Number Line**:
 ```json
@@ -155,6 +176,33 @@ Array (specific ticks to label - must match tick fraction strings):
   "intervals": "1/4",
   "intervals_is_shaded": [0, 2],
   "lcm": 24
+}
+```
+
+**Example - Draggable Labels with Fixed Reference Labels**:
+```json
+{
+  "@type": "NumLine",
+  "visual": "line",
+  "range": [0, 1],
+  "ticks": "1/4",
+  "labels": false,           // No draggable labels initially (student will drag them)
+  "alt_labels": ["0", "1"],  // Fixed reference labels on top
+  "lcm": 24
+}
+```
+
+**Example - Drag Labels to Top Position**:
+```json
+{
+  "@type": "NumLine",
+  "visual": "line",
+  "range": [0, 1],
+  "ticks": "1/3",
+  "labels": false,           // No draggable labels initially
+  "alt_labels": ["0", "1"],  // Fixed labels that will appear below when inverted
+  "invert_labels": true,     // Swap positions: draggable on top, fixed below
+  "lcm": 12
 }
 ```
 

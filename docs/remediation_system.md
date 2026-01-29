@@ -98,6 +98,38 @@ This reference defines error path remediation for educational interaction script
 
 ---
 
+## Remediation Strategy for IDENTIFY Tasks
+
+**Task Pattern:** Student must identify which fraction a point represents on a number line, or name a fraction label.
+
+**Remediation Strategy:** Teach the two-step process:
+1. **First: Find the denominator** - Count the equal intervals from 0 to 1
+2. **Then: Find the numerator** - Count how many intervals from 0 to the point
+
+**Examples:**
+
+*Light level:*
+- "Not quite. First count the equal intervals from 0 to 1, then count from zero to the point."
+- "Try again. How many equal intervals are between 0 and 1?"
+- "Almost. Count the intervals from 0 to 1 first."
+
+*Medium level:*
+- "Let's think about this step by step. First, count how many equal intervals there are from 0 to 1 - that's your denominator. Then count how many of those intervals from 0 to the point - that's your numerator."
+- "Here's how to identify fractions. The denominator tells us how many equal intervals are from 0 to 1. Count those intervals first. Then count how many intervals from 0 to the point - that's the numerator."
+- "Let's break this down. Start by counting the equal intervals from 0 to 1. That number is your denominator. Now count how many intervals from 0 to the point. That's your numerator."
+
+*Heavy level:*
+- "Let me walk you through finding this fraction. First, we find the denominator by counting how many equal intervals are from 0 to 1. I count 4 equal intervals from 0 to 1, so the denominator is 4. This means we're working with fourths. Now for the numerator - we count how many of those intervals from 0 to where the point is. The point is 3 intervals from zero, so the numerator is 3. That makes this fraction 3/4. That's how we identify fractions - denominator first by counting equal intervals from 0 to 1, then numerator by counting intervals from 0 to the point."
+- "Here's how to identify this fraction. Step 1: Count the equal intervals from 0 to 1. There are 3 equal intervals from 0 to 1, so our denominator is 3 - we're working with thirds. Step 2: Count how many of those thirds from 0 to the point. The point is 2 intervals away from zero, so our numerator is 2. The answer is 2/3. Remember - always find the denominator first by counting equal intervals from 0 to 1, then the numerator by counting from zero."
+
+**Key Teaching Points:**
+- Denominator = count the equal intervals from 0 to 1
+- Numerator = count the intervals from 0 to the point
+- Always identify denominator BEFORE numerator
+- Count the spaces/intervals between tick marks, not the tick marks themselves
+
+---
+
 ## Language Guidelines
 
 **Tone:**

@@ -59,7 +59,12 @@ The problem template contains:
 
 **2. Mastery Tiers:** ONLY use tiers from template's mastery_tier field. Distribute problems across allowed tiers.
 
-**3. Visuals:** Vary workspace configurations, labeling schemes, tick mark densities. For comparison sets, make each option distinctly different.
+**3. Visuals:** Vary workspace configurations, labeling schemes, tick mark densities.
+   - **CRITICAL: All visual elements in a workspace MUST be visually distinct**
+   - If workspace has multiple number lines/shapes, each MUST have different visual characteristics
+   - For comparison tasks: Each number line must have a point at a DIFFERENT fraction position
+   - INVALID: Three lines all with points at 2/6 (visually identical)
+   - VALID: First line point at 2/6, second line point at 5/6, third line point at 1/6 (all distinct)
 
 **4. Actions:** When template lists multiple interactions (e.g., "Point OR Label"), alternate between them.
 
@@ -80,6 +85,9 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - Example patterns:
   - Correct: "2/3" | Distractor: "3/2" or "2/5" | Wrong: "5/3"
   - Correct: "1/4" | Distractor: "1/3" | Wrong: "3/4"
+- Misconception-based distractors (most effective):
+  - Visual: Number line from 1 to 2, divided in thirds (6 total intervals)
+  - Correct: "5/3" | Good distractor: "5/6" (targets misconception of counting all intervals instead of parts per unit) | Wrong: "2/3"
 
 ## OUTPUT REQUIREMENTS
 
@@ -89,7 +97,10 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **3. problem_type:** Copy verbatim from template
 
-**4. workspace_description:** Visual setup aligned with visuals.md and template
+**4. workspace_description:** Visual setup that ONLY uses features defined in visuals.md
+   - Refer to <visuals> documentation for allowed workspace elements
+   - Do NOT invent or describe visual features not listed in visuals.md
+   - Only describe: tick marks, points, labels, range - nothing else
 
 **5. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
    - Choose the most pedagogically and interactively similar allowed action
@@ -140,6 +151,8 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - ✗ Same parameter at same tier multiple times (single fraction work)
 - ✗ Creating more questions than needed (if 5 fractions and 1 tier, create 5 questions, not 10)
 - ✗ Identical option sets (MCQ)
+- ✗ **Visually identical elements in workspace** (e.g., two number lines with points at same position)
+- ✗ **Inventing visual features not in visuals.md** (e.g., "dotted lines", "highlighted intervals", "shaded regions")
 
 Generate problem instances NOW with maximum variation and quality!
 """,

@@ -54,12 +54,12 @@ Generate a structured interaction sequence using these fields:
 - Adjust scaffolding based on mastery_tier (support=most guidance, challenge=least)
 - Follow <guide_design> "Problem Setup Dialogue" section
 
-**prompt:** Create a self-explanatory, direct call for action that the student can take with just the prompt alone
+**prompt:** Create a self-explanatory, direct instruction that the student can solve with just the prompt alone
+- The student should know exactly what fraction to work with by reading only the prompt. It's still a problem though, so don't give away the answer. Make this decision based on the skill being tested here: {skill}
 - If the prompt already meets these criteria, keep it as-is
 - Strip any application_context (e.g., "Maya ate 1/4...") from the prompt and move it to dialogue instead
 - Strip any scaffolding hints (e.g., "One interval from zero", "That's two spaces", "Count the intervals...") from the prompt and move them to dialogue instead
-- Keep prompt focused on the core task (e.g., "Place three-fourths on the number line.")
-- The prompt should be clear enough to solve independently without relying on dialogue context
+- Keep prompt focused on the core mathematical task (e.g., "Place three-fourths on the number line.")
 
 **interaction_tool:** Derive from action_description (refer to visuals.md for allowed student actions)
 
@@ -74,8 +74,7 @@ Map action_description to tool:
 - "Shade parts" → "shade" (student shades/paints sections)
 
 **workspace:** Parse workspace_description into structured toys array
-
-Refer to <visuals> for the precise structure of number line elements.
+**CRITICAL: You MUST strictly follow ALL constraints defined in <visuals>. Every element you generate (ticks, points, labels, ranges, denominators, number of lines) must conform exactly to the rules and constraints specified in visuals.md. Validate your output against these constraints before finalizing.**
 
 **Number Line Parsing Rules (based on visuals.md):**
 - "Number line from X to Y" → range: [X, Y]
@@ -221,7 +220,7 @@ Generate NOW!
 
     module_ref={},
 
-    template_ref=["mastery_verb", "success_dialogue"],
+    template_ref=["mastery_verb", "success_dialogue", "skill"],
 
     cache_docs=False,
     temperature=1,

@@ -1,0 +1,533 @@
+[
+    {
+        "template_id": "5001",
+        "skill_id": "M5-01",
+        "skill": "Student can partition a 0-1 number line into equal intervals using the halving strategy (denominators 2, 4, 8)",
+        "problem_type": "Student places tick marks to divide a blank number line into halves, fourths, or eighths",
+        "workspace_description": "Blank horizontal number line from 0 to 1 with only endpoint labels.",
+        "prompt_examples": [
+            "Divide this line into fourths.",
+            "Place tick marks between 0 and 1 to make 4 equal spaces.",
+            "Partition this number line into halves.",
+            "Create 8 equal intervals on this line.",
+            "Use the halving method to mark fourths."
+        ],
+        "action_description": "Student clicks on the number line to place tick marks.",
+        "mastery_tier": [
+            "confidence",
+            "support",
+            "baseline"
+        ],
+        "mastery_verb": "create",
+        "parameter_coverage": {
+            "denominators": [
+                2,
+                4,
+                8
+            ]
+        },
+        "correct_end_state": "All tick marks placed at correct positions creating equal intervals.",
+        "success_dialogue": [
+            "Right. Four equal spaces.",
+            "Yes. You divided it into halves.",
+            "Good, eight equal intervals."
+        ]
+    },
+    {
+        "template_id": "5002",
+        "skill_id": "M5-02",
+        "skill": "Student can partition a 0-1 number line into equal intervals using equal-jump (3) or combination (6) strategies",
+        "problem_type": "Student places tick marks to divide a blank number line into thirds, or sixths",
+        "workspace_description": "Blank horizontal number line from 0 to 1 with only endpoint labels.",
+        "prompt_examples": [
+            "Divide this line into thirds.",
+            "Place tick marks to make 3 equal spaces.",
+            "Partition this number line into sixths."
+        ],
+        "action_description": "Student clicks on the number line to place tick marks.",
+        "mastery_tier": [
+            "support",
+            "baseline"
+        ],
+        "mastery_verb": "create",
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                6
+            ]
+        },
+        "correct_end_state": "All tick marks placed at correct positions. For thirds: ticks at 1/3, 2/3. For sixths: ticks at 1/6, 2/6, 3/6, 4/6, 5/6.",
+        "success_dialogue": [
+            "Good. Three equal spaces.",
+            "Yes. You made sixths.",
+            "Right, you made six equal intervals."
+        ]
+    },
+    {
+        "template_id": "5003",
+        "skill_id": "M5-03",
+        "skill": "Student can label tick mark positions by counting intervals from zero",
+        "problem_type": "Student drags fraction labels to correct tick mark positions on a pre-partitioned number line",
+        "workspace_description": "Pre-partitioned horizontal number line with tick marks already placed. Label palette with draggable fraction labels. Endpoints (0 and 1) labeled; other positions unlabeled or partially labeled.",
+        "prompt_examples": [
+            "Label each tick mark with the correct fraction.",
+            "Drag the labels to show the fractions.",
+            "Place the fraction labels on the number line.",
+            "Label the first tick mark.",
+            "Complete the labels for this number line."
+        ],
+        "action_description": "Student drags fraction labels from the palette to the corresponding tick mark positions, counting spaces from zero to determine correct placement.",
+        "mastery_tier": [
+            "confidence",
+            "support",
+            "baseline",
+            "stretch"
+        ],
+        "mastery_verb": "create",
+        "parameter_coverage": {
+            "fractions": [
+                "1/2",
+                "1/3",
+                "2/3",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1/5",
+                "2/5",
+                "3/5",
+                "4/5",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8"
+            ]
+        },
+        "correct_end_state": "All tick marks correctly labeled. Labels show correct fractions at each position (e.g., 1/4, 2/4, 3/4 for fourths).",
+        "success_dialogue": [
+            "Right. The numerator of each label shows how many spaces from zero.",
+            "Yes, 1/4 at the first tick, 2/4 at the second.",
+            "Correct, 2/4 is two intervals from 0."
+        ]
+    },
+    {
+        "template_id": "5004",
+        "skill_id": "M5-07",
+        "skill": "Student can identify what fraction is represented by a point on a partitioned 0-1 number line",
+        "problem_type": "Student identifies the fraction shown by a point already placed on a pre-partitioned number line",
+        "workspace_description": "Pre-partitioned horizontal number line from 0 to 1 with a point placed at one tick position. Multiple choice options show possible fraction answers.",
+        "prompt_examples": [
+            "What fraction does this point show?",
+            "Name the fraction at this location.",
+            "What fraction is marked on the line?",
+            "Identify this fraction."
+        ],
+        "action_description": "Student examines the point on the number line, counts intervals from zero, and selects the correct fraction from multiple choice options.",
+        "mastery_tier": [
+            "support",
+            "baseline",
+            "stretch"
+        ],
+        "mastery_verb": "identify",
+        "parameter_coverage": {
+            "fractions": [
+                "1/2",
+                "1/3",
+                "2/3",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1/5",
+                "2/5",
+                "3/5",
+                "4/5",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8"
+            ]
+        },
+        "correct_end_state": "Correct fraction selected from multiple choice options.",
+        "success_dialogue": [
+            "Right. Three intervals from zero is 3/4.",
+            "Yes,that's 2/3.",
+            "Good. You counted two intervals from zero."
+        ]
+    },
+    {
+        "template_id": "5005",
+        "skill_id": "M5-05",
+        "skill": "Student understands that the denominator stays constant across a partitioned line",
+        "problem_type": "Student identifies that the bottom number stays the same across fractions on a line",
+        "workspace_description": "Pre-partitioned number line with fraction labels shown (e.g., 1/4, 2/4, 3/4). Multiple choice asking what stays the same (options: the bottom number, the top number, the position).",
+        "prompt_examples": [
+            "What stays the same for all the fractions on this line?",
+            "Look at 1/4, 2/4, 3/4. What number doesn't change?",
+            "What do all these fractions have in common?",
+            "Which part of the fraction stays the same?"
+        ],
+        "action_description": "Student examines the labeled fractions and selects 'the bottom number' to identify denominator constancy.",
+        "mastery_tier": [
+            "confidence",
+            "baseline"
+        ],
+        "mastery_verb": "identify",
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                4,
+                5,
+                6,
+                8
+            ]
+        },
+        "correct_end_state": "'The bottom number' selected from multiple choice options.",
+        "success_dialogue": [
+            "Yes, the bottom number - denominator - stays the same.",
+            "Right. The denominator tells us our interval  size.",
+            "Good. We're always counting the same-sized intervals.",
+            "Correct. The 4 stays because we're counting fourths."
+        ]
+    },
+    {
+        "template_id": "5006",
+        "skill_id": "M5-06",
+        "skill": "Student understands that n/n equals 1 whole",
+        "problem_type": "Student places n/n at position 1 or identifies that n/n = 1",
+        "workspace_description": "Pre-partitioned number line with some fraction labels shown. Drag palette with n/n label (e.g., 4/4, 3/3), or MCQ asking what n/n equals.",
+        "prompt_examples": [
+            "Where does 4/4 go on this line?",
+            "Place 3/3 on the number line.",
+            "What does 6/6 equal?",
+            "3/3 equals how much?"
+        ],
+        "action_description": "Student drags n/n label to position 1, or selects '1 whole' from multiple choice.",
+        "mastery_tier": [
+            "confidence",
+            "baseline"
+        ],
+        "mastery_verb": "identify",
+        "parameter_coverage": {
+            "denominators": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                8
+            ],
+            "wholes": [
+                "2/2",
+                "3/3",
+                "4/4",
+                "5/5",
+                "6/6",
+                "8/8"
+            ]
+        },
+        "correct_end_state": "n/n label placed at position 1, or '1 whole' selected.",
+        "success_dialogue": [
+            "Right! 4/4 equals 1 whole.",
+            "Yes. Three thirds is one whole.",
+            "Correct. All the intervals make the whole.",
+            "Good, 6/6 lands right at 1."
+        ]
+    },
+    {
+        "template_id": "5007",
+        "skill_id": "M5-07",
+        "skill": "Student can partition a 0-2 number line into equal intervals for fractions beyond 1",
+        "problem_type": "Student places tick marks to partition an extended number line from 0 to 2",
+        "workspace_description": "Extended horizontal number line from 0 to 2 with endpoint labels (0, 1, 2). May have 0-1 section pre-partitioned for scaffolding. Student clicks to place tick marks.",
+        "prompt_examples": [
+            "Divide the line from 0 to 1 and from 1 to 2 into thirds.",
+            "Partition each whole into fourths—from 0 to 1, then 1 to 2.",
+            "Make sixths in each section: 0 to 1 and 1 to 2.",
+            "Show fifths from 0 to 1, then continue the same spacing to 2."
+        ],
+  "action_description": "Student clicks on the extended number line to place tick marks creating equal intervals that continue past 1, maintaining the same spacing before and after 1.",
+        "mastery_tier": [
+            "baseline",
+            "stretch",
+            "challenge"
+        ],
+        "mastery_verb": "create",
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                4,
+                5,
+                6,
+                8
+            ]
+        },
+        "correct_end_state": "All tick marks placed at correct positions. Intervals visually equal from 0 through 2. Same spacing before and after 1.",
+        "success_dialogue": [
+            "Right. The same spacing of fourths continues past 1.",
+            "Good, fourths all the way to 2.",
+            "Yes. The intervals of fourths stay equal beyond 1.",
+            "Nice work extending the pattern of fourths beyond 1."
+        ]
+    },
+    {
+        "template_id": "5008",
+        "skill_id": "M5-07",
+        "skill": "Student can label fractions beyond 1 on extended number lines",
+        "problem_type": "Student drags fraction labels to tick positions beyond 1 on a 0-2 number line",
+        "workspace_description": "Extended 0-2 number line, pre-partitioned. Labels for 0-1 section may be pre-placed. Drag palette with beyond-1 fractions (e.g., 4/3, 5/4, 7/6).",
+        "prompt_examples": [
+            "Label the tick mark that shows 4/3.",
+            "Place the label for 5/4.",
+            "What comes after 3/3? Label it.",
+            "Drag 7/6 to its position.",
+            "Label the fractions past 1."
+        ],
+        "action_description": "Student drags fraction labels from the palette to the correct tick mark positions beyond 1, counting intervals from zero.",
+        "mastery_tier": [
+            "baseline",
+            "stretch",
+            "challenge"
+        ],
+        "mastery_verb": "create",
+        "parameter_coverage": {
+            "fractions_beyond_1": [
+                "4/3",
+                "5/3",
+                "5/4",
+                "6/4",
+                "7/4",
+                "6/5",
+                "7/5",
+                "8/5",
+                "9/5",
+                "7/6",
+                "8/6",
+                "9/6",
+                "10/6",
+                "11/6",
+                "9/8",
+                "10/8",
+                "11/8"
+            ]
+        },
+        "correct_end_state": "Correct labels placed at positions beyond 1.",
+        "success_dialogue": [
+            "Yes! Four thirds means four intervals from 0.",
+            "Right. We keep counting: 4/3, 5/3...",
+            "Good. 5/4 is five spaces from zero.",
+            "Correct, the pattern of thirds continues beyond 1."
+        ]
+    },
+    {
+        "template_id": "5009",
+        "skill_id": "M5-09",
+        "skill": "Student can identify fractions beyond 1 from a placed point",
+        "problem_type": "Student identifies what fraction is represented by a point placed beyond 1 on a 0-2 number line",
+        "workspace_description": "Extended 0-2 number line, pre-partitioned, with a point placed at a tick position beyond 1. Multiple choice options show possible fraction answers.",
+        "prompt_examples": [
+            "What fraction is at this point?",
+            "Identify the fraction shown.",
+            "The point is at what position?",
+            "Name this fraction.",
+            "What fraction does this point show?"
+        ],
+        "action_description": "Student examines the point beyond 1, counts intervals from zero, and selects the correct fraction from multiple choice options.",
+        "mastery_tier": [
+            "baseline",
+            "stretch",
+            "challenge"
+        ],
+        "mastery_verb": "identify",
+        "parameter_coverage": {
+            "fractions_beyond_1": [
+                "4/3",
+                "5/3",
+                "5/4",
+                "6/4",
+                "7/4",
+                "6/5",
+                "7/5",
+                "8/5",
+                "9/5",
+                "7/6",
+                "8/6",
+                "9/6",
+                "10/6",
+                "11/6",
+                "9/8",
+                "10/8",
+                "11/8"
+            ]
+        },
+        "correct_end_state": "Correct fraction selected from multiple choice options.",
+        "success_dialogue": [
+            "Right. Five spaces from zero is 5/4.",
+            "Yes, that's 4/3, four intervals from 0.",
+            "Correct. You counted all the intervals from zero.",
+            "Good, 7/6 is seven sixths intervals from 0."
+        ]
+    },
+    {
+        "template_id": "5010",
+        "skill_id": "M5-04",
+        "skill": "Student can count intervals (not tick marks) to determine fraction positions",
+        "problem_type": "Student answers diagnostic questions about counting intervals versus tick marks",
+        "workspace_description": "Pre-partitioned number line from 0 to 1. Multiple choice options for interval counting questions. For error detection: scenario describes someone counting ticks incorrectly.",
+        "prompt_examples": [
+            "How many equal intervals are between 0 and 1?",
+            "This point is 3 spaces from zero. What fraction is it?",
+            "Sam counted 5 tick marks and said the line shows fifths. Is Sam correct?",
+            "Count the intervals. How many equal parts?",
+            "The point is how many intervals from zero?"
+        ],
+        "action_description": "Student reads the question, examines the number line, and selects the correct answer demonstrating understanding that we count spaces/intervals, not tick marks.",
+        "mastery_tier": [
+            "confidence",
+            "baseline",
+            "stretch"
+        ],
+        "mastery_verb": "identify",
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                4,
+                6,
+                8
+            ],
+            "diagnostic_types": [
+                "count_intervals",
+                "identify_from_count",
+                "error_detection"
+            ]
+        },
+        "correct_end_state": "Correct answer selected demonstrating understanding of intervals vs. ticks.",
+        "success_dialogue": [
+            "Right. We count spaces, not tick marks.",
+            "Yes, 4 equal spaces means fourths.",
+            "Correct. Sam counted marks, but we count intervals.",
+            "Good. Three spaces from zero is 3/4."
+        ]
+    },
+    {
+        "template_id": "5011",
+        "skill_id": "M5-01, M5-03",
+        "skill": "Student can partition a line using halving strategy, then label all tick marks",
+        "problem_type": "Two-step: Student partitions into halves/fourths/eighths, then labels positions",
+        "workspace_description": "Step 1: Blank 0-1 number line for partitioning. Step 2: After partition validated, label palette appears for labeling all positions.",
+        "prompt_examples": [
+            "Divide this line into fourths, then label each position.",
+            "Make halves, then add the labels.",
+            "Partition into eighths and label them.",
+            "First create equal spaces, then show the fractions."
+        ],
+        "action_description": "Student first places tick marks to partition the line (step 1), then drags fraction labels to all tick positions (step 2).",
+        "mastery_tier": [
+            "baseline",
+            "stretch"
+        ],
+        "mastery_verb": "create",
+        "step_sequence": {
+            "step_1": "5001",
+            "step_2": "5003"
+        },
+        "parameter_coverage": {
+            "denominators": [
+                4,
+                8
+            ]
+        },
+        "correct_end_state": "Line partitioned with equal intervals AND all tick marks correctly labeled.",
+        "success_dialogue": [
+            "Good, equal spacing of fourths and correct labels.",
+            "Right. You partitioned and labeled fourths.",
+            "That's the two-step method."
+        ]
+    },
+    {
+        "template_id": "5012",
+        "skill_id": "M5-02, M5-03",
+        "skill": "Student can partition a line using equal-jump/combination strategy, then label all tick marks",
+        "problem_type": "Two-step: Student partitions into thirds/sixths, then labels positions",
+        "workspace_description": "Step 1: Blank 0-1 number line for partitioning. Step 2: After partition validated, label palette appears for labeling all positions.",
+        "prompt_examples": [
+            "Divide this line into thirds, then label each position.",
+            "Make sixths, then add the labels.",
+            "First create equal spaces, then show the fractions."
+        ],
+        "action_description": "Student first places tick marks to partition the line (step 1), then drags fraction labels to all tick positions (step 2).",
+        "mastery_tier": [
+            "baseline",
+            "stretch"
+        ],
+        "mastery_verb": "create",
+        "step_sequence": {
+            "step_1": "5002",
+            "step_2": "5003"
+        },
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                6
+            ]
+        },
+        "correct_end_state": "Line partitioned with equal intervals AND all tick marks correctly labeled.",
+        "success_dialogue": [
+            "Good, equal spacing for thirds and correct labels.",
+            "Right. You partitioned and labeled thirds.",
+            "That's the two-step method."
+        ]
+    },
+    {
+        "template_id": "5013",
+        "skill_id": "M5-07",
+        "skill": "Student can partition a 0-2 line, then label fractions beyond 1",
+        "problem_type": "Two-step: Student partitions extended line, then labels positions including beyond 1",
+        "workspace_description": "Step 1: Blank or partially-partitioned 0-2 number line. Step 2: After partition validated, label palette appears for labeling positions beyond 1.",
+        "prompt_examples": [
+            "Divide the line from 0 to 1 and from 1 to 2 into fourths, then label the fractions past 1.",
+            "Partition each whole into thirds, then label 4/3 and 5/3.",
+            "Make sixths in both sections, then label the positions beyond 1.",
+            "Show fifths from 0 to 1 and from 1 to 2, then add the labels past 1."
+        ],
+        "action_description": "Student first places tick marks to partition the 0-2 line (step 1), then drags fraction labels to positions beyond 1 (step 2).",
+        "mastery_tier": [
+            "stretch",
+            "challenge"
+        ],
+        "mastery_verb": "create",
+        "step_sequence": {
+            "step_1": "5007",
+            "step_2": "5008"
+        },
+        "parameter_coverage": {
+            "denominators": [
+                3,
+                4,
+                5,
+                6
+            ]
+        },
+        "correct_end_state": "Extended line partitioned with equal intervals AND beyond-1 positions correctly labeled.",
+        "success_dialogue": [
+            "Good, the pattern of fourths continues past 1.",
+            "Right. Equal spacing for fourths and correct labels all the way.",
+            "Nice work extending equal intervals and labeling fourths.",
+            "You've got the full method. Partition first, then label."
+        ]
+    }
+]
