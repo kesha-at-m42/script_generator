@@ -10,6 +10,31 @@ import json
 class BatchProcessor:
     """Manages batch processing of items"""
 
+    @staticmethod
+    def _get_item_id(item: Dict, id_field: str) -> str:
+        """Get ID from item, checking nested paths if needed
+
+        Args:
+            item: Item dict
+            id_field: Field name (e.g., 'problem_id')
+
+        Returns:
+            ID as string, or empty string if not found
+        """
+        # Try top-level field first
+        value = item.get(id_field)
+        if value is not None:
+            return str(value)
+
+        # Try metadata.{id_field} for nested IDs
+        metadata = item.get('metadata')
+        if isinstance(metadata, dict):
+            value = metadata.get(id_field)
+            if value is not None:
+                return str(value)
+
+        return ''
+
     def __init__(
         self,
         items: List[Dict],
@@ -19,7 +44,8 @@ class BatchProcessor:
         batch_only_items: List[str] = None,
         batch_skip_items: List[str] = None,
         batch_skip_existing: bool = False,
-        items_dir: Path = None
+        items_dir: Path = None,
+        base_version_dir: Path = None
     ):
         """
         Args:
@@ -31,6 +57,7 @@ class BatchProcessor:
             batch_skip_items: Skip these item IDs
             batch_skip_existing: Skip items that already have output
             items_dir: Directory where item outputs are saved (for skip_existing)
+            base_version_dir: Base version directory to copy unchanged items from (for reruns)
         """
         self.items = items
         self.batch_id_field = batch_id_field
@@ -40,12 +67,16 @@ class BatchProcessor:
         self.batch_skip_items = batch_skip_items or []
         self.batch_skip_existing = batch_skip_existing
         self.items_dir = items_dir
+        self.base_version_dir = base_version_dir
 
         self.collated_results = []
         self.errors = []
         self.sequential_id = batch_id_start
         self.processed_count = 0
         self.skipped_count = 0
+
+        # Cache for base collated items (avoid reloading file multiple times)
+        self._base_collated_cache = None
 
     def should_skip_item(self, item: Dict, item_idx: int) -> tuple[bool, str]:
         """Check if an item should be skipped
@@ -57,10 +88,22 @@ class BatchProcessor:
         Returns:
             Tuple of (should_skip, skip_reason)
         """
-        item_id = str(item.get(self.batch_id_field, item_idx)) if self.batch_id_field else str(item_idx)
+        # Get item ID (handles nested IDs like metadata.problem_id)
+        if self.batch_id_field:
+            item_id = self._get_item_id(item, self.batch_id_field)
+            if not item_id:  # If no ID found, fall back to index
+                item_id = str(item_idx)
+        else:
+            item_id = str(item_idx)
 
         # Check only_items filter
         if self.batch_only_items and item_id not in self.batch_only_items:
+            # If base_version_dir provided, copy from base instead of skipping
+            if self.base_version_dir:
+                copied_item = self._load_from_base(item, item_id)
+                if copied_item:
+                    self.add_result(copied_item)
+                    return True, "copied from base"
             return True, "not in only_items"
 
         # Check skip_items filter
@@ -148,3 +191,99 @@ class BatchProcessor:
     def get_errors(self) -> List[Dict]:
         """Get error list"""
         return self.errors
+
+    def _load_from_base(self, item: Dict, item_id: str) -> Dict:
+        """Load item from base version (unchanged items during rerun)
+
+        Args:
+            item: Current item data (may contain template_id)
+            item_id: Item ID to load
+
+        Returns:
+            Item data from base version, or None if not found
+        """
+        if not self.base_version_dir:
+            return None
+
+        # For step 1 (problem_generator): load ALL items from template file
+        # Only use template_id logic if batch_id_field is 'template_id'
+        if 'template_id' in item and self.batch_id_field == 'template_id':
+            template_id = item['template_id']
+            base_file = self.base_version_dir / f"items/{template_id}.json"
+            if base_file.exists():
+                try:
+                    with open(base_file, 'r', encoding='utf-8') as f:
+                        base_items = json.load(f)
+                    # Return ALL items from this template (not just one)
+                    # add_result() will flatten the list and add all items to collated_results
+                    return base_items
+                except Exception as e:
+                    pass  # Ignore errors, fall through to collated file
+
+            # Fallback: Load from collated file and filter by template_id
+            # This handles cases where individual template files don't exist
+            parent_dir_name = self.base_version_dir.name
+            if 'step_' in parent_dir_name:
+                parts = parent_dir_name.split('_', 2)
+                if len(parts) >= 3:
+                    step_name = parts[2]
+                    collated_file = self.base_version_dir / f"{step_name}.json"
+                    if collated_file.exists():
+                        try:
+                            # Load collated items (with caching)
+                            if self._base_collated_cache is None:
+                                with open(collated_file, 'r', encoding='utf-8') as f:
+                                    self._base_collated_cache = json.load(f)
+
+                            # Filter items by template_id
+                            template_items = [
+                                item for item in self._base_collated_cache
+                                if str(item.get('template_id')) == str(template_id)
+                            ]
+                            if template_items:
+                                return template_items
+                        except Exception as e:
+                            pass  # Ignore errors, will return None
+
+            return None  # Template not found in base
+
+        # For step 2+: Search in collated file (most reliable, always exists)
+        # Extract step name from directory path
+        # e.g., "v8/step_02_sequence_structurer" -> look for "sequence_structurer.json"
+        parent_dir_name = self.base_version_dir.name
+        if 'step_' in parent_dir_name:
+            # Extract step name (e.g., "step_02_sequence_structurer" -> "sequence_structurer")
+            parts = parent_dir_name.split('_', 2)  # Split on first 2 underscores
+            if len(parts) >= 3:
+                step_name = parts[2]
+                collated_file = self.base_version_dir / f"{step_name}.json"
+
+                if collated_file.exists():
+                    try:
+                        # Load collated items (with caching to avoid repeated file reads)
+                        if self._base_collated_cache is None:
+                            with open(collated_file, 'r', encoding='utf-8') as f:
+                                self._base_collated_cache = json.load(f)
+
+                        # Search for item by ID in cached items
+                        # IMPORTANT: Use output ID field when searching base outputs
+                        # (base files have the transformed field name from batch_output_id_field)
+                        search_field = self.batch_output_id_field if self.batch_output_id_field else self.batch_id_field
+                        for collated_item in self._base_collated_cache:
+                            # Match by output ID field (handles nested IDs)
+                            collated_id = self._get_item_id(collated_item, search_field)
+                            if collated_id == str(item_id):
+                                return collated_item
+                    except Exception as e:
+                        pass  # Ignore errors, fall through to individual file
+
+        # Fallback: Try individual item file (legacy path, rarely used)
+        base_file = self.base_version_dir / f"items/{item_id}.json"
+        if base_file.exists():
+            try:
+                with open(base_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                pass  # Ignore errors
+
+        return None

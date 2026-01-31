@@ -39,6 +39,7 @@ from version_manager import (
 )
 from batch_processor import BatchProcessor
 from pipeline_executor import flatten_dict, run_formatting_step
+from output_validator import validate_ai_output_structure
 
 # Re-export for external use
 __all__ = [
@@ -561,8 +562,16 @@ def run_pipeline(
             if verbose:
                 print(f"  [LOAD] Reading: {input_path}")
             try:
+                # Debug: Check file size before reading
+                file_size = input_path.stat().st_size
+                if verbose:
+                    print(f"  [DEBUG] File size: {file_size} bytes")
+
                 with open(input_path, 'r', encoding='utf-8') as f:
                     input_content = f.read()
+
+                if verbose:
+                    print(f"  [DEBUG] Read {len(input_content)} chars from {file_size} bytes")
 
                 # For formatting steps, try to parse as JSON
                 if step.is_formatting_step():
@@ -592,9 +601,25 @@ def run_pipeline(
                 items = json.loads(input_content) if input_content else []
                 if not isinstance(items, list):
                     raise ValueError("Batch mode requires input to be a JSON array")
+                if verbose:
+                    print(f"  [DEBUG] Parsed {len(items)} items from JSON array")
             except Exception as e:
                 print(f"  [ERROR] Failed to parse input as JSON array: {e}")
                 raise
+
+            # Calculate base version directory for rerun mode
+            base_step_dir = None
+            if base_version and rerun_items:
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                base_step_dir = get_step_directory(base_version_dir, i, step_name)
+
+            # Determine which items to process
+            # If step has explicit batch_only_items set, use that (takes priority)
+            # Otherwise, use rerun_items if available
+            # This allows step 1 (problem_generator) to use template IDs while other steps use problem instance IDs
+            batch_filter = step.batch_only_items if step.batch_only_items else rerun_items
 
             # Initialize batch processor
             batch_proc = BatchProcessor(
@@ -602,14 +627,18 @@ def run_pipeline(
                 batch_id_field=step.batch_id_field,
                 batch_id_start=step.batch_id_start,
                 batch_output_id_field=step.batch_output_id_field,
-                batch_only_items=rerun_items if rerun_items else step.batch_only_items,
+                batch_only_items=batch_filter,
                 batch_skip_items=step.batch_skip_items,
                 batch_skip_existing=step.batch_skip_existing,
-                items_dir=step_paths['items_dir']
+                items_dir=step_paths['items_dir'],
+                base_version_dir=base_step_dir
             )
 
-            if rerun_items and verbose:
-                print(f"  [RERUN] Processing only: {rerun_items}")
+            if batch_filter and verbose:
+                if step.batch_only_items:
+                    print(f"  [BATCH] Processing only: {batch_filter}")
+                elif rerun_items:
+                    print(f"  [RERUN] Processing only: {batch_filter}")
 
             total_items = len(items)
 
@@ -691,6 +720,22 @@ def run_pipeline(
                             if verbose:
                                 print(f"    [WARN] JSON parsing failed, using raw output: {e}")
                             item_result = {"raw_output": item_output}
+
+                        # Validate AI output structure (using prompt's schema)
+                        # Use output ID field if specified, otherwise input ID field
+                        expected_id_field = step.batch_output_id_field or step.batch_id_field
+                        validation_error = validate_ai_output_structure(
+                            item_result,
+                            item,
+                            batch_id_field=expected_id_field,
+                            output_structure=prompt.output_structure
+                        )
+                        if validation_error:
+                            error_msg = f"Validation failed: {validation_error}"
+                            if verbose:
+                                print(f"    [ERROR] {error_msg}")
+                            raise ValueError(error_msg)
+
                     else:
                         # Formatting step - call Python function
                         item_result = run_formatting_step(step, item, None, module_number, path_letter, project_root, False)

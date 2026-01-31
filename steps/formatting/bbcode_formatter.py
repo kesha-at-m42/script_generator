@@ -469,7 +469,7 @@ def apply_fraction_formatting(godot_data, module_number=None):
                 print(f"⚠️  Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}")
                 continue
 
-    print(f"✓ Fraction formatting complete")
+    print(f"[OK] Fraction formatting complete")
     return godot_data
 
 

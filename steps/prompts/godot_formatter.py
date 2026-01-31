@@ -67,15 +67,17 @@ Move sequence-level fields into metadata object:
 - Multiple fractions: `fractions: ["2/3", "1/4"]` → `identifiers: ["2/3", "1/4"]`
 
 ### 3. Tool Mapping
-Map `interaction_tool` to Godot tool (see tools.md):
-- `place_point` → Move tool (no palette)
-- `drag_label` → Drag tool with palette
-- `click_choice` → no tool (uses choices for MCQ)
-- `select` → Select tool (single selection)
-- `multi_select` → Select tool with is_single: false
-- `place_tick` → Place tool (partition number line)
-- `cut_shape` → Place tool (divide shape)
-- `shade` → Paint tool
+**CRITICAL: You MUST strictly follow ALL tool schemas defined in <tools>. Every tool must use the exact structure, @type, and required fields specified in tools.md. Validate your output against tools.md before finalizing.**
+
+Map `interaction_tool` to Godot tool @type (refer to <tools> for complete schema):
+- `place_point` → Move
+- `drag_label` → Drag (REQUIRES palette)
+- `click_choice` → No tool (MCQ uses choices)
+- `select` → Select (is_single: true)
+- `multi_select` → Select (is_single: false)
+- `place_tick` → Place (partition number line)
+- `cut_shape` → Place (divide shape)
+- `shade` → Paint
 
 ### 4. Validator Mapping
 Choose validator based on interaction_tool (see validators.md for complete specifications and answer formats):
@@ -473,7 +475,7 @@ Return ONLY valid JSON with Godot schema structure.
     "prompt": {
       "@type": "Prompt",
       "text": "...",
-      "tool": "move",
+      "tool": {"@type": "Move"},
       "validator": {"@type": "TickValidator", "answer": ["2/3"]},
       "remediations": [],
       "on_correct": {"@type": "Step", "dialogue": "..."}

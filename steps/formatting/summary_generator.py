@@ -28,14 +28,18 @@ def generate_summary(sequences: List[Dict]) -> Dict:
         'by_misconception_tag': {},
         'by_tier_and_verb': {},
         'matched': 0,
-        'unmatched': 0
+        'unmatched': 0,
+        'unmatched_indices': []
     }
 
-    for seq in sequences:
+    for idx, seq in enumerate(sequences):
         metadata = seq.get('metadata', {})
 
         if not metadata:
             summary['unmatched'] += 1
+            # Try to get problem_id from root level, fallback to index
+            problem_id = seq.get('problem_id', idx)
+            summary['unmatched_indices'].append(problem_id)
             continue
 
         summary['matched'] += 1
