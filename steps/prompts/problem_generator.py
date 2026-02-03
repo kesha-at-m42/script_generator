@@ -36,26 +36,56 @@ The problem template contains:
 - **action_description**: What the student does to solve (maps to allowed actions from visuals.md)
   - Some templates may list multiple possible interactions (e.g., "Point at tick marks OR Label tick marks by dragging")
   - Use these different interactions to create meaningful variation across questions
+- **no_of_steps**: The number of steps required to complete the problem
+- **target_count**: The exact number of problem instances to generate from this template
 - **parameter_coverage**: The mathematical parameters to vary (fractions, denominators, etc.)
 
 ## GENERATION STRATEGY
 
+### Number of Problems to Generate
+
+**CRITICAL: Generate exactly target_count problem instances**
+- The template specifies target_count - this is the exact number of problems you must create
+- Example: If target_count = 10, generate exactly 10 problem instances
+- Distribute problems across allowed mastery tiers and parameter values
+- Maximize variation while meeting the target_count requirement
+
 ### Parameter Repetition Rules
 
-**MCQ/Select Questions:** Create multiple questions with varied option sets. Same parameter can appear multiple times if option sets differ meaningfully.
+**The Golden Rule: Always generate exactly target_count problems**
 
-**Single Fraction Work (Point/Label/Create one at a time):**
-- **CRITICAL: One question per parameter value PER TIER**
-- Cannot repeat same parameter at same tier (e.g., two 1/3 questions both at BASELINE ✗)
-- Can repeat parameter across different tiers if pedagogically appropriate (e.g., 1/3 at SUPPORT AND 1/3 at BASELINE ✓)
-- If template has only one tier (e.g., ["BASELINE"]), each parameter appears ONCE total
-- Example: ["SUPPORT", "BASELINE"] with ["1/2", "1/3", "1/4"]
-  - Valid: SUPPORT has 1/2, 1/3; BASELINE has 1/3, 1/4, 1/5
-  - Invalid: SUPPORT has 1/3 twice, or BASELINE has 1/4 three times
+**Step-by-step approach:**
+1. **First pass**: Cover each parameter once, distributing across allowed mastery tiers
+2. **If target_count > number of parameters**: Repeat parameters with DIFFERENT prompt_example phrasings
+3. **NEVER repeat**: Same parameter with same prompt_example phrasing
+4. **Additional variation**: Use different workspace configurations, actions (if template allows multiple), and application contexts
+
+**Example:**
+```
+Parameters: ["1/2", "1/3", "1/5", "1/6"]
+Tiers: ["BASELINE", "SUPPORT"]
+Target: 6 problems
+Prompt examples: ["Place {fraction}", "Show {fraction}", "Mark {fraction}"]
+
+Solution:
+- BASELINE: 1/3 (phrasing 1), 1/5 (phrasing 1), 1/6 (phrasing 1), 1/5 (phrasing 2)
+- SUPPORT: 1/2 (phrasing 1), 1/3 (phrasing 2)
+
+Valid: Same parameter appears twice but with different phrasings
+Invalid: 1/3 appears twice with "Place one-third" both times
+```
+
+**MCQ/Select Questions:**
+- Create multiple questions with varied option sets
+- Same parameter can appear multiple times if option sets differ meaningfully
 
 ### Axes of Variation
 
 **1. Parameters:** Use values from parameter_coverage. Track in variables_used (use "fractions" as key when possible).
+
+**CRITICAL for Parameter Repetition:**
+- When you need to repeat a parameter to reach target_count, you MUST use a different prompt_example phrasing
+- Track which prompt_example you used for each parameter to avoid repetition
 
 **2. Mastery Tiers:** ONLY use tiers from template's mastery_tier field. Distribute problems across allowed tiers.
 
@@ -112,6 +142,8 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
    - VALID: "Place one-fourth" when example is "Place one-third"
    - INVALID: "Put one-fourth" or "Show one-fourth" when example is "Place"
    - Rotate through all prompt_examples structures
+   - **CRITICAL: Never use the same prompt_example phrasing for the same parameter value**
+   - Example: If "1/3" was asked as "Place one-third", next "1/3" must use different phrasing like "Show one-third" or "Mark one-third"
 
 **7. mastery_tier:** ONLY use values from template's mastery_tier field in UPPERCASE (e.g., if template has ["BASELINE"], all problems use "BASELINE")
 
@@ -131,7 +163,9 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 ## QUALITY CHECKLIST
 
 **Parameter Coverage:**
-- Single fraction work: One question per parameter per tier (can repeat across tiers)
+- Generate exactly target_count problems
+- First pass: cover each parameter once, distributed across allowed tiers
+- If target_count > parameters: repeat parameters with DIFFERENT prompt_example phrasings
 - MCQ: Parameters can repeat if option sets differ meaningfully
 - Use ONLY tiers from template's mastery_tier field
 
@@ -139,6 +173,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - Use ONLY sentence structures and verbs from prompt_examples
 - Variation = swap parameter values ONLY
 - No invented phrasings or new action verbs
+- Never repeat same prompt_example phrasing for the same parameter
 
 **Visual Variety:**
 - Vary workspace descriptions across problems
@@ -146,13 +181,13 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - Actions: Alternate when template allows multiple
 
 **STOP Signs:**
+- ✗ Repeating same parameter with same prompt_example phrasing
+- ✗ Generating more or fewer problems than target_count specifies
 - ✗ Using tiers not in template's mastery_tier field
 - ✗ Inventing new prompt language/verbs not in prompt_examples
-- ✗ Same parameter at same tier multiple times (single fraction work)
-- ✗ Creating more questions than needed (if 5 fractions and 1 tier, create 5 questions, not 10)
 - ✗ Identical option sets (MCQ)
-- ✗ **Visually identical elements in workspace** (e.g., two number lines with points at same position)
-- ✗ **Inventing visual features not in visuals.md** (e.g., "dotted lines", "highlighted intervals", "shaded regions")
+- ✗ Visually identical elements in workspace (e.g., two number lines with points at same position)
+- ✗ Inventing visual features not in visuals.md (e.g., "dotted lines", "highlighted intervals", "shaded regions")
 
 Generate problem instances NOW with maximum variation and quality!
 """,

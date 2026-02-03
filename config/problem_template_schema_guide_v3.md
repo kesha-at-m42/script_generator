@@ -49,6 +49,20 @@ Each template represents a **type** of problem that can generate multiple specif
 
 ---
 
+### **no_of_steps** (number)
+- **Purpose**: The number of steps required to complete the problem
+- **Format**: Integer value (e.g., `1`, `2`, `3`)
+- **Example**: `2` for a two-step problem
+
+---
+
+### **target_count** (number)
+- **Purpose**: The target number of problem instances to generate from this template
+- **Format**: Integer value (e.g., `5`, `10`, `20`)
+- **Example**: `10` means we want to generate 10 different problem instances from this template
+
+---
+
 ### **mastery_tier** (array of strings)
 - **Purpose**: Difficulty level(s) this template can generate problems for
 - **Options**: `"confidence"`, `"support"`, `"baseline"`, `"stretch"`, `"challenge"`
@@ -116,6 +130,8 @@ Defines the mathematical parameters that will vary across problem instances.
     "Which of these fractions is closest to zero?"
   ],
   "action_description": "Student selects the correct option",
+  "no_of_steps": 1,
+  "target_count": 10,
   "mastery_tier": ["baseline", "stretch"],
   "mastery_verb": "apply",
   "parameter_coverage": {

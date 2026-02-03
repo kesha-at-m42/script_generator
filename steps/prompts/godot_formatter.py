@@ -75,8 +75,8 @@ Map `interaction_tool` to Godot tool @type (refer to <tools> for complete schema
 - `click_choice` → No tool (MCQ uses choices)
 - `select` → Select (is_single: true)
 - `multi_select` → Select (is_single: false)
-- `place_tick` → Place (partition number line)
-- `cut_shape` → Place (divide shape)
+- `place_tick` → Place (partition number line, ALWAYS include lcm using 3× denominator rule)
+- `cut_shape` → Place (divide shape, ALWAYS include lcm using 3× denominator rule)
 - `shade` → Paint
 
 ### 4. Validator Mapping
@@ -206,6 +206,7 @@ Transform workspace (see workspace.md):
 - Add `@type` to all tangibles
 - Remove `id` and `type` fields
 - Move `choices` from workspace to prompt.choices
+- Add `shuffle_tangibles: true` for select questions (when interaction_tool is `select` or `multi_select`)
 
 ### 6. NumLine Conversions
 Key field changes (see workspace.md for details):
@@ -213,7 +214,12 @@ Key field changes (see workspace.md for details):
 - Keep `labels` as-is (schema accepts array or boolean)
 - Add `is_visible: true`
 - Add `visual: "line"`
-- Add `lcm` (typically 12)
+- Add `lcm` using 3× denominator rule:
+  - Halves (1/2): lcm = 6
+  - Thirds (1/3): lcm = 9
+  - Fourths (1/4): lcm = 12
+  - Sixths (1/6): lcm = 18
+  - Eighths (1/8): lcm = 24
 
 ### 7. Answer Conversions
 - Choice IDs → indices: "a"→[0], "b"→[1], "c"→[2]
@@ -410,6 +416,7 @@ Palette objects MUST have @type field:
 - Input is ONE flat item - output is ONE Sequence (batch mode)
 - DO NOT wrap output in SequencePool (that happens in a separate step)
 - Refer to tools.md, validators.md, and workspace.md for complete specifications
+- For select questions (interaction_tool: `select` or `multi_select`), set `shuffle_tangibles: true` in workspace to randomize tangible order
 - NumLine can use either `ticks` (array or single fraction) or `intervals` - see workspace.md
 - Tools can be strings ("select") or objects ({"@type": "Select"}) - see tools.md
 - Validator answer formats vary by type - see validators.md
@@ -468,15 +475,15 @@ Return ONLY valid JSON with Godot schema structure.
           "range": [0, 1],
           "ticks": "1/3",
           "labels": ["0", "1"],
-          "lcm": 12
+          "lcm": 9
         }
       ]
     },
     "prompt": {
       "@type": "Prompt",
       "text": "...",
-      "tool": {"@type": "Move"},
-      "validator": {"@type": "TickValidator", "answer": ["2/3"]},
+      "tool": {"@type": "Place", "lcm": 9, "bounds": ["0", "1"]},
+      "validator": {"@type": "TickValidator", "answer": "1/3"},
       "remediations": [],
       "on_correct": {"@type": "Step", "dialogue": "..."}
     }

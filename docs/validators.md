@@ -115,23 +115,34 @@ Multiple selection:
 
 **Type constant**: `TYPE_FRACTION_SHAPE_PARTS = "fraction_parts"`
 
+**Answer Format**:
+- **Shorthand (string)**: A single fraction like `"1/3"` validates all tick marks for that denominator (scales to any range: 0-1, 0-2, etc.)
+  - `"1/3"` → validates all ticks for thirds (1/3, 2/3 on 0-1; or 1/3, 2/3, 4/3, 5/3 on 0-2)
+  - `"1/4"` → validates all ticks for fourths
+  - `"1/8"` → validates all ticks for eighths
+- **Array (explicit)**: Validates specific tick positions; MUST include endpoints
+  - `["0", "1/3", "2/3", "1"]` for thirds
+  - `["0", "1/4", "2/4", "3/4", "1"]` for fourths
+
 **Examples**:
 
-Single tick:
+Shorthand for thirds (validates all ticks for thirds):
 ```json
 {
   "@type": "TickValidator",
-  "answer": "2/3"
+  "answer": "1/3"
 }
 ```
 
-Multiple ticks:
+Explicit array (validates these specific ticks):
 ```json
 {
   "@type": "TickValidator",
-  "answer": ["1/3", "2/3"]
+  "answer": ["0", "1/3", "2/3", "1"]
 }
 ```
+
+**Note**: A single position like `"2/3"` is not meaningful as shorthand. Use `"1/3"` to validate all thirds, or use explicit array format.
 
 ---
 
@@ -188,7 +199,8 @@ Multiple ticks:
 
 **For Place tool / "cut" (placing ticks)**:
 - Use: `TickValidator`
-- Answer format: `["2/3"]` or `"2/3"`
+- Answer format (shorthand): `"1/3"` (validates all ticks for thirds, scales to any range)
+- Answer format (explicit): `["0", "1/3", "2/3", "1"]` (validates specific ticks, must include endpoints)
 
 **For Select tool (single)**:
 - Use: `SelectionValidator`

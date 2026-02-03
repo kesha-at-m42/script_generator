@@ -28,7 +28,7 @@
 **Purpose**: Student places tick marks to partition/divide a number line (cutting task).
 
 **Fields**:
-- `lcm` (optional, integer): Least common multiple for tick calculations. Default: 0
+- `lcm` (required, integer): Least common multiple for tick calculations
 - `is_single` (optional, boolean): Whether student can place only one tick. Default: false
 - `bounds` (optional, array of fractions): Valid range for placement (e.g., `["0", "1"]`)
 
