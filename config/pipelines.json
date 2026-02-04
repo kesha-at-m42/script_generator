@@ -313,7 +313,15 @@
       "batch_skip_existing": false,
       "batch_stop_on_error": false
     },
-       {
+    {
+      "name": "step_flattener",
+      "type": "formatting",
+      "function": "step_flattener.flatten_steps",
+      "description": "Flattens multi-step sequences into individual step items for batch processing",
+      "function_args": {},
+      "output_file": "flattened_steps.json"
+    },
+    {
       "name": "generic_remediation_generator",
       "type": "ai",
       "prompt_name": "generic_remediation_generator",

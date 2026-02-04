@@ -25,6 +25,7 @@ Transform problem instances into a structured interaction schema.
 
 You receive problem instances with:
 - problem_instance_id, template_id, problem_type
+- **no_of_steps** (number): 1 for single-step, 2 for multi-step problems
 - action_description (student action)
 - prompt (student-facing question)
 - workspace_description (text description of visuals)
@@ -42,8 +43,82 @@ Generate a structured interaction sequence using these fields:
 - mastery_verb: Map problem_type to CREATE|IDENTIFY|COMPARE|APPLY
 - template_id: Copy from input
 - fractions: Extract from variables_used array
+- **no_of_steps**: Copy from input (1, 2, 3, or any positive integer)
+- **steps**: Array ALWAYS present, containing N step objects (where N = no_of_steps)
+  - Single-step: Array with 1 item
+  - Multi-step: Array with N items
+
+## HANDLING SINGLE-STEP vs MULTI-STEP
+
+**IMPORTANT: Always output a `steps` array, regardless of no_of_steps value**
+
+**If no_of_steps = 1 (or missing):**
+- Generate steps array with ONE item: `"steps": [{ "step_id": 1, ... }]`
+- Use input fields directly (workspace_description, prompt, action_description)
+- No workspace_inherited flag needed
+
+**If no_of_steps > 1 (multi-step):**
+- Generate steps array with N items: `"steps": [{ "step_id": 1, ... }, { "step_id": 2, ... }, ...]`
+- **Parse** input fields to extract step-specific information for EACH step
+- Input format uses numbered markers: "Step 1:", "Step 2:", etc.
+- Add `workspace_inherited: true` to Step 2+
+
+### Multi-Step Parsing Strategy
+
+**1. workspace_description** - Look for "Step N:" markers:
+```
+"Step 1: Blank line. Step 2: Add labels. Step 3: Verify positions."
+→ Extract text between each "Step N:" marker
+→ Build workspace for each step
+→ Later steps inherit results from earlier steps
+```
+
+**2. action_description** - Look for "(step N)" markers:
+```
+"Student places ticks (step 1), drags labels (step 2), confirms (step 3)."
+→ Extract action phrase before each "(step N)"
+→ Map to interaction_tool
+```
+
+**3. prompt** - Split on "then" or commas:
+```
+"Divide line, then label positions, then check your work."
+→ Step 1: "Divide line into fourths."
+→ Step 2: "Label each position."
+→ Step 3: "Check that all labels are correct."
+```
+
+**4. dialogue** - Generate conversational intros:
+```
+Step 1: "Let's [task]."
+Step 2: "Now [task]."
+Step 3+: "Next, [task]."
+Final: Use conclusive language
+```
+
+**5. Workspace Inheritance** - Each step builds on previous:
+```
+Step 1 output → Step 2 input
+Step 2 output → Step 3 input
+Calculate expected results (ticks placed, labels added, etc.)
+```
+
+**6. Marking Inherited Workspaces:**
+- **Step 1**: Never inherited, omit the flag or set `"workspace_inherited": false`
+- **Step 2+**: If workspace contains elements from previous step, add `"workspace_inherited": true`
+- This flag helps downstream processing (e.g., godot_formatter) handle workspace merging
 
 **Step Content Fields:**
+
+Each step object contains:
+
+**step_id:** (number) Sequential identifier (1, 2, 3, ...)
+
+**workspace_inherited:** (boolean, optional for multi-step only)
+- Add this field to Step 2 and beyond in multi-step problems
+- `true` if workspace builds upon/inherits from previous step
+- `false` or omit for Step 1 (first step never inherits)
+- Helps godot_formatter optimize workspace handling
 
 **dialogue:** Create conversational setup (10-30 words)
 - IMPORTANT: Try to use the same verb as the prompt (if prompt says "Place", dialogue can say "Let's place..." or "place")
@@ -138,42 +213,60 @@ If you encounter an action_description not listed above:
     "mastery_verb": "IDENTIFY",
     "template_id": "4008",
     "fractions": ["2/3"],
-    "dialogue": "Look at the point on the number line. What fraction does it represent?",
-    "prompt": "What fraction does this point show?",
-    "interaction_tool": "select",
-    "workspace": [
+    "no_of_steps": 1,
+    "steps": [
       {
-        "id": "line_1",
-        "type": "number_line",
-        "range": [0, 1],
-        "ticks": ["0", "1/3", "2/3", "1"],
-        "points": ["2/3"],
-        "labels": ["0", "1"]
-      },
-      {
-        "type": "choices",
-        "options": [
-          {"id": "a", "text": "1/3"},   // Distractor (adjacent fraction on line)
-          {"id": "b", "text": "2/3"},   // Correct answer
-          {"id": "c", "text": "3/2"}    // Obviously incorrect (reversed, > 1)
-        ]
+        "step_id": 1,
+        "dialogue": "Look at the point on the number line. What fraction does it represent?",
+        "prompt": "What fraction does this point show?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "range": [0, 1],
+            "ticks": ["0", "1/3", "2/3", "1"],
+            "points": ["2/3"],
+            "labels": ["0", "1"]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {"id": "a", "text": "1/3"},
+              {"id": "b", "text": "2/3"},
+              {"id": "c", "text": "3/2"}
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "The point is at 2/3, the second tick mark"
+        },
+        "success_path_dialogue": "Yes, that's two-thirds."
       }
-    ],
-    "correct_answer": {
-      "value": "b",
-      "context": "The point is at 2/3, the second tick mark"
-    },
-    "success_path_dialogue": "Yes, that's two-thirds."
+    ]
   }
 ```
 
 ## IMPORTANT NOTES
 
-- Each problem instance creates ONE item
-- All metadata fields (problem_id, mastery_tier, mastery_verb, etc.) are at the TOP LEVEL of each item
+### Structure Rules:
+- Each problem instance creates ONE output item
+- Metadata fields (problem_id, mastery_tier, etc.) always at TOP LEVEL
+- **ALWAYS include `steps` array** (even for single-step problems)
+- **Single-step (no_of_steps = 1)**: `steps` array has ONE item
+- **Multi-step (no_of_steps > 1)**: `steps` array has N items
+
+### Multi-Step Requirements:
+- Parse "Step N:" markers from workspace_description
+- Parse "(step N)" markers from action_description
+- Split prompt on "then" or commas
+- Add `workspace_inherited: true` to Step 2+
+- Each step has unique step_id (1, 2, 3, ...)
+
+### General:
 - Keep dialogue conversational and supportive
 - Parse workspace descriptions carefully to create accurate tangible structures
-- Use description field in tangibles when workspace mentions specific characteristics
 - Extract all fractions/denominators from variables_used into fractions array
 
 Generate NOW!
@@ -181,34 +274,35 @@ Generate NOW!
 
     doc_refs=["visuals.md", "guide_design.md"],
 
-    output_structure="""
-  {
-    "problem_id": 1,
-    "mastery_tier": "BASELINE",
-    "mastery_verb": "IDENTIFY",
-    "template_id": "4001",
-    "fractions": ["1/3"],
-    "dialogue": "...",
-    "prompt": "...",
-    "interaction_tool": "place_point|drag_label|click_choice|select|multi_select|place_tick|cut_shape|shade",
-    "workspace": [
-      {
-        "id": "line_1",
-        "type": "number_line",
-        "range": [0, 1],
-        "ticks": ["0", "1/3", "2/3", "1"],
-        "points": [],
-        "labels": ["0", "1"]
-      },
-      {"type": "choices", "options": [{...}]}
-    ],
-    "correct_answer": {
-      "value": "...",
-      "context": "..."
+    output_structure="""{
+  "problem_id": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "CREATE",
+  "template_id": "5011",
+  "fractions": ["1/4", "2/4", "3/4"],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "...",
+      "prompt": "...",
+      "interaction_tool": "place_tick",
+      "workspace": [],
+      "correct_answer": {},
+      "success_path_dialogue": "..."
     },
-    "success_path_dialogue": "Great work!"
-  }
-""",
+    {
+      "step_id": 2,
+      "workspace_inherited": true,
+      "dialogue": "...",
+      "prompt": "...",
+      "interaction_tool": "drag_label",
+      "workspace": [],
+      "correct_answer": {},
+      "success_path_dialogue": "..."
+    }
+  ]
+}""",
 
     prefill="""{
   "problem_id": {problem_instance_id},
