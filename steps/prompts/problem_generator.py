@@ -127,16 +127,18 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **3. problem_type:** Copy verbatim from template
 
-**4. workspace_description:** Visual setup that ONLY uses features defined in visuals.md
+**4. no_of_steps:** Copy from template (if present). This indicates how many steps are required to complete the problem (typically 1 or 2)
+
+**5. workspace_description:** Visual setup that ONLY uses features defined in visuals.md
    - Refer to <visuals> documentation for allowed workspace elements
    - Do NOT invent or describe visual features not listed in visuals.md
    - Only describe: tick marks, points, labels, range - nothing else
 
-**5. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
+**6. action_description:** Map template's action to closest allowed action from visuals.md (or MCQ)
    - Choose the most pedagogically and interactively similar allowed action
    - If template lists multiple action options, alternate between them for variety
 
-**6. prompt:** Student-facing question
+**7. prompt:** Student-facing question
    - **CRITICAL: Use ONLY sentence structures and verbs from prompt_examples**
    - Variation = swap parameter values only
    - VALID: "Place one-fourth" when example is "Place one-third"
@@ -145,11 +147,11 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
    - **CRITICAL: Never use the same prompt_example phrasing for the same parameter value**
    - Example: If "1/3" was asked as "Place one-third", next "1/3" must use different phrasing like "Show one-third" or "Mark one-third"
 
-**7. mastery_tier:** ONLY use values from template's mastery_tier field in UPPERCASE (e.g., if template has ["BASELINE"], all problems use "BASELINE")
+**8. mastery_tier:** ONLY use values from template's mastery_tier field in UPPERCASE (e.g., if template has ["BASELINE"], all problems use "BASELINE")
 
-**8. variables_used:** Parameter values (use "fractions" as key when possible)
+**9. variables_used:** Parameter values (use "fractions" as key when possible)
 
-**9. application_context:** (ONLY for "apply" mastery_verb)
+**10. application_context:** (ONLY for "apply" mastery_verb)
    - Create variety by varying subjects while keeping sentence structure the same
    - Names: Vary between Sam, Alex, Maya, Jordan, Hannah, etc.
    - Objects: If one says "chocolate bars", alternate to "cinnamon sticks", "vanilla wafers", "sugar cookies", etc.
@@ -200,6 +202,7 @@ Generate problem instances NOW with maximum variation and quality!
     "problem_instance_id": 1,
     "template_id": "4001",
     "problem_type": "Student clicks tick mark to place unit fraction on pre-partitioned 0-1 number line",
+    "no_of_steps": 1,
     "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/3, 2/3, 1. Only endpoints labeled.",
     "action_description": "Point at tick marks",
     "prompt": "Point to one-third on the number line.",
@@ -210,16 +213,17 @@ Generate problem instances NOW with maximum variation and quality!
   },
   {
     "problem_instance_id": 2,
-    "template_id": "4002",
-    "problem_type": "Student applies fraction knowledge to real-world context",
-    "workspace_description": "Number line from 0 to 1 with tick marks at 0, 1/4, 1/2, 3/4, 1. Only endpoints labeled.",
-    "action_description": "Label tick marks by dragging",
-    "prompt": "Maya ate 1/4 of a pizza. Show where 1/4 is on the number line.",
+    "template_id": "5011",
+    "problem_type": "Two-step: Student partitions into fourths, then labels positions",
+    "no_of_steps": 2,
+    "workspace_description": "Step 1: Blank 0-1 number line for partitioning. Step 2: After partition validated, label palette appears for labeling all positions.",
+    "action_description": "Student first places tick marks to partition the line (step 1), then drags fraction labels to all tick positions (step 2).",
+    "prompt": "Divide this line into fourths, then label each position.",
     "mastery_tier": "BASELINE",
     "variables_used": {
-      "fractions": ["1/4"]
-    },
-    "application_context": "Maya ate 1/4 of a pizza"
+      "denominators": [4],
+      "fractions": ["1/4", "2/4", "3/4"]
+    }
   }
 ]
 """,
