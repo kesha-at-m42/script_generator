@@ -15,7 +15,9 @@ static func create_schema() -> JSONSchema.BaseSchema:
 			fraction_shape(),
 			vocab(),
 			num_line(),
-			benchmark()
+			benchmark(),
+			expression(),
+			grid()
 		])),
 		"shuffle_tangibles": J.boolean().optional()
 	}).type(WorkspaceData)
@@ -74,8 +76,7 @@ static func tangible() -> JSONSchema.BaseSchema:
 	})
 
 static func fraction() -> JSONSchema.BaseSchema:
-	var schema = J.string()
-	#var schema = J.one_of([J.string().pattern(r"^[0-9]+/[0-9]+$"), J.string().pattern(r"^[0-9]+$")])
+	var schema = J.string().pattern(r"^[0-9]+(?:/[0-9]+)?$")
 
 	schema.deserializer(func(value: String) -> Fraction:
 		var parts = value.split("/")
@@ -84,8 +85,23 @@ static func fraction() -> JSONSchema.BaseSchema:
 		return Fraction.new(numerator, denominator)
 	)
 
-	schema.serializer(func(value: Fraction) -> Variant:
+	schema.serializer(func(value: Variant) -> Variant:
+		if value is not Fraction:
+			return value
 		return "%d" % [value.numerator] if value.denominator == 1 else "%d/%d" % [value.numerator, value.denominator]
+	)
+
+	return schema
+
+static func term() -> JSONSchema.BaseSchema:
+	var schema = J.string()
+
+	schema.deserializer(func(value: String) -> Term:
+		return Term.new(value)
+	)
+
+	schema.serializer(func(value: Term) -> String:
+		return value.text
 	)
 
 	return schema
@@ -276,6 +292,7 @@ static func benchmark() -> JSONSchema.BaseSchema:
 		new_benchmark.location.is_frac_label_visible = true
 		new_benchmark.col = value.get("@col", 0)
 		new_benchmark.layout = value.get("@layout", "underlay")
+		new_benchmark._is_visible = value.get("is_visible", true)
 		return new_benchmark
 	)
 
@@ -287,6 +304,8 @@ static func benchmark() -> JSONSchema.BaseSchema:
 			result["@col"] = value.col
 		if value.layout != "underlay":
 			result["@layout"] = value.layout
+		if value._is_visible == false:
+			result["is_visible"] = false
 		return result
 	)
 
@@ -307,7 +326,9 @@ static func num_line() -> JSONSchema.BaseSchema:
 		"invert_labels": J.boolean().optional(),
 		"intervals_is_frac_label_visible": J.one_of([J.boolean(), J.array(J.integer())]).optional(),
 		"ticks_is_read_only": J.one_of([J.boolean(), J.array(fraction())]).optional(),
-		"is_read_only": J.boolean().optional()
+		"intervals_is_read_only": J.one_of([J.boolean(), J.array(fraction())]).optional(),
+		"is_read_only": J.boolean().optional(),
+		"sum_location": J.string().one_of(["top", "bottom", "left", "right"]).optional()
 	}).type(NumLine)
 
 	schema.deserializer(func(value: Dictionary):
@@ -320,10 +341,7 @@ static func num_line() -> JSONSchema.BaseSchema:
 		## Sum visibility
 		new_num_line._sum._is_visible = value.get("sum_is_visible", false)
 
-		## LCM
-		new_num_line._lcm = value.get("lcm", 24)
-
-		## Visual
+		## Visual (must be parsed before LCM to determine default)
 		var visual = value.get("visual", NumLine.Visual.LINE)
 		if visual is String:
 			var visual_str = visual
@@ -333,6 +351,10 @@ static func num_line() -> JSONSchema.BaseSchema:
 		new_num_line._visual = visual
 		if new_num_line._visual == NumLine.Visual.GRID:
 			return JSONSchema.ValidationError.new("visual", "Number lines of type 'GRID' (%d) are deprecated and should not be used." % NumLine.Visual.GRID)
+
+		## LCM - default to 6 for polygon visual, 24 otherwise
+		var lcm_default = 6 if new_num_line._visual == NumLine.Visual.POLYGON else 24
+		new_num_line._lcm = value.get("lcm", lcm_default)
 
 		## Visibility
 		new_num_line._is_visible = value.get("is_visible", true)
@@ -465,6 +487,9 @@ static func num_line() -> JSONSchema.BaseSchema:
 			for index in intervals_is_read_only:
 				new_num_line._intervals[index].is_read_only = true
 
+		# SUM LOCATION
+		new_num_line.sum_location = value.get("sum_location", "right")
+
 		return new_num_line
 	)
 
@@ -481,7 +506,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 			result["sum_is_visible"] = true
 
 		## LCM
-		if value._lcm != 24:
+		var lcm_default = 6 if value._visual == NumLine.Visual.POLYGON else 24
+		if value._lcm != lcm_default:
 			result["lcm"] = value._lcm
 
 		## Visual
@@ -635,6 +661,80 @@ static func num_line() -> JSONSchema.BaseSchema:
 			else:
 				result["intervals_is_shaded"] = intervals_is_shaded
 
+		# SUM LOCATION
+		if value.sum_location != "right":
+			result["sum_location"] = value.sum_location
+
+		return result
+	)
+
+	return schema
+
+static func expression() -> JSONSchema.BaseSchema:
+	var schema = tangible().extend({
+		"terms": J.array(J.one_of([fraction(), term()])).optional()
+	}).type(MathExpression)
+
+	schema.deserializer(func(value: Dictionary) -> MathExpression:
+		var new_expression := MathExpression.new()
+		new_expression.col = value.get("@col", 0)
+		new_expression.layout = value.get("@layout", "default")
+		new_expression._is_visible = value.get("is_visible", true)
+		var terms = value.get("terms", [])
+		for current_term in terms:
+			if current_term is Fraction:
+				current_term.is_frac_label_visible = true
+		new_expression.terms = terms
+		return new_expression
+	)
+
+	schema.serializer(func(value: MathExpression) -> Dictionary:
+		var result := {}
+
+		if value.col != 0:
+			result["@col"] = value.col
+
+		if value.layout != "default":
+			result["@layout"] = value.layout
+
+		if value._is_visible != true:
+			result["is_visible"] = value._is_visible
+
+		if value.terms:
+			result["terms"] = value.terms
+
+		return result
+	)
+
+	return schema
+
+static func grid() -> JSONSchema.BaseSchema:
+	var schema = tangible().extend({
+		"v_lcm": J.integer().optional(),
+		"h_lcm": J.integer().optional()
+	}).type(Grid)
+
+	schema.deserializer(func(value: Dictionary) -> Grid:
+		var new_grid := Grid.new()
+		new_grid._lcm = Vector2(value.get("h_lcm", 8), value.get("v_lcm", 4))
+		for i in int(new_grid._lcm.x):
+			for j in int(new_grid._lcm.y):
+				new_grid._parts.append(
+					Grid.Part.new(
+						Fraction.new(1, int(new_grid._lcm.x * new_grid._lcm.y)),
+						Vector2(i, j),
+						Vector2(1, 1)
+					)
+				)
+		return new_grid
+	)
+
+	schema.serializer(func(value: Grid) -> Dictionary:
+		var result := {}
+		if value._lcm.y != 4:
+			result["v_lcm"] = value._lcm.y
+		if value._lcm.x != 8:
+			result["h_lcm"] = value._lcm.x
 		return result
 	)
 

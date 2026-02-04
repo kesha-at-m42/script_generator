@@ -40,7 +40,7 @@ static func prompt() -> JSONSchema.BaseSchema:
 		"tool": ToolSchema.create_schema().optional(),
 		"validator": ValidatorSchema.create_schema().optional(),
 		"choices": choices().optional(),
-		"palette": palette().optional(),
+		"palette": PaletteSchema.create_schema().optional(),
 		"remediations": J.array(remediation()).optional(),
 		"on_correct": partial_step().optional(),
 	}).type(Prompt)
@@ -86,31 +86,6 @@ static func choices() -> JSONSchema.BaseSchema:
 		if value.options.size() == 0:
 			return null
 		return value
-	)
-
-	return schema
-
-static func palette() -> JSONSchema.BaseSchema:
-	var schema = J.object({
-		"labels": J.array(WorkspaceSchema.fraction()),
-		"quantities": J.array(J.integer()).optional()
-	}).type(Palette)
-
-	schema.deserializer(func(value: Dictionary) -> Variant:
-		var labels : Array[Fraction]
-		labels.assign(value.get("labels", []))
-
-		var quantities : Array[int]
-		quantities.assign(value.get("quantities", []))
-
-		return Palette.with_fractions(labels, quantities)
-	)
-
-	schema.serializer(func(value: Palette) -> Variant:
-		if value._labels.size() == 0:
-			return null
-
-		return {"labels": value.get_fractions(), "quantities": value._quantities}
 	)
 
 	return schema

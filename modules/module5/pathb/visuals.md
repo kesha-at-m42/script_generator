@@ -19,6 +19,7 @@
   - **Type**: Fraction OR array of fractions
   - **Description**: Marks at fraction positions on the number line
   - **Always includes**: Ticks at start and end points (e.g., 0 and 1)
+  - **is_read_only**: Boolean indicating whether the tick is interactable (default: `false`). Set to `true` for tick marks that should not accept dragged labels (e.g., endpoints, already labeled ticks)
 
   #### points
   Additional visual emphasis by placing dots or points on specific ticks.
@@ -32,7 +33,7 @@
   - **Type**: Array of fractions (must correspond to tick positions)
   - **Description**: Display fraction values as text at tick positions
   - **Boolean**: Enable/disable labels for all ticks
- 
+
   ### Example Configurations
 
   **Basic number line with thirds:**
@@ -61,4 +62,4 @@
   - **Place tick**: Place ticks on an unpartitioned or partially partitioned number bar. For example, divide this line into thirds or place a tick at 3/5.
   - **Select**: Select number lines (1 or more) that match the question requirements. For example, select the number line showing fifths.
   - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 3/5 or place 3/5 on the line.
-  - **Label**: Label tick marks by dragging fraction labels (1 or more) to them. For example, place the label on the number line or place 3/5 on the line.
+  - **Label**: Label tick marks (1 or more) by dragging fraction labels (1 or more) to them. For example, place the correct label on the given tick mark or place the given fraction on the correct number line.

@@ -13,6 +13,7 @@ static func create_schema() -> JSONSchema.BaseSchema:
 			place(),
 			drag(),
 			move(),
+			cut_grid(),
 			J.string().one_of([
 				"cut",
 				"paint",
@@ -105,28 +106,68 @@ static func place() -> JSONSchema.BaseSchema:
 	return schema
 
 static func move() -> JSONSchema.BaseSchema:
-	return J.object({
-		"palette": SequenceSchema.palette().optional(),
+	var schema := J.object({
+		"mode": J.string().optional(),
+		"palette": PaletteSchema.create_schema().optional(),
 	}).type(Move)
+
+	schema.deserializer(func(value : Dictionary) -> Move:
+		var model := Move.new()
+
+		var mode := value.get("mode", "") as StringName
+		var palette := value.get("palette", null) as Palette
+
+		if mode.is_empty():
+			# HACK: Default to Fraction labels or Points mode depending on whether a Palette is present.
+			if palette:
+				mode = &"frac_labels"
+			else:
+				# HACK: Give Points mode a non-empty Palette by default so that we display the UI.
+				mode = &"points"
+				palette = Palette.new(&"points", [PointStack.new(null, -1)])
+
+		model.mode = mode
+		model.palette = palette
+
+		return model
+	)
+
+	schema.serializer(func(model : Move) -> Dictionary:
+		# NOTE: In the near future, JSON deserialization will fail if the mode is NOT present on Move.
+		assert(not model.mode.is_empty(), "Mode is required")
+
+		var value := {
+			"mode" : model.mode as String,
+		}
+
+		if model.palette:
+			value["palette"] = model.palette
+
+		return value
+	)
+
+	return schema
 
 static func drag() -> JSONSchema.BaseSchema:
 	var schema = J.object({
 		"lcm": J.integer().optional(),
-		"palette": SequenceSchema.palette().optional(),
+		"palette": PaletteSchema.create_schema().optional(),
 		"labels": J.array(WorkspaceSchema.fraction()).optional(),
 		"quantities": J.array(J.integer()).optional(),
 	}).type(Drag)
 
 	schema.deserializer(func(value: Dictionary) -> Variant:
-		var drag_tool := Drag.new()
+		# Replace the Drag tool in content with a Fraction label Move tool.
+		var move_tool := Move.new()
+		move_tool.mode = &"frac_labels"
 
 		var palette = value.get("palette")
 		if palette:
 			if not palette is Palette:
 				return JSONSchema.ValidationError.new("palette", "Must be an object of type Palette")
 
-			drag_tool.palette = palette
-			return drag_tool
+			move_tool.palette = palette
+			return move_tool
 
 		# LEGACY: Migrate the old "labels" and "quantities" properties on Drag into the new Palette representation.
 		var labels : Array[Fraction] = []
@@ -134,17 +175,16 @@ static func drag() -> JSONSchema.BaseSchema:
 
 		if labels.size() == 0:
 			# No labels were specified, so ignore the legacy data.
-			return drag_tool
+			return move_tool
 
 		var quantities : Array[int] = []
 		quantities.assign(value.get("quantities", []))
 
-		# Fill in '1' for any quantities that are NOT specified in JSON.
-		for i in range(quantities.size(), labels.size()):
-			quantities.append(1)
-
-		drag_tool.palette = Palette.with_fractions(labels, quantities)
-		return drag_tool
+		move_tool.palette = PaletteSchema.create_palette_with_frac_labels(labels, quantities)
+		return move_tool
 	)
 
 	return schema
+
+static func cut_grid() -> JSONSchema.BaseSchema:
+	return J.object({}).type(CutGrid)

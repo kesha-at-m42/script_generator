@@ -9,14 +9,46 @@
 ### move
 **Schema type**: `Move`
 
-**Purpose**: Student moves/places points on tick marks of a number line.
+**Purpose**: Student moves/places points or fraction labels on tick marks of a number line.
 
-**Fields**: None
+**Fields**:
+- `mode` (required, string): Interaction mode - "points" for placing points, "frac_labels" for dragging fraction labels
+- `palette` (optional, Palette object): Available items to drag (required when mode is "frac_labels"). See [Palette documentation](sequence.md#palette) for full details.
 
-**Example**:
+**Example (points mode)**:
 ```json
 {
-  "@type": "Move"
+  "@type": "Move",
+  "mode": "points"
+}
+```
+
+**Example (fraction labels mode)**:
+```json
+{
+  "@type": "Move",
+  "mode": "frac_labels",
+  "palette": {
+    "@type": "Palette",
+    "stacks": [
+      {"@type": "FracLabelStack", "label": "1/3", "quantity": 2},
+      {"@type": "FracLabelStack", "label": "2/3"}
+    ]
+  }
+}
+```
+
+**Example (point placement with limited quantity)**:
+```json
+{
+  "@type": "Move",
+  "mode": "points",
+  "palette": {
+    "@type": "Palette",
+    "stacks": [
+      {"@type": "PointStack", "quantity": 3}
+    ]
+  }
 }
 ```
 
@@ -80,31 +112,6 @@
 
 ---
 
-### drag
-**Schema type**: `Drag`
-
-**Purpose**: Student drags labels/objects from a palette onto target positions (e.g., tick marks on a number line).
-
-**Fields**:
-- `palette` (required, Palette object): Available items to drag
-- `lcm` (optional, integer): For fraction-based dragging
-
-**Important**: Drag tool REQUIRES palette. Use this when students drag labels from a palette onto number line ticks.
-
-**Example**:
-```json
-{
-  "@type": "Drag",
-  "palette": {
-    "@type": "Palette",
-    "labels": ["1/3", "2/3"],
-    "quantities": [1, 1]
-  }
-}
-```
-
----
-
 ### comp_frame
 **Schema type**: `CompFrame`
 
@@ -137,18 +144,33 @@
 
 ---
 
+### cut_grid
+**Schema type**: `CutGrid`
+
+**Purpose**: Grid cutting tool for dividing 2D grids.
+
+**Fields**: None
+
+**Example**:
+```json
+{
+  "@type": "CutGrid"
+}
+```
+
+---
+
 ## Tool Selection Guide for Module 4 Path B
 
 **Place points on existing ticks**:
-- Tool: `Move`
+- Tool: `Move` with `mode: "points"`
 - Use for: Student places points at specific tick positions
-- No palette
 - Validated with: `PointValidator`
 
 **Drag fraction labels onto ticks**:
-- Tool: `Drag` with `palette`
+- Tool: `Move` with `mode: "frac_labels"` and `palette`
 - Use for: Student drags labels from palette onto ticks
-- Requires palette with labels and quantities
+- Requires palette with FracLabelStack items (see [Palette docs](sequence.md#palette))
 - Validated with: `LabelValidator`
 
 **Partition/divide number line (create new ticks)**:

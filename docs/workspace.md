@@ -9,7 +9,7 @@
 **Schema type**: `WorkspaceData`
 
 **Fields**:
-- `tangibles` (array): Array of tangible objects (NumLine, FracShape, Vocab, Benchmark)
+- `tangibles` (array): Array of tangible objects (NumLine, Vocab, Benchmark, MathExpression, Grid)
 - `shuffle_tangibles` (optional, boolean): Whether to randomize tangible order
 
 **Example**:
@@ -40,8 +40,6 @@ All tangibles support these optional layout fields:
 ### NumLine (Number Line)
 **Schema type**: `NumLine`
 
-**Type constant**: `TYPE_NUM_LINE = "num_line"`
-
 **Purpose**: 1D visual representation showing intervals, tick marks, and fraction positions.
 
 **Required Fields**:
@@ -49,9 +47,8 @@ All tangibles support these optional layout fields:
 
 **Optional Fields**:
 
-**visual** (integer or string): Visual representation type. Default: `LINE`
-- String values (recommended): `"bar"`, `"pie"`, `"line"`, `"equation"`, `"bar_sm"`, `"composite_bar_equation"`, `"polygon"`
-- Integer values (legacy): 0=BAR, 1=PIE, 2=GRID (DEPRECATED)
+**visual** (string): Visual representation type. Default: `"line"`
+- Valid values: `"bar"`, `"pie"`, `"line"`, `"equation"`, `"bar_sm"`, `"composite_bar_equation"`, `"polygon"`
 
 **sum_is_visible** (boolean): Show sum of intervals. Default: `false`
 
@@ -65,7 +62,7 @@ All tangibles support these optional layout fields:
 
 **points** (array of Fractions): Highlighted point positions. Must be fraction strings like "1/4", "2/3", not floats. Default: `[]`
 
-**labels** (boolean or array of Fractions): Which ticks show fraction labels (positioned below number line). INTERACTIVE - can be dragged with drag_label tool. Default: `true`
+**labels** (boolean or array of Fractions): Which ticks show fraction labels (positioned below number line). INTERACTIVE - can be dragged with Move tool (mode="frac_labels"). Default: `true`
 
 **alt_labels** (boolean or array of Fractions): Alternative labels for ticks (positioned on top of number line). NON-INTERACTIVE - cannot be dragged into or out of. Used for fixed reference labels. Default: `false`
 
@@ -79,9 +76,11 @@ All tangibles support these optional layout fields:
 
 **is_read_only** (boolean): Make entire number line read-only. Default: `false`
 
-**Important**:
-- `visual: GRID` (2) is deprecated and will cause validation error
-- Cannot specify both `ticks` and `intervals` - use one or the other
+**sum_location** (string): Position of sum display. Options: `"top"`, `"bottom"`, `"left"`, `"right"`. Default: `"right"`
+
+**intervals_is_shaded** (boolean or array of integers): Which intervals are shaded. Default: `false`
+
+**Important**: Cannot specify both `ticks` and `intervals` - use one or the other
 
 **Tick Specification**:
 
@@ -208,77 +207,8 @@ Same format as labels but NON-DRAGGABLE, displays on top:
 
 ---
 
-### FracShape (Fraction Shape)
-**Schema type**: `FracShape`
-
-**Type constant**: `TYPE_FRACTION_SHAPE = "fraction_shape"`
-
-**Purpose**: 2D shapes (bars, circles) for representing fractions visually.
-
-**Optional Fields**:
-
-**fractions** (Fraction or array of Fractions): Size of each part. Default: `["1/1"]`
-
-**visual** (integer): Shape type. Default: `0` (BAR)
-- 0 = BAR (rectangle)
-- 1 = PIE (circle)
-- 2 = GRID (DEPRECATED - will error)
-
-**shaded** (array of integers): Indices of shaded parts. Default: `[]`
-
-**missing** (array of integers): Indices of missing parts. Default: `[]`
-
-**frac_label_visible** (array of integers): Which parts show labels. Default: `[]`
-
-**read_only_parts** (array of integers): Non-interactive parts. Default: `[]`
-
-**lcm** (integer): Least common multiple. Default: `24`
-
-**num_rows** (integer): Number of rows (for grid layouts)
-
-**is_read_only** (boolean): Make entire shape read-only. Default: `false`
-
-**sum_is_visible** (boolean): Show sum of parts. Default: `false`
-
-**Fractions Specification**:
-
-Single fraction (uniform parts):
-```json
-"fractions": "1/4"
-// Creates shape divided into fourths
-```
-
-Array (non-uniform parts):
-```json
-"fractions": ["1/4", "1/2", "1/4"]
-// Creates shape with varying part sizes
-```
-
-Omitted (whole shape):
-```json
-// No "fractions" field = undivided whole
-```
-
-**Example - Shaded Fraction Bar**:
-```json
-{
-  "@type": "FracShape",
-  "visual": 0,
-  "fractions": "1/4",
-  "shaded": [0, 1, 2],
-  "lcm": 24,
-  "is_visible": true
-}
-```
-
-**Note**: FracShape uses internal `NumLine` representation in Godot. Many properties mirror NumLine structure.
-
----
-
 ### Vocab (Vocabulary Label)
 **Schema type**: `Vocab`
-
-**Type constant**: `TYPE_VOCAB = "vocab"`
 
 **Purpose**: Text label or vocabulary term displayed in workspace.
 
@@ -322,6 +252,52 @@ Omitted (whole shape):
 ```
 
 **Note**: Benchmarks typically use `@layout: "underlay"` to appear behind other tangibles.
+
+---
+
+### MathExpression (Mathematical Expression)
+**Schema type**: `MathExpression`
+
+**Purpose**: Displays mathematical expressions with fractions and operators.
+
+**Optional Fields**:
+- `terms` (array): Array of Fractions or Term objects representing the expression
+
+**Example**:
+```json
+{
+  "@type": "MathExpression",
+  "terms": ["1/4", "+", "2/4", "=", "3/4"],
+  "is_visible": true,
+  "@col": 0,
+  "@layout": "default"
+}
+```
+
+**Note**: Terms can be either Fraction objects or Term objects (operators, symbols, etc.). Fraction terms automatically have their labels set to visible.
+
+---
+
+### Grid
+**Schema type**: `Grid`
+
+**Purpose**: 2D grid representation for area models and fraction visualization.
+
+**Optional Fields**:
+- `h_lcm` (integer): Horizontal divisions (columns). Default: `8`
+- `v_lcm` (integer): Vertical divisions (rows). Default: `4`
+
+**Example**:
+```json
+{
+  "@type": "Grid",
+  "h_lcm": 8,
+  "v_lcm": 4,
+  "is_visible": true
+}
+```
+
+**Note**: Grid automatically generates parts based on h_lcm × v_lcm dimensions, with each part representing `1/(h_lcm × v_lcm)`.
 
 ---
 
@@ -465,5 +441,4 @@ For number line focused activities:
 ```
 
 **Not typically used in Module 4 Path B**:
-- `FracShape` (focuses on number lines, not bars/circles)
 - Interval shading (focuses on tick positions)

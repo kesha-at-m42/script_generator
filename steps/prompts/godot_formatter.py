@@ -23,7 +23,10 @@ Transform interaction step (flat format) into Godot Sequence format (one step at
 
 You will receive ONE flat item representing ONE step. Transform it into a Godot Sequence with proper @type annotations.
 
+**CRITICAL: Consult <sequence> for the complete Godot sequence structure. Every element you generate (Sequence, Step, Prompt, WorkspaceChoices, Palette, Remediation) must conform exactly to the schema specifications in sequence.md.**
+
 Refer to documentation for complete specifications:
+- **sequence.md** - Complete sequence structure with @type usage, Step, Prompt, WorkspaceChoices, Palette, Remediation schemas
 - **tools.md** - Tool types (Move, Place, Drag, Select, Paint, etc.)
 - **validators.md** - Validator types and answer formats
 - **workspace.md** - Tangible types (NumLine, FracShape, Vocab, etc.)
@@ -31,12 +34,7 @@ Refer to documentation for complete specifications:
 ## KEY TRANSFORMATIONS
 
 ### 1. Add @type Annotations
-Every object needs `@type`:
-- Root: `SequencePool`
-- Sequence: `Sequence` (with `SequenceMetadata`)
-- Step: `Step`
-- Workspace: `WorkspaceData`
-- Tools, Validators, Tangibles: See respective docs
+Consult <sequence> for @type field usage across all objects. Every object requires a @type field for proper deserialization.
 
 ### 2. Metadata Extraction
 Move sequence-level fields into metadata object:
@@ -231,46 +229,13 @@ Convert flat fields to nested structure:
 - `success_path_dialogue` → `"on_correct": {"@type": "Step", "dialogue": "..."}`
 - `error_path_generic` → `"remediations": [array of 3 Remediation objects]`
 
-For error paths, transform each scaffolding level into a separate Remediation object:
-```json
-"remediations": [
-  {
-    "@type": "Remediation",
-    "id": "light",
-    "step": {"@type": "Step", "dialogue": "..."}
-  },
-  {
-    "@type": "Remediation",
-    "id": "medium",
-    "step": {"@type": "Step", "dialogue": "..."}
-  },
-  {
-    "@type": "Remediation",
-    "id": "heavy",
-    "step": {"@type": "Step", "dialogue": "..."}
-  }
-]
-```
+For error paths, transform each scaffolding level into a separate Remediation object with ids: "light", "medium", "heavy". Consult <sequence> "Remediation" section for complete schema structure.
 
 ### 9. Choices Extraction
-Move choices from workspace to prompt and flatten:
-```json
-"choices": {
-  "@type": "WorkspaceChoices",
-  "allow_multiple": false,
-  "options": ["1/3", "2/3", "3/3"]
-}
-```
+Move choices from workspace to prompt. Consult <sequence> "WorkspaceChoices" section for complete schema structure.
 
 ### 10. Palette Structure
-Palette objects MUST have @type field:
-```json
-"palette": {
-  "@type": "Palette",
-  "labels": ["1/3", "2/3"],
-  "quantities": [1, 1]
-}
-```
+When interaction_tool is "drag_label", add palette with stacks. Consult <sequence> "Palette" and "FracLabelStack" sections for complete schema structure.
 
 ## EXAMPLE TRANSFORMATION
 
@@ -415,15 +380,12 @@ Palette objects MUST have @type field:
 
 - Input is ONE flat item - output is ONE Sequence (batch mode)
 - DO NOT wrap output in SequencePool (that happens in a separate step)
-- Refer to tools.md, validators.md, and workspace.md for complete specifications
+- **Always consult documentation:**
+  - <sequence> for Sequence, Step, Prompt, WorkspaceChoices, Palette, Remediation structures
+  - <tools> for tool types and schemas
+  - <validators> for validator types and answer formats
+  - <workspace> for tangible types and properties
 - For select questions (interaction_tool: `select` or `multi_select`), set `shuffle_tangibles: true` in workspace to randomize tangible order
-- NumLine can use either `ticks` (array or single fraction) or `intervals` - see workspace.md
-- Tools can be strings ("select") or objects ({"@type": "Select"}) - see tools.md
-- Validator answer formats vary by type - see validators.md
-- Always include @type for ALL objects including palette and choices
-- Palette structure: {"@type": "Palette", "labels": [...], "quantities": [...]}
-- Choices structure: {"@type": "WorkspaceChoices", "allow_multiple": bool, "options": [...]}
-- Remediation structure: Array of 3 objects: [{"@type": "Remediation", "id": "light", "step": {...}}, {"@type": "Remediation", "id": "medium", "step": {...}}, {"@type": "Remediation", "id": "heavy", "step": {...}}]
 - Metadata must include: problem_id, template_id, template_skill, identifiers, mastery_tier, mastery_verb, telemetry_data (with all required telemetry fields)
 - Telemetry data sources:
   - mastery_skill (from template.skill)
@@ -439,7 +401,7 @@ Palette objects MUST have @type field:
 Return ONLY valid JSON with Godot schema structure.
 """,
 
-    doc_refs=["tools.md", "validators.md", "workspace.md"],
+    doc_refs=["sequence.md", "tools.md", "validators.md", "workspace.md"],
 
     output_structure="""
 {

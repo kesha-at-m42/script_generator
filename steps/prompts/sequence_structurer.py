@@ -61,55 +61,56 @@ Generate a structured interaction sequence using these fields:
 - Strip any scaffolding hints (e.g., "One interval from zero", "That's two spaces", "Count the intervals...") from the prompt and move them to dialogue instead
 - Keep prompt focused on the core mathematical task (e.g., "Place three-fourths on the number line.")
 
-**interaction_tool:** Derive from action_description (refer to visuals.md for allowed student actions)
+**interaction_tool:** Derive from action_description
 
 Map action_description to tool:
 - "Point at tick marks" → "place_point" (student places points on existing ticks)
 - "Label tick marks by dragging" → "drag_label" (student drags fraction labels onto ticks)
-- "Select from MCQ options" → "click_choice" (student clicks MCQ option)
+- "Select from MCQ options" → "click_choice" (student clicks one or more MCQ options; use allow_multiple flag in choices for multiple selection)
 - "Select the number line" → "select" (student selects one tangible from workspace)
 - "Select multiple number lines" → "multi_select" (student selects multiple tangibles)
 - "Place ticks on number line" → "place_tick" (student partitions/divides number line)
 - "Cut shape into parts" → "cut_shape" (student divides shapes into parts)
 - "Shade parts" → "shade" (student shades/paints sections)
 
+**Pattern for new actions:**
+If you encounter an action_description not listed above:
+1. Identify the verb (e.g., "Draw", "Rotate", "Match", "Connect")
+2. Identify the object (e.g., "lines", "shapes", "dots", "segments")
+3. Create tool name: `{verb}_{object}` in snake_case (e.g., "Draw lines between points" → "draw_line")
+4. Follow these conventions:
+   - Actions on multiple items use plural: "select" vs "multi_select"
+   - Dragging/moving actions: use "drag_{object}"
+   - Placing/positioning: use "place_{object}"
+   - Selecting/clicking: use "select" or "click_{object}"
+   - Modifying properties: use "{verb}_{object}" (e.g., "color_region", "resize_bar")
+5. Add a brief clarification in parentheses describing what the student does
+
 **workspace:** Parse workspace_description into structured toys array
-**CRITICAL: You MUST strictly follow ALL constraints defined in <visuals>. Every element you generate (ticks, points, labels, ranges, denominators, number of lines) must conform exactly to the rules and constraints specified in visuals.md. Validate your output against these constraints before finalizing.**
+**CRITICAL: You MUST strictly follow ALL visual schemas defined in <visuals>. Consult the documentation for each shape type to understand:**
+- Required and optional properties
+- Valid value ranges and types
+- Constraints (e.g., max number of instances, allowed denominators)
+- Structural relationships (e.g., points must correspond to ticks)
 
-**Number Line Parsing Rules (based on visuals.md):**
-- "Number line from X to Y" → range: [X, Y]
-- "tick marks at 0, 1/3, 2/3, 1" → ticks: ["0", "1/3", "2/3", "1"]
-- "Point placed at 2/3" → points: ["2/3"]
-- "Only endpoints labeled" OR "Only 0 and 1 are labeled" → labels: ["0", "1"] (or labels: true/false)
-- "with tick marks dividing it into X equal intervals" → calculate ticks array based on X
-- "MCQ options below: A, B, C" → add choices element to workspace
+**Parsing Natural Language to Structured Workspace:**
+1. Identify the shape type(s) mentioned in workspace_description
+2. Look up the corresponding schema in <visuals>
+3. Extract property values from the text description (e.g., "from 0 to 1" → range: [0, 1])
+4. Build the workspace element following the exact schema structure
+5. For special elements (MCQ choices, drag palettes), check if interaction_tool requires them and add accordingly
 
-**Number Line Structure:**
-```json
-{
-  "id": "line_1",
-  "type": "number_line",
-  "range": [0, 1],
-  "ticks": ["0", "1/3", "2/3", "1"],
-  "points": ["2/3"],  // Optional: highlighted ticks
-  "labels": ["0", "1"]  // Optional: which ticks show labels
-}
-```
+**Special Workspace Elements:**
+- **choices**: Add when interaction_tool is "click_choice" or description mentions "MCQ options"
+  Format: {"type": "choices", "options": [{"id": "a", "text": "..."}, ...]}
+  Use "allow_multiple": true for multi-select questions
 
-**For comparison sets (multiple number lines):**
-- Parse "Line A:", "Line B:", "Line C:" as separate toys with unique ids
-- Each gets its own ticks configuration
-- Use description field to explain distinguishing characteristics
-
-**MCQ and Select Question Handling:**
-- When workspace_description mentions "MCQ options:", add a choices element to workspace
-- Choices is a workspace element with type: "choices" and options array
-- Format: {"type": "choices", "options": [{"id": "a", "text": "1/2"}, {"id": "b", "text": "1/3"}, ...]}
-- If fractions are listed like "1/3, 2/3, 3/3", create sequential ids (a, b, c, etc.)
-- For select questions (e.g., "Select the number line showing thirds"), the same principles apply
+- **palette**: Add when interaction_tool is "drag_label"
+  Format: {"type": "palette", "labels": ["1/4", "2/4", ...]}
+  Optional quantities array for label availability
 
 **correct_answer:** Object with:
-- value: The expected answer (fraction like "2/3", tick index like [2], choice id like "b", tangible id like "line_equal")
+- value: The expected answer (format depends on interaction_tool)
 - context: Brief explanation of why this is correct
 
 **success_path_dialogue:** Rotate through the success_dialogue examples from the template here: {success_dialogue}

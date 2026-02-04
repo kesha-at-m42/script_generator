@@ -16,7 +16,8 @@ static func create_schema() -> JSONSchema.BaseSchema:
 		point(),
 		move(),
 		shaded(),
-		label()
+		label(),
+		same_shaded()
 	])
 
 # ============================================================================
@@ -47,6 +48,9 @@ static func equal_shaded() -> JSONSchema.BaseSchema:
 
 static func shaded() -> JSONSchema.BaseSchema:
 	return J.object({"answer": WorkspaceSchema.fraction()}).type(ShadedValidator)
+
+static func same_shaded() -> JSONSchema.BaseSchema:
+	return J.object({}).type(SameShadedValidator)
 
 static func label() -> JSONSchema.BaseSchema:
 	return J.object({"answer": J.array(WorkspaceSchema.fraction())}).type(LabelValidator)

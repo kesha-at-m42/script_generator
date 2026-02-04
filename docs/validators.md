@@ -14,8 +14,6 @@
 **Fields**:
 - `answer` (Fraction): The target fraction that should be shaded (e.g., `"3/4"`)
 
-**Type constant**: `TYPE_EQUAL_SHADED = "fraction_shading"`
-
 **Example**:
 ```json
 {
@@ -34,13 +32,27 @@
 **Fields**:
 - `answer` (optional, integer, min: 0): Number of parts that should be shaded
 
-**Type constant**: `TYPE_SHADED_PARTS = "fraction_shaded_parts"`
-
 **Example**:
 ```json
 {
   "@type": "ShadedPartsValidator",
   "answer": 3
+}
+```
+
+---
+
+### SameShadedValidator
+**Schema type**: `SameShadedValidator`
+
+**Purpose**: Validates that multiple tangibles have the same amount shaded (comparison validation).
+
+**Fields**: None
+
+**Example**:
+```json
+{
+  "@type": "SameShadedValidator"
 }
 ```
 
@@ -55,8 +67,6 @@
 - `answer` (integer OR array of integers): Index/indices of correct tangible(s)
   - Single selection: `0` or `[0]`
   - Multiple selection: `[0, 2]`
-
-**Type constant**: `TYPE_SELECTION = "tangible_selection"`
 
 **Examples**:
 
@@ -88,8 +98,6 @@ Multiple selection:
   - 0-based indexing
   - Can contain multiple indices for multi-select questions
 
-**Type constant**: `TYPE_MULTIPLE_CHOICE = "multiple_choice"`
-
 **Example**:
 ```json
 {
@@ -112,8 +120,6 @@ Multiple selection:
 
 **Fields**:
 - `answer` (Fraction OR array of Fractions): Expected tick position(s) or fraction size of parts
-
-**Type constant**: `TYPE_FRACTION_SHAPE_PARTS = "fraction_parts"`
 
 **Answer Format**:
 - **Shorthand (string)**: A single fraction like `"1/3"` validates all tick marks for that denominator (scales to any range: 0-1, 0-2, etc.)
@@ -149,7 +155,7 @@ Explicit array (validates these specific ticks):
 ### PointValidator
 **Schema type**: `PointValidator`
 
-**Purpose**: Validates that points are placed at correct positions on number line. Used with Move tool (without palette).
+**Purpose**: Validates that points are placed at correct positions on number line. Used with Move tool (mode="points").
 
 **Fields**:
 - `answer` (array of Fractions): Expected point positions
@@ -167,7 +173,7 @@ Explicit array (validates these specific ticks):
 ### LabelValidator
 **Schema type**: `LabelValidator`
 
-**Purpose**: Validates dragged fraction labels placed on number line ticks. Used with Drag tool (with palette).
+**Purpose**: Validates dragged fraction labels placed on number line ticks. Used with Move tool (mode="frac_labels" with palette).
 
 **Fields**:
 - `answer` (array of Fractions): The labels that should be dragged from the palette to correct positions
@@ -189,15 +195,15 @@ Explicit array (validates these specific ticks):
 
 ## Validator Selection Guide
 
-**For Move tool (placing points, no palette)**:
+**For Move tool (placing points, mode="points")**:
 - Use: `PointValidator`
 - Answer format: `["2/7"]` (array of fractions)
 
-**For Drag tool (dragging labels, with palette)**:
+**For Move tool (dragging labels, mode="frac_labels" with palette)**:
 - Use: `LabelValidator`
 - Answer format: Labels from palette `["1/3"]` or `["1/3", "2/3"]`
 
-**For Place tool / "cut" (placing ticks)**:
+**For Place tool (placing ticks)**:
 - Use: `TickValidator`
 - Answer format (shorthand): `"1/3"` (validates all ticks for thirds, scales to any range)
 - Answer format (explicit): `["0", "1/3", "2/3", "1"]` (validates specific ticks, must include endpoints)
@@ -244,18 +250,3 @@ Tangible and choice indices are 0-based integers:
 - `TickValidator` accepts both single fraction and array
 - `LabelValidator` requires array
 
----
-
-## Validation Constants
-
-For reference, the internal type constants used by Godot:
-
-```
-TYPE_EQUAL_SHADED = "fraction_shading"
-TYPE_SHADED_PARTS = "fraction_shaded_parts"
-TYPE_FRACTION_SHAPE_PARTS = "fraction_parts"
-TYPE_SELECTION = "tangible_selection"
-TYPE_MULTIPLE_CHOICE = "multiple_choice"
-```
-
-These are internal identifiers and not typically needed in JSON schema output.
