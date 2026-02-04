@@ -19,9 +19,19 @@ Your task: Transform interaction sequences into Godot-processable format with @t
     instructions="""
 ## TASK
 
-Transform interaction step (flat format) into Godot Sequence format (one step at a time).
+Transform interaction sequence into Godot Sequence format.
 
-You will receive ONE flat item representing ONE step. Transform it into a Godot Sequence with proper @type annotations.
+You will receive ONE sequence with metadata and a `steps` array (may contain single or multiple steps). Transform it into ONE Godot Sequence with:
+- Metadata at the top level
+- All steps in the `steps` array
+- Proper @type annotations throughout
+
+**MULTI-STEP WORKSPACE HANDLING (CRITICAL):**
+- **Step 1 (step_id: 1)**: Define workspace structure normally
+- **Step 2+ (step_id: 2, 3, ...)**: DO NOT include workspace field at all
+  - Steps automatically inherit workspace from step 1
+  - Simply omit the workspace field entirely from steps 2+
+  - The workspace evolves based on step 1's actions
 
 **CRITICAL: Consult <sequence> for the complete Godot sequence structure. Every element you generate (Sequence, Step, Prompt, WorkspaceChoices, Palette, Remediation) must conform exactly to the schema specifications in sequence.md.**
 
@@ -239,50 +249,118 @@ When interaction_tool is "drag_label", add palette with stacks. Consult <sequenc
 
 ## EXAMPLE TRANSFORMATION
 
-**Input (one flat item with remediation)**:
+**Input (sequence with single step)**:
 ```json
 {
   "problem_id": 49,
   "mastery_tier": "BASELINE",
-  "verb": "IDENTIFY",
+  "mastery_verb": "IDENTIFY",
   "template_id": "4008",
   "fractions": ["2/3"],
-    "dialogue": "Look at the point on the number line.",
-    "prompt": "What fraction does this point show?",
-    "interaction_tool": "click_choice",
-    "workspace": [
-      {
-        "id": "line_1",
-        "type": "number_line",
-        "range": [0, 1],
-        "ticks": ["0", "1/3", "2/3", "1"],
-        "points": ["2/3"],
-        "labels": ["0", "1"]
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the point on the number line.",
+      "prompt": "What fraction does this point show?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [0, 1],
+          "ticks": ["0", "1/3", "2/3", "1"],
+          "points": ["2/3"],
+          "labels": ["0", "1"]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {"id": "a", "text": "1/3"},
+            {"id": "b", "text": "2/3"}
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "b",
+        "context": "The point is at 2/3"
       },
-      {
-        "type": "choices",
-        "options": [
-          {"id": "a", "text": "1/3"},
-          {"id": "b", "text": "2/3"}
+      "success_path_dialogue": "Yes, that's two-thirds.",
+      "error_path_generic": {
+        "steps": [
+          {"scaffolding_level": "light", "dialogue": "Not quite. Try again."},
+          {"scaffolding_level": "medium", "dialogue": "Look at where the point is..."},
+          {"scaffolding_level": "heavy", "dialogue": "The point is at 2 out of 3 parts..."}
         ]
       }
-    ],
-    "correct_answer": {
-      "value": "b",
-      "context": "The point is at 2/3"
-    },
-    "success_path_dialogue": "Yes, that's two-thirds.",
-    "error_path_generic": {
-      "steps": [
-        {"scaffolding_level": "light", "dialogue": "Not quite. Try again."},
-        {"scaffolding_level": "medium", "dialogue": "Look at where the point is..."},
-        {"scaffolding_level": "heavy", "dialogue": "The point is at 2 out of 3 parts..."}
-      ]
     }
-  }
+  ]
+}
+```
+
+**Input (sequence with multiple steps - note step 2 has workspace that should be IGNORED)**:
+```json
+{
+  "problem_id": 75,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "5011",
+  "fractions": ["1/4", "2/4", "3/4"],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Let's divide this number line into fourths.",
+      "prompt": "Divide this line into fourths.",
+      "interaction_tool": "place_tick",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [0, 1],
+          "ticks": [0, 1],
+          "labels": [0, 1]
+        }
+      ],
+      "correct_answer": {
+        "value": ["1/4", "2/4", "3/4"],
+        "context": "Three tick marks placed"
+      },
+      "success_path_dialogue": "Good. You made four equal parts.",
+      "error_path_generic": { "steps": [...] }
+    },
+    {
+      "step_id": 2,
+      "dialogue": "Now label each tick mark.",
+      "prompt": "Label each position.",
+      "interaction_tool": "drag_label",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [0, 1],
+          "ticks": [0, "1/4", "2/4", "3/4", 1],
+          "labels": [0, 1]
+        },
+        {
+          "type": "palette",
+          "labels": ["1/4", "2/4", "3/4"]
+        }
+      ],
+      "correct_answer": {
+        "value": {"1/4": "1/4", "2/4": "2/4", "3/4": "3/4"},
+        "context": "All labels placed correctly"
+      },
+      "success_path_dialogue": "Right. You labeled all the fourths.",
+      "error_path_generic": { "steps": [...] }
+    }
+  ]
+}
 ```
 
 **Output (Godot Sequence format - NO SequencePool wrapper)**:
+
+For single-step sequences:
 ```json
 {
   "@type": "Sequence",
@@ -357,6 +435,92 @@ When interaction_tool is "drag_label", add palette with stacks. Consult <sequenc
   }]
 }
 ```
+
+For multi-step sequences (NOTE: Step 2 does NOT have workspace field):
+```json
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 75,
+    "template_id": "5011",
+    "template_skill": "Create and label fourths on number line",
+    "identifiers": ["1/4", "2/4", "3/4"],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": { ... }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's divide this number line into fourths.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [{
+          "@type": "NumLine",
+          "is_visible": true,
+          "visual": "line",
+          "range": [0, 1],
+          "ticks": [0, 1],
+          "labels": [0, 1],
+          "lcm": 12
+        }]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Divide this line into fourths.",
+        "tool": {
+          "@type": "Place",
+          "tangible_index": 0,
+          "target": "ticks",
+          "lcm": 12
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": ["1/4", "2/4", "3/4"]
+        },
+        "remediations": [...],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You made four equal parts."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label each tick mark.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Label each position.",
+        "tool": {
+          "@type": "Drag",
+          "tangible_index": 0,
+          "target": "labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {"@type": "FracLabelStack", "label": "1/4"},
+              {"@type": "FracLabelStack", "label": "2/4"},
+              {"@type": "FracLabelStack", "label": "3/4"}
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": {"1/4": "1/4", "2/4": "2/4", "3/4": "3/4"}
+        },
+        "remediations": [...],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. You labeled all the fourths."
+        }
+      }
+    }
+  ]
+}
+```
+
+**KEY POINT**: Notice step 2 has NO `workspace` field - it automatically inherits the workspace from step 1.
 
 **Key transformations in this example**:
 1. Flat item → Sequence (no SequencePool wrapper)
