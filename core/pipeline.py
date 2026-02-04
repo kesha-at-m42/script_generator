@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List, Dict, Callable, Union
 import sys
 import importlib
+import shutil
 
 # Add core directory to path
 core_dir = Path(__file__).parent
@@ -386,6 +387,35 @@ def run_pipeline(
                 pipeline_dir = outputs_dir / full_pipeline_name
                 base_version_dir = pipeline_dir / base_version
                 validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
+
+                # Copy skipped step outputs from base version to new version
+                if verbose:
+                    print(f"\n{'='*70}")
+                    print(f"COPYING SKIPPED STEPS FROM BASE VERSION")
+                    print(f"{'='*70}")
+
+                for skip_step_num in range(1, start_idx):
+                    skip_step = steps[skip_step_num - 1]
+                    skip_step_name = skip_step.prompt_name if skip_step.is_ai_step() else str(skip_step.function).split('.')[-1]
+
+                    # Source: base version step directory
+                    base_step_dir = get_step_directory(base_version_dir, skip_step_num, skip_step_name)
+
+                    # Destination: new version step directory
+                    new_step_dir = get_step_directory(output_dir_path, skip_step_num, skip_step_name)
+
+                    # Copy entire step directory
+                    if base_step_dir.exists():
+                        if verbose:
+                            print(f"  [COPY] Step {skip_step_num} ({skip_step_name})")
+                            print(f"         From: {base_step_dir.relative_to(get_project_paths()['outputs'])}")
+                            print(f"         To:   {new_step_dir.relative_to(get_project_paths()['outputs'])}")
+
+                        # Use copytree with dirs_exist_ok=True to copy directory
+                        shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
+                    else:
+                        # This should not happen due to validation, but handle gracefully
+                        print(f"  [WARNING] Base step directory not found: {base_step_dir}")
 
             if verbose:
                 print(f"\n{'='*70}")
