@@ -90,25 +90,39 @@ class BatchProcessor:
         """
         # Get item ID (handles nested IDs like metadata.problem_id)
         if self.batch_id_field:
-            item_id = self._get_item_id(item, self.batch_id_field)
-            if not item_id:  # If no ID found, fall back to index
-                item_id = str(item_idx)
+            base_id = self._get_item_id(item, self.batch_id_field)
+            if not base_id:  # If no ID found, fall back to index
+                base_id = str(item_idx)
+                item_id = base_id
+            else:
+                # For multi-step items, append step_id to create unique file names
+                if 'step_id' in item:
+                    item_id = f"{base_id}_{item['step_id']}"
+                else:
+                    item_id = base_id
         else:
-            item_id = str(item_idx)
+            base_id = str(item_idx)
+            item_id = base_id
 
         # Check only_items filter
-        if self.batch_only_items and item_id not in self.batch_only_items:
-            # If base_version_dir provided, copy from base instead of skipping
-            if self.base_version_dir:
-                copied_item = self._load_from_base(item, item_id)
-                if copied_item:
-                    self.add_result(copied_item)
-                    return True, "copied from base"
-            return True, "not in only_items"
+        # Support both exact matches (e.g., "75_1") and base ID matches (e.g., "75" matches "75_1" and "75_2")
+        if self.batch_only_items:
+            is_included = item_id in self.batch_only_items or base_id in self.batch_only_items
+            if not is_included:
+                # If base_version_dir provided, copy from base instead of skipping
+                if self.base_version_dir:
+                    copied_item = self._load_from_base(item, item_id)
+                    if copied_item:
+                        self.add_result(copied_item)
+                        return True, "copied from base"
+                return True, "not in only_items"
 
         # Check skip_items filter
-        if self.batch_skip_items and item_id in self.batch_skip_items:
-            return True, "in skip_items"
+        # Support both exact matches and base ID matches
+        if self.batch_skip_items:
+            is_skipped = item_id in self.batch_skip_items or base_id in self.batch_skip_items
+            if is_skipped:
+                return True, "in skip_items"
 
         # Check if already exists
         if self.batch_skip_existing and self.items_dir:

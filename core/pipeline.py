@@ -643,8 +643,16 @@ def run_pipeline(
             total_items = len(items)
 
             for item_idx, item in enumerate(items, 1):
-                # Get item ID
-                item_id = str(item.get(step.batch_id_field, item_idx)) if step.batch_id_field else str(item_idx)
+                # Get item ID (with composite key support for multi-step items)
+                if step.batch_id_field:
+                    base_id = str(item.get(step.batch_id_field, item_idx))
+                    # For multi-step items, append step_id to create unique file names
+                    if 'step_id' in item:
+                        item_id = f"{base_id}_{item['step_id']}"
+                    else:
+                        item_id = base_id
+                else:
+                    item_id = str(item_idx)
 
                 # Check if should skip
                 should_skip, skip_reason = batch_proc.should_skip_item(item, item_idx)
