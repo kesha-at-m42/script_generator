@@ -78,8 +78,48 @@ Move sequence-level fields into metadata object:
 **CRITICAL: You MUST strictly follow ALL tool schemas defined in <tools>. Every tool must use the exact structure, @type, and required fields specified in tools.md. Validate your output against tools.md before finalizing.**
 
 Map `interaction_tool` to Godot tool @type (refer to <tools> for complete schema):
-- `place_point` → Move
-- `drag_label` → Drag (REQUIRES palette)
+
+**Point Placement:**
+- `place_point` → Move with mode="points" and palette with PointStack
+  - For unlimited points: PointStack with no quantity field (defaults to -1)
+    ```json
+    {
+      "@type": "Move",
+      "mode": "points",
+      "palette": {
+        "@type": "Palette",
+        "stacks": [{"@type": "PointStack"}]
+      }
+    }
+    ```
+  - For limited points: PointStack with specific quantity
+    ```json
+    {
+      "@type": "Move",
+      "mode": "points",
+      "palette": {
+        "@type": "Palette",
+        "stacks": [{"@type": "PointStack", "quantity": 3}]
+      }
+    }
+    ```
+
+**Label Dragging:**
+- `drag_label` → Move with mode="frac_labels" and palette with FracLabelStack (ALWAYS required)
+  ```json
+  {
+    "@type": "Move",
+    "mode": "frac_labels",
+    "palette": {
+      "@type": "Palette",
+      "stacks": [
+        {"@type": "FracLabelStack", "label": "1/4"}
+      ]
+    }
+  }
+  ```
+
+**Other Tools:**
 - `click_choice` → No tool (MCQ uses choices)
 - `select` → Select (is_single: true)
 - `multi_select` → Select (is_single: false)
@@ -97,8 +137,10 @@ Choose validator based on interaction_tool (see validators.md for complete speci
 - `shade` → ShadedValidator or ShadedPartsValidator
 
 **Important**:
-- Move tool does NOT use palette (places points directly)
-- Drag tool REQUIRES palette (drags labels from palette)
+- Move tool with mode="points" ALWAYS uses palette with PointStack (even for unlimited points)
+- Move tool with mode="frac_labels" ALWAYS uses palette with FracLabelStack
+- PointStack quantity defaults to -1 (unlimited) when omitted
+- FracLabelStack quantity defaults to 1 when omitted
 - `click_choice` is for MCQ, `select` is for tangible selection (different use cases)
 - See validators.md for correct answer format for each validator type
 
@@ -221,7 +263,9 @@ Key field changes (see workspace.md for details):
 - Keep `ticks` or `intervals` as-is (schema handles both)
 - Keep `labels` as-is (schema accepts array or boolean)
 - Add `is_visible: true`
-- Add `visual: "line"`
+- Add `visual` based on structure:
+  - If NumLine has `ticks` → `"visual": "line"` (number line)
+  - If NumLine has `intervals` → `"visual": "bar"` (fraction strip)
 - Add `lcm` using 3× denominator rule:
   - Halves (1/2): lcm = 6
   - Thirds (1/3): lcm = 9
@@ -643,7 +687,7 @@ Return ONLY valid JSON with Godot schema structure.
 
     template_ref=["problem_type", "skill", "mastery_verb", "skill_id"],
 
-    cache_docs=False,
+    cache_docs=True,
     temperature=1,
     max_tokens=16000,
     stop_sequences=[]
