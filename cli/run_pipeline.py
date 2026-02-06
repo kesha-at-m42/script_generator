@@ -190,6 +190,10 @@ Examples:
         print("RESULTS:")
         print("="*70)
         for key, value in results.items():
+            # Skip printing final_output to avoid console clutter (it's saved to file)
+            if key == 'final_output':
+                continue
+
             print(f"\n{key}:")
             if isinstance(value, str):
                 preview = value[:200] if len(value) > 200 else value

@@ -130,6 +130,11 @@ def run_formatting_step(step, input_data, input_content, module_number: int, pat
         if verbose:
             print(f"  [EXEC] Passing path_letter={path_letter}")
 
+    if 'verbose' in param_names:
+        args['verbose'] = verbose
+        if verbose:
+            print(f"  [EXEC] Passing verbose={verbose}")
+
     # Add custom function_args (these override if there's a conflict)
     args.update(step.function_args)
 

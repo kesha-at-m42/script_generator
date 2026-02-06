@@ -3,9 +3,9 @@ NumLine Fixer - Formatting Step
 
 Fixes NumLine issues:
 1. Ensures all labels are strings, not numeric values
-2. Adds alt_labels for whole number positions when using frac_labels mode
-3. Ensures whole number ticks and labels exist when range extends beyond 2
-4. Removes ticks from ticks_is_read_only if they're in LabelValidator answer
+2. For LabelValidator/PointValidator answers: ensures fractions are in range, have ticks, and are not read-only
+3. Moves labels to alt_labels when frac_labels mode has whole number fractions in answer
+4. Ensures whole number ticks and labels exist when range extends beyond 2
 """
 
 import os
@@ -250,11 +250,11 @@ def fix_numline_labels(data, location_prefix=""):
 
 def add_alt_labels_for_whole_numbers(step):
     """
-    Add alt_labels to NumLine when frac_labels mode has whole number fractions.
+    Move labels to alt_labels in NumLine when frac_labels mode has whole number fractions in answer.
 
-    When a Move tool with mode="frac_labels" has whole number fractions in the
-    palette (like "2/2", "3/3", "6/3"), add alt_labels to show the simplified
-    whole numbers ("1", "2") as fixed reference labels.
+    When a Move tool with mode="frac_labels" has a validator answer containing fractions
+    representing whole numbers (like "2/2", "3/3", "6/3"), move the existing labels to
+    alt_labels (as fixed reference labels) and set labels to false.
 
     Args:
         step: Step dictionary
@@ -274,23 +274,31 @@ def add_alt_labels_for_whole_numbers(step):
     if tool.get('mode') != 'frac_labels':
         return step
 
-    # Get palette labels
-    palette = tool.get('palette', {})
-    stacks = palette.get('stacks', [])
-    palette_labels = [stack.get('label') for stack in stacks]
-
-    # Find whole number fractions in palette
-    whole_number_positions = set()
-    for label in palette_labels:
-        if label and is_whole_number(label):
-            simplified = simplify_to_whole(label)
-            whole_number_positions.add(simplified)
-
-    # If no whole numbers in palette, nothing to do
-    if not whole_number_positions:
+    # Check validator answer for whole number fractions
+    validator = prompt.get('validator', {})
+    if not isinstance(validator, dict):
         return step
 
-    # Add alt_labels to NumLine tangibles
+    # Only process LabelValidator
+    if validator.get('@type') != 'LabelValidator':
+        return step
+
+    answer = validator.get('answer', [])
+    if not isinstance(answer, list):
+        return step
+
+    # Check if any answer fraction represents a whole number
+    has_whole_number_fraction = False
+    for frac in answer:
+        if frac and is_whole_number(frac):
+            has_whole_number_fraction = True
+            break
+
+    # If no whole number fractions in answer, nothing to do
+    if not has_whole_number_fraction:
+        return step
+
+    # Move labels to alt_labels in NumLine tangibles
     workspace = step.get('workspace', {})
     if not isinstance(workspace, dict):
         return step
@@ -298,20 +306,31 @@ def add_alt_labels_for_whole_numbers(step):
     tangibles = workspace.get('tangibles', [])
     for idx, tangible in enumerate(tangibles):
         if tangible.get('@type') == 'NumLine':
-            # Don't override existing alt_labels
-            if tangible.get('alt_labels') is None:
-                # Get the range to determine which whole numbers to show
-                range_list = tangible.get('range', [0, 1])
-                whole_numbers_in_range = get_whole_numbers_in_range(range_list)
+            # Move labels to alt_labels if labels is an array
+            if isinstance(tangible.get('labels'), list):
+                # Move existing labels to alt_labels (override if exists)
+                tangible['alt_labels'] = tangible['labels']
+                tangible['labels'] = False
 
-                # Only add alt_labels for whole numbers in the palette that are in range
-                alt_labels = [wn for wn in whole_numbers_in_range
-                             if wn in whole_number_positions]
+                # Convert whole number fractions in alt_labels to numeric form
+                alt_labels = tangible.get('alt_labels', [])
+                if isinstance(alt_labels, list):
+                    converted_alt_labels = []
+                    for label in alt_labels:
+                        if is_whole_number(label):
+                            # Use existing simplify_to_whole helper (line 170)
+                            whole_num = simplify_to_whole(label)
+                            if whole_num:
+                                converted_alt_labels.append(whole_num)
+                            else:
+                                converted_alt_labels.append(label)
+                        else:
+                            converted_alt_labels.append(label)
 
-                if alt_labels:
-                    tangible['alt_labels'] = alt_labels
-                    location = step.get('_location', f"NumLine[{idx}]")
-                    _logger.log_alt_labels_added(location, alt_labels)
+                    tangible['alt_labels'] = converted_alt_labels
+
+                location = step.get('_location', f"NumLine[{idx}]")
+                _logger.log_alt_labels_added(location, tangible['alt_labels'])
 
     return step
 
@@ -422,16 +441,17 @@ def are_fractions_equal(frac1, frac2):
         return False
 
 
-def fix_ticks_readonly_for_label_validator(step):
+def ensure_answer_fractions_placeable(step):
     """
-    Remove ticks from ticks_is_read_only if they are in the LabelValidator answer.
+    Ensure all fractions in validator answer can be placed on the NumLine.
 
-    When a LabelValidator expects a label to be placed at a tick position,
-    that tick should not be read-only. This function removes any tick positions
-    from ticks_is_read_only that appear in the validator's answer array.
+    Supports both LabelValidator and PointValidator.
 
-    Handles equivalent fractions: if answer has "6/3" and ticks_is_read_only has "2",
-    removes "2" since 6/3 = 2.
+    For each fraction in the validator answer, this function ensures:
+    1. The fraction is within the NumLine range (extends range if needed)
+    2. There is a tick at that position (adds to ticks if missing)
+    3. The tick is NOT read-only (removes from ticks_is_read_only if present)
+    4. Whole numbers NOT in the answer ARE read-only (adds to ticks_is_read_only)
 
     Args:
         step: Step dictionary
@@ -447,8 +467,9 @@ def fix_ticks_readonly_for_label_validator(step):
     if not isinstance(validator, dict):
         return step
 
-    # Check if this is a LabelValidator
-    if validator.get('@type') != 'LabelValidator':
+    # Check if this is a LabelValidator or PointValidator
+    validator_type = validator.get('@type')
+    if validator_type not in ['LabelValidator', 'PointValidator']:
         return step
 
     # Get the answer array
@@ -456,40 +477,164 @@ def fix_ticks_readonly_for_label_validator(step):
     if not isinstance(answer, list) or not answer:
         return step
 
-    # Fix ticks_is_read_only in NumLine tangibles
+    # Process NumLine tangibles
     workspace = step.get('workspace', {})
     if not isinstance(workspace, dict):
         return step
 
     tangibles = workspace.get('tangibles', [])
     for idx, tangible in enumerate(tangibles):
-        if tangible.get('@type') == 'NumLine':
-            ticks_readonly = tangible.get('ticks_is_read_only')
+        if tangible.get('@type') != 'NumLine':
+            continue
 
-            # Only process if ticks_is_read_only is an array
-            if isinstance(ticks_readonly, list):
-                # Remove any ticks that match an answer position (including equivalent fractions)
-                removed_ticks = []
-                updated_readonly = []
-                for tick in ticks_readonly:
-                    # Check if this tick is equivalent to any answer position
-                    is_answer_position = False
-                    for answer_frac in answer:
-                        if are_fractions_equal(tick, answer_frac):
-                            is_answer_position = True
-                            removed_ticks.append(f"{tick} (matches {answer_frac})")
+        location = step.get('_location', f"NumLine[{idx}]")
+
+        # Get current range, ticks, and read_only
+        range_list = tangible.get('range', [0, 1])
+        if not isinstance(range_list, list) or len(range_list) != 2:
+            continue
+
+        start, end = range_list
+        ticks = tangible.get('ticks')
+        ticks_readonly = tangible.get('ticks_is_read_only')
+
+        # Step 1: Check if all answer fractions are in range, extend if needed
+        needs_extension = False
+        max_answer_value = end
+
+        for frac in answer:
+            try:
+                _, _, decimal_value = parse_fraction(frac)
+                if decimal_value > end or decimal_value < start:
+                    needs_extension = True
+                    max_answer_value = max(max_answer_value, decimal_value)
+            except:
+                continue
+
+        if needs_extension:
+            import math
+            new_end = math.ceil(max_answer_value)
+            old_range = range_list[:]
+            tangible['range'] = [start, new_end]
+
+            if DEBUG_FORMATTING:
+                print(f"\n[DEBUG] RANGE EXTENDED - {location}")
+                print(f"  BEFORE: {old_range}")
+                print(f"  AFTER:  [{start}, {new_end}]")
+                print(f"  REASON: Answer contains fractions beyond range")
+
+        # Step 2: Ensure ticks supports all answer fractions
+        if isinstance(ticks, str):
+            # Already a string interval - leave as-is
+            pass
+        elif isinstance(ticks, list) or ticks is None:
+            # Convert to string interval based on answer fractions
+            # Find the GCD of all denominators to determine tick interval
+            from math import gcd
+            from functools import reduce
+
+            denominators = []
+            for frac in answer:
+                try:
+                    _, denom, _ = parse_fraction(frac)
+                    denominators.append(denom)
+                except:
+                    continue
+
+            if denominators:
+                # Use the LCM of denominators, then set ticks to 1/LCM
+                lcm = reduce(lambda a, b: abs(a * b) // gcd(a, b), denominators)
+                old_ticks = ticks
+                tangible['ticks'] = f"1/{lcm}"
+
+                if DEBUG_FORMATTING:
+                    print(f"\n[DEBUG] TICKS SET - {location}")
+                    print(f"  BEFORE: {old_ticks}")
+                    print(f"  AFTER: 1/{lcm} (based on answer denominators)")
+
+        # Step 3: Update ticks_is_read_only
+        # - Remove answer positions from read_only (students need to place labels there)
+        # - Add whole numbers to read_only if they're NOT in the answer (prevent placement)
+        if isinstance(ticks_readonly, list):
+            old_readonly = ticks_readonly[:]
+            removed_ticks = []
+            updated_readonly = []
+
+            # First, keep existing read_only ticks that are NOT answer positions
+            for tick in ticks_readonly:
+                is_answer_position = False
+                for answer_frac in answer:
+                    if are_fractions_equal(tick, answer_frac):
+                        is_answer_position = True
+                        removed_ticks.append(f"{tick} (matches {answer_frac})")
+                        break
+
+                if not is_answer_position:
+                    updated_readonly.append(tick)
+
+            # Second, add whole numbers to read_only if they're NOT in the answer
+            current_range = tangible.get('range', [0, 1])
+            whole_numbers = get_whole_numbers_in_range(current_range)
+            added_readonly = []
+
+            for wn in whole_numbers:
+                # Check if this whole number is in the answer
+                is_in_answer = False
+                for answer_frac in answer:
+                    if are_fractions_equal(wn, answer_frac):
+                        is_in_answer = True
+                        break
+
+                # If NOT in answer and NOT already in read_only, add it
+                if not is_in_answer:
+                    already_readonly = False
+                    for tick in updated_readonly:
+                        if are_fractions_equal(tick, wn):
+                            already_readonly = True
                             break
 
-                    if not is_answer_position:
-                        updated_readonly.append(tick)
+                    if not already_readonly:
+                        updated_readonly.append(wn)
+                        added_readonly.append(wn)
 
-                # Update the field if changes were made
-                if len(updated_readonly) != len(ticks_readonly):
-                    tangible['ticks_is_read_only'] = updated_readonly
-                    location = step.get('_location', f"NumLine[{idx}]")
-                    _logger.log_readonly_fixed(location, ticks_readonly, updated_readonly, removed_ticks)
+            # Update the field if changes were made
+            if old_readonly != updated_readonly:
+                tangible['ticks_is_read_only'] = updated_readonly
+                if removed_ticks or added_readonly:
+                    if DEBUG_FORMATTING:
+                        print(f"\n[DEBUG] READONLY UPDATED - {location}")
+                        if removed_ticks:
+                            print(f"  REMOVED: {removed_ticks}")
+                        if added_readonly:
+                            print(f"  ADDED: {added_readonly} (whole numbers not in answer)")
+                        print(f"  BEFORE: {old_readonly}")
+                        print(f"  AFTER:  {updated_readonly}")
+                _logger.log_readonly_fixed(location, old_readonly, updated_readonly, removed_ticks)
 
     return step
+
+
+def remove_internal_fields(data):
+    """
+    Recursively remove internal fields like _location from the data structure.
+
+    Args:
+        data: Any data structure (dict, list, or primitive)
+
+    Returns:
+        Data structure with internal fields removed
+    """
+    if isinstance(data, dict):
+        # Remove internal fields and recursively process remaining values
+        return {key: remove_internal_fields(value)
+                for key, value in data.items()
+                if not key.startswith('_')}
+    elif isinstance(data, list):
+        # Recursively process all list items
+        return [remove_internal_fields(item) for item in data]
+    else:
+        # Primitive value, return as-is
+        return data
 
 
 def process_step(step, location):
@@ -502,11 +647,11 @@ def process_step(step, location):
     """
     step['_location'] = location
 
+    # Ensure validator answer fractions can be placed (range, ticks, read_only)
+    ensure_answer_fractions_placeable(step)
+
     # Add alt_labels for whole numbers
     add_alt_labels_for_whole_numbers(step)
-
-    # Fix ticks_is_read_only for LabelValidator
-    fix_ticks_readonly_for_label_validator(step)
 
     # Ensure whole number ticks/labels
     workspace = step.get('workspace', {})
@@ -566,21 +711,30 @@ def process_sequences(input_data):
     # Print summary
     _logger.summary()
 
+    # Remove internal fields before returning
+    data = remove_internal_fields(data)
+
     return data
 
 
 # Entry point for pipeline
-def main(input_data, **kwargs):
+def main(input_data, verbose=False, **kwargs):
     """
     Main entry point for pipeline execution
 
     Args:
         input_data: List of sequences or flattened items
+        verbose: Enable debug logging (default: False)
         **kwargs: Additional arguments (unused)
 
     Returns:
         List with fixed NumLine labels and alt_labels
     """
+    global _logger
+    # Use verbose flag if provided, otherwise fall back to DEBUG_FORMATTING env var
+    debug_enabled = verbose or DEBUG_FORMATTING
+    _logger = NumLineLogger(enabled=debug_enabled)
+
     return process_sequences(input_data)
 
 
