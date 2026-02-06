@@ -8,7 +8,134 @@ Fixes NumLine issues:
 4. Removes ticks from ticks_is_read_only if they're in LabelValidator answer
 """
 
+import os
 from fractions import Fraction
+
+# Debug logging control
+DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
+
+
+# ============================================================================
+# DEBUG LOGGING HELPERS
+# ============================================================================
+
+class NumLineLogger:
+    """Tracks and logs NumLine formatting changes"""
+    def __init__(self, enabled=DEBUG_FORMATTING):
+        self.enabled = enabled
+        self.changes = {
+            'labels_fixed': 0,
+            'alt_labels_added': 0,
+            'ticks_added': 0,
+            'labels_added': 0,
+            'readonly_fixed': 0
+        }
+        self.details = []
+
+    def log_labels_fixed(self, location, old_labels, new_labels):
+        """Log when numeric labels are converted to strings"""
+        if not self.enabled or old_labels == new_labels:
+            return
+
+        self.changes['labels_fixed'] += 1
+        self.details.append({
+            'type': 'labels_fixed',
+            'location': location,
+            'old': old_labels,
+            'new': new_labels
+        })
+        print(f"\n[DEBUG] LABELS FIXED - {location}")
+        print(f"  BEFORE: {old_labels}")
+        print(f"  AFTER:  {new_labels}")
+
+    def log_alt_labels_added(self, location, alt_labels):
+        """Log when alt_labels are added"""
+        if not self.enabled:
+            return
+
+        self.changes['alt_labels_added'] += 1
+        self.details.append({
+            'type': 'alt_labels_added',
+            'location': location,
+            'alt_labels': alt_labels
+        })
+        print(f"\n[DEBUG] ALT_LABELS ADDED - {location}")
+        print(f"  Added: {alt_labels}")
+
+    def log_ticks_added(self, location, old_ticks, new_ticks):
+        """Log when ticks are added"""
+        if not self.enabled or old_ticks == new_ticks:
+            return
+
+        added = [t for t in new_ticks if t not in old_ticks]
+        self.changes['ticks_added'] += len(added)
+        self.details.append({
+            'type': 'ticks_added',
+            'location': location,
+            'added': added
+        })
+        print(f"\n[DEBUG] TICKS ADDED - {location}")
+        print(f"  Added: {added}")
+        print(f"  Full ticks: {new_ticks}")
+
+    def log_labels_list_updated(self, location, old_labels, new_labels):
+        """Log when labels list is updated"""
+        if not self.enabled or old_labels == new_labels:
+            return
+
+        added = [l for l in new_labels if l not in old_labels]
+        self.changes['labels_added'] += len(added)
+        self.details.append({
+            'type': 'labels_updated',
+            'location': location,
+            'added': added
+        })
+        print(f"\n[DEBUG] LABELS UPDATED - {location}")
+        print(f"  Added: {added}")
+        print(f"  Full labels: {new_labels}")
+
+    def log_readonly_fixed(self, location, old_readonly, new_readonly, removed):
+        """Log when ticks_is_read_only is fixed"""
+        if not self.enabled or old_readonly == new_readonly:
+            return
+
+        self.changes['readonly_fixed'] += 1
+        self.details.append({
+            'type': 'readonly_fixed',
+            'location': location,
+            'removed': removed
+        })
+        print(f"\n[DEBUG] READONLY FIXED - {location}")
+        print(f"  Removed: {removed}")
+        print(f"  BEFORE: {old_readonly}")
+        print(f"  AFTER:  {new_readonly}")
+
+    def summary(self):
+        """Print summary of all changes"""
+        if not self.enabled:
+            return
+
+        print(f"\n{'='*70}")
+        print(f"NUMLINE FIXER SUMMARY")
+        print(f"{'='*70}")
+
+        if self.changes['labels_fixed'] > 0:
+            print(f"[OK] Numeric labels fixed: {self.changes['labels_fixed']} NumLines")
+        if self.changes['alt_labels_added'] > 0:
+            print(f"[OK] Alt_labels added: {self.changes['alt_labels_added']} NumLines")
+        if self.changes['ticks_added'] > 0:
+            print(f"[OK] Ticks added: {self.changes['ticks_added']} whole number ticks")
+        if self.changes['labels_added'] > 0:
+            print(f"[OK] Labels added: {self.changes['labels_added']} whole number labels")
+        if self.changes['readonly_fixed'] > 0:
+            print(f"[OK] Readonly fixed: {self.changes['readonly_fixed']} NumLines")
+
+        if not any(self.changes.values()):
+            print("No changes made")
+
+
+# Global logger instance
+_logger = NumLineLogger()
 
 
 def parse_fraction(frac_str):
@@ -71,7 +198,7 @@ def get_whole_numbers_in_range(range_list):
     return whole_numbers
 
 
-def fix_numline_labels(data):
+def fix_numline_labels(data, location_prefix=""):
     """
     Recursively fix NumLine labels to ensure they are strings.
 
@@ -80,6 +207,7 @@ def fix_numline_labels(data):
 
     Args:
         data: Any data structure (dict, list, or primitive)
+        location_prefix: Location prefix for logging (internal use)
 
     Returns:
         Fixed data structure with string labels
@@ -91,6 +219,7 @@ def fix_numline_labels(data):
 
             # Only fix if labels is an array (not boolean)
             if isinstance(labels, list):
+                old_labels = labels[:]
                 fixed_labels = []
                 for label in labels:
                     if isinstance(label, (int, float)):
@@ -103,14 +232,16 @@ def fix_numline_labels(data):
                         # Keep strings as-is
                         fixed_labels.append(label)
 
+                if old_labels != fixed_labels:
+                    _logger.log_labels_fixed(location_prefix or "NumLine", old_labels, fixed_labels)
                 data["labels"] = fixed_labels
 
         # Recursively process all dict values
-        return {key: fix_numline_labels(value) for key, value in data.items()}
+        return {key: fix_numline_labels(value, location_prefix) for key, value in data.items()}
 
     elif isinstance(data, list):
         # Recursively process all list items
-        return [fix_numline_labels(item) for item in data]
+        return [fix_numline_labels(item, location_prefix) for item in data]
 
     else:
         # Primitive value, return as-is
@@ -165,7 +296,7 @@ def add_alt_labels_for_whole_numbers(step):
         return step
 
     tangibles = workspace.get('tangibles', [])
-    for tangible in tangibles:
+    for idx, tangible in enumerate(tangibles):
         if tangible.get('@type') == 'NumLine':
             # Don't override existing alt_labels
             if tangible.get('alt_labels') is None:
@@ -179,11 +310,13 @@ def add_alt_labels_for_whole_numbers(step):
 
                 if alt_labels:
                     tangible['alt_labels'] = alt_labels
+                    location = step.get('_location', f"NumLine[{idx}]")
+                    _logger.log_alt_labels_added(location, alt_labels)
 
     return step
 
 
-def ensure_whole_number_ticks_and_labels(tangible):
+def ensure_whole_number_ticks_and_labels(tangible, location="NumLine"):
     """
     Ensure NumLine has ticks and labels at all whole number positions when range > 2.
 
@@ -192,6 +325,7 @@ def ensure_whole_number_ticks_and_labels(tangible):
 
     Args:
         tangible: NumLine tangible dictionary
+        location: Location string for logging
 
     Returns:
         Modified tangible dictionary
@@ -205,8 +339,8 @@ def ensure_whole_number_ticks_and_labels(tangible):
 
     start, end = range_list
 
-    # Only apply if range extends beyond 2
-    if end <= 2:
+    # Only apply if range extends to 2 or beyond
+    if end < 2:
         return tangible
 
     # Get all whole numbers in range
@@ -215,30 +349,56 @@ def ensure_whole_number_ticks_and_labels(tangible):
     # Ensure ticks includes all whole numbers (if ticks is an array)
     ticks = tangible.get('ticks')
     if isinstance(ticks, list):
+        old_ticks = ticks[:]
         # Add any missing whole numbers to ticks
-        ticks_set = set(ticks)
+        # Use fraction equivalence checking (e.g., 6/3 = 2)
         for wn in whole_numbers:
-            if wn not in ticks_set:
+            # Check if this whole number (or equivalent fraction) already exists
+            has_equivalent = False
+            for tick in ticks:
+                if are_fractions_equal(tick, wn):
+                    has_equivalent = True
+                    break
+
+            if not has_equivalent:
                 ticks.append(wn)
+
         # Sort ticks by their numeric value
         try:
             ticks.sort(key=lambda x: parse_fraction(x)[2])
         except:
             pass  # If sorting fails, keep original order
 
+        # Log if changes were made
+        if old_ticks != ticks:
+            _logger.log_ticks_added(location, old_ticks, ticks)
+
     # Ensure labels includes all whole numbers
     labels = tangible.get('labels')
     if isinstance(labels, list):
+        old_labels = labels[:]
         # Add any missing whole numbers to labels
-        labels_set = set(labels)
+        # Use fraction equivalence checking (e.g., 6/3 = 2)
         for wn in whole_numbers:
-            if wn not in labels_set:
+            # Check if this whole number (or equivalent fraction) already exists
+            has_equivalent = False
+            for label in labels:
+                if are_fractions_equal(label, wn):
+                    has_equivalent = True
+                    break
+
+            if not has_equivalent:
                 labels.append(wn)
+
         # Sort labels by their numeric value
         try:
             labels.sort(key=lambda x: parse_fraction(x)[2])
         except:
             pass  # If sorting fails, keep original order
+
+        # Log if changes were made
+        if old_labels != labels:
+            _logger.log_labels_list_updated(location, old_labels, labels)
 
     return tangible
 
@@ -302,13 +462,14 @@ def fix_ticks_readonly_for_label_validator(step):
         return step
 
     tangibles = workspace.get('tangibles', [])
-    for tangible in tangibles:
+    for idx, tangible in enumerate(tangibles):
         if tangible.get('@type') == 'NumLine':
             ticks_readonly = tangible.get('ticks_is_read_only')
 
             # Only process if ticks_is_read_only is an array
             if isinstance(ticks_readonly, list):
                 # Remove any ticks that match an answer position (including equivalent fractions)
+                removed_ticks = []
                 updated_readonly = []
                 for tick in ticks_readonly:
                     # Check if this tick is equivalent to any answer position
@@ -316,6 +477,7 @@ def fix_ticks_readonly_for_label_validator(step):
                     for answer_frac in answer:
                         if are_fractions_equal(tick, answer_frac):
                             is_answer_position = True
+                            removed_ticks.append(f"{tick} (matches {answer_frac})")
                             break
 
                     if not is_answer_position:
@@ -324,8 +486,35 @@ def fix_ticks_readonly_for_label_validator(step):
                 # Update the field if changes were made
                 if len(updated_readonly) != len(ticks_readonly):
                     tangible['ticks_is_read_only'] = updated_readonly
+                    location = step.get('_location', f"NumLine[{idx}]")
+                    _logger.log_readonly_fixed(location, ticks_readonly, updated_readonly, removed_ticks)
 
     return step
+
+
+def process_step(step, location):
+    """
+    Process a single step to fix NumLine issues.
+
+    Args:
+        step: Step dictionary
+        location: Location string for logging
+    """
+    step['_location'] = location
+
+    # Add alt_labels for whole numbers
+    add_alt_labels_for_whole_numbers(step)
+
+    # Fix ticks_is_read_only for LabelValidator
+    fix_ticks_readonly_for_label_validator(step)
+
+    # Ensure whole number ticks/labels
+    workspace = step.get('workspace', {})
+    if isinstance(workspace, dict):
+        tangibles = workspace.get('tangibles', [])
+        for tangible_idx, tangible in enumerate(tangibles):
+            tangible_loc = f"{location}/NumLine[{tangible_idx}]"
+            ensure_whole_number_ticks_and_labels(tangible, tangible_loc)
 
 
 def process_sequences(input_data):
@@ -333,52 +522,49 @@ def process_sequences(input_data):
     Process input data to fix NumLine issues.
 
     Handles both formats:
-    1. List of sequences with steps arrays
-    2. List of flattened step items
+    1. SequencePool with sequences array
+    2. List of sequences with steps arrays
+    3. List of flattened step items
 
     Args:
-        input_data: List of sequences or flattened items
+        input_data: SequencePool dict, list of sequences, or flattened items
 
     Returns:
-        List with fixed NumLine labels and alt_labels
+        Same format as input with fixed NumLine labels and alt_labels
     """
-    # First pass: Fix numeric labels to strings
+    # Reset logger for new run
+    global _logger
+    _logger = NumLineLogger()
+
+    # First pass: Fix numeric labels to strings (works recursively on entire structure)
     data = fix_numline_labels(input_data)
 
-    # Second pass: Add alt_labels for whole numbers and ensure whole number ticks
-    if isinstance(data, list):
-        for item in data:
+    # Second pass: Extract sequences array to process
+    # (modifications happen in place, preserving SequencePool wrapper and metadata)
+    if isinstance(data, dict) and data.get('@type') == 'SequencePool':
+        sequences = data['sequences']
+    elif isinstance(data, list):
+        sequences = data
+    else:
+        sequences = []
+
+    # Process each sequence or flattened step
+    if isinstance(sequences, list):
+        for seq_idx, item in enumerate(sequences, 1):
             if isinstance(item, dict):
                 # Check if this is a sequence with steps
                 if 'steps' in item:
-                    for step in item.get('steps', []):
-                        # Add alt_labels for whole numbers
-                        add_alt_labels_for_whole_numbers(step)
-
-                        # Fix ticks_is_read_only for LabelValidator
-                        fix_ticks_readonly_for_label_validator(step)
-
-                        # Ensure whole number ticks/labels
-                        workspace = step.get('workspace', {})
-                        if isinstance(workspace, dict):
-                            tangibles = workspace.get('tangibles', [])
-                            for tangible in tangibles:
-                                ensure_whole_number_ticks_and_labels(tangible)
+                    for step_idx, step in enumerate(item.get('steps', []), 1):
+                        location = f"Seq{seq_idx}/Step{step_idx}"
+                        process_step(step, location)
 
                 # Or flattened step item
                 elif 'workspace' in item or 'prompt' in item:
-                    # Add alt_labels for whole numbers
-                    add_alt_labels_for_whole_numbers(item)
+                    location = f"Step{seq_idx}"
+                    process_step(item, location)
 
-                    # Fix ticks_is_read_only for LabelValidator
-                    fix_ticks_readonly_for_label_validator(item)
-
-                    # Ensure whole number ticks/labels
-                    workspace = item.get('workspace', {})
-                    if isinstance(workspace, dict):
-                        tangibles = workspace.get('tangibles', [])
-                        for tangible in tangibles:
-                            ensure_whole_number_ticks_and_labels(tangible)
+    # Print summary
+    _logger.summary()
 
     return data
 
@@ -543,7 +729,211 @@ if __name__ == "__main__":
                     }
                 }
             ]
+        },
+        {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 88,
+        "template_id": "6012",
+        "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+        "identifiers": [
+          "7/6",
+          "8/6"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "create",
+        "telemetry_data": {
+          "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+          "cognitive_verb": "create",
+          "mastery_skill_id": "M6-01, M6-02",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "spatial_reasoning",
+            "extended_number_line_reasoning"
+          ],
+          "misconception_id": [
+            11,
+            4,
+            3
+          ],
+          "misconception_tag": [
+            "fractions_cant_exceed_one",
+            "improper_spacing_on_number_line",
+            "numerator_denominator_as_independent"
+          ],
+          "component": "procedural"
+        },
+        "mastery_component": "PROCEDURAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "This number line shows sixths from 0 to 1. Extend the pattern from 1 to 2.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": True,
+                "visual": "line",
+                "range": [
+                  0,
+                  2
+                ],
+                "ticks": [
+                  "0",
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  "1"
+                ],
+                "labels": [
+                  "0",
+                  "1",
+                  "2"
+                ],
+                "ticks_is_read_only": [
+                  "0",
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  "1"
+                ],
+                "lcm": 18
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place tick marks to continue the sixths from 1 to 2.",
+            "tool": {
+              "@type": "Place",
+              "lcm": 18,
+              "bounds": [
+                "0",
+                "2"
+              ]
+            },
+            "validator": {
+              "@type": "TickValidator",
+              "answer": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1",
+                "7/6",
+                "8/6",
+                "9/6",
+                "10/6",
+                "11/6",
+                "2"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the spacing between the tick marks from 0 to 1. Use that same spacing to continue the pattern from 1 to 2."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. From 0 to 1, you can see 6 equal intervals that create sixths. The pattern continues the same way past 1. Each sixth stays the same size. Match the spacing you see from 0 to 1 as you place tick marks from 1 to 2."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. From 0 to 1, the number line is divided into 6 equal intervals - those are the sixths. To extend this pattern from 1 to 2, we keep using the same size intervals. Look at the distance between any two tick marks from 0 to 1 - that's one sixth. Now place 5 tick marks between 1 and 2 using that exact same spacing. The first tick after 1 is at [fraction numerator=7 denominator=6]7 sixths[/fraction], then [fraction numerator=8 denominator=6]8 sixths[/fraction], [fraction numerator=9 denominator=6]9 sixths[/fraction], [fraction numerator=10 denominator=6]10 sixths[/fraction], and [fraction numerator=11 denominator=6]11 sixths[/fraction] right before 2. That's how we extend fraction patterns - the equal intervals continue with the same spacing."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good, you extended the sixths to 2."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now label the positions beyond 1.",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Drag [fraction numerator=7 denominator=6][/fraction] and [fraction numerator=8 denominator=6][/fraction] to their correct positions.",
+            "tool": {
+              "@type": "Move",
+              "mode": "frac_labels",
+              "palette": {
+                "@type": "Palette",
+                "stacks": [
+                  {
+                    "@type": "FracLabelStack",
+                    "label": "7/6"
+                  },
+                  {
+                    "@type": "FracLabelStack",
+                    "label": "8/6"
+                  }
+                ]
+              }
+            },
+            "validator": {
+              "@type": "LabelValidator",
+              "answer": [
+                "7/6",
+                "8/6"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many sixths past 1 each fraction should be."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this step by step. When you have [fraction numerator=7 denominator=6]7 sixths[/fraction], that's 7 sixths total. Six sixths equals 1, so [fraction numerator=7 denominator=6]7 sixths[/fraction] is one more sixth past 1. Similarly, [fraction numerator=8 denominator=6]8 sixths[/fraction] is 8 sixths total - that's 6 sixths to get to 1, then 2 more sixths past 1. Count the ticks past 1 to find where each fraction goes."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through placing these fractions. We're working with sixths, and the number line shows each sixth marked. For [fraction numerator=7 denominator=6]7 sixths[/fraction], let's think: 6 sixths makes 1 whole, so [fraction numerator=7 denominator=6]7 sixths[/fraction] is one sixth past 1. That means [fraction numerator=7 denominator=6]7 sixths[/fraction] goes on the first tick mark after 1. For [fraction numerator=8 denominator=6]8 sixths[/fraction], we have 8 sixths total. That's 6 sixths to reach 1, then 2 more sixths past 1. So [fraction numerator=8 denominator=6]8 sixths[/fraction] goes on the second tick mark after 1. That's how we count fractions beyond 1 - once we reach the whole number, we keep counting the parts past it."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct, you placed [fraction numerator=7 denominator=6]7 sixths[/fraction] and [fraction numerator=8 denominator=6]8 sixths[/fraction] on the line."
+            }
+          }
         }
+      ]
+    }
     ]
 
     result = process_sequences(sample_input)
@@ -597,6 +987,35 @@ if __name__ == "__main__":
     assert "0" in ticks_readonly_4, "Expected '0' to remain (not in answer)"
     assert "1" in ticks_readonly_4, "Expected '1' to remain (not in answer)"
     print("  PASS - '2' removed from read-only (matches 6/3 in answer)")
+
+    # Test 5: Ticks should include whole number endpoint when in validator answer
+    print("\nTest 5 - Ticks should include '2' when in TickValidator answer:")
+    tangible_5 = result[4]["steps"][0]["workspace"]["tangibles"][0]
+    ticks_5 = tangible_5.get("ticks")
+    validator_answer_5 = result[4]["steps"][0]["prompt"]["validator"]["answer"]
+    print(f"  Range: [0, 2]")
+    print(f"  Input ticks:  ['0', '1/6', '2/6', '3/6', '4/6', '5/6', '1']")
+    print(f"  Validator answer includes: '2'")
+    print(f"  Output ticks: {ticks_5}")
+    if "2" in ticks_5:
+        print("  PASS - '2' was added to ticks")
+    else:
+        print("  FAIL - '2' is missing from ticks (should be added for range [0,2])")
+        print(f"  Issue: ensure_whole_number_ticks_and_labels only works when range > 2")
+        print(f"  The function needs to handle range == 2 as well")
+
+    # Test 5b: Second step should have workspace added
+    print("\nTest 5b - Second step should have workspace:")
+    second_step_5 = result[4]["steps"][1]
+    has_workspace_5 = "workspace" in second_step_5
+    print(f"  Second step has workspace: {has_workspace_5}")
+    if has_workspace_5:
+        workspace_5 = second_step_5["workspace"]
+        print(f"  Workspace type: {workspace_5.get('@type')}")
+        print(f"  Has tangibles: {'tangibles' in workspace_5}")
+        print("  PASS - Workspace added to second step")
+    else:
+        print("  INFO - No workspace in second step (may need add_empty_workspace_to_first_step)")
 
     print("\n" + "=" * 70)
     print("All tests passed!")

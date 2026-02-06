@@ -2,7 +2,7 @@ module_7 = {
     "vocabulary": [
         "denominator",
         "interval",
-        "intervals"
+        "intervals",
         "numerator",
         "half",
         "halves",

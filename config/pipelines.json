@@ -1,5 +1,4 @@
-{
-  "warmupscript_generator": [
+ { "warmupscript_generator": [
     {
       "name": "warmup_generator",
       "type": "ai",
@@ -223,9 +222,9 @@
       "output_file": "component_added.json"
     },
     {
-      "name": "godot_wrapper",
+      "name": "sequence_schema_fixer",
       "type": "formatting",
-      "function": "godot_wrapper.wrap_in_sequence_pool",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
       "description": "Wraps sequences in SequencePool structure",
       "function_args": {},
       "output_file": "sequence_pool.json"
@@ -246,9 +245,9 @@
   ],
   "test_bbcode_formatting": [
     {
-      "name": "godot_wrapper",
+      "name": "sequence_schema_fixer",
       "type": "formatting",
-      "function": "godot_wrapper.wrap_in_sequence_pool",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
       "description": "Wraps sequences in SequencePool structure",
       "input_file": "outputs/test_godot_pipeline_module_4_path_b/v2/step_01_godot_formatter/godot_formatter.json",
       "function_args": {},
@@ -365,9 +364,9 @@
       "output_file": "component_added.json"
     },
     {
-      "name": "godot_wrapper",
+      "name": "sequence_schema_fixer",
       "type": "formatting",
-      "function": "godot_wrapper.wrap_in_sequence_pool",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
       "description": "Wraps sequences in SequencePool structure",
       "function_args": {},
       "output_file": "sequence_pool.json"
@@ -399,10 +398,18 @@
     {
       "name": "numline_fixer",
       "type": "formatting",
-      "function": "numline_fixer.process_sequences",
-      "description": "Fix NumLine issues: string labels, alt_labels for whole numbers, whole number ticks/labels, ticks_is_read_only",
+      "function": "numline_fixer.main",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
       "function_args": {},
       "output_file": "numline_fixed.json"
+    },
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "function_args": {},
+      "output_file": "workspace_added.json"
     },
     {
       "name": "sample_per_template",
@@ -413,6 +420,17 @@
         "sample_size": 3
       },
       "output_file": "sampled.json"
+    }
+  ],
+  "test_numline_formatting": [
+    {
+      "name": "numline_fixer",
+      "type": "formatting",
+      "function": "numline_fixer.main",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
+      "input_file": "outputs/problem_pool_generator_module_6_path_b/v4/step_13_sample_per_template/sample_per_template.json",
+      "function_args": {},
+      "output_file": "numline_fixed.json"
     }
   ]
 }

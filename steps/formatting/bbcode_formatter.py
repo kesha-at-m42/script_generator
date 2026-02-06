@@ -14,6 +14,7 @@ Pipeline Functions (use in pipelines.json):
 import re
 import json
 import sys
+import os
 from pathlib import Path
 
 # Add project root to path for imports
@@ -22,6 +23,9 @@ if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
 from utils.module_utils import get_module_field
+
+# Debug logging control
+DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
 
 
 # ============================================================================
@@ -73,6 +77,51 @@ FRACTION_WORDS = {
     
     # Add more as needed
 }
+
+
+# ============================================================================
+# DEBUG LOGGING HELPERS
+# ============================================================================
+
+class FormattingLogger:
+    """Tracks and logs formatting changes"""
+    def __init__(self, enabled=DEBUG_FORMATTING):
+        self.enabled = enabled
+        self.changes = []
+
+    def log_change(self, location, field_type, original, formatted, change_type):
+        """Log a formatting change"""
+        if not self.enabled or original == formatted:
+            return
+
+        self.changes.append({
+            'location': location,
+            'field_type': field_type,
+            'original': original,
+            'formatted': formatted,
+            'change_type': change_type
+        })
+
+        print(f"\n[DEBUG] {change_type.upper()} - {location} ({field_type})")
+        print(f"  BEFORE: {original}")
+        print(f"  AFTER:  {formatted}")
+
+    def summary(self):
+        """Print summary of all changes"""
+        if not self.enabled or not self.changes:
+            return
+
+        print(f"\n{'='*70}")
+        print(f"FORMATTING SUMMARY: {len(self.changes)} changes made")
+        print(f"{'='*70}")
+
+        vocab_changes = [c for c in self.changes if c['change_type'] == 'vocab']
+        fraction_changes = [c for c in self.changes if c['change_type'] == 'fraction']
+
+        if vocab_changes:
+            print(f"\n[OK] Vocabulary tags: {len(vocab_changes)} fields modified")
+        if fraction_changes:
+            print(f"[OK] Fraction tags: {len(fraction_changes)} fields modified")
 
 
 # ============================================================================
@@ -328,6 +377,9 @@ def apply_vocab_formatting(godot_data, module_number=None):
         print("⚠️  Invalid Godot data structure - skipping vocab formatting")
         return godot_data
 
+    # Initialize logger
+    logger = FormattingLogger()
+
     # Load vocabulary from module
     vocabulary_list = None
     if module_number:
@@ -335,6 +387,8 @@ def apply_vocab_formatting(godot_data, module_number=None):
             vocabulary_list = get_module_field(module_number, "vocabulary", required=False)
             if vocabulary_list:
                 print(f"✓ Loaded {len(vocabulary_list)} vocabulary terms from Module {module_number}")
+                if logger.enabled:
+                    print(f"  Terms: {', '.join(vocabulary_list[:10])}{'...' if len(vocabulary_list) > 10 else ''}")
         except Exception as e:
             print(f"⚠️  Could not load vocabulary from Module {module_number}: {e}")
 
@@ -352,34 +406,55 @@ def apply_vocab_formatting(godot_data, module_number=None):
 
         for step_idx, step in enumerate(steps, 1):
             try:
+                location = f"Seq{seq_idx}/Step{step_idx}"
+
                 # Process dialogue (vocab only)
                 if 'dialogue' in step and step['dialogue']:
+                    original = step['dialogue']
                     step['dialogue'] = format_vocab_tags(step['dialogue'], vocabulary_list)
+                    logger.log_change(location, 'dialogue', original, step['dialogue'], 'vocab')
 
                 # Process prompt if present
                 if 'prompt' in step and step['prompt']:
                     prompt = step['prompt']
 
                     # Remediations (dialogue = vocab only)
-                    for rem in prompt.get('remediations', []):
+                    for rem_idx, rem in enumerate(prompt.get('remediations', []), 1):
                         rem_step = rem.get('step', {})
                         if 'dialogue' in rem_step and rem_step['dialogue']:
+                            original = rem_step['dialogue']
                             rem_step['dialogue'] = format_vocab_tags(
                                 rem_step['dialogue'],
                                 vocabulary_list
+                            )
+                            logger.log_change(
+                                f"{location}/Rem{rem_idx}",
+                                'remediation.dialogue',
+                                original,
+                                rem_step['dialogue'],
+                                'vocab'
                             )
 
                     # on_correct (dialogue = vocab only)
                     if 'on_correct' in prompt and prompt['on_correct'] is not None:
                         if 'dialogue' in prompt['on_correct'] and prompt['on_correct']['dialogue']:
+                            original = prompt['on_correct']['dialogue']
                             prompt['on_correct']['dialogue'] = format_vocab_tags(
                                 prompt['on_correct']['dialogue'],
                                 vocabulary_list
+                            )
+                            logger.log_change(
+                                location,
+                                'on_correct.dialogue',
+                                original,
+                                prompt['on_correct']['dialogue'],
+                                'vocab'
                             )
             except Exception as e:
                 print(f"⚠️  Error formatting vocab in step {step_idx} of sequence {seq_idx}: {e}")
                 continue
 
+    logger.summary()
     print(f"✓ Vocab formatting complete")
     return godot_data
 
@@ -410,6 +485,9 @@ def apply_fraction_formatting(godot_data, module_number=None):
         print("⚠️  Invalid Godot data structure - skipping fraction formatting")
         return godot_data
 
+    # Initialize logger
+    logger = FormattingLogger()
+
     sequences = godot_data.get('sequences', [])
 
     for seq_idx, sequence in enumerate(sequences, 1):
@@ -420,13 +498,17 @@ def apply_fraction_formatting(godot_data, module_number=None):
 
         for step_idx, step in enumerate(steps, 1):
             try:
+                location = f"Seq{seq_idx}/Step{step_idx}"
+
                 # Process dialogue (fractions with words)
                 if 'dialogue' in step and step['dialogue']:
+                    original = step['dialogue']
                     step['dialogue'] = format_fractions_bbcode(
                         step['dialogue'],
                         "dialogue",
                         include_words=True
                     )
+                    logger.log_change(location, 'dialogue', original, step['dialogue'], 'fraction')
 
                 # Process prompt if present
                 if 'prompt' in step and step['prompt']:
@@ -434,41 +516,69 @@ def apply_fraction_formatting(godot_data, module_number=None):
 
                     # Prompt text (fractions without words)
                     if 'text' in prompt and prompt['text']:
+                        original = prompt['text']
                         prompt['text'] = format_fractions_bbcode(
                             prompt['text'],
                             "prompt",
                             include_words=False
                         )
+                        logger.log_change(location, 'prompt.text', original, prompt['text'], 'fraction')
 
                     # Choices (fractions without words)
                     if 'choices' in prompt and prompt['choices'] is not None and 'options' in prompt['choices']:
+                        original_choices = prompt['choices']['options'][:]
                         prompt['choices']['options'] = [
                             format_fractions_bbcode(choice, "choice", include_words=False)
                             for choice in prompt['choices']['options']
                         ]
+                        for choice_idx, (orig, new) in enumerate(zip(original_choices, prompt['choices']['options']), 1):
+                            logger.log_change(
+                                f"{location}/Choice{choice_idx}",
+                                'prompt.choices.option',
+                                orig,
+                                new,
+                                'fraction'
+                            )
 
                     # Remediations (dialogue = fractions with words)
-                    for rem in prompt.get('remediations', []):
+                    for rem_idx, rem in enumerate(prompt.get('remediations', []), 1):
                         rem_step = rem.get('step', {})
                         if 'dialogue' in rem_step and rem_step['dialogue']:
+                            original = rem_step['dialogue']
                             rem_step['dialogue'] = format_fractions_bbcode(
                                 rem_step['dialogue'],
                                 "remediation_dialogue",
                                 include_words=True
                             )
+                            logger.log_change(
+                                f"{location}/Rem{rem_idx}",
+                                'remediation.dialogue',
+                                original,
+                                rem_step['dialogue'],
+                                'fraction'
+                            )
 
                     # on_correct (dialogue = fractions with words)
                     if 'on_correct' in prompt and prompt['on_correct'] is not None:
                         if 'dialogue' in prompt['on_correct'] and prompt['on_correct']['dialogue']:
+                            original = prompt['on_correct']['dialogue']
                             prompt['on_correct']['dialogue'] = format_fractions_bbcode(
                                 prompt['on_correct']['dialogue'],
                                 "on_correct_dialogue",
                                 include_words=True
                             )
+                            logger.log_change(
+                                location,
+                                'on_correct.dialogue',
+                                original,
+                                prompt['on_correct']['dialogue'],
+                                'fraction'
+                            )
             except Exception as e:
                 print(f"⚠️  Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}")
                 continue
 
+    logger.summary()
     print(f"[OK] Fraction formatting complete")
     return godot_data
 
