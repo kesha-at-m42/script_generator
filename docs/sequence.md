@@ -347,10 +347,33 @@ The `@type` field is used throughout sequence JSON to indicate the schema type f
     "text": "Place points at 1/4, 2/4, and 3/4.",
     "tool": {
       "@type": "Move",
+      "mode": "points",
       "palette": {
         "@type": "Palette",
         "stacks": [
           {"@type": "PointStack", "quantity": 3}
+        ]
+      }
+    }
+  }
+}
+```
+
+### Point Placement Question with Unlimited Points
+```json
+{
+  "@type": "Step",
+  "dialogue": "Place points on the number line.",
+  "prompt": {
+    "@type": "Prompt",
+    "text": "Place a point at 2/3.",
+    "tool": {
+      "@type": "Move",
+      "mode": "points",
+      "palette": {
+        "@type": "Palette",
+        "stacks": [
+          {"@type": "PointStack"}
         ]
       }
     }
