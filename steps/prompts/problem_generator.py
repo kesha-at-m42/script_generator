@@ -107,7 +107,18 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 ### Option Design Best Practices
 
 **Applies to MCQ and select questions:**
-- Recommended: 3-4 options (avoid binary/2-option choices when possible)
+- **BINARY QUESTIONS ARE BAD:** Questions with only two options should be avoided in general
+- **Always aim for 3-4 options** to provide meaningful variation and reduce guessing
+- **When tempted to create a binary question:**
+  - Find a third option that makes sense based on context:
+    - "Neither" (when neither option is correct)
+    - "Both" (when both options could be valid)
+    - An additional mathematical option (another fraction, position, or value)
+  - Example: Instead of "Greater than 1/2" or "Less than 1/2", add "Equal to 1/2" or "Neither"
+- **If a binary question MUST exist (very rare):**
+  - It should NOT be BASELINE, STRETCH, or CHALLENGE tier
+  - Only acceptable for SUPPORT or CONFIDENCE tiers (non-mastery scaffolded tiers)
+  - Document why three options are not possible
 - Always ensure only ONE correct answer
 - Consider including one distractor (similar to correct answer)
 - Consider including one obviously incorrect option
@@ -188,6 +199,8 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - ✗ Using tiers not in template's mastery_tier field
 - ✗ Inventing new prompt language/verbs not in prompt_examples
 - ✗ Identical option sets (MCQ)
+- ✗ Binary questions (2 options) - always find a third option or use 3-4 options
+- ✗ Binary questions at BASELINE, STRETCH, or CHALLENGE tiers (if binary MUST exist, only in SUPPORT or CONFIDENCE)
 - ✗ Visually identical elements in workspace (e.g., two number lines with points at same position)
 - ✗ Inventing visual features not in visuals.md (e.g., "dotted lines", "highlighted intervals", "shaded regions")
 

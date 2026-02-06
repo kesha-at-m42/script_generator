@@ -317,7 +317,7 @@ Generate NOW!
 
     template_ref=["mastery_verb", "success_dialogue", "skill"],
 
-    cache_docs=False,
+    cache_docs=True,
     temperature=1,
     max_tokens=16000,
     stop_sequences=[]
