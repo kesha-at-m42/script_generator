@@ -106,29 +106,20 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 ### Option Design Best Practices
 
-**Applies to MCQ and select questions:**
-- **BINARY QUESTIONS ARE BAD:** Questions with only two options should be avoided in general
-- **Always aim for 3-4 options** to provide meaningful variation and reduce guessing
-- **When tempted to create a binary question:**
-  - Find a third option that makes sense based on context:
-    - "Neither" (when neither option is correct)
-    - "Both" (when both options could be valid)
-    - An additional mathematical option (another fraction, position, or value)
-  - Example: Instead of "Greater than 1/2" or "Less than 1/2", add "Equal to 1/2" or "Neither"
-- **If a binary question MUST exist (very rare):**
-  - It should NOT be BASELINE, STRETCH, or CHALLENGE tier
-  - Only acceptable for SUPPORT or CONFIDENCE tiers (non-mastery scaffolded tiers)
-  - Document why three options are not possible
-- Always ensure only ONE correct answer
-- Consider including one distractor (similar to correct answer)
-- Consider including one obviously incorrect option
-- Avoid equivalent fractions as separate options (e.g., don't have both "2/4" and "1/2", or "5/3" and "1 2/3")
-- Example patterns:
-  - Correct: "2/3" | Distractor: "3/2" or "2/5" | Wrong: "5/3"
-  - Correct: "1/4" | Distractor: "1/3" | Wrong: "3/4"
-- Misconception-based distractors (most effective):
-  - Visual: Number line from 1 to 2, divided in thirds (6 total intervals)
-  - Correct: "5/3" | Good distractor: "5/6" (targets misconception of counting all intervals instead of parts per unit) | Wrong: "2/3"
+**Applies to all selection-based questions (MCQ text options AND select visual tangibles):**
+- **Standard: Provide 3-4 options** for meaningful variation and reduced guessing
+  - MCQ: 3-4 text choices
+  - Select: 3-4 visual tangibles (bars, lines, shapes) to choose from
+- **Binary questions (2 options):** Allowed ONLY for SUPPORT or CONFIDENCE tiers
+  - NOT allowed for BASELINE, STRETCH, or CHALLENGE tiers
+- Always ensure at least ONE correct option (multiple correct allowed only if intentional for multi-select)
+- Include mix of distractors:
+  - One similar to correct (close denominator/numerator, or visually similar)
+  - One obviously incorrect
+  - One misconception-based (e.g., wrong interval counting, inverted fraction)
+- Avoid equivalent representations UNLESS the learning objective is about equivalence
+  - MCQ: Don't have both "2/4" and "1/2" unless testing equivalence (e.g., "Which equals 1?")
+  - Select: Don't have two bars both showing 2/3 unless testing "select all that show 2/3"
 
 **CRITICAL: Correct Answer Must Exist in Workspace**
 - **Selection/MCQ:** The workspace/options MUST include the correct answer
@@ -249,37 +240,28 @@ Generate problem instances NOW with maximum variation and quality!
 
     prefill="""[{"problem_instance_id":""",
 
-    validation_prompt="""You are a content validator for educational math problems. Your task is to check if a generated problem instance is semantically correct and solvable.
+    validation_prompt="""You are a content validator for educational math problems. Verify that problem instances are semantically correct and solvable.
 
-Given a problem instance JSON, validate:
+Validate:
 
-1. **Answer Exists in Workspace** (CRITICAL for selection/MCQ):
-   - If the prompt asks "Which line shows thirds?", does the workspace include a line showing thirds?
-   - If the prompt asks "Select the shape showing 2/3", does the workspace include a shape showing 2/3?
-   - For MCQ, is the correct answer present in the options?
+1. **Answer Exists in Workspace** (CRITICAL):
+   - Prompt asks for specific fraction/element → workspace must contain it
+   - MCQ → correct answer must be in options list
 
-2. **Prompt-Workspace Consistency**:
-   - Can a student actually answer the question given what's in the workspace?
-   - Does the action_description match what the workspace allows?
+2. **Option Count Requirements** (for MCQ/select questions):
+   - Standard: 3-4 options required
+   - Binary (2 options): Only allowed if mastery_tier is SUPPORT or CONFIDENCE
+   - Error if 2 options with tier = BASELINE, STRETCH, or CHALLENGE
 
-3. **Logical Coherence**:
-   - Are the fractions/denominators in variables_used consistent with the workspace?
-   - Does the mastery_tier make sense for the problem complexity?
+3. **Prompt-Workspace Consistency**:
+   - Student can answer the question given the workspace
+   - action_description matches what workspace allows
 
-Return JSON format:
-{
-  "valid": true/false,
-  "errors": ["error description 1", "error description 2"],
-  "warnings": ["warning description 1"]
-}
+4. **Logical Coherence**:
+   - variables_used matches workspace fractions/denominators
+   - mastery_tier appropriate for complexity
 
-If valid=true, errors should be empty array.
-If valid=false, provide clear, actionable error descriptions.
-
-Examples of CRITICAL errors to catch:
-- "Prompt asks for 'thirds' but workspace shows [halves, fourths, fifths] - missing thirds!"
-- "Prompt asks student to 'place 2/3' but workspace only has tick marks for fourths (1/4, 2/4, 3/4, 1)"
-- "MCQ asks 'What fraction is shown?' but correct answer '3/4' is not in the options list"
+Return JSON: {"valid": true/false, "errors": [...], "warnings": [...]}
 
 Analyze this problem instance:""",
 

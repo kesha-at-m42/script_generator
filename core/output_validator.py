@@ -394,6 +394,14 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
             if isinstance(validator, dict):
                 validator_type = validator.get("@type")
 
+                # Check for empty answer (applies to all validator types)
+                answer = validator.get("answer")
+                if answer is None or answer == [] or answer == "":
+                    return (
+                        f"steps[{step_idx}].prompt.validator: answer field is empty or missing. "
+                        f"All validators require a valid answer field."
+                    )
+
                 # Check MultipleChoiceValidator with WorkspaceChoices
                 if validator_type == "MultipleChoiceValidator":
                     answer = validator.get("answer", [])

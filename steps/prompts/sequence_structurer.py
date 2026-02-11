@@ -338,98 +338,39 @@ Generate NOW!
   "template_id": "{template_id}",
   "fractions": """,
 
-    validation_prompt="""You are a content validator for educational interaction sequences. Your task is to verify that the generated sequence is semantically correct, internally consistent, and solvable.
+    validation_prompt="""You are a content validator for educational interaction sequences. Verify that sequences are semantically correct, internally consistent, and solvable.
 
-Given an interaction sequence JSON, validate:
+Validate these aspects:
 
-## 1. DIALOGUE-WORKSPACE CONSISTENCY
-- Does the dialogue accurately describe what's in the workspace?
-- If dialogue says "Look at the three bars", are there three bars in the workspace?
-- If dialogue references specific fractions or visual elements, do they exist in the workspace?
+## 1. CONSISTENCY (dialogue, prompt, workspace)
+- Dialogue must accurately describe workspace elements (counts, fractions, types)
+- Prompt must be solvable given workspace configuration
+- Visual references must match actual tangibles
 
-## 2. PROMPT-WORKSPACE SOLVABILITY
-- Can the student answer the prompt given the workspace?
-- If prompt asks "Place 2/3", does the workspace have tick marks at thirds?
-- If prompt asks "Which shows fourths?", is one of the selectable tangibles divided into fourths?
-- For click_choice: Are all choice options present and is the correct answer in the options?
+## 2. CORRECT ANSWER VALIDATION
+- Answer value must be achievable (e.g., tick mark exists, tangible index valid, choice ID present)
+- **Single-select (select/click_choice)**: ONLY ONE correct option allowed
+  - Error if multiple tangibles/options are equivalent (e.g., two bars both showing 2/3)
+  - Fix: Use multi_select/multi_click_choice OR make options distinct
+- **Multi-select (multi_select/multi_click_choice)**: ALL correct options required
+  - Error if answer array missing any valid options matching the criteria
+  - Error if only one correct answer exists (should use single-select tool instead)
 
-## 3. CORRECT ANSWER ACHIEVABILITY & UNIQUENESS
-- Is the correct_answer.value actually achievable given the workspace configuration?
-- For place_point: Is the target fraction position available as a tick mark?
-- For select: Does the indicated tangible index exist and match the description?
-- For click_choice: Does the choice ID exist in the options?
-- For multi_click_choice: Do all choice IDs in the answer array exist in the options?
-- For drag_label: Are the required labels in the palette?
+## 3. INTERACTION TOOL ALIGNMENT
+- Tool must match workspace: click_choice needs choices, drag_label needs palette, place_point needs ticks
+- Single vs multi tools must match prompt language ("select" vs "select all")
+- multi_click_choice requires allow_multiple: true in choices element
 
-**CRITICAL - Single Answer Uniqueness (select/click_choice only):**
-- For "select" (single-select): Is there ONLY ONE tangible that matches the correct answer?
-  - Check if multiple tangibles show the same fraction/value (ambiguous)
-  - If two bars both show 2/3, student could select either - this is INVALID
-  - Solution: Make options distinct OR use "multi_select" with all correct answers
-- For "click_choice" (single-choice): Is there ONLY ONE option that is correct?
-  - Check for equivalent options (e.g., "2/4" and "1/2" are equivalent)
-  - Check for multiple ways to express the same answer
-  - Solution: Remove equivalent options OR use "multi_click_choice" with allow_multiple: true
+## 4. MULTI-STEP COHERENCE (if no_of_steps > 1)
+- Steps build logically with appropriate workspace inheritance (inherited: true/false)
+- Dialogue flow uses progression markers ("Let's...", "Now...", "Finally...")
 
-**CRITICAL - Multiple Answer Completeness (multi_select/multi_click_choice only):**
-- For "multi_select": Does correct_answer.value include ALL tangibles that match the criteria?
-  - If prompt asks "Select all bars showing thirds" and 3 bars show thirds, answer must be [0, 2, 4]
-  - Missing any correct option is INVALID
-- For "multi_click_choice": Does correct_answer.value include ALL correct text options?
-  - If prompt asks "Select all fractions less than 1/2" and options ["1/3", "1/4", "3/4"], answer must be ["a", "b"]
-  - Verify the prompt actually requires multiple selections (e.g., "select all", "choose all", "which ones")
-  - If only one correct answer exists, should use "click_choice" instead
-
-## 4. INTERACTION TOOL CORRECTNESS
-- Does interaction_tool match the workspace elements?
-- "click_choice" requires choices element in workspace (single selection)
-- "multi_click_choice" requires choices element with allow_multiple: true (multiple selections)
-- "drag_label" requires palette element in workspace
-- "select" requires multiple selectable tangibles (single selection)
-- "multi_select" requires multiple selectable tangibles (multiple selections allowed)
-- "place_point" requires number line with ticks
-
-## 5. MULTI-STEP COHERENCE (if no_of_steps > 1)
-- Does each step build logically on the previous?
-- Is workspace inheritance used correctly (inherited: true/false)?
-- Does dialogue flow naturally across steps ("Let's...", "Now...", "Finally...")?
-- Do all steps reference consistent visual elements?
-
-## 6. VISUAL ELEMENT REFERENCES
-- If dialogue mentions "the point" or "the line", does ONE such element exist?
-- If dialogue mentions "three bars", are there exactly THREE bars?
-- Are visual descriptions in dialogue accurate to workspace structure?
-
-Return JSON format:
+Return JSON:
 {
   "valid": true/false,
-  "errors": ["Critical error 1", "Critical error 2"],
-  "warnings": ["Warning 1", "Warning 2"]
+  "errors": ["Critical error 1", ...],
+  "warnings": ["Warning 1", ...]
 }
-
-**Examples of CRITICAL errors to catch:**
-- "Dialogue says 'Look at the point at 1/3' but workspace has point at 2/3"
-- "Prompt asks to place 3/4 but workspace only has tick marks at halves (0, 1/2, 1)"
-- "correct_answer.value is 'c' but choices only has options a and b"
-- "interaction_tool is 'drag_label' but no palette element in workspace"
-- "Dialogue references 'the three number lines' but workspace has only two"
-- "Step 2 dialogue says 'Now label the ticks' but interaction_tool is 'place_point'"
-
-**Single-answer errors (select/click_choice):**
-- **"interaction_tool is 'select' (single) but TWO tangibles both show 2/3 - ambiguous answer! Use multi_select OR make options distinct"**
-- **"interaction_tool is 'click_choice' and correct_answer is 'b' but option 'c' also shows equivalent value (2/4 = 1/2)"**
-- **"Prompt asks 'Which bar shows two-thirds?' but tangibles at index 1 and 3 both show 2/3 - student could select either"**
-
-**Multiple-answer errors (multi_select/multi_click_choice):**
-- **"interaction_tool is 'multi_click_choice' but correct_answer only has one value ['a'] - should use 'click_choice' instead"**
-- **"Prompt asks 'Select all fractions less than 1/2' with options [1/3, 1/4, 3/4] but correct_answer is ['a'] - missing 'b' (1/4 is also < 1/2)"**
-- **"interaction_tool is 'multi_select' but workspace has tangibles showing [2/3, 2/3, 1/2] and correct_answer is [0] - should include index 1 also (both show 2/3)"**
-- **"interaction_tool is 'multi_click_choice' but choices element missing allow_multiple: true"**
-
-**Examples of WARNINGS (non-critical but worth noting):**
-- "Dialogue mentions 'fourths' but prompt uses numeric notation '1/4'"
-- "success_path_dialogue doesn't reference the specific fraction being worked with"
-- "Workspace has 4 tangibles but only 1 is selectable (others might need role: 'reference')"
 
 Analyze this interaction sequence:""",
 

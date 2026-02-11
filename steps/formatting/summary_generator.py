@@ -116,7 +116,7 @@ def generate_summary(sequences: List[Dict]) -> Dict:
 
 def add_summary(data, module_number=None, path_letter=None):
     """
-    Add summary metadata to SequencePool
+    Add summary metadata to SequencePool and sort sequences by problem_id
 
     Args:
         data: SequencePool dict with sequences array
@@ -124,7 +124,7 @@ def add_summary(data, module_number=None, path_letter=None):
         path_letter: Path letter (automatically passed by pipeline)
 
     Returns:
-        SequencePool dict with metadata field added
+        SequencePool dict with metadata field added and sequences sorted by problem_id
     """
     # Validate input structure
     if not isinstance(data, dict) or "@type" not in data or data["@type"] != "SequencePool":
@@ -132,8 +132,18 @@ def add_summary(data, module_number=None, path_letter=None):
 
     sequences = data.get("sequences", [])
 
-    # Generate summary
-    summary = generate_summary(sequences)
+    # Sort sequences by problem_id
+    def get_problem_id(seq):
+        """Extract problem_id from sequence, checking both metadata and root level"""
+        metadata = seq.get('metadata', {})
+        problem_id = metadata.get('problem_id') or seq.get('problem_id')
+        # Return a large number for sequences without IDs so they sort to the end
+        return int(problem_id) if problem_id is not None else float('inf')
+
+    sorted_sequences = sorted(sequences, key=get_problem_id)
+
+    # Generate summary (using sorted sequences)
+    summary = generate_summary(sorted_sequences)
 
     # Add summary to data (after @type)
     result = {
@@ -141,9 +151,12 @@ def add_summary(data, module_number=None, path_letter=None):
         "metadata": summary
     }
 
-    # Add remaining fields
+    # Add remaining fields (using sorted sequences)
     for key, value in data.items():
         if key not in ("@type", "metadata"):
-            result[key] = value
+            if key == "sequences":
+                result[key] = sorted_sequences
+            else:
+                result[key] = value
 
     return result

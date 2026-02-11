@@ -767,10 +767,14 @@ def run_pipeline(
 
                                 # Build initial conversation from the prompt for future turns
                                 built_prompt = builder.build(step.prompt_name, merged_vars, input_content=item_input)
+
+                                # Extract text from system blocks (list of content blocks)
+                                system_text = "\n\n".join(block.get("text", "") for block in built_prompt['system'])
+
                                 conversation_messages = [
                                     {
                                         "role": "user",
-                                        "content": built_prompt['system'] + "\n\n" + built_prompt['user_message']
+                                        "content": system_text + "\n\n" + built_prompt['user_message']
                                     },
                                     {
                                         "role": "assistant",
