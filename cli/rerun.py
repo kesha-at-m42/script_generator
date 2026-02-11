@@ -206,6 +206,136 @@ def map_items_to_templates(item_ids, version_dir):
         return None
 
 
+def filter_ai_step_outputs(new_version_dir, exclude_template_ids=None, exclude_item_ids=None, verbose=True):
+    """
+    Filter items from AI step outputs in the new version directory.
+    Removes files and items with matching template_id or item_id.
+
+    Args:
+        new_version_dir: Path to new version directory
+        exclude_template_ids: List of template IDs to exclude
+        exclude_item_ids: List of item/problem IDs to exclude
+        verbose: Print filtering details
+    """
+    if not exclude_template_ids and not exclude_item_ids:
+        return
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print("FILTERING AI STEP OUTPUTS")
+        print(f"{'='*70}")
+
+    # Find all AI step directories
+    for step_dir in sorted(new_version_dir.glob("step_*")):
+        if not step_dir.is_dir():
+            continue
+
+        step_name = step_dir.name
+
+        # Check items directory (batch mode)
+        items_dir = step_dir / "items"
+        if items_dir.exists():
+            removed_count = 0
+            for item_file in items_dir.glob("*.json"):
+                try:
+                    with open(item_file, 'r', encoding='utf-8') as f:
+                        item_data = json.load(f)
+
+                    should_remove = False
+
+                    # Check template_id
+                    if exclude_template_ids:
+                        template_id = item_data.get('template_id') or item_data.get('metadata', {}).get('template_id')
+                        if template_id in exclude_template_ids:
+                            should_remove = True
+
+                    # Check item_id
+                    if exclude_item_ids and not should_remove:
+                        item_id = item_data.get('problem_id') or item_data.get('problem_instance_id') or item_data.get('metadata', {}).get('problem_id')
+                        if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                            should_remove = True
+
+                    if should_remove:
+                        item_file.unlink()
+                        removed_count += 1
+                except:
+                    pass
+
+            if removed_count > 0 and verbose:
+                print(f"  [FILTER] {step_name}: Removed {removed_count} items")
+
+        # Check collated file
+        for json_file in step_dir.glob("*.json"):
+            if json_file.name == "errors.json":
+                continue
+
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+
+                original_count = 0
+                filtered_data = data
+
+                # Filter array
+                if isinstance(data, list):
+                    original_count = len(data)
+                    filtered_data = []
+                    for item in data:
+                        should_remove = False
+
+                        # Check template_id
+                        if exclude_template_ids:
+                            template_id = item.get('template_id') or item.get('metadata', {}).get('template_id')
+                            if template_id in exclude_template_ids:
+                                should_remove = True
+
+                        # Check item_id
+                        if exclude_item_ids and not should_remove:
+                            item_id = item.get('problem_id') or item.get('problem_instance_id') or item.get('metadata', {}).get('problem_id')
+                            if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                                should_remove = True
+
+                        if not should_remove:
+                            filtered_data.append(item)
+
+                # Filter SequencePool
+                elif isinstance(data, dict) and 'sequences' in data:
+                    original_count = len(data.get('sequences', []))
+                    sequences = data.get('sequences', [])
+                    filtered_sequences = []
+
+                    for seq in sequences:
+                        should_remove = False
+
+                        # Check template_id
+                        if exclude_template_ids:
+                            template_id = seq.get('metadata', {}).get('template_id')
+                            if template_id in exclude_template_ids:
+                                should_remove = True
+
+                        # Check item_id
+                        if exclude_item_ids and not should_remove:
+                            item_id = seq.get('metadata', {}).get('problem_id')
+                            if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                                should_remove = True
+
+                        if not should_remove:
+                            filtered_sequences.append(seq)
+
+                    filtered_data = {**data, 'sequences': filtered_sequences}
+
+                # Save if changed
+                if original_count > 0:
+                    new_count = len(filtered_data) if isinstance(filtered_data, list) else len(filtered_data.get('sequences', []))
+                    if new_count < original_count:
+                        with open(json_file, 'w', encoding='utf-8') as f:
+                            json.dump(filtered_data, f, indent=2, ensure_ascii=False)
+                        if verbose:
+                            print(f"  [FILTER] {step_name}/{json_file.name}: {original_count} → {new_count} items")
+            except:
+                pass
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Rerun specific items or steps from a pipeline",
@@ -248,12 +378,27 @@ Examples:
     parser.add_argument("--module", type=int, help="Module number")
     parser.add_argument("--path", choices=['a', 'b', 'c'], help="Path letter")
 
+    # Exclusion filters
+    parser.add_argument("--exclude-template-ids", type=str, help="Exclude items with these template IDs from ALL steps (comma-separated, e.g., '7006,7010')")
+    parser.add_argument("--exclude-item-ids", type=str, help="Exclude items with these problem/item IDs from ALL steps (comma-separated, e.g., '73,74,75')")
+
     # Other
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
     parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
 
     args = parser.parse_args()
+
+    # Parse exclusion filters
+    exclude_template_ids = None
+    if args.exclude_template_ids:
+        exclude_template_ids = [id.strip() for id in args.exclude_template_ids.split(',')]
+        print(f"  [EXCLUDE] Template IDs: {exclude_template_ids}")
+
+    exclude_item_ids = None
+    if args.exclude_item_ids:
+        exclude_item_ids = [id.strip() for id in args.exclude_item_ids.split(',')]
+        print(f"  [EXCLUDE] Item/Problem IDs: {exclude_item_ids}")
 
     # Handle --from-output mode
     if args.from_output:
@@ -338,6 +483,9 @@ Examples:
     # Get pipeline steps
     steps = PIPELINES[args.pipeline_name]
 
+    # Detect exclude mode
+    is_exclude_mode = bool(exclude_template_ids or exclude_item_ids)
+
     # Build full pipeline name for path resolution
     full_pipeline_name = args.pipeline_name
     if args.module:
@@ -363,6 +511,20 @@ Examples:
     is_template_rerun = args.templates and has_item_ids
 
     # Validate combinations
+    if is_exclude_mode and has_item_ids:
+        print("Error: Exclude mode cannot be combined with item IDs")
+        print("Exclude mode reruns formatting steps on the entire filtered dataset")
+        sys.exit(1)
+
+    if is_exclude_mode and has_step_range:
+        print("Error: Exclude mode cannot be combined with --start-from or --end-at")
+        print("Exclude mode automatically reruns all formatting steps")
+        sys.exit(1)
+
+    if is_exclude_mode and is_template_rerun:
+        print("Error: Exclude mode cannot be combined with template rerun mode")
+        sys.exit(1)
+
     if has_step_range and not args.module:
         print("Error: --module required when using --start-from or --end-at")
         sys.exit(1)
@@ -420,7 +582,20 @@ Examples:
 
     # Run pipeline with rerun parameters
     try:
-        if is_template_rerun:
+        if is_exclude_mode:
+            # Exclude mode: copy all steps, filter AI outputs, rerun only formatting steps (no API calls)
+            results = run_exclude_mode(
+                steps=steps,
+                pipeline_name=args.pipeline_name,
+                module_number=args.module,
+                path_letter=args.path,
+                base_version=base_version,
+                exclude_template_ids=exclude_template_ids,
+                exclude_item_ids=exclude_item_ids,
+                notes=args.note,
+                verbose=True
+            )
+        elif is_template_rerun:
             # Template rerun mode: orchestrate with diff and cascade
             results = run_template_rerun_pipeline(
                 steps=steps,
@@ -465,6 +640,184 @@ Examples:
         import traceback
         traceback.print_exc()
         sys.exit(1)
+
+
+def run_exclude_mode(steps, pipeline_name, module_number, path_letter, base_version,
+                     exclude_template_ids=None, exclude_item_ids=None, notes="", verbose=True):
+    """Run exclude mode: copy all steps from base, filter AI outputs, rerun only formatting steps
+
+    Args:
+        steps: Pipeline steps
+        pipeline_name: Pipeline name
+        module_number: Module number
+        path_letter: Path letter
+        base_version: Base version to copy from
+        exclude_template_ids: Template IDs to exclude
+        exclude_item_ids: Item IDs to exclude
+        notes: Optional notes
+        verbose: Enable verbose output
+
+    Returns:
+        Pipeline results
+    """
+    from core.version_manager import create_version_directory, save_metadata, update_latest_symlink
+    from datetime import datetime
+    import json
+
+    # Get project root
+    project_root = Path(__file__).parent.parent
+
+    # Build full pipeline name
+    full_pipeline_name = pipeline_name
+    if module_number:
+        full_pipeline_name += f"_module_{module_number}"
+    if path_letter:
+        full_pipeline_name += f"_path_{path_letter.lower()}"
+
+    # Create new version directory
+    version_dir, version_str, is_rerun, full_name = create_version_directory(
+        pipeline_name, module_number, path_letter, base_version
+    )
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"EXCLUDE MODE: {full_pipeline_name}")
+        print(f"{'='*70}")
+        print(f"Base version: {base_version}")
+        print(f"New version: {version_str}")
+        if exclude_template_ids:
+            print(f"Excluding template IDs: {', '.join(exclude_template_ids)}")
+        if exclude_item_ids:
+            print(f"Excluding item IDs: {', '.join(exclude_item_ids)}")
+        print(f"{'='*70}\n")
+
+    # Get base version directory
+    outputs_dir = get_project_paths()['outputs']
+    pipeline_dir = outputs_dir / full_pipeline_name
+    base_version_dir = pipeline_dir / base_version
+
+    if not base_version_dir.exists():
+        raise ValueError(f"Base version not found: {base_version_dir}")
+
+    # Step 1: Copy ALL steps from base version
+    if verbose:
+        print(f"{'='*70}")
+        print(f"STEP 1: COPYING ALL STEPS FROM BASE VERSION")
+        print(f"{'='*70}")
+
+    for step_idx, step in enumerate(steps, 1):
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+
+        # Source: base version step directory
+        base_step_dir = get_step_directory(base_version_dir, step_idx, step_name)
+
+        # Destination: new version step directory
+        new_step_dir = get_step_directory(version_dir, step_idx, step_name)
+
+        # Copy entire step directory
+        if base_step_dir.exists():
+            if verbose:
+                print(f"  [COPY] Step {step_idx} ({step_name})")
+            shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
+        else:
+            print(f"  [WARNING] Base step directory not found: {base_step_dir}")
+
+    # Step 2: Filter AI step outputs
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"STEP 2: FILTERING AI STEP OUTPUTS")
+        print(f"{'='*70}")
+
+    filter_ai_step_outputs(
+        version_dir,
+        exclude_template_ids=exclude_template_ids,
+        exclude_item_ids=exclude_item_ids,
+        verbose=verbose
+    )
+
+    # Step 3: Rerun ONLY formatting steps
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"STEP 3: RERUNNING FORMATTING STEPS")
+        print(f"{'='*70}")
+
+    for step_idx, step in enumerate(steps, 1):
+        # Skip AI steps
+        if step.is_ai_step():
+            continue
+
+        step_name = str(step.function).split('.')[-1]
+        step_dir = get_step_directory(version_dir, step_idx, step_name)
+
+        if verbose:
+            print(f"\n  [STEP {step_idx}] {step_name}")
+
+        # Get input from previous step's output
+        prev_step = steps[step_idx - 2]  # 0-indexed
+        prev_step_name = prev_step.prompt_name if prev_step.is_ai_step() else str(prev_step.function).split('.')[-1]
+        prev_step_dir = get_step_directory(version_dir, step_idx - 1, prev_step_name)
+        input_file = prev_step_dir / f"{prev_step_name}.json"
+
+        # Load input data
+        input_data = load_json(input_file)
+
+        # Execute formatting function
+        try:
+            output_data = run_formatting_step(
+                step=step,
+                input_data=input_data,
+                input_content=None,
+                module_number=module_number,
+                path_letter=path_letter,
+                project_root=project_root,
+                verbose=False
+            )
+
+            # Save output
+            output_file = step_dir / f"{step_name}.json"
+            save_json(output_file, output_data)
+
+            if verbose:
+                print(f"    [OK] Completed")
+        except Exception as e:
+            if verbose:
+                print(f"    [ERROR] {e}")
+            raise
+
+    # Step 4: Save metadata
+    start_time = datetime.now()
+    metadata = {
+        "timestamp": start_time.isoformat(),
+        "pipeline_name": pipeline_name,
+        "module_number": module_number,
+        "path_letter": path_letter,
+        "version": version_str,
+        "base_version": base_version,
+        "mode": "exclude",
+        "exclude_template_ids": exclude_template_ids,
+        "exclude_item_ids": exclude_item_ids,
+        "notes": notes or "Exclude mode rerun",
+        "pipeline_status": "draft",
+        "full_pipeline_name": full_pipeline_name,
+        "status": "completed",
+        "output_dir": str(version_dir)
+    }
+
+    save_metadata(version_dir, metadata)
+    update_latest_symlink(full_pipeline_name, version_str)
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"EXCLUDE MODE COMPLETE")
+        print(f"Version: {version_str}")
+        print(f"Output: outputs/{full_pipeline_name}/latest/")
+        print(f"{'='*70}")
+
+    return {
+        'final_output': None,
+        'output_dir': str(version_dir),
+        'metadata': metadata
+    }
 
 
 def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter,
