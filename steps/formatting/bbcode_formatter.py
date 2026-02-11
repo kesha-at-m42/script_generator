@@ -24,59 +24,102 @@ if str(project_root) not in sys.path:
 
 from utils.module_utils import get_module_field
 
-# Debug logging control
-DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
-
 
 # ============================================================================
-# FRACTION WORDS MAPPING
+# FRACTION WORD CONVERSION
 # ============================================================================
 
-FRACTION_WORDS = {
-    # Unit fractions
-    "1/2": "one half",
-    "1/3": "one third",
-    "1/4": "one fourth",
-    "1/5": "one fifth",
-    "1/6": "one sixth",
-    "1/8": "one eighth",
-    "1/10": "one tenth",
-    "1/12": "one twelfth",
-    
-    # Common fractions
-    "2/3": "two thirds",
-    "2/4": "two fourths",
-    "2/5": "two fifths",
-    "2/6": "two sixths",
-    "2/8": "two eighths",
-    
-    "3/4": "three fourths",
-    "3/5": "three fifths",
-    "3/6": "three sixths",
-    "3/8": "three eighths",
-    "3/10": "three tenths",
-    
-    "4/5": "four fifths",
-    "4/6": "four sixths",
-    "4/8": "four eighths",
-    "4/10": "four tenths",
-    
-    "5/6": "five sixths",
-    "5/8": "five eighths",
-    "5/10": "five tenths",
-    "5/12": "five twelfths",
-    
-    "6/8": "six eighths",
-    "6/10": "six tenths",
-    
-    "7/8": "seven eighths",
-    "7/10": "seven tenths",
-    
-    "8/10": "eight tenths",
-    "9/10": "nine tenths",
-    
-    # Add more as needed
-}
+def _number_to_word(n):
+    """Convert a number to its word form (1 -> 'one', 2 -> 'two', etc.)"""
+    words = {
+        1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
+        6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
+        11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen",
+        16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty"
+    }
+
+    try:
+        num = int(n)
+        if num in words:
+            return words[num]
+        # For numbers > 20, we can extend this if needed
+        return str(num)
+    except (ValueError, TypeError):
+        return str(n)
+
+
+def _denominator_to_word(n, is_unit_fraction=False):
+    """
+    Convert a denominator to its ordinal form (singular or plural).
+
+    Args:
+        n: The denominator number
+        is_unit_fraction: If True, use singular form (e.g., 'third' not 'thirds')
+
+    Examples:
+        _denominator_to_word(3, is_unit_fraction=True) -> 'third'
+        _denominator_to_word(3, is_unit_fraction=False) -> 'thirds'
+        _denominator_to_word(2, is_unit_fraction=True) -> 'half'
+        _denominator_to_word(2, is_unit_fraction=False) -> 'halves'
+    """
+    # Singular forms (for unit fractions)
+    ordinal_singular = {
+        2: "half",
+        3: "third",
+        4: "fourth",
+        5: "fifth",
+        6: "sixth",
+        7: "seventh",
+        8: "eighth",
+        9: "ninth",
+        10: "tenth",
+        11: "eleventh",
+        12: "twelfth",
+        13: "thirteenth",
+        14: "fourteenth",
+        15: "fifteenth",
+        16: "sixteenth",
+        17: "seventeenth",
+        18: "eighteenth",
+        19: "nineteenth",
+        20: "twentieth"
+    }
+
+    # Plural forms (for non-unit fractions)
+    ordinal_plural = {
+        2: "halves",
+        3: "thirds",
+        4: "fourths",
+        5: "fifths",
+        6: "sixths",
+        7: "sevenths",
+        8: "eighths",
+        9: "ninths",
+        10: "tenths",
+        11: "elevenths",
+        12: "twelfths",
+        13: "thirteenths",
+        14: "fourteenths",
+        15: "fifteenths",
+        16: "sixteenths",
+        17: "seventeenths",
+        18: "eighteenths",
+        19: "nineteenths",
+        20: "twentieths"
+    }
+
+    try:
+        denom = int(n)
+        if is_unit_fraction:
+            if denom in ordinal_singular:
+                return ordinal_singular[denom]
+            return f"{denom}th"
+        else:
+            if denom in ordinal_plural:
+                return ordinal_plural[denom]
+            return f"{denom}ths"
+    except (ValueError, TypeError):
+        return f"{n}th" if is_unit_fraction else f"{n}ths"
 
 
 # ============================================================================
@@ -85,9 +128,10 @@ FRACTION_WORDS = {
 
 class FormattingLogger:
     """Tracks and logs formatting changes"""
-    def __init__(self, enabled=DEBUG_FORMATTING):
+    def __init__(self, enabled=False):
         self.enabled = enabled
         self.changes = []
+        self.vocab_words_added = set()  # Track unique vocab words added
 
     def log_change(self, location, field_type, original, formatted, change_type):
         """Log a formatting change"""
@@ -101,6 +145,12 @@ class FormattingLogger:
             'formatted': formatted,
             'change_type': change_type
         })
+
+        # Extract vocab words that were added
+        if change_type == 'vocab':
+            vocab_pattern = r'\[vocab\](.*?)\[/vocab\]'
+            added_words = re.findall(vocab_pattern, formatted)
+            self.vocab_words_added.update(added_words)
 
         print(f"\n[DEBUG] {change_type.upper()} - {location} ({field_type})")
         print(f"  BEFORE: {original}")
@@ -120,6 +170,9 @@ class FormattingLogger:
 
         if vocab_changes:
             print(f"\n[OK] Vocabulary tags: {len(vocab_changes)} fields modified")
+            if self.vocab_words_added:
+                sorted_vocab = sorted(self.vocab_words_added)
+                print(f"  Vocab words added: {', '.join(sorted_vocab)}")
         if fraction_changes:
             print(f"[OK] Fraction tags: {len(fraction_changes)} fields modified")
 
@@ -131,58 +184,54 @@ class FormattingLogger:
 def format_fractions_bbcode(text, context_type, include_words=True):
     """
     Format fractions with BBCode tags.
-    
+
+    Dynamically converts fractions like "6/5" to:
+    [fraction numerator=6 denominator=5]six fifths[/fraction]
+
     Args:
         text: String to process
         context_type: "dialogue", "prompt", or "choice" (for logging/debugging)
         include_words: If True, includes words in BBCode (for dialogue).
                       If False, empty BBCode (for prompts/choices).
-    
+
     Returns:
         Formatted string with fraction BBCode
-    
+
     Examples:
         >>> format_fractions_bbcode("Shade 3/4 of the bar", "dialogue", True)
         "Shade [fraction numerator=3 denominator=4]three fourths[/fraction] of the bar"
-        
+
+        >>> format_fractions_bbcode("Place 6/5", "dialogue", True)
+        "Place [fraction numerator=6 denominator=5]six fifths[/fraction]"
+
         >>> format_fractions_bbcode("3/4", "choice", False)
         "[fraction numerator=3 denominator=4][/fraction]"
     """
     if not text or not isinstance(text, str):
         return text
-    
+
     def replace_fraction(match):
         numerator = match.group(1)
         denominator = match.group(2)
-        fraction_str = f"{numerator}/{denominator}"
-        
+
         if include_words:
-            # For dialogue - include spoken words
-            words = FRACTION_WORDS.get(fraction_str, "")
-            if not words:
-                # Generate generic words if not in mapping
-                words = f"{numerator} {_ordinal_word(denominator)}s"
+            # For dialogue - dynamically generate spoken words
+            numerator_word = _number_to_word(numerator)
+            # Use singular form for unit fractions (numerator = 1)
+            is_unit_fraction = (numerator == "1")
+            denominator_word = _denominator_to_word(denominator, is_unit_fraction=is_unit_fraction)
+            words = f"{numerator_word} {denominator_word}"
             return f"[fraction numerator={numerator} denominator={denominator}]{words}[/fraction]"
         else:
             # For prompts/choices - no words, just BBCode wrapper
             return f"[fraction numerator={numerator} denominator={denominator}][/fraction]"
-    
+
     # Match fractions like 1/2, 3/4, 12/16, etc.
     # Use word boundaries to avoid matching non-fractions
     pattern = r'\b(\d+)/(\d+)\b'
     formatted = re.sub(pattern, replace_fraction, text)
-    
+
     return formatted
-
-
-def _ordinal_word(denominator_str):
-    """Convert denominator to ordinal word (e.g., '3' -> 'third')"""
-    ordinals = {
-        '2': 'half', '3': 'third', '4': 'fourth', '5': 'fifth',
-        '6': 'sixth', '7': 'seventh', '8': 'eighth', '9': 'ninth',
-        '10': 'tenth', '11': 'eleventh', '12': 'twelfth'
-    }
-    return ordinals.get(denominator_str, f"{denominator_str}th")
 
 
 # ============================================================================
@@ -232,14 +281,28 @@ def format_vocab_tags(text, vocabulary_list):
             continue
 
         # Skip if inside BBCode tags (avoid breaking [fraction]...[/fraction])
-        if re.search(r'\[.*' + re.escape(term) + r'.*\]', result):
+        # Check if term is between an opening tag [tag] and closing tag [/tag]
+        escaped_term = re.escape(term)
+        # Match: [tag_name]...term...[/tag_name] or [tag_name attr=val]...term...[/tag_name]
+        if re.search(r'\[(?!\/)[^\]]+\][^[]*\b' + escaped_term + r'\b[^\]]*\[\/[^\]]+\]', result):
             continue
 
-        # Case-sensitive whole-word matching
-        pattern = r'\b' + re.escape(term) + r'\b'
+        # Build pattern with word boundaries
+        # Don't use \b at the end if term ends with non-word character (like hyphen)
+        if re.search(r'\w$', term):
+            # Term ends with word character - use boundaries on both sides
+            pattern = r'\b' + escaped_term + r'\b'
+        else:
+            # Term ends with non-word character - only use boundary at start
+            pattern = r'\b' + escaped_term
 
-        # Replace only first occurrence (to be safe)
-        result = re.sub(pattern, f"[vocab]{term}[/vocab]", result, count=1)
+        # Replace ALL occurrences with case-preserving replacement
+        # Use a function to preserve the original case from the matched text
+        def replace_with_vocab(match):
+            matched_text = match.group(0)  # Preserve original case
+            return f"[vocab]{matched_text}[/vocab]"
+
+        result = re.sub(pattern, replace_with_vocab, result, flags=re.IGNORECASE)
 
     return result
 
@@ -594,11 +657,30 @@ def test_bbcode_formatter():
     print("BBCODE FORMATTER TESTS")
     print("=" * 70)
 
-    # Test 1: Fraction Formatting (with words)
-    print("\n1. Testing format_fractions_bbcode() with words:")
+    # Test 1: Fraction Formatting (with words) - common fractions
+    print("\n1. Testing format_fractions_bbcode() with words (common fractions):")
     print("-" * 70)
 
     dialogue = "Shade 3/4 of the rectangle and 1/2 of the circle."
+    result = format_fractions_bbcode(dialogue, "dialogue", include_words=True)
+    print(f"Input:  {dialogue}")
+    print(f"Output: {result}")
+
+    # Test 1b: Unit fractions (singular form)
+    print("\n1b. Testing unit fractions (special singular form):")
+    print("-" * 70)
+
+    dialogue = "Place 1/3 and 1/5 on the number line."
+    result = format_fractions_bbcode(dialogue, "dialogue", include_words=True)
+    print(f"Input:  {dialogue}")
+    print(f"Output: {result}")
+    print(f"Note:   'one third' (singular) not 'one thirds' (plural)")
+
+    # Test 1c: Dynamic conversion for improper fractions
+    print("\n1c. Testing dynamic conversion for improper fractions:")
+    print("-" * 70)
+
+    dialogue = "Place 6/5 and 8/3 on the number line."
     result = format_fractions_bbcode(dialogue, "dialogue", include_words=True)
     print(f"Input:  {dialogue}")
     print(f"Output: {result}")

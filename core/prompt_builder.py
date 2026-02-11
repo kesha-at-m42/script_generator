@@ -30,6 +30,8 @@ class Prompt:
         prefill: str = None,
         module_ref: Union[List[str], Dict[str, str]] = None,
         template_ref: Union[List[str], Dict[str, str]] = None,
+        # Validation
+        validation_prompt: str = None,
         # Caching settings
         cache_docs: bool = True,
         cache_ttl: str = "5m",
@@ -50,6 +52,7 @@ class Prompt:
                         - List of field paths: ["vocabulary", "phases.0.phase_name"]
                         - Dict mapping variable names to paths: {"phase_name": "phases.0.phase_name"}
             template_ref: Fields to fetch from problem templates (supports list or dict)
+            validation_prompt: Optional AI prompt to validate generated output for semantic correctness
             cache_docs: Enable prompt caching for doc_refs (default: True)
             cache_ttl: Cache time-to-live: "5m" or "1h" (default: "5m")
             temperature: Sampling temperature 0.0-1.0 (default: None = use pipeline default)
@@ -62,6 +65,7 @@ class Prompt:
         self.examples = examples or []
         self.output_structure = output_structure
         self.prefill = prefill
+        self.validation_prompt = validation_prompt
 
         # Normalize module_ref and template_ref to dict format
         if isinstance(module_ref, list):
@@ -110,6 +114,7 @@ class Prompt:
             "prefill": self.prefill,
             "module_ref": self.module_ref,
             # "template_ref": self.template_ref,
+            "validation_prompt": self.validation_prompt,
             "cache_docs": self.cache_docs,
             "cache_ttl": self.cache_ttl,
             "temperature": self.temperature,

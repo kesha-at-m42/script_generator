@@ -96,29 +96,33 @@ Step 3+: "Next, [task]."
 Final: Use conclusive language
 ```
 
-**5. Workspace Inheritance** - Each step builds on previous:
+**5. Workspace Inheritance** - For Step 2+ only, add `inherited` field to workspace:
 ```
-Step 1 output → Step 2 input
-Step 2 output → Step 3 input
-Calculate expected results (ticks placed, labels added, etc.)
-```
+Step 1 workspace (array format):
+"workspace": [
+  {"id": "line_1", "type": "number_line", ...}
+]
 
-**6. Marking Inherited Workspaces:**
-- **Step 1**: Never inherited, omit the flag or set `"workspace_inherited": false`
-- **Step 2+**: If workspace contains elements from previous step, add `"workspace_inherited": true`
-- This flag helps downstream processing (e.g., godot_formatter) handle workspace merging
+Step 2+ workspace (array with inherited property):
+"workspace": {
+  "inherited": true,  // or false
+  "tangibles": [...]
+}
+
+TRUE inheritance (inherited: true):
+- Same tangibles, modified state (e.g., ticks added, labels placed)
+- Example: "Step 1: Blank line. Step 2: Line now has tick marks at fourths"
+
+FALSE/NO inheritance (inherited: false or omit):
+- Different tangibles entirely (e.g., bars → lines, one line → multiple lines)
+- Example: "Step 1: Reference bar with option bars. Step 2: Two number lines stacked"
+```
 
 **Step Content Fields:**
 
 Each step object contains:
 
 **step_id:** (number) Sequential identifier (1, 2, 3, ...)
-
-**workspace_inherited:** (boolean, optional for multi-step only)
-- Add this field to Step 2 and beyond in multi-step problems
-- `true` if workspace builds upon/inherits from previous step
-- `false` or omit for Step 1 (first step never inherits)
-- Helps godot_formatter optimize workspace handling
 
 **dialogue:** Create conversational setup (10-30 words)
 - IMPORTANT: Try to use the same verb as the prompt (if prompt says "Place", dialogue can say "Let's place..." or "place")
@@ -138,15 +142,21 @@ Each step object contains:
 
 **interaction_tool:** Derive from action_description
 
+**CRITICAL DISTINCTION:**
+- **click_choice/multi_click_choice**: ONLY for text-based MCQ options (e.g., "Yes/No", "Same/Different", "1/3, 2/3, 3/3" as text)
+- **select/multi_select**: For selecting VISUAL tangibles (bars, lines, shapes, grids)
+  - Key phrases: "select bar", "clicks to select bar", "select the number line", "choose which shape"
+  - If workspace has visual objects (bars/lines/shapes) and student picks one → use `select`
+
 Map action_description to tool:
-- "Point at tick marks" → "place_point" (student places points on existing ticks)
-- "Label tick marks by dragging" → "drag_label" (student drags fraction labels onto ticks)
-- "Select from MCQ options" → "click_choice" (student clicks one or more MCQ options; use allow_multiple flag in choices for multiple selection)
-- "Select the number line" → "select" (student selects one tangible from workspace)
-- "Select multiple number lines" → "multi_select" (student selects multiple tangibles)
-- "Place ticks on number line" → "place_tick" (student partitions/divides number line)
-- "Cut shape into parts" → "cut_shape" (student divides shapes into parts)
-- "Shade parts" → "shade" (student shades/paints sections)
+- "Place point(s)" / "Point at tick marks" → "place_point"
+- "Drag label(s)" / "Label tick marks by dragging" → "drag_label"
+- "Select from text options" / "Choose text answer" → "click_choice" (text-only, NOT visual tangibles)
+- "Clicks to select bar" / "Select bar/line/shape" → "select" (ONE visual tangible, NOT text)
+- "Select multiple bars/lines/shapes" → "multi_select" (MULTIPLE visual tangibles)
+- "Place ticks on number line" → "place_tick"
+- "Cut shape into parts" → "cut_shape"
+- "Shade parts" → "shade"
 
 **Pattern for new actions:**
 If you encounter an action_description not listed above:
@@ -161,24 +171,34 @@ If you encounter an action_description not listed above:
    - Modifying properties: use "{verb}_{object}" (e.g., "color_region", "resize_bar")
 5. Add a brief clarification in parentheses describing what the student does
 
-**workspace:** Parse workspace_description into structured toys array
+**workspace:** Parse workspace_description into structured object with tangibles array and optional inherited flag
 **CRITICAL: You MUST strictly follow ALL visual schemas defined in <visuals>. Consult the documentation for each shape type to understand:**
 - Required and optional properties
 - Valid value ranges and types
 - Constraints (e.g., max number of instances, allowed denominators)
 - Structural relationships (e.g., points must correspond to ticks)
 
+**Workspace Structure:**
+- **For Step 1**: Array of tangibles (no inherited field needed)
+- **For Step 2+**: Add `inherited` boolean field:
+  - `true` if same tangibles with modified state
+  - `false` or omit if completely different tangibles
+
 **Parsing Natural Language to Structured Workspace:**
 1. Identify the shape type(s) mentioned in workspace_description
 2. Look up the corresponding schema in <visuals>
 3. Extract property values from the text description (e.g., "from 0 to 1" → range: [0, 1])
-4. Build the workspace element following the exact schema structure
-5. For special elements (MCQ choices, drag palettes), check if interaction_tool requires them and add accordingly
+4. **Identify reference tangibles**: Look for keywords like "reference bar", "at top", "for comparison", "marked read-only", "pre-placed", "shows target"
+   - Add `"role": "reference"` field to these tangibles
+   - These will be non-interactable (students cannot select/modify them)
+5. Build the workspace element following the exact schema structure
+6. For special elements (MCQ choices, drag palettes), check if interaction_tool requires them and add accordingly
 
 **Special Workspace Elements:**
-- **choices**: Add when interaction_tool is "click_choice" or description mentions "MCQ options"
+- **choices**: Add ONLY when interaction_tool is "click_choice" (text-based MCQ)
   Format: {"type": "choices", "options": [{"id": "a", "text": "..."}, ...]}
-  Use "allow_multiple": true for multi-select questions
+  Use "allow_multiple": true for multi-select text questions
+  **NEVER add choices for "select" or "multi_select" tools** - those select visual tangibles directly
 
 - **palette**: Add when interaction_tool is "drag_label"
   Format: {"type": "palette", "labels": ["1/4", "2/4", ...]}
@@ -186,6 +206,11 @@ If you encounter an action_description not listed above:
 
 **correct_answer:** Object with:
 - value: The expected answer (format depends on interaction_tool)
+  - **CRITICAL for select/click_choice**: Ensure ONLY ONE correct answer exists
+  - If multiple tangibles/options are equivalent (e.g., two bars showing 2/3), either:
+    - Make options visually distinct (different fractions), OR
+    - Use multi_select/multi_click_choice with array of all correct answers
+  - **NEVER have ambiguous correct answers** (e.g., asking "which shows 2/3" with two bars both showing 2/3)
 - context: Brief explanation of why this is correct
 
 **success_path_dialogue:** Rotate through the success_dialogue examples from the template here: {success_dialogue}
@@ -261,7 +286,7 @@ If you encounter an action_description not listed above:
 - Parse "Step N:" markers from workspace_description
 - Parse "(step N)" markers from action_description
 - Split prompt on "then" or commas
-- Add `workspace_inherited: true` to Step 2+
+- For Step 2+: workspace becomes object with `inherited` field and `tangibles` array
 - Each step has unique step_id (1, 2, 3, ...)
 
 ### General:
@@ -293,11 +318,13 @@ Generate NOW!
     },
     {
       "step_id": 2,
-      "workspace_inherited": true,
       "dialogue": "...",
       "prompt": "...",
       "interaction_tool": "drag_label",
-      "workspace": [],
+      "workspace": {
+        "inherited": true,
+        "tangibles": []
+      },
       "correct_answer": {},
       "success_path_dialogue": "..."
     }
@@ -310,6 +337,101 @@ Generate NOW!
   "mastery_verb": "{mastery_verb}",
   "template_id": "{template_id}",
   "fractions": """,
+
+    validation_prompt="""You are a content validator for educational interaction sequences. Your task is to verify that the generated sequence is semantically correct, internally consistent, and solvable.
+
+Given an interaction sequence JSON, validate:
+
+## 1. DIALOGUE-WORKSPACE CONSISTENCY
+- Does the dialogue accurately describe what's in the workspace?
+- If dialogue says "Look at the three bars", are there three bars in the workspace?
+- If dialogue references specific fractions or visual elements, do they exist in the workspace?
+
+## 2. PROMPT-WORKSPACE SOLVABILITY
+- Can the student answer the prompt given the workspace?
+- If prompt asks "Place 2/3", does the workspace have tick marks at thirds?
+- If prompt asks "Which shows fourths?", is one of the selectable tangibles divided into fourths?
+- For click_choice: Are all choice options present and is the correct answer in the options?
+
+## 3. CORRECT ANSWER ACHIEVABILITY & UNIQUENESS
+- Is the correct_answer.value actually achievable given the workspace configuration?
+- For place_point: Is the target fraction position available as a tick mark?
+- For select: Does the indicated tangible index exist and match the description?
+- For click_choice: Does the choice ID exist in the options?
+- For multi_click_choice: Do all choice IDs in the answer array exist in the options?
+- For drag_label: Are the required labels in the palette?
+
+**CRITICAL - Single Answer Uniqueness (select/click_choice only):**
+- For "select" (single-select): Is there ONLY ONE tangible that matches the correct answer?
+  - Check if multiple tangibles show the same fraction/value (ambiguous)
+  - If two bars both show 2/3, student could select either - this is INVALID
+  - Solution: Make options distinct OR use "multi_select" with all correct answers
+- For "click_choice" (single-choice): Is there ONLY ONE option that is correct?
+  - Check for equivalent options (e.g., "2/4" and "1/2" are equivalent)
+  - Check for multiple ways to express the same answer
+  - Solution: Remove equivalent options OR use "multi_click_choice" with allow_multiple: true
+
+**CRITICAL - Multiple Answer Completeness (multi_select/multi_click_choice only):**
+- For "multi_select": Does correct_answer.value include ALL tangibles that match the criteria?
+  - If prompt asks "Select all bars showing thirds" and 3 bars show thirds, answer must be [0, 2, 4]
+  - Missing any correct option is INVALID
+- For "multi_click_choice": Does correct_answer.value include ALL correct text options?
+  - If prompt asks "Select all fractions less than 1/2" and options ["1/3", "1/4", "3/4"], answer must be ["a", "b"]
+  - Verify the prompt actually requires multiple selections (e.g., "select all", "choose all", "which ones")
+  - If only one correct answer exists, should use "click_choice" instead
+
+## 4. INTERACTION TOOL CORRECTNESS
+- Does interaction_tool match the workspace elements?
+- "click_choice" requires choices element in workspace (single selection)
+- "multi_click_choice" requires choices element with allow_multiple: true (multiple selections)
+- "drag_label" requires palette element in workspace
+- "select" requires multiple selectable tangibles (single selection)
+- "multi_select" requires multiple selectable tangibles (multiple selections allowed)
+- "place_point" requires number line with ticks
+
+## 5. MULTI-STEP COHERENCE (if no_of_steps > 1)
+- Does each step build logically on the previous?
+- Is workspace inheritance used correctly (inherited: true/false)?
+- Does dialogue flow naturally across steps ("Let's...", "Now...", "Finally...")?
+- Do all steps reference consistent visual elements?
+
+## 6. VISUAL ELEMENT REFERENCES
+- If dialogue mentions "the point" or "the line", does ONE such element exist?
+- If dialogue mentions "three bars", are there exactly THREE bars?
+- Are visual descriptions in dialogue accurate to workspace structure?
+
+Return JSON format:
+{
+  "valid": true/false,
+  "errors": ["Critical error 1", "Critical error 2"],
+  "warnings": ["Warning 1", "Warning 2"]
+}
+
+**Examples of CRITICAL errors to catch:**
+- "Dialogue says 'Look at the point at 1/3' but workspace has point at 2/3"
+- "Prompt asks to place 3/4 but workspace only has tick marks at halves (0, 1/2, 1)"
+- "correct_answer.value is 'c' but choices only has options a and b"
+- "interaction_tool is 'drag_label' but no palette element in workspace"
+- "Dialogue references 'the three number lines' but workspace has only two"
+- "Step 2 dialogue says 'Now label the ticks' but interaction_tool is 'place_point'"
+
+**Single-answer errors (select/click_choice):**
+- **"interaction_tool is 'select' (single) but TWO tangibles both show 2/3 - ambiguous answer! Use multi_select OR make options distinct"**
+- **"interaction_tool is 'click_choice' and correct_answer is 'b' but option 'c' also shows equivalent value (2/4 = 1/2)"**
+- **"Prompt asks 'Which bar shows two-thirds?' but tangibles at index 1 and 3 both show 2/3 - student could select either"**
+
+**Multiple-answer errors (multi_select/multi_click_choice):**
+- **"interaction_tool is 'multi_click_choice' but correct_answer only has one value ['a'] - should use 'click_choice' instead"**
+- **"Prompt asks 'Select all fractions less than 1/2' with options [1/3, 1/4, 3/4] but correct_answer is ['a'] - missing 'b' (1/4 is also < 1/2)"**
+- **"interaction_tool is 'multi_select' but workspace has tangibles showing [2/3, 2/3, 1/2] and correct_answer is [0] - should include index 1 also (both show 2/3)"**
+- **"interaction_tool is 'multi_click_choice' but choices element missing allow_multiple: true"**
+
+**Examples of WARNINGS (non-critical but worth noting):**
+- "Dialogue mentions 'fourths' but prompt uses numeric notation '1/4'"
+- "success_path_dialogue doesn't reference the specific fraction being worked with"
+- "Workspace has 4 tangibles but only 1 is selectable (others might need role: 'reference')"
+
+Analyze this interaction sequence:""",
 
     examples=[],
 

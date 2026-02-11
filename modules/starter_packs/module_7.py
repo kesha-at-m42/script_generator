@@ -16,13 +16,23 @@ module_7 = {
         "sixths",
         "eighth",
         "eighths",
-        "one",
+        "one-",
         "two-",
         "three-",
         "four-",
         "five-",
         "six-",
         "seven-",
-        "eight-"
+        "eight-",
+        "nine-",
+        "ten-",
+        "eleven-",
+        "twelve-",
+        "thirteen-",
+        "fourteen-",
+        "fifteen-",
+        "sixteen-",
+        "seventeen-",
+        "eighteen-"
     ]
 }

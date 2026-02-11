@@ -181,6 +181,26 @@ class BatchProcessor:
         }
         self.errors.append(error_info)
 
+        # Reserve IDs for the errored item(s)
+        # For template-based generation, check base version to see how many IDs to reserve
+        if self.batch_output_id_field:
+            ids_to_reserve = 1  # Default: reserve 1 ID
+
+            # For template errors: check base version to see how many items it generated
+            if self.batch_id_field == 'template_id' and self.base_version_dir:
+                # Create a minimal item dict with just the template_id for _load_from_base
+                temp_item = {'template_id': item_id}
+                base_items = self._load_from_base(temp_item, item_id)
+                if base_items:
+                    # Count items from base version
+                    if isinstance(base_items, list):
+                        ids_to_reserve = len(base_items)
+                    else:
+                        ids_to_reserve = 1
+
+            # Reserve the appropriate number of IDs
+            self.sequential_id += ids_to_reserve
+
     def increment_skipped(self):
         """Increment skipped counter"""
         self.skipped_count += 1

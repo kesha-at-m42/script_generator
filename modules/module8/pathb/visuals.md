@@ -10,6 +10,10 @@
   ### Properties
   - **State**: Can be whole (showing only endpoints) or divided with tick marks
   - **Range**: The numerical bounds [start, end], typically [0, 1] but can extend to show fractions greater than 1
+  - **Role**: Determines if this is a reference visual (non-interactable) or an option/target (interactable)
+    - **Reference**: For display only - cannot be selected, clicked, or modified (e.g., reference bar at top for comparison)
+    - **Option/Target**: Default - can be selected, clicked, or modified by student (e.g., selectable answer choices)
+    - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
 
   ### Ticks
   Marks at specific positions on the number line.
@@ -72,7 +76,11 @@
   ### Properties
   - **State**: Can be whole (undivided) or divided into equal sections
   - **Range**: The numerical bounds [start, end], typically [0, 1] but can extend to show fractions greater than 1
-
+  - **Role**: Determines if this is a reference visual (non-interactable) or an option/target (interactable)
+    - **Reference**: For display only - cannot be selected, clicked, or modified (e.g., reference bar at top showing target fraction)
+    - **Option/Target**: Default - can be selected, clicked, or modified by student (e.g., bars to shade, option bars to select from)
+    - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
+  
   ### Intervals
   The distinct sections (parts) created by dividing the strip.
 

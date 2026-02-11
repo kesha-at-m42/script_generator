@@ -4,9 +4,6 @@ Sequence Schema Fixer - Fixes and validates sequence schema structure
 
 import os
 
-# Debug logging control
-DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
-
 
 # ============================================================================
 # DEBUG LOGGING HELPERS
@@ -14,7 +11,7 @@ DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
 
 class SchemaLogger:
     """Tracks and logs schema fixing changes"""
-    def __init__(self, enabled=DEBUG_FORMATTING):
+    def __init__(self, enabled=False):
         self.enabled = enabled
         self.changes = {
             'workspace_added': 0,

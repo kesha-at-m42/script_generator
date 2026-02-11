@@ -11,9 +11,6 @@ Fixes NumLine issues:
 import os
 from fractions import Fraction
 
-# Debug logging control
-DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
-
 
 # ============================================================================
 # DEBUG LOGGING HELPERS
@@ -21,7 +18,7 @@ DEBUG_FORMATTING = os.getenv('DEBUG_FORMATTING', 'false').lower() == 'true'
 
 class NumLineLogger:
     """Tracks and logs NumLine formatting changes"""
-    def __init__(self, enabled=DEBUG_FORMATTING):
+    def __init__(self, enabled=False):
         self.enabled = enabled
         self.changes = {
             'labels_fixed': 0,
@@ -335,16 +332,20 @@ def add_alt_labels_for_whole_numbers(step):
     return step
 
 
-def ensure_whole_number_ticks_and_labels(tangible, location="NumLine"):
+def ensure_whole_number_ticks_and_labels(tangible, location="NumLine", validator_answer=None):
     """
     Ensure NumLine has ticks and labels at all whole number positions when range > 2.
 
     When a number line extends beyond 2 (like [0, 3] or [0, 4]), ensure there are
     ticks and labels at all whole number positions (0, 1, 2, 3, etc.).
 
+    IMPORTANT: Does NOT add whole numbers to labels if they are in the validator answer
+    (to avoid giving away the answer).
+
     Args:
         tangible: NumLine tangible dictionary
         location: Location string for logging
+        validator_answer: List of answer fractions from validator (to avoid adding to labels)
 
     Returns:
         Modified tangible dictionary
@@ -364,6 +365,10 @@ def ensure_whole_number_ticks_and_labels(tangible, location="NumLine"):
 
     # Get all whole numbers in range
     whole_numbers = get_whole_numbers_in_range(range_list)
+
+    # Normalize validator answer
+    if not isinstance(validator_answer, list):
+        validator_answer = []
 
     # Ensure ticks includes all whole numbers (if ticks is an array)
     ticks = tangible.get('ticks')
@@ -392,13 +397,24 @@ def ensure_whole_number_ticks_and_labels(tangible, location="NumLine"):
         if old_ticks != ticks:
             _logger.log_ticks_added(location, old_ticks, ticks)
 
-    # Ensure labels includes all whole numbers
+    # Ensure labels includes all whole numbers EXCEPT those in the validator answer
     labels = tangible.get('labels')
     if isinstance(labels, list):
         old_labels = labels[:]
-        # Add any missing whole numbers to labels
+        # Add any missing whole numbers to labels (except answer positions)
         # Use fraction equivalence checking (e.g., 6/3 = 2)
         for wn in whole_numbers:
+            # Check if this whole number is in the validator answer
+            is_in_answer = False
+            for answer_frac in validator_answer:
+                if are_fractions_equal(wn, answer_frac):
+                    is_in_answer = True
+                    break
+
+            # Skip if it's in the answer (don't give away the answer!)
+            if is_in_answer:
+                continue
+
             # Check if this whole number (or equivalent fraction) already exists
             has_equivalent = False
             for label in labels:
@@ -474,8 +490,8 @@ def ensure_answer_fractions_placeable(step):
 
     # Get the answer array
     answer = validator.get('answer', [])
-    if not isinstance(answer, list) or not answer:
-        return step
+    if not isinstance(answer, list):
+        answer = []
 
     # Process NumLine tangibles
     workspace = step.get('workspace', {})
@@ -498,6 +514,27 @@ def ensure_answer_fractions_placeable(step):
         ticks = tangible.get('ticks')
         ticks_readonly = tangible.get('ticks_is_read_only')
 
+        # Collect ALL fractions that need tick support (answer + labels + points)
+        all_fractions_needing_ticks = list(answer) if answer else []
+
+        # Add fractions from existing labels
+        labels = tangible.get('labels')
+        if isinstance(labels, list):
+            for label in labels:
+                if label and isinstance(label, str) and '/' in label:
+                    all_fractions_needing_ticks.append(label)
+
+        # Add fractions from existing points
+        points = tangible.get('points')
+        if isinstance(points, list):
+            for point in points:
+                if point and isinstance(point, str):
+                    all_fractions_needing_ticks.append(point)
+
+        # If no fractions need support, skip this NumLine
+        if not all_fractions_needing_ticks:
+            continue
+
         # Step 1: Check if all answer fractions are in range, extend if needed
         needs_extension = False
         max_answer_value = end
@@ -517,24 +554,59 @@ def ensure_answer_fractions_placeable(step):
             old_range = range_list[:]
             tangible['range'] = [start, new_end]
 
-            if DEBUG_FORMATTING:
+            if _logger.enabled:
                 print(f"\n[DEBUG] RANGE EXTENDED - {location}")
                 print(f"  BEFORE: {old_range}")
                 print(f"  AFTER:  [{start}, {new_end}]")
                 print(f"  REASON: Answer contains fractions beyond range")
 
-        # Step 2: Ensure ticks supports all answer fractions
+        # Step 2: Ensure ticks supports all fractions (answer + labels + points)
         if isinstance(ticks, str):
             # Already a string interval - leave as-is
             pass
-        elif isinstance(ticks, list) or ticks is None:
-            # Convert to string interval based on answer fractions
-            # Find the GCD of all denominators to determine tick interval
+        elif isinstance(ticks, list):
+            # Check if the list already includes all required positions
+            all_positions_supported = True
+            for frac in all_fractions_needing_ticks:
+                has_tick = False
+                for tick in ticks:
+                    if are_fractions_equal(tick, frac):
+                        has_tick = True
+                        break
+                if not has_tick:
+                    all_positions_supported = False
+                    break
+
+            # Only convert to string if required positions are missing
+            if not all_positions_supported:
+                from math import gcd
+                from functools import reduce
+
+                denominators = []
+                for frac in all_fractions_needing_ticks:
+                    try:
+                        _, denom, _ = parse_fraction(frac)
+                        denominators.append(denom)
+                    except:
+                        continue
+
+                if denominators:
+                    # Use the LCM of denominators, then set ticks to 1/LCM
+                    lcm = reduce(lambda a, b: abs(a * b) // gcd(a, b), denominators)
+                    old_ticks = ticks
+                    tangible['ticks'] = f"1/{lcm}"
+
+                    if _logger.enabled:
+                        print(f"\n[DEBUG] TICKS SET - {location}")
+                        print(f"  BEFORE: {old_ticks}")
+                        print(f"  AFTER: 1/{lcm} (based on answer/labels/points denominators)")
+        elif ticks is None:
+            # Convert to string interval based on all fractions
             from math import gcd
             from functools import reduce
 
             denominators = []
-            for frac in answer:
+            for frac in all_fractions_needing_ticks:
                 try:
                     _, denom, _ = parse_fraction(frac)
                     denominators.append(denom)
@@ -547,10 +619,10 @@ def ensure_answer_fractions_placeable(step):
                 old_ticks = ticks
                 tangible['ticks'] = f"1/{lcm}"
 
-                if DEBUG_FORMATTING:
+                if _logger.enabled:
                     print(f"\n[DEBUG] TICKS SET - {location}")
                     print(f"  BEFORE: {old_ticks}")
-                    print(f"  AFTER: 1/{lcm} (based on answer denominators)")
+                    print(f"  AFTER: 1/{lcm} (based on answer/labels/points denominators)")
 
         # Step 3: Update ticks_is_read_only
         # - Remove answer positions from read_only (students need to place labels there)
@@ -601,7 +673,7 @@ def ensure_answer_fractions_placeable(step):
             if old_readonly != updated_readonly:
                 tangible['ticks_is_read_only'] = updated_readonly
                 if removed_ticks or added_readonly:
-                    if DEBUG_FORMATTING:
+                    if _logger.enabled:
                         print(f"\n[DEBUG] READONLY UPDATED - {location}")
                         if removed_ticks:
                             print(f"  REMOVED: {removed_ticks}")
@@ -637,6 +709,79 @@ def remove_internal_fields(data):
         return data
 
 
+def ensure_preplaced_points_in_validator(step):
+    """
+    Ensure pre-placed points in workspace are included in PointValidator answer.
+
+    When a NumLine has pre-placed points and a PointValidator, the validator answer
+    must include both the pre-placed points AND the points the student should place.
+
+    IMPORTANT: Only adds points from interactable NumLines (is_read_only not set or false).
+    Points on reference lines (is_read_only: true) are NOT added to the validator.
+
+    Args:
+        step: Step dictionary
+
+    Returns:
+        Modified step dictionary
+    """
+    prompt = step.get('prompt', {})
+    if not isinstance(prompt, dict):
+        return step
+
+    validator = prompt.get('validator', {})
+    if not isinstance(validator, dict):
+        return step
+
+    # Only process PointValidator
+    if validator.get('@type') != 'PointValidator':
+        return step
+
+    validator_answer = validator.get('answer', [])
+    if not isinstance(validator_answer, list):
+        return step
+
+    # Get pre-placed points from workspace
+    workspace = step.get('workspace', {})
+    if not isinstance(workspace, dict):
+        return step
+
+    tangibles = workspace.get('tangibles', [])
+    for tangible in tangibles:
+        if tangible.get('@type') == 'NumLine' and 'points' in tangible:
+            # Check if this NumLine is interactable (not a reference line)
+            is_read_only = tangible.get('is_read_only', False)
+            if is_read_only:
+                # Skip reference lines - don't add their points to validator
+                continue
+
+            workspace_points = tangible.get('points', [])
+            if isinstance(workspace_points, list) and workspace_points:
+                # Add any missing pre-placed points to validator answer
+                added = []
+                for point in workspace_points:
+                    if point not in validator_answer:
+                        validator_answer.append(point)
+                        added.append(point)
+
+                if added:
+                    # Sort by numeric value
+                    try:
+                        validator_answer.sort(key=lambda x: parse_fraction(x)[2])
+                    except:
+                        pass  # If sorting fails, keep original order
+
+                    validator['answer'] = validator_answer
+
+                    if _logger.enabled:
+                        location = step.get('_location', 'Step')
+                        print(f"\n[DEBUG] POINTVALIDATOR UPDATED - {location}")
+                        print(f"  Added pre-placed points from interactable NumLine: {added}")
+                        print(f"  Updated answer: {validator_answer}")
+
+    return step
+
+
 def process_step(step, location):
     """
     Process a single step to fix NumLine issues.
@@ -653,13 +798,26 @@ def process_step(step, location):
     # Add alt_labels for whole numbers
     add_alt_labels_for_whole_numbers(step)
 
+    # Ensure pre-placed points are in PointValidator answer
+    ensure_preplaced_points_in_validator(step)
+
+    # Get validator answer to avoid adding to labels
+    validator_answer = []
+    prompt = step.get('prompt', {})
+    if isinstance(prompt, dict):
+        validator = prompt.get('validator', {})
+        if isinstance(validator, dict):
+            answer = validator.get('answer', [])
+            if isinstance(answer, list):
+                validator_answer = answer
+
     # Ensure whole number ticks/labels
     workspace = step.get('workspace', {})
     if isinstance(workspace, dict):
         tangibles = workspace.get('tangibles', [])
         for tangible_idx, tangible in enumerate(tangibles):
             tangible_loc = f"{location}/NumLine[{tangible_idx}]"
-            ensure_whole_number_ticks_and_labels(tangible, tangible_loc)
+            ensure_whole_number_ticks_and_labels(tangible, tangible_loc, validator_answer)
 
 
 def process_sequences(input_data):
@@ -731,9 +889,7 @@ def main(input_data, verbose=False, **kwargs):
         List with fixed NumLine labels and alt_labels
     """
     global _logger
-    # Use verbose flag if provided, otherwise fall back to DEBUG_FORMATTING env var
-    debug_enabled = verbose or DEBUG_FORMATTING
-    _logger = NumLineLogger(enabled=debug_enabled)
+    _logger = NumLineLogger(enabled=verbose)
 
     return process_sequences(input_data)
 

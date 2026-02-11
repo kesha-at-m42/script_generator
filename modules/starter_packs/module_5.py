@@ -26,7 +26,7 @@ module_5 = {
         "sixths",
         "eighth",
         "eighths",
-        "one",
+        "one-",
         "two-",
         "three-",
         "four-",

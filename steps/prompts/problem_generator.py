@@ -130,6 +130,12 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
   - Visual: Number line from 1 to 2, divided in thirds (6 total intervals)
   - Correct: "5/3" | Good distractor: "5/6" (targets misconception of counting all intervals instead of parts per unit) | Wrong: "2/3"
 
+**CRITICAL: Correct Answer Must Exist in Workspace**
+- **Selection/MCQ:** The workspace/options MUST include the correct answer
+  - ✗ INVALID: "Which line shows thirds?" → workspace shows [fifths, fourths, sixths]
+  - ✓ VALID: "Which line shows thirds?" → workspace shows [fifths, thirds, sixths]
+- **Verification:** Check that students can actually select the correct answer from what's shown
+
 ## OUTPUT REQUIREMENTS
 
 **1. problem_instance_id:** Sequential (1, 2, 3...)
@@ -242,6 +248,40 @@ Generate problem instances NOW with maximum variation and quality!
 """,
 
     prefill="""[{"problem_instance_id":""",
+
+    validation_prompt="""You are a content validator for educational math problems. Your task is to check if a generated problem instance is semantically correct and solvable.
+
+Given a problem instance JSON, validate:
+
+1. **Answer Exists in Workspace** (CRITICAL for selection/MCQ):
+   - If the prompt asks "Which line shows thirds?", does the workspace include a line showing thirds?
+   - If the prompt asks "Select the shape showing 2/3", does the workspace include a shape showing 2/3?
+   - For MCQ, is the correct answer present in the options?
+
+2. **Prompt-Workspace Consistency**:
+   - Can a student actually answer the question given what's in the workspace?
+   - Does the action_description match what the workspace allows?
+
+3. **Logical Coherence**:
+   - Are the fractions/denominators in variables_used consistent with the workspace?
+   - Does the mastery_tier make sense for the problem complexity?
+
+Return JSON format:
+{
+  "valid": true/false,
+  "errors": ["error description 1", "error description 2"],
+  "warnings": ["warning description 1"]
+}
+
+If valid=true, errors should be empty array.
+If valid=false, provide clear, actionable error descriptions.
+
+Examples of CRITICAL errors to catch:
+- "Prompt asks for 'thirds' but workspace shows [halves, fourths, fifths] - missing thirds!"
+- "Prompt asks student to 'place 2/3' but workspace only has tick marks for fourths (1/4, 2/4, 3/4, 1)"
+- "MCQ asks 'What fraction is shown?' but correct answer '3/4' is not in the options list"
+
+Analyze this problem instance:""",
 
     examples=[],
 

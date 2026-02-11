@@ -16,6 +16,9 @@ def generate_summary(sequences: List[Dict]) -> Dict:
     - mastery_verb / cognitive_verb
     - mastery_skill_id
     - misconceptions (both ID and tags)
+
+    Also detects:
+    - Missing sequence IDs (gaps in numbering)
     """
     summary = {
         'total_sequences': len(sequences),
@@ -29,8 +32,36 @@ def generate_summary(sequences: List[Dict]) -> Dict:
         'by_tier_and_verb': {},
         'matched': 0,
         'unmatched': 0,
-        'unmatched_indices': []
+        'unmatched_indices': [],
+        'missing_ids': [],
+        'id_range': {}
     }
+
+    # Collect all problem_ids to detect gaps
+    problem_ids = []
+    for seq in sequences:
+        metadata = seq.get('metadata', {})
+        problem_id = metadata.get('problem_id') or seq.get('problem_id')
+        if problem_id is not None:
+            problem_ids.append(int(problem_id))
+
+    # Detect missing IDs
+    if problem_ids:
+        problem_ids_sorted = sorted(problem_ids)
+        min_id = problem_ids_sorted[0]
+        max_id = problem_ids_sorted[-1]
+        expected_ids = set(range(min_id, max_id + 1))
+        actual_ids = set(problem_ids)
+        missing = sorted(expected_ids - actual_ids)
+
+        summary['missing_ids'] = missing
+        summary['id_range'] = {
+            'min': min_id,
+            'max': max_id,
+            'expected_count': max_id - min_id + 1,
+            'actual_count': len(problem_ids),
+            'missing_count': len(missing)
+        }
 
     for idx, seq in enumerate(sequences):
         metadata = seq.get('metadata', {})

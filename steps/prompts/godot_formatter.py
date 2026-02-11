@@ -27,11 +27,11 @@ You will receive ONE sequence with metadata and a `steps` array (may contain sin
 - Proper @type annotations throughout
 
 **MULTI-STEP WORKSPACE HANDLING (CRITICAL):**
-- **Step 1 (step_id: 1)**: Define workspace structure normally
-- **Step 2+ (step_id: 2, 3, ...)**: DO NOT include workspace field at all
-  - Steps automatically inherit workspace from step 1
-  - Simply omit the workspace field entirely from steps 2+
-  - The workspace evolves based on step 1's actions
+- **Step 1**: Input workspace is array → Output normally as WorkspaceData with tangibles
+- **Step 2+**: Check input workspace structure:
+  - If input has `{"inherited": true, "tangibles": [...]}` → Omit workspace from output (inherits from Step 1)
+  - If input has `{"inherited": false, "tangibles": [...]}` → Output workspace normally (new/reset workspace)
+  - If input is array → Output workspace normally (backward compatibility)
 
 **CRITICAL: Consult <sequence> for the complete Godot sequence structure. Every element you generate (Sequence, Step, Prompt, WorkspaceChoices, Palette, Remediation) must conform exactly to the schema specifications in sequence.md.**
 
@@ -120,7 +120,8 @@ Map `interaction_tool` to Godot tool @type (refer to <tools> for complete schema
   ```
 
 **Other Tools:**
-- `click_choice` → No tool (MCQ uses choices)
+- `click_choice` → No tool (single-choice MCQ uses choices with allow_multiple: false)
+- `multi_click_choice` → No tool (multiple-choice MCQ uses choices with allow_multiple: true)
 - `select` → Select (is_single: true)
 - `multi_select` → Select (is_single: false)
 - `place_tick` → Place (partition number line, ALWAYS include lcm using 3× denominator rule)
@@ -131,7 +132,8 @@ Map `interaction_tool` to Godot tool @type (refer to <tools> for complete schema
 Choose validator based on interaction_tool (see validators.md for complete specifications and answer formats):
 - `place_point` → PointValidator
 - `drag_label` → LabelValidator
-- `click_choice` → MultipleChoiceValidator
+- `click_choice` → MultipleChoiceValidator (with allow_multiple: false)
+- `multi_click_choice` → MultipleChoiceValidator (with allow_multiple: true)
 - `select` or `multi_select` → SelectionValidator
 - `place_tick` or `cut_shape` → TickValidator
 - `shade` → ShadedValidator or ShadedPartsValidator
@@ -141,7 +143,8 @@ Choose validator based on interaction_tool (see validators.md for complete speci
 - Move tool with mode="frac_labels" ALWAYS uses palette with FracLabelStack
 - PointStack quantity defaults to -1 (unlimited) when omitted
 - FracLabelStack quantity defaults to 1 when omitted
-- `click_choice` is for MCQ, `select` is for tangible selection (different use cases)
+- `click_choice` is for single-answer MCQ, `multi_click_choice` is for multiple-answer MCQ (use allow_multiple: true)
+- `select` is for tangible selection (different use case from text-based MCQ)
 - See validators.md for correct answer format for each validator type
 
 ### 4a. Non-Curriculum Skills Mapping
@@ -151,6 +154,7 @@ Determine non_curriculum_skills array based on interaction_tool and question typ
 - `place_point` → ["click_accuracy"]
 - `drag_label` → ["drag_drop", "fine_motor_control"]
 - `click_choice` → ["click_accuracy", "reading_comprehension"]
+- `multi_click_choice` → ["click_accuracy", "reading_comprehension", "multiple_selection"]
 - `select` → ["click_accuracy", "visual_discrimination"]
 - `multi_select` → ["click_accuracy", "visual_discrimination", "multiple_selection"]
 - `place_tick` → ["click_accuracy", "spatial_reasoning"]
@@ -254,9 +258,9 @@ Determine misconception_id and misconception_tag arrays based on problem charact
 Transform workspace (see workspace.md):
 - Array → object with `tangibles` array
 - Add `@type` to all tangibles
-- Remove `id` and `type` fields
+- Remove `id`, `type`, and `role` fields
 - Move `choices` from workspace to prompt.choices
-- Add `shuffle_tangibles: true` for select questions (when interaction_tool is `select` or `multi_select`)
+- **Reference tangibles**: If input tangible has `"role": "reference"`, set `"is_read_only": true` in output (prevents selection/modification)
 
 ### 6. NumLine Conversions
 Key field changes (see workspace.md for details):
@@ -342,7 +346,7 @@ When interaction_tool is "drag_label", add palette with stacks. Consult <sequenc
 }
 ```
 
-**Input (sequence with multiple steps - note step 2 has workspace that should be IGNORED)**:
+**Input (sequence with multiple steps - note step 2 workspace has inherited flag)**:
 ```json
 {
   "problem_id": 75,
@@ -378,19 +382,22 @@ When interaction_tool is "drag_label", add palette with stacks. Consult <sequenc
       "dialogue": "Now label each tick mark.",
       "prompt": "Label each position.",
       "interaction_tool": "drag_label",
-      "workspace": [
-        {
-          "id": "line_1",
-          "type": "number_line",
-          "range": [0, 1],
-          "ticks": [0, "1/4", "2/4", "3/4", 1],
-          "labels": [0, 1]
-        },
-        {
-          "type": "palette",
-          "labels": ["1/4", "2/4", "3/4"]
-        }
-      ],
+      "workspace": {
+        "inherited": true,
+        "tangibles": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "range": [0, 1],
+            "ticks": [0, "1/4", "2/4", "3/4", 1],
+            "labels": [0, 1]
+          },
+          {
+            "type": "palette",
+            "labels": ["1/4", "2/4", "3/4"]
+          }
+        ]
+      },
       "correct_answer": {
         "value": {"1/4": "1/4", "2/4": "2/4", "3/4": "3/4"},
         "context": "All labels placed correctly"
@@ -593,7 +600,6 @@ For multi-step sequences (NOTE: Step 2 does NOT have workspace field):
   - <tools> for tool types and schemas
   - <validators> for validator types and answer formats
   - <workspace> for tangible types and properties
-- For select questions (interaction_tool: `select` or `multi_select`), set `shuffle_tangibles: true` in workspace to randomize tangible order
 - Metadata must include: problem_id, template_id, template_skill, identifiers, mastery_tier, mastery_verb, telemetry_data (with all required telemetry fields)
 - Telemetry data sources:
   - mastery_skill (from template.skill)
@@ -604,6 +610,7 @@ For multi-step sequences (NOTE: Step 2 does NOT have workspace field):
   - misconception_id (AUTO-GENERATE based on problem characteristics using the mapping in section 4b, array of integers)
   - misconception_tag (AUTO-GENERATE based on problem characteristics using the mapping in section 4b, array of strings)
 - Remove: id, type fields from input tangibles from steps
+- **Remove role field but map it**: If input has `"role": "reference"`, output `"is_read_only": true` (for select/shade/place_point/drag_label interactions)
 - Convert error_path_generic.steps array to remediations array with proper structure
 
 Return ONLY valid JSON with Godot schema structure.

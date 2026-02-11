@@ -10,7 +10,6 @@
 
 **Fields**:
 - `tangibles` (array): Array of tangible objects (NumLine, Vocab, Benchmark, MathExpression, Grid)
-- `shuffle_tangibles` (optional, boolean): Whether to randomize tangible order
 
 **Example**:
 ```json
@@ -18,8 +17,7 @@
   "@type": "WorkspaceData",
   "tangibles": [
     {"@type": "NumLine", ...}
-  ],
-  "shuffle_tangibles": false
+  ]
 }
 ```
 
@@ -71,8 +69,12 @@ All tangibles support these optional layout fields:
 **intervals_is_frac_label_visible** (boolean or array of integers): Show labels on intervals. Default: `false`
 
 **ticks_is_read_only** (boolean or array of Fractions): Make ticks non-interactive. Default: `false`
+- Valid: `true` (all ticks), `false` (no ticks), or `["0", "1/3", "2/3"]` (specific fraction strings)
+- INVALID: `[true, true, false, ...]` (arrays of booleans are not supported)
 
 **intervals_is_read_only** (boolean or array of integers): Make intervals non-interactive. Default: `false`
+- Valid: `true` (all intervals), `false` (no intervals), or `[0, 1, 2]` (specific interval indices)
+- INVALID: `[true, false, true, ...]` (arrays of booleans are not supported)
 
 **is_read_only** (boolean): Make entire number line read-only. Default: `false`
 
