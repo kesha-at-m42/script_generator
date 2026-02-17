@@ -23,8 +23,12 @@ from modules.starter_packs import (
     module_5,
     module_6,
     module_7,
-    module_8
+    module_8,
+    module_9,
+    module_10,
+    module_11,
+    module_12
 )
 
 # Export for easy import
-__all__ = ['MODULES', 'module_1', 'module_2', 'module_3', 'module_4', 'module_5', 'module_6', 'module_7', 'module_8']
+__all__ = ['MODULES', 'module_1', 'module_2', 'module_3', 'module_4', 'module_5', 'module_6', 'module_7', 'module_8', 'module_9', 'module_10', 'module_11', 'module_12']
