@@ -29,7 +29,6 @@ All tangibles support these optional layout fields:
 
 - `@col` (integer): Column position in layout
 - `@layout` (string): Layout mode - `"underlay"`, `"default"`, or `"overlay"`
-- `is_visible` (boolean): Whether tangible is visible. Default: `true`
 
 ---
 
@@ -218,7 +217,6 @@ Same format as labels but NON-DRAGGABLE, displays on top:
 - `label` (string): The text to display
 
 **Optional Fields**:
-- `is_visible` (boolean): Whether label is shown. Default: `true`
 - `is_highlighted` (boolean): Whether label is emphasized. Default: `false`
 
 **Example**:
@@ -226,7 +224,6 @@ Same format as labels but NON-DRAGGABLE, displays on top:
 {
   "@type": "Vocab",
   "label": "unit fraction",
-  "is_visible": true,
   "is_highlighted": false,
   "@col": 0,
   "@layout": "default"
@@ -270,7 +267,6 @@ Same format as labels but NON-DRAGGABLE, displays on top:
 {
   "@type": "MathExpression",
   "terms": ["1/4", "+", "2/4", "=", "3/4"],
-  "is_visible": true,
   "@col": 0,
   "@layout": "default"
 }
@@ -295,7 +291,6 @@ Same format as labels but NON-DRAGGABLE, displays on top:
   "@type": "Grid",
   "h_lcm": 8,
   "v_lcm": 4,
-  "is_visible": true
 }
 ```
 

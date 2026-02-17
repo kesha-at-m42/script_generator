@@ -111,7 +111,7 @@ class BatchProcessor:
             if not is_included:
                 # If base_version_dir provided, copy from base instead of skipping
                 if self.base_version_dir:
-                    copied_item = self._load_from_base(item, item_id)
+                    copied_item = self._load_from_base(item, item_id, base_id)
                     if copied_item:
                         self.add_result(copied_item)
                         return True, "copied from base"
@@ -226,12 +226,13 @@ class BatchProcessor:
         """Get error list"""
         return self.errors
 
-    def _load_from_base(self, item: Dict, item_id: str) -> Dict:
+    def _load_from_base(self, item: Dict, item_id: str, base_id: str = None) -> Dict:
         """Load item from base version (unchanged items during rerun)
 
         Args:
             item: Current item data (may contain template_id)
-            item_id: Item ID to load
+            item_id: Item ID to load (may include step_id suffix like "9_1")
+            base_id: Base ID without step_id suffix (e.g., "9" for "9_1")
 
         Returns:
             Item data from base version, or None if not found
@@ -303,10 +304,15 @@ class BatchProcessor:
                         # IMPORTANT: Use output ID field when searching base outputs
                         # (base files have the transformed field name from batch_output_id_field)
                         search_field = self.batch_output_id_field if self.batch_output_id_field else self.batch_id_field
+
+                        # For multi-step items (e.g., "9_1"), search by base_id (e.g., "9")
+                        # because base version has non-flattened items
+                        search_id = base_id if base_id else item_id
+
                         for collated_item in self._base_collated_cache:
                             # Match by output ID field (handles nested IDs)
                             collated_id = self._get_item_id(collated_item, search_field)
-                            if collated_id == str(item_id):
+                            if collated_id == str(search_id):
                                 return collated_item
                     except Exception as e:
                         pass  # Ignore errors, fall through to individual file

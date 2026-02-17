@@ -110,7 +110,8 @@ class Step:
         batch_skip_existing: bool = False,
         batch_only_items: List[str] = None,
         batch_skip_items: List[str] = None,
-        batch_stop_on_error: bool = False
+        batch_stop_on_error: bool = False,
+        stop_on_validation_failure: bool = True
     ):
         """
         Args:
@@ -135,6 +136,7 @@ class Step:
             batch_only_items: Only process these item IDs (list of strings)
             batch_skip_items: Skip these item IDs (list of strings)
             batch_stop_on_error: Stop pipeline if any item fails (default: False, continue)
+            stop_on_validation_failure: Stop pipeline if validation fails (default: True, stop)
 
         Note: Either prompt_name OR function must be specified, not both.
         """
@@ -155,6 +157,7 @@ class Step:
         self.batch_only_items = batch_only_items or []
         self.batch_skip_items = batch_skip_items or []
         self.batch_stop_on_error = batch_stop_on_error
+        self.stop_on_validation_failure = stop_on_validation_failure
 
         # Validation
         if prompt_name and function:
@@ -744,27 +747,40 @@ def run_pipeline(
                             elif not template_path and verbose:
                                 print(f"    [WARN] template_ref specified but no template_path configured")
 
+                        # Validation schema (used for all validations)
+                        VALIDATION_SCHEMA = {
+                            "valid": bool,  # True if no errors found
+                            "errors": list,  # List of error strings
+                            "warnings": list  # List of warning strings (optional)
+                        }
+
                         # Self-validation loop with retry logic
-                        max_attempts = 3
-                        attempt = 1
+                        # max_retries = 3  # Commented out - no retries for now, just initial validation
+                        max_retries = 0
+                        retry_attempt = 0
+                        is_retry = False
                         item_result = None
                         validation_passed = False
                         validation_history = []
                         conversation_messages = None  # Track conversation for multi-turn retry
 
-                        while attempt <= max_attempts and not validation_passed:
-                            if attempt > 1 and verbose:
-                                print(f"    [RETRY] Attempt {attempt}/{max_attempts} (multi-turn)...")
+                        # Create ClaudeClient for validation and retries
+                        from claude_client import ClaudeClient
+                        claude_client = ClaudeClient()
+
+                        while retry_attempt <= max_retries and not validation_passed:
+                            if is_retry and verbose:
+                                print(f"    [RETRY] Regeneration attempt {retry_attempt}/{max_retries} with error feedback...")
 
                             # Generate output
-                            if attempt == 1 or conversation_messages is None:
+                            if not is_retry or conversation_messages is None:
                                 # First attempt: use normal builder.run()
                                 item_output = builder.run(
                                     prompt_name=step.prompt_name,
                                     variables=merged_vars,
                                     input_content=item_input,
                                     model=step.model,
-                                    save_prompt_to=str(prompt_save_path) if attempt == 1 else None
+                                    save_prompt_to=str(prompt_save_path) if not is_retry else None
                                 )
 
                                 # Build initial conversation from the prompt for future turns
@@ -785,24 +801,35 @@ def run_pipeline(
                                 ]
                             else:
                                 # Retry: continue conversation with error feedback
-                                retry_message = f"""Your previous output had validation errors:
+                                # Handle both string and dict error formats
+                                error_lines = []
+                                for err in content_errors:
+                                    if isinstance(err, str):
+                                        error_lines.append('- ' + err)
+                                    elif isinstance(err, dict):
+                                        error_lines.append('- ' + err.get('message', str(err)))
+                                    else:
+                                        error_lines.append('- ' + str(err))
 
-{chr(10).join('- ' + err for err in content_errors)}
+                                retry_message = f"""Your previous output had validation errors. Regenerate the complete JSON by addressing these issues:
 
-Please regenerate the output fixing these errors. Return the complete corrected JSON."""
+{chr(10).join(error_lines)}
+
+Review your original instructions and schemas to ensure the regenerated output follows all rules correctly."""
 
                                 conversation_messages.append({
                                     "role": "user",
                                     "content": retry_message
                                 })
 
-                                # Call Claude directly with conversation history
-                                item_output = builder.client.call_claude(
+                                # Call Claude directly with conversation history using Anthropic API
+                                response = claude_client.client.messages.create(
                                     messages=conversation_messages,
                                     model=step.model,
                                     temperature=built_prompt['api_params'].get('temperature', 1.0),
                                     max_tokens=built_prompt['api_params'].get('max_tokens', 16000)
                                 )
+                                item_output = response.content[0].text
 
                                 # Add assistant response to conversation
                                 conversation_messages.append({
@@ -831,9 +858,9 @@ Please regenerate the output fixing these errors. Return the complete corrected 
 
                             if schema_error:
                                 if verbose:
-                                    print(f"    [WARN] Schema validation failed: {schema_error}")
+                                    print(f"    [FAIL] Schema validation: {schema_error}")
                                 validation_history.append({
-                                    'attempt': attempt,
+                                    'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
                                     'type': 'schema',
                                     'error': schema_error
                                 })
@@ -846,27 +873,61 @@ Please regenerate the output fixing these errors. Return the complete corrected 
                                     'item_index': item_idx,
                                     'error': schema_error,
                                     'type': 'schema',
-                                    'attempts': attempt
+                                    'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
+                                    'total_retries': retry_attempt
                                 })
                                 break
 
                             # AI Content Validation (if validation_prompt exists)
                             content_errors = []
                             if prompt.validation_prompt:
-                                if verbose and attempt == 1:
-                                    print(f"    [VALIDATE] Running AI content validation...")
+                                if verbose and not is_retry:
+                                    print(f"    [VALIDATE] Running content validation...")
 
                                 try:
                                     validation_input = json.dumps(item_result, indent=2, ensure_ascii=False)
 
-                                    # Build validation messages
-                                    validation_messages = [
-                                        {"role": "user", "content": prompt.validation_prompt + "\n\n" + validation_input}
+                                    # Build validation messages with caching
+                                    # System message contains the validation prompt (cached if cache_docs enabled)
+                                    validation_system = [
+                                        {
+                                            "type": "text",
+                                            "text": prompt.validation_prompt
+                                        }
                                     ]
 
+                                    # Add cache control if caching is enabled
+                                    if prompt.cache_docs:
+                                        cache_control = {"type": "ephemeral"}
+                                        if prompt.cache_ttl == "1h":
+                                            cache_control["ttl"] = "1h"
+                                        validation_system[-1]["cache_control"] = cache_control
+
+                                    # User message contains only the content to validate (changes each time)
+                                    validation_user_message = validation_input
+
+                                    # Save validation prompt (only on initial generation)
+                                    if not is_retry:
+                                        validation_prompt_file = step_paths['prompts_dir'] / f"{item_id}_validation.md"
+                                        with open(validation_prompt_file, 'w', encoding='utf-8') as f:
+                                            f.write(f"# Validation Prompt for {item_id}\n\n")
+                                            f.write(f"## System Message (Cached: {prompt.cache_docs})\n\n")
+                                            f.write(prompt.validation_prompt)
+                                            f.write(f"\n\n## Expected Response Schema\n\n")
+                                            f.write("```json\n")
+                                            f.write("{\n")
+                                            f.write('  "valid": true,  // or false\n')
+                                            f.write('  "errors": ["error1", "error2"],  // empty if valid\n')
+                                            f.write('  "warnings": []  // optional\n')
+                                            f.write("}\n")
+                                            f.write("```\n\n")
+                                            f.write(f"## User Input (Content to Validate)\n\n")
+                                            f.write(validation_input)
+
                                     # Call Claude for validation (use Haiku for speed)
-                                    validation_response = builder.client.call_claude(
-                                        messages=validation_messages,
+                                    validation_response = claude_client.generate(
+                                        system=validation_system,
+                                        user_message=validation_user_message,
                                         model="claude-haiku-4-5-20251001",
                                         temperature=0.0,
                                         max_tokens=1000
@@ -879,52 +940,66 @@ Please regenerate the output fixing these errors. Return the complete corrected 
                                     if not validation_result.get('valid', True):
                                         content_errors = validation_result.get('errors', ['Unknown validation error'])
                                         if verbose:
-                                            print(f"    [WARN] Content validation failed: {content_errors}")
+                                            print(f"    [FAIL] Content validation failed!")
+                                            for i, error in enumerate(content_errors, 1):
+                                                error_msg = error if isinstance(error, str) else error.get('message', str(error)) if isinstance(error, dict) else str(error)
+                                                # Safe Unicode handling for Windows console
+                                                try:
+                                                    print(f"      Error {i}: {error_msg}")
+                                                except UnicodeEncodeError:
+                                                    # Fallback: encode with ASCII and replace problematic chars
+                                                    safe_msg = error_msg.encode('ascii', 'replace').decode('ascii')
+                                                    print(f"      Error {i}: {safe_msg}")
 
                                         validation_history.append({
-                                            'attempt': attempt,
+                                            'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
                                             'type': 'content',
                                             'errors': content_errors,
                                             'warnings': validation_result.get('warnings', [])
                                         })
 
-                                        # If not last attempt, retry with multi-turn conversation
-                                        if attempt < max_attempts:
+                                        # If not max retries, retry with multi-turn conversation
+                                        if retry_attempt < max_retries:
                                             # content_errors will be used in next loop iteration
                                             # via the multi-turn conversation logic above
-                                            attempt += 1
+                                            retry_attempt += 1
+                                            is_retry = True
                                             continue
                                         else:
-                                            # Final attempt failed
+                                            # Final retry failed
                                             if not hasattr(batch_proc, '_content_validation_errors'):
                                                 batch_proc._content_validation_errors = []
                                             batch_proc._content_validation_errors.append({
                                                 'item_id': item_id,
                                                 'item_index': item_idx,
-                                                'errors': content_errors,
-                                                'warnings': validation_result.get('warnings', []),
+                                                'initial_generation': validation_history[0] if validation_history else None,
+                                                'final_errors': content_errors,
+                                                'final_warnings': validation_result.get('warnings', []),
                                                 'type': 'content',
-                                                'attempts': attempt,
+                                                'total_retries': retry_attempt,
                                                 'history': validation_history
                                             })
                                     else:
                                         # Validation passed!
                                         validation_passed = True
                                         if verbose:
+                                            success_msg = "[OK] Content validation passed"
+                                            if is_retry:
+                                                success_msg += f" (after {retry_attempt} retries)"
+                                            print(f"    {success_msg}")
+
                                             warnings = validation_result.get('warnings', [])
                                             if warnings:
-                                                print(f"    [INFO] Validation warnings: {warnings}")
-                                            else:
-                                                success_msg = f"[OK] Content validation passed"
-                                                if attempt > 1:
-                                                    success_msg += f" (after {attempt} attempts)"
-                                                print(f"    {success_msg}")
+                                                print(f"    [WARN] Validation warnings:")
+                                                for i, warning in enumerate(warnings, 1):
+                                                    print(f"      Warning {i}: {warning}")
 
-                                    # Save validation result for this attempt
+                                    # Save validation result
                                     validation_output_file = step_paths['items_dir'] / f"{item_id}_validation.json"
                                     validation_save = {
+                                        'status': 'passed' if validation_passed else 'failed',
                                         'final_result': validation_result,
-                                        'attempts': attempt,
+                                        'total_retries': retry_attempt,
                                         'history': validation_history
                                     }
                                     with open(validation_output_file, 'w', encoding='utf-8') as f:
@@ -932,18 +1007,24 @@ Please regenerate the output fixing these errors. Return the complete corrected 
 
                                 except Exception as e:
                                     if verbose:
-                                        print(f"    [WARN] AI validation failed: {e}")
+                                        print(f"    [WARN] AI validation exception: {e}")
+                                        import traceback
+                                        print(f"    [DEBUG] {traceback.format_exc()}")
                                     validation_passed = True  # Continue if validation fails
                                     break
                             else:
                                 # No validation prompt, consider it passed
+                                if verbose and not is_retry:
+                                    print(f"    [SKIP] No validation prompt defined")
                                 validation_passed = True
 
                             # If we got here and validation passed, break out of loop
                             if validation_passed:
                                 break
 
-                            attempt += 1
+                            # Increment retry counter for next iteration
+                            retry_attempt += 1
+                            is_retry = True
 
                     else:
                         # Formatting step - call Python function
@@ -991,11 +1072,20 @@ Please regenerate the output fixing these errors. Return the complete corrected 
 
             # Save validation errors to separate file
             if validation_errors:
-                validation_errors_file = step_paths['step_dir'] / 'validation_errors.json'
+                validation_errors_file = step_dir / 'validation_errors.json'
                 with open(validation_errors_file, 'w', encoding='utf-8') as f:
                     json.dump(validation_errors, f, indent=2, ensure_ascii=False)
                 if verbose:
                     print(f"    Saved validation errors to: {validation_errors_file.relative_to(output_dir_path)}")
+
+            # Save content validation errors to separate file
+            content_validation_errors = getattr(batch_proc, '_content_validation_errors', [])
+            if content_validation_errors:
+                content_validation_errors_file = step_dir / 'content_validation_errors.json'
+                with open(content_validation_errors_file, 'w', encoding='utf-8') as f:
+                    json.dump(content_validation_errors, f, indent=2, ensure_ascii=False)
+                if verbose:
+                    print(f"    Saved content validation errors to: {content_validation_errors_file.relative_to(output_dir_path)}")
 
             # Save errors if any
             errors = batch_proc.get_errors()
@@ -1005,6 +1095,18 @@ Please regenerate the output fixing these errors. Return the complete corrected 
                     json.dump(errors, f, indent=2, ensure_ascii=False)
                 if verbose:
                     print(f"    Saved errors to: {errors_file.relative_to(output_dir_path)}")
+
+            # Log validation failures but don't stop pipeline
+            if validation_errors or content_validation_errors:
+                total_validation_failures = len(validation_errors) + len(content_validation_errors)
+                print(f"\n  [VALIDATION WARNINGS]")
+                print(f"    Total items with validation failures: {total_validation_failures}")
+                if validation_errors:
+                    print(f"    - Schema validation failures: {len(validation_errors)}")
+                if content_validation_errors:
+                    print(f"    - Content validation failures: {len(content_validation_errors)}")
+                print(f"    Review validation errors in: {step_dir.relative_to(output_dir_path)}/")
+                print(f"    Pipeline will continue...")
 
             # Set output to collated array
             collated_results = batch_proc.get_collated_results()

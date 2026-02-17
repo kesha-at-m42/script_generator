@@ -432,7 +432,7 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                                         f"or (2) remove equivalent options from choices."
                                     )
 
-                # Check SelectionValidator with equivalent tangibles
+                # Check SelectionValidator with reference bar validation
                 if validator_type == "SelectionValidator":
                     answer = validator.get("answer")
 
@@ -440,39 +440,99 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                     if isinstance(answer, int):
                         answer = [answer]
 
-                    if isinstance(answer, list) and len(answer) == 1 and isinstance(workspace, dict):
+                    if isinstance(answer, list) and isinstance(workspace, dict):
                         tangibles = workspace.get("tangibles", [])
-                        answer_idx = answer[0]
 
-                        if 0 <= answer_idx < len(tangibles):
-                            answer_tangible = tangibles[answer_idx]
+                        # Find reference bar (read-only tangible)
+                        reference_bar = None
+                        reference_idx = None
+                        for idx, tangible in enumerate(tangibles):
+                            if tangible.get("is_read_only") and tangible.get("@type") in ["NumLine", "FracShape"]:
+                                reference_bar = tangible
+                                reference_idx = idx
+                                break
 
-                            # Check for equivalent fraction strips/bars
-                            if answer_tangible.get("@type") in ["NumLine", "FracShape"]:
-                                # Extract the shaded amount from answer tangible
-                                answer_amount = _extract_shaded_amount(answer_tangible)
+                        if reference_bar:
+                            # Extract reference amount
+                            reference_amount = _extract_shaded_amount(reference_bar)
 
-                                if answer_amount:
-                                    # Check other tangibles for equivalence
-                                    equivalent_indices = []
-                                    for idx, tangible in enumerate(tangibles):
-                                        if idx != answer_idx and tangible.get("@type") == answer_tangible.get("@type"):
-                                            # Skip reference tangibles
-                                            if tangible.get("is_read_only"):
-                                                continue
+                            if reference_amount:
+                                # Check all answer indices point to equivalent amounts
+                                for ans_idx in answer:
+                                    if 0 <= ans_idx < len(tangibles):
+                                        answer_tangible = tangibles[ans_idx]
 
-                                            tangible_amount = _extract_shaded_amount(tangible)
-                                            if tangible_amount and are_fractions_equivalent(answer_amount, tangible_amount):
-                                                equivalent_indices.append(idx)
+                                        # Skip if answer points to reference itself
+                                        if ans_idx == reference_idx:
+                                            continue
 
-                                    if equivalent_indices:
-                                        return (
-                                            f"steps[{step_idx}].prompt.validator: Multiple equivalent selectable tangibles detected. "
-                                            f"Answer is [{answer_idx}] (showing {answer_amount}) but tangible(s) {equivalent_indices} "
-                                            f"are also equivalent. This creates ambiguity - student could select any equivalent tangible. "
-                                            f"Consider: (1) marking non-answer equivalents as is_read_only: true (reference), "
-                                            f"or (2) using MultipleChoiceValidator if multiple selections are valid."
-                                        )
+                                        if answer_tangible.get("@type") in ["NumLine", "FracShape"]:
+                                            answer_amount = _extract_shaded_amount(answer_tangible)
+
+                                            if answer_amount and not are_fractions_equivalent(reference_amount, answer_amount):
+                                                return (
+                                                    f"steps[{step_idx}].prompt.validator: Wrong answer in SelectionValidator. "
+                                                    f"Reference bar (index {reference_idx}) shows {reference_amount}, "
+                                                    f"but answer includes index {ans_idx} showing {answer_amount} which is NOT equivalent. "
+                                                    f"Mathematical check: {reference_amount} ≠ {answer_amount}"
+                                                )
+
+                                # Check for missing equivalent tangibles
+                                selectable_equivalent_indices = []
+                                for idx, tangible in enumerate(tangibles):
+                                    # Skip reference bar and non-selectable tangibles
+                                    if tangible.get("is_read_only") or idx == reference_idx:
+                                        continue
+
+                                    if tangible.get("@type") in ["NumLine", "FracShape"]:
+                                        tangible_amount = _extract_shaded_amount(tangible)
+                                        if tangible_amount and are_fractions_equivalent(reference_amount, tangible_amount):
+                                            selectable_equivalent_indices.append((idx, tangible_amount))
+
+                                # Check if answer is missing any equivalent tangibles
+                                missing_indices = [idx for idx, _ in selectable_equivalent_indices if idx not in answer]
+                                if missing_indices:
+                                    return (
+                                        f"steps[{step_idx}].prompt.validator: Incomplete answer in SelectionValidator. "
+                                        f"Reference bar shows {reference_amount}. "
+                                        f"Answer is {answer} but indices {missing_indices} also show equivalent amounts. "
+                                        f"Either add missing indices to answer or use is_single: true if only one answer is expected."
+                                    )
+
+                        else:
+                            # No reference bar - check for multiple equivalents without context
+                            if len(answer) == 1:
+                                answer_idx = answer[0]
+
+                                if 0 <= answer_idx < len(tangibles):
+                                    answer_tangible = tangibles[answer_idx]
+
+                                    # Check for equivalent fraction strips/bars
+                                    if answer_tangible.get("@type") in ["NumLine", "FracShape"]:
+                                        # Extract the shaded amount from answer tangible
+                                        answer_amount = _extract_shaded_amount(answer_tangible)
+
+                                        if answer_amount:
+                                            # Check other tangibles for equivalence
+                                            equivalent_indices = []
+                                            for idx, tangible in enumerate(tangibles):
+                                                if idx != answer_idx and tangible.get("@type") == answer_tangible.get("@type"):
+                                                    # Skip reference tangibles
+                                                    if tangible.get("is_read_only"):
+                                                        continue
+
+                                                    tangible_amount = _extract_shaded_amount(tangible)
+                                                    if tangible_amount and are_fractions_equivalent(answer_amount, tangible_amount):
+                                                        equivalent_indices.append(idx)
+
+                                            if equivalent_indices:
+                                                return (
+                                                    f"steps[{step_idx}].prompt.validator: Multiple equivalent selectable tangibles detected. "
+                                                    f"Answer is [{answer_idx}] (showing {answer_amount}) but tangible(s) {equivalent_indices} "
+                                                    f"are also equivalent. This creates ambiguity - student could select any equivalent tangible. "
+                                                    f"Consider: (1) marking non-answer equivalents as is_read_only: true (reference), "
+                                                    f"or (2) changing to is_single: false if multiple selections are valid."
+                                                )
 
     return None
 

@@ -279,7 +279,16 @@ Key field changes (see workspace.md for details):
 
 ### 7. Answer Conversions
 - Choice IDs → indices: "a"→[0], "b"→[1], "c"→[2]
-- Tangible IDs → indices: "line_1"→[0], "line_2"→[1]
+- **Tangible IDs → indices (SelectionValidator)**:
+  - **CRITICAL**: Indices count ALL tangibles in order (including read-only)
+  - Map each tangible ID to its position in the tangibles array (0-based)
+  - Example: If workspace has tangibles in order: [reference_bar, bar_a, bar_b, bar_c]
+    - reference_bar (read-only) → index 0
+    - bar_a → index 1
+    - bar_b → index 2
+    - bar_c → index 3
+  - If input has `correct_answer.value: "bar_b"` → output: `answer: 2`
+  - If input has `correct_answer.value: ["bar_a", "bar_c"]` → output: `answer: [1, 3]`
 - Fractions: Keep as strings "2/3"
 
 ### 8. Success and Error Paths

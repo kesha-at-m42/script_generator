@@ -3,9 +3,12 @@ NumLine Fixer - Formatting Step
 
 Fixes NumLine issues:
 1. Ensures all labels are strings, not numeric values
-2. For LabelValidator/PointValidator answers: ensures fractions are in range, have ticks, and are not read-only
-3. Moves labels to alt_labels when frac_labels mode has whole number fractions in answer
-4. Ensures whole number ticks and labels exist when range extends beyond 2
+2. Ensures all ticks are strings, not numeric values
+3. Consolidates equivalent fractions in PointValidator answer (e.g., ["1/2", "2/4"] -> ["1/2"])
+4. Removes labels that are equivalent to validator answer values (prevents giving away answer)
+5. For LabelValidator/PointValidator answers: ensures fractions are in range, have ticks, and are not read-only
+6. Moves labels to alt_labels when frac_labels mode has whole number fractions in answer
+7. Ensures whole number ticks and labels exist when range extends beyond 2
 """
 
 import os
@@ -25,7 +28,8 @@ class NumLineLogger:
             'alt_labels_added': 0,
             'ticks_added': 0,
             'labels_added': 0,
-            'readonly_fixed': 0
+            'readonly_fixed': 0,
+            'ticks_converted': 0
         }
         self.details = []
 
@@ -44,6 +48,22 @@ class NumLineLogger:
         print(f"\n[DEBUG] LABELS FIXED - {location}")
         print(f"  BEFORE: {old_labels}")
         print(f"  AFTER:  {new_labels}")
+
+    def log_ticks_converted(self, location, old_ticks, new_ticks):
+        """Log when numeric ticks are converted to strings"""
+        if not self.enabled or old_ticks == new_ticks:
+            return
+
+        self.changes['ticks_converted'] += 1
+        self.details.append({
+            'type': 'ticks_converted',
+            'location': location,
+            'old': old_ticks,
+            'new': new_ticks
+        })
+        print(f"\n[DEBUG] TICKS CONVERTED - {location}")
+        print(f"  BEFORE: {old_ticks}")
+        print(f"  AFTER:  {new_ticks}")
 
     def log_alt_labels_added(self, location, alt_labels):
         """Log when alt_labels are added"""
@@ -118,6 +138,8 @@ class NumLineLogger:
 
         if self.changes['labels_fixed'] > 0:
             print(f"[OK] Numeric labels fixed: {self.changes['labels_fixed']} NumLines")
+        if self.changes['ticks_converted'] > 0:
+            print(f"[OK] Numeric ticks converted: {self.changes['ticks_converted']} NumLines")
         if self.changes['alt_labels_added'] > 0:
             print(f"[OK] Alt_labels added: {self.changes['alt_labels_added']} NumLines")
         if self.changes['ticks_added'] > 0:
@@ -245,6 +267,56 @@ def fix_numline_labels(data, location_prefix=""):
         return data
 
 
+def fix_numline_ticks(data, location_prefix=""):
+    """
+    Recursively fix NumLine ticks to ensure they are strings.
+
+    Converts numeric values in ticks arrays to strings while preserving
+    string values and string interval formats.
+
+    Args:
+        data: Any data structure (dict, list, or primitive)
+        location_prefix: Location prefix for logging (internal use)
+
+    Returns:
+        Fixed data structure with string ticks
+    """
+    if isinstance(data, dict):
+        # Check if this is a NumLine with ticks array
+        if data.get("@type") == "NumLine" and "ticks" in data:
+            ticks = data["ticks"]
+
+            # Only fix if ticks is an array (not string interval or None)
+            if isinstance(ticks, list):
+                old_ticks = ticks[:]
+                fixed_ticks = []
+                for tick in ticks:
+                    if isinstance(tick, (int, float)):
+                        # Convert numeric to string
+                        if isinstance(tick, int) or tick.is_integer():
+                            fixed_ticks.append(str(int(tick)))
+                        else:
+                            fixed_ticks.append(str(tick))
+                    else:
+                        # Keep strings as-is
+                        fixed_ticks.append(tick)
+
+                if old_ticks != fixed_ticks:
+                    _logger.log_ticks_converted(location_prefix or "NumLine", old_ticks, fixed_ticks)
+                data["ticks"] = fixed_ticks
+
+        # Recursively process all dict values
+        return {key: fix_numline_ticks(value, location_prefix) for key, value in data.items()}
+
+    elif isinstance(data, list):
+        # Recursively process all list items
+        return [fix_numline_ticks(item, location_prefix) for item in data]
+
+    else:
+        # Primitive value, return as-is
+        return data
+
+
 def add_alt_labels_for_whole_numbers(step):
     """
     Move labels to alt_labels in NumLine when frac_labels mode has whole number fractions in answer.
@@ -332,20 +404,22 @@ def add_alt_labels_for_whole_numbers(step):
     return step
 
 
-def ensure_whole_number_ticks_and_labels(tangible, location="NumLine", validator_answer=None):
+def ensure_whole_number_ticks_and_labels(tangible, location="NumLine", validator_answer=None, validator_type=None):
     """
-    Ensure NumLine has ticks and labels at all whole number positions when range > 2.
+    Ensure NumLine has ticks and labels at all whole number positions.
 
-    When a number line extends beyond 2 (like [0, 3] or [0, 4]), ensure there are
-    ticks and labels at all whole number positions (0, 1, 2, 3, etc.).
+    For any number line range, ensure there are ticks and labels at all whole number
+    positions (0, 1, 2, 3, etc.) within that range.
 
-    IMPORTANT: Does NOT add whole numbers to labels if they are in the validator answer
-    (to avoid giving away the answer).
+    IMPORTANT: Label behavior depends on validator type:
+    - PointValidator: Adds ALL whole numbers to labels (including answer positions)
+    - LabelValidator: Skips whole numbers in answer (to avoid giving away where to place labels)
 
     Args:
         tangible: NumLine tangible dictionary
         location: Location string for logging
-        validator_answer: List of answer fractions from validator (to avoid adding to labels)
+        validator_answer: List of answer fractions from validator
+        validator_type: Validator type ("PointValidator" or "LabelValidator")
 
     Returns:
         Modified tangible dictionary
@@ -358,10 +432,6 @@ def ensure_whole_number_ticks_and_labels(tangible, location="NumLine", validator
         return tangible
 
     start, end = range_list
-
-    # Only apply if range extends to 2 or beyond
-    if end < 2:
-        return tangible
 
     # Get all whole numbers in range
     whole_numbers = get_whole_numbers_in_range(range_list)
@@ -397,23 +467,26 @@ def ensure_whole_number_ticks_and_labels(tangible, location="NumLine", validator
         if old_ticks != ticks:
             _logger.log_ticks_added(location, old_ticks, ticks)
 
-    # Ensure labels includes all whole numbers EXCEPT those in the validator answer
+    # Ensure labels includes all whole numbers
+    # For LabelValidator: Skip those in answer (don't give away where to place labels)
+    # For PointValidator: Include all (helps students verify positions)
     labels = tangible.get('labels')
     if isinstance(labels, list):
         old_labels = labels[:]
-        # Add any missing whole numbers to labels (except answer positions)
+        # Add any missing whole numbers to labels
         # Use fraction equivalence checking (e.g., 6/3 = 2)
         for wn in whole_numbers:
-            # Check if this whole number is in the validator answer
+            # For LabelValidator: Check if this whole number is in the validator answer
             is_in_answer = False
-            for answer_frac in validator_answer:
-                if are_fractions_equal(wn, answer_frac):
-                    is_in_answer = True
-                    break
+            if validator_type == 'LabelValidator':
+                for answer_frac in validator_answer:
+                    if are_fractions_equal(wn, answer_frac):
+                        is_in_answer = True
+                        break
 
-            # Skip if it's in the answer (don't give away the answer!)
-            if is_in_answer:
-                continue
+                # Skip if it's in the answer (don't give away the answer!)
+                if is_in_answer:
+                    continue
 
             # Check if this whole number (or equivalent fraction) already exists
             has_equivalent = False
@@ -457,7 +530,7 @@ def are_fractions_equal(frac1, frac2):
         return False
 
 
-def ensure_answer_fractions_placeable(step):
+def ensure_answer_fractions_placeable(step, previous_steps=None):
     """
     Ensure all fractions in validator answer can be placed on the NumLine.
 
@@ -468,15 +541,33 @@ def ensure_answer_fractions_placeable(step):
     2. There is a tick at that position (adds to ticks if missing)
     3. The tick is NOT read-only (removes from ticks_is_read_only if present)
     4. Whole numbers NOT in the answer ARE read-only (adds to ticks_is_read_only)
+    5. For multi-label scenarios: Fraction ticks NOT in answer ARE read-only
+       For single-label scenarios: All fraction ticks are editable (exploratory mode)
 
     Args:
         step: Step dictionary
+        previous_steps: List of previous steps in the same sequence (for workspace inheritance)
 
     Returns:
         Modified step dictionary
     """
     prompt = step.get('prompt', {})
     if not isinstance(prompt, dict):
+        return step
+
+    # Get workspace - if current step doesn't have one, inherit from previous step
+    workspace = step.get('workspace')
+    if not workspace and previous_steps:
+        # Look back through previous steps to find the most recent workspace
+        for prev_step in reversed(previous_steps):
+            prev_workspace = prev_step.get('workspace')
+            if prev_workspace:
+                workspace = prev_workspace
+                # Don't store in current step - workspaces are shared, not duplicated
+                # Modifications to 'workspace' will affect the previous step's workspace
+                break
+
+    if not workspace:
         return step
 
     validator = prompt.get('validator', {})
@@ -493,8 +584,7 @@ def ensure_answer_fractions_placeable(step):
     if not isinstance(answer, list):
         answer = []
 
-    # Process NumLine tangibles
-    workspace = step.get('workspace', {})
+    # Process NumLine tangibles (workspace already retrieved above with inheritance)
     if not isinstance(workspace, dict):
         return step
 
@@ -625,14 +715,40 @@ def ensure_answer_fractions_placeable(step):
                     print(f"  AFTER: 1/{lcm} (based on answer/labels/points denominators)")
 
         # Step 3: Update ticks_is_read_only
-        # - Remove answer positions from read_only (students need to place labels there)
-        # - Add whole numbers to read_only if they're NOT in the answer (prevent placement)
+        # Logic depends on number of labels in palette:
+        # - Single label: Only whole numbers not in answer are read-only (exploratory mode)
+        # - Multiple labels: Only answer positions are editable (direct placement mode)
+
+        # Initialize ticks_is_read_only as empty list if needed
+        if not isinstance(ticks_readonly, list):
+            # If there's a validator answer, initialize as empty list (we'll populate it below)
+            # Otherwise, leave as-is (false/null means no read-only management)
+            if answer:
+                ticks_readonly = []
+                tangible['ticks_is_read_only'] = ticks_readonly
+            else:
+                # No validator answer, skip read-only management
+                continue
+
         if isinstance(ticks_readonly, list):
             old_readonly = ticks_readonly[:]
             removed_ticks = []
             updated_readonly = []
 
-            # First, keep existing read_only ticks that are NOT answer positions
+            # Determine if this is single-label or multi-label scenario
+            # Palette is always in the current step (if it exists)
+            palette_count = 0
+            tool = prompt.get('tool', {})
+            if isinstance(tool, dict) and tool.get('mode') == 'frac_labels':
+                palette = tool.get('palette', {})
+                if isinstance(palette, dict):
+                    stacks = palette.get('stacks', [])
+                    palette_count = len(stacks) if isinstance(stacks, list) else 0
+
+            answer_count = len(answer) if isinstance(answer, list) else 0
+            is_single_label_scenario = (palette_count == 1 and answer_count == 1)
+
+            # Phase 1: Remove answer positions from read_only
             for tick in ticks_readonly:
                 is_answer_position = False
                 for answer_frac in answer:
@@ -644,20 +760,18 @@ def ensure_answer_fractions_placeable(step):
                 if not is_answer_position:
                     updated_readonly.append(tick)
 
-            # Second, add whole numbers to read_only if they're NOT in the answer
+            # Phase 2: Add whole numbers NOT in answer to read_only (always)
             current_range = tangible.get('range', [0, 1])
             whole_numbers = get_whole_numbers_in_range(current_range)
-            added_readonly = []
+            added_readonly_whole = []
 
             for wn in whole_numbers:
-                # Check if this whole number is in the answer
                 is_in_answer = False
                 for answer_frac in answer:
                     if are_fractions_equal(wn, answer_frac):
                         is_in_answer = True
                         break
 
-                # If NOT in answer and NOT already in read_only, add it
                 if not is_in_answer:
                     already_readonly = False
                     for tick in updated_readonly:
@@ -667,18 +781,48 @@ def ensure_answer_fractions_placeable(step):
 
                     if not already_readonly:
                         updated_readonly.append(wn)
-                        added_readonly.append(wn)
+                        added_readonly_whole.append(wn)
+
+            # Phase 3: For multi-label scenarios, add non-answer fraction ticks to read_only
+            added_readonly_fracs = []
+            if not is_single_label_scenario and isinstance(ticks, list):
+                for tick in ticks:
+                    # Skip if it's a whole number (already handled in Phase 2)
+                    if is_whole_number(tick):
+                        continue
+
+                    # Check if this fraction is in the answer
+                    is_in_answer = False
+                    for answer_frac in answer:
+                        if are_fractions_equal(tick, answer_frac):
+                            is_in_answer = True
+                            break
+
+                    # If NOT in answer and NOT already read-only, add it
+                    if not is_in_answer:
+                        already_readonly = False
+                        for ro_tick in updated_readonly:
+                            if are_fractions_equal(ro_tick, tick):
+                                already_readonly = True
+                                break
+
+                        if not already_readonly:
+                            updated_readonly.append(tick)
+                            added_readonly_fracs.append(tick)
 
             # Update the field if changes were made
             if old_readonly != updated_readonly:
                 tangible['ticks_is_read_only'] = updated_readonly
-                if removed_ticks or added_readonly:
+                if removed_ticks or added_readonly_whole or added_readonly_fracs:
                     if _logger.enabled:
                         print(f"\n[DEBUG] READONLY UPDATED - {location}")
+                        print(f"  Mode: {'SINGLE-LABEL (exploratory)' if is_single_label_scenario else 'MULTI-LABEL (direct placement)'}")
                         if removed_ticks:
                             print(f"  REMOVED: {removed_ticks}")
-                        if added_readonly:
-                            print(f"  ADDED: {added_readonly} (whole numbers not in answer)")
+                        if added_readonly_whole:
+                            print(f"  ADDED (whole numbers): {added_readonly_whole}")
+                        if added_readonly_fracs:
+                            print(f"  ADDED (fraction ticks): {added_readonly_fracs}")
                         print(f"  BEFORE: {old_readonly}")
                         print(f"  AFTER:  {updated_readonly}")
                 _logger.log_readonly_fixed(location, old_readonly, updated_readonly, removed_ticks)
@@ -707,6 +851,183 @@ def remove_internal_fields(data):
     else:
         # Primitive value, return as-is
         return data
+
+
+def consolidate_equivalent_fractions_in_validator(step):
+    """
+    Consolidate equivalent fractions in PointValidator answer array.
+
+    When a PointValidator has multiple equivalent fractions (e.g., "1/2" and "2/4"),
+    keep only the first occurrence since they represent the same position.
+
+    Args:
+        step: Step dictionary
+
+    Returns:
+        Modified step dictionary
+    """
+    prompt = step.get('prompt', {})
+    if not isinstance(prompt, dict):
+        return step
+
+    validator = prompt.get('validator', {})
+    if not isinstance(validator, dict):
+        return step
+
+    # Only process PointValidator
+    if validator.get('@type') != 'PointValidator':
+        return step
+
+    validator_answer = validator.get('answer', [])
+    if not isinstance(validator_answer, list) or len(validator_answer) < 2:
+        return step
+
+    # Consolidate equivalent fractions (keep first occurrence)
+    consolidated = []
+    removed = []
+
+    for frac in validator_answer:
+        # Check if this fraction is equivalent to any already in consolidated list
+        is_equivalent = False
+        for existing_frac in consolidated:
+            if are_fractions_equal(frac, existing_frac):
+                is_equivalent = True
+                removed.append(f"{frac} (equivalent to {existing_frac})")
+                break
+
+        if not is_equivalent:
+            consolidated.append(frac)
+
+    # Update validator if changes were made
+    if removed:
+        validator['answer'] = consolidated
+
+        if _logger.enabled:
+            location = step.get('_location', 'Step')
+            print(f"\n[DEBUG] POINTVALIDATOR CONSOLIDATED - {location}")
+            print(f"  Removed equivalent fractions: {removed}")
+            print(f"  BEFORE: {validator_answer}")
+            print(f"  AFTER:  {consolidated}")
+
+    return step
+
+
+def remove_answer_equivalent_labels(step):
+    """
+    Remove labels from NumLine that are equivalent to validator answer values.
+
+    When a label (e.g., "8/8") is equivalent to a validator answer value (e.g., "1"),
+    remove it from labels to avoid giving away the answer.
+
+    Works with both PointValidator and LabelValidator.
+
+    Args:
+        step: Step dictionary
+
+    Returns:
+        Modified step dictionary
+    """
+    prompt = step.get('prompt', {})
+    if not isinstance(prompt, dict):
+        return step
+
+    validator = prompt.get('validator', {})
+    if not isinstance(validator, dict):
+        return step
+
+    # Only process PointValidator and LabelValidator
+    validator_type = validator.get('@type')
+    if validator_type not in ['PointValidator', 'LabelValidator']:
+        return step
+
+    validator_answer = validator.get('answer', [])
+    if not isinstance(validator_answer, list) or not validator_answer:
+        return step
+
+    # Process NumLine tangibles
+    workspace = step.get('workspace', {})
+    if not isinstance(workspace, dict):
+        return step
+
+    tangibles = workspace.get('tangibles', [])
+    for idx, tangible in enumerate(tangibles):
+        if tangible.get('@type') != 'NumLine':
+            continue
+
+        # Skip reference lines (is_read_only: true) - keep their labels intact
+        is_read_only = tangible.get('is_read_only', False)
+        if is_read_only:
+            continue
+
+        labels = tangible.get('labels')
+        if not isinstance(labels, list):
+            continue
+
+        old_labels = labels[:]
+        filtered_labels = []
+        removed_labels = []
+
+        for label in labels:
+            # Check if this label is equivalent to any validator answer
+            is_answer_equivalent = False
+            for answer_frac in validator_answer:
+                if are_fractions_equal(label, answer_frac):
+                    is_answer_equivalent = True
+                    removed_labels.append(f"{label} (equivalent to answer: {answer_frac})")
+                    break
+
+            if not is_answer_equivalent:
+                filtered_labels.append(label)
+
+        # Update labels if any were removed
+        if removed_labels:
+            tangible['labels'] = filtered_labels
+
+            if _logger.enabled:
+                location = step.get('_location', f"NumLine[{idx}]")
+                print(f"\n[DEBUG] LABELS REMOVED (answer equivalent) - {location}")
+                print(f"  Removed: {removed_labels}")
+                print(f"  BEFORE: {old_labels}")
+                print(f"  AFTER:  {filtered_labels}")
+
+        # Process alt_labels array (only remove fraction labels, keep whole numbers)
+        # Note: This section is only reached for non-reference lines (skipped above if is_read_only)
+        alt_labels = tangible.get('alt_labels')
+        if isinstance(alt_labels, list):
+            old_alt_labels = alt_labels[:]
+            filtered_alt_labels = []
+            removed_alt_labels = []
+
+            for label in alt_labels:
+                # Only check labels containing "/" (fractions)
+                # Keep whole number labels even if they're equivalent to answer
+                if "/" in str(label):
+                    # Check if this fraction label is equivalent to any validator answer
+                    is_answer_equivalent = False
+                    for answer_frac in validator_answer:
+                        if are_fractions_equal(label, answer_frac):
+                            is_answer_equivalent = True
+                            removed_alt_labels.append(f"{label} (equivalent to answer: {answer_frac})")
+                            break
+
+                    if not is_answer_equivalent:
+                        filtered_alt_labels.append(label)
+                else:
+                    # Keep whole number labels (no "/") regardless of answer
+                    filtered_alt_labels.append(label)
+
+            # Update alt_labels if any were removed
+            if removed_alt_labels:
+                tangible['alt_labels'] = filtered_alt_labels
+
+                if _logger.enabled:
+                    location = step.get('_location', f"NumLine[{idx}]")
+                    print(f"\n[DEBUG] ALT_LABELS REMOVED (answer equivalent fractions) - {location}")
+                    print(f"  Removed: {removed_alt_labels}")
+                    print(f"  BEFORE: {old_alt_labels}")
+                    print(f"  AFTER:  {filtered_alt_labels}")
+
+    return step
 
 
 def ensure_preplaced_points_in_validator(step):
@@ -782,18 +1103,149 @@ def ensure_preplaced_points_in_validator(step):
     return step
 
 
-def process_step(step, location):
+def is_dual_numline_sequential_pattern(sequence):
+    """
+    Detect if sequence matches dual number line sequential interaction pattern.
+
+    Criteria:
+    1. At least 2 steps
+    2. Step 1 and step 2 both have point validators
+    3. Step 1 has multiple NumLines in workspace
+
+    Args:
+        sequence: Full sequence dict with steps array
+
+    Returns:
+        True if pattern detected, False otherwise
+    """
+    steps = sequence.get("steps", [])
+
+    # Check: at least 2 steps
+    if len(steps) < 2:
+        return False
+
+    step1 = steps[0]
+    step2 = steps[1]
+
+    # Check: both have point validators
+    validator1 = step1.get("prompt", {}).get("validator", {})
+    validator2 = step2.get("prompt", {}).get("validator", {})
+
+    if validator1.get("@type") != "PointValidator" or validator2.get("@type") != "PointValidator":
+        return False
+
+    # Check: step 1 has multiple NumLines
+    workspace1 = step1.get("workspace", {})
+    tangibles1 = workspace1.get("tangibles", [])
+    numlines1 = [t for t in tangibles1 if t.get("@type") == "NumLine"]
+
+    if len(numlines1) < 2:
+        return False
+
+    return True
+
+
+def apply_dual_numline_step1_logic(step1):
+    """
+    Lock second NumLine in step 1 for sequential interaction.
+
+    Modifies step1 in-place:
+    - Sets tangibles[1]["is_read_only"] = True
+
+    Args:
+        step1: Step 1 dict from sequence
+    """
+    workspace = step1.get("workspace", {})
+    tangibles = workspace.get("tangibles", [])
+
+    # Find NumLines
+    numlines = [t for t in tangibles if t.get("@type") == "NumLine"]
+
+    if len(numlines) >= 2:
+        # Lock second NumLine
+        numlines[1]["is_read_only"] = True
+
+        if _logger.enabled:
+            print(f"\n[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine")
+            print(f"  NumLine[1] set to read-only (student can only interact with first line)")
+
+
+def apply_dual_numline_step2_logic(step1, step2):
+    """
+    Set up step 2 workspace with pre-placed points and role flip.
+
+    Modifies step2 in-place:
+    1. Duplicates step 1 workspace if step 2 has none
+    2. Adds pre-placed points from step 1 validator answer to first NumLine
+    3. Sets first NumLine as read-only (locked with answer)
+    4. Second NumLine remains interactive
+
+    Args:
+        step1: Step 1 dict from sequence
+        step2: Step 2 dict from sequence
+    """
+    import copy
+
+    # 1. Duplicate workspace if step 2 doesn't have one
+    if not step2.get("workspace"):
+        step2["workspace"] = copy.deepcopy(step1["workspace"])
+
+        if _logger.enabled:
+            print(f"\n[DEBUG] DUAL NUMLINE STEP 2 - Workspace duplicated from step 1")
+
+    workspace2 = step2["workspace"]
+    tangibles2 = workspace2.get("tangibles", [])
+
+    # Find NumLines
+    numlines2 = [t for t in tangibles2 if t.get("@type") == "NumLine"]
+
+    if len(numlines2) < 2:
+        return
+
+    # 2. Get step 1 validator answer
+    step1_answer = step1.get("prompt", {}).get("validator", {}).get("answer", [])
+
+    if not step1_answer:
+        return
+
+    # 3. Pre-place points on first NumLine
+    numlines2[0]["points"] = step1_answer
+
+    # 4. Lock first NumLine
+    numlines2[0]["is_read_only"] = True
+
+    # 5. Second NumLine is interactive (remove is_read_only if present)
+    if "is_read_only" in numlines2[1]:
+        numlines2[1]["is_read_only"] = False
+
+    if _logger.enabled:
+        print(f"\n[DEBUG] DUAL NUMLINE STEP 2 - Setup complete")
+        print(f"  NumLine[0]: Locked with pre-placed points from step 1: {step1_answer}")
+        print(f"  NumLine[1]: Interactive (student can place points on second line)")
+
+
+def process_step(step, location, previous_steps=None):
     """
     Process a single step to fix NumLine issues.
 
     Args:
         step: Step dictionary
         location: Location string for logging
+        previous_steps: List of previous steps in the same sequence (for palette lookup)
     """
     step['_location'] = location
 
+    # NOTE: fix_numline_labels and fix_numline_ticks are called in process_sequences
+    # BEFORE this function, so all labels/ticks are already strings at this point
+
+    # Consolidate equivalent fractions in PointValidator answer
+    consolidate_equivalent_fractions_in_validator(step)
+
+    # Remove labels that are equivalent to validator answer (avoid giving away answer)
+    remove_answer_equivalent_labels(step)
+
     # Ensure validator answer fractions can be placed (range, ticks, read_only)
-    ensure_answer_fractions_placeable(step)
+    ensure_answer_fractions_placeable(step, previous_steps=previous_steps)
 
     # Add alt_labels for whole numbers
     add_alt_labels_for_whole_numbers(step)
@@ -801,12 +1253,14 @@ def process_step(step, location):
     # Ensure pre-placed points are in PointValidator answer
     ensure_preplaced_points_in_validator(step)
 
-    # Get validator answer to avoid adding to labels
+    # Get validator answer and type to avoid adding to labels
     validator_answer = []
+    validator_type = None
     prompt = step.get('prompt', {})
     if isinstance(prompt, dict):
         validator = prompt.get('validator', {})
         if isinstance(validator, dict):
+            validator_type = validator.get('@type')
             answer = validator.get('answer', [])
             if isinstance(answer, list):
                 validator_answer = answer
@@ -817,7 +1271,7 @@ def process_step(step, location):
         tangibles = workspace.get('tangibles', [])
         for tangible_idx, tangible in enumerate(tangibles):
             tangible_loc = f"{location}/NumLine[{tangible_idx}]"
-            ensure_whole_number_ticks_and_labels(tangible, tangible_loc, validator_answer)
+            ensure_whole_number_ticks_and_labels(tangible, tangible_loc, validator_answer, validator_type)
 
 
 def process_sequences(input_data):
@@ -835,14 +1289,13 @@ def process_sequences(input_data):
     Returns:
         Same format as input with fixed NumLine labels and alt_labels
     """
-    # Reset logger for new run
-    global _logger
-    _logger = NumLineLogger()
-
     # First pass: Fix numeric labels to strings (works recursively on entire structure)
     data = fix_numline_labels(input_data)
 
-    # Second pass: Extract sequences array to process
+    # Second pass: Fix numeric ticks to strings (works recursively on entire structure)
+    data = fix_numline_ticks(data)
+
+    # Third pass: Extract sequences array to process
     # (modifications happen in place, preserving SequencePool wrapper and metadata)
     if isinstance(data, dict) and data.get('@type') == 'SequencePool':
         sequences = data['sequences']
@@ -857,14 +1310,32 @@ def process_sequences(input_data):
             if isinstance(item, dict):
                 # Check if this is a sequence with steps
                 if 'steps' in item:
-                    for step_idx, step in enumerate(item.get('steps', []), 1):
+                    steps_list = item.get('steps', [])
+
+                    # NEW: Check for dual numline sequential pattern
+                    if is_dual_numline_sequential_pattern(item):
+                        if _logger.enabled:
+                            print(f"\n{'='*70}")
+                            print(f"DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq{seq_idx}")
+                            print(f"{'='*70}")
+
+                        # Apply step 1 logic (lock second line)
+                        apply_dual_numline_step1_logic(steps_list[0])
+
+                        # Apply step 2 logic (duplicate workspace, pre-place points, lock first line)
+                        apply_dual_numline_step2_logic(steps_list[0], steps_list[1])
+
+                    # Continue with normal step processing
+                    for step_idx, step in enumerate(steps_list, 1):
                         location = f"Seq{seq_idx}/Step{step_idx}"
-                        process_step(step, location)
+                        # Pass all previous steps in the sequence (0 to step_idx-1)
+                        previous_steps = steps_list[:step_idx-1] if step_idx > 1 else None
+                        process_step(step, location, previous_steps=previous_steps)
 
                 # Or flattened step item
                 elif 'workspace' in item or 'prompt' in item:
                     location = f"Step{seq_idx}"
-                    process_step(item, location)
+                    process_step(item, location, previous_steps=None)
 
     # Print summary
     _logger.summary()
@@ -1086,7 +1557,7 @@ if __name__ == "__main__":
             "tangibles": [
               {
                 "@type": "NumLine",
-                "is_visible": True,
+
                 "visual": "line",
                 "range": [
                   0,

@@ -60,7 +60,7 @@ _logger = SchemaLogger()
 
 def add_empty_workspace_to_first_step(sequences_data, module_number=None, path_letter=None):
     """
-    Add empty workspace to the first step of the first sequence if it doesn't have one
+    Add empty workspace to the first step of ALL sequences if they don't have one
 
     Args:
         sequences_data: List of sequence dictionaries or dict with "sequences" key
@@ -68,7 +68,7 @@ def add_empty_workspace_to_first_step(sequences_data, module_number=None, path_l
         path_letter: Path letter (automatically passed by pipeline)
 
     Returns:
-        Dictionary with sequences array, first step having workspace
+        Dictionary with sequences array, all first steps having workspaces
     """
     # Reset logger for new run
     global _logger
@@ -84,17 +84,16 @@ def add_empty_workspace_to_first_step(sequences_data, module_number=None, path_l
     else:
         raise ValueError("Expected list of sequences or dict with 'sequences' key")
 
-    # Navigate to first sequence's first step and add workspace if missing
-    if sequences and len(sequences) > 0:
-        first_sequence = sequences[0]
-        if "steps" in first_sequence and len(first_sequence["steps"]) > 0:
-            first_step = first_sequence["steps"][0]
+    # Navigate to each sequence's first step and add workspace if missing
+    for seq_idx, sequence in enumerate(sequences):
+        if "steps" in sequence and len(sequence["steps"]) > 0:
+            first_step = sequence["steps"][0]
             if "workspace" not in first_step:
                 first_step["workspace"] = {
                     "@type": "WorkspaceData",
                     "tangibles": []
                 }
-                _logger.log_workspace_added("Seq1/Step1")
+                _logger.log_workspace_added(f"Seq{seq_idx+1}/Step1")
 
     _logger.summary()
     return wrapper

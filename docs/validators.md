@@ -68,6 +68,22 @@
   - Single selection: `0` or `[0]`
   - Multiple selection: `[0, 2]`
 
+**Index Counting**:
+- Indices count **ALL tangibles in the tangibles array** (0-based)
+- This **includes read-only tangibles** (reference bars, etc.)
+- Example workspace:
+  ```json
+  "tangibles": [
+    { "@type": "NumLine", "is_read_only": true, "intervals": "1/4" },  // Index 0
+    { "@type": "NumLine", "intervals": "1/2" },                        // Index 1
+    { "@type": "NumLine", "intervals": "1/3" },                        // Index 2
+    { "@type": "NumLine", "intervals": "1/6" }                         // Index 3
+  ]
+  ```
+  - To select the "1/2" bar: `answer: 1`
+  - To select the "1/3" bar: `answer: 2`
+  - To select both "1/2" and "1/6": `answer: [1, 3]`
+
 **Examples**:
 
 Single selection:

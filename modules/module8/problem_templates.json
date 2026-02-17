@@ -55,49 +55,45 @@
         "skill_id": "M8-01",
         "skill": "Student can recognize that equivalent fractions show the same amount of the same-sized whole",
         "target_count": 5,
-        "problem_type": "Student selects ALL pairs of fraction bars that show equivalent fractions from a set of 4-5 pairs",
-        "workspace_description": "2 rows displayed vertically (max 4 FracShapes due to toy limit). Each row contains two FracShape bars representing a comparison pair. One pair is equivalent, one is not. All bars are same total size.",
+        "problem_type": "Student selects ALL individual bars that show equivalent fractions from a set of 3-4 bars",
+        "workspace_description": "3-4 individual FracShape bars displayed (NOT organized as pairs - each bar is independent). Of these bars, 2-3 bars show the SAME fraction using different representations (for example: bar_1 shows 1/2, bar_2 shows 2/4, bar_3 shows 3/6 - all three are equivalent to each other). The remaining 1-2 bars show different, non-equivalent fractions. All bars are the same total size. IMPORTANT: Bars are individual selectable items, not grouped into pairs.",
         "prompt_examples": [
-            "Select all the pairs that show equivalent fractions.",
-            "Click all the pairs where both bars show the same amount.",
-            "Find all the equivalent pairs. There may be more than one.",
-            "Which pairs are equivalent? Select all that apply.",
-            "Some pairs show the same amount. Find them all."
+            "Select all the bars that show equivalent fractions.",
+            "Which bars show the same amount? Select all that apply.",
+            "Some bars show the same amount shaded. Find all of them.",
+            "Select every bar that shows one half (or an equivalent fraction)."
         ],
-        "action_description": "Student clicks to select multiple pairs, then confirms selection",
+        "action_description": "Student selects all bars with equivalent fractions, then confirms selection",
         "mastery_tier": [
             "support",
             "baseline"
         ],
         "mastery_verb": "identify",
         "parameter_coverage": {
-            "equivalent_pairs": [
-                ["1/2", "2/4"],
-                ["1/2", "3/6"],
-                ["1/2", "4/8"],
-                ["2/4", "3/6"],
-                ["2/4", "4/8"],
-                ["3/6", "4/8"],
+            "equivalent_fraction_sets": [
+                ["1/2", "2/4", "3/6"],
+                ["1/2", "2/4", "4/8"],
+                ["1/2", "3/6", "4/8"],
+                ["2/4", "3/6", "4/8"],
                 ["1/3", "2/6"],
                 ["2/3", "4/6"]
             ],
-            "non_equivalent_pairs": [
-                ["1/2", "1/3"],
-                ["1/2", "2/6"],
-                ["1/4", "2/4"],
-                ["2/4", "2/6"],
-                ["3/4", "3/8"],
-                ["1/3", "1/4"]
+            "non_equivalent_distractors": [
+                "1/3",
+                "2/3",
+                "1/4",
+                "3/4",
+                "5/6"
             ],
-            "pairs_per_problem": 2,
-            "max_toys": 4
+            "bars_to_select": "1-3",
+            "distractor_bars": "1-2"
         },
-        "correct_end_state": "Student has selected exactly the pairs that show equivalent fractions",
+        "correct_end_state": "Student has selected exactly all the bars that show equivalent fractions (2-3 bars)",
         "success_dialogue": [
-            "You found them both. One half equals two fourths, and three sixths equals four eighths.",
-            "That's right — those pairs are all equivalent.",
-            "Good eye. You identified all the matching pairs.",
-            "Correct. Each of those pairs shows the same amount."
+            "You found them all. One half, two fourths, and three sixths are all equivalent.",
+            "That's right — all those bars show the same amount.",
+            "Good eye. You identified all the matching bars.",
+            "Correct. Each of those bars shows the same amount."
         ]
     },
     {
@@ -130,16 +126,6 @@
                 "juice boxes",
                 "sandwiches"
             ],
-            "same_whole_scenarios": [
-                "identical",
-                "same-sized",
-                "two of the same"
-            ],
-            "different_whole_scenarios": [
-                "small...large",
-                "big...little",
-                "different-sized"
-            ],
             "fractions": [
                 "1/2",
                 "2/4",
@@ -148,6 +134,24 @@
                 "2/3",
                 "4/6"
             ]
+        },
+        "mcq_options": {
+            "same_whole_scenarios": {
+                "correct": "Yes, because the {items} are the same size and {fraction1} equals {fraction2}.",
+                "distractors": [
+                    "No, because {fraction1} and {fraction2} look different.",
+                    "No, because they are divided into different numbers of pieces.",
+                    "Yes, because they are both {items}."
+                ]
+            },
+            "different_whole_scenarios": {
+                "correct": "No, because the {items} are different sizes, so we cannot compare the amounts fairly.",
+                "distractors": [
+                    "Yes, because {fraction1} equals {fraction2}, so the size doesn't matter.",
+                    "No, because {fraction1} and {fraction2} are different fractions.",
+                    "Yes, because they both ate part of a {item}."
+                ]
+            }
         },
         "correct_end_state": "Student has selected the answer that correctly identifies whether the comparison is valid with correct reasoning",
         "success_dialogue": [
@@ -167,7 +171,6 @@
         "prompt_examples": [
             "Why are one half and two fourths equivalent?",
             "These bars show three sixths and four eighths. Why are they equivalent?",
-            "What's the BEST reason these fractions are equal?",
             "Two thirds equals four sixths. Why?",
             "Pick the explanation that tells WHY these fractions are equivalent."
         ],
@@ -186,6 +189,23 @@
                 ["2/3", "4/6"]
             ]
         },
+        "option_guidelines": {
+            "correct_option_type": "Conceptual reasoning about 'same amount'",
+            "correct_option_examples": [
+                "The same area is shaded in both bars",
+                "Both bars show the same shaded amount",
+                "They cover the same part of the whole",
+                "Both numerator and denominator are doubled (or tripled, based on the question)"
+            ],
+            "distractor_type": "Wrong statements about fractions or equivalence",
+            "distractor_examples": [
+                "One denominator is bigger than the other",
+                "Six is larger than three",
+                "Both fractions are less than one",
+                "They are not equivalent"
+            ],
+            "note": "Distractors should be mathematically incorrect or irrelevant statements. Avoid procedural multiplication explanations (like 'multiply both by 2') as distractors since those are actually correct"
+        },
         "correct_end_state": "Student has selected the explanation that references 'same amount' or 'same portion' reasoning",
         "success_dialogue": [
             "Exactly. They're equivalent because the same amount is shaded.",
@@ -200,7 +220,7 @@
         "skill": "Student can select an equivalent fraction bar from a set of options",
         "target_count": 6,
         "problem_type": "Student selects the bar equivalent to a 1/2-family reference from 3 options",
-        "workspace_description": "There is one bar with a given fraction that is not interactable. Three FracShape option bars below with different partitions. One is equivalent, two are distractors.",
+        "workspace_description": "1 reference FracShape bar at top showing target fraction (not interactable). 3 FracShape option bars below with different partitions (4 bars total). One option is equivalent to reference, two are distractors. All bars are same total size.",
         "prompt_examples": [
             "Find the bar that equals one half.",
             "Which bar is equivalent to two fourths?",
@@ -243,7 +263,7 @@
         "skill": "Student can select an equivalent fraction bar from a set of options",
         "target_count": 6,
         "problem_type": "Student selects the equivalent bar for varied reference fractions including 2/3 family",
-        "workspace_description": "Reference FracShape bar at top showing target fraction with shading and label. Three FracShape option bars below. Includes 2/3 family fractions and cross-family comparisons. All bars same total size.",
+        "workspace_description": "1 reference FracShape bar at top showing target fraction with shading and label (not interactable). 3 FracShape option bars below (4 bars total). Includes 2/3 family fractions and cross-family comparisons. All bars same total size.",
         "prompt_examples": [
             "Find the bar equivalent to two thirds.",
             "Which bar shows the same amount as four sixths?",
@@ -287,7 +307,7 @@
         "skill": "Student can verify equivalence by placing fractions at the same point on a number line",
         "target_count": 6,
         "problem_type": "Student places a 1/2-family fraction on a number line to show it lands at the same position as an equivalent fraction",
-        "workspace_description": "Two NumLines stacked vertically, both 0 to 1. Top line shows reference fraction pre-placed (e.g., 1/2 marked). Bottom line has same tick marks but no point — student places equivalent fraction. Visual comparison shows both land at same position.",
+        "workspace_description": "Two NumLines stacked vertically, both 0 to 1. Top line shows reference fraction pre-placed (e.g., 1/2 with a labelled point). Bottom line has same tick marks but no point — student places equivalent fraction. Visual comparison shows both land at same position.",
         "prompt_examples": [
             "Place two fourths on the line. Does it land at the same spot as one half?",
             "Show where three sixths goes. Is it the same as one half?",
@@ -335,7 +355,7 @@
         "skill": "Student can verify equivalence by placing fractions at the same point on a number line",
         "target_count": 6,
         "problem_type": "Student places varied fractions on a number line to verify equivalence with a marked reference point",
-        "workspace_description": "Two NumLines stacked vertically, both 0 to 1. Top line is for reference and has the fraction pre-placed. Bottom line has appropriate tick marks — student places equivalent fraction. Includes 2/3 family and varied 1/2 family positions.",
+        "workspace_description": "Two NumLines stacked vertically, both 0 to 1. Top line is for reference and has the fraction pre-placed with a labelled point. Bottom line has appropriate tick marks — student places equivalent fraction. Includes 2/3 family and varied 1/2 family positions.",
         "prompt_examples": [
             "Place four sixths on the line. Where does it land compared to two thirds?",
             "Show where two sixths goes.",
@@ -558,7 +578,7 @@
         "skill": "Student can combine bar comparison and number line verification to prove equivalence",
         "target_count": 5,
         "problem_type": "Two-step problem: Student first selects equivalent bar, then verifies by placing both fractions on a number line",
-        "workspace_description": "Step 1: Reference FracShape bar with three option bars below. Step 2: Two NumLines stacked (both 0-1) appear after correct Step 1 answer. Top line shows reference fraction pre-placed, bottom line for student placement. Validation gate between steps.",
+        "workspace_description": "Step 1: 1 reference FracShape bar at top with 3 option bars below (4 bars total). Step 2: Two NumLines stacked (both 0-1) appear after correct Step 1 answer. Top line shows reference fraction pre-placed, bottom line for student placement. Validation gate between steps.",
         "prompt_examples": [
             "Step 1: Which bar is equivalent to one half? Step 2: One half is marked on top. Place two fourths below to check.",
             "First, find the equivalent bar. Then place it on a number line to compare positions.",

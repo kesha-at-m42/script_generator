@@ -129,6 +129,9 @@ Each step object contains:
 - If application_context exists, incorporate it naturally
 - If prompt contains scaffolding hints, move them to dialogue
 - Reference visual elements generically ("number line", "bars", "circles")
+- **CRITICAL - Singular vs Plural**: Use plural language if multiple correct answers exist
+  - Multiple correct answers → "Which bars show..." (not "Which bar shows...")
+  - Single correct answer → "Which bar shows..." (not "Which bars show...")
 - Use supportive, clear language
 - Adjust scaffolding based on mastery_tier (support=most guidance, challenge=least)
 - Follow <guide_design> "Problem Setup Dialogue" section
@@ -138,6 +141,9 @@ Each step object contains:
 - If the prompt already meets these criteria, keep it as-is
 - Strip any application_context (e.g., "Maya ate 1/4...") from the prompt and move it to dialogue instead
 - Strip any scaffolding hints (e.g., "One interval from zero", "That's two spaces", "Count the intervals...") from the prompt and move them to dialogue instead
+- **CRITICAL - Singular vs Plural**: Use plural language if multiple correct answers exist
+  - Multiple correct answers → "Select ALL bars that..." (not "Select the bar that...")
+  - Single correct answer → "Select the bar that..." (not "Select ALL bars")
 - Keep prompt focused on the core mathematical task (e.g., "Place three-fourths on the number line.")
 
 **interaction_tool:** Derive from action_description
@@ -147,6 +153,18 @@ Each step object contains:
 - **select/multi_select**: For selecting VISUAL tangibles (bars, lines, shapes, grids)
   - Key phrases: "select bar", "clicks to select bar", "select the number line", "choose which shape"
   - If workspace has visual objects (bars/lines/shapes) and student picks one → use `select`
+
+**CRITICAL: Single vs Multi Selection Tools:**
+- **Before choosing tool**: Check how many correct answers exist in the workspace
+- **Multiple correct answers** (e.g., two bars both show equivalent fractions):
+  - Use "multi_select" or "multi_click_choice"
+  - Dialogue and prompt should already use plural language (see sections above)
+- **Single correct answer**:
+  - Use "select" or "click_choice"
+  - Dialogue and prompt should use singular language
+- **Example ERROR**: workspace has bar_a (3/6) and bar_b (1/2), both equivalent to 2/4
+  - WRONG: tool="select", dialogue="Which bar shows...", prompt="Select the equivalent bar", answer=["bar_a", "bar_b"]
+  - RIGHT: tool="multi_select", dialogue="Which bars show...", prompt="Select ALL equivalent bars", answer=["bar_a", "bar_b"]
 
 Map action_description to tool:
 - "Place point(s)" / "Point at tick marks" → "place_point"
@@ -172,11 +190,14 @@ If you encounter an action_description not listed above:
 5. Add a brief clarification in parentheses describing what the student does
 
 **workspace:** Parse workspace_description into structured object with tangibles array and optional inherited flag
+
 **CRITICAL: You MUST strictly follow ALL visual schemas defined in <visuals>. Consult the documentation for each shape type to understand:**
 - Required and optional properties
 - Valid value ranges and types
 - Constraints (e.g., max number of instances, allowed denominators)
 - Structural relationships (e.g., points must correspond to ticks)
+- **ONLY use fields defined in visuals.md for each toy type** - do NOT add fields that aren't documented in visuals.md
+- The ONLY exceptions are the universal fields: `id`, `type`, and `role` (defined below)
 
 **Workspace Structure:**
 - **For Step 1**: Array of tangibles (no inherited field needed)
@@ -184,15 +205,42 @@ If you encounter an action_description not listed above:
   - `true` if same tangibles with modified state
   - `false` or omit if completely different tangibles
 
+**Universal Tangible Fields:**
+
+ALL tangible types (number_line, fraction_strip, etc.) support these universal fields IN ADDITION to their toy-specific properties:
+
+- **id**: Unique identifier (e.g., "line_1", "bar_a", "bar_b")
+- **type**: Toy type matching visuals.md (e.g., "number_line", "fraction_strip")
+- **role**: (REQUIRED) Workspace context marker indicating how this tangible is used
+  - `"reference"` - Non-interactable, for display/comparison only (student cannot select or modify)
+  - `"student_interaction"` - Interactable, student can select/modify this tangible
+  - **Keywords to identify reference tangibles**: "reference bar", "at top", "for comparison", "marked read-only", "pre-placed", "shows target", "for display only"
+  - **Default**: If unclear, most tangibles are `"student_interaction"` unless explicitly marked as reference
+  - **IMPORTANT**: Always add the `role` field to ALL tangibles. This field is REQUIRED for proper transformation to Godot format.
+- **description**: (REQUIRED) Natural language description directly derived from workspace_description
+  - Extract the phrase from workspace_description that describes this specific tangible
+  - Examples from workspace_description:
+    - "A fraction bar to show 1/2 shaded" → description: "Fraction bar showing 1/2 shaded"
+    - "Number line with point marked at 2/3" → description: "Number line with point at 2/3"
+    - "Bar with 2 out of 4 sections shaded" → description: "Bar with 2/4 shaded"
+    - "Blank number line from 0 to 1" → description: "Blank number line 0-1"
+  - **This field is the SOURCE OF TRUTH** - all technical fields must match this description
+
 **Parsing Natural Language to Structured Workspace:**
 1. Identify the shape type(s) mentioned in workspace_description
-2. Look up the corresponding schema in <visuals>
-3. Extract property values from the text description (e.g., "from 0 to 1" → range: [0, 1])
-4. **Identify reference tangibles**: Look for keywords like "reference bar", "at top", "for comparison", "marked read-only", "pre-placed", "shows target"
-   - Add `"role": "reference"` field to these tangibles
-   - These will be non-interactable (students cannot select/modify them)
-5. Build the workspace element following the exact schema structure
-6. For special elements (MCQ choices, drag palettes), check if interaction_tool requires them and add accordingly
+2. **For each tangible, extract its description from workspace_description and write the `description` field FIRST**
+   - This captures what the workspace_description says this tangible should show
+   - Example: workspace_description says "Bar A shows 2/4, Bar B shows 1/2" → Bar A gets description: "Bar showing 2/4 shaded"
+3. Look up the corresponding schema in <visuals> to see what fields are valid for this toy type
+4. **Use the description to determine ALL technical field values**:
+   - "Bar showing 2/4 shaded" → intervals: "1/4", intervals_is_shaded: [0, 1]
+   - "Number line with point at 1/2" → points: ["1/2"]
+   - This ensures the technical fields exactly match what the description says
+5. Extract other property values from the text description (e.g., "from 0 to 1" → range: [0, 1])
+6. **Add universal fields**: `id`, `type`, `role`, and `description` (for ALL tangibles)
+7. **Add ONLY toy-specific fields defined in visuals.md** - do NOT add any other fields
+8. Build the workspace element following the exact schema structure from visuals.md
+9. For special elements (MCQ choices, drag palettes), check if interaction_tool requires them and add accordingly
 
 **Special Workspace Elements:**
 - **choices**: Add ONLY when interaction_tool is "click_choice" (text-based MCQ)
@@ -206,11 +254,13 @@ If you encounter an action_description not listed above:
 
 **correct_answer:** Object with:
 - value: The expected answer (format depends on interaction_tool)
-  - **CRITICAL for select/click_choice**: Ensure ONLY ONE correct answer exists
+  - **Count correct answers first**: This determines tool choice (see interaction_tool section)
+  - **Single correct answer**: value is string or single-item array; tool should be "select" or "click_choice"
+  - **Multiple correct answers**: value is array with 2+ items; tool MUST be "multi_select" or "multi_click_choice"
   - If multiple tangibles/options are equivalent (e.g., two bars showing 2/3), either:
-    - Make options visually distinct (different fractions), OR
-    - Use multi_select/multi_click_choice with array of all correct answers
-  - **NEVER have ambiguous correct answers** (e.g., asking "which shows 2/3" with two bars both showing 2/3)
+    - Make options visually distinct (different fractions) to keep single correct answer, OR
+    - Use multi_select/multi_click_choice with array of ALL correct answers (and plural language in dialogue/prompt)
+  - **NEVER have ambiguous correct answers** (e.g., single-select tool with multiple equivalent options)
 - context: Brief explanation of why this is correct
 
 **success_path_dialogue:** Rotate through the success_dialogue examples from the template here: {success_dialogue}
@@ -249,6 +299,7 @@ If you encounter an action_description not listed above:
           {
             "id": "line_1",
             "type": "number_line",
+            "role": "student_interaction",
             "range": [0, 1],
             "ticks": ["0", "1/3", "2/3", "1"],
             "points": ["2/3"],
@@ -338,41 +389,76 @@ Generate NOW!
   "template_id": "{template_id}",
   "fractions": """,
 
-    validation_prompt="""You are a content validator for educational interaction sequences. Verify that sequences are semantically correct, internally consistent, and solvable.
+    validation_prompt="""Check this sequence for specific errors.
 
-Validate these aspects:
+CRITICAL INSTRUCTIONS:
+- For each check, FIRST write out your reasoning and analysis
+- THEN determine if it's a pass or fail based on that reasoning
+- Only add to "errors" array if you conclude it FAILED after analysis
+- If your reasoning shows it PASSED, do NOT add it to errors
+- Be mathematically consistent: 1/3 = 2/6, 2/4 = 1/2, 3/6 = 1/2 (these are facts, don't flip-flop)
+- If original answer is mathematically correct, do NOT flag it as error
 
-## 1. CONSISTENCY (dialogue, prompt, workspace)
-- Dialogue must accurately describe workspace elements (counts, fractions, types)
-- Prompt must be solvable given workspace configuration
-- Visual references must match actual tangibles
+**IMPORTANT - Understanding Metadata vs Workspace:**
+- Top-level fields like "fractions", "template_id", "mastery_tier" are METADATA - they describe what's being tested and the learning goal
+- These metadata fields are NOT part of the student workspace and are NOT selectable options
+- ONLY validate the actual workspace content (workspace.tangibles, workspace[0].options, etc.) - these are what students interact with
+- Use metadata only to understand context (e.g., "fractions": ["1/2", "3/6"] tells you the problem tests equivalence between 1/2 and 3/6)
+- Example: If prompt asks "Which equals 1/2?" and workspace has options ["2/6", "3/6", "4/6"], then only those 3 options are selectable - even if metadata "fractions" lists ["1/2", "3/6"]
 
-## 2. CORRECT ANSWER VALIDATION
-- Answer value must be achievable (e.g., tick mark exists, tangible index valid, choice ID present)
-- **Single-select (select/click_choice)**: ONLY ONE correct option allowed
-  - Error if multiple tangibles/options are equivalent (e.g., two bars both showing 2/3)
-  - Fix: Use multi_select/multi_click_choice OR make options distinct
-- **Multi-select (multi_select/multi_click_choice)**: ALL correct options required
-  - Error if answer array missing any valid options matching the criteria
-  - Error if only one correct answer exists (should use single-select tool instead)
+**IMPORTANT - Using Tangible Descriptions:**
+- Each tangible has a "description" field that clearly states what it shows
+- **Use the description field as the primary source for understanding what fraction a tangible represents**
+- Examples:
+  - description: "Bar showing 2/4 shaded" → represents 2/4 (which equals 1/2)
+  - description: "Number line with point at 1/2" → represents 1/2
+  - description: "Fraction bar showing 1/2 shaded" → represents 1/2
+- When checking if options are correct, compare the fractions in descriptions against the target fraction
+- Only fall back to calculating from intervals/intervals_is_shaded if description is missing or unclear
 
-## 3. INTERACTION TOOL ALIGNMENT
-- Tool must match workspace: click_choice needs choices, drag_label needs palette, place_point needs ticks
-- Single vs multi tools must match prompt language ("select" vs "select all")
-- multi_click_choice requires allow_multiple: true in choices element
+Run these checks:
 
-## 4. MULTI-STEP COHERENCE (if no_of_steps > 1)
-- Steps build logically with appropriate workspace inheritance (inherited: true/false)
-- Dialogue flow uses progression markers ("Let's...", "Now...", "Finally...")
+**CHECK 1: Tool/Answer Format**
+- Single-select tool ("select", "click_choice") must have single answer, not array
+- Multi-select tool ("multi_select", "multi_click_choice") must have array answer with 2+ items
+- Error if mismatch: "Tool '{tool}' format doesn't match answer format"
+
+**CHECK 2: Single-Select Correctness** (skip if multi-select tool)
+- Count correct options in workspace (ignore top-level "fractions" metadata)
+- Use tangible descriptions to understand what each shows
+- Check mathematical equivalence: 1/2 = 2/4 = 3/6, etc.
+- If multiple correct options exist → ERROR: "Single-select has {count} correct options: {ids}"
+
+**CHECK 3: Multi-Select Completeness** (skip if single-select tool)
+- Find all mathematically correct options in workspace
+- Use tangible descriptions to understand what each shows
+- Answer must include ALL correct options, no extras
+- If incomplete → ERROR: "Missing correct option: {id}" or "Incorrect option included: {id}"
+
+**CHECK 4: Answer Achievable**
+- Verify answer IDs/values exist in workspace
+- For ticks: check for exact match OR equivalent fraction
+- Example: answer "2" is valid if ticks contains "2" OR "8/4" OR "6/3"
+- Error if not found: "Answer '{value}' not in workspace"
+
+**CHECK 5: Index Bounds**
+- For intervals_is_shaded arrays: verify all indices < total sections
+- Example: intervals="1/4" has 4 sections, valid indices are 0-3
+- Error if out of bounds: "{id}: index {idx} > max {max}"
+
+**CHECK 6: Language Match**
+- Multi-select: use plural ("bars", "ALL")
+- Single-select: use singular ("bar", "the")
+- Error if mismatch: "Tool is {type} but language is {wrong}"
 
 Return JSON:
 {
   "valid": true/false,
-  "errors": ["Critical error 1", ...],
-  "warnings": ["Warning 1", ...]
+  "errors": ["error1", "error2"],
+  "warnings": []
 }
 
-Analyze this interaction sequence:""",
+Sequence to check:""",
 
     examples=[],
 

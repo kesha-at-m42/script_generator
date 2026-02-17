@@ -128,8 +128,8 @@ def parse_output_path(path_str):
             result['template_ids'] = None
 
     elif path.is_dir() and path.name == 'items':
-        # Items directory - get all items
-        item_files = sorted(path.glob('[0-9]*.json'))
+        # Items directory - get all items (exclude validation files)
+        item_files = sorted([f for f in path.glob('[0-9]*.json') if not f.stem.endswith('_validation')])
         item_ids = [f.stem for f in item_files]
         result['item_ids'] = item_ids
 
@@ -927,6 +927,11 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
     if steps and hasattr(steps[0], 'batch_only_items'):
         steps[0].batch_only_items = None
 
+    # Extract version from metadata
+    if 'metadata' not in results:
+        print(f"\n[WARNING] Pipeline returned no metadata - this is unexpected")
+        return results
+
     new_version = results['metadata']['version']
     new_version_dir = pipeline_dir / new_version
 
@@ -1069,7 +1074,8 @@ def merge_and_collate_templates(step_dir, base_step_dir=None, rerun_template_ids
     next_overflow_id = max_base_id + 1
 
     # 1. Load NEW template files from current version (only regenerated ones exist)
-    template_files = sorted(glob(str(step_path / "items" / "[0-9]*.json")))
+    # Filter out validation files (*_validation.json)
+    template_files = sorted([f for f in glob(str(step_path / "items" / "[0-9]*.json")) if not Path(f).stem.endswith('_validation')])
 
     for template_file in template_files:
         items = load_json(template_file)
@@ -1147,8 +1153,9 @@ def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=N
         return
 
     # 1. Load NEW items from current version (only regenerated items exist here)
+    # Filter out validation files (*_validation.json)
     item_files = sorted(
-        glob(str(items_dir / "[0-9]*.json")),
+        [f for f in glob(str(items_dir / "[0-9]*.json")) if not Path(f).stem.endswith('_validation')],
         key=lambda x: int(Path(x).stem)
     )
 

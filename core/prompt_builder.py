@@ -53,7 +53,7 @@ class Prompt:
                         - Dict mapping variable names to paths: {"phase_name": "phases.0.phase_name"}
             template_ref: Fields to fetch from problem templates (supports list or dict)
             validation_prompt: Optional AI prompt to validate generated output for semantic correctness
-            cache_docs: Enable prompt caching for doc_refs (default: True)
+            cache_docs: Enable prompt caching for doc_refs and validation_prompt (default: True)
             cache_ttl: Cache time-to-live: "5m" or "1h" (default: "5m")
             temperature: Sampling temperature 0.0-1.0 (default: None = use pipeline default)
             max_tokens: Maximum tokens to generate (default: None = use pipeline default)

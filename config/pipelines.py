@@ -55,6 +55,8 @@ def load_pipelines_from_json():
                 batch_kwargs["batch_skip_items"] = step_data["batch_skip_items"]
             if "batch_stop_on_error" in step_data:
                 batch_kwargs["batch_stop_on_error"] = step_data["batch_stop_on_error"]
+            if "stop_on_validation_failure" in step_data:
+                batch_kwargs["stop_on_validation_failure"] = step_data["stop_on_validation_failure"]
 
             # Validate batch mode requirements
             if batch_kwargs.get("batch_mode"):
