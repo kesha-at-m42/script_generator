@@ -40,7 +40,7 @@ static func equal_shaded() -> JSONSchema.BaseSchema:
 
 	schema.deserializer(func(value: Dictionary):
 		var new_shaded_validator := ShadedValidator.new()
-		new_shaded_validator.answer = value["answer"]
+		new_shaded_validator.answer = value.get("answer")
 		return new_shaded_validator
 	)
 

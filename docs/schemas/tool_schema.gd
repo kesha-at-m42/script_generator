@@ -41,7 +41,9 @@ static func create_schema() -> JSONSchema.BaseSchema:
 					result.is_single = false
 				"comp_frame": result = CompFrame.new()
 				"highlight": result = Highlight.new()
-				"move": result = Move.new()
+				"move":
+					result = Move.new(&"points")
+					result.palette = Palette.new(&"points", [PointStack.new(null, -1)])
 			return result
 		return value
 	)
@@ -108,6 +110,7 @@ static func place() -> JSONSchema.BaseSchema:
 static func move() -> JSONSchema.BaseSchema:
 	var schema := J.object({
 		"mode": J.string().optional(),
+		"allow_multiple": J.boolean().optional(),
 		"palette": PaletteSchema.create_schema().optional(),
 	}).type(Move)
 
@@ -127,6 +130,7 @@ static func move() -> JSONSchema.BaseSchema:
 				palette = Palette.new(&"points", [PointStack.new(null, -1)])
 
 		model.mode = mode
+		model.allow_multiple = value.get("allow_multiple", true)
 		model.palette = palette
 
 		return model
@@ -139,6 +143,9 @@ static func move() -> JSONSchema.BaseSchema:
 		var value := {
 			"mode" : model.mode as String,
 		}
+
+		if not model.allow_multiple:
+			value["allow_multiple"] = false
 
 		if model.palette:
 			value["palette"] = model.palette

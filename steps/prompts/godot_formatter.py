@@ -270,12 +270,38 @@ Key field changes (see workspace.md for details):
 - Add `visual` based on structure:
   - If NumLine has `ticks` → `"visual": "line"` (number line)
   - If NumLine has `intervals` → `"visual": "bar"` (fraction strip)
-- Add `lcm` using 3× denominator rule:
-  - Halves (1/2): lcm = 6
-  - Thirds (1/3): lcm = 9
-  - Fourths (1/4): lcm = 12
-  - Sixths (1/6): lcm = 18
-  - Eighths (1/8): lcm = 24
+- Add `lcm` based on visual type:
+  - **Fraction strip** (`visual: "bar"` or `"mini_bar"`): lcm = denominator of the interval
+    - 1/4 intervals → `lcm: 4` | 1/5 → `lcm: 5` | 1/6 → `lcm: 6` | 1/7 → `lcm: 7` | 1/8 → `lcm: 8` | 1/10 → `lcm: 10` | 1/12 → `lcm: 12`
+  - **Number line** (`visual: "line"`): lcm depends on denominator size
+    - Denominators 2–4: lcm = 3× denominator → 1/2 → `lcm: 6` | 1/3 → `lcm: 9` | 1/4 → `lcm: 12`
+    - Denominators 5–8: lcm = 2× denominator → 1/5 → `lcm: 10` | 1/6 → `lcm: 12` | 1/7 → `lcm: 14` | 1/8 → `lcm: 16`
+- `intervals_is_shaded` conversions:
+  - If given as integer count N → expand to array `[0, 1, ..., N-1]` (shades first N intervals, the most common case where N = numerator)
+  - If boolean or array of indices → pass through as-is
+- `sum_is_visible`: Set `true` when the bar needs to display its fraction label beside it (e.g., comparison problems where both fractions must be named)
+- `intervals_is_frac_label_visible`: Set `true` when each individual interval should show its unit fraction (e.g., "1/6" on every section)
+
+### 6a. Benchmark Conversions
+When workspace contains a benchmark tangible (`type: "benchmark"`):
+- Add `@type: "Benchmark"`
+- Remove `id`, `type`, `role` fields
+- `location`: Keep as fraction string if not `"1/2"` — omit entirely when it is `"1/2"` (default)
+- `@layout`: Defaults to `"underlay"` — omit unless different
+- `is_label_visible`: Omit unless `false`
+- `is_visible`: Omit unless `false`
+- No `lcm`, `visual`, `ticks`, `intervals`, or any NumLine fields
+- Place the Benchmark before the NumLines/bars in the tangibles array (so it renders beneath them)
+
+**Minimal benchmark (1/2 with label — most common)**:
+```json
+{ "@type": "Benchmark" }
+```
+
+**Benchmark without label**:
+```json
+{ "@type": "Benchmark", "is_label_visible": false }
+```
 
 ### 7. Answer Conversions
 - Choice IDs → indices: "a"→[0], "b"→[1], "c"→[2]

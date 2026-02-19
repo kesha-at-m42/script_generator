@@ -10,6 +10,7 @@
 
 **Fields**:
 - `tangibles` (array): Array of tangible objects (NumLine, Vocab, Benchmark, MathExpression, Grid)
+- `shuffle_tangibles` (boolean): Randomly shuffle the order of tangibles on load. **Auto-managed** — set automatically by the pipeline when the prompt tool is `Select` and no tangibles are read-only. Do not set manually.
 
 **Example**:
 ```json
@@ -45,9 +46,7 @@ All tangibles support these optional layout fields:
 **Optional Fields**:
 
 **visual** (string): Visual representation type. Default: `"line"`
-- Valid values: `"bar"`, `"pie"`, `"line"`, `"equation"`, `"bar_sm"`, `"composite_bar_equation"`, `"polygon"`
-
-**sum_is_visible** (boolean): Show sum of intervals. Default: `false`
+- Valid values: `"bar"`, `"pie"`, `"line"`, `"equation"`, `"bar_sm"`, `"composite_bar_equation"`, `"polygon"`, `"polygon_flat"`, `"mini_bar"`
 
 **lcm** (integer): Least common multiple for calculations. Default: `24`
 
@@ -65,8 +64,6 @@ All tangibles support these optional layout fields:
 
 **invert_labels** (boolean): Flips the position of labels and alt_labels. When `true`, labels appear on top (interactive) and alt_labels appear below (non-interactive). Use this to allow dragging labels to the top position. Default: `false`
 
-**intervals_is_frac_label_visible** (boolean or array of integers): Show labels on intervals. Default: `false`
-
 **ticks_is_read_only** (boolean or array of Fractions): Make ticks non-interactive. Default: `false`
 - Valid: `true` (all ticks), `false` (no ticks), or `["0", "1/3", "2/3"]` (specific fraction strings)
 - INVALID: `[true, true, false, ...]` (arrays of booleans are not supported)
@@ -77,9 +74,9 @@ All tangibles support these optional layout fields:
 
 **is_read_only** (boolean): Make entire number line read-only. Default: `false`
 
-**sum_location** (string): Position of sum display. Options: `"top"`, `"bottom"`, `"left"`, `"right"`. Default: `"right"`
-
 **intervals_is_shaded** (boolean or array of integers): Which intervals are shaded. Default: `false`
+- Boolean: `true` shades all intervals, `false` shades none
+- Array of indices: specific intervals to shade (e.g., `[0, 1, 2, 3]` shades the first four)
 
 **Important**: Cannot specify both `ticks` and `intervals` - use one or the other
 
@@ -235,22 +232,52 @@ Same format as labels but NON-DRAGGABLE, displays on top:
 ### Benchmark
 **Schema type**: `Benchmark`
 
-**Purpose**: Reference line or marker (often at 1/2 for comparison).
+**Purpose**: A vertical reference line that spans all visuals in the same column. Used to help students compare fractions against a known value (typically 1/2). Always a separate tangible — not a property of a NumLine or fraction strip.
 
 **Optional Fields**:
-- `location` (Fraction): Position of benchmark. Default: `"1/2"`
+- `location` (Fraction): Position of the benchmark line. Default: `"1/2"` — omit when using 1/2
+- `is_label_visible` (boolean): Show a fraction label at the line position. Default: `true` — omit unless hiding
+- `is_visible` (boolean): Show or hide the entire benchmark. Default: `true` — omit unless hiding
+- `@col` (integer): Column position. Default: `0`
+- `@layout` (string): Default is `"underlay"` — renders behind all bars and number lines in the same column. Omit in most cases.
 
-**Example**:
+**Minimal example (benchmark at 1/2 with label — most common)**:
 ```json
 {
-  "@type": "Benchmark",
-  "location": "1/2",
-  "@col": 0,
-  "@layout": "underlay"
+  "@type": "Benchmark"
 }
 ```
 
-**Note**: Benchmarks typically use `@layout: "underlay"` to appear behind other tangibles.
+**Explicit location (only needed when not 1/2)**:
+```json
+{
+  "@type": "Benchmark",
+  "location": "3/4"
+}
+```
+
+**Without label**:
+```json
+{
+  "@type": "Benchmark",
+  "is_label_visible": false
+}
+```
+
+**Full workspace example (benchmark with two stacked number lines)**:
+```json
+{
+  "tangibles": [
+    { "@type": "Benchmark" },
+    { "@type": "NumLine", "visual": "line", "ticks": "1/4", "points": ["3/4"], "labels": ["0", "1"], "lcm": 12 },
+    { "@type": "NumLine", "visual": "line", "ticks": "1/6", "points": ["1/6"], "labels": ["0", "1"], "lcm": 12 }
+  ]
+}
+```
+
+**Notes**:
+- `@layout` defaults to `"underlay"` — the benchmark renders behind all shapes automatically. No need to set it explicitly.
+- Serializer omits `location` when it equals 1/2, omits `@layout` when it equals `"underlay"`, and omits boolean fields when they equal their defaults. A benchmark at 1/2 with label visible serializes to `{}` (just the `@type`).
 
 ---
 
@@ -347,7 +374,7 @@ Multiple levels of read-only controls:
 
 1. **Entire tangible**: `is_read_only: true` - Nothing can be modified
 2. **Specific ticks**: `ticks_is_read_only: ["1/3"]` - Only certain ticks locked
-3. **Specific intervals/parts**: `read_only_parts: [0, 2]` - Only certain sections locked
+3. **Specific intervals**: `intervals_is_read_only: [0, 2]` - Only certain sections locked
 
 ---
 

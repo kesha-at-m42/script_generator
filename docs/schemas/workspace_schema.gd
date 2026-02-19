@@ -53,7 +53,9 @@ const VISUAL_TO_STRING = {
 	NumLine.Visual.BAR_SM: "bar_sm",
 	NumLine.Visual.COMPOSITE_BAR_EQUATION: "composite_bar_equation",
 	NumLine.Visual.LINE: "line",
-	NumLine.Visual.POLYGON: "polygon"
+	NumLine.Visual.POLYGON: "polygon",
+	NumLine.Visual.POLYGON_FLAT: "polygon_flat",
+	NumLine.Visual.MINI_BAR: "mini_bar"
 }
 
 ## Maps a [String] to its [code]Visual[/code] representation.
@@ -65,7 +67,9 @@ const STRING_TO_VISUAL = {
 	"bar_sm": NumLine.Visual.BAR_SM,
 	"composite_bar_equation": NumLine.Visual.COMPOSITE_BAR_EQUATION,
 	"line": NumLine.Visual.LINE,
-	"polygon": NumLine.Visual.POLYGON
+	"polygon": NumLine.Visual.POLYGON,
+	"polygon_flat": NumLine.Visual.POLYGON_FLAT,
+	"mini_bar": NumLine.Visual.MINI_BAR
 }
 
 static func tangible() -> JSONSchema.BaseSchema:
@@ -210,9 +214,10 @@ static func fraction_shape() -> JSONSchema.BaseSchema:
 					interval.is_frac_label_visible = true
 		elif intervals_is_frac_label_visible is Array:
 			for i in intervals_is_frac_label_visible:
-				var interval = new_num_line._intervals[i]
-				interval.frac_label = Vector2i(interval.numerator, interval.denominator)
-				interval.is_frac_label_visible = true
+				if i >= 0 and i < new_num_line._intervals.size():
+					var interval = new_num_line._intervals[i]
+					interval.frac_label = Vector2i(interval.numerator, interval.denominator)
+					interval.is_frac_label_visible = true
 
 		## Shaded intervals
 		var intervals_is_shaded = value.get("shaded", false)
@@ -222,7 +227,8 @@ static func fraction_shape() -> JSONSchema.BaseSchema:
 					interval.is_shaded = true
 		elif intervals_is_shaded is Array:
 			for index in intervals_is_shaded:
-				new_num_line._intervals[index].is_shaded = true
+				if index >= 0 and index < new_num_line._intervals.size():
+					new_num_line._intervals[index].is_shaded = true
 
 		## Read only ticks
 		var ticks_is_read_only = value.get("ticks_is_read_only", false)
@@ -243,7 +249,8 @@ static func fraction_shape() -> JSONSchema.BaseSchema:
 					interval.is_read_only = true
 		elif intervals_is_read_only is Array:
 			for index in intervals_is_read_only:
-				new_num_line._intervals[index].is_read_only = true
+				if index >= 0 and index < new_num_line._intervals.size():
+					new_num_line._intervals[index].is_read_only = true
 
 		return new_num_line
 	)
@@ -283,7 +290,8 @@ static func vocab() -> JSONSchema.BaseSchema:
 
 static func benchmark() -> JSONSchema.BaseSchema:
 	var schema = tangible().extend({
-		"location": fraction().optional()
+		"location": fraction().optional(),
+		"is_label_visible": J.boolean().optional()
 	}).type(Benchmark)
 
 	schema.deserializer(func(value: Dictionary) -> Benchmark:
@@ -293,6 +301,7 @@ static func benchmark() -> JSONSchema.BaseSchema:
 		new_benchmark.col = value.get("@col", 0)
 		new_benchmark.layout = value.get("@layout", "underlay")
 		new_benchmark._is_visible = value.get("is_visible", true)
+		new_benchmark.is_label_visible = value.get("is_label_visible", true)
 		return new_benchmark
 	)
 
@@ -306,6 +315,8 @@ static func benchmark() -> JSONSchema.BaseSchema:
 			result["@layout"] = value.layout
 		if value._is_visible == false:
 			result["is_visible"] = false
+		if value.is_label_visible == false:
+			result["is_label_visible"] = false
 		return result
 	)
 
@@ -326,7 +337,7 @@ static func num_line() -> JSONSchema.BaseSchema:
 		"invert_labels": J.boolean().optional(),
 		"intervals_is_frac_label_visible": J.one_of([J.boolean(), J.array(J.integer())]).optional(),
 		"ticks_is_read_only": J.one_of([J.boolean(), J.array(fraction())]).optional(),
-		"intervals_is_read_only": J.one_of([J.boolean(), J.array(fraction())]).optional(),
+		"intervals_is_read_only": J.one_of([J.boolean(), J.array(J.integer())]).optional(),
 		"is_read_only": J.boolean().optional(),
 		"sum_location": J.string().one_of(["top", "bottom", "left", "right"]).optional()
 	}).type(NumLine)
@@ -352,8 +363,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 		if new_num_line._visual == NumLine.Visual.GRID:
 			return JSONSchema.ValidationError.new("visual", "Number lines of type 'GRID' (%d) are deprecated and should not be used." % NumLine.Visual.GRID)
 
-		## LCM - default to 6 for polygon visual, 24 otherwise
-		var lcm_default = 6 if new_num_line._visual == NumLine.Visual.POLYGON else 24
+		## LCM - default to 6 for polygon visuals, 24 otherwise
+		var lcm_default = 6 if new_num_line._visual in [NumLine.Visual.POLYGON, NumLine.Visual.POLYGON_FLAT] else 24
 		new_num_line._lcm = value.get("lcm", lcm_default)
 
 		## Visibility
@@ -447,9 +458,10 @@ static func num_line() -> JSONSchema.BaseSchema:
 					interval.is_frac_label_visible = true
 		elif intervals_is_frac_label_visible is Array:
 			for index in intervals_is_frac_label_visible:
-				var interval = new_num_line._intervals[index]
-				interval.frac_label = Vector2i(interval.numerator, interval.denominator)
-				interval.is_frac_label_visible = true
+				if index >= 0 and index < new_num_line._intervals.size():
+					var interval = new_num_line._intervals[index]
+					interval.frac_label = Vector2i(interval.numerator, interval.denominator)
+					interval.is_frac_label_visible = true
 
 		# INVERT LABELS
 		new_num_line.invert_labels = value.get("invert_labels", false)
@@ -462,6 +474,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 					interval.is_shaded = true
 		elif intervals_is_shaded is Array:
 			for index in intervals_is_shaded:
+				if index not in range(new_num_line._intervals.size()):
+					continue
 				new_num_line._intervals[index].is_shaded = true
 
 		## Read only ticks
@@ -475,7 +489,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 				if frac.denominator == 0:
 					continue
 				var tick = new_num_line.get_tick(frac.numerator, frac.denominator)
-				tick.is_read_only = true
+				if tick:
+					tick.is_read_only = true
 
 		## Read only intervals
 		var intervals_is_read_only = value.get("intervals_is_read_only", false)
@@ -485,7 +500,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 					interval.is_read_only = true
 		elif intervals_is_read_only is Array:
 			for index in intervals_is_read_only:
-				new_num_line._intervals[index].is_read_only = true
+				if index >= 0 and index < new_num_line._intervals.size():
+					new_num_line._intervals[index].is_read_only = true
 
 		# SUM LOCATION
 		new_num_line.sum_location = value.get("sum_location", "right")
@@ -506,7 +522,7 @@ static func num_line() -> JSONSchema.BaseSchema:
 			result["sum_is_visible"] = true
 
 		## LCM
-		var lcm_default = 6 if value._visual == NumLine.Visual.POLYGON else 24
+		var lcm_default = 6 if value._visual in [NumLine.Visual.POLYGON, NumLine.Visual.POLYGON_FLAT] else 24
 		if value._lcm != lcm_default:
 			result["lcm"] = value._lcm
 
@@ -672,7 +688,8 @@ static func num_line() -> JSONSchema.BaseSchema:
 
 static func expression() -> JSONSchema.BaseSchema:
 	var schema = tangible().extend({
-		"terms": J.array(J.one_of([fraction(), term()])).optional()
+		"terms": J.array(J.one_of([fraction(), term()])).optional(),
+		"visible_terms": J.one_of([J.array(J.integer()), J.boolean()]).optional()
 	}).type(MathExpression)
 
 	schema.deserializer(func(value: Dictionary) -> MathExpression:
@@ -681,9 +698,24 @@ static func expression() -> JSONSchema.BaseSchema:
 		new_expression.layout = value.get("@layout", "default")
 		new_expression._is_visible = value.get("is_visible", true)
 		var terms = value.get("terms", [])
-		for current_term in terms:
-			if current_term is Fraction:
-				current_term.is_frac_label_visible = true
+		var visible_terms = value.get("visible_terms", true)
+		if visible_terms is bool:
+			for current_term in terms:
+				if current_term is Term:
+					current_term.is_visible = visible_terms
+				elif current_term is Fraction:
+					current_term.is_frac_label_visible = visible_terms
+		elif visible_terms is Array:
+			for current_term in terms:
+				if current_term is Term:
+					current_term.is_visible = false
+				elif current_term is Fraction:
+					current_term.is_frac_label_visible = false
+			for i in visible_terms:
+				if terms[i] is Term:
+					terms[i].is_visible = true
+				if terms[i] is Fraction:
+					terms[i].is_frac_label_visible = true
 		new_expression.terms = terms
 		return new_expression
 	)
@@ -702,6 +734,20 @@ static func expression() -> JSONSchema.BaseSchema:
 
 		if value.terms:
 			result["terms"] = value.terms
+
+		var visible_terms: Array[int] = []
+		var all_visible := true
+		var all_not_visible := true
+		for i in value.terms.size():
+			if (value.terms[i] is Fraction and value.terms[i].is_frac_label_visible) or (value.terms[i] is Term and value.terms[i].is_visible):
+				visible_terms.append(i)
+				all_not_visible = false
+			else:
+				all_visible = false
+		if all_not_visible:
+			result["visible_terms"] = false
+		elif not all_visible:
+			result["visible_terms"] = visible_terms
 
 		return result
 	)

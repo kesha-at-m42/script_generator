@@ -12,4 +12,4 @@ static var J := JSONSchema
 static func create_schema() -> JSONSchema.BaseSchema:
 	return J.object({
 		"sequences": J.array(SequenceSchema.create_schema())
-	}).type(SequencePool)
+	}).keep_extra_fields_in("metadata").type(SequencePool)

@@ -13,6 +13,9 @@
 
 **Fields**:
 - `mode` (required, string): Interaction mode - "points" for placing points, "frac_labels" for dragging fraction labels
+- `allow_multiple` (optional, boolean): Whether the student can place/drag more than one item. Default: `true`
+  - `true` — student can place/drag as many items as the palette allows (controlled by stack quantity)
+  - `false` — student can only place/drag one item; placing a second replaces the first
 - `palette` (optional, Palette object): Available items to drag (required when mode is "frac_labels"). See [Palette documentation](sequence.md#palette) for full details.
 
 **Example (points mode)**:

@@ -417,7 +417,7 @@
       "function": "sampler.sample_per_template",
       "description": "Sample random sequences per template for production",
       "function_args": {
-        "sample_size": 3
+        "sample_size": 1
       },
       "output_file": "sampled.json"
     }
@@ -431,6 +431,44 @@
       "input_file": "outputs/problem_pool_generator_module_6_path_b/v4/step_13_sample_per_template/sample_per_template.json",
       "function_args": {},
       "output_file": "numline_fixed.json"
+    }
+  ],
+  "test_add_empty_workspace": [
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "input_file": "C:/git/launchpad/project/edtech.apl/resources/sequences/module_7/problem_pool.json",
+      "function_args": {},
+      "output_file": "workspace_added.json"
+    }
+  ],
+  "format_sequences": [
+    {
+      "name": "numline_fixer",
+      "type": "formatting",
+      "function": "numline_fixer.main",
+      "input_file": "C:/git/launchpad/project/edtech.apl/resources/sequences/module_5/problem_pool.json",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
+      "function_args": {},
+      "output_file": "numline_fixed.json"
+    },
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "function_args": {},
+      "output_file": "workspace_added.json"
+    },
+    {
+      "name": "add_shuffle_tangibles",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_shuffle_tangibles_for_select",
+      "description": "Sets shuffle_tangibles on workspaces where tool is Select and no tangibles are read-only",
+      "function_args": {},
+      "output_file": "shuffle_tangibles_added.json"
     }
   ]
 }

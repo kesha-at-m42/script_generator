@@ -15,7 +15,8 @@ class SchemaLogger:
         self.enabled = enabled
         self.changes = {
             'workspace_added': 0,
-            'wrapped_in_pool': 0
+            'wrapped_in_pool': 0,
+            'shuffle_tangibles_added': 0
         }
 
     def log_workspace_added(self, location):
@@ -36,6 +37,15 @@ class SchemaLogger:
         print(f"\n[DEBUG] WRAPPED IN SEQUENCE POOL")
         print(f"  Added @type: SequencePool wrapper")
 
+    def log_shuffle_tangibles_added(self, location):
+        """Log when shuffle_tangibles is added to a workspace"""
+        if not self.enabled:
+            return
+
+        self.changes['shuffle_tangibles_added'] += 1
+        print(f"\n[DEBUG] SHUFFLE TANGIBLES ADDED - {location}")
+        print(f"  Set shuffle_tangibles: true on workspace")
+
     def summary(self):
         """Print summary of all changes"""
         if not self.enabled:
@@ -49,6 +59,8 @@ class SchemaLogger:
             print(f"[OK] Workspaces added: {self.changes['workspace_added']} steps")
         if self.changes['wrapped_in_pool'] > 0:
             print(f"[OK] Wrapped in SequencePool: {self.changes['wrapped_in_pool']} times")
+        if self.changes['shuffle_tangibles_added'] > 0:
+            print(f"[OK] shuffle_tangibles added: {self.changes['shuffle_tangibles_added']} steps")
 
         if not any(self.changes.values()):
             print("No changes made")
@@ -133,3 +145,67 @@ def wrap_in_sequence_pool(sequences_data, module_number=None, path_letter=None):
         "@type": "SequencePool",
         "sequences": sequences
     }
+
+
+def _is_select_tool(tool):
+    """Return True if the tool value represents a Select tool."""
+    if isinstance(tool, str):
+        return tool in ("select", "multi_select")
+    if isinstance(tool, dict):
+        return tool.get("@type") == "Select"
+    return False
+
+
+def _has_read_only_tangible(workspace):
+    """Return True if any tangible in the workspace is marked is_read_only."""
+    tangibles = workspace.get("tangibles", [])
+    return any(t.get("is_read_only", False) for t in tangibles)
+
+
+def add_shuffle_tangibles_for_select(sequences_data, module_number=None, path_letter=None):
+    """
+    Set shuffle_tangibles: true on the workspace of any step whose prompt tool
+    is Select and whose workspace contains no read-only tangibles.
+
+    Args:
+        sequences_data: List of sequence dictionaries or dict with "sequences" key
+        module_number: Module number (automatically passed by pipeline)
+        path_letter: Path letter (automatically passed by pipeline)
+
+    Returns:
+        The (possibly modified) sequences_data in its original wrapper form
+    """
+    global _logger
+    _logger = SchemaLogger()
+
+    if isinstance(sequences_data, dict) and "sequences" in sequences_data:
+        sequences = sequences_data["sequences"]
+        wrapper = sequences_data
+    elif isinstance(sequences_data, list):
+        sequences = sequences_data
+        wrapper = {"sequences": sequences}
+    else:
+        raise ValueError("Expected list of sequences or dict with 'sequences' key")
+
+    for seq_idx, sequence in enumerate(sequences):
+        for step_idx, step in enumerate(sequence.get("steps", [])):
+            workspace = step.get("workspace")
+            if not workspace:
+                continue
+
+            prompt = step.get("prompt")
+            if not prompt:
+                continue
+
+            tool = prompt.get("tool")
+            if not _is_select_tool(tool):
+                continue
+
+            if _has_read_only_tangible(workspace):
+                continue
+
+            workspace["shuffle_tangibles"] = True
+            _logger.log_shuffle_tangibles_added(f"Seq{seq_idx + 1}/Step{step_idx + 1}")
+
+    _logger.summary()
+    return wrapper

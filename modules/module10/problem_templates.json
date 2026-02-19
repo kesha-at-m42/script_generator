@@ -3,8 +3,8 @@
     "template_id": "10001",
     "skill_id": "M10-01",
     "skill": "Student can select which bar has more parts shaded when denominators are the same",
-    "problem_type": "Student clicks the bar showing more shaded parts from two stacked bars with same denominator",
-    "workspace_description": "Two horizontal rectangle bars stacked vertically. Both bars same total size, partitioned into same number of equal parts (same denominator). Different numbers of parts shaded. Fraction labels optional based on tier.",
+    "problem_type": "Student clicks the bar showing more shaded parts from two to four stacked bars with same denominator",
+    "workspace_description": "Two to four horizontal rectangle bars stacked vertically. All bars same total size, partitioned into same number of equal parts (same denominator). Different numbers of parts shaded. Fraction labels optional based on tier.",
     "prompt_examples": [
       "Which bar has more parts shaded?",
       "Click the bar that shows more shaded parts.",
@@ -37,8 +37,8 @@
     "template_id": "10002",
     "skill_id": "M10-01",
     "skill": "Student can select which bar has fewer parts shaded when denominators are the same",
-    "problem_type": "Student clicks the bar showing fewer shaded parts from two stacked bars with same denominator",
-    "workspace_description": "Two horizontal rectangle bars stacked vertically. Both bars same total size, partitioned into same number of equal parts (same denominator). Different numbers of parts shaded.",
+    "problem_type": "Student clicks the bar showing fewer shaded parts from two to four stacked bars with same denominator",
+    "workspace_description": "Two to four horizontal rectangle bars stacked vertically. All bars same total size, partitioned into same number of equal parts (same denominator). Different numbers of parts shaded.",
     "prompt_examples": [
       "Which bar has fewer parts shaded?",
       "Click the bar that shows fewer shaded parts.",
@@ -48,6 +48,7 @@
     "mastery_tier": ["confidence", "support", "baseline"],
     "mastery_verb": "identify",
     "parameter_coverage": {
+      "num_bars": [2, 3, 4],
       "denominators": [4, 5, 6, 8, 10],
       "comparison_pairs": [
         [2, 5],
@@ -71,7 +72,7 @@
     "skill_id": "M10-02",
     "skill": "Student can select correct comparison statement using words greater than or less than",
     "problem_type": "Student selects one statement from multiple choices describing which fraction is greater or less",
-    "workspace_description": "Two stacked rectangle bars with same denominator, different amounts shaded. Fraction labels visible. Multiple choice options show three statements.",
+    "workspace_description": "2-3 stacked rectangle bars with same denominator, different amounts shaded. Multiple choice options show four statements.",
     "prompt_examples": [
       "Which statement is correct?",
       "Select the statement that's true.",
@@ -81,6 +82,7 @@
     "mastery_tier": ["support", "baseline"],
     "mastery_verb": "identify",
     "parameter_coverage": {
+      "num_bars": [3, 4],
       "denominators": [4, 5, 6, 8],
       "statements": [
         "X is greater than Y",
@@ -103,13 +105,13 @@
     "skill_id": "M10-02",
     "skill": "Student can recognize when two fractions with same denominator are equal",
     "problem_type": "Student selects statement showing two fractions are equal when both have same shading",
-    "workspace_description": "Two stacked rectangle bars with same denominator and same amount shaded. Fraction labels visible. Multiple choice shows three statements.",
+    "workspace_description": "Two stacked rectangle bars with same denominator and same amount shaded. Multiple choice shows four statements.",
     "prompt_examples": [
       "Which statement is correct?",
       "These bars show the same amount. Which statement describes them?",
       "Select the statement that's true."
     ],
-    "action_description": "Student clicks one statement from three options",
+    "action_description": "Student clicks one statement from four options",
     "mastery_tier": ["support", "baseline"],
     "mastery_verb": "identify",
     "parameter_coverage": {
@@ -133,15 +135,15 @@
   {
     "template_id": "10005",
     "skill_id": "M10-03",
-    "skill": "Student can select correct comparison symbol when fractions are unequal",
-    "problem_type": "Student selects greater than or less than symbol to complete comparison statement with visual bar support",
-    "workspace_description": "Two stacked rectangle bars with same denominator, different amounts shaded. Math expression shows 'a/b ? c/d' where ? is replaced by student selection. Two symbol choices: > and <.",
+    "skill": "Student can select correct comparison symbol including equals",
+    "problem_type": "Student selects correct comparison symbol to complete statement with visual bar support",
+    "workspace_description": "Two stacked rectangle bars with same denominator. Math expression shows 'a/b ? c/d' where ? is replaced by student selection. Three symbol choices: >, <, and =.",
     "prompt_examples": [
       "Select the correct symbol.",
       "Which symbol goes between these fractions?",
       "Click the symbol that makes this statement true."
     ],
-    "action_description": "Student clicks one symbol (> or <) from two choices",
+    "action_description": "Student clicks one symbol (>, <, or =) from three choices",
     "mastery_tier": ["baseline", "stretch"],
     "mastery_verb": "identify",
     "parameter_coverage": {
@@ -153,7 +155,8 @@
       "That's right. The greater than symbol is correct.",
       "Correct. The symbol opens toward the bigger fraction.",
       "Yes. The less than symbol is correct.",
-      "Right. The symbol points to the smaller fraction."
+      "Right. The symbol points to the smaller fraction.",
+      "Correct. Those two fractions are equal."
     ],
     "no_of_steps": 1,
     "target_count": 8
@@ -174,7 +177,7 @@
     "mastery_verb": "identify",
     "parameter_coverage": {
       "denominators": [4, 5, 6, 8, 10],
-      "comparison_types": ["greater_than", "less_than", "equal"]
+      "comparison_types": ["greater_than", "less_than"]
     },
     "correct_end_state": "Correct symbol selected to complete comparison",
     "success_dialogue": [
@@ -191,13 +194,13 @@
     "skill_id": "M10-04",
     "skill": "Student can order three fractions from smallest to largest with same denominator",
     "problem_type": "Student selects which sequence shows three fractions in correct order from smallest to largest",
-    "workspace_description": "Three rectangle bars displayed horizontally, all with same denominator, different amounts shaded. Multiple choice shows three possible orderings.",
+    "workspace_description": "Three rectangle bars displayed horizontally, all with same denominator, different amounts shaded. Multiple choice shows four possible orderings.",
     "prompt_examples": [
       "Which option shows the fractions from smallest to largest?",
       "Select the correct order.",
       "Which one lists these fractions in order from least to greatest?"
     ],
-    "action_description": "Student clicks one ordering sequence from three options",
+    "action_description": "Student clicks one ordering sequence from four options",
     "mastery_tier": ["baseline", "stretch"],
     "mastery_verb": "compare",
     "parameter_coverage": {
@@ -210,6 +213,16 @@
       ]
     },
     "correct_end_state": "Correct ordering selected",
+    "mcq_options": {
+      "note": "Options are fractions-only sequences. Do NOT include bar labels such as 'Bar A', 'Bar B', 'Bar C'. {fraction1} = smallest fraction, {fraction2} = middle fraction, {fraction3} = largest fraction. Copy the template strings exactly, substituting only the placeholders.",
+      "example": "For fractions 1/10, 4/10, 6/10 — correct: '1/10, 4/10, 6/10'; distractors: '6/10, 4/10, 1/10' and '4/10, 1/10, 6/10'.",
+      "correct": "{fraction1}, {fraction2}, {fraction3}",
+      "distractors": [
+        "{fraction3}, {fraction2}, {fraction1}",
+        "{fraction2}, {fraction1}, {fraction3}",
+        "{fraction1}, {fraction3}, {fraction2}"
+      ]
+    },
     "success_dialogue": [
       "That's right. That's the order from smallest to largest.",
       "Correct. That's the right order.",
@@ -224,13 +237,13 @@
     "skill_id": "M10-04",
     "skill": "Student can order three fractions from smallest to largest with same denominator (harder denominators/closer values)",
     "problem_type": "Student selects which sequence shows three fractions in correct order from smallest to largest",
-    "workspace_description": "Three rectangle bars displayed horizontally, all with same denominator, different amounts shaded. Larger denominators or closer numerators make comparison more challenging. Multiple choice shows three possible orderings.",
+    "workspace_description": "Three rectangle bars displayed horizontally, all with same denominator, different amounts shaded. Larger denominators or closer numerators make comparison more challenging. Multiple choice shows four possible orderings.",
     "prompt_examples": [
       "Which option shows these fractions in order from smallest to largest?",
       "Select the correct order from least to greatest.",
       "Which one lists these three fractions in the right order?"
     ],
-    "action_description": "Student clicks one ordering sequence from three options",
+    "action_description": "Student clicks one ordering sequence from four options",
     "mastery_tier": ["stretch", "challenge"],
     "mastery_verb": "compare",
     "parameter_coverage": {
@@ -243,6 +256,16 @@
       ]
     },
     "correct_end_state": "Correct ordering selected",
+    "mcq_options": {
+      "note": "Options are fractions-only sequences. Do NOT include bar labels such as 'Bar A', 'Bar B', 'Bar C'. {fraction1} = smallest fraction, {fraction2} = middle fraction, {fraction3} = largest fraction. Copy the template strings exactly, substituting only the placeholders.",
+      "example": "For fractions 1/10, 4/10, 6/10 — correct: '1/10, 4/10, 6/10'; distractors: '6/10, 4/10, 1/10' and '4/10, 1/10, 6/10'.",
+      "correct": "{fraction1}, {fraction2}, {fraction3}",
+      "distractors": [
+        "{fraction3}, {fraction2}, {fraction1}",
+        "{fraction2}, {fraction1}, {fraction3}",
+        "{fraction1}, {fraction3}, {fraction2}"
+      ]
+    },
     "success_dialogue": [
       "That's right. They're all in order now.",
       "Correct. That's the right sequence.",
@@ -333,7 +356,7 @@
     "mastery_verb": "compare",
     "parameter_coverage": {
       "denominators": [5, 6, 7, 8, 10],
-      "comparison_types": ["greater_than", "less_than", "equal"]
+      "comparison_types": ["greater_than", "less_than"]
     },
     "correct_end_state": "Correct symbol selected",
     "success_dialogue": [
@@ -361,7 +384,7 @@
     "mastery_verb": "compare",
     "parameter_coverage": {
       "denominators": [4, 5, 6, 8, 10, 12],
-      "comparison_types": ["greater_than", "less_than", "equal"]
+      "comparison_types": ["greater_than", "less_than"]
     },
     "correct_end_state": "Correct symbol selected",
     "success_dialogue": [
@@ -378,13 +401,13 @@
     "skill_id": "M10-07",
     "skill": "Student can order three fractions using only notation without visual support",
     "problem_type": "Student selects correct ordering sequence from choices showing only fraction notation",
-    "workspace_description": "Multiple choice question showing 3 possible orderings of 3 fractions. All fractions have same denominator. NO visual bars or lines.",
+    "workspace_description": "Multiple choice question showing 4 possible orderings of 3 fractions. All fractions have same denominator. NO visual bars or lines.",
     "prompt_examples": [
       "Which option shows these fractions in order from smallest to largest?",
       "Select the correct order. There are no bars this time.",
       "Put these in order from least to greatest."
     ],
-    "action_description": "Student clicks one ordering sequence from three options",
+    "action_description": "Student clicks one ordering sequence from four options",
     "mastery_tier": ["challenge"],
     "mastery_verb": "compare",
     "parameter_coverage": {
@@ -396,6 +419,16 @@
       ]
     },
     "correct_end_state": "Correct ordering sequence selected",
+    "mcq_options": {
+      "note": "Options are fractions-only sequences. Do NOT include bar labels such as 'Bar A', 'Bar B', 'Bar C'. {fraction1} = smallest fraction, {fraction2} = middle fraction, {fraction3} = largest fraction. Copy the template strings exactly, substituting only the placeholders.",
+      "example": "For fractions 1/10, 4/10, 6/10 — correct: '1/10, 4/10, 6/10'; distractors: '6/10, 4/10, 1/10' and '4/10, 1/10, 6/10'.",
+      "correct": "{fraction1}, {fraction2}, {fraction3}",
+      "distractors": [
+        "{fraction3}, {fraction2}, {fraction1}",
+        "{fraction2}, {fraction1}, {fraction3}",
+        "{fraction1}, {fraction3}, {fraction2}"
+      ]
+    },
     "success_dialogue": [
       "That's right. That's the correct sequence.",
       "Yes. They're all in order now.",
@@ -410,25 +443,40 @@
     "skill_id": "M10-08",
     "skill": "Student can select explanation that correctly describes why one fraction is greater",
     "problem_type": "Student selects best explanation from choices about why a comparison is true",
-    "workspace_description": "Shows a comparison statement (e.g., '5/8 > 3/8'). Multiple choice with three explanations, one correct.",
+    "workspace_description": "Shows a comparison statement (e.g., '5/8 > 3/8'). Multiple choice with four explanations, one correct.",
     "prompt_examples": [
-      "Why is five eighths greater than three eighths?",
-      "Which statement explains why this comparison is correct?",
-      "Select the best explanation."
+      "Which statement explains why 5/8 > 2/8?",
+      "Why is five-eighths greater than two-eighths?",
+      "Select the statement that explains why 5/8 > 2/8."
     ],
-    "action_description": "Student clicks one explanation from three choices",
+    "action_description": "Student clicks one explanation from four choices",
     "mastery_tier": ["challenge"],
     "mastery_verb": "analyze",
     "parameter_coverage": {
-      "correct_explanations": [
-        "Same denominator means same size pieces. 5 pieces is more than 3 pieces.",
-        "Both are eighths, so we compare how many eighths. 5 is more than 3.",
-        "Same denominator, so the bigger numerator means bigger fraction."
+      "denominators": [6, 8, 10, 12],
+      "comparison_pairs": [
+        ["5/8", "2/8"],
+        ["7/10", "3/10"],
+        ["9/12", "4/12"],
+        ["4/6", "1/6"]
+      ],
+      "option_examples": [
+        "Both fractions show eighths. 5 > 2, so 5/8 is greater.",
+        "8 > 5 and 8 > 2, which makes 2/8 larger.",
+        "5 is greater than 8, so 5/8 is biggest.",
+        "Both show eighths, so 5/8 is equal to 2/8."
+      ]
+    },
+    "mcq_options": {
+      "correct": [
+        "Both fractions show {denom}ths. {num1} > {num2}, so {fraction1} is greater.",
+        "The denominator is the same, so if {num1}>{num2}, then {fraction1}>{fraction2}."
       ],
       "distractors": [
-        "8 is bigger than 3, so 5/8 is bigger.",
-        "5 is bigger, so 5/8 is always bigger.",
-        "The first number is what matters most."
+        "The bigger the denominator, the bigger the fraction.",
+        "The bottom number tells us which fraction is greater.",
+        "Add the numerator and denominator. {fraction1} has a bigger sum, so it is greater.",
+        "The fraction with more total pieces is greater."
       ]
     },
     "correct_end_state": "Correct explanation selected",

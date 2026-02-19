@@ -13,5 +13,6 @@ static func create_schema() -> JSONSchema.BaseSchema:
 	return J.object({
 		"id": J.string(),
 		"requested_count": J.integer(),
-		"shuffle": J.boolean().optional()
+		"shuffle": J.boolean().optional(),
+		"use_tiers": J.boolean().optional()
 	}).type(PoolData)

@@ -37,22 +37,24 @@ The problem template contains:
   - Some templates may list multiple possible interactions (e.g., "Point at tick marks OR Label tick marks by dragging")
   - Use these different interactions to create meaningful variation across questions
 - **no_of_steps**: The number of steps required to complete the problem
-- **target_count**: The exact number of problem instances to generate from this template
+- **target_count**: How many problem instances to generate
+  - Single integer (e.g., `10`): generate exactly that many
+  - Array `[min, max]` (e.g., `[5, 8]`): generate between min and max inclusive — aim for max to maximize coverage
 - **parameter_coverage**: The mathematical parameters to vary (fractions, denominators, etc.)
 
 ## GENERATION STRATEGY
 
 ### Number of Problems to Generate
 
-**CRITICAL: Generate exactly target_count problem instances**
-- The template specifies target_count - this is the exact number of problems you must create
-- Example: If target_count = 10, generate exactly 10 problem instances
+**CRITICAL: Respect target_count**
+- If target_count is an integer (e.g., `10`): generate **exactly** that many problems
+- If target_count is an array `[min, max]` (e.g., `[5, 8]`): generate between min and max problems. Generate as many as needed to cover the parameter space with meaningful variation — stop when additional problems would require redundant repetition. Do NOT add the two numbers together.
 - Distribute problems across allowed mastery tiers and parameter values
-- Maximize variation while meeting the target_count requirement
+- Maximize variation while staying within the target_count requirement
 
 ### Parameter Repetition Rules
 
-**The Golden Rule: Always generate exactly target_count problems**
+**The Golden Rule: Generate the right number of problems for meaningful coverage**
 
 **Step-by-step approach:**
 1. **First pass**: Cover each parameter once, distributing across allowed mastery tiers
@@ -210,9 +212,10 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 ## QUALITY CHECKLIST
 
 **Parameter Coverage:**
-- Generate exactly target_count problems
+- If target_count is an integer: generate exactly that many problems
+- If target_count is [min, max]: generate enough to cover the parameter space with meaningful variation, within the range
 - First pass: cover each parameter once, distributed across allowed tiers
-- If target_count > parameters: repeat parameters with DIFFERENT prompt_example phrasings
+- If more problems are needed to reach target_count: repeat parameters with DIFFERENT prompt_example phrasings
 - MCQ: Parameters can repeat if option sets differ meaningfully
 - Use ONLY tiers from template's mastery_tier field
 
@@ -229,7 +232,8 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **STOP Signs:**
 - ✗ Repeating same parameter with same prompt_example phrasing
-- ✗ Generating more or fewer problems than target_count specifies
+- ✗ Generating outside the target_count range (too few OR too many)
+- ✗ Padding to hit a max count when no meaningful variation remains
 - ✗ Using tiers not in template's mastery_tier field
 - ✗ Inventing new prompt language/verbs not in prompt_examples
 - ✗ Identical option sets (MCQ)
@@ -342,6 +346,12 @@ Run these checks:
 - If problem has "options" field, parse which option is correct from action_description
 - Verify that exact option text exists in the options array
 - If mismatch → ERROR: "Action description references option that doesn't exist in options array"
+
+**CHECK 9: No Duplicate Problems in This Batch**
+- This check applies to the FULL array of problems, not just one problem
+- For each pair of problems, extract their parameter values by flattening all values in `variables_used` into a sorted list
+- ERROR: Two problems share the same `mastery_tier` AND same `variables_used` values AND same `prompt` text → ERROR: "Duplicate problems #ID1 and #ID2: same tier ({tier}), same parameters ({params}), same prompt"
+- WARNING: Two problems share the same `mastery_tier` AND same `variables_used` values but have different prompt text → WARNING: "Problems #ID1 and #ID2 repeat same parameters ({params}) in same tier ({tier}) - verify prompts differ meaningfully"
 
 Return JSON:
 {

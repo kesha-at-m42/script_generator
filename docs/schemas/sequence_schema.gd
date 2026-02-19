@@ -14,9 +14,9 @@ static func create_schema() -> JSONSchema.BaseSchema:
 
 static func metadata() -> JSONSchema.BaseSchema:
 	return J.object({
-		"mastery_tier": J.string().enumeration(SequenceMetadata.EMasteryTiers).optional(),
-		"mastery_component": J.string().enumeration(SequenceMetadata.EMasteryComponents).optional(),
-		"mastery_verbs": J.array(J.string().enumeration(SequenceMetadata.EMasteryVerbs)).optional()
+		"mastery_tier": J.string().enumeration(SequenceMetadata.EMasteryTiers, null).optional(),
+		"mastery_component": J.string().enumeration(SequenceMetadata.EMasteryComponents, null).optional(),
+		"mastery_verbs": J.array(J.string().enumeration(SequenceMetadata.EMasteryVerbs, null)).optional()
 	}).keep_extra_fields_in("unvalidated").type(SequenceMetadata)
 
 static func partial_step() -> JSONSchema.BaseSchema:

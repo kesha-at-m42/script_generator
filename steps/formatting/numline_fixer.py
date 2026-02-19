@@ -748,6 +748,14 @@ def ensure_answer_fractions_placeable(step, previous_steps=None):
             answer_count = len(answer) if isinstance(answer, list) else 0
             is_single_label_scenario = (palette_count == 1 and answer_count == 1)
 
+            # For single-label (exploratory) scenarios, disable read-only entirely
+            if is_single_label_scenario:
+                tangible['ticks_is_read_only'] = False
+                if _logger.enabled:
+                    print(f"\n[DEBUG] READONLY SET TO FALSE - {location}")
+                    print(f"  Mode: SINGLE-LABEL (exploratory) - no read-only restrictions")
+                continue
+
             # Phase 1: Remove answer positions from read_only
             for tick in ticks_readonly:
                 is_answer_position = False
