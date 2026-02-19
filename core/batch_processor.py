@@ -113,8 +113,13 @@ class BatchProcessor:
                 if self.base_version_dir:
                     copied_item = self._load_from_base(item, item_id, base_id)
                     if copied_item:
-                        self.add_result(copied_item)
+                        self.add_result(copied_item, preserve_id=True)
                         return True, "copied from base"
+                    else:
+                        # Base item not found (e.g. it was excluded from the base version).
+                        # Advance sequential counter so fresh items downstream get correct IDs.
+                        if self.batch_output_id_field:
+                            self.sequential_id += 1
                 return True, "not in only_items"
 
         # Check skip_items filter
@@ -139,25 +144,42 @@ class BatchProcessor:
 
         return False, ""
 
-    def add_result(self, result: Any):
+    def add_result(self, result: Any, preserve_id: bool = False):
         """Add a result to collated results with sequential ID assignment
 
         Args:
             result: Result data (can be dict, list, or other)
+            preserve_id: If True, keep the item's existing batch_output_id_field value
+                         instead of overwriting it. The sequential counter is advanced
+                         past the preserved ID so fresh items don't collide.
         """
         if isinstance(result, list):
             # Flatten array and assign sequential IDs during collation
             for sub_item in result:
                 if isinstance(sub_item, dict) and self.batch_output_id_field:
-                    sub_item[self.batch_output_id_field] = self.sequential_id
-                    self.sequential_id += 1
+                    existing_id = sub_item.get(self.batch_output_id_field)
+                    if preserve_id and existing_id is not None:
+                        try:
+                            self.sequential_id = max(self.sequential_id, int(existing_id) + 1)
+                        except (TypeError, ValueError):
+                            pass
+                    else:
+                        sub_item[self.batch_output_id_field] = self.sequential_id
+                        self.sequential_id += 1
                 self.collated_results.append(sub_item)
         else:
             # Single result - assign sequential ID if dict
             if isinstance(result, dict):
                 if self.batch_output_id_field:
-                    result[self.batch_output_id_field] = self.sequential_id
-                    self.sequential_id += 1
+                    existing_id = result.get(self.batch_output_id_field)
+                    if preserve_id and existing_id is not None:
+                        try:
+                            self.sequential_id = max(self.sequential_id, int(existing_id) + 1)
+                        except (TypeError, ValueError):
+                            pass
+                    else:
+                        result[self.batch_output_id_field] = self.sequential_id
+                        self.sequential_id += 1
             self.collated_results.append(result)
 
         self.processed_count += 1
@@ -244,19 +266,12 @@ class BatchProcessor:
         # Only use template_id logic if batch_id_field is 'template_id'
         if 'template_id' in item and self.batch_id_field == 'template_id':
             template_id = item['template_id']
-            base_file = self.base_version_dir / f"items/{template_id}.json"
-            if base_file.exists():
-                try:
-                    with open(base_file, 'r', encoding='utf-8') as f:
-                        base_items = json.load(f)
-                    # Return ALL items from this template (not just one)
-                    # add_result() will flatten the list and add all items to collated_results
-                    return base_items
-                except Exception as e:
-                    pass  # Ignore errors, fall through to collated file
 
-            # Fallback: Load from collated file and filter by template_id
-            # This handles cases where individual template files don't exist
+            # IMPORTANT: Try collated file FIRST. Individual items/ files hold pre-re-collation
+            # IDs (wrong sequential IDs from when the template was originally generated).
+            # The collated file has the correct re-collated IDs. Loading from items/ and using
+            # preserve_id=True would advance sequential_id to the wrong value, causing the next
+            # fresh template's items to get incorrect problem_instance_ids.
             parent_dir_name = self.base_version_dir.name
             if 'step_' in parent_dir_name:
                 parts = parent_dir_name.split('_', 2)
@@ -272,13 +287,25 @@ class BatchProcessor:
 
                             # Filter items by template_id
                             template_items = [
-                                item for item in self._base_collated_cache
-                                if str(item.get('template_id')) == str(template_id)
+                                i for i in self._base_collated_cache
+                                if str(i.get('template_id')) == str(template_id)
                             ]
                             if template_items:
                                 return template_items
                         except Exception as e:
-                            pass  # Ignore errors, will return None
+                            pass  # Ignore errors, fall through to individual file
+
+            # Fallback: individual items/ file (only if not in collated)
+            base_file = self.base_version_dir / f"items/{template_id}.json"
+            if base_file.exists():
+                try:
+                    with open(base_file, 'r', encoding='utf-8') as f:
+                        base_items = json.load(f)
+                    # Return ALL items from this template (not just one)
+                    # add_result() will flatten the list and add all items to collated_results
+                    return base_items
+                except Exception as e:
+                    pass  # Ignore errors, will return None
 
             return None  # Template not found in base
 

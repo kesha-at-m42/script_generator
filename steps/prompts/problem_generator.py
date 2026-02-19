@@ -58,8 +58,8 @@ The problem template contains:
 
 **Step-by-step approach:**
 1. **First pass**: Cover each parameter once, distributing across allowed mastery tiers
-2. **If target_count > number of parameters**: Repeat parameters with DIFFERENT prompt_example phrasings
-3. **NEVER repeat**: Same parameter with same prompt_example phrasing
+2. **If target_count > number of parameters**: Repeat parameters across DIFFERENT mastery tiers, using different prompt_example phrasings
+3. **NEVER repeat**: Same parameters within the same mastery tier
 4. **Additional variation**: Use different workspace configurations, actions (if template allows multiple), and application contexts
 
 **Example:**
@@ -67,14 +67,13 @@ The problem template contains:
 Parameters: ["1/2", "1/3", "1/5", "1/6"]
 Tiers: ["BASELINE", "SUPPORT"]
 Target: 6 problems
-Prompt examples: ["Place {fraction}", "Show {fraction}", "Mark {fraction}"]
 
-Solution:
-- BASELINE: 1/3 (phrasing 1), 1/5 (phrasing 1), 1/6 (phrasing 1), 1/5 (phrasing 2)
-- SUPPORT: 1/2 (phrasing 1), 1/3 (phrasing 2)
+Ideal: Cover all 4 parameters once, then pick 2 more from unused parameters by tier
+- BASELINE: 1/3, 1/5, 1/6
+- SUPPORT: 1/2, 1/6, 1/3   ← cross-tier repeat, ONLY because target requires 6 problems
 
-Valid: Same parameter appears twice but with different phrasings
-Invalid: 1/3 appears twice with "Place one-third" both times
+If forced to repeat (target_count > total unique parameters): use a different phrasing
+Never: 1/3 appears twice in BASELINE (same tier, same parameters = ERROR)
 ```
 
 **MCQ/Select Questions:**
@@ -86,8 +85,9 @@ Invalid: 1/3 appears twice with "Place one-third" both times
 **1. Parameters:** Use values from parameter_coverage. Track in variables_used (use "fractions" as key when possible).
 
 **CRITICAL for Parameter Repetition:**
-- When you need to repeat a parameter to reach target_count, you MUST use a different prompt_example phrasing
-- Track which prompt_example you used for each parameter to avoid repetition
+- Prefer unique parameters in every problem — repetition across ANY tier is discouraged
+- Only repeat a parameter when target_count exceeds the total number of unique parameters
+- When forced to repeat: use a DIFFERENT mastery tier AND a different prompt_example phrasing
 
 **2. Mastery Tiers:** ONLY use tiers from template's mastery_tier field. Distribute problems across allowed tiers.
 
@@ -215,7 +215,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - If target_count is an integer: generate exactly that many problems
 - If target_count is [min, max]: generate enough to cover the parameter space with meaningful variation, within the range
 - First pass: cover each parameter once, distributed across allowed tiers
-- If more problems are needed to reach target_count: repeat parameters with DIFFERENT prompt_example phrasings
+- If more problems are needed to reach target_count: repeat parameters ONLY across different mastery tiers, with different prompt_example phrasings — repetition is a last resort
 - MCQ: Parameters can repeat if option sets differ meaningfully
 - Use ONLY tiers from template's mastery_tier field
 
@@ -232,6 +232,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 **STOP Signs:**
 - ✗ Repeating same parameter with same prompt_example phrasing
+- ✗ Repeating same parameters within the same mastery tier
 - ✗ Generating outside the target_count range (too few OR too many)
 - ✗ Padding to hit a max count when no meaningful variation remains
 - ✗ Using tiers not in template's mastery_tier field
@@ -350,8 +351,7 @@ Run these checks:
 **CHECK 9: No Duplicate Problems in This Batch**
 - This check applies to the FULL array of problems, not just one problem
 - For each pair of problems, extract their parameter values by flattening all values in `variables_used` into a sorted list
-- ERROR: Two problems share the same `mastery_tier` AND same `variables_used` values AND same `prompt` text → ERROR: "Duplicate problems #ID1 and #ID2: same tier ({tier}), same parameters ({params}), same prompt"
-- WARNING: Two problems share the same `mastery_tier` AND same `variables_used` values but have different prompt text → WARNING: "Problems #ID1 and #ID2 repeat same parameters ({params}) in same tier ({tier}) - verify prompts differ meaningfully"
+- ERROR: Two problems share the same `mastery_tier` AND same `variables_used` values → ERROR: "Duplicate parameters in problems #ID1 and #ID2: same tier ({tier}), same parameters ({params})"
 
 Return JSON:
 {

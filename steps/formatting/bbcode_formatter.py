@@ -332,14 +332,14 @@ def process_godot_sequences(godot_data, vocabulary_list=None):
         - on_correct.dialogue: fractions with words + vocab tags
     """
     if not godot_data or '@type' not in godot_data:
-        print("⚠️  Invalid Godot data structure - skipping BBCode formatting")
+        print("[WARN] Invalid Godot data structure - skipping BBCode formatting")
         return godot_data
-    
+
     sequences = godot_data.get('sequences', [])
-    
+
     for seq_idx, sequence in enumerate(sequences, 1):
         if '@type' not in sequence or sequence['@type'] != 'Sequence':
-            print(f"⚠️  Sequence {seq_idx}: Invalid type, skipping")
+            print(f"[WARN] Sequence {seq_idx}: Invalid type, skipping")
             continue
         
         steps = sequence.get('steps', [])
@@ -404,7 +404,7 @@ def process_godot_sequences(godot_data, vocabulary_list=None):
                                     vocabulary_list
                                 )
             except Exception as e:
-                print(f"⚠️  Error formatting step {step_idx} in sequence {seq_idx}: {e}")
+                print(f"[WARN] Error formatting step {step_idx} in sequence {seq_idx}: {e}")
                 continue
     
     return godot_data
@@ -437,7 +437,7 @@ def apply_vocab_formatting(godot_data, module_number=None):
         }
     """
     if not godot_data or '@type' not in godot_data:
-        print("⚠️  Invalid Godot data structure - skipping vocab formatting")
+        print("[WARN] Invalid Godot data structure - skipping vocab formatting")
         return godot_data
 
     # Initialize logger
@@ -449,14 +449,14 @@ def apply_vocab_formatting(godot_data, module_number=None):
         try:
             vocabulary_list = get_module_field(module_number, "vocabulary", required=False)
             if vocabulary_list:
-                print(f"✓ Loaded {len(vocabulary_list)} vocabulary terms from Module {module_number}")
+                print(f"[OK] Loaded {len(vocabulary_list)} vocabulary terms from Module {module_number}")
                 if logger.enabled:
                     print(f"  Terms: {', '.join(vocabulary_list[:10])}{'...' if len(vocabulary_list) > 10 else ''}")
         except Exception as e:
-            print(f"⚠️  Could not load vocabulary from Module {module_number}: {e}")
+            print(f"[WARN] Could not load vocabulary from Module {module_number}: {e}")
 
     if not vocabulary_list:
-        print("⚠️  No vocabulary list found - skipping vocab formatting")
+        print("[WARN] No vocabulary list found - skipping vocab formatting")
         return godot_data
 
     sequences = godot_data.get('sequences', [])
@@ -514,11 +514,11 @@ def apply_vocab_formatting(godot_data, module_number=None):
                                 'vocab'
                             )
             except Exception as e:
-                print(f"⚠️  Error formatting vocab in step {step_idx} of sequence {seq_idx}: {e}")
+                print(f"[WARN] Error formatting vocab in step {step_idx} of sequence {seq_idx}: {e}")
                 continue
 
     logger.summary()
-    print(f"✓ Vocab formatting complete")
+    print(f"[OK] Vocab formatting complete")
     return godot_data
 
 
@@ -545,7 +545,7 @@ def apply_fraction_formatting(godot_data, module_number=None):
         }
     """
     if not godot_data or '@type' not in godot_data:
-        print("⚠️  Invalid Godot data structure - skipping fraction formatting")
+        print("[WARN] Invalid Godot data structure - skipping fraction formatting")
         return godot_data
 
     # Initialize logger
@@ -638,7 +638,7 @@ def apply_fraction_formatting(godot_data, module_number=None):
                                 'fraction'
                             )
             except Exception as e:
-                print(f"⚠️  Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}")
+                print(f"[WARN] Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}")
                 continue
 
     logger.summary()

@@ -529,9 +529,8 @@ Examples:
         print("Error: --module required when using --start-from or --end-at")
         sys.exit(1)
 
-    if is_template_rerun and has_step_range:
-        print("Error: Template rerun mode (--templates) cannot be combined with --start-from or --end-at")
-        sys.exit(1)
+    # Template rerun + step range: allowed — acts as a wrapper that maps template IDs
+    # to problem instance IDs and runs a standard item-level rerun over the given range.
 
     if is_template_rerun and not args.module:
         print("Error: Template rerun mode requires --module")
@@ -596,7 +595,6 @@ Examples:
                 verbose=True
             )
         elif is_template_rerun:
-            # Template rerun mode: orchestrate with diff and cascade
             results = run_template_rerun_pipeline(
                 steps=steps,
                 pipeline_name=args.pipeline_name,
@@ -604,6 +602,8 @@ Examples:
                 path_letter=args.path,
                 template_ids=args.item_ids,
                 base_version=base_version,
+                start_from=start_from,
+                end_at=end_at,
                 notes=args.note,
                 verbose=True
             )
@@ -821,13 +821,18 @@ def run_exclude_mode(steps, pipeline_name, module_number, path_letter, base_vers
 
 
 def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter,
-                                template_ids, base_version, notes="", verbose=True):
+                                template_ids, base_version, start_from=None, end_at=None,
+                                notes="", verbose=True):
     """Run template-based rerun with automatic re-collation
 
-    This function runs the FULL pipeline with batch_only_items set to the problem IDs
-    from the specified templates. BatchProcessor automatically copies unchanged items
-    from the base version. After the pipeline completes, all steps are re-collated to
-    merge base + new items.
+    Uses a two-phase approach to ensure correct ID chaining:
+    - Phase 1: Run only step 1 with template_ids, then re-collate it.
+    - Phase 2: Read the actual problem_instance_ids from the re-collated step 1
+               and run steps 2+ with those IDs.
+
+    This prevents the ID mismatch that occurs when regenerated templates produce
+    different item counts than the base, causing the raw sequential IDs in step 1
+    to diverge from the base IDs used by steps 2+.
 
     Args:
         steps: Pipeline steps
@@ -862,7 +867,7 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
     if not base_version_dir.exists():
         raise ValueError(f"Base version not found: {base_version_dir}")
 
-    # Step 1: Map template IDs to problem_instance_ids
+    # Find step 1 directory in base version
     step_0_dir = None
     for subdir in sorted(base_version_dir.iterdir()):
         if subdir.is_dir() and ('step_00' in subdir.name or 'step_01' in subdir.name) and 'problem_generator' in subdir.name:
@@ -872,58 +877,123 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
     if not step_0_dir:
         raise ValueError(f"Could not find step_00_problem_generator or step_01_problem_generator in {base_version_dir}")
 
-    # Load base step 0 to map template_id → problem_instance_ids
+    # Load base step 1 to map template_id → problem_instance_ids (used for step-range mode only)
     base_step0_file = step_0_dir / "problem_generator.json"
     if not base_step0_file.exists():
         raise ValueError(f"Base step 0 output not found: {base_step0_file}")
 
     base_step0_items = load_json(base_step0_file)
-    rerun_problem_ids = [
+    base_problem_ids = [
         str(item['problem_instance_id'])
         for item in base_step0_items
         if str(item.get('template_id')) in template_ids
     ]
 
-    if not rerun_problem_ids:
-        raise ValueError(f"No items found for templates {template_ids} in base version")
-
-    if verbose:
-        print(f"\n[TEMPLATE RERUN] Mapping {len(template_ids)} templates to {len(rerun_problem_ids)} problem instances")
-        print(f"  Templates: {', '.join(template_ids)}")
-        print(f"  Problem IDs: {', '.join(rerun_problem_ids[:5])}{'...' if len(rerun_problem_ids) > 5 else ''}")
-        print(f"  BatchProcessor will copy unchanged items from base automatically")
-
-    # Step 2: Run FULL pipeline with batch_only_items
-    # For step 1 (problem_generator): use template_ids
-    # For steps 2+: use problem_instance_ids
-    # This is necessary because step 1 processes templates, not problem instances
-    if verbose:
-        print(f"\n[TEMPLATE RERUN] Running full pipeline ({len(steps)} steps)")
-
-    # Set batch_only_items on step 1 ONLY to use template_ids
-    # Steps 2+ will use rerun_items (problem_ids) for filtering
+    # Set batch_only_items on step 1 to use template_ids
     if steps and hasattr(steps[0], 'batch_only_items'):
         steps[0].batch_only_items = template_ids
         if verbose:
             print(f"  [STEP 1] Will process templates: {', '.join(template_ids)}")
-            # Debug: Check batch_only_items for all steps
-            for idx, step in enumerate(steps, 1):
-                print(f"  [DEBUG] Step {idx} batch_only_items: {step.batch_only_items}")
 
-    # Run pipeline with rerun_items for steps 2+
-    # This ensures steps 2-4 only process the problem_ids from the regenerated templates
-    results = run_pipeline(
-        steps=steps,  # ALL steps
-        pipeline_name=pipeline_name,
-        module_number=module_number,
-        path_letter=path_letter,
-        base_version=base_version,
-        rerun_items=rerun_problem_ids,  # Filter steps 2+ by problem_id (28, 29, 30)
-        notes=f"Template rerun: {', '.join(template_ids)}" + (f" - {notes}" if notes else ""),
-        verbose=verbose
-    )
+    note_str = f"Template rerun: {', '.join(template_ids)}" + (f" - {notes}" if notes else "")
 
-    # Clear batch_only_items from step 1 to prevent contamination in formatting reruns
+    if start_from:
+        # Step-range mode: reprocess existing items in a step range.
+        # Uses base IDs since step 1 is not being regenerated — IDs are stable.
+        if not base_problem_ids:
+            raise ValueError(f"No items found for templates {template_ids} in base version")
+        if verbose:
+            print(f"\n[TEMPLATE RERUN] Step-range mode ({start_from} → {end_at}), {len(base_problem_ids)} items")
+        results = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=base_version,
+            rerun_items=base_problem_ids,
+            start_from_step=start_from,
+            end_at_step=end_at,
+            notes=note_str,
+            verbose=verbose
+        )
+    else:
+        # Full-pipeline mode: two-phase approach to get correct IDs for steps 2+.
+        #
+        # The problem with a single-pass run: step 1 assigns raw sequential IDs
+        # that may differ from base IDs (e.g. a template generates 5 items instead
+        # of 6, shifting all subsequent IDs down). Steps 2+ would then filter on
+        # the old base IDs, causing mismatches and silent data loss.
+        #
+        # Fix: run step 1 first, re-collate it (which assigns correct final IDs),
+        # then read those actual IDs before running steps 2+.
+
+        if verbose:
+            label = f"steps 1–{end_at}" if end_at else f"all {len(steps)} steps"
+            print(f"\n[TEMPLATE RERUN] Full pipeline ({label}) — two-phase ID chaining")
+            print(f"  Phase 1: regenerate step 1 for templates: {', '.join(template_ids)}")
+
+        # --- Phase 1: run only step 1 ---
+        results_p1 = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=base_version,
+            end_at_step=1,
+            notes=note_str + " [phase 1/2: step 1]",
+            verbose=verbose
+        )
+
+        p1_version = results_p1['metadata']['version']
+        p1_version_dir = pipeline_dir / p1_version
+
+        # Re-collate step 1 now so final IDs are correct before step 2 runs
+        step1_name = 'problem_generator'
+        step1_dir = get_step_directory(p1_version_dir, 1, step1_name)
+        base_step1_dir = get_step_directory(base_version_dir, 1, step1_name)
+        merge_and_collate_templates(step1_dir, base_step1_dir, set(template_ids))
+
+        if verbose:
+            print(f"  [PHASE 1] Re-collated step 1 in {p1_version}")
+
+        # Early exit if only step 1 was requested
+        if end_at and end_at <= 1:
+            # Clear batch_only_items to prevent contamination
+            if steps and hasattr(steps[0], 'batch_only_items'):
+                steps[0].batch_only_items = None
+            return results_p1
+
+        # Read ACTUAL problem_instance_ids from the re-collated step 1
+        recollated_step1 = load_json(step1_dir / 'problem_generator.json')
+        actual_rerun_ids = [
+            str(item['problem_instance_id'])
+            for item in recollated_step1
+            if str(item.get('template_id')) in template_ids
+        ]
+
+        if verbose:
+            print(f"  Phase 2: run steps 2+ for {len(actual_rerun_ids)} actual problem IDs")
+            print(f"  Actual IDs: {', '.join(actual_rerun_ids[:8])}{'...' if len(actual_rerun_ids) > 8 else ''}")
+
+        # Clear step 1 filter before phase 2
+        if steps and hasattr(steps[0], 'batch_only_items'):
+            steps[0].batch_only_items = None
+
+        # --- Phase 2: run steps 2+ using the actual IDs from re-collated step 1 ---
+        results = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=p1_version,   # use phase-1 version as base so step 1 is copied correctly
+            rerun_items=actual_rerun_ids,
+            start_from_step=2,
+            end_at_step=end_at,
+            notes=note_str + " [phase 2/2: steps 2+]",
+            verbose=verbose
+        )
+
+    # Clear batch_only_items from step 1 to prevent contamination in future runs
     if steps and hasattr(steps[0], 'batch_only_items'):
         steps[0].batch_only_items = None
 
@@ -932,44 +1002,50 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
         print(f"\n[WARNING] Pipeline returned no metadata - this is unexpected")
         return results
 
+    # Step-range mode: no re-collation needed — BatchProcessor already produced correct output
+    if start_from:
+        return results
+
     new_version = results['metadata']['version']
     new_version_dir = pipeline_dir / new_version
 
     if verbose:
         print(f"\n[TEMPLATE RERUN] Pipeline complete, re-collating all steps...")
 
-    # Step 3: Re-collate all AI steps to merge base + new items
+    # Step 3: Re-collate AI steps that were actually run (up to end_at if set).
+    # Step 1 was already re-collated in phase 1 and copied into new_version_dir.
+    # Steps 2+ need to merge the newly-processed items with the original base items.
     for step_idx, step in enumerate(steps, 1):
+        if step_idx < 2:
+            # Step 1 was already re-collated during phase 1 — skip
+            continue
+        if end_at and step_idx > end_at:
+            break
         step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
         step_dir = get_step_directory(new_version_dir, step_idx, step_name)
+        # Use original base_version_dir for step 2+ merging (not p1_version_dir)
         base_step_dir = get_step_directory(base_version_dir, step_idx, step_name)
 
-        if step_idx == 1:
-            # Step 1: Merge template files (preserve original IDs)
-            merge_and_collate_templates(step_dir, base_step_dir, set(template_ids))
+        if step.is_ai_step():
+            # AI steps: Merge new items + base items using actual IDs
+            merge_and_collate_items(step_dir, step_name, base_step_dir, set(actual_rerun_ids))
             if verbose:
-                print(f"  [STEP {step_idx}] Re-collated {step_name} (merged {len(template_ids)} new templates + base)")
-        elif step.is_ai_step():
-            # AI steps: Merge new items + base items
-            merge_and_collate_items(step_dir, step_name, base_step_dir, set(rerun_problem_ids))
-            if verbose:
-                print(f"  [STEP {step_idx}] Re-collated {step_name} (merged {len(rerun_problem_ids)} new + base)")
+                print(f"  [STEP {step_idx}] Re-collated {step_name} (merged {len(actual_rerun_ids)} new + base)")
         # Formatting steps will be handled below
 
-    # Step 4: Re-run formatting steps on merged data
+    # Step 4: Re-run ALL formatting steps on merged data
+    # This includes formatting steps between AI steps (e.g. flatten_steps between
+    # sequence_structurer and generic_remediation_generator), which must chain off
+    # the re-collated AI step output, not the intermediate output from run_pipeline.
     if verbose:
         print(f"\n[TEMPLATE RERUN] Re-running formatting steps on merged data...")
 
-    # Find last AI step
-    last_ai_step_idx = None
-    for idx, step in enumerate(steps, 1):
-        if step.is_ai_step():
-            last_ai_step_idx = idx
-
-    # Re-run each formatting step sequentially
+    # Re-run each formatting step sequentially (only up to end_at if set)
     for step_idx, step in enumerate(steps, 1):
-        # Skip AI steps and steps before the last AI step
-        if step_idx <= last_ai_step_idx or step.is_ai_step():
+        if end_at and step_idx > end_at:
+            break
+        # Skip AI steps - they were already handled in the re-collation phase above
+        if step.is_ai_step():
             continue
 
         step_name = str(step.function).split('.')[-1]
@@ -1203,11 +1279,11 @@ def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=N
                     ''
                 )
 
-                # Skip if this item was regenerated (in rerun_ids)
-                if rerun_ids and item_problem_id in rerun_ids:
-                    continue
-
-                # Skip if already loaded from new version
+                # Skip if already loaded from new version (successfully regenerated)
+                # NOTE: Do NOT skip items purely because they are in rerun_ids.
+                # If an item in rerun_ids is not in loaded_ids it means the fresh
+                # generation failed to produce it (e.g. due to a sequential-ID gap
+                # in step 1). Fall back to the base version so the item is not lost.
                 if item_problem_id in loaded_ids:
                     continue
 

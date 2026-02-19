@@ -69,11 +69,14 @@ def flatten_steps(input_data):
 
             # Flatten each step
             for step in sequence.get("steps", []):
-                # Merge metadata with step fields
+                # Merge metadata with step fields; step fields take precedence
+                # except for problem_id, which must always come from the parent sequence
                 flattened_item = {
                     **metadata,  # problem_id, template_id, mastery_tier, etc.
                     **step       # step_id, dialogue, prompt, workspace, etc.
                 }
+                if "problem_id" in metadata:
+                    flattened_item["problem_id"] = metadata["problem_id"]
 
                 flattened.append(flattened_item)
         else:

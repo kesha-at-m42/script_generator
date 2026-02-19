@@ -29,7 +29,8 @@ class NumLineLogger:
             'ticks_added': 0,
             'labels_added': 0,
             'readonly_fixed': 0,
-            'ticks_converted': 0
+            'ticks_converted': 0,
+            'ticks_added_for_labels': 0
         }
         self.details = []
 
@@ -148,6 +149,8 @@ class NumLineLogger:
             print(f"[OK] Labels added: {self.changes['labels_added']} whole number labels")
         if self.changes['readonly_fixed'] > 0:
             print(f"[OK] Readonly fixed: {self.changes['readonly_fixed']} NumLines")
+        if self.changes['ticks_added_for_labels'] > 0:
+            print(f"[OK] Ticks added for labels: {self.changes['ticks_added_for_labels']} ticks")
 
         if not any(self.changes.values()):
             print("No changes made")
@@ -1232,6 +1235,123 @@ def apply_dual_numline_step2_logic(step1, step2):
         print(f"  NumLine[1]: Interactive (student can place points on second line)")
 
 
+def expand_string_ticks(interval_str, range_list):
+    """
+    Expand a string interval like "1/3" into an explicit tick list.
+
+    Args:
+        interval_str: Interval string like "1/3"
+        range_list: [start, end] like [0, 1]
+
+    Returns:
+        List of tick strings, or None if expansion fails
+    """
+    try:
+        _, denom, _ = parse_fraction(interval_str)
+        start = Fraction(range_list[0])
+        end = Fraction(range_list[1])
+        step = Fraction(1, denom)
+        ticks = []
+        current = start
+        while current <= end:
+            if current.denominator == 1:
+                ticks.append(str(current.numerator))
+            else:
+                ticks.append(f"{current.numerator}/{current.denominator}")
+            current += step
+        return ticks
+    except:
+        return None
+
+
+def add_ticks_for_labels_and_points(tangible, location="NumLine"):
+    """
+    Add ticks at positions where labels, alt_labels, or points exist but no
+    corresponding tick does.
+
+    When ticks is an explicit list, any candidate position with no
+    fraction-equivalent tick is inserted directly.
+
+    When ticks is a string interval (e.g. "1/3"), the interval is first expanded
+    into an explicit list for the NumLine's range; if any candidate doesn't align
+    with that expansion, the string is replaced with the explicit list (plus the
+    missing positions).
+
+    Args:
+        tangible: NumLine tangible dictionary
+        location: Location string for logging
+
+    Returns:
+        Modified tangible dictionary
+    """
+    if tangible.get('@type') != 'NumLine':
+        return tangible
+
+    ticks = tangible.get('ticks')
+    if ticks is None:
+        return tangible
+
+    # Build candidate positions from labels, alt_labels, and points
+    candidates = []
+    labels = tangible.get('labels')
+    if isinstance(labels, list):
+        candidates.extend(labels)
+    alt_labels = tangible.get('alt_labels')
+    if isinstance(alt_labels, list):
+        candidates.extend(alt_labels)
+    points = tangible.get('points')
+    if isinstance(points, list):
+        candidates.extend(points)
+
+    candidates = [v for v in candidates if v and isinstance(v, str)]
+    if not candidates:
+        return tangible
+
+    # If ticks is a string interval, expand it to a list first if any candidate misses
+    if isinstance(ticks, str):
+        range_list = tangible.get('range', [0, 1])
+        expanded = expand_string_ticks(ticks, range_list)
+        if expanded is None:
+            return tangible
+        missing = [v for v in candidates if not any(are_fractions_equal(v, t) for t in expanded)]
+        if not missing:
+            return tangible
+        # Rewrite to explicit list so we can insert the missing positions
+        old_ticks_str = ticks
+        ticks = expanded
+        tangible['ticks'] = ticks
+        if _logger.enabled:
+            print(f"\n[DEBUG] TICKS EXPANDED FROM INTERVAL - {location}")
+            print(f"  Interval '{old_ticks_str}' → explicit list (candidate mismatch: {missing})")
+
+    if not isinstance(ticks, list):
+        return tangible
+
+    old_ticks = ticks[:]
+    added = []
+
+    for value in candidates:
+        has_tick = any(are_fractions_equal(value, tick) for tick in ticks)
+        if not has_tick:
+            ticks.append(value)
+            added.append(value)
+
+    if added:
+        try:
+            ticks.sort(key=lambda x: parse_fraction(x)[2])
+        except:
+            pass
+        _logger.changes['ticks_added_for_labels'] += len(added)
+
+        if _logger.enabled:
+            print(f"\n[DEBUG] TICKS ADDED FOR LABELS/POINTS - {location}")
+            print(f"  Added ticks for positions with no tick: {added}")
+            print(f"  BEFORE: {old_ticks}")
+            print(f"  AFTER:  {ticks}")
+
+    return tangible
+
+
 def process_step(step, location, previous_steps=None):
     """
     Process a single step to fix NumLine issues.
@@ -1273,13 +1393,14 @@ def process_step(step, location, previous_steps=None):
             if isinstance(answer, list):
                 validator_answer = answer
 
-    # Ensure whole number ticks/labels
+    # Ensure whole number ticks/labels; remove labels with no corresponding tick
     workspace = step.get('workspace', {})
     if isinstance(workspace, dict):
         tangibles = workspace.get('tangibles', [])
         for tangible_idx, tangible in enumerate(tangibles):
             tangible_loc = f"{location}/NumLine[{tangible_idx}]"
             ensure_whole_number_ticks_and_labels(tangible, tangible_loc, validator_answer, validator_type)
+            add_ticks_for_labels_and_points(tangible, tangible_loc)
 
 
 def process_sequences(input_data):

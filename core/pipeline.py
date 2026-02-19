@@ -12,6 +12,32 @@ import sys
 import importlib
 import shutil
 
+
+class _TeeStream:
+    """Write to both the original stream and a log file simultaneously."""
+
+    def __init__(self, original, log_file):
+        self._original = original
+        self._log = log_file
+
+    def write(self, data):
+        self._original.write(data)
+        try:
+            self._log.write(data)
+            self._log.flush()
+        except Exception:
+            pass
+
+    def flush(self):
+        self._original.flush()
+        try:
+            self._log.flush()
+        except Exception:
+            pass
+
+    def __getattr__(self, attr):
+        return getattr(self._original, attr)
+
 # Add core directory to path
 core_dir = Path(__file__).parent
 if str(core_dir) not in sys.path:
@@ -442,6 +468,14 @@ def run_pipeline(
             output_dir_path = ensure_dir(Path(output_dir))
     else:
         output_dir_path = ensure_dir(Path(output_dir))
+
+    # Tee all console output to console.txt in the output directory.
+    # _TeeStream flushes after every write so output is preserved even on crash/early stop.
+    _console_log_file = open(output_dir_path / "console.txt", 'w', encoding='utf-8')
+    _orig_stdout = sys.stdout
+    _orig_stderr = sys.stderr
+    sys.stdout = _TeeStream(sys.stdout, _console_log_file)
+    sys.stderr = _TeeStream(sys.stderr, _console_log_file)
 
     builder = PromptBuilderV2(module_number, path_letter, verbose)
 
@@ -1237,6 +1271,11 @@ Review your original instructions and schemas to ensure the regenerated output f
             print(f"\n{'='*70}")
             print(f"PIPELINE COMPLETE")
             print(f"{'='*70}")
+
+    # Restore original stdout/stderr and close the log file
+    sys.stdout = _orig_stdout
+    sys.stderr = _orig_stderr
+    _console_log_file.close()
 
     return {
         'final_output': last_output,
