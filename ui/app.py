@@ -25,7 +25,7 @@ from ui.utils.output import (
     display_unified_output
 )
 
-# Note: All pipelines are now centralized in config/pipelines.json
+# Note: All pipelines are defined in config/pipelines.json and loaded via core/pipelines.py
 
 # Configuration
 paths = get_project_paths()

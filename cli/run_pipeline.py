@@ -30,7 +30,7 @@ sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "core"))
 
 from core.pipeline import run_pipeline
-from config.pipelines import PIPELINES
+from core.pipelines import PIPELINES
 
 
 # =============================================================================

@@ -34,7 +34,7 @@ from core.pipeline import run_pipeline
 from core.version_manager import get_latest_version
 from core.path_manager import get_project_paths, get_step_directory, get_step_output_paths
 from core.pipeline_executor import run_formatting_step
-from config.pipelines import PIPELINES
+from core.pipelines import PIPELINES
 import json
 import re
 
