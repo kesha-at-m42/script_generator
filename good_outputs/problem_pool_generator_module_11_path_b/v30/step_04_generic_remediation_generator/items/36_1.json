@@ -1,0 +1,97 @@
+{
+  "problem_id": 36,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "11005",
+  "fractions": [
+    "2/6",
+    "2/9"
+  ],
+  "dialogue": "Look at these two bars. Both have the same amount shaded, but the pieces are different sizes. Which fraction is greater?",
+  "prompt": "Which fraction is greater?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into sixths with 2 pieces shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into ninths with 2 pieces shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/9",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "expression_a",
+      "type": "math_expression",
+      "role": "student_interaction",
+      "description": "Label for bar A showing 2/6",
+      "terms": [
+        "2/6"
+      ]
+    },
+    {
+      "id": "expression_b",
+      "type": "math_expression",
+      "role": "student_interaction",
+      "description": "Label for bar B showing 2/9",
+      "terms": [
+        "2/9"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "2/6 > 2/9"
+        },
+        {
+          "id": "b",
+          "text": "2/6 = 2/9"
+        },
+        {
+          "id": "c",
+          "text": "2/6 < 2/9"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "2/6 > 2/9 because sixths are bigger pieces than ninths. Same count shaded, but bigger pieces means greater fraction."
+  },
+  "success_path_dialogue": "That's right. Same count, but bigger pieces win.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at the size of the shaded pieces in each bar. Which pieces are bigger?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Both bars have 2 pieces shaded - that's the same. But look carefully at the size of each piece. Sixths are bigger pieces than ninths. When the count is the same, bigger pieces make a greater fraction."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this comparison. Both fractions have 2 pieces shaded - that part is the same. But here's the key: we need to compare the size of the pieces. Look at the bar showing 2/6 - each sixth is a bigger piece. Now look at the bar showing 2/9 - each ninth is a smaller piece. When we have the same count of pieces, the one with bigger pieces is greater. So 2/6 is greater than 2/9. That's how we compare fractions with the same numerator - bigger pieces win."
+      }
+    ]
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 53,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "1/8",
+      "6/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        5,
+        8
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's compare 1/8 and 6/8. First, place 1/8 on the top line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place one-eighth on the top line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. We need one-eighth. Count one interval from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. One-eighth means 1 out of 8 equal parts. Look at the number line - it's divided into eighths. To place one-eighth, we count just one interval from 0. That's the first tick mark after zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing one-eighth. The number line is divided into 8 equal parts between 0 and 1, so each interval represents one-eighth. To place one-eighth, we start at 0 and count just one interval to the right. That lands us at the first tick mark after zero - right here. That's one-eighth. That's how we locate unit fractions on a number line - we count the number of intervals shown in the numerator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You placed one-eighth on the top line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place 6/8 on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "1/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 16
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place six-eighths on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "6/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count six intervals of eighths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. The number line is divided into eighths - that means 8 equal parts. To find 6/8, count 6 of those equal intervals from 0. Try again."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you place six-eighths. The bottom number line is divided into eighths, which means 8 equal parts between 0 and 1. Each tick mark represents one-eighth. To find 6/8, we start at 0 and count 6 of these equal intervals: 1/8, 2/8, 3/8, 4/8, 5/8, and 6/8. That's where we place the point - at the sixth tick mark from zero. That's how we locate fractions - count the number of equal intervals the numerator tells us."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You placed six-eighths on the bottom line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare the two fractions. Which symbol makes the comparison true?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "1/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "6/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "1/8",
+              " ? ",
+              "6/8"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which symbol makes this comparison true?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where each point is on the number lines. Which point is farther to the left?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. On a number line, fractions farther to the left are smaller. Look at the top number line where 1/8 is marked, and the bottom number line where 6/8 is marked. Which point is closer to 0?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing fractions on number lines. The top number line shows 1/8, which is just one-eighth away from 0. The bottom number line shows 6/8, which is six-eighths away from 0 - much closer to 1. On a number line, the fraction farther to the left is always smaller. Since 1/8 is to the left of 6/8, that means 1/8 is less than 6/8. The correct symbol is less than (<). That's how we use number lines to compare fractions - the position tells us which is smaller."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. The fraction farther to the left is smaller."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:54:55.597568+00:00"
+}

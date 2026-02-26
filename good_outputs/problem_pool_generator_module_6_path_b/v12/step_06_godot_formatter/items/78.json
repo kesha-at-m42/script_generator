@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 78,
+    "template_id": "6011",
+    "template_skill": "Student places sixths or eighths fractions beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "9/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with transfer denominators (sixths and eighths)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-08",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line goes past one whole. Find where nine-eighths belongs.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 9/8 to the correct position.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "9/8"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "9/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about where 8/8 would be, then count one more eighth from there."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. We know that 8/8 equals one whole, so it lands right at 1 on the number line. Nine-eighths is one-eighth more than that. Count one tick past 1 to find where 9/8 belongs."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this one. First, remember that 8/8 equals one whole - that's the same as 1. So 8/8 lands right at the 1 mark on our number line. Now we need 9/8, which is one more eighth. Starting at 1, we count one tick to the right - that's where 9/8 goes, right at the first position after 1. That's how we locate fractions greater than one - we find the whole number first, then count the extra parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right—nine eighths is one past the whole."
+        }
+      }
+    }
+  ]
+}

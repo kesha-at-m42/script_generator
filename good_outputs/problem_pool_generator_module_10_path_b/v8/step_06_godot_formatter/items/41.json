@@ -1,0 +1,154 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 41,
+    "template_id": "10008",
+    "template_skill": "Student selects which sequence shows three fractions in correct order from smallest to largest",
+    "identifiers": [
+      "3/10",
+      "7/10",
+      "9/10"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can order three fractions from smallest to largest with same denominator (harder denominators/closer values)",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-04",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        8
+      ],
+      "misconception_tag": [
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here are three bars showing different fractions. Arrange them from smallest to largest.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/10",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "sum_is_visible": true,
+            "lcm": 10
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/10",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "sum_is_visible": true,
+            "lcm": 10
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/10",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "sum_is_visible": true,
+            "lcm": 10
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct order from least to greatest.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/10, 7/10, 9/10",
+            "9/10, 7/10, 3/10",
+            "7/10, 3/10, 9/10"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much is shaded in each bar. Which has the least shaded? Which has the most?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When fractions have the same denominator, we can compare the numerators. The bar with 3 shaded parts shows the smallest fraction. The bar with 7 shaded parts is in the middle. The bar with 9 shaded parts shows the largest fraction. That's how we order them from least to greatest."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through ordering these fractions. All three bars are divided into tenths, so they have the same denominator. When denominators are the same, we just compare the numerators. Bar 1 shows 3/10 - that's 3 shaded parts. Bar 2 shows 7/10 - that's 7 shaded parts. Bar 3 shows 9/10 - that's 9 shaded parts. From smallest to largest, we have 3, then 7, then 9. So the correct order from least to greatest is 3/10, 7/10, 9/10. That's how we compare fractions with the same denominator - just look at the numerators."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. They're all in order now."
+        }
+      }
+    }
+  ]
+}

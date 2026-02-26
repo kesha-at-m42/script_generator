@@ -1,0 +1,147 @@
+{
+  "problem_id": 52,
+  "step_id": 3,
+  "no_of_steps": 3,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "1/6",
+    "4/6"
+  ],
+  "dialogue": "Which symbol correctly compares one-sixth and four-sixths?",
+  "prompt": "Select the correct comparison symbol.",
+  "interaction_tool": "click_choice",
+  "workspace": {
+    "inherited": true,
+    "tangibles": [
+      {
+        "id": "line_top",
+        "type": "number_line",
+        "role": "reference",
+        "description": "Top number line read-only with point at 1/6",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          {
+            "position": "0",
+            "is_read_only": true
+          },
+          {
+            "position": "1/6",
+            "is_read_only": true
+          },
+          {
+            "position": "2/6",
+            "is_read_only": true
+          },
+          {
+            "position": "3/6",
+            "is_read_only": true
+          },
+          {
+            "position": "4/6",
+            "is_read_only": true
+          },
+          {
+            "position": "5/6",
+            "is_read_only": true
+          },
+          {
+            "position": "1",
+            "is_read_only": true
+          }
+        ],
+        "points": [
+          "1/6"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "id": "line_bottom",
+        "type": "number_line",
+        "role": "reference",
+        "description": "Bottom number line read-only with point at 4/6",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          {
+            "position": "0",
+            "is_read_only": true
+          },
+          {
+            "position": "1/6",
+            "is_read_only": true
+          },
+          {
+            "position": "2/6",
+            "is_read_only": true
+          },
+          {
+            "position": "3/6",
+            "is_read_only": true
+          },
+          {
+            "position": "4/6",
+            "is_read_only": true
+          },
+          {
+            "position": "5/6",
+            "is_read_only": true
+          },
+          {
+            "position": "1",
+            "is_read_only": true
+          }
+        ],
+        "points": [
+          "4/6"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "id": "comparison_statement",
+        "type": "math_expression",
+        "role": "reference",
+        "description": "MathExpression showing '1/6 ? 4/6' with placeholder for symbol",
+        "terms": [
+          "1/6",
+          " ? ",
+          "4/6"
+        ]
+      }
+    ]
+  },
+  "correct_answer": {
+    "value": "a",
+    "context": "1/6 is less than 4/6 because it's farther to the left on the number line"
+  },
+  "success_path_dialogue": "That's right. One-sixth is less than four-sixths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where each point is on the number lines. Which point is farther from zero?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's look at the number lines together. The top line shows one-sixth, and the bottom shows four-sixths. When fractions have the same denominator, the one farther to the left is smaller. Which point is closer to zero?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this comparison. We're comparing one-sixth and four-sixths. Both fractions are sixths, so they have the same denominator. That means we can compare them by looking at their positions on the number lines. One-sixth is just 1 interval from zero on the top number line. Four-sixths is 4 intervals from zero on the bottom number line. Since one-sixth is closer to zero, it's the smaller fraction. That means one-sixth is less than four-sixths. On the number line, points farther left are always smaller. So the answer is less than."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:51:43.618478+00:00"
+}

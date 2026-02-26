@@ -1,0 +1,111 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 51,
+    "template_id": "8009",
+    "template_skill": "Student shades parts of a bar to create a fraction equivalent to a 1/2-family reference",
+    "identifiers": [
+      "1/2",
+      "3/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can create an equivalent fraction by shading the correct number of parts",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "fine_motor_control",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the reference bar showing one half. Can you shade the bottom bar to show the same amount using sixths?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false,
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade sixths to equal one half.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 3
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of the reference bar is shaded, then shade the same amount on your bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The reference bar shows one half shaded. Your bar is divided into sixths - 6 equal parts. How many of those 6 parts would equal the same amount as one half? Compare the bars carefully."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The reference bar shows one half shaded - that's half of the whole bar. Now look at your bar divided into sixths. We need to figure out how many sixths equal one half. If we look carefully, we can see that 3 out of 6 parts equals half of the bar. So we need to shade 3 sixths to match one half. That's how equivalent fractions work - three sixths equals one half because they represent the same amount."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Three sixths equals one half."
+        }
+      }
+    }
+  ]
+}

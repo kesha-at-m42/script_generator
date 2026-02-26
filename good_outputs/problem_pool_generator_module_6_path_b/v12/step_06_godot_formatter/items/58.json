@@ -1,0 +1,91 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 58,
+    "template_id": "6007",
+    "template_skill": "Student identifies which fractions are improper (greater than 1) based on numerator/denominator relationship",
+    "identifiers": [
+      "3/4",
+      "4/3"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize improper fractions and explain why they exceed 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension"
+      ],
+      "misconception_id": [
+        3,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. One of them is an improper fraction—that means it's greater than 1.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is an improper fraction?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/4",
+            "4/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Check which fraction has a bigger top number than bottom number."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. An improper fraction is greater than 1. That happens when the numerator—the top number—is bigger than the denominator—the bottom number. Compare the top and bottom numbers in each fraction."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. An improper fraction has a numerator that's bigger than its denominator, which makes it greater than 1. Let's check both fractions. In 3/4, the top number 3 is smaller than the bottom number 4, so that's not improper. In 4/3, the top number 4 is bigger than the bottom number 3. That means 4/3 is greater than 1, so 4/3 is the improper fraction. That's how we identify improper fractions—when the top number is bigger than the bottom number."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. The top number is bigger than the bottom number. That's an improper fraction."
+        }
+      }
+    }
+  ]
+}

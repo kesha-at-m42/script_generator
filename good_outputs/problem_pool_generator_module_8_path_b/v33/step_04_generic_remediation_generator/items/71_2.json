@@ -1,0 +1,88 @@
+{
+  "problem_id": 71,
+  "step_id": 2,
+  "no_of_steps": 2,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "2/4",
+    "3/6"
+  ],
+  "dialogue": "Now place the point to show where three-sixths lands on the bottom line.",
+  "prompt": "Place a point at 3/6 on the bottom number line.",
+  "interaction_tool": "place_point",
+  "workspace": {
+    "inherited": false,
+    "tangibles": [
+      {
+        "id": "line_top",
+        "type": "number_line",
+        "role": "reference",
+        "description": "Top number line showing fourths with point at 2/4",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/4",
+          "2/4",
+          "3/4",
+          "1"
+        ],
+        "points": [
+          "2/4"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "id": "line_bottom",
+        "type": "number_line",
+        "role": "student_interaction",
+        "description": "Bottom number line showing sixths, unlabeled",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/6",
+          "2/6",
+          "3/6",
+          "4/6",
+          "5/6",
+          "1"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  "correct_answer": {
+    "value": "3/6",
+    "context": "3/6 lands at the same position as 2/4, proving they are equivalent"
+  },
+  "success_path_dialogue": "Correct. Both points line up—three-sixths equals two-fourths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where two-fourths is on the top line. Where would the matching spot be on the bottom line?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. The bottom line is divided into sixths - that means 6 equal parts. We need to find which sixth lines up with two-fourths on the top line. Look carefully at where the point sits on the top line, then find that same position on the bottom line."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. On the top line, two-fourths is exactly halfway between 0 and 1 - that's the middle point. Now look at the bottom line with its sixths. We need to find which sixth is also at that halfway point. If we count the sixths, three-sixths lands right at the middle too - it's 3 out of 6 equal parts, which is half. So the point goes at three-sixths on the bottom line. That's how we show equivalent fractions - they land at the same position even though they have different numbers."
+      }
+    ]
+  }
+}

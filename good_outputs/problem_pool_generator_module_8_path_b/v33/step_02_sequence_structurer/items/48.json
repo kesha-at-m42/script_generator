@@ -1,0 +1,57 @@
+{
+  "problem_id": 48,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8009",
+  "fractions": [
+    "3/6",
+    "2/4"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the top bar showing three-sixths. Shade the bottom bar to show the same amount.",
+      "prompt": "Create a fraction equivalent to three-sixths.",
+      "interaction_tool": "shade",
+      "workspace": [
+        {
+          "id": "bar_reference",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 3/6 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "intervals_is_shaded": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "bar_target",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Empty fraction strip divided into fourths",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": false
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          0,
+          1
+        ],
+        "context": "Shading 2 out of 4 parts creates 2/4, which equals 3/6 (both equal to one-half)"
+      },
+      "success_path_dialogue": "Good. You shaded two out of four equal parts."
+    }
+  ]
+}

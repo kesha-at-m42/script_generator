@@ -1,0 +1,199 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 84,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "7/6",
+      "8/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line shows sixths from 0 to 1. Continue the partition from 1 to 2.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to partition from 1 to 2 into sixths.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 18,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6",
+            "1",
+            "7/6",
+            "8/6",
+            "9/6",
+            "10/6",
+            "11/6",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how the sixths are spaced from 0 to 1, then keep that same spacing going from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Between 0 and 1, there are 6 equal parts - that's what makes sixths. The same pattern needs to continue from 1 to 2. Count how many tick marks are between 0 and 1, then place that same number between 1 and 2 with equal spacing."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through extending this partition. From 0 to 1, we have 6 equal parts, which means we need 5 tick marks between 0 and 1, plus the endpoints. To continue this pattern from 1 to 2, we need to add 5 more tick marks with the same equal spacing. That gives us tick marks at 7/6, 8/6, 9/6, 10/6, 11/6, and then 2 at the end. Each sixth stays the same size even past 1. That's how we extend partitions - we keep the equal spacing consistent."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You extended the sixths pattern past 1."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label the positions.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag the fraction labels to the correct positions.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "7/6"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "8/6"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "7/6",
+            "8/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count carefully from 1 to find each position."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. After 1, we keep counting sixths - 7/6 is one sixth past 1, and 8/6 is two sixths past 1. Count the tick marks carefully starting from 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions beyond 1. We're working with sixths, so each tick mark represents one-sixth. Starting from 0, we count: 1/6, 2/6, 3/6, 4/6, 5/6, and 6/6 equals 1. Then we keep counting - the first tick after 1 is 7/6, and the second tick after 1 is 8/6. So 7/6 goes at the first position after 1, and 8/6 goes at the second position after 1. That's how we label fractions beyond 1 - we just keep counting in the same pattern."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. You labeled the fractions beyond 1."
+        }
+      }
+    }
+  ]
+}

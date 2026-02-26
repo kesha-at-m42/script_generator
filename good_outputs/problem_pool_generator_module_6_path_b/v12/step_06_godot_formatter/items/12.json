@@ -1,0 +1,127 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 12,
+    "template_id": "6002",
+    "template_skill": "Student drags a single fraction label or places a point at the correct position beyond 1 on a pre-partitioned number line (fourths only)",
+    "identifiers": [
+      "7/4"
+    ],
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place single fractions greater than 1 by counting intervals from zero",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-02",
+      "tier": "CONFIDENCE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning",
+        "counting"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at this number line divided into fourths. Can you find where 7/4 would be?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at 7/4.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "7/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count seven fourths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. We need to count 7 intervals of one-fourth from zero. Remember, four fourths equals 1, so seven fourths will be past 1 on the number line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. To find 7/4, we count 7 intervals of one-fourth starting from zero. First, we count 4 fourths to get to 1 - that's one whole. Then we need 3 more fourths past 1. So we count: 5/4, 6/4, 7/4. The point at 7/4 is right here, three fourths past 1. That's how we locate fractions greater than 1 on the number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, seven intervals from zero."
+        }
+      }
+    }
+  ]
+}

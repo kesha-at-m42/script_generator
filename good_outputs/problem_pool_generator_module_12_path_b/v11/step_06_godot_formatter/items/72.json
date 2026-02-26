@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 72,
+    "template_id": "12012",
+    "template_skill": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+    "identifiers": [
+      "3/4",
+      "3/8"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+      "cognitive_verb": "apply",
+      "mastery_skill_id": "M12-08",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at 3/4 and 3/8. What's the same about these fractions? What strategy would help you compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "sum_is_visible": true,
+            "lcm": 4
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "sum_is_visible": true,
+            "lcm": 8
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "3/4",
+              ">",
+              "3/8"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which comparison strategy applies to 3/4 and 3/8?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Check for the same denominator, count the parts",
+            "Check for the same numerator, compare part sizes",
+            "Neither matches, use the benchmark"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at what's the same in both fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Look at the numerators in 3/4 and 3/8. What do you notice? When the numerators are the same, we need to think about the size of the parts being counted."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through choosing the right strategy. First, we look at what's the same and what's different in these fractions. In 3/4 and 3/8, the numerators are both 3 - that's what's the same. The denominators are different - 4 and 8. When the numerators are the same, we're counting the same number of parts in each fraction. So the strategy is to compare the part sizes. Look at the bars - fourths are bigger than eighths. That's why the correct strategy is to check for the same numerator, then compare part sizes. That's how we choose comparison strategies - we look for what's the same first."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. When the numerators are the same, compare the part sizes."
+        }
+      }
+    }
+  ]
+}

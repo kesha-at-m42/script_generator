@@ -1,0 +1,104 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 74,
+    "template_id": "9014",
+    "template_skill": "Student multi-selects pairs from a list that show equivalent fractions (notation format, no visuals)",
+    "identifiers": [
+      "1/2",
+      "4/8",
+      "1/4",
+      "2/8",
+      "2/3",
+      "3/6",
+      "3/4"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify which pairs of fractions are equivalent",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M9-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        7,
+        6
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "reversing_numerator_and_denominator"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here are some fraction pairs. Which ones show the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select ALL pairs that are equivalent.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            2,
+            5
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "1/2 and 4/8",
+            "2/3 and 3/6",
+            "1/4 and 2/8",
+            "3/4 and 2/3",
+            "1/3 and 2/3",
+            "2/4 and 3/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember, equivalent fractions show the same amount even though they look different. Try again."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Equivalent fractions represent the same amount of the whole. Look at each pair and ask yourself: do these two fractions show the same part? Sometimes the denominator is different but the amount is the same. Check each pair carefully."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through finding equivalent pairs. Let's check each one. 1/2 and 4/8: Half of something is the same as 4 out of 8 equal parts - both show the same amount, so these are equivalent. 1/4 and 2/8: One-fourth is the same as 2 out of 8 equal parts - they're equivalent too. And 2/4 and 3/6: 2/4 is half, and 3/6 is also half - so these are equivalent as well. The answers are pairs a, c, and f. That's how we identify equivalent fractions - we look for pairs that represent the same amount even when they have different denominators."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. You found the equivalent pairs."
+        }
+      }
+    }
+  ]
+}

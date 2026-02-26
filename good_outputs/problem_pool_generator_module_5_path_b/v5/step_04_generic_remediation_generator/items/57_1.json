@@ -1,0 +1,90 @@
+{
+  "problem_id": 57,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "5008",
+  "fractions": [
+    "4/3"
+  ],
+  "dialogue": "This number line goes past 1. Label the position that shows four-thirds.",
+  "prompt": "Label the tick mark that shows 4/3.",
+  "interaction_tool": "drag_label",
+  "workspace": [
+    {
+      "id": "line_1",
+      "type": "number_line",
+      "range": [
+        0,
+        2
+      ],
+      "ticks": [
+        {
+          "value": "0",
+          "is_read_only": true
+        },
+        {
+          "value": "1/3",
+          "is_read_only": true
+        },
+        {
+          "value": "2/3",
+          "is_read_only": true
+        },
+        {
+          "value": "1",
+          "is_read_only": true
+        },
+        {
+          "value": "4/3"
+        },
+        {
+          "value": "5/3",
+          "is_read_only": false
+        },
+        {
+          "value": "2",
+          "is_read_only": true
+        }
+      ],
+      "labels": [
+        "0",
+        "1/3",
+        "2/3",
+        "1"
+      ]
+    },
+    {
+      "type": "palette",
+      "labels": [
+        "4/3"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": {
+      "line_id": "line_1",
+      "tick": "4/3",
+      "label": "4/3"
+    },
+    "context": "4/3 is one third past 1, the fourth tick mark from 0"
+  },
+  "success_path_dialogue": "Yes! Four thirds means four intervals from 0.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Count four thirds from zero."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Four thirds means 4 intervals of one-third each. Start at 0 and count 4 of those equal parts. Remember, the number line keeps going past 1."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. Four thirds means we need to count 4 intervals from 0. Each interval is one-third. Starting from 0: the first interval gets us to 1/3, the second to 2/3, the third to 1, and the fourth interval gets us to 4/3 - right here, one tick past 1. That's how we locate fractions beyond 1 on a number line."
+      }
+    ]
+  }
+}

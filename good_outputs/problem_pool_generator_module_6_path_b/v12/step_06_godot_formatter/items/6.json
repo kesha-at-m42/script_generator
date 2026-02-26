@@ -1,0 +1,148 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 6,
+    "template_id": "6001",
+    "template_skill": "Student places tick marks to partition 1-2 section matching the spacing already shown in 0-1",
+    "identifiers": [
+      "1/6",
+      "2/6",
+      "3/6",
+      "4/6",
+      "5/6",
+      "7/6",
+      "8/6",
+      "9/6",
+      "10/6",
+      "11/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1 maintaining equal spacing",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        4,
+        11
+      ],
+      "misconception_tag": [
+        "improper_spacing_on_number_line",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at how the line from 0 to 1 is divided into sixths. Can you continue that same pattern from 1 to 2?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to continue the pattern from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 18,
+          "bounds": [
+            "1",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6",
+            "1",
+            "7/6",
+            "8/6",
+            "9/6",
+            "10/6",
+            "11/6",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between the marks from 0 to 1. Keep that same spacing from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 6 equal parts - that's what sixths means. The same pattern continues past 1. You need 6 more equal parts from 1 to 2, with the same spacing as before."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. From 0 to 1, the number line is divided into 6 equal parts called sixths. Each space between the marks is the same size. To continue this pattern from 1 to 2, we need 5 more tick marks that keep that exact same spacing. That gives us 6 equal parts from 1 to 2, just like we had from 0 to 1. The marks should be evenly spaced all the way across. That's how we extend the partition - keeping the equal spacing consistent."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You extended the partition correctly."
+        }
+      }
+    }
+  ]
+}

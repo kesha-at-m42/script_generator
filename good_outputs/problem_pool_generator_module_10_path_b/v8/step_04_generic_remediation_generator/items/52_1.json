@@ -1,0 +1,130 @@
+{
+  "problem_id": 52,
+  "step_id": 1,
+  "no_of_steps": 3,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "1/6",
+    "4/6"
+  ],
+  "dialogue": "Let's compare one-sixth and four-sixths. First, mark one-sixth on the top number line.",
+  "prompt": "Mark one-sixth on the top number line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Top number line from 0 to 1 with tick marks at sixths, endpoints labeled, active for student to place point",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        {
+          "position": "0",
+          "is_read_only": true
+        },
+        {
+          "position": "1/6",
+          "is_read_only": false
+        },
+        {
+          "position": "2/6",
+          "is_read_only": false
+        },
+        {
+          "position": "3/6",
+          "is_read_only": false
+        },
+        {
+          "position": "4/6",
+          "is_read_only": false
+        },
+        {
+          "position": "5/6",
+          "is_read_only": false
+        },
+        {
+          "position": "1",
+          "is_read_only": true
+        }
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line from 0 to 1 with tick marks at sixths, endpoints labeled, read-only reference with no point yet",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        {
+          "position": "0",
+          "is_read_only": true
+        },
+        {
+          "position": "1/6",
+          "is_read_only": true
+        },
+        {
+          "position": "2/6",
+          "is_read_only": true
+        },
+        {
+          "position": "3/6",
+          "is_read_only": true
+        },
+        {
+          "position": "4/6",
+          "is_read_only": true
+        },
+        {
+          "position": "5/6",
+          "is_read_only": true
+        },
+        {
+          "position": "1",
+          "is_read_only": true
+        }
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": {
+      "line_id": "line_top",
+      "position": "1/6"
+    },
+    "context": "Point placed at the first tick mark after zero, representing 1/6"
+  },
+  "success_path_dialogue": "Good. You marked one-sixth on the top line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look for the first tick mark after zero on the top number line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. The number line is divided into sixths - that means 6 equal parts from 0 to 1. One-sixth means 1 of those 6 parts. So we need to count just one interval from zero."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. The number line shows sixths, which means there are 6 equal intervals from 0 to 1. To mark one-sixth, we need to find 1 of those 6 equal parts. Starting at zero, we count one interval to the right. That's the first tick mark after zero. That's where one-sixth is located. That's how we mark unit fractions on a number line."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:51:29.735013+00:00"
+}

@@ -1,0 +1,86 @@
+{
+  "problem_id": 63,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11009",
+  "fractions": [
+    "4/6",
+    "4/10"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. Both have the same numerator—4. What strategy would help you compare them?",
+      "prompt": "How would you compare these fractions? Select TWO options.",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into sixths with 4 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "shaded_intervals": 4
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 4 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 4
+        },
+        {
+          "id": "expression_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Comparison showing 4/6 > 4/10",
+          "terms": [
+            "4/6",
+            ">",
+            "4/10"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for same numerator"
+            },
+            {
+              "id": "b",
+              "text": "Compare the sizes of parts"
+            },
+            {
+              "id": "c",
+              "text": "Multiply the numerators"
+            },
+            {
+              "id": "d",
+              "text": "Find the smaller denominator"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "b"
+        ],
+        "context": "When fractions have the same numerator, check that the numerators match, then compare the sizes of the parts—bigger parts make a bigger fraction"
+      },
+      "success_path_dialogue": "Right. Same numerator means you compare piece sizes."
+    }
+  ]
+}

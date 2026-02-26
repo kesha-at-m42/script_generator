@@ -1,0 +1,155 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 61,
+    "template_id": "5008",
+    "template_skill": "Student drags fraction labels to tick positions beyond 1 on a 0-2 number line",
+    "identifiers": [
+      "6/5",
+      "7/5",
+      "8/5",
+      "9/5"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can label fractions beyond 1 on extended number lines",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M5-07",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line goes past 1. The pattern of fifths continues.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1",
+              "6/5",
+              "7/5",
+              "8/5",
+              "9/5",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1",
+              "2"
+            ],
+            "lcm": 15
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Label the fractions past 1.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/5"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/5"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "8/5"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "9/5"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/5",
+            "7/5",
+            "8/5",
+            "9/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the pattern from 0 to 1, then continue counting fifths past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, we counted 1/5, 2/5, 3/5, 4/5, then reached 1. Five fifths equals 1. Past 1, we keep counting: 6/5 is one more fifth, 7/5 is another, and so on. The pattern continues the same way."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this step by step. Look at how the fractions are labeled from 0 to 1: 1/5, 2/5, 3/5, 4/5, then 1. We're counting by fifths. Five fifths equals 1 whole. After 1, we keep counting fifths. The first tick past 1 is 6/5 - that's six fifths. Then 7/5, then 8/5, then 9/5. Each time we add one more fifth, the numerator goes up by 1 while the denominator stays 5. That's how we label fractions past 1 - the counting pattern continues."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! The pattern of fifths continues: 6/5, 7/5, 8/5, 9/5."
+        }
+      }
+    }
+  ]
+}

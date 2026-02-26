@@ -1,0 +1,89 @@
+{
+  "problem_id": 50,
+  "step_id": 1,
+  "no_of_steps": 3,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "3/8",
+    "5/8"
+  ],
+  "dialogue": "Let's compare three-eighths and five-eighths. Place three-eighths on the top line.",
+  "prompt": "Place three-eighths on the top line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Top number line active for placing point at 3/8",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line read-only reference with no point",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "3/8",
+    "context": "Point placed at the third tick mark on the top line, showing 3/8"
+  },
+  "success_path_dialogue": "Good. You placed three-eighths on the top line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Count the tick marks carefully from zero to find three-eighths."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Three-eighths means 3 out of 8 equal parts. Count 3 tick marks from zero on the top line. Each tick represents one-eighth."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through placing three-eighths. The number line is divided into eighths - that means 8 equal parts between 0 and 1. To find three-eighths, we count 3 of those tick marks from zero. Starting at zero: one-eighth, two-eighths, three-eighths. That third tick mark is where we place our point. That's how we locate three-eighths on the number line."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:50:50.559320+00:00"
+}

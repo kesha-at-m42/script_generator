@@ -1,0 +1,111 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 4,
+    "template_id": "7001",
+    "template_skill": "Student selects which fraction(s) from a set equal 1",
+    "identifiers": [
+      "5/5"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize that b/b = 1 (numerator equals denominator means one whole)",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M7-01",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these fractions. Which one equals exactly one whole?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 15
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the fraction that equals one whole.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "5/5",
+            "4/5",
+            "6/5",
+            "5/6",
+            "5/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about what it means to have a whole. Try again."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. A fraction equals one whole when the numerator and denominator are the same number. That means all the parts are being used. Look at the fractions and find where the top and bottom numbers match."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. A fraction equals one whole when we have all the parts - that happens when the numerator equals the denominator. Looking at our choices, 5/5 has the same number on top and bottom. Five-fifths means we have 5 out of 5 equal parts, which is the complete whole. The answer is 5/5. That's how we identify fractions that equal one whole - the numerator and denominator must be equal."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Five-fifths equals 1."
+        }
+      }
+    }
+  ]
+}

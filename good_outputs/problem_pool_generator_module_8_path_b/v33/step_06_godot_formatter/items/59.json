@@ -1,0 +1,145 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 59,
+    "template_id": "8011",
+    "template_skill": "Student identifies or verifies equivalence between fractions in the 2/3 family",
+    "identifiers": [
+      "1/3",
+      "2/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can apply equivalence understanding to the 2/3 family",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M8-07",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the reference bar showing one third. Which of the bars below shows the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "is_read_only": true,
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that shows a fraction equivalent to one third.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Compare the shaded amounts on each bar to the reference bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. We need to find which bar has the same amount shaded as the reference bar showing one third. Even though the bars are divided into different-sized parts, look for the bar where the shaded amount matches the shaded amount in the reference bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The reference bar shows one third shaded. Now let's look at the bars below. Bar A is divided into sixths and has 2 of those sixths shaded. When we compare the shaded amounts, bar A's shaded portion matches exactly with the reference bar's one third. That's because two sixths equals one third - they show the same amount even though they're divided differently. The answer is bar A. That's how we find equivalent fractions - by comparing the actual amounts shown."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Two sixths equals one third."
+        }
+      }
+    }
+  ]
+}

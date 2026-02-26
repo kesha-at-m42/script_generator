@@ -1,0 +1,98 @@
+{
+  "problem_id": 60,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11009",
+  "fractions": [
+    "3/5",
+    "3/7"
+  ],
+  "dialogue": "Look at these two fractions. They both show three pieces shaded, but the pieces are different sizes. How would you compare them?",
+  "prompt": "How would you compare these fractions? Select TWO options.",
+  "interaction_tool": "multi_click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into fifths with 3 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/5",
+      "shaded_intervals": 3
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into sevenths with 3 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/7",
+      "shaded_intervals": 3
+    },
+    {
+      "id": "expression",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Shows comparison 3/5 > 3/7",
+      "terms": [
+        "3/5",
+        ">",
+        "3/7"
+      ]
+    },
+    {
+      "type": "choices",
+      "allow_multiple": true,
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for same numerator"
+        },
+        {
+          "id": "b",
+          "text": "Compare the sizes of parts"
+        },
+        {
+          "id": "c",
+          "text": "Check for same denominator"
+        },
+        {
+          "id": "d",
+          "text": "Count the total intervals"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": [
+      "a",
+      "b"
+    ],
+    "context": "Same-numerator fractions are compared by checking that the numerators match, then comparing which pieces are bigger"
+  },
+  "success_path_dialogue": "Right. Same numerator means you compare piece sizes.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at what's the same about these two fractions. Then think about what's different."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's look more carefully. Both fractions have 3 shaded - that's the numerator. When the numerators are the same, we need to compare the size of the individual pieces. Look at how fifths compare to sevenths."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this comparison. First, we notice that both fractions have the same numerator - they both show 3 pieces shaded. When fractions have the same numerator, we compare them by looking at the size of the pieces. Look at the bars - fifths are bigger pieces than sevenths because 5 parts is fewer parts than 7 parts. So to compare these fractions, we check for same numerator and compare the sizes of parts. That's how we compare fractions with the same numerator - fewer parts means bigger pieces."
+      }
+    ]
+  }
+}

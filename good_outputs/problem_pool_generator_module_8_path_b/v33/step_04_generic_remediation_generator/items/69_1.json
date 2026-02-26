@@ -1,0 +1,99 @@
+{
+  "problem_id": 69,
+  "step_id": 1,
+  "no_of_steps": 2,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "3/6",
+    "1/2"
+  ],
+  "dialogue": "The reference bar shows 3/6. Which bar below shows the same amount?",
+  "prompt": "Select the bar that matches 3/6.",
+  "interaction_tool": "select",
+  "workspace": [
+    {
+      "id": "reference_bar",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Reference bar showing 3/6 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "intervals_is_shaded": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar showing 1/2 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/2",
+      "intervals_is_shaded": [
+        0
+      ]
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar showing 3/8 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/8",
+      "intervals_is_shaded": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "bar_c",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar showing 2/4 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/4",
+      "intervals_is_shaded": [
+        0,
+        1
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "bar_a",
+    "context": "Bar A shows 1/2 shaded, which is equivalent to 3/6"
+  },
+  "success_path_dialogue": "Good. Now let's verify on the number line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Compare how much is shaded in the reference bar to each choice."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this more carefully. The reference bar shows 3/6 shaded - that's 3 out of 6 equal parts. We need to find which bar below shows the same amount shaded, even if it's divided differently. Look at how much of each bar is covered."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. The reference bar shows 3/6 shaded. That's 3 parts out of 6, which is exactly half of the bar. Now look at the choices. Bar A shows 1/2 shaded - that's 1 part out of 2, which is also exactly half. Even though the bars are divided differently, 3/6 and 1/2 show the same amount. Bar A is the correct answer. That's how equivalent fractions work - they can look different but represent the same amount."
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 41,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "4/4",
+      "5/4",
+      "6/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line continues past 1. Let's place these fractions in order.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "6/4",
+              "7/4",
+              "8/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "8/4"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the fractions in order: 4/4, 5/4, 6/4.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/4",
+            "5/4",
+            "6/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count the fourths from 0 and keep going past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The number line shows fourths continuing past 1. Four fourths equals 1, then we keep counting—five fourths, six fourths. Each fraction label matches the tick mark at that position in the count."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We're counting by fourths on this number line. Starting from 0, we count: one fourth, two fourths, three fourths, then four fourths—that's where we reach 1. But the number line continues, so we keep counting: five fourths, six fourths. So 4/4 goes at the fourth tick mark where 1 is, 5/4 goes at the fifth tick mark just past 1, and 6/4 goes at the sixth tick mark. That's how fractions work on a number line—the count continues past 1."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right—the count continues past 1."
+        }
+      }
+    }
+  ]
+}

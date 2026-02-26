@@ -1,0 +1,57 @@
+{
+  "problem_id": 46,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8009",
+  "fractions": [
+    "2/4",
+    "3/6"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "The top bar shows two-fourths. Can you shade the bottom bar to show the same amount?",
+      "prompt": "Shade the bottom bar to match two-fourths.",
+      "interaction_tool": "shade",
+      "workspace": [
+        {
+          "id": "bar_ref",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 2/4 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "bar_target",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Empty fraction strip divided into sixths",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "intervals_is_shaded": false
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          0,
+          1,
+          2
+        ],
+        "context": "Shading 3 out of 6 parts creates 3/6, which equals 2/4 (both represent one half)"
+      },
+      "success_path_dialogue": "That's right. Three-sixths equals two-fourths."
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 58,
+    "template_id": "5008",
+    "template_skill": "Student drags fraction labels to tick positions beyond 1 on a 0-2 number line",
+    "identifiers": [
+      "5/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can label fractions beyond 1 on extended number lines",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M5-07",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The line goes past 1. Let's place five-fourths.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "6/4",
+              "7/4",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the label for 5/4.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "5/4",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "5/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count five fourths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this a bit more. Five-fourths means 5 of the fourth-sized parts. Start at zero and count 5 of those equal intervals to find where the label goes."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Five-fourths means we need to count 5 fourths starting from zero. The number line shows fourths - each interval is one-fourth. From zero, we count: one-fourth, two-fourths, three-fourths, four-fourths - that gets us to 1. Then we need one more fourth to get to five-fourths. So five-fourths goes one tick mark past 1, right here. That's how we count past 1 on a number line - the fourths just keep going."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! Five-fourths is one space past 1."
+        }
+      }
+    }
+  ]
+}

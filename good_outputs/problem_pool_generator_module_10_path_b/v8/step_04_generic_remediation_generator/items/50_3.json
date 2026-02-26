@@ -1,0 +1,123 @@
+{
+  "problem_id": 50,
+  "step_id": 3,
+  "no_of_steps": 3,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "3/8",
+    "5/8"
+  ],
+  "dialogue": "Look at both fractions on the number lines. Which symbol makes the comparison true?",
+  "prompt": "Which symbol makes this comparison true?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Top number line read-only with point at 3/8",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "points": [
+        "3/8"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line read-only with point at 5/8",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "points": [
+        "5/8"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "comparison_expr",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Math expression showing 3/8 ? 5/8 with placeholder for symbol",
+      "terms": [
+        "3/8",
+        " ? ",
+        "5/8"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "less_than",
+          "text": "<"
+        },
+        {
+          "id": "equal",
+          "text": "="
+        },
+        {
+          "id": "greater_than",
+          "text": ">"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "less_than",
+    "context": "3/8 is to the left of 5/8 on the number line, so 3/8 < 5/8"
+  },
+  "success_path_dialogue": "That's right. Three-eighths is less than five-eighths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where each point is on its number line. Which one is closer to zero?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. On a number line, fractions to the left are smaller, and fractions to the right are larger. Compare where three-eighths and five-eighths are positioned. Which point is farther to the right?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. Look at the top number line - three-eighths is marked here. Now look at the bottom number line - five-eighths is marked farther to the right. On a number line, when one fraction is to the left of another, it's smaller. Since three-eighths is to the left of five-eighths, three-eighths is less than five-eighths. So the correct symbol is less than. That's how we use number lines to compare fractions - the fraction farther to the right is always greater."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:51:03.542521+00:00"
+}

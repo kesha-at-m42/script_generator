@@ -1,0 +1,86 @@
+{
+  "problem_id": 56,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "4/8",
+    "1/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. What strategies would help you compare them?",
+      "prompt": "Which TWO can help you compare these fractions?",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar A divided into eighths with 4 intervals shaded (4/8)",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "shaded_intervals": 4
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar B divided into eighths with 1 interval shaded (1/8)",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "shaded_intervals": 1
+        },
+        {
+          "id": "comparison_expression",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Expression showing 4/8 > 1/8",
+          "terms": [
+            "4/8",
+            ">",
+            "1/8"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Count the equal parts"
+            },
+            {
+              "id": "b",
+              "text": "Check for same denominator"
+            },
+            {
+              "id": "c",
+              "text": "Check for same numerator"
+            },
+            {
+              "id": "d",
+              "text": "Compare the sizes of parts"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "b"
+        ],
+        "context": "Same denominator means you can count how many equal parts are shaded - both strategies work together"
+      },
+      "success_path_dialogue": "Right. Same denominator means you count the parts."
+    }
+  ]
+}

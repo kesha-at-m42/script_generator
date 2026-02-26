@@ -1,0 +1,71 @@
+{
+  "problem_id": 73,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "analyze",
+  "template_id": "10014",
+  "fractions": [
+    "9/12",
+    "4/12"
+  ],
+  "dialogue": "Look at this comparison. Why is 9/12 greater than 4/12?",
+  "prompt": "Select the statement that explains why 9/12 > 4/12.",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "comparison_1",
+      "type": "math_expression",
+      "role": "student_interaction",
+      "description": "Comparison statement showing 9/12 > 4/12",
+      "terms": [
+        "9/12",
+        ">",
+        "4/12"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "The bottom number tells us which fraction is greater."
+        },
+        {
+          "id": "b",
+          "text": "The bigger the denominator, the bigger the fraction."
+        },
+        {
+          "id": "c",
+          "text": "Both fractions show twelfths. 9 > 4, so 9/12 is greater."
+        },
+        {
+          "id": "d",
+          "text": "The fraction with more total pieces is greater."
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "c",
+    "context": "When denominators are equal, the fraction with the larger numerator is greater"
+  },
+  "success_path_dialogue": "That's right. Same-sized pieces, but 9/12 has more of them.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at what both fractions have in common first."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this more carefully. Both fractions are twelfths - that means they're made of the same-sized pieces. When the pieces are the same size, which matters more for comparing - how many pieces you have, or what size the pieces are?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. First, notice that both fractions have 12 as the denominator. That means both are divided into twelfths - the exact same size pieces. Since the pieces are the same size, we compare by looking at how many pieces each fraction has. The numerators tell us that: 9/12 has 9 pieces and 4/12 has 4 pieces. Since 9 is greater than 4, and we're counting the same-sized pieces, 9/12 is greater than 4/12. That's the key - when denominators are equal, compare the numerators to see which fraction is greater."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:52:25.505749+00:00"
+}

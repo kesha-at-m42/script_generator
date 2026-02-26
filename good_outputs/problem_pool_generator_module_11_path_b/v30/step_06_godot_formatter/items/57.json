@@ -1,0 +1,141 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 57,
+    "template_id": "11008",
+    "template_skill": "Student views a fraction pair with the same denominator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "5/10",
+      "3/10"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-denominator pair requires the same-denominator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. They have something in common. What strategy would you use to compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/10",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "is_read_only": true,
+            "lcm": 10
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/10",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "is_read_only": true,
+            "lcm": 10
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "5/10",
+              ">",
+              "3/10"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "How would you compare these fractions? Select TWO options.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same denominator",
+            "Count the equal parts",
+            "Compare the sizes of parts",
+            "Check for same numerator"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at what's the same about these two fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Look at the denominators of 5/10 and 3/10. They're both 10 - that's what they have in common. When the denominators are the same, we know the parts are equal size. That tells us what strategy to use."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. When we compare fractions, the first thing we check is the denominator. Both fractions here have 10 as the denominator - 5/10 and 3/10. That means both bars are divided into tenths, so all the parts are equal size. When fractions have the same denominator, we use two strategies: first, we check for same denominator to know the parts are equal, and second, we count the equal parts to see which fraction has more. The answers are 'Check for same denominator' and 'Count the equal parts.' That's how we compare fractions with the same denominator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same denominator means you count the parts."
+        }
+      }
+    }
+  ]
+}

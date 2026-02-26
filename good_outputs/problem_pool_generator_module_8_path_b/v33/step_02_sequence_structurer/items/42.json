@@ -1,0 +1,74 @@
+{
+  "problem_id": 42,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8008",
+  "fractions": [
+    "1/2",
+    "4/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "The top line shows one half. Place four eighths on the bottom line.",
+      "prompt": "Place the marker at four eighths.",
+      "interaction_tool": "place_point",
+      "workspace": [
+        {
+          "id": "line_reference",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Reference line with point at 1/2",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/2",
+            "1"
+          ],
+          "points": [
+            "1/2"
+          ],
+          "labels": [
+            "0",
+            "1/2",
+            "1"
+          ]
+        },
+        {
+          "id": "line_student",
+          "type": "number_line",
+          "role": "student_interaction",
+          "description": "Number line with eighths for student interaction",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "4/8",
+        "context": "Four eighths is equivalent to one half - both fractions represent the same position on the number line"
+      },
+      "success_path_dialogue": "Right. Four eighths equals one half."
+    }
+  ]
+}

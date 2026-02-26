@@ -1,0 +1,59 @@
+{
+  "problem_id": 50,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8009",
+  "fractions": [
+    "3/6",
+    "4/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the top bar showing three sixths. Can you shade the bottom bar to show the same amount?",
+      "prompt": "Shade the bottom bar to match three sixths.",
+      "interaction_tool": "shade",
+      "workspace": [
+        {
+          "id": "bar_reference",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 3/6 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "intervals_is_shaded": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "bar_target",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Empty bar divided into eighths",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": false
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "context": "Four eighths equals three sixths - both represent one half"
+      },
+      "success_path_dialogue": "You made it. Four eighths equals three sixths."
+    }
+  ]
+}

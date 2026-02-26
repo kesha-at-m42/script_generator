@@ -1,0 +1,191 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 90,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "5/4",
+      "6/4",
+      "7/4"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        4,
+        11
+      ],
+      "misconception_tag": [
+        "improper_spacing_on_number_line",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The line from 0 to 1 is divided into fourths. Continue the pattern past 1.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Extend the partition from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 12,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "6/4",
+            "7/4",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between 0 and 1, then match that same spacing from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this pattern. From 0 to 1, there are 4 equal parts - those are fourths. The spacing stays exactly the same past 1. You need to place 3 ticks between 1 and 2, making sure each fourth is the same size as the fourths before 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through extending this pattern. From 0 to 1, the line is divided into 4 equal parts - we can see ticks at 1/4, 2/4, 3/4, and then 1. That spacing continues past 1. After 1 comes 5/4, then 6/4, then 7/4, and finally 8/4 which equals 2. So we need 3 evenly-spaced ticks between 1 and 2, matching exactly the same spacing as the fourths from 0 to 1. That's how we extend partitions - the equal spacing continues consistently along the entire number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, you extended the fourths past 1."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label each position beyond 1.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the fraction labels on the ticks.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "5/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "5/4",
+            "6/4",
+            "7/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember, we keep counting fourths past 1 just like we did before 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. After 1, which is the same as 4/4, we keep counting fourths in order. The next fourth after 1 is 5/4, then 6/4, then 7/4. Make sure each label goes on the tick that matches how many fourths from 0."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions beyond 1. After 1, which equals 4/4, we keep counting fourths in sequence. The first tick after 1 is one more fourth, so that's 5/4 - that label goes there. The next tick is another fourth, making it 6/4 - that label goes on the second tick past 1. The third tick past 1 is one more fourth, making it 7/4 - that's where the 7/4 label goes. That's how we label fractions greater than 1 - we just keep counting fourths in order."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct, you labeled the fractions greater than 1."
+        }
+      }
+    }
+  ]
+}

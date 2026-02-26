@@ -1,0 +1,134 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 42,
+    "template_id": "8008",
+    "template_skill": "Student places varied fractions on a number line to verify equivalence with a marked reference point",
+    "identifiers": [
+      "1/2",
+      "4/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The top line shows one half. Place four eighths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the marker at four eighths.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top line shows one half - that's the halfway point. Now look at the bottom line divided into eighths. Which eighth mark lines up with that same halfway point? That's where four eighths goes."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We need to find four eighths on the bottom line. First, look at the top line - one half is marked at the halfway point between 0 and 1. Now look at the bottom line with eighths. The bottom line has 8 equal parts, and we need to count to the fourth one. Starting from 0, we count: one eighth, two eighths, three eighths, four eighths. Four eighths lands exactly at the halfway point - the same spot as one half on the top line. That's because four eighths equals one half. They're equivalent fractions that represent the same location."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Four eighths equals one half."
+        }
+      }
+    }
+  ]
+}

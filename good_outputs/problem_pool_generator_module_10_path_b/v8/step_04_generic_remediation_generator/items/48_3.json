@@ -1,0 +1,119 @@
+{
+  "problem_id": 48,
+  "step_id": 3,
+  "no_of_steps": 3,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "2/6",
+    "5/6"
+  ],
+  "dialogue": "Which symbol correctly compares these fractions?",
+  "prompt": "Which symbol correctly compares these fractions?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Top number line 0-1 with sixths marks and point at 2/6, read-only",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/6",
+        "2/6",
+        "3/6",
+        "4/6",
+        "5/6",
+        "1"
+      ],
+      "points": [
+        "2/6"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line 0-1 with sixths marks and point at 5/6, read-only",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/6",
+        "2/6",
+        "3/6",
+        "4/6",
+        "5/6",
+        "1"
+      ],
+      "points": [
+        "5/6"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "expression",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Math expression showing 2/6 ? 5/6 with placeholder",
+      "terms": [
+        "2/6",
+        " ? ",
+        "5/6"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "<"
+        },
+        {
+          "id": "b",
+          "text": "="
+        },
+        {
+          "id": "c",
+          "text": ">"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "2/6 is less than 5/6 because it's closer to zero on the number line"
+  },
+  "success_path_dialogue": "Correct. Two-sixths is less than five-sixths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where each point is on its number line. Which one is closer to zero?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. When we compare fractions on number lines, the one that's farther from zero is greater. Look at the top number line - two-sixths is pretty close to zero. Now look at the bottom number line - five-sixths is much closer to 1. Which fraction is greater?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. We have two-sixths on the top number line and five-sixths on the bottom number line. Both fractions have the same denominator - sixths - so we can compare them by looking at their positions. Two-sixths is only 2 parts away from zero, while five-sixths is 5 parts away from zero. Five-sixths is much farther from zero, which means it's the greater fraction. So two-sixths is less than five-sixths, and we use the less than symbol. The answer is the less than symbol. That's how we compare fractions - the one farther from zero on the number line is greater."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:50:26.309571+00:00"
+}

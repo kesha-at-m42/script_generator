@@ -1,0 +1,253 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 69,
+    "template_id": "8013",
+    "template_skill": "Two-step problem: Student first selects equivalent bar, then verifies by placing both fractions on a number line",
+    "identifiers": [
+      "3/6",
+      "1/2"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can combine bar comparison and number line verification to prove equivalence",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-09",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "visual_comparison",
+        "click_accuracy"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The reference bar shows 3/6. Which bar below shows the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "is_read_only": true,
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 24
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that matches 3/6.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Compare how much is shaded in the reference bar to each choice."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. The reference bar shows 3/6 shaded - that's 3 out of 6 equal parts. We need to find which bar below shows the same amount shaded, even if it's divided differently. Look at how much of each bar is covered."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The reference bar shows 3/6 shaded. That's 3 parts out of 6, which is exactly half of the bar. Now look at the choices. Bar A shows 1/2 shaded - that's 1 part out of 2, which is also exactly half. Even though the bars are divided differently, 3/6 and 1/2 show the same amount. Bar A is the correct answer. That's how equivalent fractions work - they can look different but represent the same amount."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. Now let's verify on the number line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place 1/2 on the bottom line to prove it matches 3/6 above.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "is_read_only": true,
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "3/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 6
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 1/2 on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where 3/6 is on the top line. Where would that same position be on the bottom line?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Look at the point at 3/6 on the top line. Now look down at the bottom line with halves. We need to find the point that lines up directly below 3/6. That's how we show these fractions are equivalent — they land at the same spot."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Look at where 3/6 is marked on the top number line — it's exactly halfway between 0 and 1. Now look at the bottom line which shows halves. One-half is also exactly halfway between 0 and 1. When we place a point at 1/2 on the bottom line, it lines up perfectly with 3/6 on the top line. That's how we prove these fractions are equivalent — they represent the same location. The answer is to place the point at 1/2 on the bottom line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Both points line up — 1/2 and 3/6 are equivalent."
+        }
+      }
+    }
+  ]
+}

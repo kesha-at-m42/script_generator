@@ -1,0 +1,85 @@
+{
+  "problem_id": 67,
+  "step_id": 2,
+  "no_of_steps": 2,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "1/2",
+    "2/4"
+  ],
+  "dialogue": "Now let's check. One-half is marked on top. Place two-fourths on the bottom line.",
+  "prompt": "Place two-fourths on the number line.",
+  "interaction_tool": "place_point",
+  "workspace": {
+    "inherited": false,
+    "tangibles": [
+      {
+        "id": "top_line",
+        "type": "number_line",
+        "role": "reference",
+        "description": "Number line with point at 1/2",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/2",
+          "1"
+        ],
+        "points": [
+          "1/2"
+        ],
+        "labels": [
+          "0",
+          "1/2",
+          "1"
+        ]
+      },
+      {
+        "id": "bottom_line",
+        "type": "number_line",
+        "role": "student_interaction",
+        "description": "Number line with tick marks at fourths",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/4",
+          "2/4",
+          "3/4",
+          "1"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  "correct_answer": {
+    "value": "2/4",
+    "context": "2/4 is at the same position as 1/2, confirming they are equivalent"
+  },
+  "success_path_dialogue": "Good. You found the equivalent bar and proved it on the line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where one-half is on the top line, then find that same spot on the bottom line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. The top line shows one-half. We need to find the same location on the bottom line. The bottom line is divided into fourths. Which tick mark lines up with one-half?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me help you work through this. Look at the top number line - one-half is marked right in the middle. Now look down at the bottom number line. It's divided into fourths, with tick marks at one-fourth, two-fourths, three-fourths. To find two-fourths, we need the tick mark that's in the same position as one-half on the top line. That's the second tick mark from zero - right here at two-fourths. See how one-half and two-fourths are at the exact same spot? That's what makes them equivalent fractions."
+      }
+    ]
+  }
+}

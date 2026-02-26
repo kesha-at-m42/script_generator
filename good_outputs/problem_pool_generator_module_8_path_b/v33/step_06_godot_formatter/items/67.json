@@ -1,0 +1,252 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 67,
+    "template_id": "8013",
+    "template_skill": "Two-step problem: Student first selects equivalent bar, then verifies by placing both fractions on a number line",
+    "identifiers": [
+      "1/2",
+      "2/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can combine bar comparison and number line verification to prove equivalence",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-09",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the shaded bar at the top. Which bar below shows the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that is equivalent to one-half.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Compare how much is shaded in the top bar to each bar below."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top bar shows one-half shaded - that's half of the whole bar. Look at each bar below and find which one has the same amount shaded, even though it's divided into more parts."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me work through this with you. The reference bar at the top shows one-half shaded - exactly half of the whole bar is shaded. Now let's look at the bars below. Bar A is divided into fourths, and 2 of those fourths are shaded. If we look carefully, those 2 fourths cover exactly the same amount as the one-half in the top bar. Bar A shows two-fourths, which equals one-half. That's what equivalent fractions are - different fractions that show the same amount."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Two-fourths equals one-half."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now let's check. One-half is marked on top. Place two-fourths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place two-fourths on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where one-half is on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top line shows one-half. We need to find the same location on the bottom line. The bottom line is divided into fourths. Which tick mark lines up with one-half?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you work through this. Look at the top number line - one-half is marked right in the middle. Now look down at the bottom number line. It's divided into fourths, with tick marks at one-fourth, two-fourths, three-fourths. To find two-fourths, we need the tick mark that's in the same position as one-half on the top line. That's the second tick mark from zero - right here at two-fourths. See how one-half and two-fourths are at the exact same spot? That's what makes them equivalent fractions."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You found the equivalent bar and proved it on the line."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "problem_id": 63,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11009",
+  "fractions": [
+    "4/6",
+    "4/10"
+  ],
+  "dialogue": "Look at these two fractions. Both have the same numerator—4. What strategy would help you compare them?",
+  "prompt": "How would you compare these fractions? Select TWO options.",
+  "interaction_tool": "multi_click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into sixths with 4 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "shaded_intervals": 4
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into tenths with 4 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/10",
+      "shaded_intervals": 4
+    },
+    {
+      "id": "expression_1",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Comparison showing 4/6 > 4/10",
+      "terms": [
+        "4/6",
+        ">",
+        "4/10"
+      ]
+    },
+    {
+      "type": "choices",
+      "allow_multiple": true,
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for same numerator"
+        },
+        {
+          "id": "b",
+          "text": "Compare the sizes of parts"
+        },
+        {
+          "id": "c",
+          "text": "Multiply the numerators"
+        },
+        {
+          "id": "d",
+          "text": "Find the smaller denominator"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": [
+      "a",
+      "b"
+    ],
+    "context": "When fractions have the same numerator, check that the numerators match, then compare the sizes of the parts—bigger parts make a bigger fraction"
+  },
+  "success_path_dialogue": "Right. Same numerator means you compare piece sizes.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at what's the same about both fractions, then think about what that tells you to compare."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Notice that both fractions have 4 as the numerator—that's the same. When the numerators are the same, we need to look at the denominators. But what do the denominators tell us? They tell us the size of the parts. So you need two strategies—one to notice what's the same, and one to compare the parts."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this comparison strategy. First, we check for same numerator—both fractions have 4 as the numerator, so that's the first strategy we need. Next, when numerators are the same, we compare the sizes of the parts. Look at the bars—sixths are bigger pieces than tenths. Since we have 4 of each, four bigger pieces make a bigger fraction than four smaller pieces. So the two strategies are: check for same numerator, then compare the sizes of parts. That's how we compare fractions with the same numerator."
+      }
+    ]
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 59,
+    "template_id": "11009",
+    "template_skill": "Student views a fraction pair with the same numerator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "2/6",
+      "2/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-numerator pair requires the same-numerator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. They both have 2 parts shaded. What should you check to compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 4
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/6",
+              "<",
+              "2/4"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare these fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same numerator",
+            "Compare the sizes of parts",
+            "Check for same denominator",
+            "Count the equal parts"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at what's the same in both fractions, then what's different."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Notice that both fractions have 2 parts shaded - that's the numerator. When numerators are the same, we need to look at the size of the individual parts to compare. What helps us see the size of parts?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. First, look at the numerators - both fractions have 2 parts shaded. When the numerators are the same, that's our first clue. We need to check for same numerator. Next, since the numerators match but the fractions look different, we compare the sizes of the parts themselves. Look at the strips - the fourths are bigger pieces than the sixths. So the two things that help us compare are: check for same numerator, and compare the sizes of parts. That's how we compare fractions with the same numerator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same numerator means you compare piece sizes."
+        }
+      }
+    }
+  ]
+}

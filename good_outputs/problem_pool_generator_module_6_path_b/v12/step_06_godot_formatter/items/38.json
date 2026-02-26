@@ -1,0 +1,124 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 38,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "4/3",
+      "5/3",
+      "6/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line that goes past 1. Place these fractions in their correct positions.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the fractions in order: 4/3, 5/3, 6/3.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3",
+            "5/3",
+            "6/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count the thirds carefully from zero to find where each fraction goes."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. The number line shows thirds - that means each interval is one-third. To place 4/3, count 4 intervals from zero. For 5/3, count 5 intervals. For 6/3, count 6 intervals. Remember, 3/3 equals 1, so these fractions all come after the 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing fractions past 1. The number line is divided into thirds, so each tick mark represents one more third. Start with 4/3 - that means 4 thirds total. Count 4 intervals from zero: 1/3, 2/3, 3/3 (which equals 1), and then one more to 4/3. That's where 4/3 goes. Next is 5/3 - count 5 intervals from zero, which puts it at the next tick mark after 4/3. Finally, 6/3 - count 6 intervals from zero. That's actually the same as 2 wholes, so it lands right at 2. That's how we place fractions greater than 1 - we keep counting thirds past the whole."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "All three placed correctly."
+        }
+      }
+    }
+  ]
+}

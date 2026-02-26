@@ -1,0 +1,112 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 45,
+    "template_id": "8009",
+    "template_skill": "Student shades parts of a bar to create a fraction equivalent to a 1/2-family reference",
+    "identifiers": [
+      "1/2",
+      "2/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can create an equivalent fraction by shading the correct number of parts",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "fine_motor_control",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the bar on top showing one half. Can you shade the bar below to show the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": false,
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade this bar to show a fraction equal to one half.",
+        "tool": {
+          "@type": "Paint",
+          "is_single": false
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 2
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of the top bar is shaded, then shade the same amount on the bottom bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top bar shows one half shaded - that's half the bar. Your bottom bar has 4 equal parts. How many of those 4 parts would equal half the bar?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The top bar shows one half shaded - that's half of the whole bar. Now look at the bottom bar. It's divided into 4 equal parts. To shade the same amount as one half, we need to shade half of these 4 parts. Half of 4 is 2, so we shade 2 parts. That gives us two fourths, which equals one half. That's how equivalent fractions work - they show the same amount even with different numbers of parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You shaded two out of four equal parts."
+        }
+      }
+    }
+  ]
+}

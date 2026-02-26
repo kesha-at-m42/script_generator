@@ -1,0 +1,132 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 57,
+    "template_id": "5008",
+    "template_skill": "Student drags fraction labels to tick positions beyond 1 on a 0-2 number line",
+    "identifiers": [
+      "4/3"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can label fractions beyond 1 on extended number lines",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M5-07",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line goes past 1. Label the position that shows four-thirds.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "4/3",
+              "5/3",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Label the tick mark that shows 4/3.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count four thirds from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Four thirds means 4 intervals of one-third each. Start at 0 and count 4 of those equal parts. Remember, the number line keeps going past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Four thirds means we need to count 4 intervals from 0. Each interval is one-third. Starting from 0: the first interval gets us to 1/3, the second to 2/3, the third to 1, and the fourth interval gets us to 4/3 - right here, one tick past 1. That's how we locate fractions beyond 1 on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! Four thirds means four intervals from 0."
+        }
+      }
+    }
+  ]
+}

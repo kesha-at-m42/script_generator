@@ -1,0 +1,81 @@
+{
+  "problem_id": 51,
+  "step_id": 1,
+  "no_of_steps": 3,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "1/4",
+    "3/4"
+  ],
+  "dialogue": "Let's place one-fourth on the top number line.",
+  "prompt": "Place one-fourth on the top line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Top number line 0-1 with fourths, active for point placement",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line 0-1 with fourths, read-only with no point",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "1/4",
+    "context": "Point placed at the first tick mark after 0, showing 1/4"
+  },
+  "success_path_dialogue": "Good. You placed one-fourth on the line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look for the tick mark that shows one-fourth."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. One-fourth means 1 out of 4 equal parts. The number line is divided into fourths. Find the first tick mark after 0 - that's where one-fourth belongs."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. The number line is divided into fourths - that means 4 equal parts between 0 and 1. One-fourth means just 1 of those 4 parts. Starting from 0, the very first tick mark shows one-fourth. That's where we place the point. That's how we locate one-fourth on a number line."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:51:09.697817+00:00"
+}

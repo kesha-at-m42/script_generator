@@ -1,0 +1,182 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 87,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        4,
+        11
+      ],
+      "misconception_tag": [
+        "improper_spacing_on_number_line",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The section from 0 to 1 is already divided into thirds. Now extend the same spacing past 1.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks from 1 to 2 to match the thirds pattern.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 9,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/3",
+            "2/3",
+            "1",
+            "4/3",
+            "5/3",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between 0 and 1, then match that same spacing past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 3 equal parts - those are thirds. You need to continue that same pattern from 1 to 2. Count how many tick marks are between 0 and 1, then place the same number between 1 and 2, keeping the spacing equal."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, look at the section from 0 to 1. There are 2 tick marks that divide it into 3 equal parts - at 1/3 and 2/3. To extend this thirds pattern past 1, we need to place 2 more tick marks with that same spacing. The first tick mark goes one-third past 1, at 4/3. The second tick mark goes two-thirds past 1, at 5/3. That's how we extend equal partitions - keep the same spacing pattern going. Now you have thirds all the way from 0 to 2."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, you extended the partition to match the thirds spacing."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label these new positions with the correct fractions.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag the fraction labels to the tick marks beyond 1.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3",
+            "5/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many thirds past 1 each tick mark is."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. After 1, we keep counting in thirds. The first tick past 1 is one-third beyond 3/3, which makes it 4/3. The next tick is another third beyond that, making it 5/3. Count the thirds from zero to help you."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions beyond 1. We're counting in thirds on this number line. From 0 to 1, we have three thirds: 1/3, 2/3, and 3/3 which equals 1. After 1, we keep counting in thirds. The first tick past 1 is the fourth third, so it's 4/3. The next tick is the fifth third, so it's 5/3. So 4/3 goes on the first tick beyond 1, and 5/3 goes on the second tick beyond 1. That's how we label fractions beyond 1 - we just keep counting the same fractional parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct, you labeled the fractions beyond one."
+        }
+      }
+    }
+  ]
+}

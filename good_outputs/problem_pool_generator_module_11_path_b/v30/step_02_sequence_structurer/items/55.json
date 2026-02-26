@@ -1,0 +1,86 @@
+{
+  "problem_id": 54,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "3/6",
+    "5/6"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. They both use sixths. What steps would help you compare them?",
+      "prompt": "How would you compare these fractions? Select TWO strategies.",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar A divided into sixths with 3 intervals shaded showing 3/6",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar B divided into sixths with 5 intervals shaded showing 5/6",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "shaded_intervals": 5
+        },
+        {
+          "id": "comparison_statement",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Math expression showing 3/6 < 5/6",
+          "terms": [
+            "3/6",
+            "<",
+            "5/6"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for same denominator"
+            },
+            {
+              "id": "b",
+              "text": "Count the equal parts"
+            },
+            {
+              "id": "c",
+              "text": "Check for same numerator"
+            },
+            {
+              "id": "d",
+              "text": "Compare the sizes of parts"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "b"
+        ],
+        "context": "When fractions have the same denominator (sixths), you check that first, then count how many equal parts are shaded to compare"
+      },
+      "success_path_dialogue": "Right. Same denominator means you count the parts."
+    }
+  ]
+}

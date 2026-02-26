@@ -1,0 +1,100 @@
+{
+  "problem_id": 90,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "6012",
+  "fractions": [
+    "5/4",
+    "6/4",
+    "7/4"
+  ],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "The line from 0 to 1 is divided into fourths. Continue the pattern past 1.",
+      "prompt": "Extend the partition from 1 to 2.",
+      "interaction_tool": "place_tick",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "5/4",
+          "6/4",
+          "7/4"
+        ],
+        "context": "Student places three evenly-spaced ticks between 1 and 2, matching the fourths spacing from 0 to 1"
+      },
+      "success_path_dialogue": "Good, you extended the fourths past 1."
+    },
+    {
+      "step_id": 2,
+      "workspace_inherited": true,
+      "dialogue": "Now label each position beyond 1.",
+      "prompt": "Place the fraction labels on the ticks.",
+      "interaction_tool": "drag_label",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "6/4",
+            "7/4"
+          ],
+          "labels": [
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        {
+          "type": "palette",
+          "labels": [
+            "5/4",
+            "6/4",
+            "7/4"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": {
+          "5/4": "5/4",
+          "6/4": "6/4",
+          "7/4": "7/4"
+        },
+        "context": "Each label matches its corresponding tick position beyond 1"
+      },
+      "success_path_dialogue": "Correct, you labeled the fractions greater than 1."
+    }
+  ]
+}

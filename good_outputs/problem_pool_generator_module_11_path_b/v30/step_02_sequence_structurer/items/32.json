@@ -1,0 +1,67 @@
+{
+  "problem_id": 32,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "11005",
+  "fractions": [
+    "2/4",
+    "2/6"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two bars. Both have two pieces shaded. Which fraction is larger?",
+      "prompt": "Select the correct comparison symbol.",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into fourths with 2 pieces shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "shaded_intervals": 2
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into sixths with 2 pieces shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "shaded_intervals": 2
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "2/4 > 2/6"
+            },
+            {
+              "id": "b",
+              "text": "2/4 = 2/6"
+            },
+            {
+              "id": "c",
+              "text": "2/4 < 2/6"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "2/4 is greater than 2/6 because fourths are bigger pieces than sixths, even though the same number of pieces are shaded"
+      },
+      "success_path_dialogue": "Right. Same count, but bigger pieces win."
+    }
+  ]
+}

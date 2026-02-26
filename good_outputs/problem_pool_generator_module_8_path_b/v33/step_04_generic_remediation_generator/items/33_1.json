@@ -1,0 +1,82 @@
+{
+  "problem_id": 33,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "SUPPORT",
+  "mastery_verb": "create",
+  "template_id": "8007",
+  "fractions": [
+    "1/2",
+    "2/4"
+  ],
+  "dialogue": "The top line shows one half. Let's see if two fourths lands at the same spot.",
+  "prompt": "Place two fourths on the line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_reference",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Number line showing 1/2 with point and label",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/2",
+        "1"
+      ],
+      "points": [
+        "1/2"
+      ],
+      "labels": [
+        "0",
+        "1/2",
+        "1"
+      ]
+    },
+    {
+      "id": "line_student",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Number line with fourths, endpoints labeled only",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "2/4",
+    "context": "2/4 lands at the same position as 1/2 on the reference line, proving they are equivalent fractions"
+  },
+  "success_path_dialogue": "Right there. Two fourths lands at the same point as one half.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. We need to place two fourths. That means we count 2 of the equal parts on the bottom line. Look at where one half is on the top line - two fourths should land at that same position."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. On the top line, one half is right in the middle. Now let's find two fourths on the bottom line. The bottom line is divided into fourths - 4 equal parts. We need 2 of those fourths. Starting from 0, we count 2 equal parts: that's 1/4, then 2/4. Two fourths lands right here at the second tick mark - exactly where one half is on the top line. That's how we see that 1/2 and 2/4 are at the same location."
+      }
+    ]
+  }
+}

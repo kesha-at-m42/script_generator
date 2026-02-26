@@ -1,0 +1,112 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 43,
+    "template_id": "6005",
+    "template_skill": "Student answers diagnostic questions confirming denominator constancy across the 1 boundary",
+    "identifiers": [
+      "2/3",
+      "3/3",
+      "4/3"
+    ],
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that the denominator stays constant when counting past 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-04",
+      "tier": "SUPPORT",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these fractions on the number line: 2/3, then 3/3, then 4/3. Notice what's happening with the bottom number.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "2/3",
+              "3/3",
+              "4/3"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "After 3/3 comes 4/3. What happened to the denominator?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "It stayed the same (still 3)",
+            "It increased by 1",
+            "It decreased by 1",
+            "It became 4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the bottom number in each fraction on the number line. What number do you see there?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's examine this more carefully. Look at the bottom number in 2/3. It's 3. Now look at the bottom number in 3/3. Still 3. And in 4/3? Also 3. The denominator tells us what size pieces we're counting - and we're always counting thirds."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. When we count by thirds, the denominator - that bottom number - always stays 3. Look at the sequence: 2/3 has 3 on the bottom, 3/3 has 3 on the bottom, and 4/3 has 3 on the bottom. The denominator never changes because we're always working with thirds - pieces that are one-third in size. Only the top number, the numerator, changes as we count more thirds. So the denominator stayed the same at 3. That's how denominators work - they stay constant when we're counting with the same size pieces."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, the denominator stays the same."
+        }
+      }
+    }
+  ]
+}

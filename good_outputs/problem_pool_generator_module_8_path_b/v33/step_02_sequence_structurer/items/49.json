@@ -1,0 +1,58 @@
+{
+  "problem_id": 49,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8009",
+  "fractions": [
+    "2/4",
+    "4/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the top bar showing two fourths. Can you shade the bottom bar to show the same amount?",
+      "prompt": "Shade parts to make the same amount as two fourths.",
+      "interaction_tool": "shade",
+      "workspace": [
+        {
+          "id": "bar_reference",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 2/4 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "bar_target",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Empty bar divided into eighths",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": false
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "context": "Four of eight parts shaded equals 4/8, which is equivalent to 2/4"
+      },
+      "success_path_dialogue": "You made it. Four eighths equals one half."
+    }
+  ]
+}

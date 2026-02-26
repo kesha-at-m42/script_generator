@@ -1,0 +1,130 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 1,
+    "template_id": "6001",
+    "template_skill": "Student places tick marks to partition 1-2 section matching the spacing already shown in 0-1",
+    "identifiers": [
+      "1/3",
+      "2/3",
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1 maintaining equal spacing",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01",
+      "tier": "SUPPORT",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at how the line from 0 to 1 is divided into thirds. Let's keep that same spacing going from 1 to 2.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to continue the pattern from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 9,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/3",
+            "2/3",
+            "1",
+            "4/3",
+            "5/3",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between the tick marks from 0 to 1. Keep that same spacing going past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, the line is divided into thirds - three equal parts. To continue that pattern from 1 to 2, you need to keep making those same equal jumps. Count how many spaces there are from 0 to 1, then make that same number of spaces from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. From 0 to 1, there are 3 equal spaces - those are thirds. Each space is one-third. To continue the pattern from 1 to 2, we need to keep that same spacing. Starting at 1, the first tick mark goes one-third of the way to 2 - that's at 4/3. The next tick mark goes another third - that's at 5/3. Then we reach 2, which is 6/3. So you need two tick marks between 1 and 2, spaced exactly like the ones between 0 and 1. That's how we extend equal partitions beyond 1."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You extended the partition correctly."
+        }
+      }
+    }
+  ]
+}

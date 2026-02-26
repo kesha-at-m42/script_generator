@@ -1,0 +1,79 @@
+{
+  "problem_id": 34,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "11005",
+  "fractions": [
+    "2/3",
+    "2/5"
+  ],
+  "dialogue": "Look at these two bars. Both have the same number of pieces shaded. Which fraction is greater?",
+  "prompt": "Both bars show the same number of pieces shaded. Which pieces are bigger? Select the correct symbol.",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into thirds with 2 pieces shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/3",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into fifths with 2 pieces shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/5",
+      "shaded_intervals": 2
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "2/3 > 2/5"
+        },
+        {
+          "id": "b",
+          "text": "2/3 = 2/5"
+        },
+        {
+          "id": "c",
+          "text": "2/3 < 2/5"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "2/3 > 2/5 because thirds are bigger pieces than fifths. Same number of pieces (2) but bigger pieces means greater value"
+  },
+  "success_path_dialogue": "Right. Same count, but bigger pieces win.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Both bars have 2 pieces shaded, but look at the size of those pieces."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. You're right that both bars have 2 pieces shaded. But here's the key - when the same number of pieces are shaded, we need to compare the size of the pieces themselves. Look at one third compared to one fifth. Which piece is bigger?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. Both bars show 2 pieces shaded - that part you can see clearly. But when fractions have the same numerator, the one with the smaller denominator is greater. Here's why: thirds are bigger pieces than fifths. Think about it - if you cut something into 3 pieces, each piece is bigger than if you cut it into 5 pieces. So 2/3 means 2 big pieces, while 2/5 means 2 smaller pieces. The answer is 2/3 > 2/5. That's how we compare fractions with the same numerator - fewer pieces means bigger pieces."
+      }
+    ]
+  }
+}

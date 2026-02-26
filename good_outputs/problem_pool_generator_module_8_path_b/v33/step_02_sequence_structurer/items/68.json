@@ -1,0 +1,143 @@
+{
+  "problem_id": 68,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "2/4",
+    "1/2"
+  ],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the reference bar showing 2/4. Which bar below shows an equivalent fraction?",
+      "prompt": "Select the bar that shows the same amount as 2/4.",
+      "interaction_tool": "select",
+      "workspace": [
+        {
+          "id": "reference_bar",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 2/4 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar showing 1/2 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/2",
+          "intervals_is_shaded": [
+            0
+          ]
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar showing 2/6 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "bar_c",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar showing 1/4 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": [
+            0
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "bar_a",
+        "context": "1/2 is equivalent to 2/4 - both represent the same amount"
+      },
+      "success_path_dialogue": "Good. You found the equivalent bar."
+    },
+    {
+      "step_id": 2,
+      "dialogue": "Now let's verify. Place 1/2 on the bottom number line.",
+      "prompt": "Place a point at 1/2 on the bottom number line.",
+      "interaction_tool": "place_point",
+      "workspace": {
+        "inherited": false,
+        "tangibles": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Number line with point at 2/4",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "2/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with halves for student to mark 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "correct_answer": {
+        "value": "1/2",
+        "context": "The point at 1/2 on the bottom line aligns with 2/4 on the top line, proving equivalence"
+      },
+      "success_path_dialogue": "Correct. Both points line up - 2/4 equals 1/2."
+    }
+  ]
+}

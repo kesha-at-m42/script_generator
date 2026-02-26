@@ -1,0 +1,69 @@
+{
+  "problem_id": 14,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "7003",
+  "fractions": [
+    "5/5"
+  ],
+  "dialogue": "Look at this bar showing 5/5. Why does having all 5 parts equal 1 whole?",
+  "prompt": "What makes 5/5 equal to 1?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_1",
+      "type": "fraction_strip",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/5",
+      "intervals_is_shaded": true,
+      "role": "reference"
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "When you have every part, you have 1"
+        },
+        {
+          "id": "b",
+          "text": "Because 5 parts is a lot"
+        },
+        {
+          "id": "c",
+          "text": "Because 5 is an odd number"
+        },
+        {
+          "id": "d",
+          "text": "Because it's the biggest fraction with 5"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "Having all the parts means having the complete whole, which equals 1"
+  },
+  "success_path_dialogue": "Exactly. When you have all the parts, you have one whole.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Think about what it means to have all the parts of something."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Look at the bar - all 5 parts are shaded. When the numerator and denominator are the same, that means you have every single part. What does having every part of something mean?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. The bar shows 5/5 - that's 5 parts out of 5 total parts. When you have all 5 parts, you have the complete whole bar. It doesn't matter that there are 5 parts specifically, or whether 5 is odd or even. What matters is that you have every single part. When you have all the parts of something, you have 1 whole. That's why any fraction where the numerator equals the denominator equals 1 - because having all the parts means having one complete whole."
+      }
+    ]
+  }
+}

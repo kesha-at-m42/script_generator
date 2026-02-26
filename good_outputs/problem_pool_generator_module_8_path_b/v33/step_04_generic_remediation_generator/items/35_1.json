@@ -1,0 +1,89 @@
+{
+  "problem_id": 35,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8007",
+  "fractions": [
+    "4/8",
+    "1/2"
+  ],
+  "dialogue": "Look at the top line. Can you find where four eighths lands on the bottom line?",
+  "prompt": "Place four eighths on the number line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_reference",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Reference number line with point at 1/2",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/2",
+        "1"
+      ],
+      "points": [
+        "1/2"
+      ],
+      "labels": [
+        "0",
+        "1/2",
+        "1"
+      ]
+    },
+    {
+      "id": "line_student",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Number line with eighths, endpoints labeled",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": {
+      "tangible_id": "line_student",
+      "position": "4/8"
+    },
+    "context": "4/8 lands at the same position as 1/2, showing they are equivalent fractions"
+  },
+  "success_path_dialogue": "Right there. Four eighths lands at the same point as one half.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Look at the top line - one half is right in the middle. Now look at the bottom line. Four eighths should land at that same middle point. Count four intervals from zero on the bottom line."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. On the top line, one half is marked right at the middle point between 0 and 1. Now we need to find where four eighths goes on the bottom line. The bottom line is divided into eighths - 8 equal parts. To place four eighths, we count 4 of those eighth intervals from 0. That lands us right at the middle - the exact same spot as one half on the top line. That's how we see that four eighths and one half are equivalent fractions."
+      }
+    ]
+  }
+}

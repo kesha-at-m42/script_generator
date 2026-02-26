@@ -1,0 +1,140 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 71,
+    "template_id": "12012",
+    "template_skill": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+    "identifiers": [
+      "3/7",
+      "5/7"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+      "cognitive_verb": "apply",
+      "mastery_skill_id": "M12-08",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "reading_comprehension",
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars and the fractions they show. Which comparison strategy works here?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "sum_is_visible": true,
+            "lcm": 7
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "sum_is_visible": true,
+            "lcm": 7
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "3/7",
+              "<",
+              "5/7"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which strategy helps you compare 3/7 and 5/7?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Check for the same denominator, count the parts",
+            "Check for the same numerator, compare part sizes",
+            "Neither matches, use the benchmark"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When we compare fractions, we first check what's the same. Look at 3/7 and 5/7 - both have 7 as the denominator. That means the parts are the same size. What strategy uses same denominators?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through choosing the right strategy. First, we look at what's the same between 3/7 and 5/7. The denominators are both 7 - that's our match. When fractions have the same denominator, it means the parts are the same size in both bars. See how both bars are divided into sevenths? Since the parts are equal size, we just count how many parts are shaded - 3 parts versus 5 parts. The answer is 'Check for the same denominator, count the parts.' That's how we choose a comparison strategy - find what matches, then apply that strategy."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same denominator means count the parts."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 71,
+    "template_id": "8013",
+    "template_skill": "Two-step problem: Student first selects equivalent bar, then verifies by placing both fractions on a number line",
+    "identifiers": [
+      "2/4",
+      "3/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can combine bar comparison and number line verification to prove equivalence",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-09",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7,
+        2
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "misidentifying_the_whole"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Which bar shows the same amount as the reference bar?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 24
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that shows an equivalent fraction to 2/4.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Compare the shaded amounts in each bar to the reference bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Equivalent fractions show the same amount, even if they have different numbers of parts. Look at how much of each bar is shaded compared to the reference bar—which one shows the same amount?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you work through this. The reference bar shows 2/4 shaded—that's half the bar. Now let's check each option. Bar A shows 3/6 shaded. If we look carefully, 3 out of 6 parts is also half the bar—the same amount as 2/4. That's what makes them equivalent fractions. Bar A is the answer because three-sixths and two-fourths both represent one-half."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. Bar A shows three-sixths—the same amount as two-fourths."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place the point to show where three-sixths lands on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "2/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at 3/6 on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where two-fourths is on the top line. Where would the matching spot be on the bottom line?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The bottom line is divided into sixths - that means 6 equal parts. We need to find which sixth lines up with two-fourths on the top line. Look carefully at where the point sits on the top line, then find that same position on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. On the top line, two-fourths is exactly halfway between 0 and 1 - that's the middle point. Now look at the bottom line with its sixths. We need to find which sixth is also at that halfway point. If we count the sixths, three-sixths lands right at the middle too - it's 3 out of 6 equal parts, which is half. So the point goes at three-sixths on the bottom line. That's how we show equivalent fractions - they land at the same position even though they have different numbers."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Both points line up—three-sixths equals two-fourths."
+        }
+      }
+    }
+  ]
+}

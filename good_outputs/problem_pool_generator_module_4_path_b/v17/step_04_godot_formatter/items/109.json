@@ -1,0 +1,154 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 109,
+    "template_id": "4013",
+    "template_skill": "Student identifies equal vs unequal intervals (identify)",
+    "identifiers": [
+      "1/4"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "IDENTIFY",
+    "telemetry_data": {
+      "mastery_skill": "Identify number lines with equal versus unequal intervals",
+      "cognitive_verb": "IDENTIFY",
+      "mastery_skill_id": "M4-10",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        1,
+        4,
+        5
+      ],
+      "misconception_tag": [
+        "equal_vs_unequal_parts",
+        "improper_spacing_on_number_line",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these three number lines. One of them shows fourths.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the number line partitioned into fourths.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            0
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many equal intervals are from 0 to 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about what fourths means. For a number line to show fourths, it needs exactly 4 equal intervals from 0 to 1. Count the intervals carefully on each line and check if they're all the same size."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. To show fourths, a number line needs 4 equal intervals from 0 to 1. Let's check each line. The first line has 4 equal intervals - each space is the same size from 0 to 1. The second line has 5 equal intervals - that would be fifths, not fourths. The third line has 4 intervals, but they're not equal - the spaces are different sizes. So the first line is the answer because it has exactly 4 equal intervals. That's what fourths means - 4 equal parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Four equal intervals for fourths."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 33,
+    "template_id": "8007",
+    "template_skill": "Student places a 1/2-family fraction on a number line to show it lands at the same position as an equivalent fraction",
+    "identifiers": [
+      "1/2",
+      "2/4"
+    ],
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "SUPPORT",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The top line shows one half. Let's see if two fourths lands at the same spot.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/2",
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place two fourths on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. We need to place two fourths. That means we count 2 of the equal parts on the bottom line. Look at where one half is on the top line - two fourths should land at that same position."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. On the top line, one half is right in the middle. Now let's find two fourths on the bottom line. The bottom line is divided into fourths - 4 equal parts. We need 2 of those fourths. Starting from 0, we count 2 equal parts: that's 1/4, then 2/4. Two fourths lands right here at the second tick mark - exactly where one half is on the top line. That's how we see that 1/2 and 2/4 are at the same location."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right there. Two fourths lands at the same point as one half."
+        }
+      }
+    }
+  ]
+}

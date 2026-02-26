@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 5,
+    "template_id": "6001",
+    "template_skill": "Student places tick marks to partition 1-2 section matching the spacing already shown in 0-1",
+    "identifiers": [
+      "1/4",
+      "2/4",
+      "3/4",
+      "5/4",
+      "6/4",
+      "7/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1 maintaining equal spacing",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        4,
+        11
+      ],
+      "misconception_tag": [
+        "improper_spacing_on_number_line",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at how the line from 0 to 1 is divided. Continue that same pattern past 1.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Continue the partition past 1. Keep the intervals equal.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 12,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "6/4",
+            "7/4",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between the tick marks from 0 to 1. Keep that same spacing as you continue past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Between 0 and 1, there are 4 equal intervals - that's fourths. Each interval is the same size. Continue placing ticks at that exact same spacing past 1, all the way to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. From 0 to 1, the line is divided into 4 equal parts - we can see ticks at 1/4, 2/4, 3/4, and then 1. That means each interval represents one-fourth. To continue the pattern past 1, we keep using that same spacing. The next tick goes at 5/4, which is one interval past 1. Then 6/4, which is two intervals past 1. And finally 7/4, which is three intervals past 1. That gets us to the 2 mark. That's how we extend the partition - by keeping the intervals equal all the way through."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You extended the partition correctly."
+        }
+      }
+    }
+  ]
+}

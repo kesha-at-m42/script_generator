@@ -1,0 +1,140 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 43,
+    "template_id": "8008",
+    "template_skill": "Student places varied fractions on a number line to verify equivalence with a marked reference point",
+    "identifiers": [
+      "2/6",
+      "1/3"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's check if one third and two sixths land at the same spot.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "2/6"
+            ],
+            "lcm": 18,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place one third on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count the equal intervals from 0 to 1 on the bottom number line, then place the point at the first interval."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. The bottom number line is divided into thirds - that means 3 equal parts between 0 and 1. One third means 1 out of those 3 parts. So you need to place the point at the first tick mark after zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We're placing one third on the bottom number line. First, let's look at the bottom number line - it's divided into 3 equal intervals from 0 to 1. Each of those intervals represents one third. One third means 1 out of 3 parts, so we count just 1 interval from 0. That puts us at the first tick mark after zero - that's where one third belongs. Notice how this lines up with two sixths on the top number line. That's how we locate one third on a number line divided into thirds."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. One third and two sixths are at the same position."
+        }
+      }
+    }
+  ]
+}

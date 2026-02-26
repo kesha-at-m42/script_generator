@@ -1,0 +1,138 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 36,
+    "template_id": "11005",
+    "template_skill": "Student views two bars with the same number of pieces shaded (numerator > 1, different denominators) and selects the correct comparison symbol",
+    "identifiers": [
+      "2/6",
+      "2/9"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can select the correct comparison symbol for same-numerator non-unit fractions by comparing piece sizes in bars",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M11-03",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        8,
+        3
+      ],
+      "misconception_tag": [
+        "errors_comparing_unlike_fractions",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. Both have the same amount shaded, but the pieces are different sizes. Which fraction is greater?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "sum_is_visible": false,
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/9",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "sum_is_visible": false,
+            "lcm": 9
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/6"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/9"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is greater?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/6 > 2/9",
+            "2/6 = 2/9",
+            "2/6 < 2/9"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the size of the shaded pieces in each bar. Which pieces are bigger?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Both bars have 2 pieces shaded - that's the same. But look carefully at the size of each piece. Sixths are bigger pieces than ninths. When the count is the same, bigger pieces make a greater fraction."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. Both fractions have 2 pieces shaded - that part is the same. But here's the key: we need to compare the size of the pieces. Look at the bar showing 2/6 - each sixth is a bigger piece. Now look at the bar showing 2/9 - each ninth is a smaller piece. When we have the same count of pieces, the one with bigger pieces is greater. So 2/6 is greater than 2/9. That's how we compare fractions with the same numerator - bigger pieces win."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Same count, but bigger pieces win."
+        }
+      }
+    }
+  ]
+}

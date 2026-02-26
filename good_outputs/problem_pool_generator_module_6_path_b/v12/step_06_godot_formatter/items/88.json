@@ -1,0 +1,202 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 88,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "7/6",
+      "8/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line shows sixths from 0 to 1. Extend the pattern from 1 to 2.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to continue the sixths from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 18,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6",
+            "1",
+            "7/6",
+            "8/6",
+            "9/6",
+            "10/6",
+            "11/6",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between the tick marks from 0 to 1. Use that same spacing to continue the pattern from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, you can see 6 equal intervals that create sixths. The pattern continues the same way past 1. Each sixth stays the same size. Match the spacing you see from 0 to 1 as you place tick marks from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. From 0 to 1, the number line is divided into 6 equal intervals - those are the sixths. To extend this pattern from 1 to 2, we keep using the same size intervals. Look at the distance between any two tick marks from 0 to 1 - that's one sixth. Now place 5 tick marks between 1 and 2 using that exact same spacing. The first tick after 1 is at 7/6, then 8/6, 9/6, 10/6, and 11/6 right before 2. That's how we extend fraction patterns - the equal intervals continue with the same spacing."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, you extended the sixths to 2."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label the positions beyond 1.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 7/6 and 8/6 to their correct positions.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "7/6"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "8/6"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "7/6",
+            "8/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many sixths past 1 each fraction should be."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. When you have 7/6, that's 7 sixths total. Six sixths equals 1, so 7/6 is one more sixth past 1. Similarly, 8/6 is 8 sixths total - that's 6 sixths to get to 1, then 2 more sixths past 1. Count the ticks past 1 to find where each fraction goes."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. We're working with sixths, and the number line shows each sixth marked. For 7/6, let's think: 6 sixths makes 1 whole, so 7/6 is one sixth past 1. That means 7/6 goes on the first tick mark after 1. For 8/6, we have 8 sixths total. That's 6 sixths to reach 1, then 2 more sixths past 1. So 8/6 goes on the second tick mark after 1. That's how we count fractions beyond 1 - once we reach the whole number, we keep counting the parts past it."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct, you placed 7/6 and 8/6 on the line."
+        }
+      }
+    }
+  ]
+}

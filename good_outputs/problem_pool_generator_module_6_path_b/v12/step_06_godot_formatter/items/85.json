@@ -1,0 +1,207 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 85,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "9/8",
+      "10/8"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The first part of this line is divided into eighths. Extend the pattern from 1 to 2.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Make equal spaces from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 24,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1",
+            "9/8",
+            "10/8",
+            "11/8",
+            "12/8",
+            "13/8",
+            "14/8",
+            "15/8",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing from 0 to 1, then make the same spacing from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 8 equal parts - that's what eighths means. To extend the pattern from 1 to 2, you need the same number of equal spaces. Count how many tick marks are between 0 and 1, then place that same number between 1 and 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, let's look at the pattern from 0 to 1. There are 8 equal spaces between 0 and 1, created by 7 tick marks plus the endpoints. Each space is one-eighth. To extend this pattern from 1 to 2, we need to create the same spacing - 8 equal spaces. That means placing 7 tick marks between 1 and 2, matching the spacing you see from 0 to 1. The key is keeping all the spaces equal so the eighths pattern continues. That's how we extend fraction patterns on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You extended the eighths pattern to 2."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label the fractions beyond 1.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Label the fractions beyond 1.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "9/8"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "10/8"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "9/8",
+            "10/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Start counting from 1 and continue with the same pattern of eighths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The pattern from 0 to 1 was counting eighths - 1/8, 2/8, 3/8, all the way to 8/8 which equals 1. After 1, we keep counting eighths. The next tick mark after 1 is the ninth eighth, and the one after that is the tenth eighth."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions beyond 1. From 0 to 1, the number line is divided into eighths. At 1, we've counted 8 eighths - that's 8/8 which equals 1. But we don't stop counting there. The very next tick mark after 1 is one more eighth, so that's 9/8. Then the tick mark after that is another eighth, making it 10/8. The pattern continues just like it did from 0 to 1, we just keep counting eighths. So 9/8 goes at the first tick mark past 1, and 10/8 goes at the second tick mark past 1. That's how we count fractions beyond 1 - we keep the same denominator and just keep counting up."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. You labeled the fractions beyond 1."
+        }
+      }
+    }
+  ]
+}

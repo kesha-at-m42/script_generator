@@ -1,0 +1,126 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 63,
+    "template_id": "6008",
+    "template_skill": "Student drags a single thirds fraction label or places a point beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "8/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line divided into thirds. Drag eight-thirds to its position on the line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "4/3",
+              "5/3",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 8/3 to the correct position.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "8/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "8/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count eight thirds from zero - remember, three thirds equals 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. We need to place eight-thirds. Since three thirds equals 1, we can think of eight-thirds as groups of three. Three thirds gets us to 1, then three more thirds gets us to 2, then we have two more thirds to count. That tells us where eight-thirds belongs."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing eight-thirds. The number line is divided into thirds, so we count eight of those third-intervals from zero. Three thirds equals 1, so the first three thirds get us to 1. Then three more thirds - that's six thirds total - gets us to 2. Now we have two more thirds to count past 2. Eight-thirds lands at the second tick mark past 2. That's how we locate fractions greater than 1 - we count the fractional parts from zero, keeping track of when we pass whole numbers."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Eight-thirds is two intervals and two more thirds past one."
+        }
+      }
+    }
+  ]
+}

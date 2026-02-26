@@ -1,0 +1,125 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 46,
+    "template_id": "6005",
+    "template_skill": "Student answers diagnostic questions confirming denominator constancy across the 1 boundary",
+    "identifiers": [
+      "2/4",
+      "3/4",
+      "4/4",
+      "5/4",
+      "6/4"
+    ],
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that the denominator stays constant when counting past 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-04",
+      "tier": "SUPPORT",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the fractions labeled on this number line. They go past 1, but something stays the same in all of them.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "6/4",
+              "7/4",
+              "8/4"
+            ],
+            "labels": [
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "6/4"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "What stays the same in 3/4, 4/4, and 5/4?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "The denominator (4)",
+            "The numerator",
+            "The whole number part",
+            "Nothing"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the bottom numbers in these fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Look at 3/4, 4/4, and 5/4 on the number line. The top numbers change - 3, then 4, then 5. But what about the bottom numbers? Check what the denominator is in each fraction."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. When we look at the fractions 3/4, 4/4, and 5/4, we need to compare their parts. The numerators - the top numbers - are different: 3, 4, and 5. But look at the denominators - the bottom numbers. In 3/4, the denominator is 4. In 4/4, the denominator is 4. In 5/4, the denominator is 4. The denominator stays 4 in all of them. That's what stays the same even when we count past 1 - the denominator tells us we're always working with fourths."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, the denominator stays the same."
+        }
+      }
+    }
+  ]
+}

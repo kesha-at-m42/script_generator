@@ -1,0 +1,145 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 33,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "2/3",
+      "3/3",
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line extends past 1. Drag each fraction label to its correct position.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "3/3",
+              "4/3",
+              "5/3",
+              "6/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "6/3"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Complete the labels: 2/3, 3/3, 4/3, 5/3.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "2/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "3/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "2/3",
+            "3/3",
+            "4/3",
+            "5/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many thirds from zero to each tick mark. Try again."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this carefully. The number line is divided into thirds. To place each label, count how many thirds from 0 to that tick mark. Remember that 3/3 equals 1, so fractions past 1 continue counting thirds beyond that point."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling this number line. The line is divided into thirds, so each tick mark represents one more third. Starting from 0, the first unlabeled tick is 1 third from zero - that's where 1/3 goes. Two thirds from zero is 2/3. Three thirds from zero equals 1, so 3/3 goes right at the 1 mark. Now we continue past 1. Four thirds from zero is 4/3 - that's one tick past the 1. Five thirds from zero is 5/3 - that's two ticks past the 1. So the labels go: 2/3 at the second tick, 3/3 at the third tick where 1 is, 4/3 at the fourth tick past 1, and 5/3 at the fifth tick. That's how we label thirds on a number line that extends past 1 - we keep counting thirds from zero."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "All four labels placed correctly."
+        }
+      }
+    }
+  ]
+}

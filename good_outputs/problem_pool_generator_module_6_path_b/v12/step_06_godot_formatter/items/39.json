@@ -1,0 +1,113 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 39,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "6/4",
+      "7/4",
+      "8/4"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line partitioned into fourths that extends past 1. Place the three fractions on it.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 6/4, 7/4, and 8/4 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 3
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "6/4",
+            "7/4",
+            "8/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember that 4/4 equals 1, then keep counting fourths from there."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The number line shows fourths - that means each interval is one-fourth. Since 4/4 equals 1, fractions like 6/4 and 7/4 come after 1. Count how many fourths past 1 each fraction needs to be."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. The number line is partitioned into fourths, and 4/4 equals 1. For 6/4, we count 6 fourths from 0 - that's 2 fourths past 1, so it goes at the second tick mark after 1. For 7/4, we count 7 fourths from 0 - that's 3 fourths past 1, so it goes at the third tick mark after 1. For 8/4, we count 8 fourths from 0 - that's 4 fourths past 1, landing right at 2. That's how we place fractions beyond 1 - keep counting the equal intervals past the whole."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "All three placed correctly."
+        }
+      }
+    }
+  ]
+}

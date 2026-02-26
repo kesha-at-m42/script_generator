@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 80,
+    "template_id": "6011",
+    "template_skill": "Student places sixths or eighths fractions beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "10/8"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with transfer denominators (sixths and eighths)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-08",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line partitioned into eighths that goes beyond 1. Where does ten-eighths belong?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 10/8 on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "10/8"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "10/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count ten eighths from zero - that takes you past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The line is partitioned into eighths, so each tick represents one-eighth. To find ten-eighths, we need to count 10 of those eighths starting from zero. Remember that 8 eighths equals 1, so ten-eighths goes past the 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing ten-eighths. Each tick on this number line represents one-eighth. To locate ten-eighths, we count 10 ticks from zero. First, we count 8 eighths to reach 1 - that's eight-eighths equals one whole. Then we need 2 more eighths past 1 to get to ten-eighths total. So ten-eighths is located at the second tick past 1. That's how we place fractions greater than 1 on a number line - we count all the parts from zero, going past 1 when needed."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Ten-eighths is two ticks past one whole."
+        }
+      }
+    }
+  ]
+}

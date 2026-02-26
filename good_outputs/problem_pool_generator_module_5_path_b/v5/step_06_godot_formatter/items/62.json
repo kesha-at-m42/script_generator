@@ -1,0 +1,165 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 62,
+    "template_id": "5008",
+    "template_skill": "Student drags fraction labels to tick positions beyond 1 on a 0-2 number line",
+    "identifiers": [
+      "9/8",
+      "10/8",
+      "11/8"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can label fractions beyond 1 on extended number lines",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M5-07",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line goes beyond 1. Can you label the tick marks after 1?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Label the fractions past 1.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "9/8"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "10/8"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "11/8"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "9/8",
+            "10/8",
+            "11/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the pattern before 1 and continue counting eighths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Before 1, we have 1/8, 2/8, 3/8, and so on up to 8/8 which equals 1. The pattern keeps going - after 8/8 comes 9/8, then 10/8, then 11/8. The denominator stays 8 because we're still counting eighths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions past 1. First, notice the pattern before 1: the number line is divided into eighths, counting 1/8, 2/8, 3/8, and continuing up to 8/8, which equals 1. This pattern doesn't stop at 1 - it keeps going. After 8/8 comes 9/8, then 10/8, then 11/8. We keep counting eighths just like we did before 1. The first tick mark after 1 is 9/8, the next is 10/8, and the third is 11/8. That's how fractions continue past 1 - we keep counting with the same denominator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. The pattern of eighths continues beyond 1."
+        }
+      }
+    }
+  ]
+}

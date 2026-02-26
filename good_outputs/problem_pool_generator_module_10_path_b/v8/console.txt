@@ -1,0 +1,2665 @@
+  [TEMPLATES] Using: modules\module10\problem_templates.json
+
+======================================================================
+RUNNING PIPELINE
+Steps: 16
+Output Directory: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8
+======================================================================
+
+[STEP 1/16] [AI] problem_generator
+  [DIR] step_01_problem_generator
+  [LOAD] Reading: C:\git\script_generator-content\modules\module10\problem_templates.json
+  [DEBUG] File size: 25163 bytes
+  [DEBUG] Read 24416 chars from 25163 bytes
+  [OK] Loaded 24416 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 14 items from JSON array
+  [BATCH] Processing only: ['10010', '10014']
+  [SKIP 1/14] 10001 (not in only_items)
+  [SKIP 2/14] 10002 (not in only_items)
+  [SKIP 3/14] 10003 (not in only_items)
+  [SKIP 4/14] 10004 (not in only_items)
+  [SKIP 5/14] 10005 (not in only_items)
+  [SKIP 6/14] 10006 (not in only_items)
+  [SKIP 7/14] 10007 (not in only_items)
+  [SKIP 8/14] 10008 (not in only_items)
+  [SKIP 9/14] 10009 (not in only_items)
+
+  [BATCH 10/14] 10010
+    Variables: {'template_id': '10010', 'skill_id': 'M10-06', 'skill': 'Student can place fractions on number lines and identify which is greater based on position'}...
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: problem_generator
+======================================================================
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+    Resolving doc: difficulty_levels.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\difficulty_levels.md
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 24 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_01_problem_generator\prompts\10010.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 754
+  output_tokens: 2269
+  total_tokens: 3023
+  requests: 1
+  cache_creation_tokens: 7704
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: problem_generator
+======================================================================
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+    Resolving doc: difficulty_levels.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\difficulty_levels.md
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 24 chars
+    [VALIDATE] Running content validation...
+    [FAIL] Content validation failed!
+      Error 1: Duplicate parameters in problems #1 and #4: same tier (BASELINE), same denominators [4, 6] appear across batch
+      Error 2: Duplicate parameters in problems #3 and #6: same tier (STRETCH), same denominators [8] appear across batch
+    [OK] Completed
+  [SKIP 11/14] 10011 (not in only_items)
+  [SKIP 12/14] 10012 (not in only_items)
+  [SKIP 13/14] 10013 (not in only_items)
+
+  [BATCH 14/14] 10014
+    Variables: {'template_id': '10014', 'skill_id': 'M10-08', 'skill': 'Student can select explanation that correctly describes why one fraction is greater'}...
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: problem_generator
+======================================================================
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+    Resolving doc: difficulty_levels.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\difficulty_levels.md
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 24 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_01_problem_generator\prompts\10014.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 597
+  output_tokens: 657
+  total_tokens: 1254
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7704
+  cache_savings: 90% (saved 7704 tokens)
+
+======================================================================
+Building prompt: problem_generator
+======================================================================
+  Loading prompt definition: problem_generator
+  [OK] Loaded PROBLEM_GENERATOR_PROMPT
+    Resolving doc: difficulty_levels.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\difficulty_levels.md
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 24 chars
+    [VALIDATE] Running content validation...
+    [FAIL] Content validation failed!
+      Error 1: Duplicate parameters in problems #1 and #2: same tier (CHALLENGE), same template (10014), same problem structure. Problems differ only in numerical values but share identical pedagogical intent and difficulty.
+      Error 2: Duplicate parameters in problems #1 and #3: same tier (CHALLENGE), same template (10014), same problem structure. Problems differ only in numerical values but share identical pedagogical intent and difficulty.
+      Error 3: Duplicate parameters in problems #2 and #3: same tier (CHALLENGE), same template (10014), same problem structure. Problems differ only in numerical values but share identical pedagogical intent and difficulty.
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 2/14
+    Skipped: 12
+    Errors: 0
+    Saved content validation errors to: step_01_problem_generator\content_validation_errors.json
+
+  [VALIDATION WARNINGS]
+    Total items with validation failures: 2
+    - Content validation failures: 2
+    Review validation errors in: step_01_problem_generator/
+    Pipeline will continue...
+  [SAVE] Saved 9 items to: step_01_problem_generator\problem_generator.json
+
+[STEP 2/16] [AI] sequence_structurer
+  [SKIP] Outside execution range (1-1)
+
+[STEP 3/16] [FORMATTING] flatten_steps
+  [SKIP] Outside execution range (1-1)
+
+[STEP 4/16] [AI] generic_remediation_generator
+  [SKIP] Outside execution range (1-1)
+
+[STEP 5/16] [FORMATTING] combine_steps
+  [SKIP] Outside execution range (1-1)
+
+[STEP 6/16] [AI] godot_formatter
+  [SKIP] Outside execution range (1-1)
+
+[STEP 7/16] [FORMATTING] main
+  [SKIP] Outside execution range (1-1)
+
+[STEP 8/16] [FORMATTING] main
+  [SKIP] Outside execution range (1-1)
+
+[STEP 9/16] [FORMATTING] add_component_to_metadata
+  [SKIP] Outside execution range (1-1)
+
+[STEP 10/16] [FORMATTING] wrap_in_sequence_pool
+  [SKIP] Outside execution range (1-1)
+
+[STEP 11/16] [FORMATTING] add_summary
+  [SKIP] Outside execution range (1-1)
+
+[STEP 12/16] [FORMATTING] apply_vocab_formatting
+  [SKIP] Outside execution range (1-1)
+
+[STEP 13/16] [FORMATTING] apply_fraction_formatting
+  [SKIP] Outside execution range (1-1)
+
+[STEP 14/16] [FORMATTING] main
+  [SKIP] Outside execution range (1-1)
+
+[STEP 15/16] [FORMATTING] add_empty_workspace_to_first_step
+  [SKIP] Outside execution range (1-1)
+
+[STEP 16/16] [FORMATTING] sample_per_template
+  [SKIP] Outside execution range (1-1)
+
+======================================================================
+PIPELINE COMPLETE
+Version: v8
+Status: draft
+Duration: 38.2s
+Output: outputs/problem_pool_generator_module_10_path_b/latest/
+======================================================================
+  [TEMPLATES] Using: modules\module10\problem_templates.json
+
+======================================================================
+RUNNING PIPELINE
+Steps: 16
+Output Directory: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8
+======================================================================
+
+[STEP 1/16] [AI] problem_generator
+  [SKIP] Outside execution range (2-16)
+
+[STEP 2/16] [AI] sequence_structurer
+  [DIR] step_02_sequence_structurer
+  [AUTO-CHAIN] Using base version: v8/step_01_problem_generator\problem_generator.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_01_problem_generator\problem_generator.json
+  [DEBUG] File size: 60660 bytes
+  [DEBUG] Read 59223 chars from 60660 bytes
+  [OK] Loaded 59223 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 66 items from JSON array
+  [RERUN] Processing only: ['48', '49', '50', '51', '52', '53', '71', '72', '73']
+  [SKIP 1/66] 1 (copied from base)
+  [SKIP 2/66] 2 (copied from base)
+  [SKIP 3/66] 3 (copied from base)
+  [SKIP 4/66] 4 (copied from base)
+  [SKIP 5/66] 5 (copied from base)
+  [SKIP 6/66] 6 (copied from base)
+  [SKIP 7/66] 7 (copied from base)
+  [SKIP 8/66] 8 (copied from base)
+  [SKIP 9/66] 9 (copied from base)
+  [SKIP 10/66] 10 (copied from base)
+  [SKIP 11/66] 11 (copied from base)
+  [SKIP 12/66] 12 (copied from base)
+  [SKIP 13/66] 13 (copied from base)
+  [SKIP 14/66] 14 (copied from base)
+  [SKIP 15/66] 15 (copied from base)
+  [SKIP 16/66] 16 (copied from base)
+  [SKIP 17/66] 17 (copied from base)
+  [SKIP 18/66] 21 (copied from base)
+  [SKIP 19/66] 22 (copied from base)
+  [SKIP 20/66] 23 (copied from base)
+  [SKIP 21/66] 24 (copied from base)
+  [SKIP 22/66] 25 (copied from base)
+  [SKIP 23/66] 26 (copied from base)
+  [SKIP 24/66] 27 (copied from base)
+  [SKIP 25/66] 28 (copied from base)
+  [SKIP 26/66] 29 (copied from base)
+  [SKIP 27/66] 30 (copied from base)
+  [SKIP 28/66] 31 (copied from base)
+  [SKIP 29/66] 32 (copied from base)
+  [SKIP 30/66] 33 (copied from base)
+  [SKIP 31/66] 34 (copied from base)
+  [SKIP 32/66] 35 (copied from base)
+  [SKIP 33/66] 36 (copied from base)
+  [SKIP 34/66] 37 (copied from base)
+  [SKIP 35/66] 38 (copied from base)
+  [SKIP 36/66] 39 (copied from base)
+  [SKIP 37/66] 40 (copied from base)
+  [SKIP 38/66] 41 (copied from base)
+  [SKIP 39/66] 42 (copied from base)
+  [SKIP 40/66] 43 (copied from base)
+
+  [BATCH 41/66] 48
+    Variables: {'problem_instance_id': 48, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\48.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 527
+  output_tokens: 1368
+  total_tokens: 1895
+  requests: 1
+  cache_creation_tokens: 8315
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 42/66] 49
+    Variables: {'problem_instance_id': 49, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\49.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 527
+  output_tokens: 1437
+  total_tokens: 1964
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8315
+  cache_savings: 90% (saved 8315 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 43/66] 50
+    Variables: {'problem_instance_id': 50, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\50.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 534
+  output_tokens: 1395
+  total_tokens: 1929
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8315
+  cache_savings: 90% (saved 8315 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 44/66] 51
+    Variables: {'problem_instance_id': 51, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\51.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 516
+  output_tokens: 1289
+  total_tokens: 1805
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8315
+  cache_savings: 90% (saved 8315 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 121 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 45/66] 52
+    Variables: {'problem_instance_id': 52, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\52.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 521
+  output_tokens: 1980
+  total_tokens: 2501
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8315
+  cache_savings: 90% (saved 8315 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+    [VALIDATE] Running content validation...
+    [FAIL] Content validation failed!
+      Error 1: Step 3: click_choice tool requires options array in workspace, but none provided
+      Error 2: Step 3: Answer 'a' not found in workspace - no selectable options defined
+    [OK] Completed
+
+  [BATCH 46/66] 53
+    Variables: {'problem_instance_id': 53, 'template_id': '10010', 'problem_type': 'Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10010: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\53.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 533
+  output_tokens: 2255
+  total_tokens: 2788
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8315
+  cache_savings: 90% (saved 8315 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 120 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+  [SKIP 47/66] 54 (copied from base)
+  [SKIP 48/66] 55 (copied from base)
+  [SKIP 49/66] 56 (copied from base)
+  [SKIP 50/66] 57 (copied from base)
+  [SKIP 51/66] 58 (copied from base)
+  [SKIP 52/66] 59 (copied from base)
+  [SKIP 53/66] 60 (copied from base)
+  [SKIP 54/66] 61 (copied from base)
+  [SKIP 55/66] 62 (copied from base)
+  [SKIP 56/66] 63 (copied from base)
+  [SKIP 57/66] 64 (copied from base)
+  [SKIP 58/66] 65 (copied from base)
+  [SKIP 59/66] 66 (copied from base)
+  [SKIP 60/66] 67 (copied from base)
+  [SKIP 61/66] 68 (copied from base)
+  [SKIP 62/66] 69 (copied from base)
+  [SKIP 63/66] 70 (copied from base)
+
+  [BATCH 64/66] 71
+    Variables: {'problem_instance_id': 71, 'template_id': '10014', 'problem_type': 'Student selects best explanation from choices about why a comparison is true'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10014: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\71.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 378
+  output_tokens: 414
+  total_tokens: 792
+  requests: 1
+  cache_creation_tokens: 8295
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 65/66] 72
+    Variables: {'problem_instance_id': 72, 'template_id': '10014', 'problem_type': 'Student selects best explanation from choices about why a comparison is true'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10014: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\72.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 386
+  output_tokens: 430
+  total_tokens: 816
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8295
+  cache_savings: 90% (saved 8295 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH 66/66] 73
+    Variables: {'problem_instance_id': 73, 'template_id': '10014', 'problem_type': 'Student selects best explanation from choices about why a comparison is true'}...
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    [TEMPLATE] Loaded 10014: ['mastery_verb', 'success_dialogue', 'skill']
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\prompts\73.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 381
+  output_tokens: 425
+  total_tokens: 806
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 8295
+  cache_savings: 90% (saved 8295 tokens)
+
+======================================================================
+Building prompt: sequence_structurer
+======================================================================
+  Loading prompt definition: sequence_structurer
+  [OK] Loaded SEQUENCE_STRUCTURER_PROMPT
+    Resolving doc: visuals.md
+    [OK] Loaded from: C:\git\script_generator-content\modules\module10\pathb\visuals.md
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\guide_design.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 122 chars
+    [VALIDATE] Running content validation...
+    [OK] Content validation passed
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 66/66
+    Skipped: 57
+    Errors: 0
+    Saved content validation errors to: step_02_sequence_structurer\content_validation_errors.json
+
+  [VALIDATION WARNINGS]
+    Total items with validation failures: 1
+    - Content validation failures: 1
+    Review validation errors in: step_02_sequence_structurer/
+    Pipeline will continue...
+  [SAVE] Saved 66 items to: step_02_sequence_structurer\sequence_structurer.json
+
+[STEP 3/16] [FORMATTING] flatten_steps
+  [DIR] step_03_flatten_steps
+  [AUTO-CHAIN] Using previous step output: step_02_sequence_structurer\sequence_structurer.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_02_sequence_structurer\sequence_structurer.json
+  [DEBUG] File size: 169417 bytes
+  [DEBUG] Read 163446 chars from 169417 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'input_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_03_flatten_steps\flatten_steps.json
+
+[STEP 4/16] [AI] generic_remediation_generator
+  [DIR] step_04_generic_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_03_flatten_steps\flatten_steps.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_03_flatten_steps\flatten_steps.json
+  [DEBUG] File size: 149981 bytes
+  [DEBUG] Read 144154 chars from 149981 bytes
+  [OK] Loaded 144154 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 78 items from JSON array
+  [RERUN] Processing only: ['48', '49', '50', '51', '52', '53', '71', '72', '73']
+  [SKIP 1/78] 1_1 (copied from base)
+  [SKIP 2/78] 2_1 (copied from base)
+  [SKIP 3/78] 3_1 (copied from base)
+  [SKIP 4/78] 4_1 (copied from base)
+  [SKIP 5/78] 5_1 (copied from base)
+  [SKIP 6/78] 6_1 (copied from base)
+  [SKIP 7/78] 7_1 (copied from base)
+  [SKIP 8/78] 8_1 (copied from base)
+  [SKIP 9/78] 9_1 (copied from base)
+  [SKIP 10/78] 10_1 (copied from base)
+  [SKIP 11/78] 11_1 (copied from base)
+  [SKIP 12/78] 12_1 (copied from base)
+  [SKIP 13/78] 13_1 (copied from base)
+  [SKIP 14/78] 14_1 (copied from base)
+  [SKIP 15/78] 15_1 (copied from base)
+  [SKIP 16/78] 16_1 (copied from base)
+  [SKIP 17/78] 17_1 (copied from base)
+  [SKIP 18/78] 21_1 (copied from base)
+  [SKIP 19/78] 22_1 (copied from base)
+  [SKIP 20/78] 23_1 (copied from base)
+  [SKIP 21/78] 24_1 (copied from base)
+  [SKIP 22/78] 25_1 (copied from base)
+  [SKIP 23/78] 26_1 (copied from base)
+  [SKIP 24/78] 27_1 (copied from base)
+  [SKIP 25/78] 28_1 (copied from base)
+  [SKIP 26/78] 29_1 (copied from base)
+  [SKIP 27/78] 30_1 (copied from base)
+  [SKIP 28/78] 31_1 (copied from base)
+  [SKIP 29/78] 32_1 (copied from base)
+  [SKIP 30/78] 33_1 (copied from base)
+  [SKIP 31/78] 34_1 (copied from base)
+  [SKIP 32/78] 35_1 (copied from base)
+  [SKIP 33/78] 36_1 (copied from base)
+  [SKIP 34/78] 37_1 (copied from base)
+  [SKIP 35/78] 38_1 (copied from base)
+  [SKIP 36/78] 39_1 (copied from base)
+  [SKIP 37/78] 40_1 (copied from base)
+  [SKIP 38/78] 41_1 (copied from base)
+  [SKIP 39/78] 42_1 (copied from base)
+  [SKIP 40/78] 43_1 (copied from base)
+
+  [BATCH 41/78] 48_1
+    Variables: {'problem_id': 48, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1155 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\48_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1015
+  output_tokens: 249
+  total_tokens: 1264
+  requests: 1
+  cache_creation_tokens: 3482
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1155 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 42/78] 48_2
+    Variables: {'problem_id': 48, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1201 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\48_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1053
+  output_tokens: 253
+  total_tokens: 1306
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1201 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 43/78] 48_3
+    Variables: {'problem_id': 48, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1480 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\48_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1334
+  output_tokens: 305
+  total_tokens: 1639
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1480 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 44/78] 49_1
+    Variables: {'problem_id': 49, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1277 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\49_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1066
+  output_tokens: 323
+  total_tokens: 1389
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1277 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 45/78] 49_2
+    Variables: {'problem_id': 49, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1261 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\49_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1074
+  output_tokens: 231
+  total_tokens: 1305
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1261 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 46/78] 49_3
+    Variables: {'problem_id': 49, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1601 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\49_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1392
+  output_tokens: 233
+  total_tokens: 1625
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1601 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 47/78] 50_1
+    Variables: {'problem_id': 50, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1184 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\50_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1032
+  output_tokens: 221
+  total_tokens: 1253
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1184 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 48/78] 50_2
+    Variables: {'problem_id': 50, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1165 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\50_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1038
+  output_tokens: 258
+  total_tokens: 1296
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1165 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 49/78] 50_3
+    Variables: {'problem_id': 50, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1537 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\50_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1392
+  output_tokens: 259
+  total_tokens: 1651
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1537 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 50/78] 51_1
+    Variables: {'problem_id': 51, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1096 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\51_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 930
+  output_tokens: 209
+  total_tokens: 1139
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1096 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 51/78] 51_2
+    Variables: {'problem_id': 51, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1136 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\51_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 970
+  output_tokens: 248
+  total_tokens: 1218
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1136 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 52/78] 51_3
+    Variables: {'problem_id': 51, 'mastery_tier': 'BASELINE', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1497 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\51_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1300
+  output_tokens: 269
+  total_tokens: 1569
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1497 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 53/78] 52_1
+    Variables: {'problem_id': 52, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1826 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\52_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1521
+  output_tokens: 232
+  total_tokens: 1753
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1826 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 54/78] 52_2
+    Variables: {'problem_id': 52, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1801 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\52_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1532
+  output_tokens: 260
+  total_tokens: 1792
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1801 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 55/78] 52_3
+    Variables: {'problem_id': 52, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1891 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\52_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1644
+  output_tokens: 271
+  total_tokens: 1915
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1891 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 56/78] 53_1
+    Variables: {'problem_id': 53, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1840 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\53_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1648
+  output_tokens: 243
+  total_tokens: 1891
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1840 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 57/78] 53_2
+    Variables: {'problem_id': 53, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1849 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\53_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1662
+  output_tokens: 257
+  total_tokens: 1919
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1849 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 58/78] 53_3
+    Variables: {'problem_id': 53, 'mastery_tier': 'STRETCH', 'mastery_verb': 'compare'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 2242 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\53_3.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1998
+  output_tokens: 282
+  total_tokens: 2280
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 2242 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 59/78] 54_1 (copied from base)
+  [SKIP 60/78] 55_1 (copied from base)
+  [SKIP 61/78] 56_1 (copied from base)
+  [SKIP 62/78] 57_1 (copied from base)
+  [SKIP 63/78] 58_1 (copied from base)
+  [SKIP 64/78] 59_1 (copied from base)
+  [SKIP 65/78] 60_1 (copied from base)
+  [SKIP 66/78] 61_1 (copied from base)
+  [SKIP 67/78] 62_1 (copied from base)
+  [SKIP 68/78] 63_1 (copied from base)
+  [SKIP 69/78] 64_1 (copied from base)
+  [SKIP 70/78] 65_1 (copied from base)
+  [SKIP 71/78] 66_1 (copied from base)
+  [SKIP 72/78] 67_1 (copied from base)
+  [SKIP 73/78] 68_1 (copied from base)
+  [SKIP 74/78] 69_1 (copied from base)
+  [SKIP 75/78] 70_1 (copied from base)
+
+  [BATCH 76/78] 71_1
+    Variables: {'problem_id': 71, 'mastery_tier': 'CHALLENGE', 'mastery_verb': 'analyze'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1190 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\71_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 915
+  output_tokens: 292
+  total_tokens: 1207
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1190 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 77/78] 72_1
+    Variables: {'problem_id': 72, 'mastery_tier': 'CHALLENGE', 'mastery_verb': 'analyze'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1197 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\72_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 948
+  output_tokens: 269
+  total_tokens: 1217
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1197 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 78/78] 73_1
+    Variables: {'problem_id': 73, 'mastery_tier': 'CHALLENGE', 'mastery_verb': 'analyze'}...
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1220 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\prompts\73_1.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 937
+  output_tokens: 279
+  total_tokens: 1216
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 3482
+  cache_savings: 90% (saved 3482 tokens)
+
+======================================================================
+Building prompt: generic_remediation_generator
+======================================================================
+  Loading prompt definition: generic_remediation_generator
+  [OK] Loaded GENERIC_REMEDIATION_GENERATOR_PROMPT
+    Resolving doc: remediation_system.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\remediation_system.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1220 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 78/78
+    Skipped: 57
+    Errors: 0
+  [SAVE] Saved 78 items to: step_04_generic_remediation_generator\generic_remediation_generator.json
+
+[STEP 5/16] [FORMATTING] combine_steps
+  [DIR] step_05_combine_steps
+  [AUTO-CHAIN] Using previous step output: step_04_generic_remediation_generator\generic_remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_04_generic_remediation_generator\generic_remediation_generator.json
+  [DEBUG] File size: 233955 bytes
+  [DEBUG] Read 226880 chars from 233955 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'input_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_combine_steps\combine_steps.json
+
+[STEP 6/16] [AI] godot_formatter
+  [DIR] step_06_godot_formatter
+  [AUTO-CHAIN] Using previous step output: step_05_combine_steps\combine_steps.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_05_combine_steps\combine_steps.json
+  [DEBUG] File size: 259163 bytes
+  [DEBUG] Read 251932 chars from 259163 bytes
+  [OK] Loaded 251932 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 66 items from JSON array
+  [RERUN] Processing only: ['48', '49', '50', '51', '52', '53', '71', '72', '73']
+  [SKIP 1/66] 1 (copied from base)
+  [SKIP 2/66] 2 (copied from base)
+  [SKIP 3/66] 3 (copied from base)
+  [SKIP 4/66] 4 (copied from base)
+  [SKIP 5/66] 5 (copied from base)
+  [SKIP 6/66] 6 (copied from base)
+  [SKIP 7/66] 7 (copied from base)
+  [SKIP 8/66] 8 (copied from base)
+  [SKIP 9/66] 9 (copied from base)
+  [SKIP 10/66] 10 (copied from base)
+  [SKIP 11/66] 11 (copied from base)
+  [SKIP 12/66] 12 (copied from base)
+  [SKIP 13/66] 13 (copied from base)
+  [SKIP 14/66] 14 (copied from base)
+  [SKIP 15/66] 15 (copied from base)
+  [SKIP 16/66] 16 (copied from base)
+  [SKIP 17/66] 17 (copied from base)
+  [SKIP 18/66] 21 (copied from base)
+  [SKIP 19/66] 22 (copied from base)
+  [SKIP 20/66] 23 (copied from base)
+  [SKIP 21/66] 24 (copied from base)
+  [SKIP 22/66] 25 (copied from base)
+  [SKIP 23/66] 26 (copied from base)
+  [SKIP 24/66] 27 (copied from base)
+  [SKIP 25/66] 28 (copied from base)
+  [SKIP 26/66] 29 (copied from base)
+  [SKIP 27/66] 30 (copied from base)
+  [SKIP 28/66] 31 (copied from base)
+  [SKIP 29/66] 32 (copied from base)
+  [SKIP 30/66] 33 (copied from base)
+  [SKIP 31/66] 34 (copied from base)
+  [SKIP 32/66] 35 (copied from base)
+  [SKIP 33/66] 36 (copied from base)
+  [SKIP 34/66] 37 (copied from base)
+  [SKIP 35/66] 38 (copied from base)
+  [SKIP 36/66] 39 (copied from base)
+  [SKIP 37/66] 40 (copied from base)
+  [SKIP 38/66] 41 (copied from base)
+  [SKIP 39/66] 42 (copied from base)
+  [SKIP 40/66] 43 (copied from base)
+
+  [BATCH 41/66] 48
+    Variables: {'mastery_verb': 'compare', 'fractions': ['2/6', '5/6'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\48.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2872
+  output_tokens: 2546
+  total_tokens: 5418
+  requests: 1
+  cache_creation_tokens: 19098
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 42/66] 49
+    Variables: {'mastery_verb': 'compare', 'fractions': ['2/7', '4/7'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\49.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2916
+  output_tokens: 2367
+  total_tokens: 5283
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 43/66] 50
+    Variables: {'mastery_verb': 'compare', 'fractions': ['3/8', '5/8'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\50.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2838
+  output_tokens: 2320
+  total_tokens: 5158
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 44/66] 51
+    Variables: {'mastery_verb': 'compare', 'fractions': ['1/4', '3/4'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\51.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2671
+  output_tokens: 2297
+  total_tokens: 4968
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 639 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 45/66] 52
+    Variables: {'mastery_verb': 'compare', 'fractions': ['1/6', '4/6'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\52.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 3604
+  output_tokens: 1927
+  total_tokens: 5531
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 46/66] 53
+    Variables: {'mastery_verb': 'compare', 'fractions': ['1/8', '6/8'], 'template_id': '10010'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10010: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\53.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 3987
+  output_tokens: 2352
+  total_tokens: 6339
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 637 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 47/66] 54 (copied from base)
+  [SKIP 48/66] 55 (copied from base)
+  [SKIP 49/66] 56 (copied from base)
+  [SKIP 50/66] 57 (copied from base)
+  [SKIP 51/66] 58 (copied from base)
+  [SKIP 52/66] 59 (copied from base)
+  [SKIP 53/66] 60 (copied from base)
+  [SKIP 54/66] 61 (copied from base)
+  [SKIP 55/66] 62 (copied from base)
+  [SKIP 56/66] 63 (copied from base)
+  [SKIP 57/66] 64 (copied from base)
+  [SKIP 58/66] 65 (copied from base)
+  [SKIP 59/66] 66 (copied from base)
+  [SKIP 60/66] 67 (copied from base)
+  [SKIP 61/66] 68 (copied from base)
+  [SKIP 62/66] 69 (copied from base)
+  [SKIP 63/66] 70 (copied from base)
+
+  [BATCH 64/66] 71
+    Variables: {'mastery_verb': 'analyze', 'fractions': ['5/8', '2/8'], 'template_id': '10014'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10014: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 587 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\71.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1030
+  output_tokens: 774
+  total_tokens: 1804
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 587 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 65/66] 72
+    Variables: {'mastery_verb': 'analyze', 'fractions': ['7/10', '3/10'], 'template_id': '10014'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10014: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 589 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\72.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1023
+  output_tokens: 761
+  total_tokens: 1784
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 589 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 66/66] 73
+    Variables: {'mastery_verb': 'analyze', 'fractions': ['9/12', '4/12'], 'template_id': '10014'}...
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    [TEMPLATE] Loaded 10014: ['problem_type', 'skill', 'mastery_verb', 'skill_id']
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 589 chars
+  [SAVE] Saved prompt to: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\prompts\73.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1028
+  output_tokens: 788
+  total_tokens: 1816
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 19098
+  cache_savings: 90% (saved 19098 tokens)
+
+======================================================================
+Building prompt: godot_formatter
+======================================================================
+  Loading prompt definition: godot_formatter
+  [OK] Loaded GODOT_FORMATTER_PROMPT
+    Resolving doc: sequence.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\sequence.md
+    Resolving doc: tools.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\tools.md
+    Resolving doc: validators.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\validators.md
+    Resolving doc: workspace.md
+    [OK] Loaded from: C:\git\script_generator-content\docs\workspace.md
+  [OK] Built prompt with 7 system blocks
+  [OK] Prefill: 589 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 66/66
+    Skipped: 57
+    Errors: 0
+  [SAVE] Saved 66 items to: step_06_godot_formatter\godot_formatter.json
+
+[STEP 7/16] [FORMATTING] main
+  [DIR] step_07_main
+  [AUTO-CHAIN] Using previous step output: step_06_godot_formatter\godot_formatter.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_06_godot_formatter\godot_formatter.json
+  [DEBUG] File size: 324311 bytes
+  [DEBUG] Read 314423 chars from 324311 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+  [TAG] Seq18/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq19/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq20/Step1: prepended [event:Change_sign_to_equals]
+  [TAG] Seq21/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq22/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq23/Step1: prepended [event:Change_sign_to_equals]
+  [TAG] Seq24/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq25/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq26/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq27/Step1: prepended [event:Change_sign_to_equals]
+  [TAG] Seq28/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq29/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq30/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq41/Step3: prepended [event:Change_sign_to_less]
+  [TAG] Seq42/Step3: prepended [event:Change_sign_to_less]
+  [TAG] Seq43/Step3: prepended [event:Change_sign_to_less]
+  [TAG] Seq44/Step3: prepended [event:Change_sign_to_less]
+  [TAG] Seq46/Step3: prepended [event:Change_sign_to_less]
+  [TAG] Seq47/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq48/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq49/Step1: prepended [event:Change_sign_to_equals]
+  [TAG] Seq50/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq51/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq52/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq53/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq54/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq55/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq56/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq57/Step1: prepended [event:Change_sign_to_greater]
+  [TAG] Seq58/Step1: prepended [event:Change_sign_to_less]
+  [TAG] Seq59/Step1: prepended [event:Change_sign_to_greater]
+
+[COMPARISON EVENT TAGGER] Tagged 31 on_correct dialogue(s)
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_07_main\main.json
+
+[STEP 8/16] [FORMATTING] main
+  [DIR] step_08_main
+  [AUTO-CHAIN] Using previous step output: step_07_main\main.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_07_main\main.json
+  [DEBUG] File size: 325220 bytes
+  [DEBUG] Read 315332 chars from 325220 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+
+[BENCHMARK LABEL HIDER] Set is_label_visible=false on 0 benchmark(s)
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_08_main\main.json
+
+[STEP 9/16] [FORMATTING] add_component_to_metadata
+  [DIR] step_09_add_component_to_metadata
+  [AUTO-CHAIN] Using previous step output: step_08_main\main.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_08_main\main.json
+  [DEBUG] File size: 325220 bytes
+  [DEBUG] Read 315332 chars from 325220 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_add_component_to_metadata\add_component_to_metadata.json
+
+[STEP 10/16] [FORMATTING] wrap_in_sequence_pool
+  [DIR] step_10_wrap_in_sequence_pool
+  [AUTO-CHAIN] Using previous step output: step_09_add_component_to_metadata\add_component_to_metadata.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_09_add_component_to_metadata\add_component_to_metadata.json
+  [DEBUG] File size: 330368 bytes
+  [DEBUG] Read 320348 chars from 330368 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing path_letter=b
+  [EXEC] Passing input to parameter 'sequences_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_10_wrap_in_sequence_pool\wrap_in_sequence_pool.json
+
+[STEP 11/16] [FORMATTING] add_summary
+  [DIR] step_11_add_summary
+  [AUTO-CHAIN] Using previous step output: step_10_wrap_in_sequence_pool\wrap_in_sequence_pool.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_10_wrap_in_sequence_pool\wrap_in_sequence_pool.json
+  [DEBUG] File size: 350457 bytes
+  [DEBUG] Read 340434 chars from 350457 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing path_letter=b
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_11_add_summary\add_summary.json
+
+[STEP 12/16] [FORMATTING] apply_vocab_formatting
+  [DIR] step_12_apply_vocab_formatting
+  [AUTO-CHAIN] Using previous step output: step_11_add_summary\add_summary.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_11_add_summary\add_summary.json
+  [DEBUG] File size: 352302 bytes
+  [DEBUG] Read 342193 chars from 352302 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing input to parameter 'godot_data'
+[OK] Loaded 34 vocabulary terms from Module 10
+[OK] Vocab formatting complete
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_12_apply_vocab_formatting\apply_vocab_formatting.json
+
+[STEP 13/16] [FORMATTING] apply_fraction_formatting
+  [DIR] step_13_apply_fraction_formatting
+  [AUTO-CHAIN] Using previous step output: step_12_apply_vocab_formatting\apply_vocab_formatting.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_12_apply_vocab_formatting\apply_vocab_formatting.json
+  [DEBUG] File size: 362802 bytes
+  [DEBUG] Read 352693 chars from 362802 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing input to parameter 'godot_data'
+[OK] Fraction formatting complete
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_13_apply_fraction_formatting\apply_fraction_formatting.json
+
+[STEP 14/16] [FORMATTING] main
+  [DIR] step_14_main
+  [AUTO-CHAIN] Using previous step output: step_13_apply_fraction_formatting\apply_fraction_formatting.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_13_apply_fraction_formatting\apply_fraction_formatting.json
+  [DEBUG] File size: 385987 bytes
+  [DEBUG] Read 375878 chars from 385987 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq41
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['2/6']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq41/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  ADDED (fraction ticks): ['1/6', '3/6', '4/6', '5/6']
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '3/6', '4/6', '5/6']
+
+[DEBUG] READONLY FIXED - Seq41/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '3/6', '4/6', '5/6']
+
+[DEBUG] READONLY UPDATED - Seq41/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  ADDED (fraction ticks): ['1/6', '3/6', '4/6', '5/6']
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '3/6', '4/6', '5/6']
+
+[DEBUG] READONLY FIXED - Seq41/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '3/6', '4/6', '5/6']
+
+[DEBUG] READONLY UPDATED - Seq41/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  ADDED (fraction ticks): ['1/6', '2/6', '3/6', '4/6']
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '2/6', '3/6', '4/6']
+
+[DEBUG] READONLY FIXED - Seq41/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '2/6', '3/6', '4/6']
+
+[DEBUG] READONLY UPDATED - Seq41/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  ADDED (fraction ticks): ['1/6', '2/6', '3/6', '4/6']
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '2/6', '3/6', '4/6']
+
+[DEBUG] READONLY FIXED - Seq41/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1', '1/6', '2/6', '3/6', '4/6']
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq42
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['2/7']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq42/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq42/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq42/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq42/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq42/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq42/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq42/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq42/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq43
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['3/8']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq43/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq43/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq43/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq43/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq43/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq43/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq43/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq43/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq44
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['1/4']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq44/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq44/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq44/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq44/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq44/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq44/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq44/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq44/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq45
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Workspace duplicated from step 1
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['1/6']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq45/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq45/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq45/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq45/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq45/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq45/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq45/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq45/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+======================================================================
+DUAL NUMLINE SEQUENTIAL PATTERN DETECTED - Seq46
+======================================================================
+
+[DEBUG] DUAL NUMLINE STEP 1 - Lock second NumLine
+  NumLine[1] set to read-only (student can only interact with first line)
+
+[DEBUG] DUAL NUMLINE STEP 2 - Setup complete
+  NumLine[0]: Locked with pre-placed points from step 1: ['1/8']
+  NumLine[1]: Interactive (student can place points on second line)
+
+[DEBUG] READONLY UPDATED - Seq46/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq46/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq46/Step1
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq46/Step1
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq46/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq46/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY UPDATED - Seq46/Step2
+  Mode: MULTI-LABEL (direct placement)
+  ADDED (whole numbers): ['0', '1']
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+[DEBUG] READONLY FIXED - Seq46/Step2
+  Removed: []
+  BEFORE: []
+  AFTER:  ['0', '1']
+
+======================================================================
+NUMLINE FIXER SUMMARY
+======================================================================
+[OK] Readonly fixed: 24 NumLines
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_14_main\main.json
+
+[STEP 15/16] [FORMATTING] add_empty_workspace_to_first_step
+  [DIR] step_15_add_empty_workspace_to_first_step
+  [AUTO-CHAIN] Using previous step output: step_14_main\main.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_14_main\main.json
+  [DEBUG] File size: 389466 bytes
+  [DEBUG] Read 379215 chars from 389466 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing path_letter=b
+  [EXEC] Passing input to parameter 'sequences_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_15_add_empty_workspace_to_first_step\add_empty_workspace_to_first_step.json
+
+[STEP 16/16] [FORMATTING] sample_per_template
+  [DIR] step_16_sample_per_template
+  [AUTO-CHAIN] Using previous step output: step_15_add_empty_workspace_to_first_step\add_empty_workspace_to_first_step.json
+  [LOAD] Reading: C:\git\script_generator-content\outputs\problem_pool_generator_module_10_path_b\v8\step_15_add_empty_workspace_to_first_step\add_empty_workspace_to_first_step.json
+  [DEBUG] File size: 389790 bytes
+  [DEBUG] Read 379527 chars from 389790 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=10
+  [EXEC] Passing path_letter=b
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_16_sample_per_template\sample_per_template.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v8
+Status: draft
+Duration: 516.6s
+Output: outputs/problem_pool_generator_module_10_path_b/latest/
+======================================================================

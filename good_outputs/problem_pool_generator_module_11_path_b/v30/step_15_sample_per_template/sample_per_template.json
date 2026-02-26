@@ -1,0 +1,2269 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 3,
+        "template_id": "11001",
+        "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct symbol to compare them",
+        "identifiers": [
+          "3/8",
+          "5/8"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can place two same-denominator fractions on stacked number lines and select the correct comparison symbol",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-01",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            5,
+            8
+          ],
+          "misconception_tag": [
+            "counting_tick_marks_instead_of_spaces",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Let's place [vocab]three-[/vocab][vocab]eighths[/vocab] on the top number line.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 16,
+                "ticks_is_read_only": [
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "is_read_only": true,
+                "lcm": 16,
+                "ticks_is_read_only": [
+                  "0",
+                  "1"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a point at [fraction numerator=3 denominator=8][/fraction] on the top number line.",
+            "tool": {
+              "@type": "Move",
+              "mode": "points",
+              "allow_multiple": false,
+              "palette": {
+                "@type": "Palette",
+                "stacks": [
+                  {
+                    "@type": "PointStack"
+                  }
+                ]
+              }
+            },
+            "validator": {
+              "@type": "PointValidator",
+              "answer": [
+                "3/8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count three [vocab]eighths[/vocab] from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. [vocab]Three-[/vocab][vocab]eighths[/vocab] means 3 out of 8 equal parts. Start at zero and count 3 of the [vocab]eighths[/vocab] along the number line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through placing [vocab]three-[/vocab][vocab]eighths[/vocab]. The number line is divided into [vocab]eighths[/vocab] - that means 8 equal parts from 0 to 1. To find [vocab]three-[/vocab][vocab]eighths[/vocab], we start at zero and count 3 of those [vocab]eighths[/vocab]. [vocab]One-[/vocab][vocab]eighth[/vocab], [vocab]two-[/vocab][vocab]eighths[/vocab], [vocab]three-[/vocab][vocab]eighths[/vocab] - that's the [vocab]third[/vocab] tick mark from zero. That's where [vocab]three-[/vocab][vocab]eighths[/vocab] belongs on the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You placed the point at [vocab]three-[/vocab][vocab]eighths[/vocab]."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now place [vocab]five-[/vocab][vocab]eighths[/vocab] on the bottom number line.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "points": [
+                  "3/8"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "is_read_only": true,
+                "lcm": 16,
+                "ticks_is_read_only": [
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 16,
+                "ticks_is_read_only": [
+                  "0",
+                  "1"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Place a point at [fraction numerator=5 denominator=8][/fraction] on the bottom number line.",
+            "tool": {
+              "@type": "Move",
+              "mode": "points",
+              "allow_multiple": false,
+              "palette": {
+                "@type": "Palette",
+                "stacks": [
+                  {
+                    "@type": "PointStack"
+                  }
+                ]
+              }
+            },
+            "validator": {
+              "@type": "PointValidator",
+              "answer": [
+                "5/8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count five [vocab]eighths[/vocab] from zero on the bottom line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. [vocab]Five-[/vocab][vocab]eighths[/vocab] means 5 out of 8 equal parts. Start at zero on the bottom number line and count 5 tick marks to the right. That's where [vocab]five-[/vocab][vocab]eighths[/vocab] belongs."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through placing [vocab]five-[/vocab][vocab]eighths[/vocab]. The bottom number line is divided into [vocab]eighths[/vocab] - that means 8 equal parts between 0 and 1. To place [vocab]five-[/vocab][vocab]eighths[/vocab], we start at 0 and count 5 of those equal parts to the right. Count with me: [vocab]one-[/vocab][vocab]eighth[/vocab], [vocab]two-[/vocab][vocab]eighths[/vocab], [vocab]three-[/vocab][vocab]eighths[/vocab], [vocab]four-[/vocab][vocab]eighths[/vocab], [vocab]five-[/vocab][vocab]eighths[/vocab]. That's where your point goes - at the [vocab]fifth[/vocab] tick mark from zero. That's how we locate [vocab]five-[/vocab][vocab]eighths[/vocab] on the number line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. You placed [vocab]five-[/vocab][vocab]eighths[/vocab] on the bottom line."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now compare the two fractions.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "points": [
+                  "3/8"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "is_read_only": true,
+                "lcm": 16
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/8",
+                "points": [
+                  "5/8"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "is_read_only": true,
+                "lcm": 16
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "3/8",
+                  " ? ",
+                  "5/8"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Choose the symbol that compares [fraction numerator=3 denominator=8][/fraction] and [fraction numerator=5 denominator=8][/fraction].",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at which point is closer to zero on the number lines."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. When we compare fractions using number lines, the fraction that's farther to the left is the smaller one. Look at where [fraction numerator=3 denominator=8]three eighths[/fraction] and [fraction numerator=5 denominator=8]five eighths[/fraction] are positioned. Which one is closer to zero?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me help you work through this. When we compare fractions on the number line, we look at their positions. The top number line shows [fraction numerator=3 denominator=8]three eighths[/fraction], and the bottom shows [fraction numerator=5 denominator=8]five eighths[/fraction]. Notice that [fraction numerator=3 denominator=8]three eighths[/fraction] is to the left of [fraction numerator=5 denominator=8]five eighths[/fraction] - it's closer to zero. On the number line, fractions to the left are always less than fractions to the right. So [fraction numerator=3 denominator=8]three eighths[/fraction] is less than [fraction numerator=5 denominator=8]five eighths[/fraction]. That means we use the less than symbol: [fraction numerator=3 denominator=8]three eighths[/fraction] < [fraction numerator=5 denominator=8]five eighths[/fraction]. That's how we compare fractions - the one farther left is smaller."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_less] Correct. [vocab]Three-[/vocab][vocab]eighths[/vocab] is less than [vocab]five-[/vocab][vocab]eighths[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 10,
+        "template_id": "11002",
+        "template_skill": "Student views two fractions already marked on stacked number lines and selects the correct symbol",
+        "identifiers": [
+          "2/7",
+          "4/7"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-denominator fractions already placed on stacked number lines",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-01",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8,
+            3
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions",
+            "numerator_denominator_as_independent"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the points on these number lines. Which symbol makes the comparison true?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/7",
+                "points": [
+                  "2/7"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 14
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/7",
+                "points": [
+                  "4/7"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 14
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/7",
+                  " ? ",
+                  "4/7"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which symbol is correct: [fraction numerator=2 denominator=7][/fraction] ? [fraction numerator=4 denominator=7][/fraction]",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check which point is farther to the right on the number line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. On a number line, fractions that are farther to the right are greater. Look at where [fraction numerator=2 denominator=7]two sevenths[/fraction] is, then look at where [fraction numerator=4 denominator=7]four sevenths[/fraction] is. Which one is farther from zero?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. Look at the top number line - the point shows [fraction numerator=2 denominator=7]two sevenths[/fraction]. Now look at the bottom number line - the point shows [fraction numerator=4 denominator=7]four sevenths[/fraction]. When we compare fractions on number lines, the fraction farther to the right is the greater fraction. I can see that [fraction numerator=4 denominator=7]four sevenths[/fraction] is farther to the right than [fraction numerator=2 denominator=7]two sevenths[/fraction], which means [fraction numerator=4 denominator=7]four sevenths[/fraction] is greater. So [fraction numerator=2 denominator=7]two sevenths[/fraction] is less than [fraction numerator=4 denominator=7]four sevenths[/fraction], and we use the less than symbol: [fraction numerator=2 denominator=7]two sevenths[/fraction] < [fraction numerator=4 denominator=7]four sevenths[/fraction]. That's how we use number lines to compare - the point farther right shows the greater fraction."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_less] Right. The point farther to the right shows the greater fraction."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 17,
+        "template_id": "11003",
+        "template_skill": "Student selects the correct symbol to compare two same-denominator fractions shown only as notation",
+        "identifiers": [
+          "4/7",
+          "2/7"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-denominator fractions using only notation",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-02",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension"
+          ],
+          "misconception_id": [
+            3
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. Both are sevenths, so you can compare the numerators to see which is greater.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "4/7",
+                  " ? ",
+                  "2/7"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which symbol compares these fractions correctly?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. When the denominators are the same, compare the numerators."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both fractions are sevenths, so we have the same-sized pieces. When denominators are the same, we just need to compare how many pieces we have. Look at the numerators - which is greater, 4 or 2?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. We have [fraction numerator=4 denominator=7]four sevenths[/fraction] and [fraction numerator=2 denominator=7]two sevenths[/fraction]. Notice both fractions have 7 as the [vocab]denominator[/vocab] - they're both sevenths. When fractions have the same [vocab]denominator[/vocab], we compare the numerators to see which fraction is greater. The numerators are 4 and 2. Since 4 is greater than 2, that means [fraction numerator=4 denominator=7]four sevenths[/fraction] is greater than [fraction numerator=2 denominator=7]two sevenths[/fraction]. So the correct symbol is >. That's how we compare fractions with the same [vocab]denominator[/vocab] - just compare the numerators."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. Same [vocab]denominator[/vocab] means you compare the numerators."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 30,
+        "template_id": "11004",
+        "template_skill": "Student views two bars each with one piece shaded (numerator = 1, different denominators) and selects the correct comparison symbol",
+        "identifiers": [
+          "1/2",
+          "1/6"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for unit fractions by comparing piece sizes shown in bars",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-03",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Each has one piece shaded. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/2",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 2
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 6
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction is greater?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=2][/fraction] is greater than [fraction numerator=1 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=2][/fraction] is equal to [fraction numerator=1 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=2][/fraction] is less than [fraction numerator=1 denominator=6][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of the shaded pieces. Which piece is bigger?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both bars have one piece shaded, but look at how wide each shaded piece is. When we cut something into more pieces, each piece gets smaller. So [vocab]sixths[/vocab] are smaller pieces than [vocab]halves[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. Look at the two bars - they're both the same size whole. The first bar is cut into 2 equal pieces, so each piece is [vocab]one-[/vocab][vocab]half[/vocab]. The second bar is cut into 6 equal pieces, so each piece is [vocab]one-[/vocab][vocab]sixth[/vocab]. Now compare the shaded pieces. The [vocab]one-[/vocab][vocab]half[/vocab] piece is much wider than the [vocab]one-[/vocab][vocab]sixth[/vocab] piece. When we divide something into fewer pieces, each piece is bigger. So [vocab]one-[/vocab][vocab]half[/vocab] is greater than [vocab]one-[/vocab][vocab]sixth[/vocab]. That's how we compare unit fractions - the fewer pieces we cut the whole into, the bigger each piece is."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. [vocab]One-[/vocab][vocab]half[/vocab] is greater than [vocab]one-[/vocab][vocab]sixth[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 37,
+        "template_id": "11005",
+        "template_skill": "Student views two bars with the same number of pieces shaded (numerator > 1, different denominators) and selects the correct comparison symbol",
+        "identifiers": [
+          "3/6",
+          "3/8"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-numerator non-unit fractions by comparing piece sizes in bars",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-03",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Both have the same number of pieces shaded. Which pieces are bigger?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "sum_is_visible": true,
+                "lcm": 6
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "sum_is_visible": true,
+                "lcm": 8
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the correct comparison symbol.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=3 denominator=6][/fraction] > [fraction numerator=3 denominator=8][/fraction]",
+                "[fraction numerator=3 denominator=6][/fraction] = [fraction numerator=3 denominator=8][/fraction]",
+                "[fraction numerator=3 denominator=6][/fraction] < [fraction numerator=3 denominator=8][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of each individual piece in the two bars."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both bars have 3 pieces shaded, but look carefully at how big each piece is. When a bar is cut into fewer pieces, each piece is bigger. Compare [vocab]one-[/vocab][vocab]sixth[/vocab] to [vocab]one-[/vocab][vocab]eighth[/vocab] - which is larger?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. Both bars show 3 shaded pieces, but we need to compare the size of those pieces. The first bar is divided into 6 equal parts - these are [vocab]sixths[/vocab]. The second bar is divided into 8 equal parts - these are [vocab]eighths[/vocab]. When you cut the same whole into more pieces, each piece gets smaller. So [vocab]sixths[/vocab] are bigger than [vocab]eighths[/vocab]. Since we have 3 of the bigger pieces versus 3 of the smaller pieces, [fraction numerator=3 denominator=6]three sixths[/fraction] is greater than [fraction numerator=3 denominator=8]three eighths[/fraction]. When the numerators are the same, the fraction with the smaller [vocab]denominator[/vocab] is larger."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Same count, but bigger pieces win."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 45,
+        "template_id": "11006",
+        "template_skill": "Student views two stacked number lines with points at the same numerator position (different denominators) and selects the correct comparison symbol",
+        "identifiers": [
+          "1/3",
+          "1/6"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-numerator fractions by comparing interval sizes on stacked number lines",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-04",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the two number lines. The points show [fraction numerator=1 denominator=3]one third[/fraction] and [fraction numerator=1 denominator=6]one sixth[/fraction]. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": [
+                  "0",
+                  "1/3",
+                  "2/3",
+                  "1"
+                ],
+                "points": [
+                  "1/3"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 9
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": [
+                  "0",
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  "1"
+                ],
+                "points": [
+                  "1/6"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "1/3",
+                  " ? ",
+                  "1/6"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the symbol to compare these fractions.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at which point is farther from zero on the number lines."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's look at this more carefully. When we compare fractions on number lines, the fraction farther to the right is greater. Check which point - [fraction numerator=1 denominator=3]one third[/fraction] or [fraction numerator=1 denominator=6]one sixth[/fraction] - is closer to 1."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me show you how to compare these fractions. Look at the two number lines. The point at [fraction numerator=1 denominator=3]one third[/fraction] is farther to the right than the point at [fraction numerator=1 denominator=6]one sixth[/fraction]. On a number line, numbers get bigger as we move to the right. Since [fraction numerator=1 denominator=3]one third[/fraction] is farther right than [fraction numerator=1 denominator=6]one sixth[/fraction], that means [fraction numerator=1 denominator=3]one third[/fraction] is greater than [fraction numerator=1 denominator=6]one sixth[/fraction]. So we use the greater than symbol: [fraction numerator=1 denominator=3]one third[/fraction] > [fraction numerator=1 denominator=6]one sixth[/fraction]. That's how we use number lines to compare fractions - the fraction farther to the right is always greater."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] That's right. [vocab]One-[/vocab][vocab]third[/vocab] is greater than [vocab]one-[/vocab][vocab]sixth[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 49,
+        "template_id": "11007",
+        "template_skill": "Student views two stacked number lines with points at the same numerator position (harder pairs) and selects the correct comparison symbol",
+        "identifiers": [
+          "4/9",
+          "4/6"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-numerator fractions on stacked number lines with harder denominator pairs",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-04",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Two number lines are stacked, each with a point marking the same count from zero. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": [
+                  "0",
+                  "1/9",
+                  "2/9",
+                  "3/9",
+                  "4/9",
+                  "5/9",
+                  "6/9",
+                  "7/9",
+                  "8/9",
+                  "1"
+                ],
+                "points": [
+                  "4/9"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 18
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": [
+                  "0",
+                  "1/6",
+                  "2/6",
+                  "3/6",
+                  "4/6",
+                  "5/6",
+                  "1"
+                ],
+                "points": [
+                  "4/6"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "4/9",
+                  " ? ",
+                  "4/6"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the correct comparison symbol for [fraction numerator=4 denominator=9][/fraction] and [fraction numerator=4 denominator=6][/fraction].",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how far each point reaches from zero."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this more carefully. Both fractions count 4 parts from zero, but they're different sized parts. Compare the size of one ninth to one [vocab]sixth[/vocab]. Which unit fraction is larger? That tells us which point reaches farther."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. Both points show 4 parts counted from zero - but they're counting different sized parts. Look at the top number line with ninths. It has 9 equal [vocab]intervals[/vocab] from 0 to 1, so each ninth is a small part. Now look at the bottom number line with [vocab]sixths[/vocab]. It has only 6 equal [vocab]intervals[/vocab] from 0 to 1, so each [vocab]sixth[/vocab] is a larger part. When we count 4 ninths, we move 4 small steps. When we count 4 [vocab]sixths[/vocab], we move 4 larger steps. The point at 4 [vocab]sixths[/vocab] reaches farther from zero than the point at 4 ninths. So [fraction numerator=4 denominator=9]four ninths[/fraction] is less than [fraction numerator=4 denominator=6]four sixths[/fraction]. That's how we compare fractions with the same [vocab]numerator[/vocab] - the one with the smaller [vocab]denominator[/vocab] is greater because its unit parts are larger."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_less] That's right. Ninths are smaller than [vocab]sixths[/vocab], so four ninths is less than four [vocab]sixths[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 54,
+        "template_id": "11008",
+        "template_skill": "Student views a fraction pair with the same denominator and selects two correct answers from four strategy options",
+        "identifiers": [
+          "3/6",
+          "5/6"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify that a same-denominator pair requires the same-denominator strategy",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M11-05",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "multiple_selection",
+            "option_evaluation"
+          ],
+          "misconception_id": [
+            8,
+            10
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions",
+            "overgeneralizing_rules"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. They both use [vocab]sixths[/vocab]. What steps would help you compare them?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "is_read_only": true,
+                "lcm": 6
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "is_read_only": true,
+                "lcm": 6
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "3/6",
+                  "<",
+                  "5/6"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How would you compare these fractions? Select TWO strategies.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0,
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": true,
+              "options": [
+                "Check for same denominator",
+                "Count the equal parts",
+                "Check for same numerator",
+                "Compare the sizes of parts"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about what's the same about both fractions first."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Look at the denominators - both fractions use [vocab]sixths[/vocab]. When the denominators are the same, that's important. What would you do next to figure out which fraction is greater?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. First, we check for same [vocab]denominator[/vocab] - both fractions have 6 as the [vocab]denominator[/vocab], so they're both divided into [vocab]sixths[/vocab]. That means the parts are the same size. When denominators are the same, we count the equal parts - bar A has 3 [vocab]sixths[/vocab] shaded and bar B has 5 [vocab]sixths[/vocab] shaded. Since 5 is more than 3, we know [fraction numerator=5 denominator=6]five sixths[/fraction] is greater than [fraction numerator=3 denominator=6]three sixths[/fraction]. So the two strategies are: check for same [vocab]denominator[/vocab], then count the equal parts. That's how we compare fractions with the same [vocab]denominator[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Same [vocab]denominator[/vocab] means you count the parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 61,
+        "template_id": "11009",
+        "template_skill": "Student views a fraction pair with the same numerator and selects two correct answers from four strategy options",
+        "identifiers": [
+          "2/3",
+          "2/6"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify that a same-numerator pair requires the same-numerator strategy",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M11-05",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "multiple_selection",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. Which strategies would you use to compare them?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "is_read_only": true,
+                "lcm": 3
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "is_read_only": true,
+                "lcm": 6
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/3",
+                  ">",
+                  "2/6"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which TWO steps of the strategy apply here?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0,
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": true,
+              "options": [
+                "Check for same numerator",
+                "Compare the sizes of parts",
+                "Check for same denominator",
+                "Add the denominators"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the numerators in both fractions. What do you notice about them?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both fractions have 2 as the [vocab]numerator[/vocab] - they both show 2 parts shaded. When the numerators are the same, we need to compare how big each part is. Which steps help us do that?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this comparison strategy. First, we check the numerators - and we see both fractions have 2 as the [vocab]numerator[/vocab]. So step one is 'Check for same [vocab]numerator[/vocab].' When numerators are the same, the fraction with bigger parts is greater. To figure that out, we need step two: 'Compare the sizes of parts.' Looking at the bars, [vocab]thirds[/vocab] are bigger than [vocab]sixths[/vocab], so [fraction numerator=2 denominator=3]two thirds[/fraction] is greater than [fraction numerator=2 denominator=6]two sixths[/fraction]. That's the strategy - when numerators match, compare part sizes."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Same [vocab]numerator[/vocab] means you compare piece sizes."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 67,
+        "template_id": "11010",
+        "template_skill": "Student views a same-numerator comparison statement and selects the best explanation from three choices",
+        "identifiers": [
+          "2/3",
+          "2/6"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the explanation that correctly describes why a same-numerator comparison is true",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M11-06",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "option_evaluation"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Both show 2 shaded parts, but they're different sizes. Why is [fraction numerator=2 denominator=3]two thirds[/fraction] bigger?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "sum_is_visible": true,
+                "lcm": 3
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "sum_is_visible": true,
+                "lcm": 6
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/3",
+                  ">",
+                  "2/6"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which statement explains why [fraction numerator=2 denominator=3][/fraction] > [fraction numerator=2 denominator=6][/fraction]?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Both show 2 parts, but thirds are bigger than sixths.",
+                "6 > 3 and both show 2 parts, which makes [fraction numerator=2 denominator=6][/fraction] larger.",
+                "2 is smaller than both 3 and 6, so [fraction numerator=2 denominator=3][/fraction] is biggest.",
+                "Both show 2 parts, so [fraction numerator=2 denominator=3][/fraction] is equal to [fraction numerator=2 denominator=6][/fraction]."
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of the shaded parts in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this more carefully. Both bars show 2 shaded parts, that's true. But look at how big each part is. In the [vocab]thirds[/vocab] bar, each part is much bigger than each part in the [vocab]sixths[/vocab] bar. When you have the same number of parts but the parts are different sizes, which one gives you more?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this comparison. Both fractions show 2 shaded parts - that's the [vocab]numerator[/vocab]. But look at the bars themselves. The [vocab]thirds[/vocab] bar is divided into only 3 parts, so each [vocab]third[/vocab] is pretty big. The [vocab]sixths[/vocab] bar is divided into 6 parts, so each [vocab]sixth[/vocab] is much smaller. When we shade 2 parts in each bar, we're shading 2 big pieces in the [vocab]thirds[/vocab] bar but 2 small pieces in the [vocab]sixths[/vocab] bar. That's why [fraction numerator=2 denominator=3]two thirds[/fraction] is bigger than [fraction numerator=2 denominator=6]two sixths[/fraction] - [vocab]thirds[/vocab] are bigger pieces than [vocab]sixths[/vocab]. The answer is choice A. That's how same [vocab]numerator[/vocab] comparison works - when counting the same number of parts, bigger pieces make a larger total."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's it. [vocab]Thirds[/vocab] are bigger pieces than [vocab]sixths[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 73,
+        "template_id": "11011",
+        "template_skill": "Student views two bars each showing one equal part (different denominators) and selects which shows the bigger piece",
+        "identifiers": [
+          "1/3",
+          "1/8"
+        ],
+        "mastery_tier": "SUPPORT",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify which unit fraction represents a bigger piece when shown two differently-divided bars",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M11-07",
+          "tier": "SUPPORT",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "visual_discrimination",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are two bars cut into different numbers of parts. One bar has fewer parts, so each piece is bigger.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 3
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 8
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which bar shows the bigger piece?",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts each bar is divided into. Which bar has fewer parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. When a bar is cut into fewer parts, each piece is bigger. Count how many equal parts are in each bar. The bar with fewer parts will have the bigger piece."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. Bar A is divided into 3 equal parts, and Bar B is divided into 8 equal parts. When we cut something into fewer parts, each piece is bigger. Since Bar A has only 3 parts and Bar B has 8 parts, the shaded piece in Bar A is bigger than the shaded piece in Bar B. Bar A shows the bigger piece. That's how it works - fewer parts means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Fewer parts means each piece is bigger."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 77,
+        "template_id": "11012",
+        "template_skill": "Student selects which denominator from three options would give the biggest equal pieces if a bar were divided that many ways",
+        "identifiers": [
+          "1/3",
+          "1/5",
+          "1/7"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify which denominator from a set produces the largest equal pieces",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M11-07",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these three bars. Each is divided differently. Which way of dividing gives you the biggest pieces?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3",
+                "intervals_is_shaded": false,
+                "is_read_only": true,
+                "lcm": 3
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/5",
+                "intervals_is_shaded": false,
+                "is_read_only": true,
+                "lcm": 5
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/7",
+                "intervals_is_shaded": false,
+                "is_read_only": true,
+                "lcm": 7
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which denominator gives the biggest pieces?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "3",
+                "5",
+                "7"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of one piece in each bar. Which pieces look biggest?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. When you divide the same whole into more parts, each piece gets smaller. Look at the bars - the one divided into fewer parts has bigger pieces. Which bar has the fewest parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. All three bars are the same size whole. The first bar is divided into 3 parts. The second bar is divided into 5 parts. The [vocab]third[/vocab] bar is divided into 7 parts. When we divide the same whole into fewer parts, each piece is bigger. So the bar with 3 parts has the biggest pieces - [vocab]thirds[/vocab] are bigger than [vocab]fifths[/vocab] or sevenths. The answer is 3. That's how denominators work - smaller denominators mean bigger pieces when you divide the same whole."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Fewer parts means bigger pieces."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 81,
+        "template_id": "11013",
+        "template_skill": "Student views a fraction pair (same-denom or same-numer) with visual support and selects the correct symbol without a prior strategy prompt",
+        "identifiers": [
+          "2/5",
+          "2/8"
+        ],
+        "mastery_tier": "CHALLENGE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can independently identify the correct comparison strategy and apply it to compare a fraction pair with visual support",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-08",
+          "tier": "CHALLENGE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. Which symbol makes the comparison statement true?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/5",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 5
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 8
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/5",
+                  " ? ",
+                  "2/8"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the correct symbol to compare these fractions.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Both fractions have the same [vocab]numerator[/vocab] - 2 parts. Compare the size of the pieces."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both fractions show 2 parts shaded, but look closely at the bars. When you divide a whole into 5 pieces, each piece is bigger than when you divide it into 8 pieces. So which fraction has bigger pieces - [vocab]fifths[/vocab] or [vocab]eighths[/vocab]?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. Both [fraction numerator=2 denominator=5]two fifths[/fraction] and [fraction numerator=2 denominator=8]two eighths[/fraction] have the same [vocab]numerator[/vocab] - they both have 2 parts shaded. When fractions have the same [vocab]numerator[/vocab], we compare the size of the pieces. Look at the bars - the first bar is divided into 5 equal parts, and the second bar is divided into 8 equal parts. When you divide the same whole into more pieces, each piece gets smaller. So [vocab]fifths[/vocab] are bigger pieces than [vocab]eighths[/vocab]. Since we have 2 of each, 2 [vocab]fifths[/vocab] is more than 2 [vocab]eighths[/vocab]. The answer is [fraction numerator=2 denominator=5]two fifths[/fraction] > [fraction numerator=2 denominator=8]two eighths[/fraction]. That's how we compare fractions with the same [vocab]numerator[/vocab] - the fraction with the smaller [vocab]denominator[/vocab] is actually larger because its pieces are bigger."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] That's it. Same [vocab]numerator[/vocab] means compare piece sizes."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 85,
+        "template_id": "11014",
+        "template_skill": "Student views a same-numerator fraction pair shown only as notation and selects the correct comparison symbol",
+        "identifiers": [
+          "2/4",
+          "2/7"
+        ],
+        "mastery_tier": "CHALLENGE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can compare same-numerator fractions using notation only, applying piece-size reasoning without visual support",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-08",
+          "tier": "CHALLENGE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "option_evaluation"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. Which symbol makes the comparison true?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/4",
+                  " ? ",
+                  "2/7"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which symbol compares these fractions?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about the size of the pieces - [vocab]fourths[/vocab] versus sevenths."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this more carefully. Both fractions have 2 pieces, but what matters is the size of those pieces. When the whole is divided into 4 parts, each part is bigger than when it's divided into 7 parts. So which fraction has bigger pieces?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this comparison. We're comparing [fraction numerator=2 denominator=4]two fourths[/fraction] and [fraction numerator=2 denominator=7]two sevenths[/fraction]. Both fractions have the same [vocab]numerator[/vocab] - 2 pieces. When numerators are the same, we compare by looking at the denominators to see which pieces are bigger. [vocab]Fourths[/vocab] means the whole is cut into 4 parts. Sevenths means the whole is cut into 7 parts. When you cut something into fewer pieces, each piece is bigger. So [vocab]one-[/vocab][vocab]fourth[/vocab] is bigger than [vocab]one-[/vocab]seventh. That means [fraction numerator=2 denominator=4]two fourths[/fraction] is bigger than [fraction numerator=2 denominator=7]two sevenths[/fraction]. The correct answer is greater than - [fraction numerator=2 denominator=4]two fourths[/fraction] > [fraction numerator=2 denominator=7]two sevenths[/fraction]. That's how we compare fractions with the same [vocab]numerator[/vocab] - the smaller [vocab]denominator[/vocab] means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Correct. You compared piece sizes without the visual."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 96,
+        "template_id": "11015",
+        "template_skill": "Student views a same-numerator fraction pair with harder denominators shown only as notation and selects the correct comparison symbol",
+        "identifiers": [
+          "4/8",
+          "4/12"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for same-numerator fractions shown only as notation with harder denominator pairs",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-09",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Compare [fraction numerator=4 denominator=8]four eighths[/fraction] and [fraction numerator=4 denominator=12]four twelfths[/fraction]. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "4/8",
+                  " ? ",
+                  "4/12"
+                ],
+                "@col": 0,
+                "@layout": "default"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction is greater: [fraction numerator=4 denominator=8][/fraction] or [fraction numerator=4 denominator=12][/fraction]? Select the symbol.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. When the numerators are the same, think about what the denominators tell us about piece size."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this more carefully. Both fractions have 4 pieces - that's the [vocab]numerator[/vocab]. But look at the denominators. Which makes bigger pieces: splitting something into 8 parts or 12 parts? The smaller [vocab]denominator[/vocab] means bigger pieces, so 4 of those bigger pieces is more."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing fractions with the same [vocab]numerator[/vocab]. We have [fraction numerator=4 denominator=8]four eighths[/fraction] and [fraction numerator=4 denominator=12]four twelfths[/fraction] - both have 4 pieces. The key is the [vocab]denominator[/vocab]. Think about dividing something into 8 parts versus 12 parts. When you divide into 8 parts, each piece is bigger than when you divide into 12 parts. So 4 [vocab]eighths[/vocab] means 4 bigger pieces, and 4 twelfths means 4 smaller pieces. Since [fraction numerator=4 denominator=8]four eighths[/fraction] has bigger pieces, [fraction numerator=4 denominator=8]four eighths[/fraction] is greater than [fraction numerator=4 denominator=12]four twelfths[/fraction]. The answer is [fraction numerator=4 denominator=8]four eighths[/fraction] > [fraction numerator=4 denominator=12]four twelfths[/fraction]. When numerators are the same, the fraction with the smaller [vocab]denominator[/vocab] is always greater because it has bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. Smaller [vocab]denominator[/vocab] means bigger pieces, even without a visual."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 101,
+        "template_id": "11016",
+        "template_skill": "Student selects the correct ordering of three unit fractions from multiple choice options",
+        "identifiers": [
+          "1/4",
+          "1/5",
+          "1/8"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can order unit fractions by reasoning about piece size with no visual support",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M11-07",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "option_evaluation"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three unit fractions. Can you order them from largest to smallest?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "1/4",
+                  " ",
+                  "1/5",
+                  " ",
+                  "1/8"
+                ],
+                "is_read_only": true
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which option shows these fractions in order from largest to smallest?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=8][/fraction], [fraction numerator=1 denominator=5][/fraction], [fraction numerator=1 denominator=4][/fraction]",
+                "[fraction numerator=1 denominator=4][/fraction], [fraction numerator=1 denominator=5][/fraction], [fraction numerator=1 denominator=8][/fraction]",
+                "[fraction numerator=1 denominator=5][/fraction], [fraction numerator=1 denominator=4][/fraction], [fraction numerator=1 denominator=8][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about the size of the pieces - what happens when we divide something into more parts?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. These are all unit fractions - they each have 1 as the [vocab]numerator[/vocab]. When we have unit fractions, the [vocab]denominator[/vocab] tells us how many equal parts the whole is divided into. The more parts we divide into, the smaller each piece becomes. So which [vocab]denominator[/vocab] would give us the biggest piece?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing unit fractions. When fractions have the same [vocab]numerator[/vocab] of 1, we look at the denominators to compare sizes. Here's the key: the smaller the [vocab]denominator[/vocab], the bigger the piece. Think about it - [fraction numerator=1 denominator=4]one fourth[/fraction] means 1 out of 4 equal parts, while [fraction numerator=1 denominator=8]one eighth[/fraction] means 1 out of 8 equal parts. If you divide something into 4 parts, each part is bigger than if you divide it into 8 parts. So [fraction numerator=1 denominator=4]one fourth[/fraction] is the largest, then [fraction numerator=1 denominator=5]one fifth[/fraction], then [fraction numerator=1 denominator=8]one eighth[/fraction] is the smallest. The correct order from largest to smallest is [fraction numerator=1 denominator=4]one fourth[/fraction], [fraction numerator=1 denominator=5]one fifth[/fraction], [fraction numerator=1 denominator=8]one eighth[/fraction]. That's how unit fractions work - smaller denominators mean bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Smaller [vocab]denominator[/vocab] means bigger piece."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 71,
+    "template_id": "10014",
+    "template_skill": "Student selects best explanation from choices about why a comparison is true",
+    "identifiers": [
+      "5/8",
+      "2/8"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "analyze",
+    "telemetry_data": {
+      "mastery_skill": "Student can select explanation that correctly describes why one fraction is greater",
+      "cognitive_verb": "analyze",
+      "mastery_skill_id": "M10-08",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at this comparison. Why is it true?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_read_only": true,
+            "terms": [
+              "5/8",
+              ">",
+              "2/8"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which statement explains why 5/8 > 2/8?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Both fractions show eighths. 5 > 2, so 5/8 is greater.",
+            "The bigger the denominator, the bigger the fraction.",
+            "The bottom number tells us which fraction is greater.",
+            "The fraction with more total pieces is greater."
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Both fractions are eighths - the same size pieces. When the denominators are the same, we compare the numerators to see which fraction has more pieces. Which explanation shows this thinking?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. When we compare 5/8 and 2/8, notice that both fractions have the same denominator - 8. That means both fractions are divided into eighths, which are the same size pieces. Since the pieces are the same size, we just need to compare how many pieces each fraction has. 5/8 has 5 pieces and 2/8 has 2 pieces. Since 5 is greater than 2, we have more pieces in 5/8, making it the greater fraction. The correct explanation is: Both fractions show eighths. 5 > 2, so 5/8 is greater. That's how we compare fractions with the same denominator - we compare the numerators."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. That explanation is correct."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:55:04.170070+00:00"
+}

@@ -1,0 +1,141 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 37,
+    "template_id": "8007",
+    "template_skill": "Student places a 1/2-family fraction on a number line to show it lands at the same position as an equivalent fraction",
+    "identifiers": [
+      "3/6",
+      "1/2"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The top line shows one half. Find where three sixths belongs on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "lcm": 6,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place three sixths on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top line shows where one half is. The bottom line is divided into sixths. Three sixths should land at the exact same position as one half - they're equivalent fractions. Compare the two lines to find the matching spot."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, look at the top line and notice where one half is marked - it's right at the halfway point. Now look at the bottom line. It's divided into sixths, so we need to count the equal intervals from 0 to 1. There are 6 equal parts. To find three sixths, we count 3 of those parts from 0. When we do that, three sixths lands at exactly the same position as one half on the top line. That's why three sixths equals one half - they're at the same location. That's how equivalent fractions work."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right there. Three sixths lands at the same point as one half."
+        }
+      }
+    }
+  ]
+}

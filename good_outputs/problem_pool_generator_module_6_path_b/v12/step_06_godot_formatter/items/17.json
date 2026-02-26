@@ -1,0 +1,133 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 17,
+    "template_id": "6003",
+    "template_skill": "Student drags a single fraction label or places a point at the correct position beyond 1 on a pre-partitioned number line (varied denominators)",
+    "identifiers": [
+      "6/5"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place single fractions greater than 1 by counting intervals from zero",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-02",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line is divided into fifths. Where should 6/5 go?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1",
+              "6/5",
+              "7/5",
+              "8/5",
+              "9/5",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 15
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 6/5 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/5",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count six fifths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Six-fifths means 6 parts, where each part is one-fifth. Start at zero and count 6 intervals to the right. Remember, each fifth is the same size, even past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Six-fifths means we need to count 6 of the fifth-sized intervals from zero. Starting at 0, we count: one-fifth, two-fifths, three-fifths, four-fifths, five-fifths - that's 1 whole. Then one more fifth gets us to six-fifths. That lands at the first tick mark past 1. That's how we locate fractions greater than 1 on the number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, you found six-fifths. One interval past 1."
+        }
+      }
+    }
+  ]
+}

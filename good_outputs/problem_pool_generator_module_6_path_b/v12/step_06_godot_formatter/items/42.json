@@ -1,0 +1,112 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 42,
+    "template_id": "6005",
+    "template_skill": "Student answers diagnostic questions confirming denominator constancy across the 1 boundary",
+    "identifiers": [
+      "3/4",
+      "4/4",
+      "5/4"
+    ],
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that the denominator stays constant when counting past 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-04",
+      "tier": "CONFIDENCE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_discrimination"
+      ],
+      "misconception_id": [
+        3,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these three fractions on the number line. Notice how they're all labeled?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "3/4",
+              "4/4",
+              "5/4"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "The line shows 3/4, 4/4, 5/4. What stays the same in all these fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "The denominator (4)",
+            "The numerator",
+            "Both numbers",
+            "Nothing stays the same"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the bottom number in each fraction."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Look at all three fractions: 3/4, 4/4, and 5/4. The top numbers change - 3, then 4, then 5. But what about the bottom numbers? Check what's the same across all three fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We have three fractions: 3/4, 4/4, and 5/4. Let's look at what changes and what stays the same. The numerators - the top numbers - are different: 3, 4, and 5. They're changing. But the denominators - the bottom numbers - are all 4. Every single fraction has 4 as the denominator. That's what stays the same. The denominator 4 tells us we're working with fourths throughout the whole number line. That's what makes these fractions part of the same family."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, the denominator stays the same."
+        }
+      }
+    }
+  ]
+}

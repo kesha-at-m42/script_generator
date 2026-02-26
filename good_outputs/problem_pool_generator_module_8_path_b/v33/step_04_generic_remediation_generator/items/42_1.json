@@ -1,0 +1,86 @@
+{
+  "problem_id": 42,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8008",
+  "fractions": [
+    "1/2",
+    "4/8"
+  ],
+  "dialogue": "The top line shows one half. Place four eighths on the bottom line.",
+  "prompt": "Place the marker at four eighths.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_reference",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Reference line with point at 1/2",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/2",
+        "1"
+      ],
+      "points": [
+        "1/2"
+      ],
+      "labels": [
+        "0",
+        "1/2",
+        "1"
+      ]
+    },
+    {
+      "id": "line_student",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Number line with eighths for student interaction",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "4/8",
+    "context": "Four eighths is equivalent to one half - both fractions represent the same position on the number line"
+  },
+  "success_path_dialogue": "Right. Four eighths equals one half.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. The top line shows one half - that's the halfway point. Now look at the bottom line divided into eighths. Which eighth mark lines up with that same halfway point? That's where four eighths goes."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. We need to find four eighths on the bottom line. First, look at the top line - one half is marked at the halfway point between 0 and 1. Now look at the bottom line with eighths. The bottom line has 8 equal parts, and we need to count to the fourth one. Starting from 0, we count: one eighth, two eighths, three eighths, four eighths. Four eighths lands exactly at the halfway point - the same spot as one half on the top line. That's because four eighths equals one half. They're equivalent fractions that represent the same location."
+      }
+    ]
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 49,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "2/7",
+      "4/7"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        5,
+        8
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's compare two-sevenths and four-sevenths. First, mark two-sevenths on the top number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 14
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 14
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark two-sevenths on the top number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. First count the equal intervals from 0 to 1, then count from zero to find two-sevenths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. First, count how many equal intervals there are from 0 to 1 - that's your denominator. There are 7 equal intervals, so we're working with sevenths. Now count 2 of those intervals from 0 - that's where two-sevenths is."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through finding two-sevenths. First, we find the denominator by counting how many equal intervals are from 0 to 1. I count 7 equal intervals from 0 to 1, so the denominator is 7. This means we're working with sevenths. Now for the numerator - we count how many of those intervals from 0 to where we need to place the point. We need 2 intervals from zero, so we count 1, 2, and place our point right here at the second tick mark. That's two-sevenths. That's how we locate fractions - denominator first by counting equal intervals from 0 to 1, then numerator by counting intervals from 0."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You marked two-sevenths."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now mark four-sevenths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "points": [
+              "2/7"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 14
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 14
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark four-sevenths on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count four sevenths from zero on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Four-sevenths means we need to count 4 of the equal parts from 0. Each tick mark represents one-seventh, so count 4 tick marks from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The bottom number line is divided into sevenths - 7 equal parts from 0 to 1. Four-sevenths means 4 out of those 7 parts. Starting at 0, we count: 1/7, 2/7, 3/7, 4/7. The fourth tick mark from zero is where four-sevenths belongs. That's how we locate fractions - count the number of equal parts shown in the numerator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. You marked four-sevenths."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare the two fractions. Which symbol is correct?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "points": [
+              "2/7"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 14
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/7",
+            "points": [
+              "4/7"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 14
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/7",
+              " ? ",
+              "4/7"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at which point is closer to zero on the number lines."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. On a number line, fractions closer to zero are smaller, and fractions farther from zero are larger. Compare where the two points are positioned."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Look at the top number line - the point at 2/7 is closer to zero. Now look at the bottom number line - the point at 4/7 is farther from zero. When comparing fractions on number lines, the one closer to zero is smaller. Since 2/7 is closer to zero than 4/7, we know 2/7 is less than 4/7. The correct symbol is less than. That's how we use number lines to compare fractions."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Two-sevenths is less than four-sevenths."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:53:21.742483+00:00"
+}

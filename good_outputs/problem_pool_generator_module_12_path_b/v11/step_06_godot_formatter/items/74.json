@@ -1,0 +1,141 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 74,
+    "template_id": "12012",
+    "template_skill": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+    "identifiers": [
+      "2/9",
+      "7/9"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+      "cognitive_verb": "apply",
+      "mastery_skill_id": "M12-08",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. Which comparison strategy works here?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/9",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 9
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/9",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 9
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/9",
+              "<",
+              "7/9"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which strategy helps you compare 2/9 and 7/9?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Check for the same denominator, count the parts",
+            "Check for the same numerator, compare part sizes",
+            "Neither matches, use the benchmark"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Look at 2/9 and 7/9. What do you notice about the bottom numbers? When fractions have the same denominator, the parts are all the same size - we just need to count how many parts are shaded."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, we check the denominators. Both fractions are ninths - 2/9 and 7/9 both have 9 as the denominator. That means the parts are all the same size. Look at the bars - each ninth is exactly the same size in both bars. When denominators match like this, we just count the shaded parts. 2 ninths versus 7 ninths. Since the parts are equal, more parts means a larger fraction. The strategy is: check for the same denominator, then count the parts. That's how we compare fractions with the same denominator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Check for the same denominator, then count the parts."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 58,
+    "template_id": "11008",
+    "template_skill": "Student views a fraction pair with the same denominator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "1/7",
+      "6/7"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-denominator pair requires the same-denominator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. Which steps of the comparison strategy should you use?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "is_read_only": true,
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 7
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "is_read_only": true,
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "lcm": 7
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "1/7",
+              "<",
+              "6/7"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO steps of the strategy apply here?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same denominator",
+            "Compare the sizes of parts",
+            "Count the equal parts",
+            "Check for same numerator"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions. What do you notice?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. When you compare fractions, you always start by checking what's the same. Look at 1/7 and 6/7 - both have 7 as the denominator. That means the parts are already the same size. So what do you do when denominators match? You count how many parts each fraction has."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through the comparison strategy. First, we always check for same denominator - look at 1/7 and 6/7. Both have sevenths, so the denominators match. That's step one. When denominators are the same, the parts are already equal size, so we don't need to compare part sizes. Instead, we move to counting the equal parts - 1/7 has 1 part shaded and 6/7 has 6 parts shaded. So the two steps we use here are: check for same denominator, then count the equal parts. That's how the strategy works when denominators match."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same denominator means you count the parts."
+        }
+      }
+    }
+  ]
+}

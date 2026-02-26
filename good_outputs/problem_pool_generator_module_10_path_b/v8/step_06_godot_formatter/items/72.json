@@ -1,0 +1,105 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 72,
+    "template_id": "10014",
+    "template_skill": "Student selects best explanation from choices about why a comparison is true",
+    "identifiers": [
+      "7/10",
+      "3/10"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "analyze",
+    "telemetry_data": {
+      "mastery_skill": "Student can select explanation that correctly describes why one fraction is greater",
+      "cognitive_verb": "analyze",
+      "mastery_skill_id": "M10-08",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at this comparison. Why is seven-tenths greater than three-tenths?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_read_only": true,
+            "terms": [
+              "7/10",
+              ">",
+              "3/10"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Why is 7/10 > 3/10?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "The fraction with more total pieces is greater.",
+            "The denominator is the same, so if 7 > 3, then 7/10 > 3/10.",
+            "The bigger the denominator, the bigger the fraction.",
+            "The bottom number tells us which fraction is greater."
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Both fractions have the same denominator - they're both tenths. When the denominators are the same, we can compare the numerators directly. What does that tell us about 7/10 and 3/10?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this reasoning. When we compare fractions, we need to look at what they have in common. Both 7/10 and 3/10 have the same denominator - 10. That means both fractions are made of the same size pieces, tenths. When the pieces are the same size, we just compare how many pieces we have. Since 7 is greater than 3, that means 7 tenths is greater than 3 tenths. So 7/10 > 3/10. That's how we compare fractions with the same denominator - we compare the numerators."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. That explanation is correct."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:55:14.898830+00:00"
+}

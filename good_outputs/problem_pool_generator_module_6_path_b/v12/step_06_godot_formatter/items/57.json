@@ -1,0 +1,97 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 57,
+    "template_id": "6007",
+    "template_skill": "Student identifies which fractions are improper (greater than 1) based on numerator/denominator relationship",
+    "identifiers": [
+      "7/4",
+      "4/3",
+      "5/6",
+      "3/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize improper fractions and explain why they exceed 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these fractions. Which ones are greater than one whole?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select all the fractions that are greater than one whole.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "7/4",
+            "4/3",
+            "5/6",
+            "3/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Compare the numerator to the denominator in each fraction."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. A fraction is greater than one whole when the numerator is bigger than the denominator. Look at each fraction and compare the top number to the bottom number. Which fractions have a numerator that's greater than the denominator?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. To find fractions greater than one whole, we compare the numerator to the denominator. Let's check each one. For 7/4, the numerator 7 is greater than the denominator 4, so 7/4 is greater than one. For 4/3, the numerator 4 is greater than the denominator 3, so 4/3 is also greater than one. For 5/6, the numerator 5 is less than the denominator 6, so it's less than one. For 3/4, the numerator 3 is less than the denominator 4, so it's also less than one. The answers are 7/4 and 4/3. That's how we identify fractions greater than one - when the numerator is greater than the denominator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Both 7/4 and 4/3 have numerators greater than their denominators, so they're greater than one."
+        }
+      }
+    }
+  ]
+}

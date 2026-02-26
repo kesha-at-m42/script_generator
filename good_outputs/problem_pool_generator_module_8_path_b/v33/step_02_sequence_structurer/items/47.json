@@ -1,0 +1,57 @@
+{
+  "problem_id": 47,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8009",
+  "fractions": [
+    "1/2",
+    "4/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the top bar. It shows one half. Shade the bottom bar to show the same amount.",
+      "prompt": "How many eighths equal one half? Shade to show.",
+      "interaction_tool": "shade",
+      "workspace": [
+        {
+          "id": "bar_reference",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 1/2 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/2",
+          "intervals_is_shaded": [
+            0
+          ]
+        },
+        {
+          "id": "bar_target",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Empty fraction strip divided into eighths",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": false
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "context": "Four eighths equals one half - same amount as the reference bar"
+      },
+      "success_path_dialogue": "You made it. Four eighths equals one half."
+    }
+  ]
+}

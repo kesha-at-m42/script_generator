@@ -1,0 +1,78 @@
+{
+  "problem_id": 72,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "apply",
+  "template_id": "12012",
+  "fractions": [
+    "3/4",
+    "3/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at 3/4 and 3/8. What's the same about these fractions? What strategy would help you compare them?",
+      "prompt": "Which comparison strategy applies to 3/4 and 3/8?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into fourths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into eighths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "comparison_expression",
+          "type": "math_expression",
+          "role": "student_interaction",
+          "description": "Math expression showing 3/4 > 3/8",
+          "terms": [
+            "3/4",
+            ">",
+            "3/8"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for the same denominator, count the parts"
+            },
+            {
+              "id": "b",
+              "text": "Check for the same numerator, compare part sizes"
+            },
+            {
+              "id": "c",
+              "text": "Neither matches, use the benchmark"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "b",
+        "context": "Both fractions have the same numerator (3), so comparing the size of the parts reveals that fourths are bigger than eighths"
+      },
+      "success_path_dialogue": "Correct. When the numerators are the same, compare the part sizes."
+    }
+  ]
+}

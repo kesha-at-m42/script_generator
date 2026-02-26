@@ -1,0 +1,114 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 49,
+    "template_id": "6006",
+    "template_skill": "Student identifies the fraction shown by a point already placed past 1 on a pre-partitioned number line",
+    "identifiers": [
+      "6/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify a fraction from a point placed beyond 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        6,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "reversing_numerator_and_denominator",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at where the point is on the number line. It's past 1. What fraction does it show?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "6/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "The point is beyond 1. What fraction is it?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "6/4",
+            "4/6",
+            "2/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. First count the equal intervals from 0 to 1, then count from zero to the point."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. First, count how many equal intervals there are from 0 to 1 - that's your denominator. Then count how many of those intervals from 0 to the point - that's your numerator. The point is past 1, so keep counting."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through finding this fraction. First, we find the denominator by counting how many equal intervals are from 0 to 1. I count 4 equal intervals from 0 to 1, so the denominator is 4. This means we're working with fourths. Now for the numerator - we count how many of those intervals from 0 to where the point is. Even though the point is past 1, we keep counting from 0. The point is 6 intervals from zero, so the numerator is 6. That makes this fraction 6/4. That's how we identify fractions - denominator first by counting equal intervals from 0 to 1, then numerator by counting intervals from 0 to the point."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Six intervals from zero—6/4."
+        }
+      }
+    }
+  ]
+}

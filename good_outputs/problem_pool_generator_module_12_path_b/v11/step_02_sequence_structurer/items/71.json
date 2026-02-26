@@ -1,0 +1,78 @@
+{
+  "problem_id": 71,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "apply",
+  "template_id": "12012",
+  "fractions": [
+    "3/7",
+    "5/7"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two bars and the fractions they show. Which comparison strategy works here?",
+      "prompt": "Which strategy helps you compare 3/7 and 5/7?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into sevenths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into sevenths with 5 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 5
+        },
+        {
+          "id": "comparison_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Comparison statement showing 3/7 < 5/7",
+          "terms": [
+            "3/7",
+            "<",
+            "5/7"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for the same denominator, count the parts"
+            },
+            {
+              "id": "b",
+              "text": "Check for the same numerator, compare part sizes"
+            },
+            {
+              "id": "c",
+              "text": "Neither matches, use the benchmark"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "Both fractions have the same denominator (7), so we count how many parts are shaded"
+      },
+      "success_path_dialogue": "Right. Same denominator means count the parts."
+    }
+  ]
+}

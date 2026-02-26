@@ -1,0 +1,250 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 68,
+    "template_id": "8013",
+    "template_skill": "Two-step problem: Student first selects equivalent bar, then verifies by placing both fractions on a number line",
+    "identifiers": [
+      "2/4",
+      "1/2"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can combine bar comparison and number line verification to prove equivalence",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-09",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the reference bar showing 2/4. Which bar below shows an equivalent fraction?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that shows the same amount as 2/4.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of each bar is shaded. Which bar has the same amount shaded as the reference bar?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Equivalent fractions show the same amount, even though they look different. Compare how much is shaded in the reference bar to how much is shaded in each bar below. Which bar has the same amount of shading?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you work through this. The reference bar shows 2/4 shaded - that's 2 out of 4 equal parts, which is half the bar. Now let's look at the bars below. Bar A shows 1/2 shaded - that's 1 out of 2 equal parts, which is also half the bar. Bar A has the same amount shaded as the reference bar, so 1/2 is equivalent to 2/4. That's how we find equivalent fractions - they show the same amount even with different parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You found the equivalent bar."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now let's verify. Place 1/2 on the bottom number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "2/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 6
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at 1/2 on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where the tick mark for 1/2 is on the bottom number line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The bottom number line shows halves - that means 2 equal parts from 0 to 1. One-half is the halfway point between 0 and 1. Place your point at that middle tick mark."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We need to place a point at 1/2 on the bottom number line. The bottom line is divided into halves - 2 equal parts. One-half means 1 out of those 2 parts, which is the halfway point. That's right here at the middle tick mark between 0 and 1. When we place the point there, it lines up perfectly with the 2/4 point on the top line. That's how we verify that 2/4 and 1/2 are equivalent - they land at the same location."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Both points line up - 2/4 equals 1/2."
+        }
+      }
+    }
+  ]
+}

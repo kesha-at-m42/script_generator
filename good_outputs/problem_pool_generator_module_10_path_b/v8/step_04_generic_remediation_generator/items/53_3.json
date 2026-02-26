@@ -1,0 +1,177 @@
+{
+  "problem_id": 53,
+  "step_id": 3,
+  "no_of_steps": 3,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "1/8",
+    "6/8"
+  ],
+  "dialogue": "Now compare the two fractions. Which symbol makes the comparison true?",
+  "prompt": "Which symbol makes this comparison true?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Top number line from 0 to 1 with eighths tick marks, endpoints labeled, read-only with point at 1/8",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        {
+          "value": "0",
+          "is_read_only": true
+        },
+        {
+          "value": "1/8",
+          "is_read_only": true
+        },
+        {
+          "value": "2/8",
+          "is_read_only": true
+        },
+        {
+          "value": "3/8",
+          "is_read_only": true
+        },
+        {
+          "value": "4/8",
+          "is_read_only": true
+        },
+        {
+          "value": "5/8",
+          "is_read_only": true
+        },
+        {
+          "value": "6/8",
+          "is_read_only": true
+        },
+        {
+          "value": "7/8",
+          "is_read_only": true
+        },
+        {
+          "value": "1",
+          "is_read_only": true
+        }
+      ],
+      "points": [
+        "1/8"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line from 0 to 1 with eighths tick marks, endpoints labeled, read-only with point at 6/8",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        {
+          "value": "0",
+          "is_read_only": true
+        },
+        {
+          "value": "1/8",
+          "is_read_only": true
+        },
+        {
+          "value": "2/8",
+          "is_read_only": true
+        },
+        {
+          "value": "3/8",
+          "is_read_only": true
+        },
+        {
+          "value": "4/8",
+          "is_read_only": true
+        },
+        {
+          "value": "5/8",
+          "is_read_only": true
+        },
+        {
+          "value": "6/8",
+          "is_read_only": true
+        },
+        {
+          "value": "7/8",
+          "is_read_only": true
+        },
+        {
+          "value": "1",
+          "is_read_only": true
+        }
+      ],
+      "points": [
+        "6/8"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "comparison_1",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Math expression showing 1/8 ? 6/8 with symbol placeholder",
+      "terms": [
+        "1/8",
+        " ? ",
+        "6/8"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "less_than",
+          "text": "<"
+        },
+        {
+          "id": "equal",
+          "text": "="
+        },
+        {
+          "id": "greater_than",
+          "text": ">"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "less_than",
+    "context": "1/8 is less than 6/8 because it is farther to the left on the number line"
+  },
+  "success_path_dialogue": "That's right. The fraction farther to the left is smaller.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where each point is on the number lines. Which point is farther to the left?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. On a number line, fractions farther to the left are smaller. Look at the top number line where 1/8 is marked, and the bottom number line where 6/8 is marked. Which point is closer to 0?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing fractions on number lines. The top number line shows 1/8, which is just one-eighth away from 0. The bottom number line shows 6/8, which is six-eighths away from 0 - much closer to 1. On a number line, the fraction farther to the left is always smaller. Since 1/8 is to the left of 6/8, that means 1/8 is less than 6/8. The correct symbol is less than (<). That's how we use number lines to compare fractions - the position tells us which is smaller."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:52:04.495629+00:00"
+}

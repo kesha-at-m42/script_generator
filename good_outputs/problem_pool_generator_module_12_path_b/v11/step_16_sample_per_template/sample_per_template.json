@@ -1,0 +1,1947 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4,
+        "template_id": "12001",
+        "template_skill": "Student views a shaded bar showing a single fraction and selects whether it is greater than, less than, or equal to 1/2",
+        "identifiers": [
+          "1/6"
+        ],
+        "mastery_tier": "CONFIDENCE",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can classify a single fraction as greater than, less than, or equal to 1/2 using a shaded bar",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M12-01",
+          "tier": "CONFIDENCE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the shaded part compared to the halfway line.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "location": "1/2",
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 6
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is this fraction above or below the halfway point?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Greater than [fraction numerator=1 denominator=2][/fraction]",
+                "Less than [fraction numerator=1 denominator=2][/fraction]",
+                "Equal to [fraction numerator=1 denominator=2][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare where the shaded part ends to the halfway line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. The halfway line shows where [fraction numerator=1 denominator=2]one half[/fraction] would be. Look at where the shaded part ends compared to that line. Does the shaded part reach the halfway line or stop before it?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. The benchmark line shows us where [fraction numerator=1 denominator=2]one half[/fraction] is - that's the halfway point. Now look at the shaded part. The shaded part ends well before the benchmark line, which means it's less than halfway. Since the shaded part stops before the halfway line, [fraction numerator=1 denominator=6]one sixth[/fraction] is less than [fraction numerator=1 denominator=2]one half[/fraction]. That's how we compare fractions to benchmarks - we see if they reach the benchmark or not."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. Less than [vocab]half[/vocab] is shaded."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 12,
+        "template_id": "12002",
+        "template_skill": "Student views a fraction in notation only and selects whether it is greater than or less than 1/2",
+        "identifiers": [
+          "5/8"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can classify a single fraction as greater than or less than 1/2 using notation only",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M12-01",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's [vocab]five-[/vocab][vocab]eighths[/vocab] shown as a fraction. How does it compare to one [vocab]half[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "5/8",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is [fraction numerator=5 denominator=8][/fraction] greater than or less than [fraction numerator=1 denominator=2][/fraction]?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=5 denominator=8][/fraction] is greater than [fraction numerator=1 denominator=2][/fraction]",
+                "[fraction numerator=5 denominator=8][/fraction] is equal to [fraction numerator=1 denominator=2][/fraction]",
+                "[fraction numerator=5 denominator=8][/fraction] is less than [fraction numerator=1 denominator=2][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about [vocab]half[/vocab] of the [vocab]denominator[/vocab] and compare it to the [vocab]numerator[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. To compare [fraction numerator=5 denominator=8]five eighths[/fraction] to [fraction numerator=1 denominator=2]one half[/fraction], we can look at the [vocab]numerator[/vocab] and [vocab]denominator[/vocab]. Ask yourself: what's [vocab]half[/vocab] of 8? Then compare that to 5. If the [vocab]numerator[/vocab] is more than [vocab]half[/vocab] the [vocab]denominator[/vocab], the fraction is greater than [fraction numerator=1 denominator=2]one half[/fraction]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing [fraction numerator=5 denominator=8]five eighths[/fraction] to [fraction numerator=1 denominator=2]one half[/fraction]. Here's the key strategy: find [vocab]half[/vocab] of the [vocab]denominator[/vocab], then compare it to the [vocab]numerator[/vocab]. [vocab]Half[/vocab] of 8 is 4. Now look at the [vocab]numerator[/vocab] - it's 5. Since 5 is greater than 4, that means [fraction numerator=5 denominator=8]five eighths[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction]. The answer is that [fraction numerator=5 denominator=8]five eighths[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction]. That's how we compare fractions to one [vocab]half[/vocab] - when the [vocab]numerator[/vocab] is more than [vocab]half[/vocab] the [vocab]denominator[/vocab], the fraction is above one [vocab]half[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. [vocab]Half[/vocab] of the [vocab]denominator[/vocab] is less than the [vocab]numerator[/vocab], so it's above one [vocab]half[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 21,
+        "template_id": "12003",
+        "template_skill": "Student views two bars each close to fully shaded and selects which has less missing, choosing from two missing-piece options",
+        "identifiers": [
+          "5/6",
+          "4/5"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify which of two close-to-1 fractions has less missing by comparing the unshaded portions of two mostly-shaded bars",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M12-02",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Both are almost full. Which one needs less to reach one whole?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "lcm": 6
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/5",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "lcm": 5
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction needs less to reach one whole?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=5][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of the missing pieces. Which missing piece is smaller?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this more carefully. Both bars have one piece missing. But the bars are divided differently - one into [vocab]sixths[/vocab] and one into [vocab]fifths[/vocab]. When we divide something into more equal parts, each part gets smaller. So which missing piece would be smaller?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. We need to figure out which bar needs less to reach one whole. Bar A is divided into 6 equal parts - [vocab]sixths[/vocab]. It's missing [vocab]one-[/vocab][vocab]sixth[/vocab]. Bar B is divided into 5 equal parts - [vocab]fifths[/vocab]. It's missing [vocab]one-[/vocab][vocab]fifth[/vocab]. Here's the key: when we divide the same whole into more parts, each part gets smaller. Six parts means smaller pieces than five parts. So [vocab]one-[/vocab][vocab]sixth[/vocab] is smaller than [vocab]one-[/vocab][vocab]fifth[/vocab]. That means Bar A with the missing [vocab]one-[/vocab][vocab]sixth[/vocab] needs less to reach one whole. The answer is [fraction numerator=1 denominator=6]one sixth[/fraction]. That's how we compare unit fractions - the more parts we divide into, the smaller each part becomes."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. That bar has less missing."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 24,
+        "template_id": "12004",
+        "template_skill": "{problem_type}",
+        "identifiers": [
+          "5/6",
+          "1/6"
+        ],
+        "mastery_tier": "CONFIDENCE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "{skill}",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "{skill_id}",
+          "tier": "CONFIDENCE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the two points on the number lines. One is to the right of the benchmark, one is to the left. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "location": "1/2",
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/6",
+                "points": [
+                  "1/6"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/6",
+                "points": [
+                  "5/6"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction is greater?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=5 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=6][/fraction]",
+                "[fraction numerator=1 denominator=2][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at which point is to the right of the benchmark line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. The benchmark line at [fraction numerator=1 denominator=2]one half[/fraction] helps us compare. On a number line, fractions to the right are greater than fractions to the left. Check which point is to the right of the benchmark."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. We have two points on the number lines and a benchmark at [fraction numerator=1 denominator=2]one half[/fraction]. One point is at [fraction numerator=1 denominator=6]one sixth[/fraction], which is to the left of the benchmark. The other point is at [fraction numerator=5 denominator=6]five sixths[/fraction], which is to the right of the benchmark. On a number line, the farther right you go, the greater the value. Since [fraction numerator=5 denominator=6]five sixths[/fraction] is to the right of the benchmark at [fraction numerator=1 denominator=2]one half[/fraction], and [fraction numerator=1 denominator=6]one sixth[/fraction] is to the left of the benchmark, [fraction numerator=5 denominator=6]five sixths[/fraction] is the greater fraction. That's how we use benchmarks to compare fractions - fractions to the right are always greater."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. That fraction is to the right of the benchmark."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 33,
+        "template_id": "12005",
+        "template_skill": "{problem_type}",
+        "identifiers": [
+          "4/7",
+          "3/7"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "{mastery_verb}",
+        "telemetry_data": {
+          "mastery_skill": "{skill}",
+          "cognitive_verb": "{mastery_verb}",
+          "mastery_skill_id": "{skill_id}",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "procedural"
+        },
+        "mastery_component": "PROCEDURAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Both fractions are near the benchmark line. Let's figure out which one crossed it.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "location": "1/2",
+                "is_label_visible": false,
+                "is_visible": true
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/7",
+                "points": [
+                  "4/7"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 14
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/7",
+                "points": [
+                  "3/7"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 14
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction is greater than [fraction numerator=1 denominator=2][/fraction]?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=4 denominator=7][/fraction]",
+                "[fraction numerator=3 denominator=7][/fraction]",
+                "[fraction numerator=1 denominator=2][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Check which point is to the right of the benchmark line."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. The benchmark line shows where [fraction numerator=1 denominator=2]one half[/fraction] is. A fraction is greater than [fraction numerator=1 denominator=2]one half[/fraction] when its point is to the right of the benchmark line. Look at both number lines and see which point crossed to the right side of the benchmark."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. The benchmark line marks exactly where [fraction numerator=1 denominator=2]one half[/fraction] is on both number lines. To find which fraction is greater than [fraction numerator=1 denominator=2]one half[/fraction], we look at which point is to the right of the benchmark line. The top number line shows [fraction numerator=4 denominator=7]four sevenths[/fraction], and its point is to the right of the benchmark - it crossed the halfway mark. The bottom number line shows [fraction numerator=3 denominator=7]three sevenths[/fraction], and its point is to the left of the benchmark - it hasn't reached halfway yet. So [fraction numerator=4 denominator=7]four sevenths[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction]. That's how we use benchmark lines to compare fractions - fractions to the right are greater."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. [vocab]Four-[/vocab]sevenths crossed the halfway mark."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 43,
+        "template_id": "12006",
+        "template_skill": "{problem_type}",
+        "identifiers": [
+          "3/4",
+          "3/5"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "{mastery_verb}",
+        "telemetry_data": {
+          "mastery_skill": "{skill}",
+          "cognitive_verb": "{mastery_verb}",
+          "mastery_skill_id": "{skill_id}",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "procedural"
+        },
+        "mastery_component": "PROCEDURAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at both number lines. Both fractions are greater than [vocab]one-[/vocab][vocab]half[/vocab]. Which one is farther away from the benchmark?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "location": "1/2",
+                "is_read_only": true,
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/4",
+                "points": [
+                  "3/4"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12,
+                "is_read_only": true
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/5",
+                "points": [
+                  "3/5"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 10,
+                "is_read_only": true
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction is farther from the benchmark?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=3 denominator=4][/fraction]",
+                "[fraction numerator=3 denominator=5][/fraction]",
+                "[fraction numerator=1 denominator=2][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the distance from the benchmark line to each point. Which point has more space between it and the benchmark?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both fractions are to the right of the benchmark at [vocab]one-[/vocab][vocab]half[/vocab]. To find which is farther away, compare the distance from the benchmark line to each point. The point with more space between it and the benchmark is farther away."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. We're comparing how far each fraction is from the [vocab]one-[/vocab][vocab]half[/vocab] benchmark. Look at the top number line - [vocab]three-[/vocab][vocab]fourths[/vocab] is here. Now look at the bottom number line - [vocab]three-[/vocab][vocab]fifths[/vocab] is here. Compare the distances from the benchmark line to each point. [vocab]Three-[/vocab][vocab]fourths[/vocab] has more space between it and the benchmark than [vocab]three-[/vocab][vocab]fifths[/vocab] does. That means [vocab]three-[/vocab][vocab]fourths[/vocab] is farther from [vocab]one-[/vocab][vocab]half[/vocab]. That's how we compare distances from a benchmark - we look at which point has more space between it and the benchmark line."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. [vocab]Three-[/vocab][vocab]fourths[/vocab] is farther from [vocab]one-[/vocab][vocab]half[/vocab] than [vocab]three-[/vocab][vocab]fifths[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 46,
+        "template_id": "12007",
+        "template_skill": "Student views two stacked number lines with both fractions greater than 1/2 and selects the correct symbol to compare them — no benchmark line visible",
+        "identifiers": [
+          "5/7",
+          "3/5"
+        ],
+        "mastery_tier": "CHALLENGE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct comparison symbol for two fractions both greater than 1/2, using stacked number lines without a benchmark line",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M12-04",
+          "tier": "CHALLENGE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at where the points are placed on these two lines. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/7",
+                "points": [
+                  "5/7"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 14
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/5",
+                "points": [
+                  "3/5"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 10
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "5/7",
+                  " ? ",
+                  "3/5"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the symbol that compares these fractions.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at which point is further along its number line - further from 0 means greater."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. When comparing fractions on number lines, the fraction whose point is further to the right - further from 0 - is the greater fraction. Look at where each point sits on its line. Which one is closer to 1?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. Look at the top number line showing [fraction numerator=5 denominator=7]five sevenths[/fraction]. The point is 5 out of 7 equal parts from 0. Now look at the bottom line showing [fraction numerator=3 denominator=5]three fifths[/fraction]. That point is 3 out of 5 equal parts from 0. To compare, we see which point is further along - further from 0 and closer to 1. The point at [fraction numerator=5 denominator=7]five sevenths[/fraction] is visibly further to the right than the point at [fraction numerator=3 denominator=5]three fifths[/fraction]. That means [fraction numerator=5 denominator=7]five sevenths[/fraction] is greater than [fraction numerator=3 denominator=5]three fifths[/fraction], so we use the greater than symbol. That's how we compare fractions using number lines - the fraction further along is the greater one."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. The fraction further along the line is greater."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 49,
+        "template_id": "12008",
+        "template_skill": "Student views two bars both close to fully shaded and selects the greater fraction by reasoning about which has less missing",
+        "identifiers": [
+          "8/9",
+          "5/6"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "compare",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the greater fraction when both fractions are close to 1 by identifying which has less missing",
+          "cognitive_verb": "compare",
+          "mastery_skill_id": "M12-05",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Both are almost full. Which one needs less to reach one whole?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/9",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "lcm": 9
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "lcm": 6
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction needs less to reach one whole?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=8 denominator=9][/fraction]",
+                "[fraction numerator=5 denominator=6][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the size of the missing piece in each bar."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this carefully. Both bars have one piece missing to reach the whole. But those missing pieces aren't the same size. Compare the size of the missing ninth in the first bar to the missing [vocab]sixth[/vocab] in the second bar. Which missing piece is smaller?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. Both bars have exactly one piece missing to reach one whole. The first bar is divided into ninths and needs [fraction numerator=1 denominator=9]one ninth[/fraction] more. The second bar is divided into [vocab]sixths[/vocab] and needs [fraction numerator=1 denominator=6]one sixth[/fraction] more. Now here's the key - when we divide a whole into more pieces, each piece gets smaller. So [vocab]one-[/vocab]ninth is smaller than [vocab]one-[/vocab][vocab]sixth[/vocab]. That means [fraction numerator=8 denominator=9]eight ninths[/fraction] needs less to reach one whole - it only needs that tiny [vocab]one-[/vocab]ninth piece. That's how we compare fractions close to one - we look at the size of what's missing."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. That fraction has less missing, so it's closer to 1."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 55,
+        "template_id": "12009",
+        "template_skill": "Student views a MathExpression showing 'a/b ___ 1/2' and selects the correct symbol",
+        "identifiers": [
+          "1/1"
+        ],
+        "mastery_tier": "CONFIDENCE",
+        "mastery_verb": "identify",
+        "telemetry_data": {
+          "mastery_skill": "Student can select the correct symbol to express how a single fraction relates to 1/2",
+          "cognitive_verb": "identify",
+          "mastery_skill_id": "M12-06",
+          "tier": "CONFIDENCE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "conceptual"
+        },
+        "mastery_component": "CONCEPTUAL"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at the bar showing one whole. How does it compare to [vocab]one-[/vocab][vocab]half[/vocab]?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/1",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "lcm": 1,
+                "is_read_only": true
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "1/1",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the correct symbol: [fraction numerator=1 denominator=1][/fraction] ___ [fraction numerator=1 denominator=2][/fraction]",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about how much of the bar one whole fills compared to one [vocab]half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. One whole means the entire bar is filled. One [vocab]half[/vocab] means only [vocab]half[/vocab] of the bar would be filled. Which amount is more - the full bar or [vocab]half[/vocab] of the bar?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this comparison. One whole, or [fraction numerator=1 denominator=1]one 1th[/fraction], means the entire bar is completely filled - all of it. One [vocab]half[/vocab], or [fraction numerator=1 denominator=2]one half[/fraction], means only [vocab]half[/vocab] of a bar would be filled. Since a full bar is more than [vocab]half[/vocab] a bar, [fraction numerator=1 denominator=1]one 1th[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction]. The correct symbol is greater than (>). That's how we compare a whole to a part - the whole is always greater."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Correct. One whole is greater than one [vocab]half[/vocab]."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 62,
+        "template_id": "12010",
+        "template_skill": "Student selects symbols for three sequential steps: (1) fraction A vs 1/2, (2) fraction B vs 1/2, (3) fraction A vs fraction B",
+        "identifiers": [
+          "4/6",
+          "2/5"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "apply",
+        "telemetry_data": {
+          "mastery_skill": "Student can complete a full 3-step symbolic justification for an unlike-denominator comparison using the 1/2 benchmark (opposite sides)",
+          "cognitive_verb": "apply",
+          "mastery_skill_id": "M12-07",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            7,
+            8
+          ],
+          "misconception_tag": [
+            "difficulty_recognizing_equivalence",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "transfer"
+        },
+        "mastery_component": "TRANSFER"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Sam is comparing two fractions using the [vocab]half[/vocab] benchmark. Let's start with [vocab]four-[/vocab][vocab]sixths[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "@layout": "underlay",
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/6",
+                "points": [
+                  "4/6"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 12
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "4/6",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is four-sixths greater than, less than, or equal to one-half?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at where [vocab]four-[/vocab][vocab]sixths[/vocab] lands compared to the benchmark line at [vocab]one-[/vocab][vocab]half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Look at the number line and find the benchmark at [vocab]one-[/vocab][vocab]half[/vocab]. Now look at where [vocab]four-[/vocab][vocab]sixths[/vocab] is marked. Is [vocab]four-[/vocab][vocab]sixths[/vocab] to the left or to the right of [vocab]one-[/vocab][vocab]half[/vocab]? That tells us which is greater."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. On the number line, we can see where [vocab]four-[/vocab][vocab]sixths[/vocab] is marked with a point. The benchmark line shows us where [vocab]one-[/vocab][vocab]half[/vocab] is. When we compare them, [vocab]four-[/vocab][vocab]sixths[/vocab] is to the right of [vocab]one-[/vocab][vocab]half[/vocab] on the number line. When a fraction is to the right, it's greater. So [vocab]four-[/vocab][vocab]sixths[/vocab] is greater than [vocab]one-[/vocab][vocab]half[/vocab]. That's how we use benchmarks to compare fractions."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. [vocab]Four-[/vocab][vocab]sixths[/vocab] is more than [vocab]one-[/vocab][vocab]half[/vocab]."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now let's look at [vocab]two-[/vocab][vocab]fifths[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "@layout": "underlay",
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "line",
+                "range": [
+                  0,
+                  1
+                ],
+                "ticks": "1/5",
+                "points": [
+                  "2/5"
+                ],
+                "labels": [
+                  "0",
+                  "1"
+                ],
+                "lcm": 10
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/5",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is two-fifths greater than, less than, or equal to one-half?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at where [vocab]two-[/vocab][vocab]fifths[/vocab] is compared to the benchmark at [vocab]one-[/vocab][vocab]half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. The benchmark line shows us where [vocab]one-[/vocab][vocab]half[/vocab] is on the number line. Look at where the point at [vocab]two-[/vocab][vocab]fifths[/vocab] sits compared to that benchmark. Is [vocab]two-[/vocab][vocab]fifths[/vocab] to the left or to the right of [vocab]one-[/vocab][vocab]half[/vocab]?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me help you work through this. We need to compare [vocab]two-[/vocab][vocab]fifths[/vocab] to [vocab]one-[/vocab][vocab]half[/vocab]. Look at the number line - the point shows [vocab]two-[/vocab][vocab]fifths[/vocab], and the benchmark line shows where [vocab]one-[/vocab][vocab]half[/vocab] would be. [vocab]Two-[/vocab][vocab]fifths[/vocab] sits to the left of the benchmark line. When a fraction is to the left on the number line, it's less than the benchmark. So [vocab]two-[/vocab][vocab]fifths[/vocab] is less than [vocab]one-[/vocab][vocab]half[/vocab]. The answer is the less than symbol. That's how we use benchmarks - fractions to the left are smaller, fractions to the right are larger."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_less] Good. [vocab]Two-[/vocab][vocab]fifths[/vocab] is less than [vocab]one-[/vocab][vocab]half[/vocab]."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now compare the two fractions directly.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "4/6",
+                  " ? ",
+                  "2/5"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Compare four-sixths and two-fifths.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about how each fraction compared to [vocab]one-[/vocab][vocab]half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about what we found earlier. We compared both fractions to [vocab]one-[/vocab][vocab]half[/vocab] as a benchmark. Remember which fraction was greater than [vocab]one-[/vocab][vocab]half[/vocab] and which was less than [vocab]one-[/vocab][vocab]half[/vocab]. That tells us how they compare to each other."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this comparison. We found that [vocab]four-[/vocab][vocab]sixths[/vocab] is greater than [vocab]one-[/vocab][vocab]half[/vocab], and [vocab]two-[/vocab][vocab]fifths[/vocab] is less than [vocab]one-[/vocab][vocab]half[/vocab]. When one fraction is greater than the benchmark and the other is less than the benchmark, we know the first fraction must be greater. So [vocab]four-[/vocab][vocab]sixths[/vocab] is greater than [vocab]two-[/vocab][vocab]fifths[/vocab]. That's how we use benchmark fractions to compare - when fractions are on opposite sides of the benchmark, we know which is larger."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Correct. You compared each fraction to the benchmark and used both results."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 67,
+        "template_id": "12011",
+        "template_skill": "Student selects symbols for three sequential steps for harder fraction pairs, with no reference bar or number line at any step",
+        "identifiers": [
+          "7/9",
+          "3/8",
+          "1/2"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "apply",
+        "telemetry_data": {
+          "mastery_skill": "Student can complete a full 3-step symbolic justification for harder unlike-denominator pairs with no visual scaffolding",
+          "cognitive_verb": "apply",
+          "mastery_skill_id": "M12-07",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "option_evaluation"
+          ],
+          "misconception_id": [
+            8,
+            7
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions",
+            "difficulty_recognizing_equivalence"
+          ],
+          "component": "transfer"
+        },
+        "mastery_component": "TRANSFER"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at [vocab]seven-[/vocab]ninths and [vocab]one-[/vocab][vocab]half[/vocab]. Which fraction is greater?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "7/9",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is seven-ninths greater than, less than, or equal to one-half?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about what [vocab]one-[/vocab][vocab]half[/vocab] of nine would be."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. To compare [vocab]seven-[/vocab]ninths to [vocab]one-[/vocab][vocab]half[/vocab], ask yourself: is 7 more than [vocab]half[/vocab] of 9? [vocab]Half[/vocab] of 9 would be 4 and a [vocab]half[/vocab]. Compare 7 to that number."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. To see if [vocab]seven-[/vocab]ninths is greater than [vocab]one-[/vocab][vocab]half[/vocab], we need to figure out what [vocab]half[/vocab] of 9 is. [vocab]Half[/vocab] of 9 is 4 and a [vocab]half[/vocab]. Now we compare: is 7 greater than 4 and a [vocab]half[/vocab]? Yes, 7 is more than 4 and a [vocab]half[/vocab]. That means 7 is more than [vocab]half[/vocab] of 9. So [vocab]seven-[/vocab]ninths is greater than [vocab]one-[/vocab][vocab]half[/vocab]. The answer is greater than. That's how we compare a fraction to [vocab]one-[/vocab][vocab]half[/vocab] - we check if the [vocab]numerator[/vocab] is more than [vocab]half[/vocab] the [vocab]denominator[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. [vocab]Seven-[/vocab]ninths is greater than [vocab]one-[/vocab][vocab]half[/vocab]."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now compare [vocab]three-[/vocab][vocab]eighths[/vocab] to [vocab]one-[/vocab][vocab]half[/vocab].",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "3/8",
+                  " ? ",
+                  "1/2"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is three-eighths greater than, less than, or equal to one-half?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about what [vocab]half[/vocab] of 8 would be."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. To compare [vocab]three-[/vocab][vocab]eighths[/vocab] to [vocab]one-[/vocab][vocab]half[/vocab], we need to figure out what [vocab]half[/vocab] of 8 is. Once we know that, we can compare 3 to that number."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. To compare [vocab]three-[/vocab][vocab]eighths[/vocab] to [vocab]one-[/vocab][vocab]half[/vocab], we need to find what [vocab]half[/vocab] of 8 is. [vocab]Half[/vocab] of 8 is 4, which means [vocab]one-[/vocab][vocab]half[/vocab] equals [vocab]four-[/vocab][vocab]eighths[/vocab]. Now we can compare: is 3 [vocab]eighths[/vocab] more or less than 4 [vocab]eighths[/vocab]? Since 3 is less than 4, [vocab]three-[/vocab][vocab]eighths[/vocab] is less than [vocab]one-[/vocab][vocab]half[/vocab]. That's how we compare fractions to [vocab]one-[/vocab][vocab]half[/vocab] - we find what [vocab]half[/vocab] of the [vocab]denominator[/vocab] is."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_less] Correct. [vocab]Three-[/vocab][vocab]eighths[/vocab] is less than [vocab]one-[/vocab][vocab]half[/vocab]."
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "You've compared both fractions to the benchmark. Now compare them to each other.",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "7/9",
+                  " ? ",
+                  "3/8"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Is seven-ninths greater than, less than, or equal to three-eighths?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Think about what you found when you compared each fraction to [vocab]one-[/vocab][vocab]half[/vocab]."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's use what we already know. You compared both fractions to the benchmark, [vocab]one-[/vocab][vocab]half[/vocab]. Think about which fraction was greater than [vocab]one-[/vocab][vocab]half[/vocab] and which was less. That tells us how they compare to each other."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. Earlier, you found that [fraction numerator=7 denominator=9]seven ninths[/fraction] is greater than [vocab]one-[/vocab][vocab]half[/vocab], and [fraction numerator=3 denominator=8]three eighths[/fraction] is less than [vocab]one-[/vocab][vocab]half[/vocab]. So [fraction numerator=7 denominator=9]seven ninths[/fraction] is on one side of the benchmark and [fraction numerator=3 denominator=8]three eighths[/fraction] is on the other side. Since [fraction numerator=7 denominator=9]seven ninths[/fraction] is greater than [vocab]one-[/vocab][vocab]half[/vocab] and [fraction numerator=3 denominator=8]three eighths[/fraction] is less than [vocab]one-[/vocab][vocab]half[/vocab], that means [fraction numerator=7 denominator=9]seven ninths[/fraction] must be greater than [fraction numerator=3 denominator=8]three eighths[/fraction]. The answer is [fraction numerator=7 denominator=9]seven ninths[/fraction] > [fraction numerator=3 denominator=8]three eighths[/fraction]. That's how we use a benchmark - when fractions are on opposite sides of it, we know which is greater."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] Right. One fraction is more than one [vocab]half[/vocab], one is less — so you know which is greater."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 74,
+        "template_id": "12012",
+        "template_skill": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+        "identifiers": [
+          "2/9",
+          "7/9"
+        ],
+        "mastery_tier": "BASELINE",
+        "mastery_verb": "apply",
+        "telemetry_data": {
+          "mastery_skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+          "cognitive_verb": "apply",
+          "mastery_skill_id": "M12-08",
+          "tier": "BASELINE",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            3,
+            8
+          ],
+          "misconception_tag": [
+            "numerator_denominator_as_independent",
+            "errors_comparing_unlike_fractions"
+          ],
+          "component": "transfer"
+        },
+        "mastery_component": "TRANSFER"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two fractions. Which comparison strategy works here?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/9",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "lcm": 9
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "is_read_only": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/9",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "lcm": 9
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "2/9",
+                  "<",
+                  "7/9"
+                ],
+                "@col": 0,
+                "@layout": "default"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which strategy helps you compare [fraction numerator=2 denominator=9][/fraction] and [fraction numerator=7 denominator=9][/fraction]?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "Check for the same denominator, count the parts",
+                "Check for the same numerator, compare part sizes",
+                "Neither matches, use the benchmark"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the denominators in both fractions."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Look at [fraction numerator=2 denominator=9]two ninths[/fraction] and [fraction numerator=7 denominator=9]seven ninths[/fraction]. What do you notice about the bottom numbers? When fractions have the same [vocab]denominator[/vocab], the parts are all the same size - we just need to count how many parts are shaded."
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through this. First, we check the denominators. Both fractions are ninths - [fraction numerator=2 denominator=9]two ninths[/fraction] and [fraction numerator=7 denominator=9]seven ninths[/fraction] both have 9 as the [vocab]denominator[/vocab]. That means the parts are all the same size. Look at the bars - each ninth is exactly the same size in both bars. When denominators match like this, we just count the shaded parts. 2 ninths versus 7 ninths. Since the parts are equal, more parts means a larger fraction. The strategy is: check for the same [vocab]denominator[/vocab], then count the parts. That's how we compare fractions with the same [vocab]denominator[/vocab]."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Check for the same [vocab]denominator[/vocab], then count the parts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 77,
+        "template_id": "12013",
+        "template_skill": "Student views a fraction pair with visual bars (no strategy hint) and selects the correct comparison symbol",
+        "identifiers": [
+          "3/5",
+          "3/8"
+        ],
+        "mastery_tier": "STRETCH",
+        "mastery_verb": "apply",
+        "telemetry_data": {
+          "mastery_skill": "Student can independently compare any fraction pair using the correct strategy, with visual support",
+          "cognitive_verb": "apply",
+          "mastery_skill_id": "M12-08",
+          "tier": "STRETCH",
+          "non_curriculum_skills": [
+            "click_accuracy",
+            "reading_comprehension",
+            "visual_comparison"
+          ],
+          "misconception_id": [
+            8,
+            3
+          ],
+          "misconception_tag": [
+            "errors_comparing_unlike_fractions",
+            "numerator_denominator_as_independent"
+          ],
+          "component": "transfer"
+        },
+        "mastery_component": "TRANSFER"
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at both fractions. Which symbol shows the right comparison?",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "Benchmark",
+                "is_read_only": true,
+                "is_label_visible": false
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/5",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "lcm": 5
+              },
+              {
+                "@type": "NumLine",
+                "is_visible": true,
+                "visual": "bar",
+                "range": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "lcm": 8
+              },
+              {
+                "@type": "MathExpression",
+                "terms": [
+                  "3/5",
+                  " ? ",
+                  "3/8"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which symbol goes between these fractions?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "<",
+                "=",
+                ">"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at the bars and compare how much is shaded. Which fraction takes up more space?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's think about this together. Both fractions have 3 shaded parts - the numerators are the same. But look carefully at the size of those parts. When the numerators are equal, the fraction with fewer total parts has bigger pieces. Compare [vocab]fifths[/vocab] to [vocab]eighths[/vocab] - which pieces are larger?"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me walk you through comparing these fractions. We have [fraction numerator=3 denominator=5]three fifths[/fraction] and [fraction numerator=3 denominator=8]three eighths[/fraction]. Notice both have 3 shaded parts - the same [vocab]numerator[/vocab]. Here's the key: when numerators are equal, we look at the denominators to see which pieces are bigger. [vocab]Fifths[/vocab] means the whole is divided into 5 parts, while [vocab]eighths[/vocab] means it's divided into 8 parts. Fewer divisions means bigger pieces. So [vocab]one-[/vocab][vocab]fifth[/vocab] is bigger than [vocab]one-[/vocab][vocab]eighth[/vocab]. That means 3 [vocab]fifths[/vocab] is more than 3 [vocab]eighths[/vocab]. Looking at the bars, you can see [fraction numerator=3 denominator=5]three fifths[/fraction] takes up more space than [fraction numerator=3 denominator=8]three eighths[/fraction]. So [fraction numerator=3 denominator=5]three fifths[/fraction] is greater than [fraction numerator=3 denominator=8]three eighths[/fraction], and the answer is the greater than symbol. That's how we compare fractions with the same [vocab]numerator[/vocab] - the smaller [vocab]denominator[/vocab] means bigger pieces."
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "[event:Change_sign_to_greater] That's it."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

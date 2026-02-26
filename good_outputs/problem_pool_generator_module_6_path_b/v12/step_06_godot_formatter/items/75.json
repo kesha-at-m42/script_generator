@@ -1,0 +1,132 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 75,
+    "template_id": "6010",
+    "template_skill": "Student places halves or fifths fractions beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "8/5"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with transfer denominators (halves and fifths)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-08",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line divided into fifths that goes past 1. Drag the fraction label to where it belongs.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1",
+              "6/5",
+              "7/5",
+              "8/5",
+              "9/5",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 15
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 8/5 to the correct position.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "8/5"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "8/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count eight fifths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. The denominator 5 tells us we're counting fifths. The numerator 8 tells us we need 8 of those fifths from zero. Remember that five-fifths equals 1, so eight-fifths goes past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing eight-fifths. The number line is divided into fifths - that means each interval represents one-fifth. To find eight-fifths, we count 8 of these intervals from 0. Five intervals gets us to 1, then we count 3 more intervals past 1. That lands us at the tick mark labeled 8/5. That's how we locate fractions greater than 1 on the number line - we count past 1 just like we counted to get to 1."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, eight-fifths is three intervals past 1."
+        }
+      }
+    }
+  ]
+}

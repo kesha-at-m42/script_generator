@@ -1,0 +1,124 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 60,
+    "template_id": "8011",
+    "template_skill": "Student identifies or verifies equivalence between fractions in the 2/3 family",
+    "identifiers": [
+      "1/3",
+      "2/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can apply equivalence understanding to the 2/3 family",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M8-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7,
+        8
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. One third is shaded on the left. Two sixths is shaded on the right. Do they show the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Compare one third and two sixths. Are they equivalent?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "No, because six is larger than three.",
+            "No, because you can't compare fractions with different denominators.",
+            "Yes, because the shaded amounts cover the same length on both bars.",
+            "Yes, because one third is always equal to two of something."
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look carefully at how much of each bar is shaded. Do the shaded parts take up the same amount of space?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. We can compare fractions even when they have different denominators. The key is to look at the actual shaded amounts. Compare how much space the shaded part takes up on the left bar versus the right bar. Do they cover the same length?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. The left bar shows one third shaded, and the right bar shows two sixths shaded. Even though they have different denominators, we can still compare them by looking at the actual lengths. If you look at both bars, the shaded portion on the left covers exactly the same length as the shaded portion on the right. They line up perfectly. This means one third and two sixths are equivalent fractions - they represent the same amount. That's how we compare fractions with different denominators - by looking at the actual amounts they represent."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. One third and two sixths are equivalent."
+        }
+      }
+    }
+  ]
+}

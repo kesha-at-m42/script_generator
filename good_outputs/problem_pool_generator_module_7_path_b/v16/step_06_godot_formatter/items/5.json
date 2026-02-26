@@ -1,0 +1,94 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 5,
+    "template_id": "7001",
+    "template_skill": "Student selects which fraction(s) from a set equal 1",
+    "identifiers": [
+      "2/2",
+      "6/6",
+      "8/8"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize that b/b = 1 (numerator equals denominator means one whole)",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M7-01",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these fractions. Some of them equal 1. Can you find all of them?",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fractions are the same as 1? Select all that apply.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1,
+            5
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "2/2",
+            "6/6",
+            "5/6",
+            "6/5",
+            "7/8",
+            "8/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the numerator and denominator in each fraction. When do they match?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. A fraction equals 1 when the numerator and denominator are the same number. Look through the fractions and find all the ones where the top and bottom numbers match."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. A fraction equals 1 when the numerator and denominator are the same. Let's check each one. 2/2 - the numerator is 2 and the denominator is 2, so they match. That equals 1. 6/6 - both numbers are 6, so that equals 1 too. 5/6 - these don't match, so this doesn't equal 1. 6/5 - these don't match either. 7/8 - not a match. 8/8 - both are 8, so this equals 1. The answers are 2/2, 6/6, and 8/8. That's how fractions equal 1 - when the numerator and denominator are the same."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. When the numerator and denominator match, the fraction equals 1."
+        }
+      }
+    }
+  ]
+}

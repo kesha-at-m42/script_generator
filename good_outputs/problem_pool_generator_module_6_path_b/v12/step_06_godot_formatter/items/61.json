@@ -1,0 +1,119 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 61,
+    "template_id": "6008",
+    "template_skill": "Student drags a single thirds fraction label or places a point beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "7/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line showing thirds beyond 1. Place seven-thirds on the line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "4/3",
+              "5/3",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Where does 7/3 go? Place it on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "7/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count seven thirds from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Seven-thirds means we need to count 7 equal thirds from zero. The line continues past 1, so keep counting through 1 and beyond."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Seven-thirds means we count 7 of the third-size intervals starting from zero. Let's count: 1/3, 2/3, 3/3 (which is 1), 4/3, 5/3, 6/3 (which is 2), and finally 7/3. That puts us one tick mark past 2. That's how we locate fractions beyond 1 - we keep counting the equal parts past the whole numbers."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. You placed seven-thirds at the seventh third from zero."
+        }
+      }
+    }
+  ]
+}

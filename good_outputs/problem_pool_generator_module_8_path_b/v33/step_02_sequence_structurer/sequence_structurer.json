@@ -1,0 +1,6488 @@
+[
+  {
+    "problem_id": 1,
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "1/3",
+      "3/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top. Can you find which bar below shows the same amount?",
+        "prompt": "Which bar shows the same amount as one half?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 2/4, which equals 1/2 - the same amount as the reference bar"
+        },
+        "success_path_dialogue": "That's right. Two fourths shows the same amount as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 2,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "2/4",
+      "1/2",
+      "2/6",
+      "3/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top showing two-fourths. Can you find which bar below shows the same amount?",
+        "prompt": "Select the bar that is equivalent to two-fourths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "The reference bar shows 2/4 (2 shaded sections out of 4 total). Bar A shows 1/2 (1 shaded section out of 2 total). Since 2/4 = 1/2, they represent the same amount."
+        },
+        "success_path_dialogue": "That's right. One half shows the same amount as two fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 3,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "3/6",
+      "1/4",
+      "1/2",
+      "5/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing three-sixths. Which bar below shows the same amount?",
+        "prompt": "Select the bar that shows an equivalent fraction.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B has 1 out of 2 sections shaded, showing 1/2, which is equivalent to 3/6 (both equal one half of the whole)"
+        },
+        "success_path_dialogue": "That's right. One half shows the same amount as three sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 4,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "4/8",
+      "3/8",
+      "1/3",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the shaded bar at the top. Which of the bars below shows the same amount shaded?",
+        "prompt": "Select the bar that shows the same amount as 4/8.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_c",
+          "context": "Bar C shows 2/4 shaded, which is equivalent to 4/8 (both equal one half)"
+        },
+        "success_path_dialogue": "That's right. Two fourths shows the same amount as four eighths."
+      }
+    ]
+  },
+  {
+    "problem_id": 5,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "1/2",
+      "3/6",
+      "3/4",
+      "5/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing one-half. Which of the bars below shows the same amount?",
+        "prompt": "Which bar is equivalent to 1/2?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 3 out of 6 equal parts shaded (3/6), which equals one-half"
+        },
+        "success_path_dialogue": "That's right. Three-sixths shows the same amount as one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 6,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8001",
+    "fractions": [
+      "2/4",
+      "2/6",
+      "4/8",
+      "1/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top showing two fourths. Can you find another bar that shows the same amount shaded?",
+        "prompt": "Which bar shows the same amount as two fourths?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B shows 4/8, which is equivalent to 2/4 (both equal one half)"
+        },
+        "success_path_dialogue": "That's right. Four eighths shows the same amount as two fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 7,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8002",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "3/6",
+      "1/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these bars. Three of them show the same amount even though they're divided differently. Can you find which bars are equivalent to each other?",
+        "prompt": "Select ALL bars that show equivalent fractions.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_d",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "bar_b",
+            "bar_c",
+            "bar_d"
+          ],
+          "context": "All bars show valid fractions from the problem set: bar_a shows 1/2, bar_b shows 2/4, bar_c shows 3/6, and bar_d shows 1/3. Bars A, B, and C are equivalent to each other (all equal 1/2), while bar D shows a different fraction (1/3)."
+        },
+        "success_path_dialogue": "You found them all. One half, two fourths, and three sixths are all equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 8,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8002",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "4/8",
+      "3/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these four bars. Three of them show the same amount even though they're divided differently.",
+        "prompt": "Select ALL bars that show the same amount as one-half.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_d",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "bar_b",
+            "bar_d"
+          ],
+          "context": "Bar A shows 1/2, Bar B shows 2/4 which equals 1/2, and Bar D shows 4/8 which equals 1/2. These three bars are equivalent. Bar C shows 3/4, which is a different amount."
+        },
+        "success_path_dialogue": "Good eye. You identified all the bars showing one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 9,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "template_id": "8002",
+    "fractions": [
+      "1/3",
+      "2/6",
+      "3/4",
+      "5/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these four bars. Some of them show the same amount shaded, even though they're divided differently. Find all the bars that match.",
+        "prompt": "Select ALL bars that show the same amount shaded.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_d",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "bar_b"
+          ],
+          "context": "Bar A shows 1/3 and Bar B shows 2/6, which are equivalent fractions representing the same amount"
+        },
+        "success_path_dialogue": "That's right — both bars show the same amount, even though one is divided into thirds and the other into sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 10,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8002",
+    "fractions": [
+      "1/2",
+      "3/6",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these three bars. Some of them show one half—or an equivalent amount. Find all the bars that match.",
+        "prompt": "Select ALL bars that show one half.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "bar_b",
+            "bar_c"
+          ],
+          "context": "All three bars show one half: bar_a shows 1/2 (1 of 2 sections shaded), bar_b shows 3/6 (3 of 6 sections shaded), and bar_c shows 4/8 (4 of 8 sections shaded) - all equivalent fractions"
+        },
+        "success_path_dialogue": "You found them all. One half, three sixths, and four eighths are all equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 11,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "8002",
+    "fractions": [
+      "2/4",
+      "3/6",
+      "4/8",
+      "5/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these bars. Some of them show the same amount, even though they're divided differently.",
+        "prompt": "Select ALL bars that show the same amount.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_d",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "bar_b",
+            "bar_c"
+          ],
+          "context": "Bar A (2/4), Bar B (3/6), and Bar C (4/8) all show one-half of the whole. Bar D shows 5/6, which is a different amount."
+        },
+        "success_path_dialogue": "That's right — all those bars show the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 12,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "compare",
+    "template_id": "8003",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Mia and Jake each have a granola bar. Mia ate 3/6 of hers and Jake ate 1/2 of his. Think about whether they ate the same amount.",
+        "prompt": "Did Mia and Jake eat the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, because the granola bars are the same size and 3/6 equals 1/2."
+              },
+              {
+                "id": "b",
+                "text": "No, because 3/6 and 1/2 look different."
+              },
+              {
+                "id": "c",
+                "text": "No, because they are divided into different numbers of pieces."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because they are both granola bars."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "The granola bars are identical (same-sized wholes), and 3/6 is equivalent to 1/2, so they ate the same amount."
+        },
+        "success_path_dialogue": "Yes — identical wholes and equivalent fractions means the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 13,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "8003",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Two ribbons are the same size but cut differently. One shows 1/2 shaded, the other shows 2/4 shaded. Can we say these amounts are equivalent?",
+        "prompt": "Are these amounts equivalent?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "ribbon_a",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Ribbon showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "ribbon_b",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Ribbon showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, because the ribbons are the same size and 1/2 equals 2/4."
+              },
+              {
+                "id": "b",
+                "text": "No, because 1/2 and 2/4 look different."
+              },
+              {
+                "id": "c",
+                "text": "No, because they are divided into different numbers of pieces."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because they are both ribbons."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "The ribbons are identical in size (same whole), and 1/2 and 2/4 are equivalent fractions, so the shaded amounts are the same."
+        },
+        "success_path_dialogue": "Yes — identical wholes and equivalent fractions means the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 14,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "8003",
+    "fractions": [
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Two pizzas—one small, one large. Both have 1/2 eaten. Is the amount eaten the same?",
+        "prompt": "Is the amount eaten the same?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, because the pizzas are different sizes, so we cannot compare the amounts fairly."
+              },
+              {
+                "id": "b",
+                "text": "Yes, because 1/2 equals 1/2, so the size doesn't matter."
+              },
+              {
+                "id": "c",
+                "text": "No, because 1/2 and 1/2 are different fractions."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because they both ate part of a pizza."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "The wholes (pizzas) are different sizes, so even though the fractions are the same, the actual amounts eaten are different and cannot be compared fairly."
+        },
+        "success_path_dialogue": "Right. The wholes are different sizes, so we can't say the amounts are equal."
+      }
+    ]
+  },
+  {
+    "problem_id": 15,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8003",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Emma ate half of her small cookie. Luis ate two-fourths of a large cookie. Can we say they ate the same amount?",
+        "prompt": "Can we compare these amounts fairly?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, because the cookies are different sizes, so we cannot compare the amounts fairly."
+              },
+              {
+                "id": "b",
+                "text": "Yes, because 1/2 equals 2/4, so the size doesn't matter."
+              },
+              {
+                "id": "c",
+                "text": "No, because 1/2 and 2/4 are different fractions."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because they both ate part of a cookie."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "Even though 1/2 and 2/4 are equivalent fractions, the wholes (cookies) are different sizes, making the actual amounts eaten incomparable"
+        },
+        "success_path_dialogue": "Right. The wholes are different sizes, so we can't say the amounts are equal."
+      }
+    ]
+  },
+  {
+    "problem_id": 16,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8003",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Two juice boxes are the same size. One shows 2/4 full, the other shows 4/8 full. Do they have the same amount of juice?",
+        "prompt": "Do the juice boxes contain the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, because the juice boxes are the same size and 2/4 equals 4/8."
+              },
+              {
+                "id": "b",
+                "text": "No, because 2/4 and 4/8 look different."
+              },
+              {
+                "id": "c",
+                "text": "No, because they are divided into different numbers of pieces."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because they are both juice boxes."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "Same-sized wholes and equivalent fractions (2/4 = 4/8) means the amounts are equal"
+        },
+        "success_path_dialogue": "Yes — identical wholes and equivalent fractions means the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 17,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8004",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. One shows one half, the other shows two fourths. Why are they equivalent?",
+        "prompt": "Why are one half and two fourths equivalent?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "The same area is shaded in both bars"
+              },
+              {
+                "id": "b",
+                "text": "Four is larger than two"
+              },
+              {
+                "id": "c",
+                "text": "Both fractions are less than one"
+              },
+              {
+                "id": "d",
+                "text": "They are not equivalent"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "The shaded area represents the same amount in both bars, even though the number of parts differs"
+        },
+        "success_path_dialogue": "Exactly. They're equivalent because the same amount is shaded."
+      }
+    ]
+  },
+  {
+    "problem_id": 18,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8004",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. One shows one half, and the other shows three sixths. Why do they represent the same amount?",
+        "prompt": "Why are one half and three sixths equivalent?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_1",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_2",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "labels": true
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Six is larger than two"
+              },
+              {
+                "id": "b",
+                "text": "They cover the same part of the whole"
+              },
+              {
+                "id": "c",
+                "text": "One denominator is bigger than the other"
+              },
+              {
+                "id": "d",
+                "text": "Both fractions have different numerators"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "Equivalent fractions represent the same amount of the whole, even when divided into different-sized pieces"
+        },
+        "success_path_dialogue": "Exactly. They're equivalent because the same amount is shaded."
+      }
+    ]
+  },
+  {
+    "problem_id": 19,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "8004",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. They show 2/3 and 4/6. Why do you think they're equivalent?",
+        "prompt": "Two thirds equals four sixths. Why?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "labels": true
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "The pieces are different sizes"
+              },
+              {
+                "id": "b",
+                "text": "Six is larger than three"
+              },
+              {
+                "id": "c",
+                "text": "Both bars show the same shaded amount"
+              },
+              {
+                "id": "d",
+                "text": "They are divided into different numbers of pieces"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "The bars are equivalent because the same total amount is shaded, even though the pieces are different sizes"
+        },
+        "success_path_dialogue": "Exactly. They're equivalent because the same amount is shaded."
+      }
+    ]
+  },
+  {
+    "problem_id": 20,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "8004",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at both bars. They show different fractions, but they're equivalent. Why?",
+        "prompt": "Pick the explanation that tells WHY these fractions are equivalent.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_1",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_2",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Eight is larger than two"
+              },
+              {
+                "id": "b",
+                "text": "Both fractions are less than one"
+              },
+              {
+                "id": "c",
+                "text": "The denominators are different"
+              },
+              {
+                "id": "d",
+                "text": "Both bars show the same shaded amount"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "d",
+          "context": "Equivalent fractions represent the same amount - 1/2 and 4/8 both show the same portion of the whole shaded"
+        },
+        "success_path_dialogue": "Exactly. They're equivalent because the same amount is shaded."
+      }
+    ]
+  },
+  {
+    "problem_id": 21,
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the shaded bar at the top. Can you find another bar that shows the same amount?",
+        "prompt": "Select the bar that equals one half.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 2/4, which is equivalent to 1/2"
+        },
+        "success_path_dialogue": "Yes. Two fourths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 22,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the shaded bar at the top. It shows two fourths. Can you find another bar below that shows the same amount shaded?",
+        "prompt": "Which bar is equivalent to two fourths?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B shows 4/8 shaded, which is equivalent to 2/4 (same amount of the whole)"
+        },
+        "success_path_dialogue": "That's it. Four eighths equals two fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 23,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "3/6",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the shaded bar at the top. Can you find another bar that shows the same amount?",
+        "prompt": "Select the bar showing the same amount as three sixths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_c",
+          "context": "Bar C shows 2/4, which is equivalent to 3/6 (both equal one half)"
+        },
+        "success_path_dialogue": "Yes. Two fourths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 24,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "4/8",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top bar shows one half. Which bar below shows the same amount?",
+        "prompt": "Which bar shows the same amount as one half?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 5/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B shows 3/6 which is equivalent to 1/2, the same amount as the reference bar showing 4/8"
+        },
+        "success_path_dialogue": "That's it. Same amount, different pieces."
+      }
+    ]
+  },
+  {
+    "problem_id": 25,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing one half. Which of these bars shows the same amount?",
+        "prompt": "Select the bar equivalent to 1/2.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 5/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_c",
+          "context": "4/8 is equivalent to 1/2 because four out of eight equal parts represents the same amount as one out of two equal parts"
+        },
+        "success_path_dialogue": "That's it. Four-eighths equals one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 26,
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "identify",
+    "template_id": "8005",
+    "fractions": [
+      "2/4",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing two fourths. Can you find which bar below shows the same amount?",
+        "prompt": "Which bar is equivalent to two fourths?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 1/2, which is equivalent to 2/4 - same amount of shading"
+        },
+        "success_path_dialogue": "Yes. Two fourths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 27,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing two thirds. Can you find which bar below shows the same amount?",
+        "prompt": "Select the bar equivalent to 2/3.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "4/6 is equivalent to 2/3 - both represent the same portion of the whole"
+        },
+        "success_path_dialogue": "Right. Four sixths equals two thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 28,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "4/6",
+      "2/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing four-sixths. Which bar below shows the same amount?",
+        "prompt": "Which bar shows the same amount as four-sixths?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 4/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B shows 2/3, which is equivalent to 4/6 - the same shaded portion of the whole"
+        },
+        "success_path_dialogue": "Right. Four-sixths equals two-thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 29,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top. Which bar below shows the same amount?",
+        "prompt": "Click the bar that equals three-sixths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_c",
+          "context": "Bar C shows 1/2, which is equivalent to 3/6"
+        },
+        "success_path_dialogue": "Correct. Three-sixths equals one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 30,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "4/8",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing four-eighths. Which bar below shows the same amount?",
+        "prompt": "Select the equivalent bar.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 4/8 shaded and labeled",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_c",
+          "context": "4/8 and 2/4 both represent one-half of the whole"
+        },
+        "success_path_dialogue": "Correct. Four-eighths equals two-fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 31,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing two-fourths. Which bar below shows the same amount?",
+        "prompt": "Select the bar that shows the same amount as two-fourths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "4/8 is equivalent to 2/4 - both represent the same portion of the whole"
+        },
+        "success_path_dialogue": "Right. Four eighths equals two fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 32,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "8006",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top. Which of the bars below shows the same amount?",
+        "prompt": "Which bar shows the same amount as two thirds?",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 4/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Four sixths is equivalent to two thirds - same portion of the whole"
+        },
+        "success_path_dialogue": "Right. Four sixths equals two thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 33,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows one half. Let's see if two fourths lands at the same spot.",
+        "prompt": "Place two fourths on the line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Number line showing 1/2 with point and label",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with fourths, endpoints labeled only",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2/4",
+          "context": "2/4 lands at the same position as 1/2 on the reference line, proving they are equivalent fractions"
+        },
+        "success_path_dialogue": "Right there. Two fourths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 34,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line. One half is marked there. Now look at the bottom line with sixths.",
+        "prompt": "Place three sixths on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line from 0 to 1 with point and label at 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line from 0 to 1 with tick marks at sixths, endpoints labeled",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "3/6",
+          "context": "Three sixths lands at the same position as one half on the top line, showing they are equivalent fractions"
+        },
+        "success_path_dialogue": "Right there. Three sixths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 35,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "4/8",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line. Can you find where four eighths lands on the bottom line?",
+        "prompt": "Place four eighths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line with point at 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with eighths, endpoints labeled",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "tangible_id": "line_student",
+            "position": "4/8"
+          },
+          "context": "4/8 lands at the same position as 1/2, showing they are equivalent fractions"
+        },
+        "success_path_dialogue": "Right there. Four eighths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 36,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "2/4",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top number line. It shows one-half. Now let's place two-fourths on the bottom line.",
+        "prompt": "Place the marker at two fourths.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Number line with point and label at 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with fourths marked, endpoints labeled",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2/4",
+          "context": "The point at 2/4 lands at the same position as 1/2 on the reference line, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Right there. Two fourths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 37,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows one half. Find where three sixths belongs on the bottom line.",
+        "prompt": "Place three sixths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference line showing 1/2 marked with point and label",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_target",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with sixths, endpoints labeled only",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "tangible_id": "line_target",
+            "position": "3/6"
+          },
+          "context": "3/6 lands at the same position as 1/2, proving they are equivalent"
+        },
+        "success_path_dialogue": "Right there. Three sixths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 38,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8007",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top number line. It shows one half. Can you find where four eighths lands on the bottom line?",
+        "prompt": "Place four eighths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line showing 1/2 with point and label",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with eighths, endpoints labeled",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "4/8",
+          "context": "4/8 lands at the same position as 1/2, showing they are equivalent fractions"
+        },
+        "success_path_dialogue": "Right there. Four eighths lands at the same point as one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 39,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's check if two fourths lands at the same spot as one half.",
+        "prompt": "Place two fourths on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line with point at 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with fourths for student to place point",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2/4",
+          "context": "Two fourths aligns with one half on the reference line, showing they are equivalent fractions"
+        },
+        "success_path_dialogue": "Yes. Two fourths and one half are at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 40,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line. It shows two thirds. Now place four sixths on the bottom line.",
+        "prompt": "Place 4/6 on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line with point at 2/3",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "0",
+              "2/3",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line divided into sixths for student interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "4/6",
+          "context": "4/6 is equivalent to 2/3 and lands at the same position on the number line"
+        },
+        "success_path_dialogue": "Yes. Four sixths and two thirds are at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 41,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the point marked on the top line. Now show where two sixths goes on the bottom line.",
+        "prompt": "Place two sixths on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line with point at 1/3",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "1/3"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line partitioned into sixths for student interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2/6",
+          "context": "2/6 aligns with the 1/3 reference point, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Correct. Two sixths and one third are at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 42,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows one half. Place four eighths on the bottom line.",
+        "prompt": "Place the marker at four eighths.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference line with point at 1/2",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with eighths for student interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "4/8",
+          "context": "Four eighths is equivalent to one half - both fractions represent the same position on the number line"
+        },
+        "success_path_dialogue": "Right. Four eighths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 43,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "2/6",
+      "1/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's check if one third and two sixths land at the same spot.",
+        "prompt": "Place one third on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line with point at 2/6",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "2/6"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line with tick marks at thirds for student to place point",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1/3",
+          "context": "The point at 1/3 aligns with the reference point at 2/6, verifying they are equivalent fractions"
+        },
+        "success_path_dialogue": "Yes. One third and two sixths are at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 44,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8008",
+    "fractions": [
+      "2/3",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows two thirds. Find where three sixths belongs on the bottom line.",
+        "prompt": "Place three sixths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Reference number line from 0 to 1 with point at 2/3",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "0",
+              "2/3",
+              "1"
+            ]
+          },
+          {
+            "id": "line_student",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Number line from 0 to 1 with tick marks at sixths",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "3/6",
+          "context": "3/6 aligns with 2/3 on the reference line, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Correct. Same point — they're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 45,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the bar on top showing one half. Can you shade the bar below to show the same amount?",
+        "prompt": "Shade this bar to show a fraction equal to one half.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 (one of two equal parts shaded)",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty fraction strip divided into 4 equal parts",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1
+          ],
+          "context": "Shading 2 out of 4 parts creates 2/4, which equals 1/2"
+        },
+        "success_path_dialogue": "Good. You shaded two out of four equal parts."
+      }
+    ]
+  },
+  {
+    "problem_id": 46,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "2/4",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top bar shows two-fourths. Can you shade the bottom bar to show the same amount?",
+        "prompt": "Shade the bottom bar to match two-fourths.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_ref",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty fraction strip divided into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2
+          ],
+          "context": "Shading 3 out of 6 parts creates 3/6, which equals 2/4 (both represent one half)"
+        },
+        "success_path_dialogue": "That's right. Three-sixths equals two-fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 47,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar. It shows one half. Shade the bottom bar to show the same amount.",
+        "prompt": "How many eighths equal one half? Shade to show.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty fraction strip divided into eighths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Four eighths equals one half - same amount as the reference bar"
+        },
+        "success_path_dialogue": "You made it. Four eighths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 48,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "3/6",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing three-sixths. Shade the bottom bar to show the same amount.",
+        "prompt": "Create a fraction equivalent to three-sixths.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty fraction strip divided into fourths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1
+          ],
+          "context": "Shading 2 out of 4 parts creates 2/4, which equals 3/6 (both equal to one-half)"
+        },
+        "success_path_dialogue": "Good. You shaded two out of four equal parts."
+      }
+    ]
+  },
+  {
+    "problem_id": 49,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing two fourths. Can you shade the bottom bar to show the same amount?",
+        "prompt": "Shade parts to make the same amount as two fourths.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar divided into eighths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Four of eight parts shaded equals 4/8, which is equivalent to 2/4"
+        },
+        "success_path_dialogue": "You made it. Four eighths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 50,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "3/6",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing three sixths. Can you shade the bottom bar to show the same amount?",
+        "prompt": "Shade the bottom bar to match three sixths.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar divided into eighths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Four eighths equals three sixths - both represent one half"
+        },
+        "success_path_dialogue": "You made it. Four eighths equals three sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 51,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing one half. Can you shade the bottom bar to show the same amount using sixths?",
+        "prompt": "Shade sixths to equal one half.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_ref",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar divided into 6 equal parts",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2
+          ],
+          "context": "Three out of six parts equals one half (3/6 = 1/2)"
+        },
+        "success_path_dialogue": "That's right. Three sixths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 52,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8009",
+    "fractions": [
+      "2/4",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top bar showing two-fourths. Now shade parts of the bottom bar to show the same amount.",
+        "prompt": "Shade the bar to create a fraction equivalent to 2/4.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar divided into 6 equal parts",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2
+          ],
+          "context": "Shading 3 of 6 parts creates 3/6, which equals 2/4 (half)"
+        },
+        "success_path_dialogue": "Good. You shaded three out of six equal parts — that's the same amount as two-fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 53,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8010",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The bar at top shows two thirds. Can you shade the bar below to show an equivalent fraction?",
+        "prompt": "Shade this bar to show a fraction equal to two thirds.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": [
+              "2/3"
+            ]
+          },
+          {
+            "id": "bar_student",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar partitioned into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Shading 4 out of 6 sections creates 4/6, which equals 2/3"
+        },
+        "success_path_dialogue": "Correct. Same amount — each third became two sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 54,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8010",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top bar shows one third. Can you make the same amount using sixths?",
+        "prompt": "Shade the bottom bar to show the same amount as 1/3.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_student",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar partitioned into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1
+          ],
+          "context": "Two sixths equals one third - same amount with smaller parts"
+        },
+        "success_path_dialogue": "Yes. Two sixths and one third are equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 55,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "template_id": "8010",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a bar showing two thirds. Can you shade sixths to match it?",
+        "prompt": "How many sixths equal two thirds? Shade to show.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar partitioned into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Four sixths equals two thirds - the student shades any 4 of the 6 sections to create an equivalent fraction"
+        },
+        "success_path_dialogue": "That's it. Four sixths equals two thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 56,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "template_id": "8010",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a bar showing one-third. Create an equivalent fraction using sixths.",
+        "prompt": "Shade sections to show a fraction equivalent to 1/3.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "labels": [
+              "1/3"
+            ]
+          },
+          {
+            "id": "target_bar",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar partitioned into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1
+          ],
+          "context": "Shading 2 out of 6 sections creates 2/6, which equals 1/3"
+        },
+        "success_path_dialogue": "That's it. Two-sixths equals one-third."
+      }
+    ]
+  },
+  {
+    "problem_id": 57,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8010",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top bar shows two thirds. Can you shade the bottom bar to show the same amount using sixths?",
+        "prompt": "Shade the bar below to show two thirds using sixths.",
+        "interaction_tool": "shade",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": [
+              "2/3"
+            ]
+          },
+          {
+            "id": "bar_target",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Empty bar partitioned into sixths",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "context": "Four sixths equals two thirds - each third becomes two sixths"
+        },
+        "success_path_dialogue": "You made it. Four sixths equals two thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 58,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "8011",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. They're divided differently, but do they show the same amount?",
+        "prompt": "Are two thirds and four sixths equivalent? How can you tell?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_left",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into thirds with 2 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_right",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into sixths with 4 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, because both bars show the same amount shaded even though they are divided differently."
+              },
+              {
+                "id": "b",
+                "text": "No, because thirds and sixths are different sizes."
+              },
+              {
+                "id": "c",
+                "text": "No, because one has 2 parts shaded and the other has 4 parts."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because 2 plus 4 equals 6."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "Both bars show the same total amount shaded (2/3 = 4/6), demonstrating equivalence despite different partition sizes"
+        },
+        "success_path_dialogue": "Right. Two thirds equals four sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 59,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "8011",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing one third. Which of the bars below shows the same amount?",
+        "prompt": "Select the bar that shows a fraction equivalent to one third.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "ref_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 2/6, which is equivalent to 1/3"
+        },
+        "success_path_dialogue": "Correct. Two sixths equals one third."
+      }
+    ]
+  },
+  {
+    "problem_id": 60,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8011",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. One third is shaded on the left. Two sixths is shaded on the right. Do they show the same amount?",
+        "prompt": "Compare one third and two sixths. Are they equivalent?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_left",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into thirds with 1 section shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_right",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into sixths with 2 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, because six is larger than three."
+              },
+              {
+                "id": "b",
+                "text": "No, because you can't compare fractions with different denominators."
+              },
+              {
+                "id": "c",
+                "text": "Yes, because the shaded amounts cover the same length on both bars."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because one third is always equal to two of something."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "The shaded portions occupy the same length on both bars, demonstrating that 1/3 and 2/6 are equivalent fractions"
+        },
+        "success_path_dialogue": "Correct. One third and two sixths are equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 61,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8011",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top. Find the bar below that shows the same amount.",
+        "prompt": "Find the bar that equals four sixths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 4/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar divided into thirds with 1 section shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar divided into thirds with 2 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar divided into sixths with 3 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_b",
+          "context": "Bar B shows 2/3, which is equivalent to 4/6"
+        },
+        "success_path_dialogue": "Correct. Two thirds equals four sixths."
+      }
+    ]
+  },
+  {
+    "problem_id": 62,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "8011",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two bars. One shows thirds, the other shows sixths. Do they show the same amount shaded?",
+        "prompt": "Do these two bars show the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_left",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into thirds with 2 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_right",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Strip divided into sixths with 4 sections shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, the shaded portions are equal in size."
+              },
+              {
+                "id": "b",
+                "text": "No, because one bar has more sections than the other."
+              },
+              {
+                "id": "c",
+                "text": "No, because 2 and 4 are different numbers."
+              },
+              {
+                "id": "d",
+                "text": "Yes, because both bars are the same length."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "2/3 and 4/6 are equivalent fractions - they represent the same amount even though they have different denominators and numerators"
+        },
+        "success_path_dialogue": "Yes — same amount shaded in both bars."
+      }
+    ]
+  },
+  {
+    "problem_id": 63,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "CREATE",
+    "template_id": "8012",
+    "fractions": [
+      "3/2",
+      "6/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line has a point at three halves. Where does six fourths go?",
+        "prompt": "Place six fourths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ],
+            "points": [
+              "3/2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "id": "line_target",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "6/4",
+          "context": "Six fourths lands at the same position as three halves on the reference line, demonstrating equivalence beyond 1"
+        },
+        "success_path_dialogue": "Right. Three halves and six fourths land at the same point."
+      }
+    ]
+  },
+  {
+    "problem_id": 64,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "CREATE",
+    "template_id": "8012",
+    "fractions": [
+      "4/2",
+      "8/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows a point at two. Where does eight-fourths go on the bottom line?",
+        "prompt": "Place the marker at eight fourths.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_ref",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ],
+            "points": [
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "id": "line_target",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "3/2",
+              "7/4",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "Eight fourths equals 2, matching the position of the reference point"
+        },
+        "success_path_dialogue": "Right. Eight fourths and four halves land at the same point."
+      }
+    ]
+  },
+  {
+    "problem_id": 65,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "template_id": "8012",
+    "fractions": [
+      "5/4",
+      "10/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows five-fourths. Place ten-eighths on the bottom line.",
+        "prompt": "Show where ten eighths goes on this number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "3/2",
+              "7/4",
+              "2"
+            ],
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "1/4",
+              "3/8",
+              "1/2",
+              "5/8",
+              "3/4",
+              "7/8",
+              "1",
+              "9/8",
+              "5/4",
+              "11/8",
+              "3/2",
+              "13/8",
+              "7/4",
+              "15/8",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "10/8",
+          "context": "10/8 is equivalent to 5/4, landing at the same position on the number line"
+        },
+        "success_path_dialogue": "Right. Ten eighths and five fourths land at the same point."
+      }
+    ]
+  },
+  {
+    "problem_id": 66,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "template_id": "8012",
+    "fractions": [
+      "6/4",
+      "3/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference line above. It shows six-fourths. Place three halves on the bottom line.",
+        "prompt": "Place three halves on the line. Where does it land?",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "3/2",
+              "7/4",
+              "2"
+            ],
+            "points": [
+              "6/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "id": "line_target",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "3/2",
+          "context": "Three halves equals six fourths, so both points land at the same position on the extended number line"
+        },
+        "success_path_dialogue": "Right. Three halves and six fourths land at the same point."
+      }
+    ]
+  },
+  {
+    "problem_id": 67,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8013",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the shaded bar at the top. Which bar below shows the same amount?",
+        "prompt": "Select the bar that is equivalent to one-half.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/3 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 2/4, which is equivalent to 1/2"
+        },
+        "success_path_dialogue": "That's right. Two-fourths equals one-half."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now let's check. One-half is marked on top. Place two-fourths on the bottom line.",
+        "prompt": "Place two-fourths on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": false,
+          "tangibles": [
+            {
+              "id": "top_line",
+              "type": "number_line",
+              "role": "reference",
+              "description": "Number line with point at 1/2",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "points": [
+                "1/2"
+              ],
+              "labels": [
+                "0",
+                "1/2",
+                "1"
+              ]
+            },
+            {
+              "id": "bottom_line",
+              "type": "number_line",
+              "role": "student_interaction",
+              "description": "Number line with tick marks at fourths",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "2/4",
+          "context": "2/4 is at the same position as 1/2, confirming they are equivalent"
+        },
+        "success_path_dialogue": "Good. You found the equivalent bar and proved it on the line."
+      }
+    ]
+  },
+  {
+    "problem_id": 68,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "8013",
+    "fractions": [
+      "2/4",
+      "1/2"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing 2/4. Which bar below shows an equivalent fraction?",
+        "prompt": "Select the bar that shows the same amount as 2/4.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "1/2 is equivalent to 2/4 - both represent the same amount"
+        },
+        "success_path_dialogue": "Good. You found the equivalent bar."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now let's verify. Place 1/2 on the bottom number line.",
+        "prompt": "Place a point at 1/2 on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": false,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "description": "Number line with point at 2/4",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "points": [
+                "2/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "description": "Number line with halves for student to mark 1/2",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "1/2",
+          "context": "The point at 1/2 on the bottom line aligns with 2/4 on the top line, proving equivalence"
+        },
+        "success_path_dialogue": "Correct. Both points line up - 2/4 equals 1/2."
+      }
+    ]
+  },
+  {
+    "problem_id": 69,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8013",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The reference bar shows 3/6. Which bar below shows the same amount?",
+        "prompt": "Select the bar that matches 3/6.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 1/2 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 3/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 1/2 shaded, which is equivalent to 3/6"
+        },
+        "success_path_dialogue": "Good. Now let's verify on the number line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place 1/2 on the bottom line to prove it matches 3/6 above.",
+        "prompt": "Place 1/2 on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": false,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "description": "Number line with point at 3/6",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "points": [
+                "3/6"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "description": "Number line with halves marked",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "1/2",
+          "context": "Placing 1/2 on the bottom line shows it aligns with 3/6 on the top line, proving equivalence"
+        },
+        "success_path_dialogue": "Correct. Both points line up — 1/2 and 3/6 are equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 70,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "template_id": "8013",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a bar showing two-fourths. Which of these bars shows the same amount?",
+        "prompt": "Select the bar that equals two-fourths.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar at top showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar A showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar B showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar C showing 2/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 4/8, which equals 2/4 (both represent one-half)"
+        },
+        "success_path_dialogue": "That's right. Four-eighths equals two-fourths."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now let's verify. Place four-eighths on the bottom line.",
+        "prompt": "Place four-eighths on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": false,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "description": "Top number line with point at 1/2",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "points": [
+                "1/2"
+              ],
+              "labels": [
+                "0",
+                "1/2",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "description": "Bottom number line with eighths marked",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "4/8",
+          "context": "4/8 aligns with 1/2 on the top line, confirming equivalence"
+        },
+        "success_path_dialogue": "Good. You found the equivalent AND proved it on the line."
+      }
+    ]
+  },
+  {
+    "problem_id": 71,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "8013",
+    "fractions": [
+      "2/4",
+      "3/6"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Which bar shows the same amount as the reference bar?",
+        "prompt": "Select the bar that shows an equivalent fraction to 2/4.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "ref_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "description": "Reference bar showing 2/4 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar A showing 3/6 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar B showing 4/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "description": "Bar C showing 2/8 shaded",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 3/6, which is equivalent to 2/4 (both represent one-half)"
+        },
+        "success_path_dialogue": "Good. Bar A shows three-sixths—the same amount as two-fourths."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place the point to show where three-sixths lands on the bottom line.",
+        "prompt": "Place a point at 3/6 on the bottom number line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": false,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "description": "Top number line showing fourths with point at 2/4",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "points": [
+                "2/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "description": "Bottom number line showing sixths, unlabeled",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "3/6",
+          "context": "3/6 lands at the same position as 2/4, proving they are equivalent"
+        },
+        "success_path_dialogue": "Correct. Both points line up—three-sixths equals two-fourths."
+      }
+    ]
+  },
+  {
+    "problem_id": 72,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "APPLY",
+    "template_id": "8014",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Maya and Noah each have identical chocolate bars. Maya ate 1/2 of hers, and Noah ate 2/4 of his. Did they eat the same amount?",
+        "prompt": "Did Maya and Noah eat the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_maya",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_noah",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, because 1/2 ≠ 2/4"
+              },
+              {
+                "id": "b",
+                "text": "Yes, because 1/2 = 2/4"
+              },
+              {
+                "id": "c",
+                "text": "Cannot tell from the bars"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "Both bars show the same shaded amount — 1/2 equals 2/4"
+        },
+        "success_path_dialogue": "Correct. Three sixths equals one half."
+      }
+    ]
+  },
+  {
+    "problem_id": 73,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two same-sized pizzas. One has 3/6 eaten, the other has 1/2 eaten. Are the amounts equal?",
+        "prompt": "Did they eat the same amount of pizza?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "pizza_a",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "pizza_b",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, 3/6 is more"
+              },
+              {
+                "id": "b",
+                "text": "No, 1/2 is more"
+              },
+              {
+                "id": "c",
+                "text": "Yes, both amounts are equal"
+              },
+              {
+                "id": "d",
+                "text": "Cannot tell"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "3/6 and 1/2 are equivalent fractions representing the same amount of pizza"
+        },
+        "success_path_dialogue": "Right. Same-sized pizzas and equivalent fractions — they ate the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 74,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Eli and Sara each have identical ribbons. Eli used 2/4 of his ribbon. Sara used 4/8 of hers. Did they use the same amount?",
+        "prompt": "Did they use the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_eli",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_sara",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "They used the same amount"
+              },
+              {
+                "id": "b",
+                "text": "Eli used more"
+              },
+              {
+                "id": "c",
+                "text": "Sara used more"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "2/4 and 4/8 are equivalent fractions representing the same amount"
+        },
+        "success_path_dialogue": "Right. Same-sized ribbons and equivalent fractions — they used the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 75,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Jade and Kim each have same-sized sandwiches. Jade ate 1/2 of hers, Kim ate 3/6 of his. Did they eat the same amount?",
+        "prompt": "Did Jade and Kim eat the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "sandwich_jade",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "sandwich_kim",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, Jade ate more"
+              },
+              {
+                "id": "b",
+                "text": "Yes, they ate the same amount"
+              },
+              {
+                "id": "c",
+                "text": "No, Kim ate more"
+              },
+              {
+                "id": "d",
+                "text": "Cannot tell from the information"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "1/2 and 3/6 are equivalent fractions representing the same amount of same-sized sandwiches"
+        },
+        "success_path_dialogue": "Correct. One half equals three sixths — they ate the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 76,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "APPLY",
+    "template_id": "8014",
+    "fractions": [
+      "2/4",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Two friends have identical juice boxes. One juice box is 2/4 full, the other is 1/2 full. Do they have the same amount of juice?",
+        "prompt": "Do the juice boxes have the same amount of juice?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "juice_box_1",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "juice_box_2",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, first box has more"
+              },
+              {
+                "id": "b",
+                "text": "No, second box has more"
+              },
+              {
+                "id": "c",
+                "text": "Yes, same amount of juice"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "2/4 and 1/2 are equivalent fractions representing the same amount"
+        },
+        "success_path_dialogue": "Right. Same-sized boxes and equivalent fractions — they have the same amount of juice."
+      }
+    ]
+  },
+  {
+    "problem_id": 77,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Alex and Jordan each have identical cookies. Alex ate 2/3 of hers, Jordan ate 4/6 of his. Did they eat the same amount?",
+        "prompt": "Did Alex and Jordan eat the same amount of their cookies?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "cookie_alex",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "cookie_jordan",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "Yes, because 2/3 = 4/6"
+              },
+              {
+                "id": "b",
+                "text": "No, because 2/3 < 4/6"
+              },
+              {
+                "id": "c",
+                "text": "No, because 2/3 > 4/6"
+              },
+              {
+                "id": "d",
+                "text": "Cannot determine without more information"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "Two-thirds and four-sixths are equivalent fractions representing the same portion of identical wholes"
+        },
+        "success_path_dialogue": "Right. Same-sized cookies and equivalent fractions — they ate the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 78,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Sam and Hannah each have identical garden plots. Sam planted 3/6 of hers. Hannah planted 1/2 of hers. Did they plant the same amount?",
+        "prompt": "Did they plant the same amount?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_sam",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "id": "bar_hannah",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, Sam planted more"
+              },
+              {
+                "id": "b",
+                "text": "Yes, they planted the same amount"
+              },
+              {
+                "id": "c",
+                "text": "No, Hannah planted more"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "3/6 and 1/2 are equivalent fractions representing the same amount when the wholes are identical"
+        },
+        "success_path_dialogue": "Right. Same-sized plots and equivalent fractions — they planted the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 79,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "apply",
+    "template_id": "8014",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Two cooks each started with the same-sized cinnamon stick. One used 1/2 of their stick, the other used 2/4. Did they use the same amount?",
+        "prompt": "Are the amounts equal?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "No, 1/2 is more"
+              },
+              {
+                "id": "b",
+                "text": "No, 2/4 is more"
+              },
+              {
+                "id": "c",
+                "text": "Yes, both used equal amounts"
+              },
+              {
+                "id": "d",
+                "text": "Cannot tell"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "Same-sized wholes and equivalent fractions (1/2 = 2/4) mean equal amounts used"
+        },
+        "success_path_dialogue": "Correct. Same-sized sticks and equivalent fractions — they used the same amount."
+      }
+    ]
+  },
+  {
+    "problem_id": 80,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8015",
+    "fractions": [
+      "2/4",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. Which one equals two-fourths?",
+        "prompt": "Select the fraction equivalent to 2/4.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2"
+              },
+              {
+                "id": "b",
+                "text": "2/3"
+              },
+              {
+                "id": "c",
+                "text": "3/4"
+              },
+              {
+                "id": "d",
+                "text": "1/3"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "1/2 is equivalent to 2/4 because both represent the same amount - half of a whole"
+        },
+        "success_path_dialogue": "Right. You recognized the equivalence without needing the picture."
+      }
+    ]
+  },
+  {
+    "problem_id": 81,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "COMPARE",
+    "template_id": "8015",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. One of them is equivalent to one-half but written differently.",
+        "prompt": "Which fraction is equivalent to 1/2?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "2/8"
+              },
+              {
+                "id": "c",
+                "text": "3/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "2/4 is equivalent to 1/2 because both represent half of a whole"
+        },
+        "success_path_dialogue": "Right. You recognized the equivalence without needing the picture."
+      }
+    ]
+  },
+  {
+    "problem_id": 82,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "compare",
+    "template_id": "8015",
+    "fractions": [
+      "4/6",
+      "2/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Which fraction is equivalent to 4/6?",
+        "prompt": "Find the fraction that equals 4/6.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2"
+              },
+              {
+                "id": "b",
+                "text": "2/3"
+              },
+              {
+                "id": "c",
+                "text": "3/4"
+              },
+              {
+                "id": "d",
+                "text": "5/6"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "2/3 is equivalent to 4/6 because both simplify to the same value"
+        },
+        "success_path_dialogue": "Right. You recognized the equivalence without needing the picture."
+      }
+    ]
+  },
+  {
+    "problem_id": 83,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "8015",
+    "fractions": [
+      "3/6",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. Which one equals 3/6?",
+        "prompt": "Which of these is equivalent to 3/6?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2"
+              },
+              {
+                "id": "b",
+                "text": "2/3"
+              },
+              {
+                "id": "c",
+                "text": "1/3"
+              },
+              {
+                "id": "d",
+                "text": "3/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "3/6 simplifies to 1/2 (both numerator and denominator divided by 3)"
+        },
+        "success_path_dialogue": "Right. You recognized the equivalence without needing the picture."
+      }
+    ]
+  },
+  {
+    "problem_id": 84,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "compare",
+    "template_id": "8015",
+    "fractions": [
+      "4/8",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. Which one equals four-eighths?",
+        "prompt": "Which fraction shows the same amount as 4/8?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2"
+              },
+              {
+                "id": "b",
+                "text": "2/8"
+              },
+              {
+                "id": "c",
+                "text": "2/3"
+              },
+              {
+                "id": "d",
+                "text": "3/4"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "1/2 is equivalent to 4/8 because both represent the same portion of a whole"
+        },
+        "success_path_dialogue": "Right. You recognized the equivalence without needing the picture."
+      }
+    ]
+  }
+]

@@ -1,0 +1,111 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 64,
+    "template_id": "6008",
+    "template_skill": "Student drags a single thirds fraction label or places a point beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "5/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at this number line that goes beyond 1. Where would five-thirds land?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 5/3 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "5/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count five thirds from zero - remember we can count past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Five-thirds means 5 of the third-sized intervals. Start at zero and count 5 intervals forward. Three thirds gets you to 1, then keep counting past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this one. We need to place five-thirds on the number line. The number line is divided into thirds - each interval represents one-third. To find five-thirds, we count 5 of these intervals starting from 0. First interval is 1/3, second is 2/3, third is 3/3 which equals 1. We keep going - fourth interval is 4/3, and the fifth interval is 5/3. That's one interval past 1, right here at this tick mark. That's how we locate fractions greater than 1 - we keep counting intervals past the whole."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Five-thirds is one interval past the whole."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 75,
+    "template_id": "12012",
+    "template_skill": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+    "identifiers": [
+      "5/8",
+      "1/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "apply",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+      "cognitive_verb": "apply",
+      "mastery_skill_id": "M12-08",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        7,
+        8
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here are two fractions. Which comparison strategy should you use?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 8
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 3
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "5/8",
+              ">",
+              "1/3"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which strategy applies to compare 5/8 and 1/3?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Check for the same denominator, count the parts",
+            "Check for the same numerator, compare part sizes",
+            "Neither matches, use the benchmark"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Check if the numerators match or if the denominators match."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. First, check if the numerators are the same - we have 5 and 1, so they're different. Next, check if the denominators are the same - we have 8 and 3, so those are different too. When neither the numerators nor the denominators match, which strategy should we use?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through how to choose a comparison strategy. First, we check the numerators: 5/8 has numerator 5, and 1/3 has numerator 1. These are different. Next, we check the denominators: 5/8 has denominator 8, and 1/3 has denominator 3. These are also different. Since neither the numerators nor the denominators match, we can't use the same numerator strategy or the same denominator strategy. That means we need to use the benchmark strategy. That's how we choose - when neither numerators nor denominators are the same, we use the benchmark."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes, if neither numerator or denominator are same, use benchmark."
+        }
+      }
+    }
+  ]
+}

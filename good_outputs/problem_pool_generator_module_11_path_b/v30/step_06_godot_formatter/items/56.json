@@ -1,0 +1,140 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 56,
+    "template_id": "11008",
+    "template_skill": "Student views a fraction pair with the same denominator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "4/8",
+      "1/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-denominator pair requires the same-denominator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        7
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. What strategies would help you compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 8
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 8
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "4/8",
+              ">",
+              "1/8"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare these fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Count the equal parts",
+            "Check for same denominator",
+            "Check for same numerator",
+            "Compare the sizes of parts"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators in both fractions. What do you notice?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Both fractions have the same denominator - they're both eighths. When fractions have the same denominator, that means the parts are the same size. What can we do when the parts are the same size?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. First, notice that both fractions are eighths - they have the same denominator of 8. When fractions have the same denominator, the parts are the same size, so we can count how many parts are shaded. Bar A has 4 eighths shaded and Bar B has 1 eighth shaded. The two strategies that work here are: check for same denominator, and count the equal parts. These strategies work together - same denominator tells us the parts are equal, so we can compare by counting. That's how we compare fractions with the same denominator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same denominator means you count the parts."
+        }
+      }
+    }
+  ]
+}

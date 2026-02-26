@@ -1,0 +1,134 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 79,
+    "template_id": "6011",
+    "template_skill": "Student places sixths or eighths fractions beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "11/8"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with transfer denominators (sixths and eighths)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-08",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line divided into eighths, extending past 1. Where would eleven-eighths go?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place eleven-eighths on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "11/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count eleven eighths from zero, remembering that 1 equals eight-eighths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. We need eleven-eighths. Since eight-eighths equals 1, we need to go past 1. Count from zero: 1, 2, 3, 4, 5, 6, 7, 8 eighths gets us to 1. Then we need 3 more eighths past 1 to reach eleven-eighths total."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing eleven-eighths. The key is to count eleven intervals from zero. First, remember that eight-eighths equals 1 whole. So when we count from zero, after 8 eighths we reach 1. But we need eleven-eighths total, which means we need 3 more eighths past 1. Let's count: 1, 2, 3, 4, 5, 6, 7, 8 eighths brings us to 1. Then 9, 10, 11 eighths—three more intervals past 1—lands us right here at eleven-eighths. That's how we place fractions greater than 1—we count all the equal parts from zero, continuing past 1."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's eleven-eighths—three eighths past one whole."
+        }
+      }
+    }
+  ]
+}

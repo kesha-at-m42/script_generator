@@ -1,0 +1,126 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 34,
+    "template_id": "11005",
+    "template_skill": "Student views two bars with the same number of pieces shaded (numerator > 1, different denominators) and selects the correct comparison symbol",
+    "identifiers": [
+      "2/3",
+      "2/5"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can select the correct comparison symbol for same-numerator non-unit fractions by comparing piece sizes in bars",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M11-03",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. Both have the same number of pieces shaded. Which fraction is greater?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 3,
+            "sum_is_visible": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/5",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 5,
+            "sum_is_visible": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Both bars show the same number of pieces shaded. Which pieces are bigger? Select the correct symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/3 > 2/5",
+            "2/3 = 2/5",
+            "2/3 < 2/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Both bars have 2 pieces shaded, but look at the size of those pieces."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. You're right that both bars have 2 pieces shaded. But here's the key - when the same number of pieces are shaded, we need to compare the size of the pieces themselves. Look at one third compared to one fifth. Which piece is bigger?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. Both bars show 2 pieces shaded - that part you can see clearly. But when fractions have the same numerator, the one with the smaller denominator is greater. Here's why: thirds are bigger pieces than fifths. Think about it - if you cut something into 3 pieces, each piece is bigger than if you cut it into 5 pieces. So 2/3 means 2 big pieces, while 2/5 means 2 smaller pieces. The answer is 2/3 > 2/5. That's how we compare fractions with the same numerator - fewer pieces means bigger pieces."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same count, but bigger pieces win."
+        }
+      }
+    }
+  ]
+}

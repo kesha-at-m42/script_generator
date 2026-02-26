@@ -1,0 +1,59 @@
+{
+  "problem_id": 72,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "analyze",
+  "template_id": "10014",
+  "fractions": [
+    "7/10",
+    "3/10"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this comparison. Why is seven-tenths greater than three-tenths?",
+      "prompt": "Why is 7/10 > 3/10?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "comparison_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Comparison statement showing 7/10 > 3/10",
+          "terms": [
+            "7/10",
+            ">",
+            "3/10"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "The fraction with more total pieces is greater."
+            },
+            {
+              "id": "b",
+              "text": "The denominator is the same, so if 7 > 3, then 7/10 > 3/10."
+            },
+            {
+              "id": "c",
+              "text": "The bigger the denominator, the bigger the fraction."
+            },
+            {
+              "id": "d",
+              "text": "The bottom number tells us which fraction is greater."
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "b",
+        "context": "When fractions have the same denominator, we compare numerators. Since 7 > 3, then 7/10 > 3/10."
+      },
+      "success_path_dialogue": "That's right. That explanation is correct."
+    }
+  ],
+  "_generated_at": "2026-02-20T22:49:55.078225+00:00"
+}

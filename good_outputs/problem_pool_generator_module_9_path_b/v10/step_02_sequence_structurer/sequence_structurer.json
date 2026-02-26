@@ -1,0 +1,6283 @@
+[
+  {
+    "problem_id": 1,
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's start by placing one-half on the top number line.",
+        "prompt": "Place 1/2 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "1/2"
+          },
+          "context": "Point placed at 1/2 on the top line"
+        },
+        "success_path_dialogue": "Good. You placed one-half on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-fourths on the bottom line.",
+        "prompt": "Place 2/4 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "points": [
+                "1/2"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "2/4"
+          },
+          "context": "Point placed at 2/4 on the bottom line, vertically aligned with 1/2 on the top line"
+        },
+        "success_path_dialogue": "Right. They line up vertically."
+      }
+    ]
+  },
+  {
+    "problem_id": 2,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's find one-third on the top number line. Look at how the line is divided into three equal parts.",
+        "prompt": "Place 1/3 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "1/3"
+          },
+          "context": "One-third is at the first tick mark after zero on the top line"
+        },
+        "success_path_dialogue": "Good. You placed one-third on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-sixths on the bottom line. Which tick mark lines up with one-third?",
+        "prompt": "Place 2/6 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/3",
+                "2/3",
+                "1"
+              ],
+              "points": [
+                "1/3"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "2/6"
+          },
+          "context": "Two-sixths is at the second tick mark after zero on the bottom line, directly below one-third"
+        },
+        "success_path_dialogue": "Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 3,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these two number lines - one divided into thirds, one into sixths. Let's place two-thirds on the top line.",
+        "prompt": "Place 2/3 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "2/3"
+          },
+          "context": "Point placed at the second tick mark (2/3) on the top line"
+        },
+        "success_path_dialogue": "Good. You placed two-thirds on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place four-sixths on the bottom line.",
+        "prompt": "Place 4/6 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/3",
+                "2/3",
+                "1"
+              ],
+              "points": [
+                "2/3"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "4/6"
+          },
+          "context": "Point placed at the fourth tick mark (4/6) on the bottom line, vertically aligned with 2/3 on the top line"
+        },
+        "success_path_dialogue": "Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 4,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/4",
+      "2/8"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place one-fourth on the top number line.",
+        "prompt": "Place 1/4 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "1/4"
+          },
+          "context": "Point placed at 1/4 on the top line, which is the first tick mark after 0"
+        },
+        "success_path_dialogue": "Good. You placed one-fourth on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-eighths on the bottom line.",
+        "prompt": "Place 2/8 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "points": [
+                "1/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "2/8"
+          },
+          "context": "Point placed at 2/8 on the bottom line, which aligns vertically with 1/4 on the top line, showing equivalence"
+        },
+        "success_path_dialogue": "Right. They line up vertically."
+      }
+    ]
+  },
+  {
+    "problem_id": 5,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place three-fourths on the top number line.",
+        "prompt": "Place 3/4 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "3/4"
+          },
+          "context": "Three-fourths is the third tick mark on the top line"
+        },
+        "success_path_dialogue": "Good. You placed three-fourths on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now find where six-eighths goes on the bottom line.",
+        "prompt": "Place 6/8 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "points": [
+                "3/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "6/8"
+          },
+          "context": "Six-eighths aligns vertically with three-fourths, showing they are equivalent"
+        },
+        "success_path_dialogue": "Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 6,
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place one-half on the top number line.",
+        "prompt": "Place 1/2 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1/2",
+          "context": "Point placed at the middle tick mark on the top line, representing 1/2"
+        },
+        "success_path_dialogue": "Good. You placed one-half."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-fourths on the bottom line.",
+        "prompt": "Place 2/4 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/2",
+                "1"
+              ],
+              "points": [
+                "1/2"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": "2/4",
+          "context": "Point placed at the second tick mark on the bottom line, vertically aligned with 1/2 on the top line"
+        },
+        "success_path_dialogue": "Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 7,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's find where one-third goes on the top number line.",
+        "prompt": "Place 1/3 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "1/3"
+          },
+          "context": "Point placed at the first tick mark after 0 on the thirds line"
+        },
+        "success_path_dialogue": "Good. You placed one-third on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-sixths on the bottom line.",
+        "prompt": "Place 2/6 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "reference",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/3",
+                "2/3",
+                "1"
+              ],
+              "points": [
+                "1/3"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "2/6"
+          },
+          "context": "Point placed at the second tick mark after 0 on the sixths line, vertically aligned with 1/3"
+        },
+        "success_path_dialogue": "That's it. Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 8,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place two-thirds on the top number line.",
+        "prompt": "Place 2/3 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "2/3"
+          },
+          "context": "Point placed at 2/3 on the top line, which is two intervals from zero"
+        },
+        "success_path_dialogue": "Good. You placed two-thirds on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place four-sixths on the bottom line.",
+        "prompt": "Place 4/6 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/3",
+                "2/3",
+                "1"
+              ],
+              "points": [
+                "2/3"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/6",
+                "2/6",
+                "3/6",
+                "4/6",
+                "5/6",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "4/6"
+          },
+          "context": "Point placed at 4/6 on the bottom line, which aligns vertically with 2/3 on the top line, demonstrating equivalence"
+        },
+        "success_path_dialogue": "That's it. Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 9,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "1/4",
+      "2/8"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's find equivalent fractions on these two number lines. First, place a point at one-fourth on the top line.",
+        "prompt": "Place 1/4 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              {
+                "position": "0",
+                "is_read_only": true
+              },
+              {
+                "position": "1/4",
+                "is_read_only": false
+              },
+              {
+                "position": "2/4",
+                "is_read_only": false
+              },
+              {
+                "position": "3/4",
+                "is_read_only": false
+              },
+              {
+                "position": "1",
+                "is_read_only": true
+              }
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              {
+                "position": "0",
+                "is_read_only": true
+              },
+              {
+                "position": "1/8",
+                "is_read_only": false
+              },
+              {
+                "position": "2/8",
+                "is_read_only": false
+              },
+              {
+                "position": "3/8",
+                "is_read_only": false
+              },
+              {
+                "position": "4/8",
+                "is_read_only": false
+              },
+              {
+                "position": "5/8",
+                "is_read_only": false
+              },
+              {
+                "position": "6/8",
+                "is_read_only": false
+              },
+              {
+                "position": "7/8",
+                "is_read_only": false
+              },
+              {
+                "position": "1",
+                "is_read_only": true
+              }
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "1/4"
+          },
+          "context": "Point placed at the first tick mark after 0 on the top line, representing 1/4"
+        },
+        "success_path_dialogue": "Good. You placed one-fourth on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place two-eighths on the bottom line.",
+        "prompt": "Place 2/8 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                {
+                  "position": "0",
+                  "is_read_only": true
+                },
+                {
+                  "position": "1/4",
+                  "is_read_only": false
+                },
+                {
+                  "position": "2/4",
+                  "is_read_only": false
+                },
+                {
+                  "position": "3/4",
+                  "is_read_only": false
+                },
+                {
+                  "position": "1",
+                  "is_read_only": true
+                }
+              ],
+              "points": [
+                "1/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                {
+                  "position": "0",
+                  "is_read_only": true
+                },
+                {
+                  "position": "1/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "2/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "3/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "4/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "5/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "6/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "7/8",
+                  "is_read_only": false
+                },
+                {
+                  "position": "1",
+                  "is_read_only": true
+                }
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "2/8"
+          },
+          "context": "Point placed at the second tick mark after 0 on the bottom line, vertically aligned with 1/4 on the top line"
+        },
+        "success_path_dialogue": "That's right. Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 10,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9001",
+    "fractions": [
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 2,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's work with equivalent fractions. Start by placing three-fourths on the top line.",
+        "prompt": "Place 3/4 on the top line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_id": "line_top",
+            "position": "3/4"
+          },
+          "context": "Point placed at the third tick mark on the top line (3/4)"
+        },
+        "success_path_dialogue": "Good. You placed three-fourths on the top line."
+      },
+      {
+        "step_id": 2,
+        "dialogue": "Now place six-eighths on the bottom line.",
+        "prompt": "Place 6/8 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": {
+          "inherited": true,
+          "tangibles": [
+            {
+              "id": "line_top",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/4",
+                "2/4",
+                "3/4",
+                "1"
+              ],
+              "points": [
+                "3/4"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            },
+            {
+              "id": "line_bottom",
+              "type": "number_line",
+              "role": "student_interaction",
+              "range": [
+                0,
+                1
+              ],
+              "ticks": [
+                "0",
+                "1/8",
+                "2/8",
+                "3/8",
+                "4/8",
+                "5/8",
+                "6/8",
+                "7/8",
+                "1"
+              ],
+              "labels": [
+                "0",
+                "1"
+              ]
+            }
+          ]
+        },
+        "correct_answer": {
+          "value": {
+            "line_id": "line_bottom",
+            "position": "6/8"
+          },
+          "context": "Point placed at the sixth tick mark on the bottom line (6/8), vertically aligned with 3/4"
+        },
+        "success_path_dialogue": "Both fractions land at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 11,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9002",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's see if one-half and two-fourths land at the same spot.",
+        "prompt": "Place 1/2 and 2/4 on the number lines to show they're equivalent.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_top": [
+              "1/2"
+            ],
+            "line_bottom": [
+              "2/4"
+            ]
+          },
+          "context": "1/2 and 2/4 align vertically at the same position, proving they are equivalent fractions"
+        },
+        "success_path_dialogue": "Equivalent fractions at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 12,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9002",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "These two lines show thirds and sixths. Can you place points at 2/3 and 4/6 to show they're the same?",
+        "prompt": "Show that 2/3 equals 4/6. Place both fractions.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "line_id": "line_top",
+              "position": "2/3"
+            },
+            {
+              "line_id": "line_bottom",
+              "position": "4/6"
+            }
+          ],
+          "context": "Points placed at 2/3 and 4/6 align vertically, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Correct. They line up perfectly at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 13,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9002",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "These two number lines are divided differently. Place the fractions where they belong.",
+        "prompt": "Place 1/2 and 4/8 at the same position.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "line_id": "line_top",
+              "position": "1/2"
+            },
+            {
+              "line_id": "line_bottom",
+              "position": "4/8"
+            }
+          ],
+          "context": "1/2 on the top line and 4/8 on the bottom line are at the same position, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Correct. Same position proves equivalence."
+      }
+    ]
+  },
+  {
+    "problem_id": 14,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9002",
+    "fractions": [
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "These two number lines show fourths and eighths. Place two equivalent fractions—one on each line.",
+        "prompt": "Place 2/4 and 4/8 to show they're equivalent.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_top": [
+              "2/4"
+            ],
+            "line_bottom": [
+              "4/8"
+            ]
+          },
+          "context": "Points at 2/4 and 4/8 align vertically, demonstrating equivalence"
+        },
+        "success_path_dialogue": "Equivalent fractions at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 15,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9002",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place 1/2 on the top line and 3/6 on the bottom line. If they line up, they're equivalent.",
+        "prompt": "Place 1/2 and 3/6 on the number lines to show they're equivalent.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "line_id": "line_top",
+              "position": "1/2"
+            },
+            {
+              "line_id": "line_bottom",
+              "position": "3/6"
+            }
+          ],
+          "context": "1/2 and 3/6 are equivalent fractions that align at the same position when placed on their respective number lines"
+        },
+        "success_path_dialogue": "Equivalent fractions at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 16,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "CREATE",
+    "template_id": "9002",
+    "fractions": [
+      "3/6",
+      "6/12"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Place both fractions on their lines. They should line up.",
+        "prompt": "Place 3/6 on the top line and 6/12 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/12",
+              "2/12",
+              "3/12",
+              "4/12",
+              "5/12",
+              "6/12",
+              "7/12",
+              "8/12",
+              "9/12",
+              "10/12",
+              "11/12",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "line_id": "line_top",
+              "fraction": "3/6"
+            },
+            {
+              "line_id": "line_bottom",
+              "fraction": "6/12"
+            }
+          ],
+          "context": "3/6 and 6/12 are equivalent fractions that align at the same position (halfway)"
+        },
+        "success_path_dialogue": "Equivalent fractions at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 17,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "2/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place two-halves on the number line. Remember, when the numerator and denominator are the same, the fraction equals one whole.",
+        "prompt": "Place 2/2 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "2/2 equals 1 whole, so it lands at the endpoint marked 1"
+        },
+        "success_path_dialogue": "Right. 2/2 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 18,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "3/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's find where three-thirds belongs on this number line.",
+        "prompt": "Where does 3/3 land? Place a point.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "3/3 equals one whole, so it lands at position 1"
+        },
+        "success_path_dialogue": "Right. 3/3 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 19,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "4/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the number line. Where does 4/4 belong?",
+        "prompt": "Place 4/4 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "4/4 equals one whole, so it lands at 1 on the number line"
+        },
+        "success_path_dialogue": "Right. 4/4 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 20,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "5/5"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Where does five-fifths land on this line?",
+        "prompt": "Place 5/5 at its position.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "5/5 equals one whole, so it lands at position 1 on the number line"
+        },
+        "success_path_dialogue": "Right. 5/5 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 21,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "6/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "When the numerator and denominator are the same, where does the fraction land?",
+        "prompt": "Place 6/6 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "6/6 equals 1 whole, so it lands at the endpoint"
+        },
+        "success_path_dialogue": "Correct. When the numerator equals the denominator, the fraction equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 22,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "8/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a number line divided into eighths. Where does eight-eighths land?",
+        "prompt": "Place a point at 8/8.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "8/8 equals 1 whole, so it lands at the rightmost tick mark"
+        },
+        "success_path_dialogue": "Correct. When the numerator equals the denominator, the fraction equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 23,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "2/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "When the numerator and denominator are the same, the fraction equals 1 whole. Let's find where 2/2 belongs on this number line.",
+        "prompt": "Where does 2/2 land? Place a point.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "2/2 equals 1 whole, so it lands at the endpoint marked 1"
+        },
+        "success_path_dialogue": "Right. 2/2 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 24,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9003",
+    "fractions": [
+      "4/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "When the numerator and denominator are the same, where does that fraction land? Let's find out.",
+        "prompt": "Place 4/4 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "1",
+          "context": "4/4 equals 1 whole, so it lands at the endpoint marked 1"
+        },
+        "success_path_dialogue": "Right. 4/4 equals 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 25,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9004",
+    "fractions": [
+      "8/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at this number line that goes from 0 to 3. Where would 8/4 land?",
+        "prompt": "Place 8/4 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2",
+              "9/4",
+              "10/4",
+              "11/4",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "8/4 simplifies to 2, which is at the second whole number position"
+        },
+        "success_path_dialogue": "Right. 8/4 equals 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 26,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9004",
+    "fractions": [
+      "6/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "This number line goes from 0 to 3. Where does 6/3 land?",
+        "prompt": "Place a point at 6/3.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "4/3",
+              "5/3",
+              "2",
+              "7/3",
+              "8/3",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "6/3 equals 2 (six thirds is two wholes)"
+        },
+        "success_path_dialogue": "That's right. Six thirds equals two."
+      }
+    ]
+  },
+  {
+    "problem_id": 27,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "CREATE",
+    "template_id": "9004",
+    "fractions": [
+      "10/5"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at this number line that goes from 0 to 3. Where would 10/5 land?",
+        "prompt": "Place a point at 10/5.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/5",
+              "2/5",
+              "3/5",
+              "4/5",
+              "5/5",
+              "6/5",
+              "7/5",
+              "8/5",
+              "9/5",
+              "10/5",
+              "11/5",
+              "12/5",
+              "13/5",
+              "14/5",
+              "15/5"
+            ],
+            "labels": [
+              "0",
+              "5/5",
+              "10/5",
+              "15/5"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "10/5",
+          "context": "10/5 simplifies to 2, which lands at the tenth tick mark (10/5) on the number line"
+        },
+        "success_path_dialogue": "Right. 10/5 equals 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 28,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9004",
+    "fractions": [
+      "12/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at this number line that goes from 0 to 3. Where does 12/6 belong?",
+        "prompt": "Place 12/6 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1",
+              "7/6",
+              "8/6",
+              "9/6",
+              "10/6",
+              "11/6",
+              "2",
+              "13/6",
+              "14/6",
+              "15/6",
+              "16/6",
+              "17/6",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "12/6 simplifies to 2, landing at the 2 position on the number line"
+        },
+        "success_path_dialogue": "Right. 12/6 equals 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 29,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "CREATE",
+    "template_id": "9004",
+    "fractions": [
+      "8/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's find where eight-fourths belongs on this number line.",
+        "prompt": "Where does 8/4 land? Place a point.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2",
+              "9/4",
+              "10/4",
+              "11/4",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "8/4 simplifies to 2, which corresponds to the tick mark at position 2 (the whole number tick)"
+        },
+        "success_path_dialogue": "Right. 8/4 equals 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 30,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9005",
+    "fractions": [
+      "2/1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place 2/1 on this number line.",
+        "prompt": "Place 2/1 on the number line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              4
+            ],
+            "ticks": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "labels": true
+          }
+        ],
+        "correct_answer": {
+          "value": "2",
+          "context": "2/1 equals 2, which is at the whole number position 2"
+        },
+        "success_path_dialogue": "Right. 2/1 equals 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 31,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "template_id": "9005",
+    "fractions": [
+      "3/1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a number line from 0 to 4. Where does 3/1 land?",
+        "prompt": "Place a point at 3/1.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              4
+            ],
+            "ticks": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "3",
+          "context": "3/1 equals 3, so the point lands at the whole number 3"
+        },
+        "success_path_dialogue": "Correct. 3/1 equals 3."
+      }
+    ]
+  },
+  {
+    "problem_id": 32,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "template_id": "9005",
+    "fractions": [
+      "4/1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Let's place 4/1 on the number line.",
+        "prompt": "Find where 4/1 goes on the line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              4
+            ],
+            "ticks": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "4",
+          "context": "4/1 equals 4, so the point should be placed at the whole number 4"
+        },
+        "success_path_dialogue": "Correct. 4/1 equals 4."
+      }
+    ]
+  },
+  {
+    "problem_id": 33,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top number line. There's a point at one-half. Now look at the bottom line showing fourths. Which fraction from the choices equals one-half?",
+        "prompt": "Which fraction equals 1/2?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "1/4"
+              },
+              {
+                "id": "c",
+                "text": "3/4"
+              },
+              {
+                "id": "d",
+                "text": "1/3"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "2/4 is at the same position as 1/2, showing they are equivalent fractions"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 34,
+    "mastery_tier": "SUPPORT",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "1/3",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top number line. The point shows one-third. Which fraction on the bottom line equals one-third?",
+        "prompt": "Click the fraction equivalent to 1/3.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/6"
+              },
+              {
+                "id": "b",
+                "text": "2/6"
+              },
+              {
+                "id": "c",
+                "text": "3/6"
+              },
+              {
+                "id": "d",
+                "text": "4/6"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "2/6 is at the same position as 1/3 on the number line"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 35,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the point on the top number line. Which fraction on the bottom line shows the same position?",
+        "prompt": "Which fraction equals 2/3?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "3/6"
+              },
+              {
+                "id": "b",
+                "text": "4/6"
+              },
+              {
+                "id": "c",
+                "text": "5/6"
+              },
+              {
+                "id": "d",
+                "text": "2/6"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "4/6 occupies the same position as 2/3 on the number line"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 36,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "1/4",
+      "2/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line showing 1/4. Which fraction on the bottom line is at the same position?",
+        "prompt": "Which one equals 1/4?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/8"
+              },
+              {
+                "id": "b",
+                "text": "2/8"
+              },
+              {
+                "id": "c",
+                "text": "3/8"
+              },
+              {
+                "id": "d",
+                "text": "4/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "2/8 is at the same position as 1/4, making them equivalent fractions"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 37,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Which of these fractions equals three-fourths?",
+        "prompt": "Click the fraction equivalent to 3/4.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "4/8"
+              },
+              {
+                "id": "b",
+                "text": "5/8"
+              },
+              {
+                "id": "c",
+                "text": "6/8"
+              },
+              {
+                "id": "d",
+                "text": "7/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "6/8 is equivalent to 3/4 (both numerator and denominator doubled)"
+        },
+        "success_path_dialogue": "Correct. 6/8 equals 3/4."
+      }
+    ]
+  },
+  {
+    "problem_id": 38,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9006",
+    "fractions": [
+      "1/2",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. One of them equals one-half.",
+        "prompt": "Which fraction equals 1/2?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/6"
+              },
+              {
+                "id": "b",
+                "text": "3/6"
+              },
+              {
+                "id": "c",
+                "text": "4/6"
+              },
+              {
+                "id": "d",
+                "text": "5/6"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "b",
+          "context": "3/6 equals 1/2 when simplified"
+        },
+        "success_path_dialogue": "That's right. Three-sixths equals one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 39,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "1/2",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. Which one equals one-half?",
+        "prompt": "Which fraction equals 1/2?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/8"
+              },
+              {
+                "id": "b",
+                "text": "3/8"
+              },
+              {
+                "id": "c",
+                "text": "4/8"
+              },
+              {
+                "id": "d",
+                "text": "6/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "4/8 is equivalent to 1/2 because both represent the same position and value"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 40,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9006",
+    "fractions": [
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the two number lines. The top line shows three-fourths. Which fraction on the bottom line equals three-fourths?",
+        "prompt": "Which fraction equals 3/4?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "4/8"
+              },
+              {
+                "id": "b",
+                "text": "5/8"
+              },
+              {
+                "id": "c",
+                "text": "6/8"
+              },
+              {
+                "id": "d",
+                "text": "7/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "6/8 is at the same position as 3/4, making them equivalent fractions"
+        },
+        "success_path_dialogue": "Right. They're equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 41,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9007",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "3/6",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the point on the number line. Which fractions land at exactly the same spot?",
+        "prompt": "Select ALL fractions that equal 1/2.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "3/6"
+              },
+              {
+                "id": "c",
+                "text": "4/8"
+              },
+              {
+                "id": "d",
+                "text": "2/6"
+              },
+              {
+                "id": "e",
+                "text": "3/5"
+              },
+              {
+                "id": "f",
+                "text": "1/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "c"
+          ],
+          "context": "2/4, 3/6, and 4/8 all simplify to 1/2 and land at the same position on the number line"
+        },
+        "success_path_dialogue": "Right. All of those equal one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 42,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9007",
+    "fractions": [
+      "1/3",
+      "2/6",
+      "3/9"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the point on the number line. It shows one-third. Which fractions in the list are equal to one-third?",
+        "prompt": "Select ALL fractions equivalent to 1/3.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "id": "reference_line",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "1"
+            ],
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/6"
+              },
+              {
+                "id": "b",
+                "text": "3/9"
+              },
+              {
+                "id": "c",
+                "text": "3/5"
+              },
+              {
+                "id": "d",
+                "text": "2/5"
+              },
+              {
+                "id": "e",
+                "text": "3/8"
+              },
+              {
+                "id": "f",
+                "text": "1/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b"
+          ],
+          "context": "Both 2/6 and 3/9 are equivalent to 1/3 because they simplify to the same value"
+        },
+        "success_path_dialogue": "Right. All of those equal the target."
+      }
+    ]
+  },
+  {
+    "problem_id": 43,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9007",
+    "fractions": [
+      "1/4",
+      "2/8",
+      "3/12",
+      "2/6",
+      "3/5",
+      "2/5",
+      "3/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the point on the number line. It shows one-fourth. Which fractions in the list equal one-fourth?",
+        "prompt": "Select ALL fractions that equal 1/4.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "id": "line_1",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/8"
+              },
+              {
+                "id": "b",
+                "text": "3/12"
+              },
+              {
+                "id": "c",
+                "text": "2/6"
+              },
+              {
+                "id": "d",
+                "text": "3/5"
+              },
+              {
+                "id": "e",
+                "text": "2/5"
+              },
+              {
+                "id": "f",
+                "text": "3/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b"
+          ],
+          "context": "Both 2/8 and 3/12 are equivalent to 1/4"
+        },
+        "success_path_dialogue": "Right. All of those equal the target."
+      }
+    ]
+  },
+  {
+    "problem_id": 44,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9007",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "3/6",
+      "4/8",
+      "3/8",
+      "1/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fractions. Which ones are equal to one-half?",
+        "prompt": "Select ALL fractions equivalent to 1/2.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "3/6"
+              },
+              {
+                "id": "c",
+                "text": "4/8"
+              },
+              {
+                "id": "d",
+                "text": "3/8"
+              },
+              {
+                "id": "e",
+                "text": "1/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "c"
+          ],
+          "context": "2/4, 3/6, and 4/8 are all equivalent to 1/2"
+        },
+        "success_path_dialogue": "Right. All of those equal one-half."
+      }
+    ]
+  },
+  {
+    "problem_id": 45,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9007",
+    "fractions": [
+      "1/3",
+      "2/6",
+      "3/9"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Which of these fractions are equivalent to one-third?",
+        "prompt": "Click ALL fractions that equal 1/3.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "2/6"
+              },
+              {
+                "id": "b",
+                "text": "3/9"
+              },
+              {
+                "id": "c",
+                "text": "2/5"
+              },
+              {
+                "id": "d",
+                "text": "3/5"
+              },
+              {
+                "id": "e",
+                "text": "3/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b"
+          ],
+          "context": "Both 2/6 and 3/9 are equivalent to 1/3"
+        },
+        "success_path_dialogue": "Right. All of those equal one-third."
+      }
+    ]
+  },
+  {
+    "problem_id": 46,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9008",
+    "fractions": [],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "You've learned about fractions that equal whole numbers. Which statements describe the patterns correctly?",
+        "prompt": "Click ALL statements that are true about fractions equaling whole numbers.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "When numerator equals denominator, fraction equals 1"
+              },
+              {
+                "id": "b",
+                "text": "Bigger denominator means bigger fraction"
+              },
+              {
+                "id": "c",
+                "text": "When numerator is double denominator, fraction equals 2"
+              },
+              {
+                "id": "d",
+                "text": "You always add numerator and denominator"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c"
+          ],
+          "context": "Statement A (b/b = 1) and Statement C (2b/b = 2) correctly describe patterns for fractions that equal whole numbers"
+        },
+        "success_path_dialogue": "That's it. Those rules help identify whole numbers."
+      }
+    ]
+  },
+  {
+    "problem_id": 47,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9008",
+    "fractions": [],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "You've learned some patterns about fractions that equal whole numbers. Which patterns are true?",
+        "prompt": "Select ALL statements that show correct patterns.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "4/4, 6/6, 8/8 all equal 1"
+              },
+              {
+                "id": "b",
+                "text": "The fraction always equals the numerator"
+              },
+              {
+                "id": "c",
+                "text": "When denominator is 1, fraction equals the numerator"
+              },
+              {
+                "id": "d",
+                "text": "Bigger denominator means bigger fraction"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c"
+          ],
+          "context": "Pattern A shows that when numerator equals denominator, the fraction equals 1. Pattern C shows that fractions with denominator 1 equal the numerator (like 2/1 = 2)."
+        },
+        "success_path_dialogue": "Right. Those patterns work."
+      }
+    ]
+  },
+  {
+    "problem_id": 48,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9008",
+    "fractions": [
+      "8/4",
+      "10/5",
+      "12/6",
+      "2/1",
+      "3/1",
+      "4/1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these four statements. Some describe real patterns in fractions, and some don't. Which ones are true?",
+        "prompt": "Select ALL the rules that are true.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "8/4, 10/5, 12/6 all equal 2"
+              },
+              {
+                "id": "b",
+                "text": "You always add numerator and denominator"
+              },
+              {
+                "id": "c",
+                "text": "2/1, 3/1, 4/1 equal the top number"
+              },
+              {
+                "id": "d",
+                "text": "The fraction always equals the numerator"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c"
+          ],
+          "context": "Statement A shows the pattern 2b/b = 2 (when numerator is double the denominator), and statement C shows the pattern b/1 = b (any number over 1 equals that number)"
+        },
+        "success_path_dialogue": "Correct. Those patterns describe how fractions can equal whole numbers."
+      }
+    ]
+  },
+  {
+    "problem_id": 49,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "template_id": "9008",
+    "fractions": [
+      "4/4",
+      "6/6",
+      "8/8",
+      "2/1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these statements about fractions. Some describe true patterns, others don't.",
+        "prompt": "Click ALL true statements about fractions that equal whole numbers.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "When numerator is double denominator, fraction equals 2"
+              },
+              {
+                "id": "b",
+                "text": "Bigger denominator means bigger fraction"
+              },
+              {
+                "id": "c",
+                "text": "4/4, 6/6, 8/8 all equal 1"
+              },
+              {
+                "id": "d",
+                "text": "You always add numerator and denominator"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c"
+          ],
+          "context": "Statement A correctly describes that 2b/b = 2 (e.g., 6/3 = 2). Statement C correctly shows that b/b = 1 for any denominator. Statements B and D are false patterns."
+        },
+        "success_path_dialogue": "Right. Those patterns work."
+      }
+    ]
+  },
+  {
+    "problem_id": 50,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "template_id": "9008",
+    "fractions": [],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "You've been working with fractions that equal whole numbers. Which patterns help you recognize when a fraction equals 1 or 2?",
+        "prompt": "Select ALL statements that show correct patterns.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "The fraction always equals the numerator."
+              },
+              {
+                "id": "b",
+                "text": "When denominator is 1, fraction equals the numerator."
+              },
+              {
+                "id": "c",
+                "text": "When numerator equals denominator, fraction equals 1."
+              },
+              {
+                "id": "d",
+                "text": "Bigger denominator means bigger fraction."
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "b",
+            "c"
+          ],
+          "context": "Statement B describes when fractions equal whole numbers (b/1 = b). Statement C describes when fractions equal 1 (b/b = 1)."
+        },
+        "success_path_dialogue": "Right. Those patterns work."
+      }
+    ]
+  },
+  {
+    "problem_id": 51,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9009",
+    "fractions": [
+      "1/2",
+      "2/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the marked position on the top line. Which fraction from the bank labels that same position on the bottom line?",
+        "prompt": "Select the equivalent fraction for the marked position.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "3/2",
+              "7/4",
+              "2"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "3/4"
+              },
+              {
+                "id": "c",
+                "text": "1/4"
+              },
+              {
+                "id": "d",
+                "text": "2/8"
+              },
+              {
+                "id": "e",
+                "text": "3/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "a",
+          "context": "2/4 is equivalent to 1/2, representing the same position on the number line"
+        },
+        "success_path_dialogue": "That's right. 2/4 equals 1/2."
+      }
+    ]
+  },
+  {
+    "problem_id": 52,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9009",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows 2/3. Find the equivalent fraction on the bottom line.",
+        "prompt": "Label the marked position on the bottom line. It should equal 2/3.",
+        "interaction_tool": "label",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "2/3"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "4/6"
+            ],
+            "labels": false
+          },
+          {
+            "type": "palette",
+            "labels": [
+              "4/6",
+              "2/6",
+              "3/6",
+              "5/6",
+              "2/3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "4/6",
+          "context": "4/6 equals 2/3, matching the position on the top line"
+        },
+        "success_path_dialogue": "Correct. 4/6 equals 2/3."
+      }
+    ]
+  },
+  {
+    "problem_id": 53,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9009",
+    "fractions": [
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "The top line shows three-fourths. Drag the equivalent fraction to the marked spot on the bottom line.",
+        "prompt": "Drag the fraction that equals 3/4 to the marked spot.",
+        "interaction_tool": "drag_label",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              {
+                "fraction": "0",
+                "is_read_only": true
+              },
+              {
+                "fraction": "1/4",
+                "is_read_only": false
+              },
+              {
+                "fraction": "1/2",
+                "is_read_only": false
+              },
+              {
+                "fraction": "3/4",
+                "is_read_only": false
+              },
+              {
+                "fraction": "1",
+                "is_read_only": true
+              }
+            ],
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "3/4",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              {
+                "fraction": "0",
+                "is_read_only": true
+              },
+              {
+                "fraction": "1/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "2/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "3/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "4/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "5/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "6/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "7/8",
+                "is_read_only": false
+              },
+              {
+                "fraction": "1",
+                "is_read_only": true
+              }
+            ],
+            "points": [
+              "6/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "type": "palette",
+            "labels": [
+              "6/8",
+              "4/8",
+              "5/8",
+              "7/8",
+              "3/4"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_bottom": {
+              "tick": "6/8",
+              "label": "6/8"
+            }
+          },
+          "context": "6/8 is equivalent to 3/4 and marks the same position on the number line"
+        },
+        "success_path_dialogue": "Correct. 6/8 equals 3/4."
+      }
+    ]
+  },
+  {
+    "problem_id": 54,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "identify",
+    "template_id": "9009",
+    "fractions": [
+      "3/2",
+      "6/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line. The point shows three-halves. Find the same position on the bottom line.",
+        "prompt": "Drag the equivalent fraction to label the bottom line.",
+        "interaction_tool": "drag_label",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              {
+                "value": "0",
+                "is_read_only": true
+              },
+              {
+                "value": "1/2",
+                "is_read_only": false
+              },
+              {
+                "value": "1",
+                "is_read_only": false
+              },
+              {
+                "value": "3/2",
+                "is_read_only": true
+              },
+              {
+                "value": "2",
+                "is_read_only": true
+              }
+            ],
+            "points": [
+              "3/2"
+            ],
+            "labels": [
+              "0",
+              "3/2",
+              "2"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              {
+                "value": "0",
+                "is_read_only": true
+              },
+              {
+                "value": "1/4",
+                "is_read_only": false
+              },
+              {
+                "value": "1/2",
+                "is_read_only": false
+              },
+              {
+                "value": "3/4",
+                "is_read_only": false
+              },
+              {
+                "value": "1",
+                "is_read_only": false
+              },
+              {
+                "value": "5/4",
+                "is_read_only": false
+              },
+              {
+                "value": "6/4",
+                "is_read_only": false
+              },
+              {
+                "value": "7/4",
+                "is_read_only": false
+              },
+              {
+                "value": "2",
+                "is_read_only": true
+              }
+            ],
+            "points": [
+              "6/4"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ]
+          },
+          {
+            "type": "palette",
+            "labels": [
+              "6/4",
+              "5/4",
+              "7/4",
+              "4/4",
+              "3/2"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_bottom": {
+              "6/4": "6/4"
+            }
+          },
+          "context": "6/4 is equivalent to 3/2, both represent the same position on their respective number lines"
+        },
+        "success_path_dialogue": "Correct. 6/4 equals 3/2."
+      }
+    ]
+  },
+  {
+    "problem_id": 55,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9009",
+    "fractions": [
+      "5/4",
+      "10/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the top line showing 5/4. Find the equivalent position on the bottom line and label it.",
+        "prompt": "Label the marked position on the bottom line. It should equal 5/4.",
+        "interaction_tool": "drag_label",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4",
+              "1",
+              "5/4",
+              "3/2",
+              "7/4",
+              "2"
+            ],
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "5/4",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2"
+            ],
+            "points": [
+              "10/8"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "type": "palette",
+            "labels": [
+              "10/8",
+              "9/8",
+              "11/8",
+              "12/8",
+              "5/4"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "label": "10/8",
+            "target_tick": "10/8",
+            "target_line": "line_bottom"
+          },
+          "context": "10/8 is equivalent to 5/4, marking the same position on the bottom line"
+        },
+        "success_path_dialogue": "Right. 10/8 equals 5/4."
+      }
+    ]
+  },
+  {
+    "problem_id": 56,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "COMPARE",
+    "template_id": "9010",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "4/8",
+      "1/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar showing one-half. Can you find all the models that show the same amount?",
+        "prompt": "Select ALL models that show fractions equivalent to 1/2.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "reference_bar",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals_is_read_only": true
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "line_c",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "points": [
+              "4/8"
+            ],
+            "labels": [
+              "0",
+              "4/8",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "bar_a",
+            "line_c"
+          ],
+          "context": "Bar A shows 2/4 and Line C shows 4/8, both equivalent to 1/2"
+        },
+        "success_path_dialogue": "Right. You found all the equivalents."
+      }
+    ]
+  },
+  {
+    "problem_id": 57,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "COMPARE",
+    "template_id": "9010",
+    "fractions": [
+      "1/3",
+      "2/6",
+      "1/4",
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference showing 1/3. Can you find the bars or number lines below that show the same amount?",
+        "prompt": "Select ALL models that show an amount equal to 1/3.",
+        "interaction_tool": "multi_select",
+        "workspace": [
+          {
+            "id": "reference_line",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "0",
+              "1/3",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "line_b",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "2/6",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "line_b",
+            "bar_c"
+          ],
+          "context": "Both 2/6 on the number line and 1/3 shaded on the bar represent the same fraction as the reference 1/3"
+        },
+        "success_path_dialogue": "Right. You found the equivalents to 1/3."
+      }
+    ]
+  },
+  {
+    "problem_id": 58,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "COMPARE",
+    "template_id": "9010",
+    "fractions": [
+      "2/3",
+      "4/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here's a reference bar showing two-thirds. Look at the bars and lines below. Which one shows the same fraction?",
+        "prompt": "Select the model that shows 2/3.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "line_a",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "4/6"
+            ],
+            "labels": [
+              "0",
+              "4/6",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "line_c",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "0",
+              "1/3",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "line_a",
+          "context": "4/6 simplifies to 2/3, showing the same fraction as the reference bar"
+        },
+        "success_path_dialogue": "Right. Four-sixths equals two-thirds."
+      }
+    ]
+  },
+  {
+    "problem_id": 59,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "COMPARE",
+    "template_id": "9010",
+    "fractions": [
+      "1/4",
+      "2/8",
+      "1/2",
+      "2/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference number line showing 1/4. Which model below shows the same amount?",
+        "prompt": "Select the model that equals 1/4.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "reference_line",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1/4",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_a",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          },
+          {
+            "id": "line_b",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_c",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "bar_a",
+          "context": "Bar A shows 2/8 shaded, which simplifies to 1/4. Bar B shows 1/2 and Bar C shows 2/6 (which equals 1/3), neither equivalent to 1/4."
+        },
+        "success_path_dialogue": "Right. 2/8 equals 1/4."
+      }
+    ]
+  },
+  {
+    "problem_id": 60,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "COMPARE",
+    "template_id": "9010",
+    "fractions": [
+      "1/2",
+      "3/6",
+      "1/3",
+      "1/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at the reference bar at the top showing one-half. Which model below shows a fraction equal to one-half?",
+        "prompt": "Select the model that shows a fraction equal to 1/2.",
+        "interaction_tool": "select",
+        "workspace": [
+          {
+            "id": "bar_reference",
+            "type": "fraction_strip",
+            "role": "reference",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/2",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "line_a",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "3/6"
+            ],
+            "labels": [
+              "0",
+              "3/6",
+              "1"
+            ]
+          },
+          {
+            "id": "bar_b",
+            "type": "fraction_strip",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0
+            ]
+          },
+          {
+            "id": "line_c",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1/4",
+              "1"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "line_a",
+          "context": "3/6 is equivalent to 1/2 (both represent half of the whole)"
+        },
+        "success_path_dialogue": "Right. You found the equivalent fraction across different models."
+      }
+    ]
+  },
+  {
+    "problem_id": 61,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "apply",
+    "template_id": "9011",
+    "fractions": [
+      "3/2",
+      "6/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Jordan walked 3/2 laps around the track, which equals 6/4 laps. Show both distances on the number lines.",
+        "prompt": "Place 3/2 on the top line and 6/4 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              {
+                "value": "0",
+                "is_read_only": true
+              },
+              {
+                "value": "1/2",
+                "is_read_only": false
+              },
+              {
+                "value": "1",
+                "is_read_only": true
+              },
+              {
+                "value": "3/2",
+                "is_read_only": false
+              },
+              {
+                "value": "2",
+                "is_read_only": true
+              },
+              {
+                "value": "5/2",
+                "is_read_only": false
+              },
+              {
+                "value": "3",
+                "is_read_only": true
+              }
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              {
+                "value": "0",
+                "is_read_only": true
+              },
+              {
+                "value": "1/4",
+                "is_read_only": false
+              },
+              {
+                "value": "2/4",
+                "is_read_only": false
+              },
+              {
+                "value": "3/4",
+                "is_read_only": false
+              },
+              {
+                "value": "1",
+                "is_read_only": true
+              },
+              {
+                "value": "5/4",
+                "is_read_only": false
+              },
+              {
+                "value": "6/4",
+                "is_read_only": false
+              },
+              {
+                "value": "7/4",
+                "is_read_only": false
+              },
+              {
+                "value": "2",
+                "is_read_only": true
+              },
+              {
+                "value": "9/4",
+                "is_read_only": false
+              },
+              {
+                "value": "10/4",
+                "is_read_only": false
+              },
+              {
+                "value": "11/4",
+                "is_read_only": false
+              },
+              {
+                "value": "3",
+                "is_read_only": true
+              }
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "line": "line_top",
+              "position": "3/2"
+            },
+            {
+              "line": "line_bottom",
+              "position": "6/4"
+            }
+          ],
+          "context": "Both fractions are equivalent (3/2 = 6/4 = 1.5) and align at the same vertical position on their respective number lines"
+        },
+        "success_path_dialogue": "Right. Both fractions land past 1 at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 62,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "APPLY",
+    "template_id": "9011",
+    "fractions": [
+      "5/4",
+      "10/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Maya ran 5/4 kilometers, which equals 10/8 kilometers. Can you show both distances?",
+        "prompt": "Place 5/4 on the top line and 10/8 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4",
+              "2",
+              "9/4",
+              "10/4",
+              "11/4",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "9/8",
+              "10/8",
+              "11/8",
+              "12/8",
+              "13/8",
+              "14/8",
+              "15/8",
+              "2",
+              "17/8",
+              "18/8",
+              "19/8",
+              "20/8",
+              "21/8",
+              "22/8",
+              "23/8",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            {
+              "tangible_id": "line_top",
+              "position": "5/4"
+            },
+            {
+              "tangible_id": "line_bottom",
+              "position": "10/8"
+            }
+          ],
+          "context": "5/4 and 10/8 are equivalent fractions that both represent 1.25, aligning vertically at the same position"
+        },
+        "success_path_dialogue": "Right. Both fractions land past 1 at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 63,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "apply",
+    "template_id": "9011",
+    "fractions": [
+      "4/3",
+      "8/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Alex poured 4/3 cups of water, which equals 8/6 cups. Can you show both amounts on the number lines?",
+        "prompt": "Place 4/3 and 8/6 to show they're equivalent.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1",
+              "4/3",
+              "5/3",
+              "2",
+              "7/3",
+              "8/3",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1",
+              "7/6",
+              "8/6",
+              "9/6",
+              "10/6",
+              "11/6",
+              "2",
+              "13/6",
+              "14/6",
+              "15/6",
+              "16/6",
+              "17/6",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_top": [
+              "4/3"
+            ],
+            "line_bottom": [
+              "8/6"
+            ]
+          },
+          "context": "4/3 and 8/6 are equivalent fractions that both represent the same position past 1 on their respective number lines"
+        },
+        "success_path_dialogue": "Right. Both fractions land past 1 at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 64,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "apply",
+    "template_id": "9011",
+    "fractions": [
+      "7/6",
+      "14/12"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Hannah measured 7/6 meters of ribbon, which equals 14/12 meters. Show both measurements on the number lines.",
+        "prompt": "Place 7/6 on the top line and 14/12 on the bottom line.",
+        "interaction_tool": "place_point",
+        "workspace": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1",
+              "7/6",
+              "8/6",
+              "9/6",
+              "10/6",
+              "11/6",
+              "2",
+              "13/6",
+              "14/6",
+              "15/6",
+              "16/6",
+              "17/6",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/12",
+              "2/12",
+              "3/12",
+              "4/12",
+              "5/12",
+              "6/12",
+              "7/12",
+              "8/12",
+              "9/12",
+              "10/12",
+              "11/12",
+              "1",
+              "13/12",
+              "14/12",
+              "15/12",
+              "16/12",
+              "17/12",
+              "18/12",
+              "19/12",
+              "20/12",
+              "21/12",
+              "22/12",
+              "23/12",
+              "2",
+              "25/12",
+              "26/12",
+              "27/12",
+              "28/12",
+              "29/12",
+              "30/12",
+              "31/12",
+              "32/12",
+              "33/12",
+              "34/12",
+              "35/12",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": {
+            "line_top": "7/6",
+            "line_bottom": "14/12"
+          },
+          "context": "7/6 and 14/12 are equivalent fractions that align at the same position past 1 on their respective number lines"
+        },
+        "success_path_dialogue": "Right. Both fractions land past 1 at the same position."
+      }
+    ]
+  },
+  {
+    "problem_id": 65,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "apply",
+    "template_id": "9012",
+    "fractions": [
+      "8/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "A relay team ran 8 laps around a track divided into 4 equal sections. Where does 8/4 land?",
+        "prompt": "Where does 8/4 land on the number line?",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_ref",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "At 1"
+              },
+              {
+                "id": "b",
+                "text": "Between 1 and 2"
+              },
+              {
+                "id": "c",
+                "text": "At 2"
+              },
+              {
+                "id": "d",
+                "text": "At 3"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "8/4 simplifies to 2, landing exactly at the 2 mark"
+        },
+        "success_path_dialogue": "That's it. The fraction lands at 2."
+      }
+    ]
+  },
+  {
+    "problem_id": 66,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "apply",
+    "template_id": "9012",
+    "fractions": [
+      "7/3"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Maya hiked 7 trail segments, with each segment being one-third of a mile. Where does 7/3 land on the number line?",
+        "prompt": "Where does 7/3 land on the number line? Select one.",
+        "interaction_tool": "click_choice",
+        "workspace": [
+          {
+            "id": "line_reference",
+            "type": "number_line",
+            "role": "reference",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "At 1"
+              },
+              {
+                "id": "b",
+                "text": "Between 1 and 2"
+              },
+              {
+                "id": "c",
+                "text": "Between 2 and 3"
+              },
+              {
+                "id": "d",
+                "text": "At 3"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": "c",
+          "context": "7/3 equals 2 and 1/3, which places it between 2 and 3 on the number line"
+        },
+        "success_path_dialogue": "Correct. 7/3 is between 2 and 3."
+      }
+    ]
+  },
+  {
+    "problem_id": 67,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "identify",
+    "template_id": "9013",
+    "fractions": [
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Can you find all the fractions equivalent to one-half using just the numbers?",
+        "prompt": "Click ALL fractions that equal 1/2.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "3/6"
+              },
+              {
+                "id": "c",
+                "text": "2/6"
+              },
+              {
+                "id": "d",
+                "text": "4/8"
+              },
+              {
+                "id": "e",
+                "text": "3/5"
+              },
+              {
+                "id": "f",
+                "text": "5/10"
+              },
+              {
+                "id": "g",
+                "text": "3/8"
+              },
+              {
+                "id": "h",
+                "text": "2/5"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "d",
+            "f"
+          ],
+          "context": "2/4, 3/6, 4/8, and 5/10 all equal 1/2 because the numerator is exactly half the denominator"
+        },
+        "success_path_dialogue": "Correct. You reasoned through it without the visual."
+      }
+    ]
+  },
+  {
+    "problem_id": 68,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "identify",
+    "template_id": "9013",
+    "fractions": [
+      "1"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are some fractions. Which ones equal 1?",
+        "prompt": "Select ALL fractions that equal 1.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "2/2"
+              },
+              {
+                "id": "b",
+                "text": "3/3"
+              },
+              {
+                "id": "c",
+                "text": "4/4"
+              },
+              {
+                "id": "d",
+                "text": "5/5"
+              },
+              {
+                "id": "e",
+                "text": "6/6"
+              },
+              {
+                "id": "f",
+                "text": "8/8"
+              },
+              {
+                "id": "g",
+                "text": "3/5"
+              },
+              {
+                "id": "h",
+                "text": "2/6"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f"
+          ],
+          "context": "All fractions where numerator equals denominator represent the whole (1)"
+        },
+        "success_path_dialogue": "Right. All of those are equivalent to 1."
+      }
+    ]
+  },
+  {
+    "problem_id": 69,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "identify",
+    "template_id": "9013",
+    "fractions": [
+      "2/3",
+      "4/6",
+      "6/9",
+      "8/12",
+      "2/6",
+      "3/8",
+      "2/5",
+      "5/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Which of these fractions are equivalent to two-thirds?",
+        "prompt": "Select ALL fractions that equal 2/3.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "4/6"
+              },
+              {
+                "id": "b",
+                "text": "6/9"
+              },
+              {
+                "id": "c",
+                "text": "8/12"
+              },
+              {
+                "id": "d",
+                "text": "2/6"
+              },
+              {
+                "id": "e",
+                "text": "3/8"
+              },
+              {
+                "id": "f",
+                "text": "2/5"
+              },
+              {
+                "id": "g",
+                "text": "5/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "c"
+          ],
+          "context": "4/6, 6/9, and 8/12 all simplify to 2/3"
+        },
+        "success_path_dialogue": "Correct. You reasoned through it without the visual."
+      }
+    ]
+  },
+  {
+    "problem_id": 70,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "IDENTIFY",
+    "template_id": "9013",
+    "fractions": [
+      "1/2"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are some fractions. Find all the ones that equal one-half.",
+        "prompt": "Select ALL fractions that equal 1/2.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "2/4"
+              },
+              {
+                "id": "b",
+                "text": "4/8"
+              },
+              {
+                "id": "c",
+                "text": "5/10"
+              },
+              {
+                "id": "d",
+                "text": "3/5"
+              },
+              {
+                "id": "e",
+                "text": "2/5"
+              },
+              {
+                "id": "f",
+                "text": "3/8"
+              },
+              {
+                "id": "g",
+                "text": "2/6"
+              },
+              {
+                "id": "h",
+                "text": "5/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "c"
+          ],
+          "context": "2/4, 4/8, and 5/10 all simplify to 1/2 when reduced"
+        },
+        "success_path_dialogue": "Correct. You reasoned through it without the visual."
+      }
+    ]
+  },
+  {
+    "problem_id": 71,
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "identify",
+    "template_id": "9013",
+    "fractions": [
+      "2/3",
+      "4/6",
+      "6/9",
+      "8/12",
+      "2/6",
+      "3/5",
+      "3/8",
+      "2/5",
+      "5/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Can you identify all fractions equivalent to two-thirds without visual support?",
+        "prompt": "Select ALL fractions that equal 2/3.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "4/6"
+              },
+              {
+                "id": "b",
+                "text": "6/9"
+              },
+              {
+                "id": "c",
+                "text": "2/6"
+              },
+              {
+                "id": "d",
+                "text": "3/5"
+              },
+              {
+                "id": "e",
+                "text": "3/8"
+              },
+              {
+                "id": "f",
+                "text": "2/5"
+              },
+              {
+                "id": "g",
+                "text": "5/8"
+              },
+              {
+                "id": "h",
+                "text": "8/12"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "b",
+            "h"
+          ],
+          "context": "4/6, 6/9, and 8/12 are all equivalent to 2/3 (multiply numerator and denominator by same factor)"
+        },
+        "success_path_dialogue": "Correct. You reasoned through it without the visual."
+      }
+    ]
+  },
+  {
+    "problem_id": 72,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "1/3",
+      "2/3",
+      "4/6",
+      "1/4",
+      "2/6",
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fraction pairs. Some of them are equivalent—they name the same amount. Find all the pairs that are equivalent.",
+        "prompt": "Which pairs show equivalent fractions? Select ALL that apply.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2 and 2/4"
+              },
+              {
+                "id": "b",
+                "text": "1/3 and 2/3"
+              },
+              {
+                "id": "c",
+                "text": "2/3 and 4/6"
+              },
+              {
+                "id": "d",
+                "text": "1/4 and 2/6"
+              },
+              {
+                "id": "e",
+                "text": "3/4 and 6/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c",
+            "e"
+          ],
+          "context": "1/2 = 2/4, 2/3 = 4/6, and 3/4 = 6/8 are equivalent pairs because they represent the same amount"
+        },
+        "success_path_dialogue": "Right. Those three pairs are equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 73,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "3/6",
+      "1/3",
+      "2/6",
+      "2/4",
+      "4/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are four fraction pairs. Some pairs show the same amount, and some don't.",
+        "prompt": "Select ALL pairs where both fractions are equal.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "pair_a",
+                "text": "1/2 and 3/6"
+              },
+              {
+                "id": "pair_b",
+                "text": "1/2 and 1/3"
+              },
+              {
+                "id": "pair_c",
+                "text": "1/3 and 2/6"
+              },
+              {
+                "id": "pair_d",
+                "text": "2/4 and 4/8"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "pair_a",
+            "pair_c",
+            "pair_d"
+          ],
+          "context": "These three pairs show equivalent fractions: 1/2 = 3/6, 1/3 = 2/6, and 2/4 = 4/8. The pair 1/2 and 1/3 is not equivalent."
+        },
+        "success_path_dialogue": "Yes. Those three pairs are equivalent."
+      }
+    ]
+  },
+  {
+    "problem_id": 74,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "4/8",
+      "1/4",
+      "2/8",
+      "2/3",
+      "3/6",
+      "3/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are some fraction pairs. Which ones show the same amount?",
+        "prompt": "Select ALL pairs that are equivalent.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2 and 4/8"
+              },
+              {
+                "id": "b",
+                "text": "2/3 and 3/6"
+              },
+              {
+                "id": "c",
+                "text": "1/4 and 2/8"
+              },
+              {
+                "id": "d",
+                "text": "3/4 and 2/3"
+              },
+              {
+                "id": "e",
+                "text": "1/3 and 2/3"
+              },
+              {
+                "id": "f",
+                "text": "2/4 and 3/6"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c",
+            "f"
+          ],
+          "context": "1/2 equals 4/8 (both are half), and 1/4 equals 2/8 (both are one-fourth), 2/4 and 3/6 are both 1/2"
+        },
+        "success_path_dialogue": "Correct. You found the equivalent pairs."
+      }
+    ]
+  },
+  {
+    "problem_id": 75,
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "2/4",
+      "1/3",
+      "2/3",
+      "4/6",
+      "1/4",
+      "3/4",
+      "6/8"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Look at these fraction pairs. Some show the same amount, even though they're written differently.",
+        "prompt": "Click ALL pairs that show the same amount.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "a",
+                "text": "1/2 and 2/4"
+              },
+              {
+                "id": "b",
+                "text": "1/2 and 1/3"
+              },
+              {
+                "id": "c",
+                "text": "2/3 and 4/6"
+              },
+              {
+                "id": "d",
+                "text": "1/4 and 3/4"
+              },
+              {
+                "id": "e",
+                "text": "3/4 and 6/8"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "a",
+            "c",
+            "e"
+          ],
+          "context": "These three pairs are equivalent: 1/2 = 2/4, 2/3 = 4/6, and 3/4 = 6/8"
+        },
+        "success_path_dialogue": "Correct. You found all the equivalent pairs."
+      }
+    ]
+  },
+  {
+    "problem_id": 76,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "3/6",
+      "1/3",
+      "2/6",
+      "2/4",
+      "4/8",
+      "2/3",
+      "1/4",
+      "3/4"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are six pairs of fractions. Some pairs are equivalent—they name the same amount. Find all the pairs that are equivalent.",
+        "prompt": "Which pairs show equivalent fractions? Click all that apply.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "allow_multiple": true,
+            "options": [
+              {
+                "id": "pair_a",
+                "text": "1/2 and 3/6"
+              },
+              {
+                "id": "pair_b",
+                "text": "1/3 and 2/6"
+              },
+              {
+                "id": "pair_c",
+                "text": "2/3 and 3/6"
+              },
+              {
+                "id": "pair_d",
+                "text": "2/4 and 4/8"
+              },
+              {
+                "id": "pair_e",
+                "text": "1/4 and 2/6"
+              },
+              {
+                "id": "pair_f",
+                "text": "3/4 and 2/3"
+              }
+            ]
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "pair_a",
+            "pair_b",
+            "pair_d"
+          ],
+          "context": "1/2 = 3/6, 1/3 = 2/6, and 2/4 = 4/8 are all equivalent pairs"
+        },
+        "success_path_dialogue": "Correct. You found all three equivalent pairs."
+      }
+    ]
+  },
+  {
+    "problem_id": 77,
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "template_id": "9014",
+    "fractions": [
+      "1/2",
+      "4/8",
+      "1/3",
+      "2/6",
+      "3/4",
+      "6/8",
+      "2/4",
+      "3/6"
+    ],
+    "no_of_steps": 1,
+    "steps": [
+      {
+        "step_id": 1,
+        "dialogue": "Here are five pairs of fractions. Some pairs are equivalent, meaning both fractions represent the same amount. Find all the pairs that show equivalence.",
+        "prompt": "Select ALL pairs where both fractions are equal.",
+        "interaction_tool": "multi_click_choice",
+        "workspace": [
+          {
+            "type": "choices",
+            "options": [
+              {
+                "id": "pair_1",
+                "text": "1/2 and 4/8"
+              },
+              {
+                "id": "pair_2",
+                "text": "1/3 and 2/6"
+              },
+              {
+                "id": "pair_3",
+                "text": "1/2 and 1/3"
+              },
+              {
+                "id": "pair_4",
+                "text": "3/4 and 6/8"
+              },
+              {
+                "id": "pair_5",
+                "text": "2/4 and 3/6"
+              }
+            ],
+            "allow_multiple": true
+          }
+        ],
+        "correct_answer": {
+          "value": [
+            "pair_1",
+            "pair_2",
+            "pair_4"
+          ],
+          "context": "1/2 = 4/8 (doubling numerator and denominator), 1/3 = 2/6 (doubling), and 3/4 = 6/8 (doubling). The other pairs represent different amounts."
+        },
+        "success_path_dialogue": "Correct. You identified all three equivalent pairs."
+      }
+    ]
+  }
+]

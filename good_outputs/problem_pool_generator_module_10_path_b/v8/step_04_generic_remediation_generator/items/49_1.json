@@ -1,0 +1,87 @@
+{
+  "problem_id": 49,
+  "step_id": 1,
+  "no_of_steps": 3,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "2/7",
+    "4/7"
+  ],
+  "dialogue": "Let's compare two-sevenths and four-sevenths. First, mark two-sevenths on the top number line.",
+  "prompt": "Mark two-sevenths on the top number line.",
+  "interaction_tool": "place_point",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "student_interaction",
+      "description": "Top number line from 0 to 1 with tick marks at sevenths, endpoints labeled, active for student to place point",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/7",
+        "2/7",
+        "3/7",
+        "4/7",
+        "5/7",
+        "6/7",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line from 0 to 1 with tick marks at sevenths, endpoints labeled, read-only reference",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/7",
+        "2/7",
+        "3/7",
+        "4/7",
+        "5/7",
+        "6/7",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "2/7",
+    "context": "Point placed at the tick mark representing 2/7 on the top line"
+  },
+  "success_path_dialogue": "Good. You marked two-sevenths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. First count the equal intervals from 0 to 1, then count from zero to find two-sevenths."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this step by step. First, count how many equal intervals there are from 0 to 1 - that's your denominator. There are 7 equal intervals, so we're working with sevenths. Now count 2 of those intervals from 0 - that's where two-sevenths is."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through finding two-sevenths. First, we find the denominator by counting how many equal intervals are from 0 to 1. I count 7 equal intervals from 0 to 1, so the denominator is 7. This means we're working with sevenths. Now for the numerator - we count how many of those intervals from 0 to where we need to place the point. We need 2 intervals from zero, so we count 1, 2, and place our point right here at the second tick mark. That's two-sevenths. That's how we locate fractions - denominator first by counting equal intervals from 0 to 1, then numerator by counting intervals from 0."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:50:32.457233+00:00"
+}

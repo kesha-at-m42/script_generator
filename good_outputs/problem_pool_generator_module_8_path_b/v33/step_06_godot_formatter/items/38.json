@@ -1,0 +1,142 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 38,
+    "template_id": "8007",
+    "template_skill": "Student places a 1/2-family fraction on a number line to show it lands at the same position as an equivalent fraction",
+    "identifiers": [
+      "1/2",
+      "4/8"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the top number line. It shows one half. Can you find where four eighths lands on the bottom line?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "is_read_only": true,
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "lcm": 6
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place four eighths on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where one half is on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. One half is at the halfway point on the top line. Four eighths should land at that exact same position on the bottom line. Count the eighths carefully to find the halfway point."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Look at the top number line - one half is right at the halfway point between 0 and 1. Now look at the bottom line with eighths. We need to find the halfway point there too. If we count from 0, we have 8 equal parts total to get to 1. Half of 8 is 4, so the halfway point is at 4/8. Place the point right there at 4/8 - it lines up exactly with where 1/2 is on the top line. That's how we see that four eighths and one half are at the same location."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right there. Four eighths lands at the same point as one half."
+        }
+      }
+    }
+  ]
+}

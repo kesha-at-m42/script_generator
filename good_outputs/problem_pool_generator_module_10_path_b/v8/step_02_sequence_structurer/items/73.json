@@ -1,0 +1,59 @@
+{
+  "problem_id": 73,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "analyze",
+  "template_id": "10014",
+  "fractions": [
+    "9/12",
+    "4/12"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this comparison. Why is 9/12 greater than 4/12?",
+      "prompt": "Select the statement that explains why 9/12 > 4/12.",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "comparison_1",
+          "type": "math_expression",
+          "role": "student_interaction",
+          "description": "Comparison statement showing 9/12 > 4/12",
+          "terms": [
+            "9/12",
+            ">",
+            "4/12"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "The bottom number tells us which fraction is greater."
+            },
+            {
+              "id": "b",
+              "text": "The bigger the denominator, the bigger the fraction."
+            },
+            {
+              "id": "c",
+              "text": "Both fractions show twelfths. 9 > 4, so 9/12 is greater."
+            },
+            {
+              "id": "d",
+              "text": "The fraction with more total pieces is greater."
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "c",
+        "context": "When denominators are equal, the fraction with the larger numerator is greater"
+      },
+      "success_path_dialogue": "That's right. Same-sized pieces, but 9/12 has more of them."
+    }
+  ],
+  "_generated_at": "2026-02-20T22:50:06.103230+00:00"
+}

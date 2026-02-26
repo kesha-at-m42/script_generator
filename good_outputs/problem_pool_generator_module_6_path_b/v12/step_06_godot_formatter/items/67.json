@@ -1,0 +1,132 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 67,
+    "template_id": "6009",
+    "template_skill": "Student drags multiple thirds fraction labels to correct positions past 1",
+    "identifiers": [
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Place the fractions where they belong on this number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "3/3",
+              "4/3",
+              "5/3",
+              "6/3"
+            ],
+            "labels": [
+              "0",
+              "3/3",
+              "6/3"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "3/3",
+              "6/3"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 4/3 and 5/3 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3",
+            "5/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember that thirds continue past 1 the same way they did before 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. We can see that 3/3 equals 1 whole. After that, the thirds keep going - each tick is one more third. For 4/3, count one more third past 3/3. For 5/3, count two more thirds past 3/3."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing fractions past 1. We know that 3/3 equals one whole - that's marked at 1 on our number line. Now, 4/3 means 4 thirds total. Since 3/3 gets us to 1, one more third gets us to 4/3. That's the first tick mark after 1. For 5/3, we need 5 thirds total. That's 3/3 to get to 1, then 2 more thirds. So 5/3 goes on the second tick mark after 1. That's how fractions work past 1 - the pattern of thirds continues the same way."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Thirds keep going the same way past one whole."
+        }
+      }
+    }
+  ]
+}

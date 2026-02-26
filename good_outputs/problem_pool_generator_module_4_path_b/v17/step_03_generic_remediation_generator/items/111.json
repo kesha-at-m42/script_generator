@@ -1,0 +1,103 @@
+{
+  "problem_id": 111,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "IDENTIFY",
+  "template_id": "4013",
+  "fractions": [
+    "1/6"
+  ],
+  "dialogue": "Look at these three lines. One of them shows sixths.",
+  "prompt": "Select the line partitioned into sixths.",
+  "interaction_tool": "select",
+  "workspace": [
+    {
+      "id": "line_unequal",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/8",
+        "1/4",
+        "1/3",
+        "1/2",
+        "3/4",
+        "7/8",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "6 unequal intervals - distractor"
+    },
+    {
+      "id": "line_sevenths",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/7",
+        "2/7",
+        "3/7",
+        "4/7",
+        "5/7",
+        "6/7",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "7 equal intervals (sevenths) - distractor with different denominator"
+    },
+    {
+      "id": "line_sixths",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/6",
+        "2/6",
+        "3/6",
+        "4/6",
+        "5/6",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "6 equal intervals (sixths) - correct answer"
+    }
+  ],
+  "correct_answer": {
+    "value": "line_sixths",
+    "context": "Sixths require exactly 6 equal intervals between 0 and 1"
+  },
+  "success_path_dialogue": "Right! Six equal intervals for sixths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. For sixths, count the equal intervals from 0 to 1."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this carefully. Sixths means we need exactly 6 equal intervals between 0 and 1. Count the intervals on each line - and make sure they're all the same size."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through finding sixths. First, we need to count how many equal intervals are between 0 and 1 on each line. For sixths, we need exactly 6 equal intervals. The key word is equal - all the intervals must be the same size. When we look at the third line, we can count 6 intervals from 0 to 1, and they're all equal in size. That's what makes it sixths. Remember, sixths means 6 equal intervals between 0 and 1."
+      }
+    ]
+  }
+}

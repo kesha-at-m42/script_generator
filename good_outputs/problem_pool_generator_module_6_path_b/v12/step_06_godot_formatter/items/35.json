@@ -1,0 +1,115 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 35,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "4/4",
+      "5/4",
+      "6/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This line goes past 1. Place the three fractions where they belong.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 4/4, 5/4, and 6/4 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 3
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/4",
+            "5/4",
+            "6/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count fourths carefully from zero. Remember that 4/4 equals 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. Each tick mark represents one-fourth. Count from zero: 1/4, 2/4, 3/4, 4/4—that's where 1 is. Then keep counting: 5/4, 6/4. The numerator tells you how many fourths to count from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. We're working with fourths, so each tick mark is one-fourth. For 4/4, count 4 fourths from zero—that lands right at 1, because 4/4 equals 1 whole. For 5/4, count 5 fourths from zero—that's one tick past 1. For 6/4, count 6 fourths from zero—that's two ticks past 1. See how the counting continues past 1? That's how we place fractions on an extended number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right—the count continues past 1."
+        }
+      }
+    }
+  ]
+}

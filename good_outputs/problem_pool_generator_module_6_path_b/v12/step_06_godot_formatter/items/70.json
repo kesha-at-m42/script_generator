@@ -1,0 +1,136 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 70,
+    "template_id": "6009",
+    "template_skill": "Student drags multiple thirds fraction labels to correct positions past 1",
+    "identifiers": [
+      "4/3",
+      "5/3",
+      "6/3"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line extending past 1. Can you place these thirds in their correct positions?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "3/3",
+              "4/3",
+              "5/3",
+              "6/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "3/3"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 4/3, 5/3, and 6/3 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3",
+            "5/3",
+            "6/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember, thirds keep the same size past 1. Count from zero to find each fraction's position."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about how this works. The numerator tells us how many thirds to count from zero. So 4/3 means count 4 thirds from zero - that's 1 third past 1. Each fraction's numerator shows how many thirds from zero to count."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. We start by counting thirds from zero. For 4/3, we count 4 thirds from zero - that's the fourth tick mark, which is 1 third past 1. For 5/3, we count 5 thirds from zero - that's the fifth tick mark, which is 2 thirds past 1. For 6/3, we count 6 thirds from zero - that's the sixth tick mark, which lands right at 2. That's how fractions work past 1 - we keep counting the same equal parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Thirds continue the same way past 1."
+        }
+      }
+    }
+  ]
+}

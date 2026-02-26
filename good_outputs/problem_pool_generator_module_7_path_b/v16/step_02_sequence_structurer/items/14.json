@@ -1,0 +1,57 @@
+{
+  "problem_id": 14,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "7003",
+  "fractions": [
+    "5/5"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this bar showing 5/5. Why does having all 5 parts equal 1 whole?",
+      "prompt": "What makes 5/5 equal to 1?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_1",
+          "type": "fraction_strip",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/5",
+          "intervals_is_shaded": true,
+          "role": "reference"
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "When you have every part, you have 1"
+            },
+            {
+              "id": "b",
+              "text": "Because 5 parts is a lot"
+            },
+            {
+              "id": "c",
+              "text": "Because 5 is an odd number"
+            },
+            {
+              "id": "d",
+              "text": "Because it's the biggest fraction with 5"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "Having all the parts means having the complete whole, which equals 1"
+      },
+      "success_path_dialogue": "Exactly. When you have all the parts, you have one whole."
+    }
+  ]
+}

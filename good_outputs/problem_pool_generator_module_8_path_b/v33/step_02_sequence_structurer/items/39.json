@@ -1,0 +1,70 @@
+{
+  "problem_id": 39,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8008",
+  "fractions": [
+    "1/2",
+    "2/4"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Let's check if two fourths lands at the same spot as one half.",
+      "prompt": "Place two fourths on the bottom line.",
+      "interaction_tool": "place_point",
+      "workspace": [
+        {
+          "id": "line_reference",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Reference number line with point at 1/2",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/2",
+            "1"
+          ],
+          "points": [
+            "1/2"
+          ],
+          "labels": [
+            "0",
+            "1/2",
+            "1"
+          ]
+        },
+        {
+          "id": "line_student",
+          "type": "number_line",
+          "role": "student_interaction",
+          "description": "Number line with fourths for student to place point",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "2/4",
+        "context": "Two fourths aligns with one half on the reference line, showing they are equivalent fractions"
+      },
+      "success_path_dialogue": "Yes. Two fourths and one half are at the same position."
+    }
+  ]
+}

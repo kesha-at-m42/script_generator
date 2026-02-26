@@ -1,0 +1,143 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 40,
+    "template_id": "8008",
+    "template_skill": "Student places varied fractions on a number line to verify equivalence with a marked reference point",
+    "identifiers": [
+      "2/3",
+      "4/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can verify equivalence by placing fractions at the same point on a number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the top line. It shows two thirds. Now place four sixths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "0",
+              "2/3",
+              "1"
+            ],
+            "lcm": 9
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 4/6 on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where two thirds is on the top line. Four sixths should be at the same position on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Two thirds and four sixths are equivalent fractions - they represent the same amount. That means they should be at the exact same position on their number lines. Look at where two thirds sits on the top line, then find that same spot on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We need to place four sixths at the same position as two thirds. Look at the top line - two thirds is at the second tick mark out of three equal parts. Now on the bottom line, we have sixths, which means six equal parts. Four sixths lands at the fourth tick mark out of six. Notice that's at the exact same position as two thirds on the top line. That's because two thirds and four sixths are equivalent - they represent the same amount. Place your point at the fourth tick mark on the bottom line, right where it lines up with two thirds above. That's how equivalent fractions work on number lines - they land at the same position."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. Four sixths and two thirds are at the same position."
+        }
+      }
+    }
+  ]
+}

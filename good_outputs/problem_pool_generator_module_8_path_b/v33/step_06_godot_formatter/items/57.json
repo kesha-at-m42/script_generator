@@ -1,0 +1,117 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 57,
+    "template_id": "8010",
+    "template_skill": "Student shades parts of a bar to create a fraction equivalent to a 2/3-family reference",
+    "identifiers": [
+      "2/3",
+      "4/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can create an equivalent fraction by shading the correct number of parts (2/3 family)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-06",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "fine_motor_control",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7,
+        3
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The top bar shows two thirds. Can you shade the bottom bar to show the same amount using sixths?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "labels": [
+              "2/3"
+            ],
+            "is_read_only": true,
+            "lcm": 18
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false,
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade the bar below to show two thirds using sixths.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 4
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of the top bar is shaded, then match that same amount in the bottom bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top bar shows 2 out of 3 parts shaded. The bottom bar has smaller parts - sixths instead of thirds. You need to shade enough sixths to cover the same amount as those 2 thirds. How many sixths would that be?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The top bar shows 2/3 shaded. Now look at the bottom bar - it's divided into sixths, which are smaller parts. Each third from the top bar is equal to 2 sixths in the bottom bar. So if we have 2 thirds, that's 2 times 2 sixths, which equals 4 sixths. Shade the first 4 parts of the bottom bar. That's how equivalent fractions work - four sixths equals two thirds because they cover the same amount."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You made it. Four sixths equals two thirds."
+        }
+      }
+    }
+  ]
+}

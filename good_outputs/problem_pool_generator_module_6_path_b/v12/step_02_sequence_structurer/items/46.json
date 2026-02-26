@@ -1,0 +1,76 @@
+{
+  "problem_id": 46,
+  "mastery_tier": "SUPPORT",
+  "mastery_verb": "identify",
+  "template_id": "6005",
+  "fractions": [
+    "2/4",
+    "3/4",
+    "4/4",
+    "5/4",
+    "6/4"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the fractions labeled on this number line. They go past 1, but something stays the same in all of them.",
+      "prompt": "What stays the same in 3/4, 4/4, and 5/4?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "4/4",
+            "5/4",
+            "6/4",
+            "7/4",
+            "8/4"
+          ],
+          "labels": [
+            "2/4",
+            "3/4",
+            "4/4",
+            "5/4",
+            "6/4"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "The denominator (4)"
+            },
+            {
+              "id": "b",
+              "text": "The numerator"
+            },
+            {
+              "id": "c",
+              "text": "The whole number part"
+            },
+            {
+              "id": "d",
+              "text": "Nothing"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "The denominator (4) stays constant across all fractions, even when counting past 1"
+      },
+      "success_path_dialogue": "Right, the denominator stays the same."
+    }
+  ]
+}

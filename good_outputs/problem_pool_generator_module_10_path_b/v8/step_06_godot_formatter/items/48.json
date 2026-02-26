@@ -1,0 +1,378 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 48,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "2/6",
+      "5/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison",
+        "spatial_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        8
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's place two-sixths on the top number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place two-sixths on the top line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many sixths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Two-sixths means 2 out of 6 equal parts. Count 2 of the tick marks from 0 on the top number line. That's where two-sixths should be."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We need to place two-sixths on the top number line. The number line is divided into sixths - that means 6 equal parts between 0 and 1. Each tick mark represents one-sixth. To find two-sixths, we count 2 of these tick marks from 0. Starting at 0, the first tick is one-sixth, the second tick is two-sixths. That's where we place our point - at the second tick mark from zero. That's how we locate fractions on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You placed two-sixths on the top line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place five-sixths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place five-sixths on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "5/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count five intervals from zero to find five-sixths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Five-sixths means 5 out of 6 equal parts. Look at the bottom number line and count 5 intervals from 0. Each tick mark shows another sixth, so we need to count to the fifth one."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing five-sixths. The number line is divided into sixths - that means 6 equal parts between 0 and 1. To find five-sixths, we count 5 of these intervals from 0. Starting at 0, we count: one-sixth, two-sixths, three-sixths, four-sixths, five-sixths. The fifth tick mark is where five-sixths belongs. That's how we locate fractions - we count the intervals from zero based on the numerator."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Five-sixths is placed on the bottom line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Which symbol correctly compares these fractions?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "points": [
+              "5/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12,
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/6",
+              " ? ",
+              "5/6"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which symbol correctly compares these fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where each point is on its number line. Which one is closer to zero?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When we compare fractions on number lines, the one that's farther from zero is greater. Look at the top number line - two-sixths is pretty close to zero. Now look at the bottom number line - five-sixths is much closer to 1. Which fraction is greater?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. We have two-sixths on the top number line and five-sixths on the bottom number line. Both fractions have the same denominator - sixths - so we can compare them by looking at their positions. Two-sixths is only 2 parts away from zero, while five-sixths is 5 parts away from zero. Five-sixths is much farther from zero, which means it's the greater fraction. So two-sixths is less than five-sixths, and we use the less than symbol. The answer is the less than symbol. That's how we compare fractions - the one farther from zero on the number line is greater."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Two-sixths is less than five-sixths."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:52:49.353962+00:00"
+}

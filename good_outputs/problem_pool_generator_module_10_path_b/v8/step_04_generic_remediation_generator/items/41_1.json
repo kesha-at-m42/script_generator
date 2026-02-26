@@ -1,0 +1,95 @@
+{
+  "problem_id": 41,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "compare",
+  "template_id": "10008",
+  "fractions": [
+    "3/10",
+    "7/10",
+    "9/10"
+  ],
+  "dialogue": "Here are three bars showing different fractions. Arrange them from smallest to largest.",
+  "prompt": "Select the correct order from least to greatest.",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_1",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into tenths with 3 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/10",
+      "shaded_intervals": 3,
+      "fraction_label": true
+    },
+    {
+      "id": "bar_2",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into tenths with 7 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/10",
+      "shaded_intervals": 7,
+      "fraction_label": true
+    },
+    {
+      "id": "bar_3",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar divided into tenths with 9 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/10",
+      "shaded_intervals": 9,
+      "fraction_label": true
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "3/10, 7/10, 9/10"
+        },
+        {
+          "id": "b",
+          "text": "9/10, 7/10, 3/10"
+        },
+        {
+          "id": "c",
+          "text": "7/10, 3/10, 9/10"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "3/10 < 7/10 < 9/10 is the correct ascending order"
+  },
+  "success_path_dialogue": "That's right. They're all in order now.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at how much is shaded in each bar. Which has the least shaded? Which has the most?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. When fractions have the same denominator, we can compare the numerators. The bar with 3 shaded parts shows the smallest fraction. The bar with 7 shaded parts is in the middle. The bar with 9 shaded parts shows the largest fraction. That's how we order them from least to greatest."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through ordering these fractions. All three bars are divided into tenths, so they have the same denominator. When denominators are the same, we just compare the numerators. Bar 1 shows 3/10 - that's 3 shaded parts. Bar 2 shows 7/10 - that's 7 shaded parts. Bar 3 shows 9/10 - that's 9 shaded parts. From smallest to largest, we have 3, then 7, then 9. So the correct order from least to greatest is 3/10, 7/10, 9/10. That's how we compare fractions with the same denominator - just look at the numerators."
+      }
+    ]
+  }
+}

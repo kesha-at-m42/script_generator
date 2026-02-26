@@ -1,0 +1,99 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 56,
+    "template_id": "6007",
+    "template_skill": "Student identifies which fractions are improper (greater than 1) based on numerator/denominator relationship",
+    "identifiers": [
+      "5/4"
+    ],
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize improper fractions and explain why they exceed 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-06",
+      "tier": "CONFIDENCE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension"
+      ],
+      "misconception_id": [
+        3,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at 5/4. It's called an improper fraction because it's greater than 1. Why is that?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "label": "5/4",
+            "is_visible": true,
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Why is 5/4 greater than 1?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "The denominator is larger than the numerator",
+            "The numerator is larger than the denominator",
+            "Both numbers are the same size"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the top and bottom numbers in 5/4. Which one is bigger?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. In 5/4, the top number is 5 and the bottom number is 4. Compare these two numbers. When we have more parts than we need to make one whole, the fraction is greater than 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you understand this. Look at 5/4. The numerator is 5 and the denominator is 4. When we compare them, 5 is larger than 4. This means we have 5 fourths, which is more than the 4 fourths we need to make 1 whole. So the answer is 'The numerator is larger than the denominator.' That's why 5/4 is greater than 1 and called an improper fraction."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. The top number is bigger than the bottom number. That's an improper fraction."
+        }
+      }
+    }
+  ]
+}

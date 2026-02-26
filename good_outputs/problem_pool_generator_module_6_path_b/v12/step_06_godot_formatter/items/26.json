@@ -1,0 +1,113 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 26,
+    "template_id": "6003",
+    "template_skill": "Student drags a single fraction label or places a point at the correct position beyond 1 on a pre-partitioned number line (varied denominators)",
+    "identifiers": [
+      "10/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place single fractions greater than 1 by counting intervals from zero",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-02",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line partitioned into eighths. Drag the fraction to where it belongs.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 10/8 to the correct position.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "10/8"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "10/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count ten eighths from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. The denominator 8 tells us we're counting eighths. The numerator 10 means we need to count 10 of those eighths from zero. Remember, we can count past 1 on the number line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We're placing 10/8. The denominator 8 means we're working with eighths - each interval on this number line represents one-eighth. The numerator 10 means we count 10 of those eighths from 0. Let's count: 1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8 which equals 1, then 9/8, and finally 10/8. That's two intervals past 1. That's how we locate fractions greater than 1 on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. That's ten-eighths, two intervals past 1."
+        }
+      }
+    }
+  ]
+}

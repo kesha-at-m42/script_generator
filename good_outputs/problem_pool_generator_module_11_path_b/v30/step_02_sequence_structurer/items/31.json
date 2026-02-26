@@ -1,0 +1,67 @@
+{
+  "problem_id": 31,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "11005",
+  "fractions": [
+    "3/5",
+    "3/7"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two bars. Both have three pieces shaded. But are the pieces the same size?",
+      "prompt": "Select the correct comparison symbol.",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into fifths with 3 pieces shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/5",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar divided into sevenths with 3 pieces shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 3
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "3/5 > 3/7"
+            },
+            {
+              "id": "b",
+              "text": "3/5 = 3/7"
+            },
+            {
+              "id": "c",
+              "text": "3/5 < 3/7"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "3/5 is greater than 3/7 because fifths are bigger pieces than sevenths"
+      },
+      "success_path_dialogue": "Right. Same count, but bigger pieces win."
+    }
+  ]
+}

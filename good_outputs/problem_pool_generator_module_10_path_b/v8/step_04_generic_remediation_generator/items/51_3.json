@@ -1,0 +1,115 @@
+{
+  "problem_id": 51,
+  "step_id": 3,
+  "no_of_steps": 3,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "1/4",
+    "3/4"
+  ],
+  "dialogue": "Now compare the two fractions. Which symbol shows the relationship?",
+  "prompt": "Which symbol correctly compares these fractions?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "line_top",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Top number line 0-1 with fourths, read-only with point at 1/4",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1"
+      ],
+      "points": [
+        "1/4"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "line_bottom",
+      "type": "number_line",
+      "role": "reference",
+      "description": "Bottom number line 0-1 with fourths, read-only with point at 3/4",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1"
+      ],
+      "points": [
+        "3/4"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "id": "comparison",
+      "type": "math_expression",
+      "role": "student_interaction",
+      "description": "Expression showing 1/4 ? 3/4 with placeholder for comparison symbol",
+      "terms": [
+        "1/4",
+        " ? ",
+        "3/4"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "<"
+        },
+        {
+          "id": "b",
+          "text": "="
+        },
+        {
+          "id": "c",
+          "text": ">"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "1/4 is less than 3/4 because it's farther to the left on the number line"
+  },
+  "success_path_dialogue": "Correct. One-fourth is less than three-fourths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where each point is on the number lines. Which one is farther from zero?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. On a number line, fractions to the left are smaller than fractions to the right. Look at the two points - one-fourth is closer to zero, and three-fourths is closer to one. That tells us which fraction is greater."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. Look at the top number line - one-fourth is just one part away from zero. Now look at the bottom number line - three-fourths is three parts away from zero, much closer to one. On a number line, positions farther to the right are greater. Since three-fourths is to the right of one-fourth, three-fourths is greater. That means one-fourth is less than three-fourths, so we use the less than symbol. The answer is <. That's how we use number lines to compare fractions."
+      }
+    ]
+  },
+  "_generated_at": "2026-02-20T22:51:23.121078+00:00"
+}

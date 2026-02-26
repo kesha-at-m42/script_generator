@@ -1,0 +1,57 @@
+{
+  "problem_id": 16,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "7003",
+  "fractions": [
+    "8/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this bar. All eight parts are shaded. Why does 8/8 equal 1?",
+      "prompt": "Why is 8/8 the same as 1 whole?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_1",
+          "type": "fraction_strip",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": true,
+          "intervals_is_read_only": true
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "We have all the parts, so it makes a complete whole"
+            },
+            {
+              "id": "b",
+              "text": "Because 8 is an even number"
+            },
+            {
+              "id": "c",
+              "text": "Because it has the most parts"
+            },
+            {
+              "id": "d",
+              "text": "Because 8 is divisible by 2"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "When all parts of a whole are present (8 out of 8), they combine to make one complete whole"
+      },
+      "success_path_dialogue": "Exactly. When you have all the parts, you have one complete whole."
+    }
+  ]
+}

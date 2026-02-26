@@ -1,0 +1,120 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 45,
+    "template_id": "6005",
+    "template_skill": "Student answers diagnostic questions confirming denominator constancy across the 1 boundary",
+    "identifiers": [
+      "3/3",
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that the denominator stays constant when counting past 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-04",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at the fractions labeled on this number line. Notice that 4/3 is past the 1 mark.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "3/3",
+              "4/3",
+              "5/3",
+              "6/3"
+            ],
+            "labels": [
+              "3/3",
+              "4/3",
+              "5/3"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "4/3 is past 1. What's the denominator?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3",
+            "4",
+            "1",
+            "7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at all the fractions on the number line. What number is on the bottom of each fraction?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look at this more carefully. The denominator is the bottom number of a fraction. Look at 3/3, 4/3, and 5/3 on the number line. See how they all have the same bottom number? That's the denominator, and it stays the same even when we go past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. When we look at 4/3, we need to find the denominator - that's the bottom number. Look at the number line and notice all the fractions: 3/3, 4/3, 5/3. They all have 3 on the bottom. That's because the number line is divided into thirds - 3 equal parts between 0 and 1. The denominator stays 3 whether we're at 3/3, which equals 1, or at 4/3, which is past 1. So the denominator of 4/3 is 3. The denominator tells us what size pieces we're counting, and that doesn't change as we move along the number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, the denominator stays the same."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "problem_id": 70,
+  "step_id": 2,
+  "no_of_steps": 2,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "1/2",
+    "4/8"
+  ],
+  "dialogue": "Now let's verify. Place four-eighths on the bottom line.",
+  "prompt": "Place four-eighths on the bottom number line.",
+  "interaction_tool": "place_point",
+  "workspace": {
+    "inherited": false,
+    "tangibles": [
+      {
+        "id": "line_top",
+        "type": "number_line",
+        "role": "reference",
+        "description": "Top number line with point at 1/2",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/2",
+          "1"
+        ],
+        "points": [
+          "1/2"
+        ],
+        "labels": [
+          "0",
+          "1/2",
+          "1"
+        ]
+      },
+      {
+        "id": "line_bottom",
+        "type": "number_line",
+        "role": "student_interaction",
+        "description": "Bottom number line with eighths marked",
+        "range": [
+          0,
+          1
+        ],
+        "ticks": [
+          "0",
+          "1/8",
+          "2/8",
+          "3/8",
+          "4/8",
+          "5/8",
+          "6/8",
+          "7/8",
+          "1"
+        ],
+        "labels": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  "correct_answer": {
+    "value": "4/8",
+    "context": "4/8 aligns with 1/2 on the top line, confirming equivalence"
+  },
+  "success_path_dialogue": "Good. You found the equivalent AND proved it on the line.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at where one-half is on the top line, then find that same position on the bottom line."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. One-half is marked on the top number line. Four-eighths should be at exactly the same position on the bottom line - that's what makes them equivalent. Look at where the halfway point is and match that spot."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. We're proving that one-half and four-eighths are equivalent by showing they're at the same location. Look at the top line - one-half is right at the halfway point. Now on the bottom line, count the eighths: 1/8, 2/8, 3/8, 4/8. Four-eighths lands at exactly that same halfway position. Place your point at the 4/8 tick mark - it lines up perfectly with 1/2 above it. That's how we verify equivalent fractions - they occupy the same position on the number line."
+      }
+    ]
+  }
+}

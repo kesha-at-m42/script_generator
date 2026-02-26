@@ -1,0 +1,147 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 108,
+    "template_id": "4013",
+    "template_skill": "Student identifies equal vs unequal intervals (identify)",
+    "identifiers": [
+      "1/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "IDENTIFY",
+    "telemetry_data": {
+      "mastery_skill": "Identify number lines with equal versus unequal intervals",
+      "cognitive_verb": "IDENTIFY",
+      "mastery_skill_id": "M4-10",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_discrimination",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        1,
+        5
+      ],
+      "misconception_tag": [
+        "equal_vs_unequal_parts",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these three number lines. One of them shows thirds.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "1/2",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the number line that shows thirds.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            2
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many equal intervals are between 0 and 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about what thirds means. For thirds, we need 3 equal intervals from 0 to 1. Check each number line - count the intervals and make sure they're all the same size."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. To show thirds, a number line needs exactly 3 equal intervals between 0 and 1. Let's check the third number line - it has 3 intervals from 0 to 1, and all three intervals are the same size. That's what makes it thirds - 3 equal parts. That's the answer. Remember, thirds means 3 equal intervals."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Three equal intervals for thirds."
+        }
+      }
+    }
+  ]
+}

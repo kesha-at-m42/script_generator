@@ -1,0 +1,139 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 60,
+    "template_id": "11009",
+    "template_skill": "Student views a fraction pair with the same numerator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "3/5",
+      "3/7"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-numerator pair requires the same-numerator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        8
+      ],
+      "misconception_tag": [
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. They both show three pieces shaded, but the pieces are different sizes. How would you compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/5",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 5
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "is_read_only": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 7
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "3/5",
+              ">",
+              "3/7"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "How would you compare these fractions? Select TWO options.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same numerator",
+            "Compare the sizes of parts",
+            "Check for same denominator",
+            "Count the total intervals"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at what's the same about these two fractions. Then think about what's different."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look more carefully. Both fractions have 3 shaded - that's the numerator. When the numerators are the same, we need to compare the size of the individual pieces. Look at how fifths compare to sevenths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. First, we notice that both fractions have the same numerator - they both show 3 pieces shaded. When fractions have the same numerator, we compare them by looking at the size of the pieces. Look at the bars - fifths are bigger pieces than sevenths because 5 parts is fewer parts than 7 parts. So to compare these fractions, we check for same numerator and compare the sizes of parts. That's how we compare fractions with the same numerator - fewer parts means bigger pieces."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same numerator means you compare piece sizes."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 4,
+    "template_id": "6001",
+    "template_skill": "Student places tick marks to partition 1-2 section matching the spacing already shown in 0-1",
+    "identifiers": [
+      "9/8",
+      "10/8",
+      "11/8",
+      "12/8",
+      "13/8",
+      "14/8",
+      "15/8",
+      "16/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1 maintaining equal spacing",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at how the first section is divided. Can you continue that same pattern from 1 to 2?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/8",
+              "2/8",
+              "3/8",
+              "4/8",
+              "5/8",
+              "6/8",
+              "7/8",
+              "1",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 24
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Partition 1 to 2 into eighths, matching 0 to 1.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 24,
+          "bounds": [
+            "1",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1",
+            "9/8",
+            "10/8",
+            "11/8",
+            "12/8",
+            "13/8",
+            "14/8",
+            "15/8",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between tick marks from 0 to 1, then match that exact pattern from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 8 equal parts - that's what eighths means. Count how many tick marks are between 0 and 1. You need that same number of tick marks between 1 and 2, with the same equal spacing."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this step by step. First, let's look at the pattern from 0 to 1. There are 7 tick marks between 0 and 1, creating 8 equal parts - that's eighths. Now we need to continue that same pattern from 1 to 2. We place 7 tick marks between 1 and 2, with exactly the same spacing as from 0 to 1. Each space represents one-eighth, and the pattern continues past 1 just like it did before 1. That's how we partition a number line consistently - the equal parts stay the same size throughout."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You extended the partition correctly."
+        }
+      }
+    }
+  ]
+}

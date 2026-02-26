@@ -1,0 +1,101 @@
+{
+  "problem_id": 70,
+  "step_id": 1,
+  "no_of_steps": 2,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "1/2",
+    "4/8"
+  ],
+  "dialogue": "Here's a bar showing two-fourths. Which of these bars shows the same amount?",
+  "prompt": "Select the bar that equals two-fourths.",
+  "interaction_tool": "select",
+  "workspace": [
+    {
+      "id": "reference_bar",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Reference bar at top showing 2/4 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/4",
+      "intervals_is_shaded": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar A showing 4/8 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/8",
+      "intervals_is_shaded": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar B showing 3/6 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "intervals_is_shaded": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "bar_c",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Bar C showing 2/6 shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "intervals_is_shaded": [
+        0,
+        1
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "bar_a",
+    "context": "Bar A shows 4/8, which equals 2/4 (both represent one-half)"
+  },
+  "success_path_dialogue": "That's right. Four-eighths equals two-fourths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at how much is shaded in the reference bar, then find the bar that shows the same amount."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this more carefully. We need to find which bar shows the same amount as two-fourths. Even though the bars are divided differently, one of them covers the exact same amount of space as the reference bar. Compare how much is shaded in each bar to the reference."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. The reference bar shows two-fourths shaded - that's half the bar. Now let's look at the choices. Bar A is divided into eighths with 4 parts shaded. Four-eighths is also half the bar - the same amount as two-fourths. Bar B shows three-sixths, which is also half, but Bar C shows two-sixths, which is only one-third. The answer is Bar A. That's how equivalent fractions work - different fractions can represent the same amount."
+      }
+    ]
+  }
+}

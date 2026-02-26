@@ -1,0 +1,90 @@
+{
+  "problem_id": 74,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "apply",
+  "template_id": "12012",
+  "fractions": [
+    "2/9",
+    "7/9"
+  ],
+  "dialogue": "Look at these two fractions. Which comparison strategy works here?",
+  "prompt": "Which strategy helps you compare 2/9 and 7/9?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into ninths with 2 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/9",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar divided into ninths with 7 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/9",
+      "shaded_intervals": 7
+    },
+    {
+      "id": "comparison_1",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Expression showing 2/9 < 7/9",
+      "terms": [
+        "2/9",
+        "<",
+        "7/9"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for the same denominator, count the parts"
+        },
+        {
+          "id": "b",
+          "text": "Check for the same numerator, compare part sizes"
+        },
+        {
+          "id": "c",
+          "text": "Neither matches, use the benchmark"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "a",
+    "context": "Both fractions have the same denominator (9), so counting the shaded parts tells which is larger"
+  },
+  "success_path_dialogue": "Right. Check for the same denominator, then count the parts.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at the denominators in both fractions."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Look at 2/9 and 7/9. What do you notice about the bottom numbers? When fractions have the same denominator, the parts are all the same size - we just need to count how many parts are shaded."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. First, we check the denominators. Both fractions are ninths - 2/9 and 7/9 both have 9 as the denominator. That means the parts are all the same size. Look at the bars - each ninth is exactly the same size in both bars. When denominators match like this, we just count the shaded parts. 2 ninths versus 7 ninths. Since the parts are equal, more parts means a larger fraction. The strategy is: check for the same denominator, then count the parts. That's how we compare fractions with the same denominator."
+      }
+    ]
+  }
+}

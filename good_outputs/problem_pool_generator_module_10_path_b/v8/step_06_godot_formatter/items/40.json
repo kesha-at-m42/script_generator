@@ -1,0 +1,151 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 40,
+    "template_id": "10008",
+    "template_skill": "Student selects which sequence shows three fractions in correct order from smallest to largest",
+    "identifiers": [
+      "2/8",
+      "5/8",
+      "7/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can order three fractions from smallest to largest with same denominator (harder denominators/closer values)",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-04",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here are three bars showing different fractions. Can you put them in order from smallest to largest?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "sum_is_visible": true,
+            "lcm": 8
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "sum_is_visible": true,
+            "lcm": 8
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/8",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "sum_is_visible": true,
+            "lcm": 8
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which option shows these fractions in order from smallest to largest?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/8, 5/8, 7/8",
+            "7/8, 5/8, 2/8",
+            "5/8, 2/8, 7/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much is shaded in each bar and compare."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When fractions have the same denominator, we can compare them by looking at the numerators. The bar with less shading shows a smaller fraction. Which bar has the least shading? That one comes first."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through ordering these fractions. All three bars are divided into eighths, so we can compare by looking at how many eighths are shaded. Bar A has 2 eighths shaded - that's the smallest amount. Bar B has 5 eighths shaded - that's in the middle. Bar C has 7 eighths shaded - that's the largest amount. So from smallest to largest, the order is 2/8, then 5/8, then 7/8. That's how we order fractions with the same denominator - we compare the numerators to see which has more parts."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. They're all in order now."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 71,
+    "template_id": "6010",
+    "template_skill": "Student places halves or fifths fractions beyond 1 on a pre-partitioned number line",
+    "identifiers": [
+      "3/2"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with transfer denominators (halves and fifths)",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-08",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "This number line goes past 1. Let's place three-halves on it.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "3/2",
+              "2"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 6
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place three-halves on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "3/2",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "3/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count three halves from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Three-halves means 3 jumps of one-half each. Start at zero and count: one-half, two-halves - that's 1 whole - then three-halves. Where does that land you?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing three-halves. The number line is divided into halves - each interval is one-half. To find three-halves, we count 3 of these intervals from zero. First interval gets us to one-half. Second interval gets us to two-halves, which equals 1. Third interval gets us to three-halves, which is one tick past 1. That's where three-halves goes. That's how we place fractions greater than 1 - we keep counting the equal parts past the whole."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, that's three-halves. One past the whole."
+        }
+      }
+    }
+  ]
+}

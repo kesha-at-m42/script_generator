@@ -1,0 +1,142 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 32,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "6/4",
+      "7/4",
+      "8/4"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line showing fourths that extends past 1. Can you place these three fractions in the right spots?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "6/4",
+              "7/4",
+              "8/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "4/4",
+              "8/4"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 6/4, 7/4, and 8/4 to their positions.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "8/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/4",
+            "7/4",
+            "8/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count the fourths from zero for each fraction. Try again."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Each numerator tells you how many fourths to count from zero. For 6/4, count six fourths from 0. For 7/4, count seven fourths from 0. For 8/4, count eight fourths from 0. Remember that 4/4 equals 1, so these fractions go past the 1 mark."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. First, 6/4 means six fourths. We count six intervals from 0: one, two, three, four gets us to 1, then five, six lands us at 6/4. Next, 7/4 means seven fourths. Count seven intervals from 0, which takes us one more interval past 6/4. Finally, 8/4 means eight fourths. Count eight intervals from 0, and we land at 2. That's how we place fractions past 1 - the numerator tells us how many fourths to count from zero."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "All three placed correctly."
+        }
+      }
+    }
+  ]
+}

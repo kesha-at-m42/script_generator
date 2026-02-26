@@ -1,0 +1,328 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 51,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "1/4",
+      "3/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy"
+      ],
+      "misconception_id": [
+        5,
+        8
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's place one-fourth on the top number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place one-fourth on the top line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look for the tick mark that shows one-fourth."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. One-fourth means 1 out of 4 equal parts. The number line is divided into fourths. Find the first tick mark after 0 - that's where one-fourth belongs."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The number line is divided into fourths - that means 4 equal parts between 0 and 1. One-fourth means just 1 of those 4 parts. Starting from 0, the very first tick mark shows one-fourth. That's where we place the point. That's how we locate one-fourth on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You placed one-fourth on the line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place three-fourths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place three-fourths on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count three tick marks from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Three-fourths means 3 out of 4 equal parts. Count three tick marks from 0 on the bottom line to find where three-fourths should be."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We need to place three-fourths on the bottom number line. The bottom line is divided into fourths - 4 equal parts from 0 to 1. Three-fourths means we count 3 of those parts from 0. Starting at 0, we count: first tick mark is one-fourth, second tick mark is two-fourths, and the third tick mark is three-fourths. That third tick mark is where three-fourths goes. That's how we locate fractions - the numerator tells us how many parts to count from zero."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Three-fourths is at the third tick mark."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare the two fractions. Which symbol shows the relationship?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/4",
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "1/4",
+              " ? ",
+              "3/4"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which symbol correctly compares these fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where each point is on the number lines. Which one is farther from zero?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. On a number line, fractions to the left are smaller than fractions to the right. Look at the two points - one-fourth is closer to zero, and three-fourths is closer to one. That tells us which fraction is greater."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. Look at the top number line - one-fourth is just one part away from zero. Now look at the bottom number line - three-fourths is three parts away from zero, much closer to one. On a number line, positions farther to the right are greater. Since three-fourths is to the right of one-fourth, three-fourths is greater. That means one-fourth is less than three-fourths, so we use the less than symbol. The answer is <. That's how we use number lines to compare fractions."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. One-fourth is less than three-fourths."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:54:05.542381+00:00"
+}

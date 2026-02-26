@@ -1,0 +1,126 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 32,
+    "template_id": "11005",
+    "template_skill": "Student views two bars with the same number of pieces shaded (numerator > 1, different denominators) and selects the correct comparison symbol",
+    "identifiers": [
+      "2/4",
+      "2/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can select the correct comparison symbol for same-numerator non-unit fractions by comparing piece sizes in bars",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M11-03",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. Both have two pieces shaded. Which fraction is larger?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "sum_is_visible": true,
+            "lcm": 4
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "sum_is_visible": true,
+            "lcm": 6
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct comparison symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/4 > 2/6",
+            "2/4 = 2/6",
+            "2/4 < 2/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the size of the shaded pieces in each bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Both bars have 2 pieces shaded, but that doesn't mean they're equal. Compare the size of one fourth to the size of one sixth. Which pieces are bigger?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. Yes, both bars have 2 pieces shaded. But look closely at the size of those pieces. The first bar is divided into fourths - that means 4 equal parts make the whole. The second bar is divided into sixths - 6 equal parts make the whole. When you divide something into more pieces, each piece gets smaller. So one fourth is bigger than one sixth. That means 2 fourths is bigger than 2 sixths. The answer is 2/4 > 2/6. When fractions have the same numerator, the one with the smaller denominator is larger because its pieces are bigger."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same count, but bigger pieces win."
+        }
+      }
+    }
+  ]
+}

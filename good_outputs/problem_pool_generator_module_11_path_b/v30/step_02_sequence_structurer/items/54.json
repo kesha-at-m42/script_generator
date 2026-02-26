@@ -1,0 +1,86 @@
+{
+  "problem_id": 53,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "4/7",
+    "2/7"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. What strategies help you compare them?",
+      "prompt": "Which TWO can help you compare these fractions?",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar A divided into sevenths with 4 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 4
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar B divided into sevenths with 2 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 2
+        },
+        {
+          "id": "expression_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Expression showing 4/7 > 2/7",
+          "terms": [
+            "4/7",
+            ">",
+            "2/7"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for same denominator"
+            },
+            {
+              "id": "b",
+              "text": "Check for same numerator"
+            },
+            {
+              "id": "c",
+              "text": "Count the equal parts"
+            },
+            {
+              "id": "d",
+              "text": "Compare the sizes of parts"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "c"
+        ],
+        "context": "Both fractions are sevenths (same denominator), so you check that first, then count how many equal parts are shaded"
+      },
+      "success_path_dialogue": "Right. Same denominator means you count the parts."
+    }
+  ]
+}

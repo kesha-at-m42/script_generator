@@ -1,0 +1,69 @@
+{
+  "problem_id": 47,
+  "mastery_tier": "SUPPORT",
+  "mastery_verb": "identify",
+  "template_id": "6006",
+  "fractions": [
+    "5/4"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this number line. There's a point placed past 1. Count the intervals from zero to find what fraction it shows.",
+      "prompt": "What fraction does this point show?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "6/4",
+            "7/4",
+            "2"
+          ],
+          "points": [
+            "5/4"
+          ],
+          "labels": [
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "5/4"
+            },
+            {
+              "id": "b",
+              "text": "1/4"
+            },
+            {
+              "id": "c",
+              "text": "4/5"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "The point is at 5/4, which is five intervals from zero on a number line divided into fourths"
+      },
+      "success_path_dialogue": "Right. Five intervals from zero—that's 5/4."
+    }
+  ]
+}

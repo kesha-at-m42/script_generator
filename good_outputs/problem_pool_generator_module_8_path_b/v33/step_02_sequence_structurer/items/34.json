@@ -1,0 +1,72 @@
+{
+  "problem_id": 34,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "8007",
+  "fractions": [
+    "1/2",
+    "3/6"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at the top line. One half is marked there. Now look at the bottom line with sixths.",
+      "prompt": "Place three sixths on the bottom line.",
+      "interaction_tool": "place_point",
+      "workspace": [
+        {
+          "id": "line_top",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Reference number line from 0 to 1 with point and label at 1/2",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/2",
+            "1"
+          ],
+          "points": [
+            "1/2"
+          ],
+          "labels": [
+            "0",
+            "1/2",
+            "1"
+          ]
+        },
+        {
+          "id": "line_bottom",
+          "type": "number_line",
+          "role": "student_interaction",
+          "description": "Number line from 0 to 1 with tick marks at sixths, endpoints labeled",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "3/6",
+        "context": "Three sixths lands at the same position as one half on the top line, showing they are equivalent fractions"
+      },
+      "success_path_dialogue": "Right there. Three sixths lands at the same point as one half."
+    }
+  ]
+}

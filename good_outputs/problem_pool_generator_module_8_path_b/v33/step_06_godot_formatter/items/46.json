@@ -1,0 +1,112 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 46,
+    "template_id": "8009",
+    "template_skill": "Student shades parts of a bar to create a fraction equivalent to a 1/2-family reference",
+    "identifiers": [
+      "2/4",
+      "3/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can create an equivalent fraction by shading the correct number of parts",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M8-06",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "fine_motor_control",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        7
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The top bar shows two-fourths. Can you shade the bottom bar to show the same amount?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/4",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": false,
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade the bottom bar to match two-fourths.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 3
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of the top bar is shaded, then shade the same amount on the bottom bar."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The top bar shows 2 out of 4 parts shaded - that's half the bar. Now look at the bottom bar with 6 parts. How many parts would be half of 6? Shade that many parts to match the same amount."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The top bar has 2 out of 4 parts shaded. Notice that 2 out of 4 is exactly half of the bar. Now we need to shade half of the bottom bar too. The bottom bar has 6 equal parts, so half of 6 is 3. We need to shade 3 parts to show the same amount. That makes 3/6, which equals 2/4 - they both represent one half. That's how equivalent fractions work - different numbers of parts, but the same total amount."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Three-sixths equals two-fourths."
+        }
+      }
+    }
+  ]
+}

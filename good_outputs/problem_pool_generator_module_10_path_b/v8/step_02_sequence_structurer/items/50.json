@@ -1,0 +1,240 @@
+{
+  "problem_id": 50,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "10010",
+  "fractions": [
+    "3/8",
+    "5/8"
+  ],
+  "no_of_steps": 3,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Let's compare three-eighths and five-eighths. Place three-eighths on the top line.",
+      "prompt": "Place three-eighths on the top line.",
+      "interaction_tool": "place_point",
+      "workspace": [
+        {
+          "id": "line_top",
+          "type": "number_line",
+          "role": "student_interaction",
+          "description": "Top number line active for placing point at 3/8",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": "line_bottom",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Bottom number line read-only reference with no point",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "3/8",
+        "context": "Point placed at the third tick mark on the top line, showing 3/8"
+      },
+      "success_path_dialogue": "Good. You placed three-eighths on the top line."
+    },
+    {
+      "step_id": 2,
+      "dialogue": "Now place five-eighths on the bottom line.",
+      "prompt": "Place five-eighths on the bottom line.",
+      "interaction_tool": "place_point",
+      "workspace": [
+        {
+          "id": "line_top",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Top number line read-only with point at 3/8",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "points": [
+            "3/8"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": "line_bottom",
+          "type": "number_line",
+          "role": "student_interaction",
+          "description": "Bottom number line active for placing point at 5/8",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "5/8",
+        "context": "Point placed at the fifth tick mark on the bottom line, showing 5/8"
+      },
+      "success_path_dialogue": "Right. You placed five-eighths on the bottom line."
+    },
+    {
+      "step_id": 3,
+      "dialogue": "Look at both fractions on the number lines. Which symbol makes the comparison true?",
+      "prompt": "Which symbol makes this comparison true?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "line_top",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Top number line read-only with point at 3/8",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "points": [
+            "3/8"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": "line_bottom",
+          "type": "number_line",
+          "role": "reference",
+          "description": "Bottom number line read-only with point at 5/8",
+          "range": [
+            0,
+            1
+          ],
+          "ticks": [
+            "0",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "1"
+          ],
+          "points": [
+            "5/8"
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": "comparison_expr",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Math expression showing 3/8 ? 5/8 with placeholder for symbol",
+          "terms": [
+            "3/8",
+            " ? ",
+            "5/8"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "less_than",
+              "text": "<"
+            },
+            {
+              "id": "equal",
+              "text": "="
+            },
+            {
+              "id": "greater_than",
+              "text": ">"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "less_than",
+        "context": "3/8 is to the left of 5/8 on the number line, so 3/8 < 5/8"
+      },
+      "success_path_dialogue": "That's right. Three-eighths is less than five-eighths."
+    }
+  ],
+  "_generated_at": "2026-02-20T22:48:02.447277+00:00"
+}

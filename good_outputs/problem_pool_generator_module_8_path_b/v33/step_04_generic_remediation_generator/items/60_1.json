@@ -1,0 +1,88 @@
+{
+  "problem_id": 60,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "compare",
+  "template_id": "8011",
+  "fractions": [
+    "1/3",
+    "2/6"
+  ],
+  "dialogue": "Look at these two bars. One third is shaded on the left. Two sixths is shaded on the right. Do they show the same amount?",
+  "prompt": "Compare one third and two sixths. Are they equivalent?",
+  "interaction_tool": "click_choice",
+  "workspace": [
+    {
+      "id": "bar_left",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Strip divided into thirds with 1 section shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/3",
+      "intervals_is_shaded": [
+        0
+      ]
+    },
+    {
+      "id": "bar_right",
+      "type": "fraction_strip",
+      "role": "student_interaction",
+      "description": "Strip divided into sixths with 2 sections shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "intervals_is_shaded": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "No, because six is larger than three."
+        },
+        {
+          "id": "b",
+          "text": "No, because you can't compare fractions with different denominators."
+        },
+        {
+          "id": "c",
+          "text": "Yes, because the shaded amounts cover the same length on both bars."
+        },
+        {
+          "id": "d",
+          "text": "Yes, because one third is always equal to two of something."
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": "c",
+    "context": "The shaded portions occupy the same length on both bars, demonstrating that 1/3 and 2/6 are equivalent fractions"
+  },
+  "success_path_dialogue": "Correct. One third and two sixths are equivalent.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look carefully at how much of each bar is shaded. Do the shaded parts take up the same amount of space?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this more carefully. We can compare fractions even when they have different denominators. The key is to look at the actual shaded amounts. Compare how much space the shaded part takes up on the left bar versus the right bar. Do they cover the same length?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this comparison. The left bar shows one third shaded, and the right bar shows two sixths shaded. Even though they have different denominators, we can still compare them by looking at the actual lengths. If you look at both bars, the shaded portion on the left covers exactly the same length as the shaded portion on the right. They line up perfectly. This means one third and two sixths are equivalent fractions - they represent the same amount. That's how we compare fractions with different denominators - by looking at the actual amounts they represent."
+      }
+    ]
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "problem_id": 84,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "6012",
+  "fractions": [
+    "7/6",
+    "8/6"
+  ],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "This number line shows sixths from 0 to 1. Continue the partition from 1 to 2.",
+      "prompt": "Place tick marks to partition from 1 to 2 into sixths.",
+      "interaction_tool": "place_tick",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            {
+              "position": "0",
+              "is_read_only": true
+            },
+            {
+              "position": "1/6",
+              "is_read_only": true
+            },
+            {
+              "position": "2/6",
+              "is_read_only": true
+            },
+            {
+              "position": "3/6",
+              "is_read_only": true
+            },
+            {
+              "position": "4/6",
+              "is_read_only": true
+            },
+            {
+              "position": "5/6",
+              "is_read_only": true
+            },
+            {
+              "position": "1",
+              "is_read_only": true
+            }
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "7/6",
+          "8/6",
+          "9/6",
+          "10/6",
+          "11/6",
+          "2"
+        ],
+        "context": "Student extends the sixths pattern from 1 to 2, creating tick marks at 7/6, 8/6, 9/6, 10/6, 11/6, and 2"
+      },
+      "success_path_dialogue": "Good. You extended the sixths pattern past 1."
+    },
+    {
+      "step_id": 2,
+      "workspace_inherited": true,
+      "dialogue": "Now label the positions.",
+      "prompt": "Drag the fraction labels to the correct positions.",
+      "interaction_tool": "drag_label",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            {
+              "position": "0",
+              "is_read_only": true
+            },
+            {
+              "position": "1/6",
+              "is_read_only": true
+            },
+            {
+              "position": "2/6",
+              "is_read_only": true
+            },
+            {
+              "position": "3/6",
+              "is_read_only": true
+            },
+            {
+              "position": "4/6",
+              "is_read_only": true
+            },
+            {
+              "position": "5/6",
+              "is_read_only": true
+            },
+            {
+              "position": "1",
+              "is_read_only": true
+            },
+            {
+              "position": "7/6"
+            },
+            {
+              "position": "8/6"
+            },
+            {
+              "position": "9/6"
+            },
+            {
+              "position": "10/6"
+            },
+            {
+              "position": "11/6"
+            },
+            {
+              "position": "2"
+            }
+          ],
+          "labels": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "type": "palette",
+          "labels": [
+            "7/6",
+            "8/6"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": {
+          "7/6": "7/6",
+          "8/6": "8/6"
+        },
+        "context": "Labels 7/6 and 8/6 are placed at the first and second tick marks after 1"
+      },
+      "success_path_dialogue": "Correct. You labeled the fractions beyond 1."
+    }
+  ]
+}

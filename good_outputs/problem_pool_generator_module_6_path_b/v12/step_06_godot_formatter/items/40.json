@@ -1,0 +1,115 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 40,
+    "template_id": "6004",
+    "template_skill": "Student drags multiple fraction labels (or places multiple points) to correct positions, including fractions that cross the 1 boundary",
+    "identifiers": [
+      "5/6",
+      "6/6",
+      "7/6"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place multiple fraction labels in sequence on extended number line",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-03",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line that goes beyond 1. Place 5/6, 6/6, and 7/6 on it.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "2"
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place 5/6, 6/6, and 7/6 on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 3
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "5/6",
+            "6/6",
+            "7/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Remember that 6/6 equals 1, so think about where the other fractions go in relation to that."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's work through this together. Start with 6/6 - that equals exactly 1 whole, so it goes right at the 1 mark. Then think about 5/6 - that's one-sixth less than 1 whole, so it goes one tick before 6/6. And 7/6 is one-sixth more than 1 whole, so it goes one tick after 6/6."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing all three fractions. We'll start with 6/6 because it's easiest - six-sixths equals 1 whole, so 6/6 goes right at the 1 mark on the number line. Now for 5/6 - this is five out of six equal parts, which is one sixth less than a whole. Count five ticks from 0, and you'll place 5/6 one tick before the 1 mark. Finally, 7/6 is seven-sixths, which means one sixth more than 1 whole. Count seven ticks from 0, or just go one tick past the 1 mark, and that's where 7/6 goes. That's how we place fractions around 1 on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "All three placed correctly."
+        }
+      }
+    }
+  ]
+}

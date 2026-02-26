@@ -1,0 +1,128 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 62,
+    "template_id": "8011",
+    "template_skill": "Student identifies or verifies equivalence between fractions in the 2/3 family",
+    "identifiers": [
+      "2/3",
+      "4/6"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can apply equivalence understanding to the 2/3 family",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M8-07",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        7,
+        3
+      ],
+      "misconception_tag": [
+        "difficulty_recognizing_equivalence",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. One shows thirds, the other shows sixths. Do they show the same amount shaded?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 9
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 18
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Do these two bars show the same amount?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Yes, the shaded portions are equal in size.",
+            "No, because one bar has more sections than the other.",
+            "No, because 2 and 4 are different numbers.",
+            "Yes, because both bars are the same length."
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at how much of each bar is shaded, not at the number of sections."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Even though the bars are divided differently, we need to compare how much is actually shaded. Look at where the shading ends on each bar - do they reach the same point?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. The left bar shows 2 out of 3 equal parts shaded. The right bar shows 4 out of 6 equal parts shaded. Even though they have different numbers of sections, look at how far the shading extends on each bar. The shaded portion reaches the same point on both bars - they cover the same amount of space. That's because 2/3 and 4/6 are equivalent fractions. They represent the same amount even though they're written with different numbers. That's how we compare fractions - by looking at the actual amount, not just the numbers."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes — same amount shaded in both bars."
+        }
+      }
+    }
+  ]
+}

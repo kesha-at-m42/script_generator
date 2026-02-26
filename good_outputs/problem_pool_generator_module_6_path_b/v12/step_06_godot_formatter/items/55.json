@@ -1,0 +1,94 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 55,
+    "template_id": "6007",
+    "template_skill": "Student identifies which fractions are improper (greater than 1) based on numerator/denominator relationship",
+    "identifiers": [
+      "5/4",
+      "3/4",
+      "2/3"
+    ],
+    "mastery_tier": "CONFIDENCE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize improper fractions and explain why they exceed 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-06",
+      "tier": "CONFIDENCE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        11,
+        3
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these three fractions. Which one is greater than 1?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which of these fractions is greater than 1?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "5/4",
+            "3/4",
+            "2/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about what it means when the top number is bigger than the bottom number."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When a fraction is greater than 1, the numerator is bigger than the denominator. Look at each fraction and compare the top and bottom numbers."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. To find which fraction is greater than 1, we compare the numerator to the denominator. Look at 5/4 - the numerator 5 is greater than the denominator 4. That means we have more than one whole, so 5/4 is greater than 1. This is called an improper fraction. That's how we identify fractions greater than 1 - the top number is bigger than the bottom number."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. The top number is bigger than the bottom number. That's an improper fraction."
+        }
+      }
+    }
+  ]
+}

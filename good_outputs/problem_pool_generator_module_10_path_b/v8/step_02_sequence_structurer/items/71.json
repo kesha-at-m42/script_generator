@@ -1,0 +1,59 @@
+{
+  "problem_id": 71,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "analyze",
+  "template_id": "10014",
+  "fractions": [
+    "5/8",
+    "2/8"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at this comparison. Why is it true?",
+      "prompt": "Which statement explains why 5/8 > 2/8?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "comparison_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Comparison statement showing 5/8 > 2/8",
+          "terms": [
+            "5/8",
+            ">",
+            "2/8"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "Both fractions show eighths. 5 > 2, so 5/8 is greater."
+            },
+            {
+              "id": "b",
+              "text": "The bigger the denominator, the bigger the fraction."
+            },
+            {
+              "id": "c",
+              "text": "The bottom number tells us which fraction is greater."
+            },
+            {
+              "id": "d",
+              "text": "The fraction with more total pieces is greater."
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "When fractions have the same denominator, compare numerators - 5 pieces is more than 2 pieces of the same size"
+      },
+      "success_path_dialogue": "That's right. That explanation is correct."
+    }
+  ],
+  "_generated_at": "2026-02-20T22:49:44.362570+00:00"
+}

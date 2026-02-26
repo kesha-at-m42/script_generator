@@ -1,0 +1,106 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 73,
+    "template_id": "10014",
+    "template_skill": "Student selects best explanation from choices about why a comparison is true",
+    "identifiers": [
+      "9/12",
+      "4/12"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "analyze",
+    "telemetry_data": {
+      "mastery_skill": "Student can select explanation that correctly describes why one fraction is greater",
+      "cognitive_verb": "analyze",
+      "mastery_skill_id": "M10-08",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at this comparison. Why is 9/12 greater than 4/12?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "9/12",
+              ">",
+              "4/12"
+            ],
+            "@col": 0,
+            "@layout": "default"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the statement that explains why 9/12 > 4/12.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "The bottom number tells us which fraction is greater.",
+            "The bigger the denominator, the bigger the fraction.",
+            "Both fractions show twelfths. 9 > 4, so 9/12 is greater.",
+            "The fraction with more total pieces is greater."
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at what both fractions have in common first."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Both fractions are twelfths - that means they're made of the same-sized pieces. When the pieces are the same size, which matters more for comparing - how many pieces you have, or what size the pieces are?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. First, notice that both fractions have 12 as the denominator. That means both are divided into twelfths - the exact same size pieces. Since the pieces are the same size, we compare by looking at how many pieces each fraction has. The numerators tell us that: 9/12 has 9 pieces and 4/12 has 4 pieces. Since 9 is greater than 4, and we're counting the same-sized pieces, 9/12 is greater than 4/12. That's the key - when denominators are equal, compare the numerators to see which fraction is greater."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Same-sized pieces, but 9/12 has more of them."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:55:23.506158+00:00"
+}

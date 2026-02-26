@@ -1,0 +1,190 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 91,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "4/3",
+      "5/3"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        4,
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "improper_spacing_on_number_line",
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "The left side shows thirds from 0 to 1. Extend the same partition from 1 to 2.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/3",
+              "2/3",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to continue the thirds pattern from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 9,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/3",
+            "2/3",
+            "1",
+            "4/3",
+            "5/3",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the spacing between the tick marks from 0 to 1, then match that same spacing from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 3 equal parts - those are thirds. Each space is the same size. To extend the pattern from 1 to 2, you need to keep making spaces that same size. Count how many thirds fit between 0 and 1, then continue that pattern."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, look at the section from 0 to 1. There are 3 equal intervals there - at 1/3, 2/3, and then 1. Each space is the same size because these are thirds. Now we continue that exact pattern from 1 to 2. The first tick mark after 1 goes at 4/3 - that's one-third of the way from 1 to 2, matching the spacing we see on the left. The second tick mark goes at 5/3 - two-thirds of the way from 1 to 2. This keeps the same equal spacing all the way across. That's how we extend partitions - we match the interval size from the first section."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You extended the partition to match the thirds on the left."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label the new positions with the correct fractions.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag the fraction labels to the tick marks you placed.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3",
+            "5/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Check which tick mark matches each fraction value."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this more carefully. Four-thirds means 4 of the thirds, so count 4 equal intervals from 0. Five-thirds means 5 of the thirds, so count 5 equal intervals from 0. Match each label to where you placed its tick mark."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling these fractions. The number line is divided into thirds - 3 equal parts between each whole number. Four-thirds means 4 of those thirds from zero. Count them: 1/3, 2/3, 3/3 which equals 1, then one more third makes 4/3. That's the first tick mark past 1. Five-thirds means 5 of those thirds from zero. Count: 1/3, 2/3, 3/3 equals 1, then 4/3, and one more makes 5/3. That's the second tick mark past 1. So 4/3 goes on the first tick past 1, and 5/3 goes on the second tick past 1. That's how we label fractions beyond 1 - we count the equal intervals from zero."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Four-thirds and five-thirds are in the right positions."
+        }
+      }
+    }
+  ]
+}

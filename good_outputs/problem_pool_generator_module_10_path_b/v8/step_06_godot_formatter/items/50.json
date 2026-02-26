@@ -1,0 +1,329 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 50,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "3/8",
+      "5/8"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        5,
+        8
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's compare three-eighths and five-eighths. Place three-eighths on the top line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place three-eighths on the top line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count the tick marks carefully from zero to find three-eighths."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Three-eighths means 3 out of 8 equal parts. Count 3 tick marks from zero on the top line. Each tick represents one-eighth."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing three-eighths. The number line is divided into eighths - that means 8 equal parts between 0 and 1. To find three-eighths, we count 3 of those tick marks from zero. Starting at zero: one-eighth, two-eighths, three-eighths. That third tick mark is where we place our point. That's how we locate three-eighths on the number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You placed three-eighths on the top line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now place five-eighths on the bottom line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "3/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 16
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place five-eighths on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "5/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count five intervals from zero on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. Five-eighths means 5 out of 8 equal parts. Look at the bottom line and count 5 intervals starting from 0. Each tick mark represents one-eighth."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing five-eighths. The bottom number line is divided into eighths - that means 8 equal intervals from 0 to 1. Each interval represents one-eighth. To place five-eighths, we start at 0 and count 5 of those intervals. First interval is 1/8, second is 2/8, third is 3/8, fourth is 4/8, and fifth is 5/8. That's where we place the point - at the fifth tick mark from zero. That's how we locate five-eighths on the number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. You placed five-eighths on the bottom line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at both fractions on the number lines. Which symbol makes the comparison true?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "3/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/8",
+            "points": [
+              "5/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true,
+            "lcm": 16
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "3/8",
+              " ? ",
+              "5/8"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which symbol makes this comparison true?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where each point is on its number line. Which one is closer to zero?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. On a number line, fractions to the left are smaller, and fractions to the right are larger. Compare where three-eighths and five-eighths are positioned. Which point is farther to the right?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through comparing these fractions. Look at the top number line - three-eighths is marked here. Now look at the bottom number line - five-eighths is marked farther to the right. On a number line, when one fraction is to the left of another, it's smaller. Since three-eighths is to the left of five-eighths, three-eighths is less than five-eighths. So the correct symbol is less than. That's how we use number lines to compare fractions - the fraction farther to the right is always greater."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. Three-eighths is less than five-eighths."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:53:43.756005+00:00"
+}

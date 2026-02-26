@@ -1,0 +1,139 @@
+{
+  "problem_id": 86,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "create",
+  "template_id": "6012",
+  "fractions": [
+    "5/4",
+    "6/4",
+    "7/4"
+  ],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at how the line from 0 to 1 is divided into fourths. Can you continue that same spacing from 1 to 2?",
+      "prompt": "Place tick marks to extend the partition from 1 to 2.",
+      "interaction_tool": "place_tick",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            {
+              "value": "0",
+              "is_read_only": true
+            },
+            {
+              "value": "1/4",
+              "is_read_only": true
+            },
+            {
+              "value": "2/4",
+              "is_read_only": true
+            },
+            {
+              "value": "3/4",
+              "is_read_only": true
+            },
+            {
+              "value": "1",
+              "is_read_only": true
+            }
+          ],
+          "labels": [
+            "0",
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "5/4",
+          "6/4",
+          "7/4"
+        ],
+        "context": "Ticks placed at 5/4, 6/4, and 7/4 match the fourths spacing from 0-1"
+      },
+      "success_path_dialogue": "Good, you extended the partition to match the fourths."
+    },
+    {
+      "step_id": 2,
+      "workspace_inherited": true,
+      "dialogue": "Now label these positions with the correct fractions.",
+      "prompt": "Drag the fraction labels to the tick marks beyond 1.",
+      "interaction_tool": "drag_label",
+      "workspace": [
+        {
+          "id": "line_1",
+          "type": "number_line",
+          "range": [
+            0,
+            2
+          ],
+          "ticks": [
+            {
+              "value": "0",
+              "is_read_only": true
+            },
+            {
+              "value": "1/4",
+              "is_read_only": true
+            },
+            {
+              "value": "2/4",
+              "is_read_only": true
+            },
+            {
+              "value": "3/4",
+              "is_read_only": true
+            },
+            {
+              "value": "1",
+              "is_read_only": true
+            },
+            {
+              "value": "5/4",
+              "is_read_only": false
+            },
+            {
+              "value": "6/4",
+              "is_read_only": false
+            },
+            {
+              "value": "7/4",
+              "is_read_only": false
+            }
+          ],
+          "labels": [
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        {
+          "type": "palette",
+          "labels": [
+            "5/4",
+            "6/4",
+            "7/4"
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": {
+          "5/4": "5/4",
+          "6/4": "6/4",
+          "7/4": "7/4"
+        },
+        "context": "Each label matches its corresponding tick mark position"
+      },
+      "success_path_dialogue": "Correct, you labeled the fractions beyond 1."
+    }
+  ]
+}

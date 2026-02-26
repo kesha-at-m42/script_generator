@@ -1,0 +1,142 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 55,
+    "template_id": "11008",
+    "template_skill": "Student views a fraction pair with the same denominator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "2/9",
+      "7/9"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-denominator pair requires the same-denominator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        7
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "difficulty_recognizing_equivalence"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. Which TWO steps should you use to compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/9",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 9
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/9",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "is_read_only": true,
+            "lcm": 9
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/9",
+              "<",
+              "7/9"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO steps of the strategy apply here?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same denominator",
+            "Check for same numerator",
+            "Count the equal parts",
+            "Compare the sizes of parts"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the denominators of the two fractions. What do you notice?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. When you're comparing fractions, the first thing to check is whether the denominators are the same. Look at 2/9 and 7/9 - both have 9 as the denominator. When denominators match, what does that tell us about the strategy we should use?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through the comparison strategy. First, we check for same denominator - look at 2/9 and 7/9. Both fractions have 9 in the denominator, so yes, they have the same denominator. When fractions have the same denominator, it means the parts are the same size, so we don't need to compare the sizes of parts. Instead, we count the equal parts - that's the second step. We count how many ninths are shaded in each bar. Bar A has 2 ninths, Bar B has 7 ninths. The two steps are: check for same denominator, and count the equal parts. That's the strategy when denominators match."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same denominator means you count the parts."
+        }
+      }
+    }
+  ]
+}

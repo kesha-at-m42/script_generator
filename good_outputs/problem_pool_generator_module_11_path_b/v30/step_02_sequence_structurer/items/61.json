@@ -1,0 +1,86 @@
+{
+  "problem_id": 60,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11009",
+  "fractions": [
+    "3/5",
+    "3/7"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. They both show three pieces shaded, but the pieces are different sizes. How would you compare them?",
+      "prompt": "How would you compare these fractions? Select TWO options.",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into fifths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/5",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into sevenths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/7",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "expression",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Shows comparison 3/5 > 3/7",
+          "terms": [
+            "3/5",
+            ">",
+            "3/7"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for same numerator"
+            },
+            {
+              "id": "b",
+              "text": "Compare the sizes of parts"
+            },
+            {
+              "id": "c",
+              "text": "Check for same denominator"
+            },
+            {
+              "id": "d",
+              "text": "Count the total intervals"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "b"
+        ],
+        "context": "Same-numerator fractions are compared by checking that the numerators match, then comparing which pieces are bigger"
+      },
+      "success_path_dialogue": "Right. Same numerator means you compare piece sizes."
+    }
+  ]
+}

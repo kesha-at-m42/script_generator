@@ -1,0 +1,86 @@
+{
+  "problem_id": 57,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "5/10",
+    "3/10"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. They have something in common. What strategy would you use to compare them?",
+      "prompt": "How would you compare these fractions? Select TWO options.",
+      "interaction_tool": "multi_click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 5 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 5
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 3 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 3
+        },
+        {
+          "id": "comparison",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Expression showing 5/10 > 3/10",
+          "terms": [
+            "5/10",
+            ">",
+            "3/10"
+          ]
+        },
+        {
+          "type": "choices",
+          "allow_multiple": true,
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for same denominator"
+            },
+            {
+              "id": "b",
+              "text": "Count the equal parts"
+            },
+            {
+              "id": "c",
+              "text": "Compare the sizes of parts"
+            },
+            {
+              "id": "d",
+              "text": "Check for same numerator"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": [
+          "a",
+          "b"
+        ],
+        "context": "Same denominator means the parts are equal, so you count how many parts are shaded"
+      },
+      "success_path_dialogue": "Right. Same denominator means you count the parts."
+    }
+  ]
+}

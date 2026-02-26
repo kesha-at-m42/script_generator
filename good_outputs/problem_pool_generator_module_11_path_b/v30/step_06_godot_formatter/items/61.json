@@ -1,0 +1,137 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 61,
+    "template_id": "11009",
+    "template_skill": "Student views a fraction pair with the same numerator and selects two correct answers from four strategy options",
+    "identifiers": [
+      "2/3",
+      "2/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify that a same-numerator pair requires the same-numerator strategy",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M11-05",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "multiple_selection",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        3,
+        8
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "errors_comparing_unlike_fractions"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two fractions. Which strategies would you use to compare them?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/3",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 3
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/6",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "is_read_only": true,
+            "lcm": 6
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/3",
+              ">",
+              "2/6"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO steps of the strategy apply here?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same numerator",
+            "Compare the sizes of parts",
+            "Check for same denominator",
+            "Add the denominators"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the numerators in both fractions. What do you notice about them?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Both fractions have 2 as the numerator - they both show 2 parts shaded. When the numerators are the same, we need to compare how big each part is. Which steps help us do that?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison strategy. First, we check the numerators - and we see both fractions have 2 as the numerator. So step one is 'Check for same numerator.' When numerators are the same, the fraction with bigger parts is greater. To figure that out, we need step two: 'Compare the sizes of parts.' Looking at the bars, thirds are bigger than sixths, so 2/3 is greater than 2/6. That's the strategy - when numerators match, compare part sizes."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same numerator means you compare piece sizes."
+        }
+      }
+    }
+  ]
+}

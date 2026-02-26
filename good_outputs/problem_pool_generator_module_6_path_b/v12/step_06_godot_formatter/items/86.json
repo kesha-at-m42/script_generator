@@ -1,0 +1,200 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 86,
+    "template_id": "6012",
+    "template_skill": "Two-step: Student extends partition from 1-2 matching 0-1 spacing, then labels the beyond-1 positions",
+    "identifiers": [
+      "5/4",
+      "6/4",
+      "7/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can extend partitioning past 1, then label fractions beyond 1",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-01, M6-02",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "spatial_reasoning",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        11,
+        4,
+        5
+      ],
+      "misconception_tag": [
+        "fractions_cant_exceed_one",
+        "improper_spacing_on_number_line",
+        "counting_tick_marks_instead_of_spaces"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at how the line from 0 to 1 is divided into fourths. Can you continue that same spacing from 1 to 2?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks to extend the partition from 1 to 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 12,
+          "bounds": [
+            "0",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "6/4",
+            "7/4",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at the equal spacing between the marks from 0 to 1, then match that same spacing from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. From 0 to 1, there are 4 equal parts - those are fourths. You need to continue that exact same spacing from 1 to 2. Count how many spaces there are from 0 to 1, then create the same number of equal spaces from 1 to 2."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. First, notice that from 0 to 1, the line is divided into 4 equal parts - we call these fourths. Now we need to extend that same pattern from 1 to 2. That means we place 3 more tick marks between 1 and 2, keeping the exact same spacing. The first tick goes at 5/4, the next at 6/4, and the third at 7/4. See how the spacing stays equal all the way from 0 to 2? That's how we extend a partition - we keep the same equal spacing going."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good, you extended the partition to match the fourths."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label these positions with the correct fractions.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag the fraction labels to the tick marks beyond 1.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "5/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "5/4",
+            "6/4",
+            "7/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Keep counting by fourths past 1. Remember, 4/4 equals 1, so the next tick is 5/4."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The number line is divided into fourths - each space represents one-fourth. We know that 4/4 equals 1. To continue counting past 1, we add one more fourth to get 5/4, then 6/4, then 7/4. Count carefully from 1 to each tick mark to place the labels correctly."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through labeling fractions beyond 1. We're working with fourths, and we know that 4/4 equals 1. The first tick mark after 1 is one-fourth more than 4/4, which makes it 5/4. The next tick mark is another fourth more, so that's 6/4. And the third tick mark after 1 is 7/4. So from left to right after 1, the labels are 5/4, 6/4, and 7/4. That's how we continue counting fourths past 1 - we just keep counting up by fourths."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct, you labeled the fractions beyond 1."
+        }
+      }
+    }
+  ]
+}

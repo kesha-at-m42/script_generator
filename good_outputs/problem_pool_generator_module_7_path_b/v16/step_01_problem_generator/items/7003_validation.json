@@ -1,0 +1,162 @@
+{
+  "final_result": {
+    "valid": false,
+    "errors": [
+      {
+        "problem_instance_id": 3,
+        "field": "options",
+        "severity": "CRITICAL",
+        "message": "Multiple correct answers detected for single-select MCQ. Options 1 and 3 are both conceptually correct: 'When you have every part, you have 1' (correct conceptual understanding) and 'Because the fraction line separates equal numbers' (also demonstrates understanding that numerator = denominator means 1 whole). For STRETCH tier single-select, only ONE option should be correct. Recommend: rewrite option 3 to be clearly incorrect, or convert to multi-select."
+      }
+    ],
+    "warnings": [
+      {
+        "problem_instance_id": 1,
+        "field": "options",
+        "severity": "MEDIUM",
+        "message": "Option 4 ('Because we divided something into thirds') is partially conceptually sound but less precise than option 1. While not technically 'correct' in the same way, it could be interpreted as showing understanding. Verify this is intentionally the weaker distractor."
+      },
+      {
+        "problem_instance_id": 2,
+        "field": "options",
+        "severity": "LOW",
+        "message": "Option 3 ('Because the numbers match') is vague but could be interpreted as referring to numerator = denominator. Ensure this is clearly a distractor and not accidentally correct."
+      },
+      {
+        "problem_instance_id": 4,
+        "field": "options",
+        "severity": "LOW",
+        "message": "Option 3 ('Because six sixths is more than five sixths') uses comparative reasoning which, while not the core concept, shows some fractional thinking. Verify this is intentionally incorrect for this tier."
+      }
+    ],
+    "summary": {
+      "total_instances": 5,
+      "valid_instances": 4,
+      "invalid_instances": 1,
+      "critical_errors": 1,
+      "medium_warnings": 1,
+      "low_warnings": 2
+    }
+  },
+  "attempts": 3,
+  "history": [
+    {
+      "attempt": 1,
+      "type": "content",
+      "errors": [
+        {
+          "problem_instance_id": 2,
+          "error_type": "MULTIPLE_CORRECT_ANSWERS",
+          "severity": "CRITICAL",
+          "message": "Single-select MCQ has 2 correct answers. Option A ('We have all the parts, so it makes a complete whole') and Option C ('Because the numerator and denominator are identical') both correctly explain why 4/4 = 1. For single-select, only ONE option should be correct.",
+          "affected_options": [
+            "We have all the parts, so it makes a complete whole",
+            "Because the numerator and denominator are identical"
+          ],
+          "recommendation": "Rewrite Option C to be incorrect (e.g., 'Because the numerator and denominator are different') OR change action_description to multi-select if both answers should be acceptable."
+        },
+        {
+          "problem_instance_id": 4,
+          "error_type": "MULTIPLE_CORRECT_ANSWERS",
+          "severity": "CRITICAL",
+          "message": "Single-select MCQ has 2 correct answers. Option A ('6 parts out of 6 total—that's all of them, which is 1 whole') and Option C ('Because both numbers are the same') both correctly explain why 6/6 = 1. For single-select, only ONE option should be correct.",
+          "affected_options": [
+            "6 parts out of 6 total—that's all of them, which is 1 whole",
+            "Because both numbers are the same"
+          ],
+          "recommendation": "Rewrite Option C to be incorrect (e.g., 'Because both numbers are even') OR change action_description to multi-select if both answers should be acceptable."
+        },
+        {
+          "problem_instance_id": 5,
+          "error_type": "MULTIPLE_CORRECT_ANSWERS",
+          "severity": "CRITICAL",
+          "message": "Single-select MCQ has 2 correct answers. Option A ('We have all the parts, so it makes a complete whole') and Option C ('Because the top number equals the bottom number') both correctly explain why 8/8 = 1. For single-select, only ONE option should be correct.",
+          "affected_options": [
+            "We have all the parts, so it makes a complete whole",
+            "Because the top number equals the bottom number"
+          ],
+          "recommendation": "Rewrite Option C to be incorrect (e.g., 'Because the top number is larger') OR change action_description to multi-select if both answers should be acceptable."
+        }
+      ],
+      "warnings": [
+        {
+          "problem_instance_id": 1,
+          "warning_type": "AMBIGUOUS_CORRECT_ANSWER",
+          "severity": "MEDIUM",
+          "message": "Option D ('Because the top and bottom match') is mathematically correct but lacks conceptual depth compared to Option A. For BASELINE tier, ensure the intended correct answer is unambiguously the strongest explanation. If Option A is intended as correct, Option D should be rewritten to be clearly incorrect.",
+          "note": "Assuming Option A is the intended correct answer; if Option D is intended, this becomes a CRITICAL error."
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "type": "content",
+      "errors": [
+        {
+          "problem_instance_id": 4,
+          "error_type": "MULTIPLE_CORRECT_ANSWERS",
+          "severity": "CRITICAL",
+          "message": "Options 1 and 2 are both correct answers for a single-select MCQ. Option 1: '6 parts out of 6 total—that's all of them, which is 1 whole' is conceptually correct (demonstrates understanding of b/b = 1). Option 2: '6 divided by 6 equals 1' is also mathematically correct. For BASELINE/STRETCH/CHALLENGE single-select questions, only ONE option should be correct. Recommendation: Rewrite option 2 to be clearly incorrect (e.g., 'Because 6 divided by 1 equals 6') OR change action_description to multi-select."
+        }
+      ],
+      "warnings": [
+        {
+          "problem_instance_id": 1,
+          "warning_type": "OPTION_QUALITY",
+          "severity": "MEDIUM",
+          "message": "Option 2 ('Because 3 is a small number') is vague and could confuse students. Consider replacing with a more plausible distractor that relates to common misconceptions (e.g., 'Because the numerator and denominator are the same number')."
+        },
+        {
+          "problem_instance_id": 2,
+          "warning_type": "OPTION_QUALITY",
+          "severity": "MEDIUM",
+          "message": "Option 3 ('Because the numbers match') is somewhat vague. While incorrect, it could be misinterpreted as partially correct by students who think 'matching numbers = 1'. Consider clarifying: 'Because the top and bottom numbers are the same' to make the misconception clearer."
+        },
+        {
+          "problem_instance_id": 3,
+          "warning_type": "OPTION_QUALITY",
+          "severity": "MEDIUM",
+          "message": "Option 3 ('Because the fraction line separates equal numbers') is confusing and could be misinterpreted as correct by some students. The fraction line doesn't 'separate' equal numbers—it divides a whole into parts. Recommend rewriting to clarify the misconception."
+        },
+        {
+          "problem_instance_id": 5,
+          "warning_type": "OPTION_QUALITY",
+          "severity": "LOW",
+          "message": "Options 3 and 4 are very similar in reasoning ('most parts' vs 'largest fraction'). Consider diversifying distractors to target different misconceptions (e.g., one about even numbers, one about magnitude)."
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "type": "content",
+      "errors": [
+        {
+          "problem_instance_id": 3,
+          "field": "options",
+          "severity": "CRITICAL",
+          "message": "Multiple correct answers detected for single-select MCQ. Options 1 and 3 are both conceptually correct: 'When you have every part, you have 1' (correct conceptual understanding) and 'Because the fraction line separates equal numbers' (also demonstrates understanding that numerator = denominator means 1 whole). For STRETCH tier single-select, only ONE option should be correct. Recommend: rewrite option 3 to be clearly incorrect, or convert to multi-select."
+        }
+      ],
+      "warnings": [
+        {
+          "problem_instance_id": 1,
+          "field": "options",
+          "severity": "MEDIUM",
+          "message": "Option 4 ('Because we divided something into thirds') is partially conceptually sound but less precise than option 1. While not technically 'correct' in the same way, it could be interpreted as showing understanding. Verify this is intentionally the weaker distractor."
+        },
+        {
+          "problem_instance_id": 2,
+          "field": "options",
+          "severity": "LOW",
+          "message": "Option 3 ('Because the numbers match') is vague but could be interpreted as referring to numerator = denominator. Ensure this is clearly a distractor and not accidentally correct."
+        },
+        {
+          "problem_instance_id": 4,
+          "field": "options",
+          "severity": "LOW",
+          "message": "Option 3 ('Because six sixths is more than five sixths') uses comparative reasoning which, while not the core concept, shows some fractional thinking. Verify this is intentionally incorrect for this tier."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "problem_id": 58,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "1/7",
+    "6/7"
+  ],
+  "dialogue": "Look at these two fractions. Which steps of the comparison strategy should you use?",
+  "prompt": "Which TWO steps of the strategy apply here?",
+  "interaction_tool": "multi_click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar A divided into sevenths with 1 interval shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/7",
+      "shaded_intervals": 1
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar B divided into sevenths with 6 intervals shaded",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/7",
+      "shaded_intervals": 6
+    },
+    {
+      "id": "expression_1",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Comparison statement showing 1/7 < 6/7",
+      "terms": [
+        "1/7",
+        "<",
+        "6/7"
+      ]
+    },
+    {
+      "type": "choices",
+      "allow_multiple": true,
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for same denominator"
+        },
+        {
+          "id": "b",
+          "text": "Compare the sizes of parts"
+        },
+        {
+          "id": "c",
+          "text": "Count the equal parts"
+        },
+        {
+          "id": "d",
+          "text": "Check for same numerator"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": [
+      "a",
+      "c"
+    ],
+    "context": "Both fractions have the same denominator (sevenths), so the strategy is to check that first, then count how many parts are shaded"
+  },
+  "success_path_dialogue": "Right. Same denominator means you count the parts.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at the denominators in both fractions. What do you notice?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this step by step. When you compare fractions, you always start by checking what's the same. Look at 1/7 and 6/7 - both have 7 as the denominator. That means the parts are already the same size. So what do you do when denominators match? You count how many parts each fraction has."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through the comparison strategy. First, we always check for same denominator - look at 1/7 and 6/7. Both have sevenths, so the denominators match. That's step one. When denominators are the same, the parts are already equal size, so we don't need to compare part sizes. Instead, we move to counting the equal parts - 1/7 has 1 part shaded and 6/7 has 6 parts shaded. So the two steps we use here are: check for same denominator, then count the equal parts. That's how the strategy works when denominators match."
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "problem_id": 59,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11009",
+  "fractions": [
+    "2/6",
+    "2/4"
+  ],
+  "dialogue": "Look at these two fractions. They both have 2 parts shaded. What should you check to compare them?",
+  "prompt": "Which TWO can help you compare these fractions?",
+  "interaction_tool": "multi_click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Fraction strip divided into sixths with 2 intervals shaded showing 2/6",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/6",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Fraction strip divided into fourths with 2 intervals shaded showing 2/4",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/4",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "expression_1",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Math expression showing 2/6 < 2/4",
+      "terms": [
+        "2/6",
+        "<",
+        "2/4"
+      ]
+    },
+    {
+      "type": "choices",
+      "allow_multiple": true,
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for same numerator"
+        },
+        {
+          "id": "b",
+          "text": "Compare the sizes of parts"
+        },
+        {
+          "id": "c",
+          "text": "Check for same denominator"
+        },
+        {
+          "id": "d",
+          "text": "Count the equal parts"
+        }
+      ]
+    }
+  ],
+  "correct_answer": {
+    "value": [
+      "a",
+      "b"
+    ],
+    "context": "Both fractions have the same numerator (2), so comparing the sizes of the parts (sixths vs fourths) helps determine which fraction is larger"
+  },
+  "success_path_dialogue": "Right. Same numerator means you compare piece sizes.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at what's the same in both fractions, then what's different."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. Notice that both fractions have 2 parts shaded - that's the numerator. When numerators are the same, we need to look at the size of the individual parts to compare. What helps us see the size of parts?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through comparing these fractions. First, look at the numerators - both fractions have 2 parts shaded. When the numerators are the same, that's our first clue. We need to check for same numerator. Next, since the numerators match but the fractions look different, we compare the sizes of the parts themselves. Look at the strips - the fourths are bigger pieces than the sixths. So the two things that help us compare are: check for same numerator, and compare the sizes of parts. That's how we compare fractions with the same numerator."
+      }
+    ]
+  }
+}

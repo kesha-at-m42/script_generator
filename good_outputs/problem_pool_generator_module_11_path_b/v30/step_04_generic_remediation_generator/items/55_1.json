@@ -1,0 +1,98 @@
+{
+  "problem_id": 55,
+  "step_id": 1,
+  "no_of_steps": 1,
+  "mastery_tier": "BASELINE",
+  "mastery_verb": "identify",
+  "template_id": "11008",
+  "fractions": [
+    "2/9",
+    "7/9"
+  ],
+  "dialogue": "Look at these two fractions. Which TWO steps should you use to compare them?",
+  "prompt": "Which TWO steps of the strategy apply here?",
+  "interaction_tool": "multi_click_choice",
+  "workspace": [
+    {
+      "id": "bar_a",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar A divided into ninths with 2 intervals shaded (2/9)",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/9",
+      "shaded_intervals": 2
+    },
+    {
+      "id": "bar_b",
+      "type": "fraction_strip",
+      "role": "reference",
+      "description": "Bar B divided into ninths with 7 intervals shaded (7/9)",
+      "range": [
+        0,
+        1
+      ],
+      "intervals": "1/9",
+      "shaded_intervals": 7
+    },
+    {
+      "id": "comparison",
+      "type": "math_expression",
+      "role": "reference",
+      "description": "Math expression showing '2/9 < 7/9'",
+      "terms": [
+        "2/9",
+        "<",
+        "7/9"
+      ]
+    },
+    {
+      "type": "choices",
+      "options": [
+        {
+          "id": "a",
+          "text": "Check for same denominator"
+        },
+        {
+          "id": "b",
+          "text": "Check for same numerator"
+        },
+        {
+          "id": "c",
+          "text": "Count the equal parts"
+        },
+        {
+          "id": "d",
+          "text": "Compare the sizes of parts"
+        }
+      ],
+      "allow_multiple": true
+    }
+  ],
+  "correct_answer": {
+    "value": [
+      "a",
+      "c"
+    ],
+    "context": "Both fractions have the same denominator (9), so you check for same denominator and count the equal parts"
+  },
+  "success_path_dialogue": "Right. Same denominator means you count the parts.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Look at the denominators of the two fractions. What do you notice?"
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about this together. When you're comparing fractions, the first thing to check is whether the denominators are the same. Look at 2/9 and 7/9 - both have 9 as the denominator. When denominators match, what does that tell us about the strategy we should use?"
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through the comparison strategy. First, we check for same denominator - look at 2/9 and 7/9. Both fractions have 9 in the denominator, so yes, they have the same denominator. When fractions have the same denominator, it means the parts are the same size, so we don't need to compare the sizes of parts. Instead, we count the equal parts - that's the second step. We count how many ninths are shaded in each bar. Bar A has 2 ninths, Bar B has 7 ninths. The two steps are: check for same denominator, and count the equal parts. That's the strategy when denominators match."
+      }
+    ]
+  }
+}

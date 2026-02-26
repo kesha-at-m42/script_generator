@@ -1,0 +1,78 @@
+{
+  "problem_id": 73,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "apply",
+  "template_id": "12012",
+  "fractions": [
+    "4/6",
+    "2/5"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Look at these two fractions. Which comparison strategy applies here?",
+      "prompt": "Which approach would you use to compare 4/6 and 2/5?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into sixths with 4 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "shaded_intervals": 4
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into fifths with 2 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/5",
+          "shaded_intervals": 2
+        },
+        {
+          "id": "expression_1",
+          "type": "math_expression",
+          "role": "reference",
+          "description": "Comparison statement showing 4/6 > 2/5",
+          "terms": [
+            "4/6",
+            ">",
+            "2/5"
+          ]
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "Check for the same denominator, count the parts"
+            },
+            {
+              "id": "b",
+              "text": "Check for the same numerator, compare part sizes"
+            },
+            {
+              "id": "c",
+              "text": "Neither matches, use the benchmark"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "c",
+        "context": "Neither numerator nor denominator match, so benchmark strategy applies"
+      },
+      "success_path_dialogue": "Yes, if neither numerator or denominator are same, use benchmark."
+    }
+  ]
+}

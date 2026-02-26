@@ -1,0 +1,83 @@
+{
+  "problem_id": 43,
+  "mastery_tier": "CHALLENGE",
+  "mastery_verb": "compare",
+  "template_id": "10008",
+  "fractions": [
+    "1/10",
+    "4/10",
+    "6/10"
+  ],
+  "no_of_steps": 1,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Here are three bars showing different fractions. Which sequence puts them in order from smallest to largest?",
+      "prompt": "Which option shows these fractions in order from smallest to largest?",
+      "interaction_tool": "click_choice",
+      "workspace": [
+        {
+          "id": "bar_1",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 1 interval shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 1,
+          "fraction_label": true
+        },
+        {
+          "id": "bar_2",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 4 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 4,
+          "fraction_label": true
+        },
+        {
+          "id": "bar_3",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Bar divided into tenths with 6 intervals shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/10",
+          "shaded_intervals": 6,
+          "fraction_label": true
+        },
+        {
+          "type": "choices",
+          "options": [
+            {
+              "id": "a",
+              "text": "1/10, 4/10, 6/10"
+            },
+            {
+              "id": "b",
+              "text": "6/10, 4/10, 1/10"
+            },
+            {
+              "id": "c",
+              "text": "4/10, 1/10, 6/10"
+            }
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "a",
+        "context": "1/10 is the smallest (fewest shaded parts), 4/10 is in the middle, and 6/10 is the largest (most shaded parts)"
+      },
+      "success_path_dialogue": "That's right. They're all in order now."
+    }
+  ]
+}

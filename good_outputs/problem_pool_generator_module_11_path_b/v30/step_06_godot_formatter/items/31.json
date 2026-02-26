@@ -1,0 +1,126 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 31,
+    "template_id": "11005",
+    "template_skill": "Student views two bars with the same number of pieces shaded (numerator > 1, different denominators) and selects the correct comparison symbol",
+    "identifiers": [
+      "3/5",
+      "3/7"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can select the correct comparison symbol for same-numerator non-unit fractions by comparing piece sizes in bars",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M11-03",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        8,
+        3
+      ],
+      "misconception_tag": [
+        "errors_comparing_unlike_fractions",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars. Both have three pieces shaded. But are the pieces the same size?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/5",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 5
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "bar",
+            "range": [
+              0,
+              1
+            ],
+            "intervals": "1/7",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 7
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct comparison symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/5 > 3/7",
+            "3/5 = 3/7",
+            "3/5 < 3/7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look carefully at the size of each shaded piece in the two bars."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Both bars have 3 pieces shaded, that's true. But compare the size of one fifth to one seventh. When you divide the same whole into more pieces, each piece gets smaller. Which bar has bigger pieces?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. We have 3/5 and 3/7. Both fractions have the same numerator - 3 pieces are shaded in each bar. But look at the denominators. The first bar is divided into 5 equal parts, and the second bar is divided into 7 equal parts. When we divide the same whole into more pieces, each piece becomes smaller. So sevenths are smaller than fifths. Since we have the same number of pieces (3) but fifths are bigger pieces, 3/5 is greater than 3/7. The answer is 3/5 > 3/7. That's how we compare fractions with the same numerator - the one with the smaller denominator is greater because its pieces are bigger."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Same count, but bigger pieces win."
+        }
+      }
+    }
+  ]
+}

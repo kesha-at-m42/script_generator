@@ -1,0 +1,114 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 51,
+    "template_id": "6006",
+    "template_skill": "Student identifies the fraction shown by a point already placed past 1 on a pre-partitioned number line",
+    "identifiers": [
+      "7/4"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can identify a fraction from a point placed beyond 1",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M6-05",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        3,
+        6,
+        11
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "reversing_numerator_and_denominator",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at where the point is placed on this number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "7/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "What fraction does this point show?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "7/4",
+            "4/7",
+            "3/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. First count the equal intervals from 0 to 1, then count from zero to the point."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. First, count how many equal intervals there are from 0 to 1 - that's your denominator. Then count how many of those intervals from 0 to the point - that's your numerator. Remember, we keep counting past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through finding this fraction. First, we find the denominator by counting how many equal intervals are from 0 to 1. I count 4 equal intervals from 0 to 1, so the denominator is 4. This means we're working with fourths. Now for the numerator - we count how many of those intervals from 0 to where the point is. We count past 1 and keep going: 1, 2, 3, 4 gets us to 1, then 5, 6, 7 gets us to the point. The point is 7 intervals from zero, so the numerator is 7. That makes this fraction 7/4. That's how we identify fractions - denominator first by counting equal intervals from 0 to 1, then numerator by counting intervals from 0 to the point, even when we go past 1."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. That's seven-fourths."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 69,
+    "template_id": "6009",
+    "template_skill": "Student drags multiple thirds fraction labels to correct positions past 1",
+    "identifiers": [
+      "5/3",
+      "6/3",
+      "7/3"
+    ],
+    "mastery_tier": "CHALLENGE",
+    "mastery_verb": "create",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions greater than 1 with thirds",
+      "cognitive_verb": "create",
+      "mastery_skill_id": "M6-07",
+      "tier": "CHALLENGE",
+      "non_curriculum_skills": [
+        "drag_drop",
+        "fine_motor_control",
+        "extended_number_line_reasoning"
+      ],
+      "misconception_id": [
+        5,
+        11
+      ],
+      "misconception_tag": [
+        "counting_tick_marks_instead_of_spaces",
+        "fractions_cant_exceed_one"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line showing thirds that go past 1. Can you drag each fraction to its correct position?",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              3
+            ],
+            "ticks": [
+              "0",
+              "1/3",
+              "2/3",
+              "3/3",
+              "4/3",
+              "5/3",
+              "6/3",
+              "7/3",
+              "8/3",
+              "9/3"
+            ],
+            "labels": [
+              "0",
+              "3/3",
+              "6/3",
+              "9/3"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "3/3",
+              "6/3"
+            ],
+            "lcm": 9
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag 5/3, 6/3, and 7/3 to their positions.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "5/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "5/3",
+            "6/3",
+            "7/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count how many thirds from zero to find each position."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. Each tick mark represents one-third. To place 5/3, count 5 thirds from zero. For 6/3, count 6 thirds from zero. For 7/3, count 7 thirds from zero. Remember, thirds keep the same size even past 1."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through placing these fractions. The number line is divided into thirds - each space between tick marks represents one-third. For 5/3, we count 5 thirds from zero. That's 3 thirds to get to 1, then 2 more thirds past 1, landing at the tick mark labeled 5/3. For 6/3, we count 6 thirds from zero - that's exactly 2 wholes, landing at the tick mark labeled 6/3. For 7/3, we count 7 thirds from zero - that's 6 thirds to get to 2, then 1 more third past 2, landing at the tick mark labeled 7/3. That's how we locate fractions beyond 1 on the number line - we keep counting equal intervals."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Excellent. You placed all three fractions correctly on the number line."
+        }
+      }
+    }
+  ]
+}

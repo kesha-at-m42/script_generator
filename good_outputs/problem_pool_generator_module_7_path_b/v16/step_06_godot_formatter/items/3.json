@@ -1,0 +1,89 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 3,
+    "template_id": "7001",
+    "template_skill": "Student selects which fraction(s) from a set equal 1",
+    "identifiers": [
+      "4/4"
+    ],
+    "mastery_tier": "BASELINE",
+    "mastery_verb": "identify",
+    "telemetry_data": {
+      "mastery_skill": "Student can recognize that b/b = 1 (numerator equals denominator means one whole)",
+      "cognitive_verb": "identify",
+      "mastery_skill_id": "M7-01",
+      "tier": "BASELINE",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "reading_comprehension",
+        "option_evaluation"
+      ],
+      "misconception_id": [
+        3,
+        6
+      ],
+      "misconception_tag": [
+        "numerator_denominator_as_independent",
+        "reversing_numerator_and_denominator"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Look at these fractions. One of them equals exactly 1 whole.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction equals 1?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/4",
+            "4/4",
+            "5/4",
+            "4/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about when you have all the parts - how many fourths make a whole?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. A whole is made up of all the equal parts. When the numerator and denominator are the same number, you have all the parts - that equals 1 whole."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We're looking for which fraction equals 1 whole. A fraction equals 1 when you have all the parts that make up the whole. The denominator tells us how many parts make a whole - in this case, 4 fourths make 1 whole. The numerator tells us how many parts we have. When we have 4 out of 4 fourths, we have all the parts, which equals exactly 1 whole. So 4/4 equals 1. That's how we know - when the numerator and denominator match, the fraction equals 1 whole."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Four-fourths equals 1."
+        }
+      }
+    }
+  ]
+}

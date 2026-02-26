@@ -1,0 +1,152 @@
+{
+  "problem_id": 71,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "create",
+  "template_id": "8013",
+  "fractions": [
+    "2/4",
+    "3/6"
+  ],
+  "no_of_steps": 2,
+  "steps": [
+    {
+      "step_id": 1,
+      "dialogue": "Which bar shows the same amount as the reference bar?",
+      "prompt": "Select the bar that shows an equivalent fraction to 2/4.",
+      "interaction_tool": "select",
+      "workspace": [
+        {
+          "id": "ref_bar",
+          "type": "fraction_strip",
+          "role": "reference",
+          "description": "Reference bar showing 2/4 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/4",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "bar_a",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar A showing 3/6 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/6",
+          "intervals_is_shaded": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "bar_b",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar B showing 4/8 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "bar_c",
+          "type": "fraction_strip",
+          "role": "student_interaction",
+          "description": "Bar C showing 2/8 shaded",
+          "range": [
+            0,
+            1
+          ],
+          "intervals": "1/8",
+          "intervals_is_shaded": [
+            0,
+            1
+          ]
+        }
+      ],
+      "correct_answer": {
+        "value": "bar_a",
+        "context": "Bar A shows 3/6, which is equivalent to 2/4 (both represent one-half)"
+      },
+      "success_path_dialogue": "Good. Bar A shows three-sixths—the same amount as two-fourths."
+    },
+    {
+      "step_id": 2,
+      "dialogue": "Now place the point to show where three-sixths lands on the bottom line.",
+      "prompt": "Place a point at 3/6 on the bottom number line.",
+      "interaction_tool": "place_point",
+      "workspace": {
+        "inherited": false,
+        "tangibles": [
+          {
+            "id": "line_top",
+            "type": "number_line",
+            "role": "reference",
+            "description": "Top number line showing fourths with point at 2/4",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1"
+            ],
+            "points": [
+              "2/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "id": "line_bottom",
+            "type": "number_line",
+            "role": "student_interaction",
+            "description": "Bottom number line showing sixths, unlabeled",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": [
+              "0",
+              "1/6",
+              "2/6",
+              "3/6",
+              "4/6",
+              "5/6",
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "correct_answer": {
+        "value": "3/6",
+        "context": "3/6 lands at the same position as 2/4, proving they are equivalent"
+      },
+      "success_path_dialogue": "Correct. Both points line up—three-sixths equals two-fourths."
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "@type": "Sequence",
+  "metadata": {
+    "@type": "SequenceMetadata",
+    "problem_id": 52,
+    "template_id": "10010",
+    "template_skill": "Student places a point on each of two stacked number lines (one fraction each), then selects the correct comparison symbol",
+    "identifiers": [
+      "1/6",
+      "4/6"
+    ],
+    "mastery_tier": "STRETCH",
+    "mastery_verb": "compare",
+    "telemetry_data": {
+      "mastery_skill": "Student can place fractions on number lines and identify which is greater based on position",
+      "cognitive_verb": "compare",
+      "mastery_skill_id": "M10-06",
+      "tier": "STRETCH",
+      "non_curriculum_skills": [
+        "click_accuracy",
+        "visual_comparison"
+      ],
+      "misconception_id": [
+        8,
+        3
+      ],
+      "misconception_tag": [
+        "errors_comparing_unlike_fractions",
+        "numerator_denominator_as_independent"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's compare one-sixth and four-sixths. First, mark one-sixth on the top number line.",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "lcm": 12
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": true,
+            "visual": "line",
+            "range": [
+              0,
+              1
+            ],
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true,
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark one-sixth on the top number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look for the first tick mark after zero on the top number line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this together. The number line is divided into sixths - that means 6 equal parts from 0 to 1. One-sixth means 1 of those 6 parts. So we need to count just one interval from zero."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. The number line shows sixths, which means there are 6 equal intervals from 0 to 1. To mark one-sixth, we need to find 1 of those 6 equal parts. Starting at zero, we count one interval to the right. That's the first tick mark after zero. That's where one-sixth is located. That's how we mark unit fractions on a number line."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You marked one-sixth on the top line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now mark four-sixths on the bottom line.",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark four-sixths on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count four sixths from zero on the bottom line."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this step by step. Four-sixths means 4 out of 6 equal parts. Count the tick marks from zero - you need to go 4 tick marks to the right. That's where four-sixths is."
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this. We're looking for four-sixths on the bottom number line. The bottom line is divided into sixths - that means 6 equal parts between 0 and 1. Each tick mark represents one-sixth. To find four-sixths, we count 4 of these tick marks from zero. Starting at zero, count: one-sixth, two-sixths, three-sixths, four-sixths. That fourth tick mark is where we place our point. That's how we locate four-sixths - we count 4 equal intervals from zero."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. You marked four-sixths on the bottom line."
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Which symbol correctly compares one-sixth and four-sixths?",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct comparison symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            ">",
+            "="
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where each point is on the number lines. Which point is farther from zero?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look at the number lines together. The top line shows one-sixth, and the bottom shows four-sixths. When fractions have the same denominator, the one farther to the left is smaller. Which point is closer to zero?"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me walk you through this comparison. We're comparing one-sixth and four-sixths. Both fractions are sixths, so they have the same denominator. That means we can compare them by looking at their positions on the number lines. One-sixth is just 1 interval from zero on the top number line. Four-sixths is 4 intervals from zero on the bottom number line. Since one-sixth is closer to zero, it's the smaller fraction. That means one-sixth is less than four-sixths. On the number line, points farther left are always smaller. So the answer is less than."
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. One-sixth is less than four-sixths."
+        }
+      }
+    }
+  ],
+  "_generated_at": "2026-02-20T22:54:24.797161+00:00"
+}

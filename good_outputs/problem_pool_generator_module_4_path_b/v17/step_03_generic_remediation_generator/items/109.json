@@ -1,0 +1,96 @@
+{
+  "problem_id": 109,
+  "mastery_tier": "STRETCH",
+  "mastery_verb": "IDENTIFY",
+  "template_id": "4013",
+  "fractions": [
+    "1/4"
+  ],
+  "dialogue": "Look at these three number lines. One of them shows fourths.",
+  "prompt": "Select the number line partitioned into fourths.",
+  "interaction_tool": "select",
+  "workspace": [
+    {
+      "id": "line_equal_fourths",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "Four equal intervals creating fourths"
+    },
+    {
+      "id": "line_equal_fifths",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/5",
+        "2/5",
+        "3/5",
+        "4/5",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "Five equal intervals creating fifths"
+    },
+    {
+      "id": "line_unequal",
+      "type": "number_line",
+      "range": [
+        0,
+        1
+      ],
+      "ticks": [
+        "0",
+        "1/5",
+        "2/5",
+        "3/4",
+        "1"
+      ],
+      "labels": [
+        "0",
+        "1"
+      ],
+      "description": "Four unequal intervals"
+    }
+  ],
+  "correct_answer": {
+    "value": "line_equal_fourths",
+    "context": "This line has four equal intervals, creating fourths"
+  },
+  "success_path_dialogue": "Right! Four equal intervals for fourths.",
+  "error_path_generic": {
+    "steps": [
+      {
+        "scaffolding_level": "light",
+        "dialogue": "Not quite. Count how many equal intervals are from 0 to 1."
+      },
+      {
+        "scaffolding_level": "medium",
+        "dialogue": "Let's think about what fourths means. For a number line to show fourths, it needs exactly 4 equal intervals from 0 to 1. Count the intervals carefully on each line and check if they're all the same size."
+      },
+      {
+        "scaffolding_level": "heavy",
+        "dialogue": "Let me walk you through this. To show fourths, a number line needs 4 equal intervals from 0 to 1. Let's check each line. The first line has 4 equal intervals - each space is the same size from 0 to 1. The second line has 5 equal intervals - that would be fifths, not fourths. The third line has 4 intervals, but they're not equal - the spaces are different sizes. So the first line is the answer because it has exactly 4 equal intervals. That's what fourths means - 4 equal parts."
+      }
+    ]
+  }
+}
