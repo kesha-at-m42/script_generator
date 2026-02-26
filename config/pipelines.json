@@ -1,5 +1,4 @@
-{
-  "warmupscript_generator": [
+ { "warmupscript_generator": [
     {
       "name": "warmup_generator",
       "type": "ai",
@@ -31,7 +30,7 @@
     {
       "name": "lesson_generator",
       "type": "ai",
-      "prompt_name": "lesson_generator",
+      "prompt_name": "lesson_generator_old",
       "description": "Generates lesson plan",
       "variables": {},
       "output_file": "lesson.json",
@@ -51,103 +50,6 @@
       "type": "formatting",
       "function": "script_formatter.format_interactions_to_markdown",
       "description": "Formats script into markdown",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "warmup_test": [
-    {
-      "name": "warmup_generator",
-      "type": "ai",
-      "prompt_name": "warmup_generator",
-      "description": "Creates base warmup interactions",
-      "variables": {},
-      "output_file": "warmup.json"
-    },
-    {
-      "name": "interaction_generator",
-      "type": "ai",
-      "prompt_name": "interaction_generator",
-      "description": "Converts brainstormed interactions into fleshed out script.",
-      "variables": {},
-      "output_file": "interaction.json"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "Formats script into markdown",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "lesson_test": [
-    {
-      "name": "lesson_generator",
-      "type": "ai",
-      "prompt_name": "lesson_generator",
-      "description": "Brainstorming, lesson plan",
-      "variables": {},
-      "output_file": "lesson.json"
-    },
-    {
-      "name": "interaction_generator",
-      "type": "ai",
-      "prompt_name": "interaction_generator",
-      "description": "Fleshes it out into interaction",
-      "variables": {},
-      "output_file": "interactions.json"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "Condensed_Pipeline": [
-    {
-      "name": "interaction_generator_2",
-      "type": "ai",
-      "prompt_name": "interaction_generator_2",
-      "description": "",
-      "variables": {},
-      "output_file": "interactions.json",
-      "model": "claude-opus-4-5-20251101"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "Condensed_Pipeline_working": [
-    {
-      "name": "lesson_generator",
-      "type": "ai",
-      "prompt_name": "lesson_generator",
-      "description": "Starts the lesson",
-      "variables": {},
-      "output_file": "lesson.json"
-    },
-    {
-      "name": "interaction_generator",
-      "type": "ai",
-      "prompt_name": "interaction_generator",
-      "description": "Starts the lesson",
-      "variables": {},
-      "output_file": "interactions.json"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "",
       "function_args": {},
       "output_file": "script.md"
     }
@@ -180,99 +82,6 @@
       "output_file": "script.md"
     }
   ],
-  "Lesson_Test_LV": [
-    {
-      "name": "interaction_generator_2",
-      "type": "ai",
-      "prompt_name": "interaction_generator_2",
-      "description": "",
-      "variables": {},
-      "output_file": "interactions.json",
-      "model": "claude-sonnet-4-5-20250929"
-    },
-    {
-      "name": "Voice_Long",
-      "type": "ai",
-      "prompt_name": "Voice_Long",
-      "description": "",
-      "variables": {},
-      "output_file": "voice.json",
-      "model": "claude-opus-4-5-20251101"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "Lesson_Test_SV_2": [
-    {
-      "name": "interaction_generator_2",
-      "type": "ai",
-      "prompt_name": "interaction_generator_2",
-      "description": "",
-      "variables": {},
-      "output_file": "interactions.json",
-      "model": "claude-sonnet-4-5-20250929"
-    },
-    {
-      "name": "Voice_Short_2",
-      "type": "ai",
-      "prompt_name": "Voice_Short_2",
-      "description": "",
-      "variables": {},
-      "output_file": "voice.json",
-      "model": "claude-opus-4-5-20251101"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
-  "Lesson_with_Remediation": [
-    {
-      "name": "interaction_generator_2",
-      "type": "ai",
-      "prompt_name": "interaction_generator_2",
-      "description": "Generate interaction sequences",
-      "variables": {},
-      "output_file": "interactions.json",
-      "model": "claude-sonnet-4-5-20250929"
-    },
-    {
-      "name": "Voice_Short",
-      "type": "ai",
-      "prompt_name": "Voice_Short",
-      "description": "Polish dialogue and voice",
-      "variables": {},
-      "output_file": "voice.json",
-      "model": "claude-opus-4-5-20251101"
-    },
-    {
-      "name": "remediation_generator",
-      "type": "ai",
-      "prompt_name": "remediation_generator",
-      "description": "Add error remediation paths",
-      "variables": {},
-      "output_file": "remediation.json",
-      "model": "claude-opus-4-5-20251101"
-    },
-    {
-      "name": "script_formatter.format_interactions_to_markdown",
-      "type": "formatting",
-      "function": "script_formatter.format_interactions_to_markdown",
-      "description": "Format to markdown script",
-      "function_args": {},
-      "output_file": "script.md"
-    }
-  ],
   "short_warmup_generator": [
     {
       "name": "warmup_interaction_generator",
@@ -299,6 +108,383 @@
       "description": "Formats script into markdown",
       "function_args": {},
       "output_file": "script.md"
+    }
+  ],
+  "new_warmup_generator": [
+    {
+      "name": "warmup_generator",
+      "type": "ai",
+      "prompt_name": "warmup_generator",
+      "description": "Converts brainstormed interactions into fleshed out script.",
+      "variables": {},
+      "input_file": "modules/module{module_number}/path{path_letter}/warmup_specs.md",
+      "output_file": "warmup.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "Voice_Short",
+      "type": "ai",
+      "prompt_name": "Voice_Short",
+      "description": "",
+      "variables": {},
+      "output_file": "voice.json",
+      "model": "claude-opus-4-5-20251101"
+    }
+  ],
+  "new_lesson_generator": [
+    {
+      "name": "lesson_generator",
+      "type": "ai",
+      "prompt_name": "lesson_generator",
+      "description": "Converts brainstormed interactions into fleshed out script.",
+      "variables": {},
+      "input_file": "modules/module{module_number}/path{path_letter}/lesson_specs.md",
+      "output_file": "lesson.json",
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    {
+      "name": "Voice_Short",
+      "type": "ai",
+      "prompt_name": "Voice_Short",
+      "description": "",
+      "variables": {},
+      "output_file": "voice.json",
+      "model": "claude-opus-4-5-20251101"
+    }
+  ],
+  "test_problem_generator": [
+    {
+      "name": "problem_generator",
+      "type": "ai",
+      "prompt_name": "problem_generator",
+      "description": "Generates specific problem instances from a problem template",
+      "variables": {},
+      "input_file": "problem_templates.json",
+      "output_file": "problem_instances.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "template_id",
+      "batch_only_items":["4004"],
+      "batch_output_id_field": "problem_instance_id"
+    },
+    {
+      "name": "sequence_structurer",
+      "type": "ai",
+      "prompt_name": "sequence_structurer",
+      "description": "Transforms problem instances into structured interaction sequences",
+      "variables": {},
+      "output_file": "sequences.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_instance_id"
+    }
+  ],
+  "test_sequence_structurer": [
+    {
+      "name": "sequence_structurer",
+      "type": "ai",
+      "prompt_name": "sequence_structurer",
+      "description": "Transforms problem instances into structured interaction sequences",
+      "variables": {},
+      "input_file": "outputs/test_problem_generator_module_4_path_b/v9/step_01_problem_generator/problem_generator.json",
+      "output_file": "sequences.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_instance_id",
+      "batch_output_id_field": "problem_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    }
+  ],
+  "test_godot_pipeline": [
+    {
+      "name": "godot_formatter",
+      "type": "ai",
+      "prompt_name": "godot_formatter",
+      "description": "Transforms interaction sequences into Godot-processable format",
+      "input_file": "outputs/test_sequence_structurer_module_4_path_b/v1/step_01_sequence_structurer/sequence_structurer.json",
+      "variables": {},
+      "output_file": "godot_sequences.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+    {
+      "name": "add_component",
+      "type": "formatting",
+      "function": "metadata_mapper.add_component_to_metadata",
+      "description": "Adds mastery_component to metadata and component to telemetry_data",
+      "function_args": {},
+      "output_file": "component_added.json"
+    },
+    {
+      "name": "sequence_schema_fixer",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
+      "description": "Wraps sequences in SequencePool structure",
+      "function_args": {},
+      "output_file": "sequence_pool.json"
+    }
+  ],
+  "test_sampler": [
+    {
+      "name": "sample_per_template",
+      "type": "formatting",
+      "function": "sampler.sample_per_template",
+      "description": "Sample 3 sequences per template for testing",
+      "input_file": "outputs/test_godot_pipeline_module_4_path_b/v3/step_02_wrap_in_sequence_pool/wrap_in_sequence_pool.json",
+      "function_args": {
+        "sample_size": 1
+      },
+      "output_file": "sampled.json"
+    }
+  ],
+  "test_bbcode_formatting": [
+    {
+      "name": "sequence_schema_fixer",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
+      "description": "Wraps sequences in SequencePool structure",
+      "input_file": "outputs/test_godot_pipeline_module_4_path_b/v2/step_01_godot_formatter/godot_formatter.json",
+      "function_args": {},
+      "output_file": "sequence_pool.json"
+    },
+    {
+      "name": "sample_per_template",
+      "type": "formatting",
+      "function": "sampler.sample_per_template",
+      "description": "Sample 3 sequences per template for testing",
+      "function_args": {
+        "sample_size": 3
+      },
+      "output_file": "sampled.json"
+    },
+    {
+      "name": "fraction_formatting",
+      "type": "formatting",
+      "function": "bbcode_formatter.apply_fraction_formatting",
+      "description": "Apply fraction BBCode tags",
+      "function_args": {},
+      "output_file": "fraction_formatted.json"
+    },
+    {
+      "name": "vocab_formatting",
+      "type": "formatting",
+      "function": "bbcode_formatter.apply_vocab_formatting",
+      "description": "Apply vocabulary tags from module",
+      "function_args": {},
+      "output_file": "vocab_formatted.json"
+    }
+  ],
+  "problem_pool_generator": [
+    {
+      "name": "problem_generator",
+      "type": "ai",
+      "prompt_name": "problem_generator",
+      "description": "Generates specific problem instances from a problem template",
+      "variables": {},
+      "input_file": "problem_templates.json",
+      "output_file": "problem_instances.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "template_id",
+      "batch_output_id_field": "problem_instance_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+    {
+      "name": "sequence_structurer",
+      "type": "ai",
+      "prompt_name": "sequence_structurer",
+      "description": "Transforms problem instances into structured interaction sequences",
+      "variables": {},
+      "output_file": "sequences.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_instance_id",
+      "batch_output_id_field": "problem_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+    {
+      "name": "step_flattener",
+      "type": "formatting",
+      "function": "step_flattener.flatten_steps",
+      "description": "Flattens multi-step sequences into individual step items for batch processing",
+      "function_args": {},
+      "output_file": "flattened_steps.json"
+    },
+    {
+      "name": "generic_remediation_generator",
+      "type": "ai",
+      "prompt_name": "generic_remediation_generator",
+      "description": "Adds remediation to interaction sequences",
+      "variables": {},
+      "output_file": "remediations.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_id",
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+    {
+      "name": "step_combiner",
+      "type": "formatting",
+      "function": "step_combiner.combine_steps",
+      "description": "Combines flattened step items back into sequences with steps arrays",
+      "function_args": {},
+      "output_file": "combined_sequences.json"
+    },
+    {
+      "name": "godot_formatter",
+      "type": "ai",
+      "prompt_name": "godot_formatter",
+      "description": "Transforms interaction sequences into Godot-processable format",
+      "variables": {},
+      "output_file": "godot_sequences.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "problem_id",
+      "batch_id_start": 1,
+      "batch_skip_existing": false,
+      "batch_stop_on_error": false
+    },
+    {
+      "name": "comparison_event_tagger",
+      "type": "formatting",
+      "function": "comparison_event_tagger.main",
+      "description": "Prepends Godot event tags to on_correct dialogue for comparison steps",
+      "function_args": {},
+      "output_file": "comparison_tagged.json"
+    },
+    {
+      "name": "benchmark_label_hider",
+      "type": "formatting",
+      "function": "benchmark_label_hider.main",
+      "description": "Sets is_label_visible=false on all Benchmark tangibles in workspaces",
+      "function_args": {},
+      "output_file": "benchmark_label_hidden.json"
+    },
+    {
+      "name": "add_component",
+      "type": "formatting",
+      "function": "metadata_mapper.add_component_to_metadata",
+      "description": "Adds mastery_component to metadata and component to telemetry_data",
+      "function_args": {},
+      "output_file": "component_added.json"
+    },
+    {
+      "name": "sequence_schema_fixer",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.wrap_in_sequence_pool",
+      "description": "Wraps sequences in SequencePool structure",
+      "function_args": {},
+      "output_file": "sequence_pool.json"
+    },
+    {
+      "name": "add_summary",
+      "type": "formatting",
+      "function": "summary_generator.add_summary",
+      "description": "Add statistical summary to SequencePool",
+      "function_args": {},
+      "output_file": "with_summary.json"
+    },
+    {
+      "name": "vocab_formatting",
+      "type": "formatting",
+      "function": "bbcode_formatter.apply_vocab_formatting",
+      "description": "Apply vocabulary tags from module",
+      "function_args": {},
+      "output_file": "vocab_formatted.json"
+    },
+    {
+      "name": "fraction_formatting",
+      "type": "formatting",
+      "function": "bbcode_formatter.apply_fraction_formatting",
+      "description": "Apply fraction BBCode tags",
+      "function_args": {},
+      "output_file": "fraction_formatted.json"
+    },
+    {
+      "name": "numline_fixer",
+      "type": "formatting",
+      "function": "numline_fixer.main",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
+      "function_args": {},
+      "output_file": "numline_fixed.json"
+    },
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "function_args": {},
+      "output_file": "workspace_added.json"
+    },
+    {
+      "name": "sample_per_template",
+      "type": "formatting",
+      "function": "sampler.sample_per_template",
+      "description": "Sample random sequences per template for production",
+      "function_args": {
+        "sample_size": 1
+      },
+      "output_file": "sampled.json"
+    }
+  ],
+  "test_numline_formatting": [
+    {
+      "name": "numline_fixer",
+      "type": "formatting",
+      "function": "numline_fixer.main",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
+      "input_file": "outputs/problem_pool_generator_module_6_path_b/v4/step_13_sample_per_template/sample_per_template.json",
+      "function_args": {},
+      "output_file": "numline_fixed.json"
+    }
+  ],
+  "test_add_empty_workspace": [
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "input_file": "C:/git/launchpad/project/edtech.apl/resources/sequences/module_7/problem_pool.json",
+      "function_args": {},
+      "output_file": "workspace_added.json"
+    }
+  ],
+  "format_sequences": [
+    {
+      "name": "numline_fixer",
+      "type": "formatting",
+      "function": "numline_fixer.main",
+      "input_file": "C:/git/launchpad/project/edtech.apl/resources/sequences/module_5/problem_pool.json",
+      "description": "Fix NumLine labels, ticks, alt_labels, and readonly",
+      "function_args": {},
+      "output_file": "numline_fixed.json"
+    },
+    {
+      "name": "add_empty_workspace",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_empty_workspace_to_first_step",
+      "description": "Adds empty workspace to first step if missing",
+      "function_args": {},
+      "output_file": "workspace_added.json"
+    },
+    {
+      "name": "add_shuffle_tangibles",
+      "type": "formatting",
+      "function": "sequence_schema_fixer.add_shuffle_tangibles_for_select",
+      "description": "Sets shuffle_tangibles on workspaces where tool is Select and no tangibles are read-only",
+      "function_args": {},
+      "output_file": "shuffle_tangibles_added.json"
     }
   ]
 }

@@ -12,9 +12,11 @@ from datetime import datetime
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
 
 from core.pipeline import Step, run_pipeline, run_single_step
 from core.prompt_builder import Prompt
+from path_manager import get_project_paths
 import importlib
 
  # Import output utilities
@@ -26,10 +28,11 @@ from ui.utils.output import (
 # Note: All pipelines are now centralized in config/pipelines.json
 
 # Configuration
-PROMPTS_DIR = project_root / "steps" / "prompts"
-FORMATTING_DIR = project_root / "steps" / "formatting"
-OUTPUTS_DIR = project_root / "outputs"
-PIPELINES_FILE = project_root / "config" / "pipelines.json"
+paths = get_project_paths()
+PROMPTS_DIR = paths['prompts']
+FORMATTING_DIR = paths['formatting']
+OUTPUTS_DIR = paths['outputs']
+PIPELINES_FILE = paths['project_root'] / "config" / "pipelines.json"
 
 # Claude Models Configuration
 CLAUDE_MODELS = {
@@ -133,7 +136,7 @@ with tab1:
     st.caption("View and explore module data from modules.py")
 
     # Import modules
-    modules_file = project_root / "inputs" / "modules" / "modules.py"
+    modules_file = project_root / "modules" / "modules.py"
 
     if modules_file.exists():
         try:
@@ -408,7 +411,7 @@ with tab2:
 
                     if uploaded_files:
                         if st.button("💾 Save Uploaded Files"):
-                            docs_dir = project_root / "inputs" / "docs"
+                            docs_dir = project_root / "docs"
                             docs_dir.mkdir(parents=True, exist_ok=True)
 
                             uploaded_names = []
@@ -436,7 +439,7 @@ with tab2:
 
                 with col_list:
                     st.markdown("**Available Documents**")
-                    docs_dir = project_root / "inputs" / "docs"
+                    docs_dir = project_root / "docs"
                     if docs_dir.exists():
                         doc_files = sorted([f.name for f in docs_dir.iterdir() if f.is_file()])
                         if doc_files:

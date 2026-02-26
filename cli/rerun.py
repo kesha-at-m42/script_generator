@@ -1,0 +1,1411 @@
+"""
+Rerun CLI - Rerun specific items or steps from a pipeline
+
+Supports two rerun modes:
+1. Item-level reruns: Rerun specific items within batch steps
+2. Step-level reruns: Rerun specific step ranges
+
+Usage:
+    # Rerun specific items (existing functionality)
+    python rerun.py problem_generator 4001 4005 4012 --base v2
+
+    # Rerun from step 3 onwards
+    python rerun.py problem_generator --start-from 3 --module 4 --path a
+
+    # Rerun only step 3
+    python rerun.py problem_generator --start-from 3 --end-at 3 --module 4
+
+    # Combine: rerun items 4001, 4005 within step range 2-4
+    python rerun.py problem_generator 4001 4005 --start-from 2 --end-at 4
+"""
+
+import sys
+import argparse
+from pathlib import Path
+from glob import glob
+import shutil
+
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
+
+from core.pipeline import run_pipeline
+from core.version_manager import get_latest_version
+from core.path_manager import get_project_paths, get_step_directory, get_step_output_paths
+from core.pipeline_executor import run_formatting_step
+from config.pipelines import PIPELINES
+import json
+import re
+
+
+def parse_output_path(path_str):
+    """Parse output file/directory path to extract pipeline info
+
+    Args:
+        path_str: Path to output file or directory
+
+    Returns:
+        Dict with pipeline_name, module_number, path_letter, base_version,
+        item_ids, template_ids, step_number, version_dir
+    """
+    path = Path(path_str).resolve()
+
+    if not path.exists():
+        return None
+
+    # Find outputs directory in path
+    parts = path.parts
+    if 'outputs' not in parts:
+        return None
+
+    outputs_idx = parts.index('outputs')
+
+    # Next: pipeline directory (e.g., problem_pool_generator_module_4_path_b)
+    if len(parts) <= outputs_idx + 1:
+        return None
+
+    pipeline_dir_name = parts[outputs_idx + 1]
+
+    # Next: version (e.g., v8)
+    if len(parts) <= outputs_idx + 2:
+        return None
+
+    version = parts[outputs_idx + 2]
+    if not version.startswith('v'):
+        return None
+
+    # Parse pipeline directory name: {name}_module_{N}_path_{letter}
+    match = re.match(r'(.+?)(?:_module_(\d+))?(?:_path_([abc]))?$', pipeline_dir_name)
+    if not match:
+        return None
+
+    pipeline_name, module_str, path_letter = match.groups()
+    module_number = int(module_str) if module_str else None
+
+    # Load metadata
+    version_dir = Path(project_root) / 'outputs' / pipeline_dir_name / version
+    metadata_file = version_dir / 'metadata.json'
+    base_version = None
+
+    if metadata_file.exists():
+        try:
+            metadata = load_json(metadata_file)
+            base_version = metadata.get('base_version')
+        except:
+            pass
+
+    # Extract step number from path (e.g., "step_02_sequence_structurer")
+    step_number = None
+    for part in parts:
+        if part.startswith('step_'):
+            match = re.match(r'step_(\d+)_', part)
+            if match:
+                step_number = int(match.group(1))
+                break
+
+    result = {
+        'pipeline_name': pipeline_name,
+        'module_number': module_number,
+        'path_letter': path_letter,
+        'version': version,
+        'base_version': base_version,
+        'step_number': step_number,
+        'version_dir': version_dir
+    }
+
+    # Extract item IDs from path
+    if path.is_file() and path.suffix == '.json' and path.parent.name == 'items':
+        # Single item file
+        item_id = path.stem
+        result['item_ids'] = [item_id]
+
+        # For step 1: filename IS the template ID (no mapping needed)
+        if step_number == 1 and pipeline_name == 'problem_pool_generator':
+            result['template_ids'] = [item_id]
+        # For step 2+: use item IDs directly (no template mapping)
+        elif step_number and step_number >= 2:
+            result['template_ids'] = None
+
+    elif path.is_dir() and path.name == 'items':
+        # Items directory - get all items (exclude validation files)
+        item_files = sorted([f for f in path.glob('[0-9]*.json') if not f.stem.endswith('_validation')])
+        item_ids = [f.stem for f in item_files]
+        result['item_ids'] = item_ids
+
+        # For step 1: filenames ARE the template IDs (no mapping needed)
+        if step_number == 1 and pipeline_name == 'problem_pool_generator':
+            result['template_ids'] = item_ids
+        # For step 2+: use item IDs directly (no template mapping)
+        elif step_number and step_number >= 2:
+            result['template_ids'] = None
+
+    # Extract item IDs from collated files (step 2+)
+    elif path.is_file() and path.suffix == '.json' and step_number and step_number >= 2:
+        try:
+            data = load_json(path)
+            if isinstance(data, list):
+                # Extract problem_id or problem_instance_id from each item
+                item_ids = set()
+                for item in data:
+                    # Try multiple ID paths
+                    pid = (
+                        item.get('problem_id') or
+                        item.get('problem_instance_id') or
+                        (item.get('metadata', {}).get('problem_id') if isinstance(item.get('metadata'), dict) else None)
+                    )
+                    if pid:
+                        item_ids.add(str(pid))
+
+                if item_ids:
+                    result['item_ids'] = sorted(item_ids, key=int)
+                    result['template_ids'] = None
+        except:
+            pass
+
+    return result
+
+
+def map_items_to_templates(item_ids, version_dir):
+    """Map problem IDs to template IDs
+
+    Args:
+        item_ids: List of problem_instance_id strings
+        version_dir: Version directory path
+
+    Returns:
+        Set of template IDs or None
+    """
+    # Find step 1 output
+    step_1_dir = None
+    for d in version_dir.iterdir():
+        if d.is_dir() and 'step_01' in d.name and 'problem_generator' in d.name:
+            step_1_dir = d
+            break
+
+    if not step_1_dir:
+        return None
+
+    collated_file = step_1_dir / 'problem_generator.json'
+    if not collated_file.exists():
+        return None
+
+    try:
+        data = load_json(collated_file)
+        template_ids = set()
+
+        for item in data:
+            pid = str(item.get('problem_instance_id'))
+            if pid in item_ids:
+                tid = item.get('template_id')
+                if tid:
+                    template_ids.add(str(tid))
+
+        return template_ids if template_ids else None
+    except:
+        return None
+
+
+def filter_ai_step_outputs(new_version_dir, exclude_template_ids=None, exclude_item_ids=None, verbose=True):
+    """
+    Filter items from AI step outputs in the new version directory.
+    Removes files and items with matching template_id or item_id.
+
+    Args:
+        new_version_dir: Path to new version directory
+        exclude_template_ids: List of template IDs to exclude
+        exclude_item_ids: List of item/problem IDs to exclude
+        verbose: Print filtering details
+    """
+    if not exclude_template_ids and not exclude_item_ids:
+        return
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print("FILTERING AI STEP OUTPUTS")
+        print(f"{'='*70}")
+
+    # Find all AI step directories
+    for step_dir in sorted(new_version_dir.glob("step_*")):
+        if not step_dir.is_dir():
+            continue
+
+        step_name = step_dir.name
+
+        # Check items directory (batch mode)
+        items_dir = step_dir / "items"
+        if items_dir.exists():
+            removed_count = 0
+            for item_file in items_dir.glob("*.json"):
+                try:
+                    with open(item_file, 'r', encoding='utf-8') as f:
+                        item_data = json.load(f)
+
+                    should_remove = False
+
+                    # Check template_id
+                    if exclude_template_ids:
+                        template_id = item_data.get('template_id') or item_data.get('metadata', {}).get('template_id')
+                        if template_id in exclude_template_ids:
+                            should_remove = True
+
+                    # Check item_id
+                    if exclude_item_ids and not should_remove:
+                        item_id = item_data.get('problem_id') or item_data.get('problem_instance_id') or item_data.get('metadata', {}).get('problem_id')
+                        if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                            should_remove = True
+
+                    if should_remove:
+                        item_file.unlink()
+                        removed_count += 1
+                except:
+                    pass
+
+            if removed_count > 0 and verbose:
+                print(f"  [FILTER] {step_name}: Removed {removed_count} items")
+
+        # Check collated file
+        for json_file in step_dir.glob("*.json"):
+            if json_file.name == "errors.json":
+                continue
+
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+
+                original_count = 0
+                filtered_data = data
+
+                # Filter array
+                if isinstance(data, list):
+                    original_count = len(data)
+                    filtered_data = []
+                    for item in data:
+                        should_remove = False
+
+                        # Check template_id
+                        if exclude_template_ids:
+                            template_id = item.get('template_id') or item.get('metadata', {}).get('template_id')
+                            if template_id in exclude_template_ids:
+                                should_remove = True
+
+                        # Check item_id
+                        if exclude_item_ids and not should_remove:
+                            item_id = item.get('problem_id') or item.get('problem_instance_id') or item.get('metadata', {}).get('problem_id')
+                            if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                                should_remove = True
+
+                        if not should_remove:
+                            filtered_data.append(item)
+
+                # Filter SequencePool
+                elif isinstance(data, dict) and 'sequences' in data:
+                    original_count = len(data.get('sequences', []))
+                    sequences = data.get('sequences', [])
+                    filtered_sequences = []
+
+                    for seq in sequences:
+                        should_remove = False
+
+                        # Check template_id
+                        if exclude_template_ids:
+                            template_id = seq.get('metadata', {}).get('template_id')
+                            if template_id in exclude_template_ids:
+                                should_remove = True
+
+                        # Check item_id
+                        if exclude_item_ids and not should_remove:
+                            item_id = seq.get('metadata', {}).get('problem_id')
+                            if str(item_id) in exclude_item_ids or item_id in exclude_item_ids:
+                                should_remove = True
+
+                        if not should_remove:
+                            filtered_sequences.append(seq)
+
+                    filtered_data = {**data, 'sequences': filtered_sequences}
+
+                # Save if changed
+                if original_count > 0:
+                    new_count = len(filtered_data) if isinstance(filtered_data, list) else len(filtered_data.get('sequences', []))
+                    if new_count < original_count:
+                        with open(json_file, 'w', encoding='utf-8') as f:
+                            json.dump(filtered_data, f, indent=2, ensure_ascii=False)
+                        if verbose:
+                            print(f"  [FILTER] {step_name}/{json_file.name}: {original_count} → {new_count} items")
+            except:
+                pass
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Rerun specific items or steps from a pipeline",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Point at any output and rerun it (auto-detects everything)
+  python rerun.py --from-output outputs/.../v8/step_03/.../items/48.json
+  python rerun.py --from-output outputs/.../v8/step_03/.../items/
+
+  # Item-level reruns (rerun specific batch items)
+  python rerun.py problem_generator 4001 4005 4012
+  python rerun.py problem_generator 4001 --base v2 --note "Fixed prompt"
+
+  # Step-level reruns (skip to step N)
+  python rerun.py problem_generator --start-from 3 --module 4 --path a
+  python rerun.py problem_generator --start-from 3 --end-at 3 --module 4
+  python rerun.py problem_generator --start-from sequence_structurer --module 4
+
+  # Combined (rerun items within step range)
+  python rerun.py problem_generator 4001 4005 --start-from 2 --end-at 4
+        """
+    )
+    parser.add_argument("pipeline_name", nargs="?", help="Name of the pipeline (optional if using --from-output)")
+    parser.add_argument("item_ids", nargs="*", help="Item IDs to rerun (for batch steps)")
+
+    # Rerun from output
+    parser.add_argument("--from-output", help="Point at any output file to rerun it (auto-detects pipeline/module/items)")
+
+    # Rerun options
+    parser.add_argument("--base", default=None, help="Base version to rerun from (default: latest or auto-detected)")
+    parser.add_argument("--note", default="", help="Optional note about this rerun")
+    parser.add_argument("--templates", action="store_true", help="Treat item_ids as template IDs (enables template rerun mode)")
+
+    # Step range options
+    parser.add_argument("--start-from", help="Start from step N (int or name)")
+    parser.add_argument("--end-at", help="End at step N (int or name)")
+
+    # Module/path context (required for step-level reruns)
+    parser.add_argument("--module", type=int, help="Module number")
+    parser.add_argument("--path", choices=['a', 'b', 'c'], help="Path letter")
+
+    # Exclusion filters
+    parser.add_argument("--exclude-template-ids", type=str, help="Exclude items with these template IDs from ALL steps (comma-separated, e.g., '7006,7010')")
+    parser.add_argument("--exclude-item-ids", type=str, help="Exclude items with these problem/item IDs from ALL steps (comma-separated, e.g., '73,74,75')")
+
+    # Other
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
+    parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
+
+    args = parser.parse_args()
+
+    # Parse exclusion filters
+    exclude_template_ids = None
+    if args.exclude_template_ids:
+        exclude_template_ids = [id.strip() for id in args.exclude_template_ids.split(',')]
+        print(f"  [EXCLUDE] Template IDs: {exclude_template_ids}")
+
+    exclude_item_ids = None
+    if args.exclude_item_ids:
+        exclude_item_ids = [id.strip() for id in args.exclude_item_ids.split(',')]
+        print(f"  [EXCLUDE] Item/Problem IDs: {exclude_item_ids}")
+
+    # Handle --from-output mode
+    if args.from_output:
+        output_info = parse_output_path(args.from_output)
+        if not output_info:
+            print(f"Error: Could not parse output path: {args.from_output}")
+            print("Expected format: outputs/{pipeline}/v{N}/.../items/123.json")
+            sys.exit(1)
+
+        # Override args with detected values
+        args.pipeline_name = output_info['pipeline_name']
+        args.module = output_info.get('module_number')
+        args.path = output_info.get('path_letter')
+        if not args.base and output_info.get('base_version'):
+            args.base = output_info['base_version']
+
+        step_number = output_info.get('step_number')
+
+        # Auto-select rerun mode based on step number
+        if step_number == 1:
+            # Step 1: Template rerun mode (full pipeline from step 1)
+            if output_info.get('template_ids'):
+                args.item_ids = list(output_info['template_ids'])
+                args.templates = True
+                args.start_from = None
+                if args.verbose:
+                    print(f"[FROM-OUTPUT] Detected step 1 -> Template rerun mode")
+            else:
+                # Fallback: no template IDs found, use item IDs
+                args.item_ids = list(output_info.get('item_ids', []))
+
+        elif step_number and step_number >= 2:
+            # Step 2+: Item rerun mode (partial pipeline from this step)
+            args.templates = False
+            args.item_ids = list(output_info.get('item_ids', []))
+            args.start_from = str(step_number)
+            if args.verbose:
+                print(f"[FROM-OUTPUT] Detected step {step_number} -> Item rerun mode (starting from step {step_number})")
+
+        else:
+            # Fallback: No step number detected, infer from IDs
+            if output_info.get('template_ids'):
+                args.item_ids = list(output_info['template_ids'])
+                args.templates = True
+            elif output_info.get('item_ids'):
+                args.item_ids = list(output_info['item_ids'])
+
+        print(f"\n[AUTO-DETECTED FROM OUTPUT]")
+        print(f"  Pipeline: {args.pipeline_name}")
+        if args.module:
+            print(f"  Module: {args.module}")
+        if args.path:
+            print(f"  Path: {args.path}")
+        if args.base:
+            print(f"  Base: {args.base}")
+        if step_number:
+            print(f"  Step: {step_number}")
+        if args.templates:
+            print(f"  Mode: Template Rerun (full pipeline)")
+            print(f"  Templates: {', '.join(args.item_ids)}")
+        elif args.start_from:
+            print(f"  Mode: Item Rerun (from step {args.start_from})")
+            print(f"  Items: {', '.join(args.item_ids[:5])}{'...' if len(args.item_ids) > 5 else ''}")
+        else:
+            print(f"  Items: {', '.join(args.item_ids[:5])}{'...' if len(args.item_ids) > 5 else ''}")
+        print()
+
+    # Validate pipeline name is provided
+    if not args.pipeline_name:
+        print("Error: pipeline_name required (or use --from-output)")
+        parser.print_help()
+        sys.exit(1)
+
+    # Validate pipeline exists
+    if args.pipeline_name not in PIPELINES:
+        print(f"Error: Pipeline '{args.pipeline_name}' not found")
+        print(f"Available pipelines:")
+        for p in PIPELINES.keys():
+            print(f"  - {p}")
+        sys.exit(1)
+
+    # Get pipeline steps
+    steps = PIPELINES[args.pipeline_name]
+
+    # Detect exclude mode
+    is_exclude_mode = bool(exclude_template_ids or exclude_item_ids)
+
+    # Build full pipeline name for path resolution
+    full_pipeline_name = args.pipeline_name
+    if args.module:
+        full_pipeline_name += f"_module_{args.module}"
+    if args.path:
+        full_pipeline_name += f"_path_{args.path.lower()}"
+
+    # Get base version
+    base_version = args.base
+    if base_version is None:
+        outputs_dir = get_project_paths()['outputs']
+        pipeline_dir = outputs_dir / full_pipeline_name
+        base_version = get_latest_version(pipeline_dir)
+
+        if base_version is None:
+            print(f"Error: No versions found for '{full_pipeline_name}'")
+            print(f"Run the full pipeline first before attempting a rerun.")
+            sys.exit(1)
+
+    # Determine rerun mode
+    has_item_ids = len(args.item_ids) > 0
+    has_step_range = args.start_from is not None or args.end_at is not None
+    is_template_rerun = args.templates and has_item_ids
+
+    # Validate combinations
+    if is_exclude_mode and has_item_ids:
+        print("Error: Exclude mode cannot be combined with item IDs")
+        print("Exclude mode reruns formatting steps on the entire filtered dataset")
+        sys.exit(1)
+
+    if is_exclude_mode and has_step_range:
+        print("Error: Exclude mode cannot be combined with --start-from or --end-at")
+        print("Exclude mode automatically reruns all formatting steps")
+        sys.exit(1)
+
+    if is_exclude_mode and is_template_rerun:
+        print("Error: Exclude mode cannot be combined with template rerun mode")
+        sys.exit(1)
+
+    if has_step_range and not args.module:
+        print("Error: --module required when using --start-from or --end-at")
+        sys.exit(1)
+
+    # Template rerun + step range: allowed — acts as a wrapper that maps template IDs
+    # to problem instance IDs and runs a standard item-level rerun over the given range.
+
+    if is_template_rerun and not args.module:
+        print("Error: Template rerun mode requires --module")
+        sys.exit(1)
+
+    # Convert numeric step references to int
+    start_from = args.start_from
+    if start_from and start_from.isdigit():
+        start_from = int(start_from)
+
+    end_at = args.end_at
+    if end_at and end_at.isdigit():
+        end_at = int(end_at)
+
+    # Show confirmation
+    print(f"\n{'='*70}")
+    print(f"RERUN: {full_pipeline_name}")
+    print(f"{'='*70}")
+    print(f"Base version: {base_version}")
+
+    if has_step_range:
+        if start_from:
+            print(f"Start from: {start_from}")
+        if end_at:
+            print(f"End at: {end_at}")
+        if not start_from and not end_at:
+            print(f"Steps: All (full pipeline)")
+    else:
+        print(f"Steps: All (full pipeline)")
+
+    if is_template_rerun:
+        print(f"Mode: Template Rerun")
+        print(f"Templates: {', '.join(args.item_ids)}")
+    elif has_item_ids:
+        print(f"Items: {', '.join(args.item_ids)}")
+    else:
+        print(f"Items: All (full rerun)")
+
+    if args.note:
+        print(f"Note: {args.note}")
+    print(f"{'='*70}\n")
+
+    if not args.yes:
+        response = input("Proceed with rerun? (y/n): ").strip().lower()
+        if response != 'y':
+            print("Cancelled.")
+            sys.exit(0)
+
+    # Run pipeline with rerun parameters
+    try:
+        if is_exclude_mode:
+            # Exclude mode: copy all steps, filter AI outputs, rerun only formatting steps (no API calls)
+            results = run_exclude_mode(
+                steps=steps,
+                pipeline_name=args.pipeline_name,
+                module_number=args.module,
+                path_letter=args.path,
+                base_version=base_version,
+                exclude_template_ids=exclude_template_ids,
+                exclude_item_ids=exclude_item_ids,
+                notes=args.note,
+                verbose=True
+            )
+        elif is_template_rerun:
+            results = run_template_rerun_pipeline(
+                steps=steps,
+                pipeline_name=args.pipeline_name,
+                module_number=args.module,
+                path_letter=args.path,
+                template_ids=args.item_ids,
+                base_version=base_version,
+                start_from=start_from,
+                end_at=end_at,
+                notes=args.note,
+                verbose=True
+            )
+        else:
+            # Standard rerun mode
+            results = run_pipeline(
+                steps=steps,
+                pipeline_name=args.pipeline_name,
+                module_number=args.module,
+                path_letter=args.path,
+                base_version=base_version,
+                rerun_items=args.item_ids if has_item_ids else None,
+                start_from_step=start_from,
+                end_at_step=end_at,
+                notes=args.note,
+                pipeline_status=args.status,
+                verbose=True
+            )
+
+        print("\n" + "="*70)
+        print("RERUN COMPLETE")
+        print("="*70)
+
+        if 'metadata' in results:
+            meta = results['metadata']
+            print(f"\nNew version: {meta.get('version')}")
+            print(f"Mode: {meta.get('mode')}")
+            if meta.get('step_range'):
+                print(f"Steps executed: {meta.get('step_range')}")
+            print(f"Duration: {meta.get('duration_seconds', 0):.1f}s")
+
+    except Exception as e:
+        print(f"\nError: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
+
+
+def run_exclude_mode(steps, pipeline_name, module_number, path_letter, base_version,
+                     exclude_template_ids=None, exclude_item_ids=None, notes="", verbose=True):
+    """Run exclude mode: copy all steps from base, filter AI outputs, rerun only formatting steps
+
+    Args:
+        steps: Pipeline steps
+        pipeline_name: Pipeline name
+        module_number: Module number
+        path_letter: Path letter
+        base_version: Base version to copy from
+        exclude_template_ids: Template IDs to exclude
+        exclude_item_ids: Item IDs to exclude
+        notes: Optional notes
+        verbose: Enable verbose output
+
+    Returns:
+        Pipeline results
+    """
+    from core.version_manager import create_version_directory, save_metadata, update_latest_symlink
+    from datetime import datetime
+    import json
+
+    # Get project root
+    project_root = Path(__file__).parent.parent
+
+    # Build full pipeline name
+    full_pipeline_name = pipeline_name
+    if module_number:
+        full_pipeline_name += f"_module_{module_number}"
+    if path_letter:
+        full_pipeline_name += f"_path_{path_letter.lower()}"
+
+    # Create new version directory
+    version_dir, version_str, is_rerun, full_name = create_version_directory(
+        pipeline_name, module_number, path_letter, base_version
+    )
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"EXCLUDE MODE: {full_pipeline_name}")
+        print(f"{'='*70}")
+        print(f"Base version: {base_version}")
+        print(f"New version: {version_str}")
+        if exclude_template_ids:
+            print(f"Excluding template IDs: {', '.join(exclude_template_ids)}")
+        if exclude_item_ids:
+            print(f"Excluding item IDs: {', '.join(exclude_item_ids)}")
+        print(f"{'='*70}\n")
+
+    # Get base version directory
+    outputs_dir = get_project_paths()['outputs']
+    pipeline_dir = outputs_dir / full_pipeline_name
+    base_version_dir = pipeline_dir / base_version
+
+    if not base_version_dir.exists():
+        raise ValueError(f"Base version not found: {base_version_dir}")
+
+    # Step 1: Copy ALL steps from base version
+    if verbose:
+        print(f"{'='*70}")
+        print(f"STEP 1: COPYING ALL STEPS FROM BASE VERSION")
+        print(f"{'='*70}")
+
+    for step_idx, step in enumerate(steps, 1):
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+
+        # Source: base version step directory
+        base_step_dir = get_step_directory(base_version_dir, step_idx, step_name)
+
+        # Destination: new version step directory
+        new_step_dir = get_step_directory(version_dir, step_idx, step_name)
+
+        # Copy entire step directory
+        if base_step_dir.exists():
+            if verbose:
+                print(f"  [COPY] Step {step_idx} ({step_name})")
+            shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
+        else:
+            print(f"  [WARNING] Base step directory not found: {base_step_dir}")
+
+    # Step 2: Filter AI step outputs
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"STEP 2: FILTERING AI STEP OUTPUTS")
+        print(f"{'='*70}")
+
+    filter_ai_step_outputs(
+        version_dir,
+        exclude_template_ids=exclude_template_ids,
+        exclude_item_ids=exclude_item_ids,
+        verbose=verbose
+    )
+
+    # Step 3: Rerun ONLY formatting steps
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"STEP 3: RERUNNING FORMATTING STEPS")
+        print(f"{'='*70}")
+
+    for step_idx, step in enumerate(steps, 1):
+        # Skip AI steps
+        if step.is_ai_step():
+            continue
+
+        step_name = str(step.function).split('.')[-1]
+        step_dir = get_step_directory(version_dir, step_idx, step_name)
+
+        if verbose:
+            print(f"\n  [STEP {step_idx}] {step_name}")
+
+        # Get input from previous step's output
+        prev_step = steps[step_idx - 2]  # 0-indexed
+        prev_step_name = prev_step.prompt_name if prev_step.is_ai_step() else str(prev_step.function).split('.')[-1]
+        prev_step_dir = get_step_directory(version_dir, step_idx - 1, prev_step_name)
+        input_file = prev_step_dir / f"{prev_step_name}.json"
+
+        # Load input data
+        input_data = load_json(input_file)
+
+        # Execute formatting function
+        try:
+            output_data = run_formatting_step(
+                step=step,
+                input_data=input_data,
+                input_content=None,
+                module_number=module_number,
+                path_letter=path_letter,
+                project_root=project_root,
+                verbose=False
+            )
+
+            # Save output
+            output_file = step_dir / f"{step_name}.json"
+            save_json(output_file, output_data)
+
+            if verbose:
+                print(f"    [OK] Completed")
+        except Exception as e:
+            if verbose:
+                print(f"    [ERROR] {e}")
+            raise
+
+    # Step 4: Save metadata
+    start_time = datetime.now()
+    metadata = {
+        "timestamp": start_time.isoformat(),
+        "pipeline_name": pipeline_name,
+        "module_number": module_number,
+        "path_letter": path_letter,
+        "version": version_str,
+        "base_version": base_version,
+        "mode": "exclude",
+        "exclude_template_ids": exclude_template_ids,
+        "exclude_item_ids": exclude_item_ids,
+        "notes": notes or "Exclude mode rerun",
+        "pipeline_status": "draft",
+        "full_pipeline_name": full_pipeline_name,
+        "status": "completed",
+        "output_dir": str(version_dir)
+    }
+
+    save_metadata(version_dir, metadata)
+    update_latest_symlink(full_pipeline_name, version_str)
+
+    if verbose:
+        print(f"\n{'='*70}")
+        print(f"EXCLUDE MODE COMPLETE")
+        print(f"Version: {version_str}")
+        print(f"Output: outputs/{full_pipeline_name}/latest/")
+        print(f"{'='*70}")
+
+    return {
+        'final_output': None,
+        'output_dir': str(version_dir),
+        'metadata': metadata
+    }
+
+
+def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter,
+                                template_ids, base_version, start_from=None, end_at=None,
+                                notes="", verbose=True):
+    """Run template-based rerun with automatic re-collation
+
+    Uses a two-phase approach to ensure correct ID chaining:
+    - Phase 1: Run only step 1 with template_ids, then re-collate it.
+    - Phase 2: Read the actual problem_instance_ids from the re-collated step 1
+               and run steps 2+ with those IDs.
+
+    This prevents the ID mismatch that occurs when regenerated templates produce
+    different item counts than the base, causing the raw sequential IDs in step 1
+    to diverge from the base IDs used by steps 2+.
+
+    Args:
+        steps: Pipeline steps
+        pipeline_name: Pipeline name
+        module_number: Module number
+        path_letter: Path letter
+        template_ids: List of template IDs to rerun
+        base_version: Base version to rerun from
+        notes: Optional notes
+        verbose: Enable verbose output
+
+    Returns:
+        Pipeline results
+    """
+    from core.path_manager import get_step_directory, get_step_output_paths
+
+    # Get project root
+    project_root = Path(__file__).parent.parent
+
+    # Build full pipeline name
+    full_pipeline_name = pipeline_name
+    if module_number:
+        full_pipeline_name += f"_module_{module_number}"
+    if path_letter:
+        full_pipeline_name += f"_path_{path_letter.lower()}"
+
+    # Get base version directory
+    outputs_dir = get_project_paths()['outputs']
+    pipeline_dir = outputs_dir / full_pipeline_name
+    base_version_dir = pipeline_dir / base_version
+
+    if not base_version_dir.exists():
+        raise ValueError(f"Base version not found: {base_version_dir}")
+
+    # Find step 1 directory in base version
+    step_0_dir = None
+    for subdir in sorted(base_version_dir.iterdir()):
+        if subdir.is_dir() and ('step_00' in subdir.name or 'step_01' in subdir.name) and 'problem_generator' in subdir.name:
+            step_0_dir = subdir
+            break
+
+    if not step_0_dir:
+        raise ValueError(f"Could not find step_00_problem_generator or step_01_problem_generator in {base_version_dir}")
+
+    # Load base step 1 to map template_id → problem_instance_ids
+    base_step0_file = step_0_dir / "problem_generator.json"
+    if not base_step0_file.exists():
+        raise ValueError(f"Base step 0 output not found: {base_step0_file}")
+
+    base_step0_items = load_json(base_step0_file)
+    base_problem_ids = [
+        str(item['problem_instance_id'])
+        for item in base_step0_items
+        if str(item.get('template_id')) in template_ids
+    ]
+
+    # Set batch_only_items on step 1 to use template_ids
+    if steps and hasattr(steps[0], 'batch_only_items'):
+        steps[0].batch_only_items = template_ids
+        if verbose:
+            print(f"  [STEP 1] Will process templates: {', '.join(template_ids)}")
+
+    note_str = f"Template rerun: {', '.join(template_ids)}" + (f" - {notes}" if notes else "")
+
+    if start_from:
+        # Step-range mode: reprocess existing items in a step range.
+        # Step 1 is not being regenerated so IDs in step 1 are stable.
+        # However steps 2+ use problem_id (from sequence_structurer), which can differ
+        # from problem_instance_id (step 1) — e.g. when templates were added at overflow
+        # positions. Always use base step_02 problem_ids as the filter so it matches
+        # what the target steps actually use as their identifier.
+        step2_dir = None
+        for subdir in sorted(base_version_dir.iterdir()):
+            if subdir.is_dir() and 'step_02' in subdir.name and 'sequence_structurer' in subdir.name:
+                step2_dir = subdir
+                break
+        if step2_dir:
+            step2_file = step2_dir / "sequence_structurer.json"
+            if step2_file.exists():
+                step2_items = load_json(step2_file)
+                step2_ids = [
+                    str(item['problem_id'])
+                    for item in step2_items
+                    if str(item.get('template_id')) in template_ids
+                ]
+                if step2_ids:
+                    if verbose and step2_ids != base_problem_ids:
+                        print(f"  [STEP-RANGE] Using step_02 problem_ids for filter "
+                              f"(step_01 had {base_problem_ids[:3]}..., "
+                              f"step_02 has {step2_ids[:3]}...)")
+                    base_problem_ids = step2_ids
+
+        if not base_problem_ids:
+            raise ValueError(f"No items found for templates {template_ids} in base version")
+        if verbose:
+            print(f"\n[TEMPLATE RERUN] Step-range mode ({start_from} → {end_at}), {len(base_problem_ids)} items")
+        results = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=base_version,
+            rerun_items=base_problem_ids,
+            start_from_step=start_from,
+            end_at_step=end_at,
+            notes=note_str,
+            verbose=verbose
+        )
+    else:
+        # Full-pipeline mode: two-phase approach to get correct IDs for steps 2+.
+        #
+        # The problem with a single-pass run: step 1 assigns raw sequential IDs
+        # that may differ from base IDs (e.g. a template generates 5 items instead
+        # of 6, shifting all subsequent IDs down). Steps 2+ would then filter on
+        # the old base IDs, causing mismatches and silent data loss.
+        #
+        # Fix: run step 1 first, re-collate it (which assigns correct final IDs),
+        # then read those actual IDs before running steps 2+.
+
+        if verbose:
+            label = f"steps 1–{end_at}" if end_at else f"all {len(steps)} steps"
+            print(f"\n[TEMPLATE RERUN] Full pipeline ({label})")
+            print(f"  Step 1: regenerate for templates: {', '.join(template_ids)}")
+
+        # --- Step 1: regenerate templates, then re-collate ---
+        results_p1 = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=base_version,
+            end_at_step=1,
+            notes=note_str,
+            verbose=verbose
+        )
+
+        p1_version = results_p1['metadata']['version']
+        p1_version_dir = pipeline_dir / p1_version
+
+        # Re-collate step 1 now so final IDs are correct before step 2 runs
+        step1_name = 'problem_generator'
+        step1_dir = get_step_directory(p1_version_dir, 1, step1_name)
+        base_step1_dir = get_step_directory(base_version_dir, 1, step1_name)
+        merge_and_collate_templates(step1_dir, base_step1_dir, set(template_ids))
+
+        if verbose:
+            print(f"  [STEP 1] Re-collated in {p1_version}")
+
+        # Pre-seed steps 2+ from original base into the version dir so _load_from_base
+        # can find unchanged items for those steps. Without this the batch_processor
+        # has no collated file to read from and silently drops all unchanged items.
+        import shutil as _shutil
+        for _step_idx, _step in enumerate(steps, 1):
+            if _step_idx == 1:
+                continue  # step 1 is already in p1_version (re-collated)
+            _sname = _step.prompt_name if _step.is_ai_step() else str(_step.function).split('.')[-1]
+            _base_src = get_step_directory(base_version_dir, _step_idx, _sname)
+            _p1_dst = get_step_directory(p1_version_dir, _step_idx, _sname)
+            if _base_src.exists() and not _p1_dst.exists():
+                _shutil.copytree(str(_base_src), str(_p1_dst), dirs_exist_ok=True)
+        if verbose:
+            print(f"  [STEP 1] Copied base steps 2+ into {p1_version} for steps 2+ reference")
+
+        # Early exit if only step 1 was requested
+        if end_at and end_at <= 1:
+            # Clear batch_only_items to prevent contamination
+            if steps and hasattr(steps[0], 'batch_only_items'):
+                steps[0].batch_only_items = None
+            return results_p1
+
+        # Read ACTUAL problem_instance_ids from the re-collated step 1
+        recollated_step1 = load_json(step1_dir / 'problem_generator.json')
+        actual_rerun_ids = [
+            str(item['problem_instance_id'])
+            for item in recollated_step1
+            if str(item.get('template_id')) in template_ids
+        ]
+
+        if verbose:
+            print(f"  Steps 2+: run for {len(actual_rerun_ids)} actual problem IDs")
+            print(f"  Actual IDs: {', '.join(actual_rerun_ids[:8])}{'...' if len(actual_rerun_ids) > 8 else ''}")
+
+        # Clear step 1 filter before steps 2+
+        if steps and hasattr(steps[0], 'batch_only_items'):
+            steps[0].batch_only_items = None
+
+        # --- Steps 2+: run into the same version directory as step 1 ---
+        results = run_pipeline(
+            steps=steps,
+            pipeline_name=pipeline_name,
+            module_number=module_number,
+            path_letter=path_letter,
+            base_version=p1_version,
+            rerun_items=actual_rerun_ids,
+            start_from_step=2,
+            end_at_step=end_at,
+            notes=note_str,
+            reuse_version_dir=p1_version_dir,
+            verbose=verbose
+        )
+
+    # Clear batch_only_items from step 1 to prevent contamination in future runs
+    if steps and hasattr(steps[0], 'batch_only_items'):
+        steps[0].batch_only_items = None
+
+    # Extract version from metadata
+    if 'metadata' not in results:
+        print(f"\n[WARNING] Pipeline returned no metadata - this is unexpected")
+        return results
+
+    # Step-range mode: no re-collation needed — BatchProcessor already produced correct output
+    if start_from:
+        return results
+
+    new_version = results['metadata']['version']
+    new_version_dir = pipeline_dir / new_version
+
+    if verbose:
+        print(f"\n[TEMPLATE RERUN] Pipeline complete, re-collating all steps...")
+
+    # Step 3: Re-collate AI steps that were actually run (up to end_at if set).
+    # Step 1 was already re-collated above and is in new_version_dir.
+    # Steps 2+ merge Claude's new items/ files with the pre-seeded collated base.
+    for step_idx, step in enumerate(steps, 1):
+        if step_idx < 2:
+            # Step 1 was already re-collated during phase 1 — skip
+            continue
+        if end_at and step_idx > end_at:
+            break
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+        step_dir = get_step_directory(new_version_dir, step_idx, step_name)
+        # base_step_dir == step_dir (same version): the pre-seeded collated file from the
+        # original base copy is read, merged with Claude's new items/, then written back.
+        base_step_dir = get_step_directory(new_version_dir, step_idx, step_name)
+
+        if step.is_ai_step():
+            # AI steps: Merge new items + base items using actual IDs.
+            # Pass rerun_template_ids so stale old-position base items for rerun
+            # templates are excluded (e.g. 11001 at old IDs 1-8 vs new IDs 104-111).
+            merge_and_collate_items(step_dir, step_name, base_step_dir, set(actual_rerun_ids),
+                                    rerun_template_ids=set(template_ids))
+            if verbose:
+                print(f"  [STEP {step_idx}] Re-collated {step_name} (merged {len(actual_rerun_ids)} new + base)")
+        # Formatting steps will be handled below
+
+    # Step 4: Re-run ALL formatting steps on merged data
+    # This includes formatting steps between AI steps (e.g. flatten_steps between
+    # sequence_structurer and generic_remediation_generator), which must chain off
+    # the re-collated AI step output, not the intermediate output from run_pipeline.
+    if verbose:
+        print(f"\n[TEMPLATE RERUN] Re-running formatting steps on merged data...")
+
+    # Re-run each formatting step sequentially (only up to end_at if set)
+    for step_idx, step in enumerate(steps, 1):
+        if end_at and step_idx > end_at:
+            break
+        # Skip AI steps - they were already handled in the re-collation phase above
+        if step.is_ai_step():
+            continue
+
+        step_name = str(step.function).split('.')[-1]
+        step_dir = get_step_directory(new_version_dir, step_idx, step_name)
+
+        # Get input from previous step's collated output
+        prev_step = steps[step_idx - 2]  # 0-indexed
+        prev_step_name = prev_step.prompt_name if prev_step.is_ai_step() else str(prev_step.function).split('.')[-1]
+        prev_step_dir = get_step_directory(new_version_dir, step_idx - 1, prev_step_name)
+        input_file = prev_step_dir / f"{prev_step_name}.json"
+
+        # Load input data
+        input_data = load_json(input_file)
+
+        # Execute formatting function
+        try:
+            # Get module context from pipeline name
+            output_data = run_formatting_step(
+                step=step,
+                input_data=input_data,
+                input_content=None,
+                module_number=module_number,
+                path_letter=path_letter,
+                project_root=project_root,
+                verbose=False  # Suppress detailed execution logs
+            )
+
+            # Save output
+            output_file = step_dir / f"{step_name}.json"
+            save_json(output_file, output_data)
+
+            if verbose:
+                print(f"  [STEP {step_idx}] Re-ran {step_name} on merged data")
+        except Exception as e:
+            if verbose:
+                print(f"  [STEP {step_idx}] ERROR re-running {step_name}: {e}")
+            raise
+
+    if verbose:
+        print(f"\n[TEMPLATE RERUN] Re-collation complete!")
+
+    return results
+
+
+def load_json(file_path):
+    """Load JSON file"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def save_json(file_path, data):
+    """Save JSON file"""
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def merge_and_collate_templates(step_dir, base_step_dir=None, rerun_template_ids=None):
+    """Smart merge: NEW regenerated templates + ALL other templates from base
+
+    For template reruns, this merges:
+    1. NEW items from regenerated templates (e.g., 4004.json from new version)
+    2. UNCHANGED items from all other templates (from base version's items directory)
+
+    This ensures the final output has ALL 108 items (or however many), not just the
+    regenerated ones.
+
+    Args:
+        step_dir: New version step directory path (e.g., v15/step_01_problem_generator)
+        base_step_dir: Base version step directory (e.g., v8/step_01_problem_generator)
+        rerun_template_ids: Set of template IDs that were regenerated (e.g., {'4004'})
+    """
+    step_path = Path(step_dir)
+    all_items = []
+    processed_template_ids = set()
+
+    # Build mappings from base version
+    base_template_start_ids = {}  # {template_id: first_id}
+    base_template_counts = {}     # {template_id: item_count}
+    max_base_id = 0
+
+    if base_step_dir:
+        base_items_file = Path(base_step_dir) / "problem_generator.json"
+        if base_items_file.exists():
+            base_items = load_json(base_items_file)
+
+            for item in base_items:
+                template_id = str(item.get('template_id', ''))
+                item_id = item.get('problem_instance_id', 0)
+
+                # Track first ID for each template
+                if template_id not in base_template_start_ids:
+                    base_template_start_ids[template_id] = item_id
+                    base_template_counts[template_id] = 0
+
+                # Count items per template
+                base_template_counts[template_id] += 1
+
+                # Track max ID for appending new items at the end
+                max_base_id = max(max_base_id, item_id)
+
+    # Counter for items that exceed original template count
+    next_overflow_id = max_base_id + 1
+
+    # 1. Load NEW template files from current version (only regenerated ones exist)
+    # Filter out validation files (*_validation.json)
+    template_files = sorted([f for f in glob(str(step_path / "items" / "[0-9]*.json")) if not Path(f).stem.endswith('_validation')])
+
+    for template_file in template_files:
+        items = load_json(template_file)
+        template_id = Path(template_file).stem
+        processed_template_ids.add(template_id)
+
+        # Convert to list if single item
+        if not isinstance(items, list):
+            items = [items]
+
+        is_new_template = template_id not in base_template_start_ids
+
+        if is_new_template:
+            # New template: insert into the gap between its numeric neighbors.
+            # E.g. template 11006 sits between 11005 and 11007 — use the IDs
+            # between where 11005 ends and where 11007 starts.
+            # Items that don't fit in the gap overflow to the end.
+            try:
+                new_tid_int = int(template_id)
+                base_tids_sorted = sorted(base_template_start_ids.keys(), key=lambda t: int(t))
+                prev_tid = next((t for t in reversed(base_tids_sorted) if int(t) < new_tid_int), None)
+                next_tid = next((t for t in base_tids_sorted if int(t) > new_tid_int), None)
+
+                if next_tid:
+                    # Anchor to next: place items ending right before next_tid starts.
+                    # This handles cases like 10009 being absent — rather than placing
+                    # 10010 right after 10008, we work backwards from 10011 so the new
+                    # items sit adjacent to their true successor.
+                    next_first_id = base_template_start_ids[next_tid]
+                    prev_last_id = (
+                        base_template_start_ids[prev_tid] + base_template_counts[prev_tid] - 1
+                        if prev_tid else 0
+                    )
+                    available_gap = next_first_id - prev_last_id - 1
+
+                    if available_gap > 0:
+                        n = len(items)
+                        # Right-align to next_tid; fall back to left edge if more items
+                        # than the gap can hold (overflow handles the rest)
+                        gap_start = max(prev_last_id + 1, next_first_id - n)
+                        gap_size = min(n, available_gap)
+                    else:
+                        gap_start = None
+                        gap_size = 0
+                else:
+                    gap_start = None
+                    gap_size = 0
+            except (ValueError, TypeError):
+                gap_start = None
+                gap_size = 0
+
+            for idx, item in enumerate(items):
+                if gap_start is not None and idx < gap_size:
+                    item['problem_instance_id'] = gap_start + idx
+                else:
+                    item['problem_instance_id'] = next_overflow_id
+                    next_overflow_id += 1
+                all_items.append(item)
+        else:
+            # Existing template: assign to original slot, overflow extras to end
+            start_id = base_template_start_ids[template_id]
+            original_count = base_template_counts[template_id]
+
+            for idx, item in enumerate(items):
+                if idx < original_count:
+                    # Within original count: assign to original slot
+                    # E.g., template 4004 items 0-2 get IDs 28, 29, 30
+                    item['problem_instance_id'] = start_id + idx
+                else:
+                    # Beyond original count: append to end of dataset
+                    # E.g., template 4004 items 3-4 get IDs 112, 113 (if max was 111)
+                    item['problem_instance_id'] = next_overflow_id
+                    next_overflow_id += 1
+                all_items.append(item)
+
+    # 2. Load ALL other templates from BASE version's COLLATED file
+    # (Individual template files have relative IDs, collated has absolute IDs)
+    if base_step_dir:
+        base_collated_file = Path(base_step_dir) / "problem_generator.json"
+        if base_collated_file.exists():
+            base_all_items = load_json(base_collated_file)
+
+            for item in base_all_items:
+                template_id = str(item.get('template_id', ''))
+
+                # Skip if this template was regenerated (already processed above)
+                if template_id in processed_template_ids:
+                    continue
+
+                # Add item with its original absolute ID
+                all_items.append(item)
+
+    # Sort by problem_instance_id to maintain stable ordering
+    all_items.sort(key=lambda x: x.get('problem_instance_id', 0))
+
+    # Save collated (IDs are already correct - don't renumber!)
+    save_json(step_path / "problem_generator.json", all_items)
+
+
+def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=None, rerun_template_ids=None):
+    """Smart merge: NEW regenerated items + ALL unchanged items from base
+
+    For steps 2+, this merges:
+    1. NEW items from new version's items/ directory (only regenerated items)
+    2. ALL other items from base version's items/ directory (unchanged items)
+
+    This ensures the final output has ALL items, not just regenerated ones.
+
+    Args:
+        step_dir: New version step directory path
+        step_name: Step name for output file
+        base_step_dir: Base version step directory (for merging unchanged items)
+        rerun_ids: Set of problem IDs that were regenerated (to skip from base)
+        rerun_template_ids: Set of template IDs being rerun (template rerun only).
+            When provided, ALL base items belonging to these templates are excluded,
+            even if their old problem_id positions differ from the newly generated ones.
+            This prevents stale old-position items from surviving the merge.
+    """
+    step_path = Path(step_dir)
+    all_items = []
+    loaded_ids = set()
+
+    # Check if items directory exists (AI steps have items/, formatting steps don't)
+    items_dir = step_path / "items"
+    if not items_dir.exists():
+        # This is a formatting step - no items to collate
+        return
+
+    # 1. Load NEW items from current version (only regenerated items exist here)
+    # Filter out validation files (*_validation.json)
+    item_files = sorted(
+        [f for f in glob(str(items_dir / "[0-9]*.json")) if not Path(f).stem.endswith('_validation')],
+        key=lambda x: int(Path(x).stem)
+    )
+
+    for item_file in item_files:
+        item = load_json(item_file)
+
+        # Handle both single items and lists of items
+        if isinstance(item, list):
+            for single_item in item:
+                # Track the actual item's ID (not filename)
+                item_problem_id = str(
+                    single_item.get('problem_id') or
+                    single_item.get('problem_instance_id') or
+                    (single_item.get('metadata', {}).get('problem_id') if isinstance(single_item.get('metadata'), dict) else None) or
+                    ''
+                )
+                if item_problem_id:
+                    loaded_ids.add(item_problem_id)
+                all_items.append(single_item)
+        else:
+            # Track the actual item's ID (not filename)
+            item_problem_id = str(
+                item.get('problem_id') or
+                item.get('problem_instance_id') or
+                (item.get('metadata', {}).get('problem_id') if isinstance(item.get('metadata'), dict) else None) or
+                ''
+            )
+            if item_problem_id:
+                loaded_ids.add(item_problem_id)
+            all_items.append(item)
+
+    # 2. Load ALL items from BASE version's COLLATED file (not items directory!)
+    # The items directory may be incomplete (for rerun versions), so use collated file
+    if base_step_dir:
+        base_collated_file = Path(base_step_dir) / f"{step_name}.json"
+        if base_collated_file.exists():
+            base_all_items = load_json(base_collated_file)
+
+            for item in base_all_items:
+                # Try multiple paths for ID (some steps nest it in metadata)
+                item_problem_id = str(
+                    item.get('problem_id') or
+                    item.get('problem_instance_id') or
+                    (item.get('metadata', {}).get('problem_id') if isinstance(item.get('metadata'), dict) else None) or
+                    ''
+                )
+
+                # Skip if already loaded from new version (successfully regenerated)
+                # NOTE: Do NOT skip items purely because they are in rerun_ids.
+                # If an item in rerun_ids is not in loaded_ids it means the fresh
+                # generation failed to produce it (e.g. due to a sequential-ID gap
+                # in step 1). Fall back to the base version so the item is not lost.
+                if item_problem_id in loaded_ids:
+                    continue
+
+                # Template rerun: skip ALL base items for rerun templates, even at
+                # old positions that differ from the newly generated IDs. This prevents
+                # stale items (e.g. 11001 at old positions 1-8 when new items are at
+                # 104-111) from surviving the merge.
+                if rerun_template_ids:
+                    item_tid = str(
+                        item.get('template_id') or
+                        (item.get('metadata', {}).get('template_id') if isinstance(item.get('metadata'), dict) else None) or
+                        ''
+                    )
+                    if item_tid in rerun_template_ids:
+                        continue
+
+                # Add item with its original ID
+                all_items.append(item)
+
+    # Sort by problem_id or problem_instance_id
+    all_items.sort(key=lambda x: x.get('problem_id', x.get('problem_instance_id', 0)))
+
+    # Save collated with step name
+    save_json(step_path / f"{step_name}.json", all_items)
+
+
+if __name__ == "__main__":
+    main()

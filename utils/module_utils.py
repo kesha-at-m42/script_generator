@@ -3,7 +3,7 @@ Utility functions for fetching data from modules.py
 Supports nested field access with dot notation
 """
 
-from inputs.modules.modules import MODULES
+from modules.modules import MODULES
 
 
 def get_module_field(module_number, field_path, required=True, default=None):

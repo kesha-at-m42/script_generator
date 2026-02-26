@@ -34,7 +34,7 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
     """
     # Construct path to problem_templates.json
     template_path = os.path.join(
-        "inputs", "modules", f"module{module_number}", "problem_templates.json"
+        "modules", f"module{module_number}", "problem_templates.json"
     )
 
     # Check if file exists
@@ -169,7 +169,7 @@ def get_no_of_steps(module_number, goal_id):
 def get_all_goal_templates(module_number):
     """Get all goal templates from a module's problem_templates.json."""
     template_path = os.path.join(
-        "inputs", "modules", f"module{module_number}", "problem_templates.json"
+        "modules", f"module{module_number}", "problem_templates.json"
     )
 
     if not os.path.exists(template_path):

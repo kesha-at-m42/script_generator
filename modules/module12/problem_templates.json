@@ -1,0 +1,718 @@
+[
+  {
+    "template_id": "12001",
+    "skill_id": "M12-01",
+    "skill": "Student can classify a single fraction as greater than, less than, or equal to 1/2 using a shaded bar",
+    "problem_type": "Student views a shaded bar showing a single fraction and selects whether it is greater than, less than, or equal to 1/2",
+    "workspace_description": "One shaded rectangle bar showing the target fraction. A benchmark line at 1/2 is visible. Three answer choices: 'Greater than 1/2', 'Less than 1/2', 'Equal to 1/2'.",
+    "prompt_examples": [
+      "Is this fraction greater than, less than, or equal to one-half?",
+      "Look at the bar. Is the shaded amount more than half, less than half, or exactly half?",
+      "Compare this fraction to the benchmark of one-half. Select the correct option.",
+      "Is this fraction to the right or to the left of the halfway point?"
+    ],
+    "action_description": "Student clicks one of three options",
+    "mastery_tier": ["confidence", "support", "baseline"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "confidence": {
+        "to_the_right_half": ["3/4", "2/4"],
+        "to_the_left_half": ["1/4", "1/6"],
+        "equal_to_half": ["2/4", "3/6"],
+        "note": "Large obvious denominators (2, 4, 6). Benchmark falls clearly at a tick mark. Visual difference is unambiguous."
+      },
+      "support": {
+        "to_the_right_half": ["4/6", "5/8", "3/5"],
+        "to_the_left_half": ["2/6", "2/8", "1/3"],
+        "equal_to_half": ["4/8", "5/10"]
+      },
+      "baseline": {
+        "to_the_right_half": ["7/10", "5/9", "3/4"],
+        "to_the_left_half": ["3/10", "2/7", "2/5"],
+        "equal_to_half": ["3/6"]
+      }
+    },
+    "correct_end_state": "Correct classification selected (to the right / to the left / equal to 1/2)",
+    "success_dialogue": [
+      "Right. More than half of the bar is shaded.",
+      "Correct. Less than half is shaded.",
+      "Yes. That fraction lands exactly at the halfway point.",
+      "The benchmark line makes it clear."
+    ],
+    "no_of_steps": 1,
+    "target_count": 11
+  },
+  {
+    "template_id": "12002",
+    "skill_id": "M12-01",
+    "skill": "Student can classify a single fraction as greater than or less than 1/2 using notation only",
+    "problem_type": "Student views a fraction in notation only and selects whether it is greater than or less than 1/2",
+    "workspace_description": "MathExpression shows a single fraction compared with 1/2: 'a/b' ? 1/2. No bar or number line visible. Three text choices: 'a/b is greater than 1/2', 'a/b is equal to 1/2', 'a/b is less than 1/2'. Fractions that equal 1/2 exactly are excluded from this template.",
+    "prompt_examples": [
+      "No visual this time. Is this fraction greater than or less than one-half?",
+      "Think: what is half of the denominator? Is the numerator more or less than that?",
+      "Is this fraction to the right or to the left of the benchmark of one-half?",
+      "Compare this fraction to one-half. Select the correct option."
+    ],
+    "action_description": "Student clicks one of three statements — 'a/b is greater than 1/2', 'a/b is equal to 1/2', or 'a/b is less than 1/2'",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "to_the_right_half": ["5/8", "3/5", "7/10", "5/9", "4/6", "7/12"],
+      "to the left_half": ["2/7", "3/10", "1/3", "3/8", "4/9", "2/5"]
+    },
+    "correct_end_state": "Correct classification selected",
+    "success_dialogue": [
+      "Right. Half of the denominator is less than the numerator, so it's to the right of one-half.",
+      "Correct. The numerator is less than half of the denominator.",
+      "Yes. That's to the right of the benchmark.",
+      "Half the denominator is the key number to check."
+    ],
+    "no_of_steps": 1,
+    "target_count": 6
+  },
+  {
+    "template_id": "12003",
+    "skill_id": "M12-02",
+    "skill": "Student can identify which of two close-to-1 fractions has less missing by comparing the unshaded portions of two mostly-shaded bars",
+    "problem_type": "Student views two bars each close to fully shaded and selects which has less missing, choosing from two missing-piece options",
+    "workspace_description": "Two rectangle bars, both with most intervals shaded, leaving one unshaded piece each. Two answer choices shown as the missing piece fractions (e.g., '1/8' and '1/6'). Student clicks the smaller missing piece option.",
+    "prompt_examples": [
+      "Look at what's missing from each bar. Which missing piece is smaller?",
+      "Both bars are almost full. Which has less missing?",
+      "Click the smaller missing piece.",
+      "Which fraction needs less to reach one whole?"
+    ],
+    "action_description": "Student clicks one of two missing-piece options",
+    "mastery_tier": ["support", "baseline"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["7/8", "5/6"],
+        ["8/9", "5/6"],
+        ["9/10", "7/8"],
+        ["5/6", "4/5"],
+        ["7/8", "6/7"]
+      ],
+      "answer_choices_shown_as": "The missing piece for each fraction (e.g., 7/8 missing → '1/8'; 5/6 missing → '1/6')",
+      "correct_option": "The missing piece from the fraction with more divisions (the visually smaller unshaded piece)"
+    },
+    "correct_end_state": "The smaller missing piece option selected",
+    "success_dialogue": [
+      "Right. That bar has less missing.",
+      "Correct. Less missing means it's closer to 1.",
+      "Yes. That's the smaller missing piece.",
+      "That's it. Less missing means closer to 1."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+  {
+    "template_id": "12004",
+    "skill_id": "M12-03",
+    "skill": "Student can select the greater fraction when fractions are on opposite sides of the 1/2 benchmark on stacked number lines",
+    "problem_type": "Student views two stacked number lines with one fraction clearly to the right and one clearly to the left of the 1/2 benchmark and selects the greater fraction",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Points pre-placed — one fraction on each line. Benchmark line visible at 1/2. Three answer choices shown: the two fractions and 1/2. Line order randomised at generation time.",
+    "prompt_examples": [
+      "Look at the benchmark line. Which fraction is greater?",
+      "One fraction is to the right of the benchmark, one is to the left. Which is greater?",
+      "Use the benchmark to compare. Click the greater fraction.",
+      "Which fraction has passed the halfway point?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["confidence", "support", "baseline"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "confidence": {
+        "fraction_pairs": [
+          ["3/4", "1/4"],
+          ["5/6", "1/6"],
+          ["3/4", "1/6"]
+        ],
+        "note": "One fraction far to the right of 1/2, one far to the left — large visual gap from benchmark. Answer is unambiguous."
+      },
+      "support": {
+        "fraction_pairs": [
+          ["3/4", "2/6"],
+          ["4/6", "2/5"],
+          ["5/8", "1/3"]
+        ]
+      },
+      "baseline": {
+        "fraction_pairs": [
+          ["7/10", "2/8"],
+          ["3/5", "2/7"],
+          ["5/9", "3/10"],
+          ["7/9", "1/4"]
+        ]
+      },
+      "pattern": "One fraction always to the right of 1/2, one always to the left — line order randomised at generation time"
+    },
+    "correct_end_state": "The fraction to the right of the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. That fraction is to the right of the benchmark.",
+      "Correct. The one past the halfway mark is greater.",
+      "Yes. To the right of the benchmark means greater than one-half."
+    ],
+    "no_of_steps": 1,
+    "target_count": 10
+  },
+  {
+    "template_id": "12005",
+    "skill_id": "M12-03",
+    "skill": "Student can select the greater fraction from stacked number lines when fractions are on opposite sides of 1/2 but closer to the benchmark",
+    "problem_type": "Student views two stacked number lines with harder fraction pairs and selects the greater fraction using the 1/2 benchmark",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Points pre-placed close to the 1/2 benchmark but on opposite sides. Benchmark line visible at 1/2. Three answer choices shown: the two fractions and 1/2.",
+    "prompt_examples": [
+      "Both fractions are close to the benchmark. Which one has passed it?",
+      "Use the benchmark. Which fraction is greater?",
+      "Check each fraction against one-half. Which is greater?",
+      "Which fraction is on the greater side of the benchmark?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["4/7", "3/7"],
+        ["5/9", "4/9"],
+        ["3/5", "2/5"],
+        ["5/8", "3/8"],
+        ["6/10", "4/10"],
+        ["4/6", "3/7"]
+      ],
+      "pattern": "One fraction just to the right of 1/2, one just to the left — less obvious than Template 12004"
+    },
+    "correct_end_state": "The fraction to the right of the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. Even close to the line, one is to the right and one is to the left.",
+      "Correct. That fraction has just passed the halfway point.",
+      "Yes. That's the one to the right of one-half."
+    ],
+    "no_of_steps": 1,
+    "target_count": 6
+  },
+  {
+    "template_id": "12006",
+    "skill_id": "M12-04",
+    "skill": "Student can select the greater fraction when both fractions are to the right of the 1/2 benchmark on stacked number lines, by comparing distances from the benchmark",
+    "problem_type": "Student views two stacked number lines with both fractions to the right of 1/2 and selects the fraction farther from the benchmark",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Both points placed to the right of the 1/2 benchmark, with one visibly farther from it. Benchmark line visible at 1/2. Three answer choices shown: the two fractions and 1/2.",
+    "prompt_examples": [
+      "Both fractions are to the right of the benchmark. Which is farther from it?",
+      "Both are past one-half. Which one is greater?",
+      "Look at the distance from the benchmark line. Which fraction is greater?",
+      "Both fractions passed the halfway point. Which went further?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["3/4", "2/3"],
+        ["5/6", "4/5"],
+        ["7/8", "4/6"],
+        ["5/7", "3/5"],
+        ["3/4", "3/5"]
+      ],
+      "pattern": "Both fractions to the right of 1/2; one is clearly farther from the benchmark"
+    },
+    "correct_end_state": "The fraction farther from the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. That fraction is farther to the right of the benchmark.",
+      "Correct. The greater distance from one-half means the greater fraction.",
+      "Yes. Farther from the benchmark means larger."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+  {
+    "template_id": "12001",
+    "skill_id": "M12-01",
+    "skill": "Student can classify a single fraction as greater than, less than, or equal to 1/2 using a shaded bar",
+    "problem_type": "Student views a shaded bar showing a single fraction and selects whether it is greater than, less than, or equal to 1/2",
+    "workspace_description": "One shaded rectangle bar showing the target fraction. A horizontal benchmark line at 1/2 is visible across the bar. Three answer choices: 'Greater than 1/2', 'Less than 1/2', 'Equal to 1/2'.",
+    "prompt_examples": [
+      "Is this fraction greater than, less than, or equal to one half?",
+      "Look at the bar. Is the shaded amount more than half, less than half, or exactly half?",
+      "Compare this fraction to the benchmark of one half. Select the correct option.",
+      "Is this fraction more than or less than the halfway point?"
+    ],
+    "action_description": "Student clicks one of three options",
+    "mastery_tier": ["confidence", "support", "baseline"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "confidence": {
+        "above_half": ["3/4", "2/4"],
+        "below_half": ["1/4", "1/6"],
+        "equal_to_half": ["2/4", "3/6"],
+        "note": "Large obvious denominators (2, 4, 6). Benchmark falls clearly at a tick mark. Visual difference is unambiguous."
+      },
+      "support": {
+        "above_half": ["4/6", "5/8", "3/5"],
+        "below_half": ["2/6", "2/8", "1/3"],
+        "equal_to_half": ["4/8", "5/10"]
+      },
+      "baseline": {
+        "above_half": ["7/10", "5/9", "3/4"],
+        "below_half": ["3/10", "2/7", "2/5"],
+        "equal_to_half": ["3/6"]
+      }
+    },
+    "correct_end_state": "Correct classification selected (above / below / equal to 1/2)",
+    "success_dialogue": [
+      "Right. More than half of the bar is shaded.",
+      "Correct. Less than half is shaded.",
+      "Yes. That fraction lands exactly at the halfway point.",
+      "The benchmark line makes it clear."
+    ],
+    "no_of_steps": 1,
+    "target_count": 11
+  },
+  {
+    "template_id": "12002",
+    "skill_id": "M12-01",
+    "skill": "Student can classify a single fraction as greater than or less than 1/2 using notation only",
+    "problem_type": "Student views a fraction in notation only and selects whether it is greater than or less than 1/2",
+    "workspace_description": "MathExpression shows a single fraction compared with 1/2: 'a/b' ? 1/2. No bar or number line visible. Three text choices: 'a/b is greater than 1/2', 'a/b is equal to 1/2', 'a/b is less than 1/2'. Fractions that equal 1/2 exactly are excluded from this template.",
+    "prompt_examples": [
+      "No visual this time. Is this fraction greater than or less than one half?",
+      "Think: what is half of the denominator? Is the numerator more or less than that?",
+      "Is this fraction more than or less than the benchmark of one half?",
+      "Compare this fraction to one half. Select the correct option."
+    ],
+    "action_description": "Student clicks one of three statements — 'a/b is greater than 1/2', 'a/b is equal to 1/2', or 'a/b is less than 1/2'",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "above_half": ["5/8", "3/5", "7/10", "5/9", "4/6", "7/12"],
+      "below_half": ["2/7", "3/10", "1/3", "3/8", "4/9", "2/5"]
+    },
+    "correct_end_state": "Correct classification selected",
+    "success_dialogue": [
+      "Right. Half of the denominator is less than the numerator, so it's above one half.",
+      "Correct. The numerator is less than half of the denominator.",
+      "Yes. That's above the benchmark.",
+      "Half the denominator is the key number to check."
+    ],
+    "no_of_steps": 1,
+    "target_count": 6
+  },
+  {
+    "template_id": "12003",
+    "skill_id": "M12-02",
+    "skill": "Student can identify which of two close-to-1 fractions has less missing by comparing the unshaded portions of two mostly-shaded bars",
+    "problem_type": "Student views two bars each close to fully shaded and selects which has less missing, choosing from two missing-piece options",
+    "workspace_description": "Two rectangle bars, both with most intervals shaded, leaving one unshaded piece each. Two answer choices shown as the missing piece fractions (e.g., '1/8' and '1/6'). Student clicks the smaller missing piece option.",
+    "prompt_examples": [
+      "Look at what's missing from each bar. Which missing piece is smaller?",
+      "Both bars are almost full. Which has less missing?",
+      "Click the smaller missing piece.",
+      "Which fraction needs less to reach one whole?"
+    ],
+    "action_description": "Student clicks one of two missing-piece options",
+    "mastery_tier": ["support", "baseline"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["7/8", "5/6"],
+        ["8/9", "5/6"],
+        ["9/10", "7/8"],
+        ["5/6", "4/5"],
+        ["7/8", "6/7"]
+      ],
+      "answer_choices_shown_as": "The missing piece for each fraction (e.g., 7/8 missing → '1/8'; 5/6 missing → '1/6')",
+      "correct_option": "The missing piece from the fraction with more divisions (the visually smaller unshaded piece)"
+    },
+    "correct_end_state": "The smaller missing piece option selected",
+    "success_dialogue": [
+      "Right. That bar has less missing.",
+      "Correct. Less missing means it's closer to 1.",
+      "Yes. That's the smaller missing piece.",
+      "That's it. Less missing means closer to 1."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+  {
+    "template_id": "12004",
+    "skill_id": "M12-03",
+    "skill": "Student can select the greater fraction when fractions are on opposite sides of the 1/2 benchmark on stacked number lines",
+    "problem_type": "Student views two stacked number lines with one fraction clearly above and one clearly below the 1/2 benchmark and selects the greater fraction",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Points pre-placed — one fraction on each line. A horizontal benchmark line at 1/2 crosses both number lines. Three answer choices shown: the two fractions and 1/2. Line order randomised at generation time.",
+    "prompt_examples": [
+      "Look at the benchmark line. Which fraction is greater?",
+      "One fraction is more than the benchmark, one is less. Which is greater?",
+      "Use the benchmark to compare. Click the greater fraction.",
+      "Which fraction has passed the halfway point?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["confidence", "support", "baseline"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "confidence": {
+        "fraction_pairs": [
+          ["3/4", "1/4"],
+          ["5/6", "1/6"],
+          ["3/4", "1/6"]
+        ],
+        "note": "One fraction far above 1/2, one far below — large visual gap from benchmark. Answer is unambiguous."
+      },
+      "support": {
+        "fraction_pairs": [
+          ["3/4", "2/6"],
+          ["4/6", "2/5"],
+          ["5/8", "1/3"]
+        ]
+      },
+      "baseline": {
+        "fraction_pairs": [
+          ["7/10", "2/8"],
+          ["3/5", "2/7"],
+          ["5/9", "3/10"],
+          ["7/9", "1/4"]
+        ]
+      },
+      "pattern": "One fraction always above 1/2, one always below — line order randomised at generation time"
+    },
+    "correct_end_state": "The fraction above the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. That fraction is more than the benchmark.",
+      "Correct. The one past the halfway mark is greater.",
+      "Yes. More than the benchmark means greater than one half."
+    ],
+    "no_of_steps": 1,
+    "target_count": 10
+  },
+  {
+    "template_id": "12005",
+    "skill_id": "M12-03",
+    "skill": "Student can select the greater fraction from stacked number lines when fractions are on opposite sides of 1/2 but closer to the benchmark",
+    "problem_type": "Student views two stacked number lines with harder fraction pairs and selects the greater fraction using the 1/2 benchmark",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Points pre-placed close to the 1/2 benchmark but on opposite sides. A horizontal benchmark line at 1/2 crosses both number lines. Three answer choices shown: the two fractions and 1/2.",
+    "prompt_examples": [
+      "Both fractions are close to the benchmark. Which one is more than it?",
+      "Use the benchmark. Which fraction is greater?",
+      "Check each fraction against one half. Which is greater?",
+      "Which fraction is more than the benchmark?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["4/7", "3/7"],
+        ["5/9", "4/9"],
+        ["3/5", "2/5"],
+        ["5/8", "3/8"],
+        ["6/10", "4/10"],
+        ["4/6", "3/7"]
+      ],
+      "pattern": "One fraction just above 1/2, one just below — less obvious than Template 12004"
+    },
+    "correct_end_state": "The fraction above the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. Even close to the line, one is more than it and one is less.",
+      "Correct. That fraction is more than the halfway point.",
+      "Yes. That's the one more than one half.",
+      "That's it."
+    ],
+    "no_of_steps": 1,
+    "target_count": 6
+  },
+  {
+    "template_id": "12006",
+    "skill_id": "M12-04",
+    "skill": "Student can select the greater fraction when both fractions are above the 1/2 benchmark on stacked number lines, by comparing distances from the benchmark",
+    "problem_type": "Student views two stacked number lines with both fractions above 1/2 and selects the fraction farther from the benchmark",
+    "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Both points placed to the right of the midpoint on each line, with one visibly further from the centre. A horizontal benchmark line at 1/2 crosses both number lines. Three answer choices shown: the two fractions and 1/2.",
+    "prompt_examples": [
+      "Both fractions are more than the benchmark. Which is further from it?",
+      "Both are more than one half. Which one is greater?",
+      "Look at the distance from the benchmark line. Which fraction is greater?",
+      "Both fractions are more than one half. Which went further?"
+    ],
+    "action_description": "Student clicks one fraction from three choices: the two fractions shown and 1/2",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["3/4", "2/3"],
+        ["5/6", "4/5"],
+        ["7/8", "4/6"],
+        ["5/7", "3/5"],
+        ["3/4", "3/5"]
+      ],
+      "pattern": "Both fractions above 1/2; one is clearly farther from the benchmark"
+    },
+    "correct_end_state": "The fraction farther from the 1/2 benchmark selected",
+    "success_dialogue": [
+      "Right. That fraction is further from the benchmark.",
+      "Correct. The greater distance from one half means the greater fraction.",
+      "Yes. Further from the benchmark means larger.",
+      "That's it."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+ {
+  "template_id": "12007",
+  "skill_id": "M12-04",
+  "skill": "Student can select the correct comparison symbol for two fractions both greater than 1/2, using stacked number lines without a benchmark line",
+  "problem_type": "Student views two stacked number lines with both fractions greater than 1/2 and selects the correct symbol to compare them — no benchmark line visible",
+  "workspace_description": "Two horizontal number lines stacked vertically, both 0–1 range, different denominators. Both points placed to the right of the midpoint on each line. No benchmark line visible — only 0 and 1 labeled. MathExpression shows 'a/b ? c/d'. Three symbol choices: <, =, >.",
+  "prompt_examples": [
+    "Both fractions are greater than one half. Select the correct symbol to compare them.",
+    "Look at where each fraction sits on its line. Which symbol goes between them?",
+    "No benchmark line this time. Select the symbol that compares these fractions.",
+    "Compare these two fractions. Select the correct symbol."
+  ],
+  "action_description": "Student clicks one symbol (<, =, >) from three choices",
+  "mastery_tier": ["stretch", "challenge"],
+  "mastery_verb": "compare",
+  "parameter_coverage": {
+    "fraction_pairs": [
+      ["3/4", "2/3"],
+      ["5/6", "4/5"],
+      ["5/7", "3/5"],
+      ["7/10", "4/6"]
+    ],
+    "pattern": "Both fractions greater than 1/2; one is visibly further along the number line"
+  },
+  "correct_end_state": "Correct symbol selected",
+  "success_dialogue": [
+    "Right. The fraction further along the line is greater.",
+    "Correct. Further from zero means greater.",
+    "Yes. That's the right symbol."
+  ],
+  "no_of_steps": 1,
+  "target_count": 4
+},
+  {
+    "template_id": "12008",
+    "skill_id": "M12-05",
+    "skill": "Student can select the greater fraction when both fractions are close to 1 by identifying which has less missing",
+    "problem_type": "Student views two bars both close to fully shaded and selects the greater fraction by reasoning about which has less missing",
+    "workspace_description": "Two rectangle bars both close to fully shaded, with one small unshaded piece each. Two answer choices shown. No 1/2 benchmark line — benchmark is 1.",
+    "prompt_examples": [
+      "Both fractions are close to 1. Which is greater?",
+      "Which fraction needs less to reach one whole?",
+      "Look at the missing pieces. Which fraction is closer to 1?",
+      "The fraction with less missing is greater. Which one is it?"
+    ],
+    "action_description": "Student clicks one fraction from two choices",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "compare",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["7/8", "5/6"],
+        ["8/9", "5/6"],
+        ["9/10", "7/8"],
+        ["6/7", "5/6"],
+        ["9/10", "8/9"]
+      ],
+      "correct_option": "Fraction with less missing (closer to 1)"
+    },
+    "correct_end_state": "The fraction with less missing (closer to 1) selected",
+    "success_dialogue": [
+      "Right. That fraction has less missing, so it's closer to 1.",
+      "Correct. Less missing means closer to one whole.",
+      "Yes. Less missing means greater.",
+      "That's it."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+  {
+    "template_id": "12009",
+    "skill_id": "M12-06",
+    "skill": "Student can select the correct symbol to express how a single fraction relates to 1/2",
+    "problem_type": "Student views a MathExpression showing 'a/b ___ 1/2' and selects the correct symbol",
+    "workspace_description": "MathExpression shows 'a/b ___ 1/2' with a blank for the symbol. A reference bar showing the fraction is visible at confidence and support tiers; not visible at baseline. Three symbol choices: <, =, >.",
+    "prompt_examples": [
+      "Select the symbol to compare this fraction to one-half.",
+      "Fill in the symbol. Is this fraction greater than, less than, or equal to one-half?",
+      "What symbol completes this comparison to the benchmark?",
+      "How does this fraction compare to one-half? Select the symbol."
+    ],
+    "action_description": "Student clicks one symbol (<, =, >) from three choices",
+    "mastery_tier": ["confidence", "support", "baseline"],
+    "mastery_verb": "identify",
+    "parameter_coverage": {
+      "confidence": {
+        "to_the_right_half": ["3/4", "1/1"],
+        "to_the_left_half": ["1/4", "1/6"],
+        "note": "Bar always visible. Small denominators with obvious position relative to 1/2. No equal-to-half at confidence — equivalence recognition is harder."
+      },
+      "support": {
+        "to_the_right_half": ["4/6", "5/8"],
+        "to_the_left_half": ["2/8", "1/3"],
+        "equal_to_half": ["3/6"]
+      },
+      "baseline": {
+        "to_the_right_half": ["5/9", "3/4"],
+        "to_the_left_half": ["3/10", "2/5"],
+        "equal_to_half": ["4/8"]
+      }
+    },
+    "correct_end_state": "Correct symbol selected",
+    "success_dialogue": [
+      "Right. That fraction is to the right of the benchmark.",
+      "Correct. Less than one-half.",
+      "Yes. That fraction equals one-half.",
+      "That's it."
+    ],
+    "no_of_steps": 1,
+    "target_count": 9
+  },
+  {
+    "template_id": "12010",
+    "skill_id": "M12-07",
+    "skill": "Student can complete a full 3-step symbolic justification for an unlike-denominator comparison using the 1/2 benchmark (opposite sides)",
+    "problem_type": "Student selects symbols for three sequential steps: (1) fraction A vs 1/2, (2) fraction B vs 1/2, (3) fraction A vs fraction B",
+    "workspace_description": {
+      "step_1": "MathExpression shows 'a/b ? 1/2' with a ? for the symbol. A number line showing fraction A is visible above the expression — line is divided into the denominator of fraction A, with a horizontal benchmark line at the halfway point. Three symbol choices: <, =, >.",
+      "step_2": "MathExpression shows 'c/d ? 1/2' with a blank for the symbol. A number line showing fraction B is visible above the expression — line is divided into the denominator of fraction B, with a horizontal benchmark line at the halfway point. Three symbol choices: <, =, >.",
+      "step_3": "MathExpression shows 'a/b ? c/d' with a blank for the symbol. Three symbol choices: <, =, >."
+    },
+    "prompt_examples": [
+      "Step 1: Is four-sixths greater than, less than, or equal to one-half? Step 2: Is two-fifths greater than, less than, or equal to one-half? Step 3: Now, compare four-sixths and two-fifths.",
+      "Step 1: Compare the first fraction to one-half. Step 2: Compare the second fraction to one-half. Step 3: Use both comparisons to write the final statement."
+    ],
+    "action_description": "Student clicks one symbol per step, working through three sequential selections. Each step unlocks only after the previous step is answered correctly.",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "apply",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["4/6", "2/5"],
+        ["7/10", "2/8"],
+        ["3/4", "1/3"],
+        ["5/8", "2/7"],
+        ["5/9", "3/10"]
+      ],
+      "pattern": "Fraction A greater than 1/2, fraction B less than 1/2 — clear benchmark split"
+    },
+    "correct_end_state": "All three symbols selected correctly in sequence",
+    "success_dialogue": [
+      "Right. One fraction is more than one half, one is less — so you know which is greater.",
+      "Correct. You compared each fraction to the benchmark and used both results."
+    ],
+    "no_of_steps": 3,
+    "target_count": 5
+  },
+  {
+    "template_id": "12011",
+    "skill_id": "M12-07",
+    "skill": "Student can complete a full 3-step symbolic justification for harder unlike-denominator pairs with no visual scaffolding",
+    "problem_type": "Student selects symbols for three sequential steps for harder fraction pairs, with no reference bar or number line at any step",
+    "workspace_description": {
+      "step_1": "MathExpression shows 'a/b ? 1/2' with a blank for the symbol. No bar or number line visible — fraction notation only. Three symbol choices: <, =, >.",
+      "step_2": "MathExpression shows 'c/d ? 1/2' with a blank for the symbol. No bar or number line visible — fraction notation only. Three symbol choices: <, =, >. ",
+      "step_3": "MathExpression shows 'a/b ? c/d' with a blank for the symbol. No bars or number lines visible. Three symbol choices: <, =, >."
+    },
+    "prompt_examples": [
+      "Step 1: Is four-sixths greater than, less than, or equal to one-half? Step 2: Is two-fifths greater than, less than, or equal to one-half? Step 3: Now, compare four-sixths and two-fifths.",
+      "Step 1: Compare the first fraction to one-half. Step 2: Compare the second fraction to one-half. Step 3: Use both comparisons to write the final statement."
+    ],
+    "action_description": "Student clicks one symbol per step, working through three sequential selections. Each step unlocks only after the previous step is answered correctly.",
+    "mastery_tier": ["stretch", "challenge"],
+    "mastery_verb": "apply",
+    "parameter_coverage": {
+      "fraction_pairs": [
+        ["7/9", "3/8"],
+        ["5/7", "2/9"],
+        ["6/10", "1/4"],
+        ["4/5", "3/7"]
+      ],
+      "pattern": "Fraction A greater than 1/2, fraction B less than 1/2 — less obvious than 12010, no visual"
+    },
+    "correct_end_state": "All three symbols selected correctly in sequence",
+    "success_dialogue": [
+      "Right. One fraction is more than one half, one is less — so you know which is greater.",
+      "Correct. Even without visual, you compared each fraction to the benchmark and used both results."
+    ],
+    "no_of_steps": 3,
+    "target_count": 4
+  },
+  {
+    "template_id": "12012",
+    "skill_id": "M12-08",
+    "skill": "Student can identify which of three comparison strategies applies to a given fraction pair",
+    "problem_type": "Student views a fraction pair and selects which strategy label applies: same-denominator, same-numerator, or benchmark",
+    "workspace_description": "Two unlabelled fraction bars with a MathExpression comparing the fraction pair with the correct symbol. Student selects one strategy from the options.",
+    "mcq_options": [
+      "Check for the same denominator, count the parts",
+      "Check for the same numerator, compare part sizes",
+      "Neither matches, use the benchmark"
+    ],
+    "prompt_examples": [
+      "Which strategy helps you compare this pair?",
+      "Look at the two fractions. What do you notice? Which strategy applies?",
+      "Which approach would you use to compare these fractions?"
+    ],
+    "action_description": "Student clicks one strategy from three options",
+    "mastery_tier": ["baseline", "stretch"],
+    "mastery_verb": "apply",
+    "parameter_coverage": {
+      "same_denom_pairs": [
+        ["3/7", "5/7"],
+        ["2/9", "7/9"]
+      ],
+      "same_numer_pairs": [
+        ["3/4", "3/8"],
+        ["2/5", "2/9"]
+      ],
+      "benchmark_pairs": [
+        ["4/6", "2/5"],
+        ["5/8", "1/3"],
+        ["3/4", "2/5"]
+      ]
+    },
+    "correct_end_state": "Correct strategy label selected",
+    "success_dialogue": [
+      "Right. Check for the same denominator, then count the parts.",
+      "Correct. Check for the same numerator, then compare piece sizes.",
+      "Yes, if neither numerator or denominator are same, use benchmark."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  },
+  {
+    "template_id": "12013",
+    "skill_id": "M12-08",
+    "skill": "Student can independently compare any fraction pair using the correct strategy, with visual support",
+    "problem_type": "Student views a fraction pair with visual bars (no strategy hint) and selects the correct comparison symbol",
+    "workspace_description": "Two mini bars with a MathExpression showing 'a/b ? c/d'. No strategy hint given. Three symbol choices: <, =, >. Mix of same-denom, same-numer, and unlike-denominator pairs across problems.",
+    "prompt_examples": [
+      "Compare these fractions. Select the correct symbol.",
+      "Which symbol goes between these fractions?",
+      "Use whatever strategy fits. Select the correct symbol.",
+      "Compare these two fractions."
+    ],
+    "action_description": "Student clicks one symbol (<, =, >) from three choices",
+    "mastery_tier": ["stretch", "challenge"],
+    "mastery_verb": "apply",
+    "parameter_coverage": {
+      "same_denom_pairs": [
+        ["4/9", "7/9"]
+      ],
+      "same_numer_pairs": [
+        ["3/5", "3/8"]
+      ],
+      "benchmark_pairs": [
+        ["4/6", "1/3"],
+        ["7/10", "3/8"],
+        ["3/4", "2/5"]
+      ]
+    },
+    "correct_end_state": "Correct symbol selected using appropriate strategy",
+    "success_dialogue": [
+      "Right. You chose the right strategy and compared correctly.",
+      "Correct. That's the right symbol.",
+      "Yes. You identified what matched and applied the right approach.",
+      "That's it."
+    ],
+    "no_of_steps": 1,
+    "target_count": 5
+  }
+]

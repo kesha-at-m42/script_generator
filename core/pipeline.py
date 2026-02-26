@@ -10,6 +10,33 @@ from pathlib import Path
 from typing import List, Dict, Callable, Union
 import sys
 import importlib
+import shutil
+
+
+class _TeeStream:
+    """Write to both the original stream and a log file simultaneously."""
+
+    def __init__(self, original, log_file):
+        self._original = original
+        self._log = log_file
+
+    def write(self, data):
+        self._original.write(data)
+        try:
+            self._log.write(data)
+            self._log.flush()
+        except Exception:
+            pass
+
+    def flush(self):
+        self._original.flush()
+        try:
+            self._log.flush()
+        except Exception:
+            pass
+
+    def __getattr__(self, attr):
+        return getattr(self._original, attr)
 
 # Add core directory to path
 core_dir = Path(__file__).parent
@@ -17,13 +44,38 @@ if str(core_dir) not in sys.path:
     sys.path.insert(0, str(core_dir))
 
 from prompt_builder import PromptBuilderV2
+from path_manager import get_project_paths, get_project_root, get_template_path, ensure_dir
 
-# Add utils directory to path for json_utils
-utils_dir = Path(__file__).parent.parent / "utils"
+# Add utils directory to path for json_utils and template_utils
+paths = get_project_paths()
+utils_dir = paths['utils']
 if str(utils_dir) not in sys.path:
     sys.path.insert(0, str(utils_dir))
 
 from json_utils import extract_json, parse_json
+from template_utils import get_template_by_id
+
+# Import refactored modules
+from path_manager import get_step_directory, get_step_output_paths, resolve_input_path
+from version_manager import (
+    get_next_version,
+    get_latest_version,  # Export for rerun.py
+    create_version_directory,
+    update_latest_symlink,
+    save_metadata
+)
+from batch_processor import BatchProcessor
+from pipeline_executor import flatten_dict, run_formatting_step
+from output_validator import validate_ai_output_structure
+
+# Re-export for external use
+__all__ = [
+    'PipelineControl',
+    'Step',
+    'run_pipeline',
+    'run_single_step',
+    'get_latest_version'  # For rerun.py
+]
 
 import time
 
@@ -75,7 +127,17 @@ class Step:
         output_file: str = None,
         function: Union[str, Callable] = None,
         function_args: Dict = None,
-        model: str = None
+        model: str = None,
+        # Batch processing parameters
+        batch_mode: bool = False,
+        batch_id_field: str = None,
+        batch_output_id_field: str = None,
+        batch_id_start: int = 1,
+        batch_skip_existing: bool = False,
+        batch_only_items: List[str] = None,
+        batch_skip_items: List[str] = None,
+        batch_stop_on_error: bool = False,
+        stop_on_validation_failure: bool = True
     ):
         """
         Args:
@@ -91,6 +153,17 @@ class Step:
             model: Claude model to use for AI steps (e.g., "claude-opus-4-5-20251101", "claude-sonnet-4-5-20250929").
                    If not specified, uses the default model from ClaudeClient.
 
+            # Batch processing
+            batch_mode: Enable item-by-item processing of input array
+            batch_id_field: Field from input items to use as ID (e.g., "template_id")
+            batch_output_id_field: Add sequential ID to output items (e.g., "interaction_id")
+            batch_id_start: Starting number for sequential IDs (default: 1)
+            batch_skip_existing: Skip items that already have outputs (resume mode)
+            batch_only_items: Only process these item IDs (list of strings)
+            batch_skip_items: Skip these item IDs (list of strings)
+            batch_stop_on_error: Stop pipeline if any item fails (default: False, continue)
+            stop_on_validation_failure: Stop pipeline if validation fails (default: True, stop)
+
         Note: Either prompt_name OR function must be specified, not both.
         """
         self.prompt_name = prompt_name
@@ -100,6 +173,17 @@ class Step:
         self.function = function
         self.function_args = function_args or {}
         self.model = model
+
+        # Batch processing
+        self.batch_mode = batch_mode
+        self.batch_id_field = batch_id_field
+        self.batch_output_id_field = batch_output_id_field
+        self.batch_id_start = batch_id_start
+        self.batch_skip_existing = batch_skip_existing
+        self.batch_only_items = batch_only_items or []
+        self.batch_skip_items = batch_skip_items or []
+        self.batch_stop_on_error = batch_stop_on_error
+        self.stop_on_validation_failure = stop_on_validation_failure
 
         # Validation
         if prompt_name and function:
@@ -116,6 +200,87 @@ class Step:
         return self.function is not None
 
 
+# =============================================================================
+# STEP RANGE HELPERS
+# =============================================================================
+
+def normalize_step_reference(step_ref: Union[int, str], steps: List[Step]) -> int:
+    """Convert step number or name to 1-indexed integer
+
+    Args:
+        step_ref: Step reference (int index or string name)
+        steps: List of Step objects
+
+    Returns:
+        1-indexed step number
+
+    Raises:
+        ValueError: If step name not found
+    """
+    if isinstance(step_ref, int):
+        return step_ref
+
+    # Find by name
+    for i, step in enumerate(steps, 1):
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+        if step_name == step_ref:
+            return i
+
+    # Not found - provide suggestions
+    available = [f"  {i}. {s.prompt_name if s.is_ai_step() else str(s.function).split('.')[-1]}"
+                 for i, s in enumerate(steps, 1)]
+    raise ValueError(
+        f"Step '{step_ref}' not found.\nAvailable steps:\n" + "\n".join(available)
+    )
+
+
+def validate_step_index(idx: int, total_steps: int):
+    """Validate step index is in valid range
+
+    Args:
+        idx: Step index to validate
+        total_steps: Total number of steps
+
+    Raises:
+        ValueError: If index is out of range
+    """
+    if idx < 1:
+        raise ValueError(f"Step index must be >= 1, got {idx}")
+    if idx > total_steps:
+        raise ValueError(f"Step index {idx} exceeds total steps ({total_steps})")
+
+
+def validate_base_version_outputs(base_dir: Path, steps: List[Step],
+                                  start_idx: int, end_idx: int):
+    """Validate base version has outputs for specified step range
+
+    Args:
+        base_dir: Base version directory path
+        steps: List of Step objects
+        start_idx: First step index to check (1-indexed)
+        end_idx: Last step index to check (1-indexed)
+
+    Raises:
+        FileNotFoundError: If any required outputs are missing
+    """
+    missing = []
+    for i in range(start_idx, end_idx + 1):
+        step = steps[i - 1]
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+        step_dir = get_step_directory(base_dir, i, step_name)
+        step_paths = get_step_output_paths(step_dir, step_name, step.batch_mode)
+
+        if not step_paths['main_output'].exists():
+            missing.append(f"Step {i} ({step_name}): {step_paths['main_output']}")
+
+    if missing:
+        raise FileNotFoundError(
+            f"Base version missing required outputs:\n  " + "\n  ".join(missing)
+        )
+
+
+
+
 def run_pipeline(
       steps: List[Step],
       pipeline_name: str = None,
@@ -126,20 +291,39 @@ def run_pipeline(
       verbose: bool = True,
       parse_json_output: bool = True,
       control: PipelineControl = None,
-      interactive: bool = False
+      interactive: bool = False,
+      base_version: str = None,
+      rerun_items: List[str] = None,
+      start_from_step: Union[int, str] = None,
+      end_at_step: Union[int, str] = None,
+      pipeline_status: str = None,
+      notes: str = None,
+      template_filename: str = "problem_templates.json",
+      reuse_version_dir: Path = None
   ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
     Args:
         steps: List of Step objects to execute (can be AI or formatting steps)
+        pipeline_name: Name for the pipeline (enables versioning: outputs/pipeline_name/v0, v1...)
         initial_variables: Variables available to all steps
         module_number: Module number for context (automatically passed to formatting steps)
         path_letter: Path letter for context (automatically passed to formatting steps)
-        output_dir: Directory for output files (default: outputs/pipeline_TIMESTAMP)
+        output_dir: Directory for output files (overrides versioning if specified)
         verbose: Enable verbose logging
         parse_json_output: Enable JSON extraction and formatting for AI steps (default: True)
         control: Optional PipelineControl object for pause/stop functionality
         interactive: Enable step-by-step confirmation before each step (default: False)
+        base_version: Base version for reruns (e.g., "v0"). Automatically uses latest if None.
+        rerun_items: List of item IDs to rerun (enables rerun mode)
+        start_from_step: Skip steps 1 through N-1, start from step N (int or step name)
+        end_at_step: Stop after step N (int or step name). Use with start_from_step for ranges.
+        pipeline_status: Status/maturity label (e.g., "alpha", "beta", "rc", "final", "deprecated")
+        notes: Optional notes about this version (e.g., "Fixed prompt for template 4002")
+        template_filename: Template filename for template lookup (default: "problem_templates_v2.json")
+                          Path will be constructed as: modules/module{module_number}/{template_filename}
+        reuse_version_dir: If set, write into this existing directory instead of creating a new version.
+                           Skips version creation and skipped-step copying. Console output is appended.
 
     Returns:
         Dict with final_output and metadata
@@ -147,29 +331,191 @@ def run_pipeline(
     if initial_variables is None:
         initial_variables = {}
 
-    # Create output directory with date-based organization
+    # Initialize metadata
+    start_time = datetime.now()
+    metadata = {
+        "timestamp": start_time.isoformat(),
+        "pipeline_name": pipeline_name,
+        "module_number": module_number,
+        "path_letter": path_letter,
+        "pipeline_status": pipeline_status or "draft",  # Default to "draft"
+        "notes": notes or "",
+        "logs": [],
+        "stats": {}
+    }
+
+    # Normalize and validate step range
+    start_idx = 1  # default: start from step 1
+    end_idx = len(steps)  # default: run through last step
+
+    if start_from_step is not None:
+        # Auto-detect base_version if not provided
+        if base_version is None and pipeline_name:
+            full_pipeline_name = pipeline_name
+            if module_number is not None:
+                full_pipeline_name += f"_module_{module_number}"
+            if path_letter is not None:
+                full_pipeline_name += f"_path_{path_letter.lower()}"
+
+            outputs_dir = get_project_paths()['outputs']
+            pipeline_dir = outputs_dir / full_pipeline_name
+            base_version = get_latest_version(pipeline_dir)
+
+            if not base_version:
+                raise ValueError(
+                    f"start_from_step requires a base version, but no versions found for '{full_pipeline_name}'. "
+                    f"Run the full pipeline first."
+                )
+
+        start_idx = normalize_step_reference(start_from_step, steps)
+        validate_step_index(start_idx, len(steps))
+
+    if end_at_step is not None:
+        end_idx = normalize_step_reference(end_at_step, steps)
+        validate_step_index(end_idx, len(steps))
+
+        if end_idx < start_idx:
+            raise ValueError(f"end_at_step ({end_idx}) cannot be before start_from_step ({start_idx})")
+
+    # Create output directory
     if output_dir is None:
-        now = datetime.now()
-        date_folder = now.strftime("%Y-%m-%d")
-        time_str = now.strftime("%H%M%S")
-
         if pipeline_name:
-            dir_name = f"{pipeline_name}_{time_str}"
+            # Version-based structure: outputs/pipeline_name_module_X_path_Y/v0, v1, etc.
+            # Build full pipeline name for directory lookup
+            full_pipeline_name = pipeline_name
+            if module_number is not None:
+                full_pipeline_name += f"_module_{module_number}"
+            if path_letter is not None:
+                full_pipeline_name += f"_path_{path_letter.lower()}"
+
+            if base_version is None and rerun_items:
+                # Auto-use latest version for reruns
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / full_pipeline_name
+                base_version = get_latest_version(pipeline_dir)
+
+            if reuse_version_dir:
+                # Reuse an existing version directory (e.g. Phase 2 of a template rerun).
+                # Skips version creation and skipped-step copying — the caller has already
+                # seeded the directory with the appropriate step outputs.
+                output_dir_path = reuse_version_dir
+                version_str = reuse_version_dir.name
+
+                # Load existing metadata so Phase 1 fields (timestamp, base_version, etc.) are preserved
+                existing_meta_file = reuse_version_dir / 'metadata.json'
+                if existing_meta_file.exists():
+                    import json as _json
+                    with open(existing_meta_file, 'r', encoding='utf-8') as _f:
+                        existing_meta = _json.load(_f)
+                    metadata.update(existing_meta)
+
+                metadata["version"] = version_str
+                metadata["base_version"] = base_version
+                metadata["full_pipeline_name"] = full_pipeline_name
+                metadata["mode"] = "rerun"
+                metadata.pop("step_range", None)
+                metadata.pop("skipped_steps", None)
+                metadata["executed_steps"] = sorted(set(
+                    metadata.get("executed_steps", []) + list(range(start_idx, end_idx + 1))
+                ))
+            else:
+                version_dir, version_str, is_rerun, full_pipeline_name = create_version_directory(
+                    pipeline_name, module_number, path_letter, base_version
+                )
+                output_dir_path = version_dir
+
+                metadata["version"] = version_str
+                metadata["base_version"] = base_version
+
+                # Determine mode
+                if start_idx > 1 or end_idx < len(steps):
+                    metadata["mode"] = "partial_rerun"
+                    metadata["step_range"] = f"{start_idx}-{end_idx}"
+                    metadata["skipped_steps"] = list(range(1, start_idx)) + list(range(end_idx + 1, len(steps) + 1))
+                    metadata["executed_steps"] = list(range(start_idx, end_idx + 1))
+                elif base_version:
+                    metadata["mode"] = "rerun"
+                else:
+                    metadata["mode"] = "initial"
+
+                metadata["full_pipeline_name"] = full_pipeline_name
+
+                # Validate base version has outputs for skipped steps
+                if start_idx > 1:
+                    outputs_dir = get_project_paths()['outputs']
+                    pipeline_dir = outputs_dir / full_pipeline_name
+                    base_version_dir = pipeline_dir / base_version
+                    validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
+
+                    # Copy skipped step outputs from base version to new version
+                    if verbose:
+                        print(f"\n{'='*70}")
+                        print(f"COPYING SKIPPED STEPS FROM BASE VERSION")
+                        print(f"{'='*70}")
+
+                    for skip_step_num in range(1, start_idx):
+                        skip_step = steps[skip_step_num - 1]
+                        skip_step_name = skip_step.prompt_name if skip_step.is_ai_step() else str(skip_step.function).split('.')[-1]
+
+                        # Source: base version step directory
+                        base_step_dir = get_step_directory(base_version_dir, skip_step_num, skip_step_name)
+
+                        # Destination: new version step directory
+                        new_step_dir = get_step_directory(output_dir_path, skip_step_num, skip_step_name)
+
+                        # Copy entire step directory
+                        if base_step_dir.exists():
+                            if verbose:
+                                print(f"  [COPY] Step {skip_step_num} ({skip_step_name})")
+                                print(f"         From: {base_step_dir.relative_to(get_project_paths()['outputs'])}")
+                                print(f"         To:   {new_step_dir.relative_to(get_project_paths()['outputs'])}")
+
+                            # Use copytree with dirs_exist_ok=True to copy directory
+                            shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
+                        else:
+                            # This should not happen due to validation, but handle gracefully
+                            print(f"  [WARNING] Base step directory not found: {base_step_dir}")
+
+            if verbose:
+                print(f"\n{'='*70}")
+                print(f"PIPELINE: {full_pipeline_name}")
+                print(f"Version: {version_str}" + (f" (rerun from {base_version})" if base_version else ""))
+                if start_idx > 1 or end_idx < len(steps):
+                    print(f"Step Range: {start_idx}-{end_idx} (executing {end_idx - start_idx + 1} of {len(steps)} steps)")
+                print(f"Status: {metadata['pipeline_status']}")
+                if metadata.get('notes'):
+                    print(f"Notes: {metadata['notes']}")
+                print(f"{'='*70}")
         else:
+            # Legacy date-based organization
+            now = datetime.now()
+            date_folder = now.strftime("%Y-%m-%d")
+            time_str = now.strftime("%H%M%S")
             dir_name = f"pipeline_{time_str}"
+            output_dir = f"outputs/{date_folder}/{dir_name}"
+            output_dir_path = ensure_dir(Path(output_dir))
+    else:
+        output_dir_path = ensure_dir(Path(output_dir))
 
-        output_dir = f"outputs/{date_folder}/{dir_name}"
-
-    output_dir_path = Path(output_dir)
-    output_dir_path.mkdir(parents=True, exist_ok=True)
-
-    prompts_dir = output_dir_path / "prompts"
-    prompts_dir.mkdir(exist_ok=True)
+    # Tee all console output to console.txt in the output directory.
+    # _TeeStream flushes after every write so output is preserved even on crash/early stop.
+    _console_log_file = open(output_dir_path / "console.txt", 'a' if reuse_version_dir else 'w', encoding='utf-8')
+    _orig_stdout = sys.stdout
+    _orig_stderr = sys.stderr
+    sys.stdout = _TeeStream(sys.stdout, _console_log_file)
+    sys.stderr = _TeeStream(sys.stderr, _console_log_file)
 
     builder = PromptBuilderV2(module_number, path_letter, verbose)
 
     # Project root for path resolution
-    project_root = Path(__file__).parent.parent
+    project_root = get_project_root()
+
+    # Construct template path for template lookup
+    template_path = None
+    if module_number is not None and template_filename:
+        template_path = get_template_path(module_number, template_filename)
+        if verbose and template_path.exists():
+            print(f"  [TEMPLATES] Using: {template_path.relative_to(project_root)}")
 
     last_output = None
     last_output_file = None
@@ -184,16 +530,35 @@ def run_pipeline(
         print(f"{'='*70}")
 
     for i, step in enumerate(steps, 1):
+        step_type = "AI" if step.is_ai_step() else "FORMATTING"
+        step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
+
+        # Skip steps outside the execution range
+        if i < start_idx or i > end_idx:
+            if verbose:
+                print(f"\n[STEP {i}/{len(steps)}] [{step_type}] {step_name}")
+                print(f"  [SKIP] Outside execution range ({start_idx}-{end_idx})")
+            continue
+
         # Check for pause/stop
         if control:
             control.check_and_wait()
             control.update_status(f"Running step {i}/{len(steps)}: {step_name}")
 
-        step_type = "AI" if step.is_ai_step() else "FORMATTING"
-        step_name = step.prompt_name if step.is_ai_step() else str(step.function)
+        # Create step directory and get paths
+        step_dir = get_step_directory(output_dir_path, i, step_name)
+        step_paths = get_step_output_paths(step_dir, step_name, step.batch_mode)
+
+        # Create directories
+        ensure_dir(step_dir)
+        if step_paths['items_dir']:
+            ensure_dir(step_paths['items_dir'])
+        if step_paths['prompts_dir']:
+            ensure_dir(step_paths['prompts_dir'])
 
         if verbose:
             print(f"\n[STEP {i}/{len(steps)}] [{step_type}] {step_name}")
+            print(f"  [DIR] {step_dir.relative_to(output_dir_path)}")
 
 
         # Interactive mode: Ask for confirmation
@@ -232,23 +597,78 @@ def run_pipeline(
         step_vars = initial_variables.copy()
         step_vars.update(step.variables)
 
-        # Auto-chain: If input_file is None, use previous step's output_file
+        # Auto-chain: If input_file is None or empty, use previous step's main output
         input_file = step.input_file
-        if input_file is None and last_output_file is not None:
-            input_file = last_output_file
-            if verbose:
-                print(f"  [AUTO-CHAIN] Using previous output: {input_file}")
+
+        # Substitute variables in input_file path (e.g., module{module_number})
+        if input_file and module_number is not None and path_letter:
+            input_file = input_file.replace("{module_number}", str(module_number))
+            input_file = input_file.replace("{path_letter}", path_letter.lower())
+
+        # Auto-chaining logic
+        if (input_file is None or input_file == "") and i > 1:
+            # Get previous step's output
+            prev_step = steps[i-2]  # i is 1-indexed
+            prev_step_name = prev_step.prompt_name if prev_step.is_ai_step() else str(prev_step.function).split('.')[-1]
+
+            # If this is first executed step in partial rerun, load from base version
+            if i == start_idx and start_idx > 1:
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                prev_step_dir = get_step_directory(base_version_dir, i-1, prev_step_name)
+                prev_step_paths = get_step_output_paths(prev_step_dir, prev_step_name, prev_step.batch_mode)
+                input_file = str(prev_step_paths['main_output'])  # Use absolute path
+
+                if verbose:
+                    rel_path = prev_step_paths['main_output'].relative_to(base_version_dir)
+                    print(f"  [AUTO-CHAIN] Using base version: {base_version}/{rel_path}")
+            else:
+                # Normal auto-chaining from current version
+                prev_step_dir = get_step_directory(output_dir_path, i-1, prev_step_name)
+                prev_step_paths = get_step_output_paths(prev_step_dir, prev_step_name, prev_step.batch_mode)
+                input_file = str(prev_step_paths['main_output'].relative_to(output_dir_path))
+
+                if verbose:
+                    print(f"  [AUTO-CHAIN] Using previous step output: {input_file}")
 
         # Load input file if specified
         input_content = None
         input_data = None
         if input_file:
-            input_path = _resolve_input_path(input_file, output_dir_path, project_root)
+            # For partial reruns with explicit input, resolve from base version if first step
+            if i == start_idx and start_idx > 1 and not Path(input_file).is_absolute():
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                input_path = resolve_input_path(
+                    input_file,
+                    output_dir=base_version_dir,  # Use base version for resolution
+                    module_number=module_number,
+                    path_letter=path_letter
+                )
+            else:
+                # Normal resolution from current version
+                input_path = resolve_input_path(
+                    input_file,
+                    output_dir=output_dir_path,
+                    module_number=module_number,
+                    path_letter=path_letter
+                )
+
             if verbose:
                 print(f"  [LOAD] Reading: {input_path}")
             try:
+                # Debug: Check file size before reading
+                file_size = input_path.stat().st_size
+                if verbose:
+                    print(f"  [DEBUG] File size: {file_size} bytes")
+
                 with open(input_path, 'r', encoding='utf-8') as f:
                     input_content = f.read()
+
+                if verbose:
+                    print(f"  [DEBUG] Read {len(input_content)} chars from {file_size} bytes")
 
                 # For formatting steps, try to parse as JSON
                 if step.is_formatting_step():
@@ -267,32 +687,539 @@ def run_pipeline(
                 print(f"  [ERROR] Failed to load input file: {e}")
                 raise
 
-        # Execute the step
-        if step.is_ai_step():
-            # AI step - call Claude
-            # Save prompt to prompts folder
-            prompt_save_path = prompts_dir / f"{i:02d}_{step.prompt_name}.md"
+        # Execute the step (batch or non-batch mode)
+        if step.batch_mode:
+            # BATCH MODE: Process input array item-by-item
+            if verbose:
+                print(f"  [BATCH] Processing items individually...")
 
-            output = builder.run(
-                prompt_name=step.prompt_name,
-                variables=step_vars,
-                input_content=input_content,
-                model=step.model,
-                save_prompt_to=str(prompt_save_path)
+            # Parse input as JSON array
+            try:
+                items = json.loads(input_content) if input_content else []
+                if not isinstance(items, list):
+                    raise ValueError("Batch mode requires input to be a JSON array")
+                if verbose:
+                    print(f"  [DEBUG] Parsed {len(items)} items from JSON array")
+            except Exception as e:
+                print(f"  [ERROR] Failed to parse input as JSON array: {e}")
+                raise
+
+            # Calculate base version directory for rerun mode
+            base_step_dir = None
+            if base_version and rerun_items:
+                outputs_dir = get_project_paths()['outputs']
+                pipeline_dir = outputs_dir / metadata['full_pipeline_name']
+                base_version_dir = pipeline_dir / base_version
+                base_step_dir = get_step_directory(base_version_dir, i, step_name)
+
+            # Determine which items to process
+            # If step has explicit batch_only_items set, use that (takes priority)
+            # Otherwise, use rerun_items if available
+            # This allows step 1 (problem_generator) to use template IDs while other steps use problem instance IDs
+            batch_filter = step.batch_only_items if step.batch_only_items else rerun_items
+
+            # Initialize batch processor
+            batch_proc = BatchProcessor(
+                items=items,
+                batch_id_field=step.batch_id_field,
+                batch_id_start=step.batch_id_start,
+                batch_output_id_field=step.batch_output_id_field,
+                batch_only_items=batch_filter,
+                batch_skip_items=step.batch_skip_items,
+                batch_skip_existing=step.batch_skip_existing,
+                items_dir=step_paths['items_dir'],
+                base_version_dir=base_step_dir
             )
-            last_output = output
+
+            if batch_filter and verbose:
+                if step.batch_only_items:
+                    print(f"  [BATCH] Processing only: {batch_filter}")
+                elif rerun_items:
+                    print(f"  [RERUN] Processing only: {batch_filter}")
+
+            total_items = len(items)
+
+            for item_idx, item in enumerate(items, 1):
+                # Get item ID (with composite key support for multi-step items)
+                if step.batch_id_field:
+                    base_id = str(item.get(step.batch_id_field, item_idx))
+                    # For multi-step items, append step_id to create unique file names
+                    if 'step_id' in item:
+                        item_id = f"{base_id}_{item['step_id']}"
+                    else:
+                        item_id = base_id
+                else:
+                    item_id = str(item_idx)
+
+                # Check if should skip
+                should_skip, skip_reason = batch_proc.should_skip_item(item, item_idx)
+                if should_skip:
+                    if verbose:
+                        print(f"  [SKIP {item_idx}/{total_items}] {item_id} ({skip_reason})")
+                    batch_proc.increment_skipped()
+                    continue
+
+                # Process this item
+                if verbose:
+                    print(f"\n  [BATCH {item_idx}/{total_items}] {item_id}")
+
+                try:
+                    # Flatten item to variables
+                    item_vars = flatten_dict(item)
+                    # Keep both original and flattened versions for prefill compatibility
+                    merged_vars = {**step_vars, **item, **item_vars}
+
+                    if verbose:
+                        # Show some key variables
+                        var_preview = {k: v for k, v in list(item_vars.items())[:3]}
+                        print(f"    Variables: {var_preview}...")
+
+                    # Execute step for this item
+                    if step.is_ai_step():
+                        # AI step - call Claude
+                        prompt_save_path = step_paths['prompts_dir'] / f"{item_id}.md"
+
+                        # Load prompt to check for template_ref
+                        prompt = builder._load_prompt(step.prompt_name)
+
+                        # Always pass entire item as input JSON
+                        item_input = json.dumps(item, indent=2, ensure_ascii=False)
+
+                        # Add full input JSON as variable for prefill support
+                        merged_vars['__input__'] = item_input
+
+                        # Template lookup: If template_ref exists, fetch template fields as variables
+                        if prompt.template_ref and len(prompt.template_ref) > 0:
+                            template_id = item.get("template_id")
+                            if template_id and template_path:
+                                try:
+                                    # Fetch template using constructed template_path
+                                    template = get_template_by_id(str(template_path), template_id)
+                                    # Extract specified fields and add to variables
+                                    template_vars = {k: template[k] for k in prompt.template_ref.keys()
+                                                   if k in template}
+                                    merged_vars.update(template_vars)
+                                    if verbose:
+                                        print(f"    [TEMPLATE] Loaded {template_id}: {list(template_vars.keys())}")
+                                except Exception as e:
+                                    if verbose:
+                                        print(f"    [WARN] Template lookup failed for {template_id}: {e}")
+                            elif not template_id and verbose:
+                                print(f"    [WARN] template_ref specified but no template_id found in item")
+                            elif not template_path and verbose:
+                                print(f"    [WARN] template_ref specified but no template_path configured")
+
+                        # Validation schema (used for all validations)
+                        VALIDATION_SCHEMA = {
+                            "valid": bool,  # True if no errors found
+                            "errors": list,  # List of error strings
+                            "warnings": list  # List of warning strings (optional)
+                        }
+
+                        # Self-validation loop with retry logic
+                        # max_retries = 3  # Commented out - no retries for now, just initial validation
+                        max_retries = 0
+                        retry_attempt = 0
+                        is_retry = False
+                        item_result = None
+                        validation_passed = False
+                        validation_history = []
+                        conversation_messages = None  # Track conversation for multi-turn retry
+
+                        # Create ClaudeClient for validation and retries
+                        from claude_client import ClaudeClient
+                        claude_client = ClaudeClient()
+
+                        while retry_attempt <= max_retries and not validation_passed:
+                            if is_retry and verbose:
+                                print(f"    [RETRY] Regeneration attempt {retry_attempt}/{max_retries} with error feedback...")
+
+                            # Generate output
+                            if not is_retry or conversation_messages is None:
+                                # First attempt: use normal builder.run()
+                                item_output = builder.run(
+                                    prompt_name=step.prompt_name,
+                                    variables=merged_vars,
+                                    input_content=item_input,
+                                    model=step.model,
+                                    save_prompt_to=str(prompt_save_path) if not is_retry else None
+                                )
+
+                                # Build initial conversation from the prompt for future turns
+                                built_prompt = builder.build(step.prompt_name, merged_vars, input_content=item_input)
+
+                                # Extract text from system blocks (list of content blocks)
+                                system_text = "\n\n".join(block.get("text", "") for block in built_prompt['system'])
+
+                                conversation_messages = [
+                                    {
+                                        "role": "user",
+                                        "content": system_text + "\n\n" + built_prompt['user_message']
+                                    },
+                                    {
+                                        "role": "assistant",
+                                        "content": built_prompt.get('prefill', '') + item_output
+                                    }
+                                ]
+                            else:
+                                # Retry: continue conversation with error feedback
+                                # Handle both string and dict error formats
+                                error_lines = []
+                                for err in content_errors:
+                                    if isinstance(err, str):
+                                        error_lines.append('- ' + err)
+                                    elif isinstance(err, dict):
+                                        error_lines.append('- ' + err.get('message', str(err)))
+                                    else:
+                                        error_lines.append('- ' + str(err))
+
+                                retry_message = f"""Your previous output had validation errors. Regenerate the complete JSON by addressing these issues:
+
+{chr(10).join(error_lines)}
+
+Review your original instructions and schemas to ensure the regenerated output follows all rules correctly."""
+
+                                conversation_messages.append({
+                                    "role": "user",
+                                    "content": retry_message
+                                })
+
+                                # Call Claude directly with conversation history using Anthropic API
+                                response = claude_client.client.messages.create(
+                                    messages=conversation_messages,
+                                    model=step.model,
+                                    temperature=built_prompt['api_params'].get('temperature', 1.0),
+                                    max_tokens=built_prompt['api_params'].get('max_tokens', 16000)
+                                )
+                                item_output = response.content[0].text
+
+                                # Add assistant response to conversation
+                                conversation_messages.append({
+                                    "role": "assistant",
+                                    "content": item_output
+                                })
+
+                            # Parse JSON from AI output
+                            try:
+                                json_str = extract_json(item_output)
+                                item_result = parse_json(json_str)
+                            except Exception as e:
+                                if verbose:
+                                    print(f"    [WARN] JSON parsing failed: {e}")
+                                item_result = {"raw_output": item_output}
+                                break  # Can't proceed with validation
+
+                            # Schema validation
+                            expected_id_field = step.batch_output_id_field or step.batch_id_field
+                            schema_error = validate_ai_output_structure(
+                                item_result,
+                                item,
+                                batch_id_field=expected_id_field,
+                                output_structure=prompt.output_structure
+                            )
+
+                            if schema_error:
+                                if verbose:
+                                    print(f"    [FAIL] Schema validation: {schema_error}")
+                                validation_history.append({
+                                    'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
+                                    'type': 'schema',
+                                    'error': schema_error
+                                })
+
+                                # Can't auto-fix schema errors, break out
+                                if not hasattr(batch_proc, '_validation_errors'):
+                                    batch_proc._validation_errors = []
+                                batch_proc._validation_errors.append({
+                                    'item_id': item_id,
+                                    'item_index': item_idx,
+                                    'error': schema_error,
+                                    'type': 'schema',
+                                    'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
+                                    'total_retries': retry_attempt
+                                })
+                                break
+
+                            # AI Content Validation (if validation_prompt exists)
+                            content_errors = []
+                            if prompt.validation_prompt:
+                                if verbose and not is_retry:
+                                    print(f"    [VALIDATE] Running content validation...")
+
+                                try:
+                                    validation_input = json.dumps(item_result, indent=2, ensure_ascii=False)
+
+                                    # Build validation messages with caching
+                                    # System message contains the validation prompt (cached if cache_docs enabled)
+                                    validation_system = [
+                                        {
+                                            "type": "text",
+                                            "text": prompt.validation_prompt
+                                        }
+                                    ]
+
+                                    # Add cache control if caching is enabled
+                                    if prompt.cache_docs:
+                                        cache_control = {"type": "ephemeral"}
+                                        if prompt.cache_ttl == "1h":
+                                            cache_control["ttl"] = "1h"
+                                        validation_system[-1]["cache_control"] = cache_control
+
+                                    # User message contains only the content to validate (changes each time)
+                                    validation_user_message = validation_input
+
+                                    # Save validation prompt (only on initial generation)
+                                    if not is_retry:
+                                        validation_prompt_file = step_paths['prompts_dir'] / f"{item_id}_validation.md"
+                                        with open(validation_prompt_file, 'w', encoding='utf-8') as f:
+                                            f.write(f"# Validation Prompt for {item_id}\n\n")
+                                            f.write(f"## System Message (Cached: {prompt.cache_docs})\n\n")
+                                            f.write(prompt.validation_prompt)
+                                            f.write(f"\n\n## Expected Response Schema\n\n")
+                                            f.write("```json\n")
+                                            f.write("{\n")
+                                            f.write('  "valid": true,  // or false\n')
+                                            f.write('  "errors": ["error1", "error2"],  // empty if valid\n')
+                                            f.write('  "warnings": []  // optional\n')
+                                            f.write("}\n")
+                                            f.write("```\n\n")
+                                            f.write(f"## User Input (Content to Validate)\n\n")
+                                            f.write(validation_input)
+
+                                    # Call Claude for validation (use Haiku for speed)
+                                    validation_response = claude_client.generate(
+                                        system=validation_system,
+                                        user_message=validation_user_message,
+                                        model="claude-haiku-4-5-20251001",
+                                        temperature=0.0,
+                                        max_tokens=1000
+                                    )
+
+                                    # Parse validation result
+                                    validation_json_str = extract_json(validation_response)
+                                    validation_result = parse_json(validation_json_str)
+
+                                    if not validation_result.get('valid', True):
+                                        content_errors = validation_result.get('errors', ['Unknown validation error'])
+                                        if verbose:
+                                            print(f"    [FAIL] Content validation failed!")
+                                            for i, error in enumerate(content_errors, 1):
+                                                error_msg = error if isinstance(error, str) else error.get('message', str(error)) if isinstance(error, dict) else str(error)
+                                                # Safe Unicode handling for Windows console
+                                                try:
+                                                    print(f"      Error {i}: {error_msg}")
+                                                except UnicodeEncodeError:
+                                                    # Fallback: encode with ASCII and replace problematic chars
+                                                    safe_msg = error_msg.encode('ascii', 'replace').decode('ascii')
+                                                    print(f"      Error {i}: {safe_msg}")
+
+                                        validation_history.append({
+                                            'generation': 'initial' if not is_retry else f'retry_{retry_attempt}',
+                                            'type': 'content',
+                                            'errors': content_errors,
+                                            'warnings': validation_result.get('warnings', [])
+                                        })
+
+                                        # If not max retries, retry with multi-turn conversation
+                                        if retry_attempt < max_retries:
+                                            # content_errors will be used in next loop iteration
+                                            # via the multi-turn conversation logic above
+                                            retry_attempt += 1
+                                            is_retry = True
+                                            continue
+                                        else:
+                                            # Final retry failed
+                                            if not hasattr(batch_proc, '_content_validation_errors'):
+                                                batch_proc._content_validation_errors = []
+                                            batch_proc._content_validation_errors.append({
+                                                'item_id': item_id,
+                                                'item_index': item_idx,
+                                                'initial_generation': validation_history[0] if validation_history else None,
+                                                'final_errors': content_errors,
+                                                'final_warnings': validation_result.get('warnings', []),
+                                                'type': 'content',
+                                                'total_retries': retry_attempt,
+                                                'history': validation_history
+                                            })
+                                    else:
+                                        # Validation passed!
+                                        validation_passed = True
+                                        if verbose:
+                                            success_msg = "[OK] Content validation passed"
+                                            if is_retry:
+                                                success_msg += f" (after {retry_attempt} retries)"
+                                            print(f"    {success_msg}")
+
+                                            warnings = validation_result.get('warnings', [])
+                                            if warnings:
+                                                print(f"    [WARN] Validation warnings:")
+                                                for i, warning in enumerate(warnings, 1):
+                                                    print(f"      Warning {i}: {warning}")
+
+                                    # Save validation result
+                                    validation_output_file = step_paths['items_dir'] / f"{item_id}_validation.json"
+                                    validation_save = {
+                                        'status': 'passed' if validation_passed else 'failed',
+                                        'final_result': validation_result,
+                                        'total_retries': retry_attempt,
+                                        'history': validation_history
+                                    }
+                                    with open(validation_output_file, 'w', encoding='utf-8') as f:
+                                        json.dump(validation_save, f, indent=2, ensure_ascii=False)
+
+                                except Exception as e:
+                                    if verbose:
+                                        print(f"    [WARN] AI validation exception: {e}")
+                                        import traceback
+                                        print(f"    [DEBUG] {traceback.format_exc()}")
+                                    validation_passed = True  # Continue if validation fails
+                                    break
+                            else:
+                                # No validation prompt, consider it passed
+                                if verbose and not is_retry:
+                                    print(f"    [SKIP] No validation prompt defined")
+                                validation_passed = True
+
+                            # If we got here and validation passed, break out of loop
+                            if validation_passed:
+                                break
+
+                            # Increment retry counter for next iteration
+                            retry_attempt += 1
+                            is_retry = True
+
+                    else:
+                        # Formatting step - call Python function
+                        item_result = run_formatting_step(step, item, None, module_number, path_letter, project_root, False)
+
+                    # Add result to batch processor (handles collation and ID assignment).
+                    # Must happen BEFORE saving the file so the batch-assigned sequential
+                    # ID (e.g. problem_id) is written to disk rather than whatever the AI
+                    # model returned. merge_and_collate_items reads IDs from these files to
+                    # build loaded_ids, so they must match the final collated values.
+                    batch_proc.add_result(item_result)
+
+                    # Save individual result (after ID assignment so file is consistent)
+                    item_output_file = step_paths['items_dir'] / f"{item_id}.json"
+                    with open(item_output_file, 'w', encoding='utf-8') as f:
+                        json.dump(item_result, f, indent=2, ensure_ascii=False)
+
+                    if verbose:
+                        print(f"    [OK] Completed")
+
+                except Exception as e:
+                    batch_proc.add_error(item_id, item_idx, e, i)
+
+                    if verbose:
+                        print(f"    [ERROR] {e}")
+
+                    if step.batch_stop_on_error:
+                        print(f"  [STOP] Stopping pipeline due to error (batch_stop_on_error=True)")
+                        raise
+
+            # Print batch summary
+            summary = batch_proc.get_summary()
+            if verbose:
+                print(f"\n  [BATCH COMPLETE]")
+                print(f"    Processed: {summary['processed']}/{summary['total']}")
+                print(f"    Skipped: {summary['skipped']}")
+                print(f"    Errors: {summary['errors']}")
+
+            # Get validation errors from batch processor
+            validation_errors = getattr(batch_proc, '_validation_errors', [])
+
+            if validation_errors and verbose:
+                print(f"\n  [VALIDATION WARNINGS]")
+                print(f"    Items with schema errors: {len(validation_errors)}")
+                for err in validation_errors[:5]:  # Show first 5
+                    print(f"      - ID {err['item_id']}: {err['error'][:80]}...")
+                if len(validation_errors) > 5:
+                    print(f"      ... and {len(validation_errors) - 5} more")
+
+            # Save validation errors to separate file
+            if validation_errors:
+                validation_errors_file = step_dir / 'validation_errors.json'
+                with open(validation_errors_file, 'w', encoding='utf-8') as f:
+                    json.dump(validation_errors, f, indent=2, ensure_ascii=False)
+                if verbose:
+                    print(f"    Saved validation errors to: {validation_errors_file.relative_to(output_dir_path)}")
+
+            # Save content validation errors to separate file
+            content_validation_errors = getattr(batch_proc, '_content_validation_errors', [])
+            if content_validation_errors:
+                content_validation_errors_file = step_dir / 'content_validation_errors.json'
+                with open(content_validation_errors_file, 'w', encoding='utf-8') as f:
+                    json.dump(content_validation_errors, f, indent=2, ensure_ascii=False)
+                if verbose:
+                    print(f"    Saved content validation errors to: {content_validation_errors_file.relative_to(output_dir_path)}")
+
+            # Save errors if any
+            errors = batch_proc.get_errors()
+            if errors:
+                errors_file = step_paths['errors_file']
+                with open(errors_file, 'w', encoding='utf-8') as f:
+                    json.dump(errors, f, indent=2, ensure_ascii=False)
+                if verbose:
+                    print(f"    Saved errors to: {errors_file.relative_to(output_dir_path)}")
+
+            # Log validation failures but don't stop pipeline
+            if validation_errors or content_validation_errors:
+                total_validation_failures = len(validation_errors) + len(content_validation_errors)
+                print(f"\n  [VALIDATION WARNINGS]")
+                print(f"    Total items with validation failures: {total_validation_failures}")
+                if validation_errors:
+                    print(f"    - Schema validation failures: {len(validation_errors)}")
+                if content_validation_errors:
+                    print(f"    - Content validation failures: {len(content_validation_errors)}")
+                print(f"    Review validation errors in: {step_dir.relative_to(output_dir_path)}/")
+                print(f"    Pipeline will continue...")
+
+            # Set output to collated array
+            collated_results = batch_proc.get_collated_results()
+            last_output = json.dumps(collated_results, indent=2, ensure_ascii=False)
+
         else:
-            # Formatting step - call Python function
-            output = _run_formatting_step(step, input_data, input_content, module_number, path_letter, project_root, verbose)
-            last_output = output
+            # NON-BATCH MODE: Single execution
+            if step.is_ai_step():
+                # AI step - call Claude
+                # Save prompt to step directory
+                prompt_save_path = step_paths['prompt_file']
 
-        # Save output file if specified
-        if step.output_file:
-            step_prefix = f"{i:02d}_"
-            output_filename = step_prefix + step.output_file
-            output_path = output_dir_path.joinpath(output_filename)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
+                output = builder.run(
+                    prompt_name=step.prompt_name,
+                    variables=step_vars,
+                    input_content=input_content,
+                    model=step.model,
+                    save_prompt_to=str(prompt_save_path)
+                )
+                last_output = output
+            else:
+                # Formatting step - call Python function
+                output = run_formatting_step(step, input_data, input_content, module_number, path_letter, project_root, verbose)
+                last_output = output
 
+        # Save main output file (always save to step directory)
+        output_path = step_paths['main_output']
+
+        if step.batch_mode:
+            # BATCH MODE: Save collated array
+            try:
+                collated_data = json.loads(last_output)
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    json.dump(collated_data, f, indent=2, ensure_ascii=False)
+
+                if verbose:
+                    print(f"  [SAVE] Saved {len(collated_data)} items to: {output_path.relative_to(output_dir_path)}")
+
+            except Exception as e:
+                # Fallback to raw save
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(last_output)
+                if verbose:
+                    print(f"  [SAVE] Saved output to: {output_path.relative_to(output_dir_path)}")
+
+        else:
+            # NON-BATCH MODE: Save single output
             # Handle JSON parsing for AI steps
             if step.is_ai_step() and parse_json_output:
                 try:
@@ -300,7 +1227,7 @@ def run_pipeline(
                         print(f"  [JSON] Extracting JSON from output...")
 
                     # Extract JSON from the output
-                    json_str = extract_json(output)
+                    json_str = extract_json(last_output)
 
                     # Parse to validate and format
                     parsed = parse_json(json_str)
@@ -311,11 +1238,11 @@ def run_pipeline(
 
                     if verbose:
                         if isinstance(parsed, list):
-                            print(f"  [OK] Parsed and saved JSON array with {len(parsed)} items")
+                            print(f"  [SAVE] Saved JSON array with {len(parsed)} items to: {output_path.relative_to(output_dir_path)}")
                         elif isinstance(parsed, dict):
-                            print(f"  [OK] Parsed and saved JSON object with {len(parsed)} keys")
+                            print(f"  [SAVE] Saved JSON object with {len(parsed)} keys to: {output_path.relative_to(output_dir_path)}")
                         else:
-                            print(f"  [OK] Parsed and saved JSON")
+                            print(f"  [SAVE] Saved JSON to: {output_path.relative_to(output_dir_path)}")
 
                     # Update last_output to be the JSON string for chaining
                     last_output = json.dumps(parsed, indent=2, ensure_ascii=False)
@@ -327,33 +1254,66 @@ def run_pipeline(
 
                     # Fall back to raw output
                     with open(output_path, 'w', encoding='utf-8') as f:
-                        f.write(output)
+                        f.write(last_output)
             else:
                 # Save output (for formatting steps or when parse_json_output=False)
-                if isinstance(output, (dict, list)):
+                if isinstance(last_output, (dict, list)):
                     # Save as JSON
                     with open(output_path, 'w', encoding='utf-8') as f:
-                        json.dump(output, f, indent=2, ensure_ascii=False)
+                        json.dump(last_output, f, indent=2, ensure_ascii=False)
                     if verbose:
-                        print(f"  [SAVE] Saved JSON output to: {step.output_file}")
+                        print(f"  [SAVE] Saved JSON to: {output_path.relative_to(output_dir_path)}")
                 else:
                     # Save as text
                     with open(output_path, 'w', encoding='utf-8') as f:
-                        f.write(str(output))
+                        f.write(str(last_output))
                     if verbose:
-                        print(f"  [SAVE] Wrote {len(str(output))} chars to: {step.output_file}")
+                        print(f"  [SAVE] Saved {len(str(last_output))} chars to: {output_path.relative_to(output_dir_path)}")
 
-            last_output_file = output_filename
+        # Track last output file for reference
+        last_output_file = str(output_path.relative_to(output_dir_path))
 
-    if verbose:
-        print(f"\n{'='*70}")
-        print(f"PIPELINE COMPLETE")
-        print(f"{'='*70}")
+    # Save metadata and update symlink
+    if pipeline_name:
+        # Complete metadata
+        end_time = datetime.now()
+        metadata["duration_seconds"] = (end_time - start_time).total_seconds()
+        metadata["status"] = "completed"
+        metadata["output_dir"] = str(output_dir_path)
+
+        # Save metadata
+        save_metadata(output_dir_path, metadata)
+
+        # Update latest symlink
+        version_str = metadata.get("version")
+        full_pipeline_name = metadata.get("full_pipeline_name", pipeline_name)
+        if version_str:
+            update_latest_symlink(full_pipeline_name, version_str)
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print(f"PIPELINE COMPLETE")
+            print(f"Version: {version_str}")
+            print(f"Status: {metadata['pipeline_status']}")
+            print(f"Duration: {metadata['duration_seconds']:.1f}s")
+            print(f"Output: outputs/{full_pipeline_name}/latest/")
+            print(f"{'='*70}")
+    else:
+        if verbose:
+            print(f"\n{'='*70}")
+            print(f"PIPELINE COMPLETE")
+            print(f"{'='*70}")
+
+    # Restore original stdout/stderr and close the log file
+    sys.stdout = _orig_stdout
+    sys.stderr = _orig_stderr
+    _console_log_file.close()
 
     return {
         'final_output': last_output,
         'output_dir': str(output_dir_path),
-        'last_output_file': last_output_file
+        'last_output_file': last_output_file,
+        'metadata': metadata
     }
 
 
@@ -393,141 +1353,5 @@ def run_single_step(
     )
 
 
-def _run_formatting_step(step: Step, input_data, input_content, module_number: int, path_letter: str, project_root: Path, verbose: bool):
-    """Execute a deterministic formatting step
-
-    Args:
-        step: The Step object with function and function_args
-        input_data: Parsed JSON data (if input was JSON)
-        input_content: Raw input content (if input was not JSON)
-        module_number: Module number (automatically passed to function if it accepts it)
-        path_letter: Path letter (automatically passed to function if it accepts it)
-        project_root: Project root path for module imports
-        verbose: Verbose logging flag
-
-    Returns:
-        Output from the formatting function
-    """
-    if verbose:
-        print(f"  [EXEC] Running formatting function...")
-
-    # Load the function
-    func = _load_function(step.function, project_root)
-
-    # Prepare arguments - start with module context
-    args = {}
-
-    # Add module_number and path_letter if function accepts them
-    import inspect
-    sig = inspect.signature(func)
-    param_names = list(sig.parameters.keys())
-
-    # Check which parameters the function accepts and add them
-    if 'module_number' in param_names:
-        args['module_number'] = module_number
-        if verbose:
-            print(f"  [EXEC] Passing module_number={module_number}")
-
-    if 'path_letter' in param_names:
-        args['path_letter'] = path_letter
-        if verbose:
-            print(f"  [EXEC] Passing path_letter={path_letter}")
-
-    # Add custom function_args (these override if there's a conflict)
-    args.update(step.function_args)
-
-    # Pass input as first positional argument if function expects it
-    if len(param_names) > 0:
-        first_param = param_names[0]
-        # Check if first param is not in our keyword args (meaning it's positional)
-        if first_param not in args:
-            if verbose:
-                print(f"  [EXEC] Passing input to parameter '{first_param}'")
-            result = func(input_data if input_data is not None else input_content, **args)
-        else:
-            # All params are keyword args
-            result = func(**args)
-    else:
-        # Function takes no arguments
-        result = func(**args)
-
-    if verbose:
-        print(f"  [OK] Formatting complete")
-
-    return result
 
 
-def _load_function(function: Union[str, Callable], project_root: Path) -> Callable:
-    """Load a function from string reference or return callable
-
-    Args:
-        function: Either "module.function_name" string or callable
-        project_root: Project root for module imports
-
-    Returns:
-        The callable function
-    """
-    if callable(function):
-        return function
-
-    # Parse string like "bbcode_formatter.process_godot_sequences"
-    if not isinstance(function, str):
-        raise ValueError(f"function must be string or callable, got {type(function)}")
-
-    if '.' not in function:
-        raise ValueError(f"function string must be 'module.function_name', got '{function}'")
-
-    module_name, func_name = function.rsplit('.', 1)
-
-    # Try to import the module
-    try:
-        # Add utils for backwards compatibility (but lower priority)
-        utils_dir = project_root / "utils"
-        if str(utils_dir) not in sys.path:
-            sys.path.insert(0, str(utils_dir))
-
-        # Add formatting directory to path (higher priority - inserted after utils so it comes first)
-        formatting_dir = project_root / "steps" / "formatting"
-        if str(formatting_dir) not in sys.path:
-            sys.path.insert(0, str(formatting_dir))
-
-        module = importlib.import_module(module_name)
-        func = getattr(module, func_name)
-
-        if not callable(func):
-            raise ValueError(f"{module_name}.{func_name} is not callable")
-
-        return func
-    except ImportError as e:
-        raise ImportError(f"Could not import module '{module_name}': {e}")
-    except AttributeError as e:
-        raise AttributeError(f"Module '{module_name}' has no function '{func_name}': {e}")
-
-
-def _resolve_input_path(input_file: str, output_dir: Path, project_root: Path) -> Path:
-    """Resolve input file path with fallback chain
-
-    Resolution order:
-    1. Absolute path → use as-is
-    2. Relative to output_dir (for chained files)
-    3. Relative to project root
-    4. As-is (will fail if not found)
-    """
-    input_path = Path(input_file)
-
-    # 1. Absolute path
-    if input_path.is_absolute():
-        return input_path
-
-    # 2. Relative to output_dir (chained files)
-    output_relative = output_dir / input_file
-    if output_relative.exists():
-        return output_relative
-
-    # 3. Relative to project root
-    project_relative = project_root / input_file
-    if project_relative.exists():
-        return project_relative
-
-    # 4. Use as-is (will error if doesn't exist)
-    return input_path
