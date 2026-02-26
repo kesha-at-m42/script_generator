@@ -209,3 +209,46 @@ def add_shuffle_tangibles_for_select(sequences_data, module_number=None, path_le
 
     _logger.summary()
     return wrapper
+
+
+if __name__ == "__main__":
+    import argparse
+    import json
+    import sys
+
+    FIXES = {
+        "workspace": add_empty_workspace_to_first_step,
+        "pool": wrap_in_sequence_pool,
+        "shuffle": add_shuffle_tangibles_for_select,
+    }
+
+    parser = argparse.ArgumentParser(
+        description="Fix sequence schema structure in JSON files in place."
+    )
+    parser.add_argument("files", nargs="+", metavar="FILE", help="JSON file(s) to fix in place")
+    parser.add_argument(
+        "--fix",
+        nargs="+",
+        choices=list(FIXES),
+        metavar="FIX",
+        help=f"Which fix(es) to apply (default: all). Choices: {', '.join(FIXES)}",
+    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    args = parser.parse_args()
+
+    selected = [FIXES[k] for k in (args.fix or list(FIXES))]
+
+    for path in args.files:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            _logger = SchemaLogger(enabled=args.verbose)
+            result = data
+            for fix_fn in selected:
+                result = fix_fn(result)
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+            print(f"[OK] {path}")
+        except Exception as e:
+            print(f"[ERROR] {path}: {e}", file=sys.stderr)

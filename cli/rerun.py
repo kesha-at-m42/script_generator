@@ -877,7 +877,7 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
     if not step_0_dir:
         raise ValueError(f"Could not find step_00_problem_generator or step_01_problem_generator in {base_version_dir}")
 
-    # Load base step 1 to map template_id → problem_instance_ids (used for step-range mode only)
+    # Load base step 1 to map template_id → problem_instance_ids
     base_step0_file = step_0_dir / "problem_generator.json"
     if not base_step0_file.exists():
         raise ValueError(f"Base step 0 output not found: {base_step0_file}")
@@ -899,7 +899,32 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
 
     if start_from:
         # Step-range mode: reprocess existing items in a step range.
-        # Uses base IDs since step 1 is not being regenerated — IDs are stable.
+        # Step 1 is not being regenerated so IDs in step 1 are stable.
+        # However steps 2+ use problem_id (from sequence_structurer), which can differ
+        # from problem_instance_id (step 1) — e.g. when templates were added at overflow
+        # positions. Always use base step_02 problem_ids as the filter so it matches
+        # what the target steps actually use as their identifier.
+        step2_dir = None
+        for subdir in sorted(base_version_dir.iterdir()):
+            if subdir.is_dir() and 'step_02' in subdir.name and 'sequence_structurer' in subdir.name:
+                step2_dir = subdir
+                break
+        if step2_dir:
+            step2_file = step2_dir / "sequence_structurer.json"
+            if step2_file.exists():
+                step2_items = load_json(step2_file)
+                step2_ids = [
+                    str(item['problem_id'])
+                    for item in step2_items
+                    if str(item.get('template_id')) in template_ids
+                ]
+                if step2_ids:
+                    if verbose and step2_ids != base_problem_ids:
+                        print(f"  [STEP-RANGE] Using step_02 problem_ids for filter "
+                              f"(step_01 had {base_problem_ids[:3]}..., "
+                              f"step_02 has {step2_ids[:3]}...)")
+                    base_problem_ids = step2_ids
+
         if not base_problem_ids:
             raise ValueError(f"No items found for templates {template_ids} in base version")
         if verbose:
@@ -929,10 +954,10 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
 
         if verbose:
             label = f"steps 1–{end_at}" if end_at else f"all {len(steps)} steps"
-            print(f"\n[TEMPLATE RERUN] Full pipeline ({label}) — two-phase ID chaining")
-            print(f"  Phase 1: regenerate step 1 for templates: {', '.join(template_ids)}")
+            print(f"\n[TEMPLATE RERUN] Full pipeline ({label})")
+            print(f"  Step 1: regenerate for templates: {', '.join(template_ids)}")
 
-        # --- Phase 1: run only step 1 ---
+        # --- Step 1: regenerate templates, then re-collate ---
         results_p1 = run_pipeline(
             steps=steps,
             pipeline_name=pipeline_name,
@@ -940,7 +965,7 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
             path_letter=path_letter,
             base_version=base_version,
             end_at_step=1,
-            notes=note_str + " [phase 1/2: step 1]",
+            notes=note_str,
             verbose=verbose
         )
 
@@ -954,7 +979,22 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
         merge_and_collate_templates(step1_dir, base_step1_dir, set(template_ids))
 
         if verbose:
-            print(f"  [PHASE 1] Re-collated step 1 in {p1_version}")
+            print(f"  [STEP 1] Re-collated in {p1_version}")
+
+        # Pre-seed steps 2+ from original base into the version dir so _load_from_base
+        # can find unchanged items for those steps. Without this the batch_processor
+        # has no collated file to read from and silently drops all unchanged items.
+        import shutil as _shutil
+        for _step_idx, _step in enumerate(steps, 1):
+            if _step_idx == 1:
+                continue  # step 1 is already in p1_version (re-collated)
+            _sname = _step.prompt_name if _step.is_ai_step() else str(_step.function).split('.')[-1]
+            _base_src = get_step_directory(base_version_dir, _step_idx, _sname)
+            _p1_dst = get_step_directory(p1_version_dir, _step_idx, _sname)
+            if _base_src.exists() and not _p1_dst.exists():
+                _shutil.copytree(str(_base_src), str(_p1_dst), dirs_exist_ok=True)
+        if verbose:
+            print(f"  [STEP 1] Copied base steps 2+ into {p1_version} for steps 2+ reference")
 
         # Early exit if only step 1 was requested
         if end_at and end_at <= 1:
@@ -972,24 +1012,25 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
         ]
 
         if verbose:
-            print(f"  Phase 2: run steps 2+ for {len(actual_rerun_ids)} actual problem IDs")
+            print(f"  Steps 2+: run for {len(actual_rerun_ids)} actual problem IDs")
             print(f"  Actual IDs: {', '.join(actual_rerun_ids[:8])}{'...' if len(actual_rerun_ids) > 8 else ''}")
 
-        # Clear step 1 filter before phase 2
+        # Clear step 1 filter before steps 2+
         if steps and hasattr(steps[0], 'batch_only_items'):
             steps[0].batch_only_items = None
 
-        # --- Phase 2: run steps 2+ using the actual IDs from re-collated step 1 ---
+        # --- Steps 2+: run into the same version directory as step 1 ---
         results = run_pipeline(
             steps=steps,
             pipeline_name=pipeline_name,
             module_number=module_number,
             path_letter=path_letter,
-            base_version=p1_version,   # use phase-1 version as base so step 1 is copied correctly
+            base_version=p1_version,
             rerun_items=actual_rerun_ids,
             start_from_step=2,
             end_at_step=end_at,
-            notes=note_str + " [phase 2/2: steps 2+]",
+            notes=note_str,
+            reuse_version_dir=p1_version_dir,
             verbose=verbose
         )
 
@@ -1013,8 +1054,8 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
         print(f"\n[TEMPLATE RERUN] Pipeline complete, re-collating all steps...")
 
     # Step 3: Re-collate AI steps that were actually run (up to end_at if set).
-    # Step 1 was already re-collated in phase 1 and copied into new_version_dir.
-    # Steps 2+ need to merge the newly-processed items with the original base items.
+    # Step 1 was already re-collated above and is in new_version_dir.
+    # Steps 2+ merge Claude's new items/ files with the pre-seeded collated base.
     for step_idx, step in enumerate(steps, 1):
         if step_idx < 2:
             # Step 1 was already re-collated during phase 1 — skip
@@ -1023,12 +1064,16 @@ def run_template_rerun_pipeline(steps, pipeline_name, module_number, path_letter
             break
         step_name = step.prompt_name if step.is_ai_step() else str(step.function).split('.')[-1]
         step_dir = get_step_directory(new_version_dir, step_idx, step_name)
-        # Use original base_version_dir for step 2+ merging (not p1_version_dir)
-        base_step_dir = get_step_directory(base_version_dir, step_idx, step_name)
+        # base_step_dir == step_dir (same version): the pre-seeded collated file from the
+        # original base copy is read, merged with Claude's new items/, then written back.
+        base_step_dir = get_step_directory(new_version_dir, step_idx, step_name)
 
         if step.is_ai_step():
-            # AI steps: Merge new items + base items using actual IDs
-            merge_and_collate_items(step_dir, step_name, base_step_dir, set(actual_rerun_ids))
+            # AI steps: Merge new items + base items using actual IDs.
+            # Pass rerun_template_ids so stale old-position base items for rerun
+            # templates are excluded (e.g. 11001 at old IDs 1-8 vs new IDs 104-111).
+            merge_and_collate_items(step_dir, step_name, base_step_dir, set(actual_rerun_ids),
+                                    rerun_template_ids=set(template_ids))
             if verbose:
                 print(f"  [STEP {step_idx}] Re-collated {step_name} (merged {len(actual_rerun_ids)} new + base)")
         # Formatting steps will be handled below
@@ -1162,22 +1207,70 @@ def merge_and_collate_templates(step_dir, base_step_dir=None, rerun_template_ids
         if not isinstance(items, list):
             items = [items]
 
-        # Get original slot info for this template
-        start_id = base_template_start_ids.get(template_id, 1)
-        original_count = base_template_counts.get(template_id, 0)
+        is_new_template = template_id not in base_template_start_ids
 
-        for idx, item in enumerate(items):
-            if idx < original_count:
-                # Within original count: assign to original slot
-                # E.g., template 4004 items 0-2 get IDs 28, 29, 30
-                item['problem_instance_id'] = start_id + idx
-            else:
-                # Beyond original count: append to end of dataset
-                # E.g., template 4004 items 3-4 get IDs 112, 113 (if max was 111)
-                item['problem_instance_id'] = next_overflow_id
-                next_overflow_id += 1
+        if is_new_template:
+            # New template: insert into the gap between its numeric neighbors.
+            # E.g. template 11006 sits between 11005 and 11007 — use the IDs
+            # between where 11005 ends and where 11007 starts.
+            # Items that don't fit in the gap overflow to the end.
+            try:
+                new_tid_int = int(template_id)
+                base_tids_sorted = sorted(base_template_start_ids.keys(), key=lambda t: int(t))
+                prev_tid = next((t for t in reversed(base_tids_sorted) if int(t) < new_tid_int), None)
+                next_tid = next((t for t in base_tids_sorted if int(t) > new_tid_int), None)
 
-            all_items.append(item)
+                if next_tid:
+                    # Anchor to next: place items ending right before next_tid starts.
+                    # This handles cases like 10009 being absent — rather than placing
+                    # 10010 right after 10008, we work backwards from 10011 so the new
+                    # items sit adjacent to their true successor.
+                    next_first_id = base_template_start_ids[next_tid]
+                    prev_last_id = (
+                        base_template_start_ids[prev_tid] + base_template_counts[prev_tid] - 1
+                        if prev_tid else 0
+                    )
+                    available_gap = next_first_id - prev_last_id - 1
+
+                    if available_gap > 0:
+                        n = len(items)
+                        # Right-align to next_tid; fall back to left edge if more items
+                        # than the gap can hold (overflow handles the rest)
+                        gap_start = max(prev_last_id + 1, next_first_id - n)
+                        gap_size = min(n, available_gap)
+                    else:
+                        gap_start = None
+                        gap_size = 0
+                else:
+                    gap_start = None
+                    gap_size = 0
+            except (ValueError, TypeError):
+                gap_start = None
+                gap_size = 0
+
+            for idx, item in enumerate(items):
+                if gap_start is not None and idx < gap_size:
+                    item['problem_instance_id'] = gap_start + idx
+                else:
+                    item['problem_instance_id'] = next_overflow_id
+                    next_overflow_id += 1
+                all_items.append(item)
+        else:
+            # Existing template: assign to original slot, overflow extras to end
+            start_id = base_template_start_ids[template_id]
+            original_count = base_template_counts[template_id]
+
+            for idx, item in enumerate(items):
+                if idx < original_count:
+                    # Within original count: assign to original slot
+                    # E.g., template 4004 items 0-2 get IDs 28, 29, 30
+                    item['problem_instance_id'] = start_id + idx
+                else:
+                    # Beyond original count: append to end of dataset
+                    # E.g., template 4004 items 3-4 get IDs 112, 113 (if max was 111)
+                    item['problem_instance_id'] = next_overflow_id
+                    next_overflow_id += 1
+                all_items.append(item)
 
     # 2. Load ALL other templates from BASE version's COLLATED file
     # (Individual template files have relative IDs, collated has absolute IDs)
@@ -1203,7 +1296,7 @@ def merge_and_collate_templates(step_dir, base_step_dir=None, rerun_template_ids
     save_json(step_path / "problem_generator.json", all_items)
 
 
-def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=None):
+def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=None, rerun_template_ids=None):
     """Smart merge: NEW regenerated items + ALL unchanged items from base
 
     For steps 2+, this merges:
@@ -1217,6 +1310,10 @@ def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=N
         step_name: Step name for output file
         base_step_dir: Base version step directory (for merging unchanged items)
         rerun_ids: Set of problem IDs that were regenerated (to skip from base)
+        rerun_template_ids: Set of template IDs being rerun (template rerun only).
+            When provided, ALL base items belonging to these templates are excluded,
+            even if their old problem_id positions differ from the newly generated ones.
+            This prevents stale old-position items from surviving the merge.
     """
     step_path = Path(step_dir)
     all_items = []
@@ -1286,6 +1383,19 @@ def merge_and_collate_items(step_dir, step_name, base_step_dir=None, rerun_ids=N
                 # in step 1). Fall back to the base version so the item is not lost.
                 if item_problem_id in loaded_ids:
                     continue
+
+                # Template rerun: skip ALL base items for rerun templates, even at
+                # old positions that differ from the newly generated IDs. This prevents
+                # stale items (e.g. 11001 at old positions 1-8 when new items are at
+                # 104-111) from surviving the merge.
+                if rerun_template_ids:
+                    item_tid = str(
+                        item.get('template_id') or
+                        (item.get('metadata', {}).get('template_id') if isinstance(item.get('metadata'), dict) else None) or
+                        ''
+                    )
+                    if item_tid in rerun_template_ids:
+                        continue
 
                 # Add item with its original ID
                 all_items.append(item)

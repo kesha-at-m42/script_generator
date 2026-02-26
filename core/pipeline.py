@@ -298,7 +298,8 @@ def run_pipeline(
       end_at_step: Union[int, str] = None,
       pipeline_status: str = None,
       notes: str = None,
-      template_filename: str = "problem_templates.json"
+      template_filename: str = "problem_templates.json",
+      reuse_version_dir: Path = None
   ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
@@ -321,6 +322,8 @@ def run_pipeline(
         notes: Optional notes about this version (e.g., "Fixed prompt for template 4002")
         template_filename: Template filename for template lookup (default: "problem_templates_v2.json")
                           Path will be constructed as: modules/module{module_number}/{template_filename}
+        reuse_version_dir: If set, write into this existing directory instead of creating a new version.
+                           Skips version creation and skipped-step copying. Console output is appended.
 
     Returns:
         Dict with final_output and metadata
@@ -391,62 +394,87 @@ def run_pipeline(
                 pipeline_dir = outputs_dir / full_pipeline_name
                 base_version = get_latest_version(pipeline_dir)
 
-            version_dir, version_str, is_rerun, full_pipeline_name = create_version_directory(
-                pipeline_name, module_number, path_letter, base_version
-            )
-            output_dir_path = version_dir
+            if reuse_version_dir:
+                # Reuse an existing version directory (e.g. Phase 2 of a template rerun).
+                # Skips version creation and skipped-step copying — the caller has already
+                # seeded the directory with the appropriate step outputs.
+                output_dir_path = reuse_version_dir
+                version_str = reuse_version_dir.name
 
-            metadata["version"] = version_str
-            metadata["base_version"] = base_version
+                # Load existing metadata so Phase 1 fields (timestamp, base_version, etc.) are preserved
+                existing_meta_file = reuse_version_dir / 'metadata.json'
+                if existing_meta_file.exists():
+                    import json as _json
+                    with open(existing_meta_file, 'r', encoding='utf-8') as _f:
+                        existing_meta = _json.load(_f)
+                    metadata.update(existing_meta)
 
-            # Determine mode
-            if start_idx > 1 or end_idx < len(steps):
-                metadata["mode"] = "partial_rerun"
-                metadata["step_range"] = f"{start_idx}-{end_idx}"
-                metadata["skipped_steps"] = list(range(1, start_idx)) + list(range(end_idx + 1, len(steps) + 1))
-                metadata["executed_steps"] = list(range(start_idx, end_idx + 1))
-            elif base_version:
+                metadata["version"] = version_str
+                metadata["base_version"] = base_version
+                metadata["full_pipeline_name"] = full_pipeline_name
                 metadata["mode"] = "rerun"
+                metadata.pop("step_range", None)
+                metadata.pop("skipped_steps", None)
+                metadata["executed_steps"] = sorted(set(
+                    metadata.get("executed_steps", []) + list(range(start_idx, end_idx + 1))
+                ))
             else:
-                metadata["mode"] = "initial"
+                version_dir, version_str, is_rerun, full_pipeline_name = create_version_directory(
+                    pipeline_name, module_number, path_letter, base_version
+                )
+                output_dir_path = version_dir
 
-            metadata["full_pipeline_name"] = full_pipeline_name
+                metadata["version"] = version_str
+                metadata["base_version"] = base_version
 
-            # Validate base version has outputs for skipped steps
-            if start_idx > 1:
-                outputs_dir = get_project_paths()['outputs']
-                pipeline_dir = outputs_dir / full_pipeline_name
-                base_version_dir = pipeline_dir / base_version
-                validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
+                # Determine mode
+                if start_idx > 1 or end_idx < len(steps):
+                    metadata["mode"] = "partial_rerun"
+                    metadata["step_range"] = f"{start_idx}-{end_idx}"
+                    metadata["skipped_steps"] = list(range(1, start_idx)) + list(range(end_idx + 1, len(steps) + 1))
+                    metadata["executed_steps"] = list(range(start_idx, end_idx + 1))
+                elif base_version:
+                    metadata["mode"] = "rerun"
+                else:
+                    metadata["mode"] = "initial"
 
-                # Copy skipped step outputs from base version to new version
-                if verbose:
-                    print(f"\n{'='*70}")
-                    print(f"COPYING SKIPPED STEPS FROM BASE VERSION")
-                    print(f"{'='*70}")
+                metadata["full_pipeline_name"] = full_pipeline_name
 
-                for skip_step_num in range(1, start_idx):
-                    skip_step = steps[skip_step_num - 1]
-                    skip_step_name = skip_step.prompt_name if skip_step.is_ai_step() else str(skip_step.function).split('.')[-1]
+                # Validate base version has outputs for skipped steps
+                if start_idx > 1:
+                    outputs_dir = get_project_paths()['outputs']
+                    pipeline_dir = outputs_dir / full_pipeline_name
+                    base_version_dir = pipeline_dir / base_version
+                    validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
 
-                    # Source: base version step directory
-                    base_step_dir = get_step_directory(base_version_dir, skip_step_num, skip_step_name)
+                    # Copy skipped step outputs from base version to new version
+                    if verbose:
+                        print(f"\n{'='*70}")
+                        print(f"COPYING SKIPPED STEPS FROM BASE VERSION")
+                        print(f"{'='*70}")
 
-                    # Destination: new version step directory
-                    new_step_dir = get_step_directory(output_dir_path, skip_step_num, skip_step_name)
+                    for skip_step_num in range(1, start_idx):
+                        skip_step = steps[skip_step_num - 1]
+                        skip_step_name = skip_step.prompt_name if skip_step.is_ai_step() else str(skip_step.function).split('.')[-1]
 
-                    # Copy entire step directory
-                    if base_step_dir.exists():
-                        if verbose:
-                            print(f"  [COPY] Step {skip_step_num} ({skip_step_name})")
-                            print(f"         From: {base_step_dir.relative_to(get_project_paths()['outputs'])}")
-                            print(f"         To:   {new_step_dir.relative_to(get_project_paths()['outputs'])}")
+                        # Source: base version step directory
+                        base_step_dir = get_step_directory(base_version_dir, skip_step_num, skip_step_name)
 
-                        # Use copytree with dirs_exist_ok=True to copy directory
-                        shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
-                    else:
-                        # This should not happen due to validation, but handle gracefully
-                        print(f"  [WARNING] Base step directory not found: {base_step_dir}")
+                        # Destination: new version step directory
+                        new_step_dir = get_step_directory(output_dir_path, skip_step_num, skip_step_name)
+
+                        # Copy entire step directory
+                        if base_step_dir.exists():
+                            if verbose:
+                                print(f"  [COPY] Step {skip_step_num} ({skip_step_name})")
+                                print(f"         From: {base_step_dir.relative_to(get_project_paths()['outputs'])}")
+                                print(f"         To:   {new_step_dir.relative_to(get_project_paths()['outputs'])}")
+
+                            # Use copytree with dirs_exist_ok=True to copy directory
+                            shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
+                        else:
+                            # This should not happen due to validation, but handle gracefully
+                            print(f"  [WARNING] Base step directory not found: {base_step_dir}")
 
             if verbose:
                 print(f"\n{'='*70}")
@@ -471,7 +499,7 @@ def run_pipeline(
 
     # Tee all console output to console.txt in the output directory.
     # _TeeStream flushes after every write so output is preserved even on crash/early stop.
-    _console_log_file = open(output_dir_path / "console.txt", 'w', encoding='utf-8')
+    _console_log_file = open(output_dir_path / "console.txt", 'a' if reuse_version_dir else 'w', encoding='utf-8')
     _orig_stdout = sys.stdout
     _orig_stderr = sys.stderr
     sys.stdout = _TeeStream(sys.stdout, _console_log_file)
@@ -1064,13 +1092,17 @@ Review your original instructions and schemas to ensure the regenerated output f
                         # Formatting step - call Python function
                         item_result = run_formatting_step(step, item, None, module_number, path_letter, project_root, False)
 
-                    # Save individual result
+                    # Add result to batch processor (handles collation and ID assignment).
+                    # Must happen BEFORE saving the file so the batch-assigned sequential
+                    # ID (e.g. problem_id) is written to disk rather than whatever the AI
+                    # model returned. merge_and_collate_items reads IDs from these files to
+                    # build loaded_ids, so they must match the final collated values.
+                    batch_proc.add_result(item_result)
+
+                    # Save individual result (after ID assignment so file is consistent)
                     item_output_file = step_paths['items_dir'] / f"{item_id}.json"
                     with open(item_output_file, 'w', encoding='utf-8') as f:
                         json.dump(item_result, f, indent=2, ensure_ascii=False)
-
-                    # Add result to batch processor (handles collation and ID assignment)
-                    batch_proc.add_result(item_result)
 
                     if verbose:
                         print(f"    [OK] Completed")

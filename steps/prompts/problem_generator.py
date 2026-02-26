@@ -203,7 +203,13 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
    - Generate an array of answer options exactly as they'll be presented to the student
    - Follow template's option count specification (3-4 options typically)
    - Include exactly ONE correct option and the rest as distractors
-   - Use mcq_options templates from template, substituting parameter values ({items}, {fraction1}, {fraction2}, etc.)
+   - **CRITICAL: Use the mcq_options format LITERALLY** — substitute fraction values into the template placeholders and output the result verbatim
+     - Template `"{a/b} > {c/d}"` with a/b=3/4, c/d=2/4 → option is `"3/4 > 2/4"` (NOT "Bar A (3/4) is greater than Bar C (2/4)")
+     - Template `"{a/b} = {c/d}"` with a/b=3/4, c/d=2/4 → option is `"3/4 = 2/4"`
+     - Never rewrite the format into natural language or add bar labels/names to the option text
+   - **NEVER reference visual elements (Bar A, Bar B, Bar C, number lines, etc.) in option text** unless the mcq_options template string explicitly contains such references
+   - **Vary the correct answer position across problems** — do NOT always put the correct option first. Rotate the correct answer to different positions (first, second, third, fourth) across the problem set
+   - **Vary which distractor types appear** — use different wrong-comparison and wrong-symbol combinations across problems so option sets feel distinct
    - Ensure distractors are clearly incorrect (see "Distractors Must Be Clearly Incorrect" section)
    - For same_whole_scenarios: use mcq_options.same_whole_scenarios
    - For different_whole_scenarios: use mcq_options.different_whole_scenarios
@@ -238,6 +244,8 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - ✗ Using tiers not in template's mastery_tier field
 - ✗ Inventing new prompt language/verbs not in prompt_examples
 - ✗ Identical option sets (MCQ)
+- ✗ Rewriting mcq_options templates into natural language — output the template format as-is with values substituted
+- ✗ Referencing visual element names (Bar A, Bar B, etc.) in option text when the mcq_options template doesn't include them
 - ✗ Binary questions (2 options) - always find a third option or use 3-4 options
 - ✗ Binary questions at BASELINE, STRETCH, or CHALLENGE tiers (if binary MUST exist, only in SUPPORT or CONFIDENCE)
 - ✗ Visually identical elements in workspace (e.g., two number lines with points at same position)

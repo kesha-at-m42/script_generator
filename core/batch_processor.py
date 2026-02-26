@@ -4,6 +4,7 @@ Batch Processor - Handles batch mode item processing
 
 from pathlib import Path
 from typing import List, Dict, Any
+from datetime import datetime, timezone
 import json
 
 
@@ -156,23 +157,28 @@ class BatchProcessor:
         if isinstance(result, list):
             # Flatten array and assign sequential IDs during collation
             for sub_item in result:
-                if isinstance(sub_item, dict) and self.batch_output_id_field:
-                    existing_id = sub_item.get(self.batch_output_id_field)
-                    if preserve_id and existing_id is not None:
-                        try:
-                            self.sequential_id = max(self.sequential_id, int(existing_id) + 1)
-                        except (TypeError, ValueError):
-                            pass
-                    else:
-                        sub_item[self.batch_output_id_field] = self.sequential_id
-                        self.sequential_id += 1
+                if isinstance(sub_item, dict):
+                    if self.batch_output_id_field:
+                        existing_id = sub_item.get(self.batch_output_id_field)
+                        if existing_id is not None:
+                            # ID already set (either preserved from base, or AI set it) - advance counter past it
+                            try:
+                                self.sequential_id = max(self.sequential_id, int(existing_id) + 1)
+                            except (TypeError, ValueError):
+                                pass
+                        else:
+                            sub_item[self.batch_output_id_field] = self.sequential_id
+                            self.sequential_id += 1
+                    if not preserve_id:
+                        sub_item['_generated_at'] = datetime.now(timezone.utc).isoformat()
                 self.collated_results.append(sub_item)
         else:
             # Single result - assign sequential ID if dict
             if isinstance(result, dict):
                 if self.batch_output_id_field:
                     existing_id = result.get(self.batch_output_id_field)
-                    if preserve_id and existing_id is not None:
+                    if existing_id is not None:
+                        # ID already set (either preserved from base, or AI set it) - advance counter past it
                         try:
                             self.sequential_id = max(self.sequential_id, int(existing_id) + 1)
                         except (TypeError, ValueError):
@@ -180,6 +186,8 @@ class BatchProcessor:
                     else:
                         result[self.batch_output_id_field] = self.sequential_id
                         self.sequential_id += 1
+                if not preserve_id:
+                    result['_generated_at'] = datetime.now(timezone.utc).isoformat()
             self.collated_results.append(result)
 
         self.processed_count += 1

@@ -96,27 +96,32 @@ Step 3+: "Next, [task]."
 Final: Use conclusive language
 ```
 
-**5. Workspace Inheritance** - For Step 2+ only, add `inherited` field to workspace:
+**5. Workspace Setup** - Default is always fresh; inherit only when explicitly stated:
 ```
-Step 1 workspace (array format):
+DEFAULT — all steps (fresh workspace, array format):
 "workspace": [
   {"id": "line_1", "type": "number_line", ...}
 ]
 
-Step 2+ workspace (array with inherited property):
+EXCEPTION — inherited workspace (object format):
 "workspace": {
-  "inherited": true,  // or false
+  "inherited": true,
   "tangibles": [...]
 }
-
-TRUE inheritance (inherited: true):
-- Same tangibles, modified state (e.g., ticks added, labels placed)
-- Example: "Step 1: Blank line. Step 2: Line now has tick marks at fourths"
-
-FALSE/NO inheritance (inherited: false or omit):
-- Different tangibles entirely (e.g., bars → lines, one line → multiple lines)
-- Example: "Step 1: Reference bar with option bars. Step 2: Two number lines stacked"
 ```
+
+**Decision rule:**
+
+TRUE inheritance (`inherited: true`) — ONLY when workspace_description EXPLICITLY says "same workspace" for that step (e.g., "Step 2: Same workspace as Step 1"):
+- Use the object format with `inherited: true`
+- Still describe the full tangible state as it appears entering this step
+
+DEFAULT (everything else) — always re-describe the workspace fully as an array:
+- Each step gets a complete, fresh workspace array
+- Re-describe every tangible with its exact state for that step (active/read-only, points placed, labels shown, etc.)
+- Example: "Step 2: Top line read-only with point at 2/7. Bottom line active." → fresh array, not inherited
+
+**For ALL Step 2+ workspaces (inherited or fresh):** Map the previous step's correct_answer result onto the relevant tangible — the workspace must reflect what the student completed in the prior step (e.g., if Step 1's correct_answer placed a point at 2/7, the Step 2 workspace shows that tangible with `"points": ["2/7"]` already present)
 
 **Step Content Fields:**
 

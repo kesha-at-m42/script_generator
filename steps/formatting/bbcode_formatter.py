@@ -5,10 +5,16 @@ Deterministic post-processing for Godot sequences after AI transformation
 Core Functions:
 1. format_vocab_tags() - Add vocab tags (auto-removes existing tags first)
 2. format_fractions_bbcode() - Add fraction BBCode tags with or without words
+3. strip_all_bbcode() - Remove all vocab and fraction tags from a single string
 
 Pipeline Functions (use in pipelines.json):
 1. apply_vocab_formatting() - Pipeline step for vocab tags (loads vocab from module)
 2. apply_fraction_formatting() - Pipeline step for fraction tags
+3. apply_bbcode_formatting() - Combined step: strips all first, then vocab + fraction
+
+CLI Usage:
+    python bbcode_formatter.py <file_path> [module_number]
+    Applies combined bbcode formatting in-place to the given JSON file.
 """
 
 import re
@@ -120,6 +126,44 @@ def _denominator_to_word(n, is_unit_fraction=False):
             return f"{denom}ths"
     except (ValueError, TypeError):
         return f"{n}th" if is_unit_fraction else f"{n}ths"
+
+
+# ============================================================================
+# STRIP ALL BBCODE (single string)
+# ============================================================================
+
+def strip_all_bbcode(text):
+    """
+    Remove all BBCode formatting tags from a single string, restoring raw values.
+
+    Removes:
+        [vocab]word[/vocab]                              -> word
+        [fraction numerator=3 denominator=4]...[/fraction] -> 3/4
+
+    Args:
+        text: String to strip
+
+    Returns:
+        String with all BBCode tags removed
+
+    Examples:
+        >>> strip_all_bbcode("[vocab]shade[/vocab] [fraction numerator=3 denominator=4]three fourths[/fraction]")
+        "shade 3/4"
+    """
+    if not text or not isinstance(text, str):
+        return text
+
+    # Remove vocab tags, keep inner text
+    result = re.sub(r'\[vocab\](.*?)\[/vocab\]', r'\1', text)
+
+    # Remove fraction tags, restore raw fraction (e.g. 3/4)
+    result = re.sub(
+        r'\[fraction numerator=(\d+) denominator=(\d+)\].*?\[/fraction\]',
+        r'\1/\2',
+        result
+    )
+
+    return result
 
 
 # ============================================================================
@@ -647,6 +691,73 @@ def apply_fraction_formatting(godot_data, module_number=None):
 
 
 # ============================================================================
+# COMBINED PIPELINE FUNCTION
+# ============================================================================
+
+def apply_bbcode_formatting(godot_data, module_number=None):
+    """
+    Pipeline step: Strip all existing BBCode, then apply vocab + fraction formatting.
+    Order: strip all -> vocab tags -> fraction tags.
+
+    Args:
+        godot_data: Godot schema dict (with @type: "SequencePool" and sequences array)
+        module_number: Module number (automatically passed by pipeline)
+
+    Returns:
+        Modified godot_data with clean BBCode applied
+
+    Usage in pipeline (pipelines.json):
+        {
+            "name": "bbcode_formatting",
+            "type": "formatting",
+            "function": "bbcode_formatter.apply_bbcode_formatting",
+            "description": "Strip all existing BBCode then apply vocab + fraction tags",
+            "function_args": {},
+            "output_file": "bbcode_formatted.json"
+        }
+    """
+    if not godot_data or '@type' not in godot_data:
+        print("[WARN] Invalid Godot data structure - skipping bbcode formatting")
+        return godot_data
+
+    # --- Step 0: Strip all existing BBCode from every text field ---
+    def _strip_fields(data):
+        sequences = data.get('sequences', [])
+        for sequence in sequences:
+            if sequence.get('@type') != 'Sequence':
+                continue
+            for step in sequence.get('steps', []):
+                if step.get('dialogue'):
+                    step['dialogue'] = strip_all_bbcode(step['dialogue'])
+                prompt = step.get('prompt')
+                if prompt:
+                    if prompt.get('text'):
+                        prompt['text'] = strip_all_bbcode(prompt['text'])
+                    choices = prompt.get('choices')
+                    if choices and choices.get('options'):
+                        choices['options'] = [strip_all_bbcode(c) for c in choices['options']]
+                    for rem in prompt.get('remediations', []):
+                        rem_step = rem.get('step', {})
+                        if rem_step.get('dialogue'):
+                            rem_step['dialogue'] = strip_all_bbcode(rem_step['dialogue'])
+                    on_correct = prompt.get('on_correct')
+                    if on_correct and on_correct.get('dialogue'):
+                        on_correct['dialogue'] = strip_all_bbcode(on_correct['dialogue'])
+
+    _strip_fields(godot_data)
+    print("[OK] Stripped all existing BBCode tags")
+
+    # --- Step 1: Vocab ---
+    godot_data = apply_vocab_formatting(godot_data, module_number=module_number)
+
+    # --- Step 2: Fractions ---
+    godot_data = apply_fraction_formatting(godot_data, module_number=module_number)
+
+    print("[OK] Combined BBCode formatting complete")
+    return godot_data
+
+
+# ============================================================================
 # TESTING
 # ============================================================================
 
@@ -721,4 +832,39 @@ def test_bbcode_formatter():
 
 
 if __name__ == "__main__":
-    test_bbcode_formatter()
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Strip all BBCode then apply vocab + fraction tags in-place."
+    )
+    parser.add_argument("files", nargs="*", metavar="FILE", help="JSON file(s) to format in place")
+    parser.add_argument("-m", "--module", type=int, default=None, help="Module number (inferred from path if omitted)")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    args = parser.parse_args()
+
+    if not args.files:
+        test_bbcode_formatter()
+    else:
+        for file_path in args.files:
+            try:
+                module_number = args.module
+                if module_number is None:
+                    match = re.search(r'module[_\s]?(\d+)', file_path, re.IGNORECASE)
+                    if match:
+                        module_number = int(match.group(1))
+                        print(f"[OK] Inferred module number {module_number} from path")
+                    else:
+                        print("[WARN] No module number provided or inferred - vocab tags will be skipped")
+
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+
+                result = apply_bbcode_formatting(data, module_number=module_number)
+
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    json.dump(result, f, indent=2, ensure_ascii=False)
+                    f.write("\n")
+
+                print(f"[OK] {file_path}")
+            except Exception as e:
+                print(f"[ERROR] {file_path}: {e}", file=sys.stderr)

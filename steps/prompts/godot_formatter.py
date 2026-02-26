@@ -29,8 +29,8 @@ You will receive ONE sequence with metadata and a `steps` array (may contain sin
 **MULTI-STEP WORKSPACE HANDLING (CRITICAL):**
 - **Step 1**: Input workspace is array → Output normally as WorkspaceData with tangibles
 - **Step 2+**: Check input workspace structure:
-  - If input has `{"inherited": true, "tangibles": [...]}` → Omit workspace from output (inherits from Step 1)
-  - If input has `{"inherited": false, "tangibles": [...]}` → Output workspace normally (new/reset workspace)
+  - If input has `{"inherited": true, "tangibles": [...]}` → Omit workspace from output (inherits from the most recent step that had a workspace)
+  - If input has `{"inherited": false, "tangibles": [...]}` → Output workspace normally (new/reset workspace). This step becomes the new reference — any subsequent steps with `inherited: true` will inherit from THIS step's workspace, not from an earlier step.
   - If input is array → Output workspace normally (backward compatibility)
 
 **CRITICAL: Consult <sequence> for the complete Godot sequence structure. Every element you generate (Sequence, Step, Prompt, WorkspaceChoices, Palette, Remediation) must conform exactly to the schema specifications in sequence.md.**
@@ -606,7 +606,7 @@ For multi-step sequences (NOTE: Step 2 does NOT have workspace field):
 }
 ```
 
-**KEY POINT**: Notice step 2 has NO `workspace` field - it automatically inherits the workspace from step 1.
+**KEY POINT**: Step 2 has no `workspace` field because its input had `inherited: true` — omitting the field signals Godot to continue using the previous workspace. Step 2 with `inherited: false` would include its own workspace, which then becomes the reference for any later steps with `inherited: true`.
 
 **Key transformations in this example**:
 1. Flat item → Sequence (no SequencePool wrapper)
