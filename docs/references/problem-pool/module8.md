@@ -17,13 +17,13 @@
 
 ## CONCEPTS EXPLICITLY TAUGHT
 
-1. **Visual comparison of same-sized bars** — "Do they show the same amount?" (Step 1\)  
-2. **"Equivalent" vocabulary** — "Equal \- the same amount, just written differently" (Step 2\)  
-3. **Same Whole requirement** — Fractions can only be equivalent when comparing same-sized wholes (Step 6\)  
-4. **Primary equivalence chain** — 1/2 \= 2/4 \= 3/6 \= 4/8 (Steps 5, 8\)  
-5. **Secondary equivalence chain** — 2/3 \= 4/6 (Steps 14-16)  
-6. **Number line verification** — Equivalent fractions land at the same point (Steps 10-11)  
-7. **Creating equivalents by splitting** — "Each third becomes TWO sixths when split" (Steps 14-15)  
+1. **Visual comparison of same-sized bars** — "Do they show the same amount?" (Step 1\)
+2. **"Equivalent" vocabulary** — "Equal \- the same amount, just written differently" (Step 2\)
+3. **Same Whole requirement** — Fractions can only be equivalent when comparing same-sized wholes (Step 6\)
+4. **Primary equivalence chain** — 1/2 \= 2/4 \= 3/6 \= 4/8 (Steps 5, 8\)
+5. **Secondary equivalence chain** — 2/3 \= 4/6 (Steps 14-16)
+6. **Number line verification** — Equivalent fractions land at the same point (Steps 10-11)
+7. **Creating equivalents by splitting** — "Each third becomes TWO sixths when split" (Steps 14-15)
 8. **Pattern articulation** — "Pieces get smaller, we shade more, but total amount stays the same" (Step 8\)
 
 ---
@@ -46,23 +46,23 @@
 
 **Students entering M8 have MASTERED (from M7):**
 
-- Recognizing that b/b \= 1 (numerator equals denominator means one whole) ✓  
-- Explaining WHY b/b \= 1 using "all parts" reasoning ✓  
-- Writing whole numbers as fractions with any denominator ✓  
-- Placing points on 0-2 number lines fluently ✓  
+- Recognizing that b/b \= 1 (numerator equals denominator means one whole) ✓
+- Explaining WHY b/b \= 1 using "all parts" reasoning ✓
+- Writing whole numbers as fractions with any denominator ✓
+- Placing points on 0-2 number lines fluently ✓
 - Connecting patterns across representations ✓
 
 **Therefore, M8 Practice does NOT need standalone templates for:**
 
-- ~~Basic number line placement~~ (mastered in M5-M7)  
-- ~~Recognizing b/b \= 1~~ (M7 content)  
+- ~~Basic number line placement~~ (mastered in M5-M7)
+- ~~Recognizing b/b \= 1~~ (M7 content)
 - ~~Explaining why 4/4 \= 1~~ (M7 content)
 
 **M8 Practice focuses on what's GENUINELY NEW:**
 
-1. **Conceptual:** Recognizing equivalence between DIFFERENT fractions (1/2 \= 2/4), not just b/b \= 1  
-2. **Conceptual:** Understanding the Same Whole requirement  
-3. **Procedural:** Creating equivalent fractions by shading (new `paint` action)  
+1. **Conceptual:** Recognizing equivalence between DIFFERENT fractions (1/2 \= 2/4), not just b/b \= 1
+2. **Conceptual:** Understanding the Same Whole requirement
+3. **Procedural:** Creating equivalent fractions by shading (new `paint` action)
 4. **Transfer:** Verifying equivalence on number lines; applying to fractions \> 1
 
 ---
@@ -262,15 +262,15 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 │   └── 8012: 0-2 number line (3/2 = 6/4)
 ├── M8-09: Multi-step bar → number line
 │   └── 8013: Select bar, then verify on line
-├── M8-10: Apply equivalence to real-world contexts 
-│   └── 8014: Dialogue-framed contexts (chocolate, pizza, ribbon, etc.) 
-└── M8-11: Recognize equivalent fractions from notation without visuals 
+├── M8-10: Apply equivalence to real-world contexts
+│   └── 8014: Dialogue-framed contexts (chocolate, pizza, ribbon, etc.)
+└── M8-11: Recognize equivalent fractions from notation without visuals
     └── 8015: Notation-only MCQ (no visual support)
 ```
 
 ---
 
-# MODULE 8 PATH B (SINGAPORE) — TEMPLATES 
+# MODULE 8 PATH B (SINGAPORE) — TEMPLATES
 
 ## Template 8001 — Select Equivalent Bar from 3 Options
 
@@ -280,17 +280,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Which bar shows the same amount as one half?"  
-- "Find the bar that is equivalent to two fourths."  
-- "Click the bar that shows an equivalent fraction."  
-- "One half is shaded at the top. Which bar below matches that amount?"  
+- "Which bar shows the same amount as one half?"
+- "Find the bar that is equivalent to two fourths."
+- "Click the bar that shows an equivalent fraction."
+- "One half is shaded at the top. Which bar below matches that amount?"
 - "Which bar is equivalent? Click to select."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "That's right. Two fourths shows the same amount as one half."  
-- "You found it. Three sixths equals one half."  
-- "Correct — same amount, different pieces."  
+- "That's right. Two fourths shows the same amount as one half."
+- "You found it. Three sixths equals one half."
+- "Correct — same amount, different pieces."
 - "Yes. Four eighths is equivalent to one half."
 
 ### Technical Details (JSON)
@@ -336,17 +336,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Select all the pairs that show equivalent fractions."  
-- "Click all the pairs where both bars show the same amount."  
-- "Find all the equivalent pairs. There may be more than one."  
-- "Which pairs are equivalent? Select all that apply."  
+- "Select all the pairs that show equivalent fractions."
+- "Click all the pairs where both bars show the same amount."
+- "Find all the equivalent pairs. There may be more than one."
+- "Which pairs are equivalent? Select all that apply."
 - "Some pairs show the same amount. Find them all."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "You found them both. One half equals two fourths, and three sixths equals four eighths."  
-- "That's right — those pairs are all equivalent."  
-- "Good eye. You identified all the matching pairs."  
+- "You found them both. One half equals two fourths, and three sixths equals four eighths."
+- "That's right — those pairs are all equivalent."
+- "Good eye. You identified all the matching pairs."
 - "Correct. Each of those pairs shows the same amount."
 
 ### Technical Details (JSON)
@@ -400,17 +400,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Emma ate 1/2 of her small cookie. Luis ate 2/4 of a large cookie. Can we say they ate the same amount?"  
-- "Two identical ribbons are cut differently. One shows 1/2 shaded, one shows 2/4 shaded. Are these amounts equivalent?"  
-- "Mia has a granola bar. Jake has an identical granola bar. Mia ate 3/6 and Jake ate 1/2. Did they eat the same amount?"  
-- "One pizza is small, one is large. Both have 1/2 eaten. Is the amount eaten the same?"  
+- "Emma ate 1/2 of her small cookie. Luis ate 2/4 of a large cookie. Can we say they ate the same amount?"
+- "Two identical ribbons are cut differently. One shows 1/2 shaded, one shows 2/4 shaded. Are these amounts equivalent?"
+- "Mia has a granola bar. Jake has an identical granola bar. Mia ate 3/6 and Jake ate 1/2. Did they eat the same amount?"
+- "One pizza is small, one is large. Both have 1/2 eaten. Is the amount eaten the same?"
 - "Two same-sized juice boxes. One shows 2/4 full, one shows 4/8 full. Do they have the same amount?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. The wholes are different sizes, so we can't say the amounts are equal."  
-- "Yes — identical wholes and equivalent fractions means the same amount."  
-- "Exactly. Same-sized wholes let us compare fairly."  
+- "Right. The wholes are different sizes, so we can't say the amounts are equal."
+- "Yes — identical wholes and equivalent fractions means the same amount."
+- "Exactly. Same-sized wholes let us compare fairly."
 - "Correct. Different-sized wholes means the comparison doesn't work."
 
 ### Technical Details (JSON)
@@ -457,17 +457,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Why are one half and two fourths equivalent?"  
-- "These bars show three sixths and four eighths. Why are they equivalent?"  
-- "What's the BEST reason these fractions are equal?"  
-- "Two thirds equals four sixths. Why?"  
+- "Why are one half and two fourths equivalent?"
+- "These bars show three sixths and four eighths. Why are they equivalent?"
+- "What's the BEST reason these fractions are equal?"
+- "Two thirds equals four sixths. Why?"
 - "Pick the explanation that tells WHY these fractions are equivalent."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Exactly. They're equivalent because the same amount is shaded."  
-- "That's the key — splitting into smaller pieces doesn't change the total amount."  
-- "Right. Different pieces, but the same portion of the whole."  
+- "Exactly. They're equivalent because the same amount is shaded."
+- "That's the key — splitting into smaller pieces doesn't change the total amount."
+- "Right. Different pieces, but the same portion of the whole."
 - "Yes. The shaded amount stays the same even when the pieces change."
 
 ### Technical Details (JSON)
@@ -514,17 +514,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Find the bar that equals one half."  
-- "Which bar is equivalent to two fourths?"  
-- "Click the bar showing the same amount as three sixths."  
-- "One half is at the top. Which bar matches?"  
+- "Find the bar that equals one half."
+- "Which bar is equivalent to two fourths?"
+- "Click the bar showing the same amount as three sixths."
+- "One half is at the top. Which bar matches?"
 - "Select the equivalent bar."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Yes. Two fourths equals one half."  
-- "That's it. Same amount, different pieces."  
-- "Correct. Three sixths and one half are equivalent."  
+- "Yes. Two fourths equals one half."
+- "That's it. Same amount, different pieces."
+- "Correct. Three sixths and one half are equivalent."
 - "You found it."
 
 ### Technical Details (JSON)
@@ -569,17 +569,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Find the bar equivalent to two thirds."  
-- "Which bar shows the same amount as four sixths?"  
-- "Click the bar that equals three sixths."  
-- "Select the equivalent bar."  
+- "Find the bar equivalent to two thirds."
+- "Which bar shows the same amount as four sixths?"
+- "Click the bar that equals three sixths."
+- "Select the equivalent bar."
 - "Four eighths is shown. Find its match."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Four sixths equals two thirds."  
-- "You got it. Same portion of the whole."  
-- "Correct. They're equivalent."  
+- "Right. Four sixths equals two thirds."
+- "You got it. Same portion of the whole."
+- "Correct. They're equivalent."
 - "Yes — different pieces, same amount."
 
 ### Technical Details (JSON)
@@ -624,17 +624,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Place two fourths on the line. Does it land at the same spot as one half?"  
-- "Show where three sixths goes. Is it the same as one half?"  
-- "Put four eighths on the number line."  
-- "Place the marker at two fourths."  
+- "Place two fourths on the line. Does it land at the same spot as one half?"
+- "Show where three sixths goes. Is it the same as one half?"
+- "Put four eighths on the number line."
+- "Place the marker at two fourths."
 - "Find where three sixths belongs on this line."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right there. Two fourths lands at the same point as one half."  
-- "Yes. They're at the same position — equivalent."  
-- "Correct. Same spot means same amount."  
+- "Right there. Two fourths lands at the same point as one half."
+- "Yes. They're at the same position — equivalent."
+- "Correct. Same spot means same amount."
 - "You proved it. Three sixths equals one half."
 
 ### Technical Details (JSON)
@@ -681,17 +681,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Place four sixths on the line. Where does it land compared to two thirds?"  
-- "Show where two sixths goes."  
-- "Put one third on the number line. Is it at the same spot as two sixths?"  
-- "Place the marker at four eighths."  
+- "Place four sixths on the line. Where does it land compared to two thirds?"
+- "Show where two sixths goes."
+- "Put one third on the number line. Is it at the same spot as two sixths?"
+- "Place the marker at four eighths."
 - "Find where two fourths belongs."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Yes. Four sixths and two thirds are at the same position."  
-- "Correct. Same point — they're equivalent."  
-- "Right. One third equals two sixths."  
+- "Yes. Four sixths and two thirds are at the same position."
+- "Correct. Same point — they're equivalent."
+- "Right. One third equals two sixths."
 - "You verified it. Same spot, same amount."
 
 ### Technical Details (JSON)
@@ -737,17 +737,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Shade this bar to show a fraction equal to one half."  
-- "The top bar shows one half. Shade the bottom bar to match that amount."  
-- "How many eighths equal one half? Shade to show."  
-- "Create a fraction equivalent to two fourths."  
+- "Shade this bar to show a fraction equal to one half."
+- "The top bar shows one half. Shade the bottom bar to match that amount."
+- "How many eighths equal one half? Shade to show."
+- "Create a fraction equivalent to two fourths."
 - "Shade parts to make the same amount as three sixths."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "You made it. Four eighths equals one half."  
-- "Correct. You shaded the same amount."  
-- "Yes — same amount, just more pieces."  
+- "You made it. Four eighths equals one half."
+- "Correct. You shaded the same amount."
+- "Yes — same amount, just more pieces."
 - "That's equivalent. Nice work."
 
 ### Technical Details (JSON)
@@ -793,17 +793,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Shade this bar to show a fraction equal to two thirds."  
-- "The top bar shows two thirds. Shade the bottom bar to match that amount."  
-- "How many sixths equal two thirds? Shade to show."  
-- "Create a fraction equivalent to two thirds using sixths."  
+- "Shade this bar to show a fraction equal to two thirds."
+- "The top bar shows two thirds. Shade the bottom bar to match that amount."
+- "How many sixths equal two thirds? Shade to show."
+- "Create a fraction equivalent to two thirds using sixths."
 - "Each third splits into two sixths. Shade to show two thirds."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "You made it. Four sixths equals two thirds."  
-- "Correct. Same amount — each third became two sixths."  
-- "Yes. Two thirds and four sixths are equivalent."  
+- "You made it. Four sixths equals two thirds."
+- "Correct. Same amount — each third became two sixths."
+- "Yes. Two thirds and four sixths are equivalent."
 - "That's it. You created an equivalent fraction."
 
 ### Technical Details (JSON)
@@ -849,17 +849,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Are two thirds and four sixths equivalent? How can you tell?"  
-- "Which bar shows a fraction equivalent to two thirds?"  
-- "Compare one third and two sixths. Are they equivalent?"  
-- "Find the bar that equals four sixths."  
+- "Are two thirds and four sixths equivalent? How can you tell?"
+- "Which bar shows a fraction equivalent to two thirds?"
+- "Compare one third and two sixths. Are they equivalent?"
+- "Find the bar that equals four sixths."
 - "Do these two bars show the same amount?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Two thirds equals four sixths."  
-- "Yes — same amount shaded in both bars."  
-- "Correct. One third and two sixths are equivalent."  
+- "Right. Two thirds equals four sixths."
+- "Yes — same amount shaded in both bars."
+- "Correct. One third and two sixths are equivalent."
 - "You found it. They show the same portion."
 
 ### Technical Details (JSON)
@@ -904,17 +904,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Place three halves on the line. Where does it land?"  
-- "Show where six fourths goes on this number line."  
-- "Put five fourths on the line. Is it at the same spot as another fraction?"  
-- "Place the marker at three halves."  
+- "Place three halves on the line. Where does it land?"
+- "Show where six fourths goes on this number line."
+- "Put five fourths on the line. Is it at the same spot as another fraction?"
+- "Place the marker at three halves."
 - "Find where six fourths belongs. What equivalent do you see?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Three halves and six fourths land at the same point."  
-- "Yes. They're past 1 but still equivalent."  
-- "Correct. Same position — same amount."  
+- "Right. Three halves and six fourths land at the same point."
+- "Yes. They're past 1 but still equivalent."
+- "Correct. Same position — same amount."
 - "You proved it. Equivalence works beyond 1 too."
 
 ### Technical Details (JSON)
@@ -960,17 +960,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Step 1: Which bar is equivalent to one half? Step 2: Now place both fractions on the line to check."  
-- "First, find the equivalent bar. Then prove it on the number line."  
-- "Select the matching bar, then verify they land at the same point."  
-- "Which bar equals two fourths? After you choose, we'll check on the number line."  
+- "Step 1: Which bar is equivalent to one half? Step 2: Now place both fractions on the line to check."
+- "First, find the equivalent bar. Then prove it on the number line."
+- "Select the matching bar, then verify they land at the same point."
+- "Which bar equals two fourths? After you choose, we'll check on the number line."
 - "Find the equivalent. Then show they're at the same position."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Good. You found the equivalent AND proved it on the line."  
-- "Both steps complete. Same bar, same point — equivalent."  
-- "You verified it two ways. Nice work."  
+- "Good. You found the equivalent AND proved it on the line."
+- "Both steps complete. Same bar, same point — equivalent."
+- "You verified it two ways. Nice work."
 - "Correct. Visual match and number line match."
 
 ### Technical Details (JSON)
@@ -1016,17 +1016,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Maya ate 1/2 of her chocolate bar. Noah ate 2/4 of an identical bar. Did they eat the same amount?"  
-- "Two same-sized pizzas. One has 3/6 eaten, one has 1/2 eaten. Are the amounts equal?"  
-- "Eli used 2/4 of his ribbon. Sara used 4/8 of an identical ribbon. Who used more?"  
-- "Both sandwiches are the same size. Jade ate 1/2, Kim ate 3/6. Did they eat the same amount?"  
+- "Maya ate 1/2 of her chocolate bar. Noah ate 2/4 of an identical bar. Did they eat the same amount?"
+- "Two same-sized pizzas. One has 3/6 eaten, one has 1/2 eaten. Are the amounts equal?"
+- "Eli used 2/4 of his ribbon. Sara used 4/8 of an identical ribbon. Who used more?"
+- "Both sandwiches are the same size. Jade ate 1/2, Kim ate 3/6. Did they eat the same amount?"
 - "Two identical juice boxes. One is 2/4 full, one is 1/2 full. Same amount of juice?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Same-sized bars and equivalent fractions — they ate the same amount."  
-- "Correct. Three sixths equals one half."  
-- "Yes. Identical ribbons and equivalent fractions means equal amounts."  
+- "Right. Same-sized bars and equivalent fractions — they ate the same amount."
+- "Correct. Three sixths equals one half."
+- "Yes. Identical ribbons and equivalent fractions means equal amounts."
 - "You got it. Same-sized wholes, same portion eaten."
 
 ### Technical Details (JSON)
@@ -1072,17 +1072,17 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Which fraction equals 1/2?"  
-- "Select the fraction equivalent to two fourths."  
-- "Which of these is equivalent to 3/6?"  
-- "Find the fraction that equals 2/3."  
+- "Which fraction equals 1/2?"
+- "Select the fraction equivalent to two fourths."
+- "Which of these is equivalent to 3/6?"
+- "Find the fraction that equals 2/3."
 - "Which fraction shows the same amount as 4/8?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Correct. Two fourths equals one half."  
-- "Yes. Three sixths and one half are equivalent."  
-- "Right. You recognized the equivalence without needing the picture."  
+- "Correct. Two fourths equals one half."
+- "Yes. Three sixths and one half are equivalent."
+- "Right. You recognized the equivalence without needing the picture."
 - "That's it. Four sixths equals two thirds."
 
 ### Technical Details (JSON)
@@ -1187,9 +1187,9 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 **Rationale:**
 
-- `create` elevated because M8's core skill is GENERATING equivalent fractions (L2 focus)  
-- `compare` elevated because equivalence IS comparison — this is the module's conceptual heart  
-- `identify` elevated due to recognition-before-generation pedagogical sequence  
+- `create` elevated because M8's core skill is GENERATING equivalent fractions (L2 focus)
+- `compare` elevated because equivalence IS comparison — this is the module's conceptual heart
+- `identify` elevated due to recognition-before-generation pedagogical sequence
 - All verbs represented; distribution reflects module goals
 
 ---
@@ -1295,9 +1295,9 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 **Two-Step Design Rationale:**
 
-- Combines visual recognition with number line verification  
-- Reinforces that equivalence can be proven multiple ways  
-- Step 1 validates before Step 2 appears (prevents guessing)  
+- Combines visual recognition with number line verification
+- Reinforces that equivalence can be proven multiple ways
+- Step 1 validates before Step 2 appears (prevents guessing)
 - Matches lesson structure (bars shown first, then number line confirmation)
 
 **Two-Step Template Status: ✅ PROPERLY STRUCTURED**
@@ -1321,22 +1321,22 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 ### 8002 Multi-Select Constraint
 
-- Limited to 2 pairs (4 FracShapes) due to 5-toy maximum  
-- 1 equivalent pair, 1 non-equivalent pair per problem  
+- Limited to 2 pairs (4 FracShapes) due to 5-toy maximum
+- 1 equivalent pair, 1 non-equivalent pair per problem
 - Adequate for pattern recognition; consider expansion if toy limit increases
 
 ### 8003 Word-Based Design
 
-- No visual toys required (dialogue-driven)  
-- Tests internalized Same Whole understanding  
-- Key signal words: "identical" vs "small...large"  
+- No visual toys required (dialogue-driven)
+- Tests internalized Same Whole understanding
+- Key signal words: "identical" vs "small...large"
 - Can add visual support later if needed
 
 ### 8015 Notation-Only Design
 
-- No visual toys (text/symbol only)  
-- Tests M9-readiness (abstract equivalence)  
-- Stretch/challenge only — not for all students  
+- No visual toys (text/symbol only)
+- Tests M9-readiness (abstract equivalence)
+- Stretch/challenge only — not for all students
 - Data collection: identifies who's ready to advance
 
 ---
@@ -1364,10 +1364,10 @@ TRANSFER (M8-07, M8-08, M8-09, M8-10)
 
 The template set meets all critical requirements. Key strengths:
 
-- Paint action (NEW) well-scaffolded through 8009 → 8010 progression  
-- 2/3 family properly introduced as transfer, not direct instruction  
-- 0-2 number line appropriately placed at stretch/challenge  
-- Word-based Same Whole test (8003) allows conceptual assessment without blocked visuals  
+- Paint action (NEW) well-scaffolded through 8009 → 8010 progression
+- 2/3 family properly introduced as transfer, not direct instruction
+- 0-2 number line appropriately placed at stretch/challenge
+- Word-based Same Whole test (8003) allows conceptual assessment without blocked visuals
 - Notation-only template (8015) provides M9-readiness signal
 
 ### Optional Enhancements (If Teacher Feedback Requests)
@@ -1380,9 +1380,9 @@ The template set meets all critical requirements. Key strengths:
 
 ### Flagged for Teacher Review
 
-1. **8003 word-based format:** Confirm scenario language is age-appropriate and signal words ("identical" vs "small...large") are clear  
-2. **8010 paint action difficulty:** 2/3 family generation may be challenging — confirm stretch/challenge placement is appropriate  
-3. **8012 fractions beyond 1:** Verify students have sufficient 0-2 number line experience from M6-M7  
+1. **8003 word-based format:** Confirm scenario language is age-appropriate and signal words ("identical" vs "small...large") are clear
+2. **8010 paint action difficulty:** 2/3 family generation may be challenging — confirm stretch/challenge placement is appropriate
+3. **8012 fractions beyond 1:** Verify students have sufficient 0-2 number line experience from M6-M7
 4. **8015 notation-only:** Confirm this is appropriate diagnostic for M8 (Concrete) or should move to M9 (Abstract)
 
 ---
@@ -1400,4 +1400,4 @@ The template set meets all critical requirements. Key strengths:
 | compare verb | 6% | 18% | \+12% (equivalence IS comparison) |
 | NEW action | — | paint | Shading to create equivalents |
 
-**Evolution Summary:** M8 shifts from M7's formalization (naming patterns) to M8's generation (creating equivalents). The reintroduction of procedural component reflects that students must now DO something new (paint/shade), not just recognize patterns. Transfer remains substantial but focused on new contexts (2/3 family, 0-2 line, real-world, notation) rather than bidirectional fluency.  
+**Evolution Summary:** M8 shifts from M7's formalization (naming patterns) to M8's generation (creating equivalents). The reintroduction of procedural component reflects that students must now DO something new (paint/shade), not just recognize patterns. Transfer remains substantial but focused on new contexts (2/3 family, 0-2 line, real-world, notation) rather than bidirectional fluency.

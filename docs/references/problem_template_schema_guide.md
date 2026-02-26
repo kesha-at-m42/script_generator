@@ -36,7 +36,7 @@ Breaks down the learning objective this template assesses.
 
 #### **mastery_component** (string)
 - **Purpose**: Type of mathematical knowledge being assessed
-- **Options**:`"procedural"`, `"conceptual"`, `"transfer"` 
+- **Options**:`"procedural"`, `"conceptual"`, `"transfer"`
 - **Example**: `"procedural"`
 
 #### **mastery_skill_id** (string)

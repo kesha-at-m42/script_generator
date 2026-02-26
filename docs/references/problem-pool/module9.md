@@ -1,4 +1,4 @@
-## **MODULE 9 PATH B** 
+## **MODULE 9 PATH B**
 
 ---
 
@@ -20,24 +20,24 @@
 
 **\#7 \- Difficulty Recognizing Equivalence**
 
-* What it looks like: Not seeing 1/2 \= 2/4 on number line  
+* What it looks like: Not seeing 1/2 \= 2/4 on number line
 * Detection: Places fractions at different positions
 
 **\#4 \- Improper Spacing (from M4-6)**
 
-* What it looks like: Confuses counting on different denominator lines  
+* What it looks like: Confuses counting on different denominator lines
 * Detection: Incorrect position placement on second line
 
 **SECONDARY (target in 1-2 templates):**
 
 **\#2 \- Misidentifying the Whole (from M4-6)**
 
-* What it looks like: Confuses fractions \> 1 with whole numbers  
+* What it looks like: Confuses fractions \> 1 with whole numbers
 * Detection: Places 8/4 at position 8 instead of position 2
 
 **\#10 \- Overgeneralizing Rules**
 
-* What it looks like: "Bigger number always means bigger fraction"  
+* What it looks like: "Bigger number always means bigger fraction"
 * Detection: Incorrect reasoning about equivalence patterns
 
 ---
@@ -46,16 +46,16 @@
 
 **Previous Module Skills (M8):**
 
-* M8-01: Recognize equivalence \= same amount of same-sized whole  
-* M8-02: Understand Same Whole requirement  
-* M8-03: Explain WHY equivalence works  
-* M8-04: Select equivalent bar from options  
-* M8-05: Verify equivalence on number line (place point)  
-* M8-06: Shade to create equivalent  
-* M8-07: Apply to 2/3 family  
-* M8-08: Verify equivalence for fractions \> 1  
-* M8-09: Multi-step bar to number line  
-* M8-10: Apply equivalence to real-world contexts  
+* M8-01: Recognize equivalence \= same amount of same-sized whole
+* M8-02: Understand Same Whole requirement
+* M8-03: Explain WHY equivalence works
+* M8-04: Select equivalent bar from options
+* M8-05: Verify equivalence on number line (place point)
+* M8-06: Shade to create equivalent
+* M8-07: Apply to 2/3 family
+* M8-08: Verify equivalence for fractions \> 1
+* M8-09: Multi-step bar to number line
+* M8-10: Apply equivalence to real-world contexts
 * M8-11: Recognize equivalent fractions from notation
 
 ---
@@ -64,7 +64,7 @@
 
 **LEARNING GOALS (VERBATIM):**
 
-* Lesson 12: "Identify and generate equivalent fractions as the same point on a number line."  
+* Lesson 12: "Identify and generate equivalent fractions as the same point on a number line."
 * Lesson 13: "Express whole numbers as fractions and recognize fractions equivalent to whole numbers."
 
 ---
@@ -75,28 +75,28 @@ What students DO
 
 **M9-01 Student can place equivalent fractions on dual stacked number lines**
 
-* Builds on: M8-05 \- verify equivalence on number line  
-* Extension: From single line verification to dual stacked lines showing same position  
-* Lesson: Steps 6-7, Step 9 \- guided placement on two lines  
-* Verbs: create  
-* Tiers: confidence, support, baseline  
+* Builds on: M8-05 \- verify equivalence on number line
+* Extension: From single line verification to dual stacked lines showing same position
+* Lesson: Steps 6-7, Step 9 \- guided placement on two lines
+* Verbs: create
+* Tiers: confidence, support, baseline
 * Templates: 9001, 9002
 
 **M9-02 Student can place fractions equal to whole numbers on number line**
 
-* Builds on: M8-08 \- verify equivalence for fractions \> 1  
-* Extension: Now explicitly place b/b \= 1 and 2b/b \= 2 on extended lines  
-* Lesson: Steps 11-13 (4/4 \= 1), Steps 16-18 (8/4 \= 2\)  
-* Verbs: create  
-* Tiers: support, baseline, stretch  
+* Builds on: M8-08 \- verify equivalence for fractions \> 1
+* Extension: Now explicitly place b/b \= 1 and 2b/b \= 2 on extended lines
+* Lesson: Steps 11-13 (4/4 \= 1), Steps 16-18 (8/4 \= 2\)
+* Verbs: create
+* Tiers: support, baseline, stretch
 * Templates: 9003, 9004
 
 **M9-03 Student can place n/1 fractions on number line**
 
-* NEW \- first introduction of whole numbers as fractions with denominator 1  
-* Lesson: Steps 20-22 (2/1 \= 2), Step 24 (pattern 3/1, 4/1)  
-* Verbs: create  
-* Tiers: baseline, stretch  
+* NEW \- first introduction of whole numbers as fractions with denominator 1
+* Lesson: Steps 20-22 (2/1 \= 2), Step 24 (pattern 3/1, 4/1)
+* Verbs: create
+* Tiers: baseline, stretch
 * Templates: 9005
 
 ---
@@ -107,28 +107,28 @@ What students UNDERSTAND
 
 **M9-04 Student can identify equivalent fractions by same position**
 
-* Builds on: M8-01 \- recognize equivalence (same size)  
-* Extension: From visual area matching to abstract position matching  
-* Lesson: Steps 1-5 (modeling), Step 27 (MCQ without visual line)  
-* Verbs: identify  
-* Tiers: support, baseline, stretch  
+* Builds on: M8-01 \- recognize equivalence (same size)
+* Extension: From visual area matching to abstract position matching
+* Lesson: Steps 1-5 (modeling), Step 27 (MCQ without visual line)
+* Verbs: identify
+* Tiers: support, baseline, stretch
 * Templates: 9006, 9007
 
 **M9-05 Student can recognize patterns in fractions equal to whole numbers**
 
-* NEW \- understanding b/b \= 1 and 2b/b \= 2 patterns  
-* Lesson: Step 23 (MCQ about patterns)  
-* Verbs: identify  
-* Tiers: baseline, stretch  
+* NEW \- understanding b/b \= 1 and 2b/b \= 2 patterns
+* Lesson: Step 23 (MCQ about patterns)
+* Verbs: identify
+* Tiers: baseline, stretch
 * Templates: 9008
 
 **M9-06 Student can label equivalent fraction at marked position**
 
-* Builds on: M8-09 \- multi-step tasks  
-* Extension: Given position, find equivalent fraction (inverse task)  
-* Lesson: Step 26 \- label 6/4 equivalent to 3/2  
-* Verbs: identify  
-* Tiers: challenge  
+* Builds on: M8-09 \- multi-step tasks
+* Extension: Given position, find equivalent fraction (inverse task)
+* Lesson: Step 26 \- label 6/4 equivalent to 3/2
+* Verbs: identify
+* Tiers: challenge
 * Templates: 9009
 
 ---
@@ -139,29 +139,29 @@ How students APPLY
 
 **M9-07 Student can verify equivalence using dual representations**
 
-* Builds on: M8-09 \- multi-step bar to number line  
-* Extension: Bars \+ dual stacked lines simultaneously  
-* Lesson: Steps 2-5, Step 10 (bars shown with number lines)  
-* Verbs: compare  
-* Tiers: baseline, stretch  
+* Builds on: M8-09 \- multi-step bar to number line
+* Extension: Bars \+ dual stacked lines simultaneously
+* Lesson: Steps 2-5, Step 10 (bars shown with number lines)
+* Verbs: compare
+* Tiers: baseline, stretch
 * Templates: 9010, 9014, 9015
 
 **M9-08 Student can reason about fractions \> 1 on extended number lines**
 
-* Builds on: M8-08 \- verify equivalence for fractions \> 1  
-* Extension: Position understanding extends to 0-2 or 0-3 range  
-* Lesson: Steps 14-18 (8/4 \= 2), Step 26 (3/2 \= 6/4)  
-* Verbs: apply  
-* Tiers: challenge  
+* Builds on: M8-08 \- verify equivalence for fractions \> 1
+* Extension: Position understanding extends to 0-2 or 0-3 range
+* Lesson: Steps 14-18 (8/4 \= 2), Step 26 (3/2 \= 6/4)
+* Verbs: apply
+* Tiers: challenge
 * Templates: 9011, 9012
 
 **M9-09 Student can identify multiple equivalents to target fraction**
 
-* Builds on: M8-11 \- recognize equivalent fractions from notation  
-* Extension: Multi-select without visual support (abstract reasoning)  
-* Lesson: Step 27 \- MCQ finding all equivalents to 1/2  
-* Verbs: identify  
-* Tiers: challenge  
+* Builds on: M8-11 \- recognize equivalent fractions from notation
+* Extension: Multi-select without visual support (abstract reasoning)
+* Lesson: Step 27 \- MCQ finding all equivalents to 1/2
+* Verbs: identify
+* Tiers: challenge
 * Templates: 9013
 
 ---
@@ -172,13 +172,13 @@ How students APPLY
 
 **New Skills This Module:**
 
-* M9-05: Recognize patterns b/b \= 1, 2b/b \= 2  
+* M9-05: Recognize patterns b/b \= 1, 2b/b \= 2
 * M9-03: Place n/1 fractions (whole numbers as fractions)
 
 **Major Extensions:**
 
-* M9-01: Single line to dual stacked lines  
-* M9-04: Visual matching to position matching  
+* M9-01: Single line to dual stacked lines
+* M9-04: Visual matching to position matching
 * M9-08: Fractions \> 1 with position understanding
 
 ---
@@ -220,21 +220,21 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Place 1/3 on the top line, then place 2/6 on the bottom line."  
-* "First place 1/2 on the top line. Then place 2/4 on the bottom line."  
+* "Place 1/3 on the top line, then place 2/6 on the bottom line."
+* "First place 1/2 on the top line. Then place 2/4 on the bottom line."
 * "Place 2/3 on the top line, then find where 4/6 goes on the bottom line."
 
 **SUCCESS DIALOGUE**
 
-* "Both fractions land at the same position."  
-* "Right. They line up vertically."  
-* "Good. Same position means equivalent."  
+* "Both fractions land at the same position."
+* "Right. They line up vertically."
+* "Good. Same position means equivalent."
 * "That's it. One above the other."
 
 **TIER-SPECIFIC SCAFFOLDING**
 
-* Confidence: First fraction pre-placed with vertical alignment guide visible. Student only places second fraction.  
-* Support: Sequential placement with "place first, then second" structure. Vertical guide appears after first placement.  
+* Confidence: First fraction pre-placed with vertical alignment guide visible. Student only places second fraction.
+* Support: Sequential placement with "place first, then second" structure. Vertical guide appears after first placement.
 * Baseline: Standard sequential placement, no pre-placed fractions.
 
 **JSON**
@@ -277,15 +277,15 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Place 1/2 and 2/4 on the number lines to show they're equivalent."  
-* "Show that 2/3 equals 4/6. Place both fractions."  
+* "Place 1/2 and 2/4 on the number lines to show they're equivalent."
+* "Show that 2/3 equals 4/6. Place both fractions."
 * "Place 3/6 and 1/2 at the same position."
 
 **SUCCESS DIALOGUE**
 
-* "Equivalent fractions at the same position."  
-* "Right. Both land at the same spot."  
-* "Good work. They line up perfectly."  
+* "Equivalent fractions at the same position."
+* "Right. Both land at the same spot."
+* "Good work. They line up perfectly."
 * "Correct. Same position proves equivalence."
 
 **JSON**
@@ -328,22 +328,22 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Place 4/4 on the number line."  
-* "Where does 6/6 land? Place a point."  
-* "Find where 8/8 goes on the line."  
+* "Place 4/4 on the number line."
+* "Where does 6/6 land? Place a point."
+* "Find where 8/8 goes on the line."
 * "Place 5/5 at its position."
 
 **SUCCESS DIALOGUE**
 
-* "Right. 4/4 equals 1."  
-* "That's it. All parts equal one whole."  
-* "Correct. 6/6 lands at 1."  
+* "Right. 4/4 equals 1."
+* "That's it. All parts equal one whole."
+* "Correct. 6/6 lands at 1."
 * "Good. When numerator equals denominator, the fraction equals 1."
 
 **TIER-SPECIFIC SCAFFOLDING**
 
-* Support: Visual bar showing b/b shaded parts appears next to number line.  
-* Baseline: Number line only, no bar support.  
+* Support: Visual bar showing b/b shaded parts appears next to number line.
+* Baseline: Number line only, no bar support.
 * Stretch: Larger denominators (6/6, 8/8) or extended range (0-2 line).
 
 **JSON**
@@ -387,16 +387,16 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Place 8/4 on the number line."  
-* "Where does 6/3 land? Place a point."  
-* "Find where 10/5 goes on the line."  
+* "Place 8/4 on the number line."
+* "Where does 6/3 land? Place a point."
+* "Find where 10/5 goes on the line."
 * "Place 8/4. It equals 2."
 
 **SUCCESS DIALOGUE**
 
-* "Right. 8/4 equals 2."  
-* "That's it. Two complete wholes."  
-* "Correct. 6/3 lands at 2."  
+* "Right. 8/4 equals 2."
+* "That's it. Two complete wholes."
+* "Correct. 6/3 lands at 2."
 * "Good. Eight fourths is two wholes."
 
 **JSON**
@@ -440,16 +440,16 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Place 2/1 on the number line."  
-* "Where does 3/1 land? Place a point."  
-* "Find where 4/1 goes on the line."  
+* "Place 2/1 on the number line."
+* "Where does 3/1 land? Place a point."
+* "Find where 4/1 goes on the line."
 * "Place 1/1 at its position."
 
 **SUCCESS DIALOGUE**
 
-* "Right. 2/1 equals 2."  
-* "That's it. One whole-sized piece lands there."  
-* "Correct. 3/1 equals 3."  
+* "Right. 2/1 equals 2."
+* "That's it. One whole-sized piece lands there."
+* "Correct. 3/1 equals 3."
 * "Good. When denominator is 1, the fraction equals the numerator."
 
 **JSON**
@@ -493,21 +493,21 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Which fraction equals 1/2? Select one."  
-* "Click the fraction equivalent to 2/3."  
+* "Which fraction equals 1/2? Select one."
+* "Click the fraction equivalent to 2/3."
 * "Which one equals 1/4?"
 
 **SUCCESS DIALOGUE**
 
-* "Right. They're equivalent."  
-* "Correct. Same position, same value."  
-* "That's it. They equal the same amount."  
+* "Right. They're equivalent."
+* "Correct. Same position, same value."
+* "That's it. They equal the same amount."
 * "Good. Those fractions are equivalent."
 
 **TIER-SPECIFIC SCAFFOLDING**
 
-* Support: Two stacked number lines showing target fraction position (visual support).  
-* Baseline: Multiple choice without visual lines (notation only).  
+* Support: Two stacked number lines showing target fraction position (visual support).
+* Baseline: Multiple choice without visual lines (notation only).
 * Stretch: More complex fractions or more distractor options.
 
 **JSON**
@@ -551,15 +551,15 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Click all fractions that equal 1/2. You can choose more than one."  
-* "Select every fraction equivalent to 1/3."  
+* "Click all fractions that equal 1/2. You can choose more than one."
+* "Select every fraction equivalent to 1/3."
 * "Find all the fractions that equal 2/4."
 
 **SUCCESS DIALOGUE**
 
-* "Right. All of those equal the target."  
-* "Correct. You found all the equivalents."  
-* "Good work. Those all land at the same position."  
+* "Right. All of those equal the target."
+* "Correct. You found all the equivalents."
+* "Good work. Those all land at the same position."
 * "That's it. All equivalent to the target."
 
 **JSON**
@@ -604,15 +604,15 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "Click all true statements about fractions that equal whole numbers."  
-* "Which patterns help you know when a fraction equals 1 or 2?"  
+* "Click all true statements about fractions that equal whole numbers."
+* "Which patterns help you know when a fraction equals 1 or 2?"
 * "Select the rules that are true."
 
 **SUCCESS DIALOGUE**
 
-* "Right. Those patterns work."  
-* "Correct. Numerator and denominator relationship tells us."  
-* "Good thinking. You identified the patterns."  
+* "Right. Those patterns work."
+* "Correct. Numerator and denominator relationship tells us."
+* "Good thinking. You identified the patterns."
 * "That's it. Those rules help identify whole numbers."
 
 **JSON**
@@ -664,15 +664,15 @@ How students APPLY
 
 **PROMPT EXAMPLES**
 
-* "The top line shows 3/2. Drag the equivalent fraction to label the bottom line."  
-* "Label the marked position on the bottom line. It should equal 1/2."  
+* "The top line shows 3/2. Drag the equivalent fraction to label the bottom line."
+* "Label the marked position on the bottom line. It should equal 1/2."
 * "Drag the fraction that equals 2/3 to the marked spot."
 
 **SUCCESS DIALOGUE**
 
-* "Right. Same position, equivalent fractions."  
-* "Correct. 6/4 equals 3/2."  
-* "Good. You found the equivalent."  
+* "Right. Same position, equivalent fractions."
+* "Correct. 6/4 equals 3/2."
+* "Good. You found the equivalent."
 * "That's it. They land at the same spot."
 
 **JSON**
@@ -717,21 +717,21 @@ PROBLEM TYPE Student multi-selects all models (bars and number lines) that show 
 
 PROMPT EXAMPLES
 
-* "Which models show fractions equivalent to 1/4? Click all that apply."  
-* "Find all the models equal to 1/2. Select all correct ones."  
-* "Some are bars, some are lines. Which show 2/3?"  
+* "Which models show fractions equivalent to 1/4? Click all that apply."
+* "Find all the models equal to 1/2. Select all correct ones."
+* "Some are bars, some are lines. Which show 2/3?"
 * "Click every model that equals 1/3."
 
 SUCCESS DIALOGUE
 
-* "Right. You found all the equivalents."  
-* "Correct. Same fraction in different models."  
-* "Yes. Bars and lines both show equivalence."  
+* "Right. You found all the equivalents."
+* "Correct. Same fraction in different models."
+* "Yes. Bars and lines both show equivalence."
 * "Good eye. You recognized it across representations."
 
 TIER-SPECIFIC SCAFFOLDING
 
-* Baseline: 4 models (2 bars, 2 lines), 2 are equivalent to target  
+* Baseline: 4 models (2 bars, 2 lines), 2 are equivalent to target
 * Stretch: 6 models (3 bars, 3 lines), 2-3 are equivalent to target
 
 EXAMPLE PROBLEM (Baseline):
@@ -798,15 +798,15 @@ json
 
 **PROMPT EXAMPLES**
 
-* "Place 3/2 on the top line and 6/4 on the bottom line."  
-* "Show that 5/4 equals 10/8. Place both fractions."  
+* "Place 3/2 on the top line and 6/4 on the bottom line."
+* "Show that 5/4 equals 10/8. Place both fractions."
 * "Place 4/3 and 8/6 to show they're equivalent."
 
 **SUCCESS DIALOGUE**
 
-* "Right. Both fractions land past 1 at the same position."  
-* "Correct. Same position even beyond 1."  
-* "Good. Equivalence works for fractions greater than 1 too."  
+* "Right. Both fractions land past 1 at the same position."
+* "Correct. Same position even beyond 1."
+* "Good. Equivalence works for fractions greater than 1 too."
 * "That's it. They line up at the same spot."
 
 **JSON**
@@ -849,15 +849,15 @@ json
 
 **PROMPT EXAMPLES**
 
-* "Where does 8/4 land on the number line? Select one."  
-* "Click the position where 6/3 goes."  
+* "Where does 8/4 land on the number line? Select one."
+* "Click the position where 6/3 goes."
 * "Where does 5/2 land?"
 
 **SUCCESS DIALOGUE**
 
-* "Right. 8/4 equals 2."  
-* "Correct. That fraction reaches 2."  
-* "Good. Two complete wholes."  
+* "Right. 8/4 equals 2."
+* "Correct. That fraction reaches 2."
+* "Good. Two complete wholes."
 * "That's it. The fraction lands at 2."
 
 **JSON**
@@ -901,15 +901,15 @@ json
 
 **PROMPT EXAMPLES**
 
-* "Click all fractions that equal 1/2. No number line this time."  
-* "Find every fraction equivalent to 1\. You can choose more than one."  
+* "Click all fractions that equal 1/2. No number line this time."
+* "Find every fraction equivalent to 1\. You can choose more than one."
 * "Select all fractions that equal 2/3."
 
 **SUCCESS DIALOGUE**
 
-* "Right. All of those are equivalent."  
-* "Correct. You reasoned through it without the visual."  
-* "Good thinking. Abstract equivalence reasoning."  
+* "Right. All of those are equivalent."
+* "Correct. You reasoned through it without the visual."
+* "Good thinking. Abstract equivalence reasoning."
 * "That's it. You found all the equivalents."
 
 **JSON**
@@ -956,16 +956,16 @@ PROBLEM TYPE Student selects which pair(s) from a list show equivalent fractions
 
 PROMPT EXAMPLES
 
-* "Which pairs show equivalent fractions? Click all that apply."  
-* "Find the pairs where both fractions are equal."  
-* "Select every pair that shows equivalence."  
+* "Which pairs show equivalent fractions? Click all that apply."
+* "Find the pairs where both fractions are equal."
+* "Select every pair that shows equivalence."
 * "Which pairs land at the same position?"
 
 SUCCESS DIALOGUE
 
-* "Right. 1/2 and 2/4 are equivalent."  
-* "Correct. You found the equivalent pairs."  
-* "Yes. Those pairs show the same position."  
+* "Right. 1/2 and 2/4 are equivalent."
+* "Correct. You found the equivalent pairs."
+* "Yes. Those pairs show the same position."
 * "Good. Both fractions in that pair are equal."
 
 WORKSPACE DESCRIPTION Display shows 3-5 fraction pairs as options. Each pair shows two fractions with stacked number lines showing both positions. Student multi-selects all pairs that are equivalent.
@@ -1043,4 +1043,3 @@ json
 ```json
 
 ```
-

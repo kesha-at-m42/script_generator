@@ -33,12 +33,12 @@ Students can perform multiples of the **same** action within a single problem:
 
 ## CONCEPTS EXPLICITLY TAUGHT
 
-1. **Counting sequence to b/b** — 1/4, 2/4, 3/4, 4/4 pattern shows iteration to whole  
-2. **b/b \= 1 pattern** — "When numerator equals denominator, the fraction equals 1"  
-3. **Pattern holds across denominators** — 4/4 \= 1, 6/6 \= 1 (same position, same value)  
-4. **2b/b \= 2 extension** — 8/4 \= 2 (counting continues past 1\)  
-5. **Writing wholes as fractions** — "We can write 1 as 3/3 or 2 as 6/3"  
-6. **Reverse engineering** — Given 1/4, find where 4/4 (= 1\) is; Given 3/5, find where 1 is  
+1. **Counting sequence to b/b** — 1/4, 2/4, 3/4, 4/4 pattern shows iteration to whole
+2. **b/b \= 1 pattern** — "When numerator equals denominator, the fraction equals 1"
+3. **Pattern holds across denominators** — 4/4 \= 1, 6/6 \= 1 (same position, same value)
+4. **2b/b \= 2 extension** — 8/4 \= 2 (counting continues past 1\)
+5. **Writing wholes as fractions** — "We can write 1 as 3/3 or 2 as 6/3"
+6. **Reverse engineering** — Given 1/4, find where 4/4 (= 1\) is; Given 3/5, find where 1 is
 7. **Vocabulary formalized** — "numerator equals denominator"
 
 ---
@@ -61,22 +61,22 @@ Students can perform multiples of the **same** action within a single problem:
 
 **Students entering M7 have MASTERED (from M6):**
 
-- Placing any fraction by counting intervals from zero ✓  
-- Placing fractions \> 1 on extended number lines ✓  
-- Placing multiple fractions in sequence ✓  
-- Understanding that denominator stays constant past 1 ✓  
+- Placing any fraction by counting intervals from zero ✓
+- Placing fractions \> 1 on extended number lines ✓
+- Placing multiple fractions in sequence ✓
+- Understanding that denominator stays constant past 1 ✓
 - Identifying fractions from points on the line ✓
 
 **Therefore, M7 Practice does NOT need standalone procedural templates for:**
 
-- ~~Place b/b at position 1~~ (they can already place any fraction)  
-- ~~Place 2b/b at position 2~~ (they can already place fractions \> 1\)  
+- ~~Place b/b at position 1~~ (they can already place any fraction)
+- ~~Place 2b/b at position 2~~ (they can already place fractions \> 1\)
 - ~~Place sequence crossing b/b~~ (they can already place sequences)
 
 **M7 Practice focuses on what's GENUINELY NEW:**
 
-1. **Conceptual:** FORMALIZING the b/b \= 1 pattern (why, not just how)  
-2. **Transfer (Forward):** Writing whole numbers AS fractions (bidirectional)  
+1. **Conceptual:** FORMALIZING the b/b \= 1 pattern (why, not just how)
+2. **Transfer (Forward):** Writing whole numbers AS fractions (bidirectional)
 3. **Transfer (Reverse):** Finding 1 when given only a fraction (inversion of M6 skills)
 
 ---
@@ -89,45 +89,45 @@ Students can perform multiples of the **same** action within a single problem:
 
 ### M7-01: Recognize that b/b \= 1 (numerator equals denominator means one whole)
 
-**Builds on:** M6-04 — Denominator stays constant; M6-06 — Recognize fractions \> 1  
+**Builds on:** M6-04 — Denominator stays constant; M6-06 — Recognize fractions \> 1
 **What's New:** NAMING the pattern explicitly — "when numerator equals denominator, the fraction equals 1"
 
 **Lesson Alignment:** Step 6 MCQ — "What makes 4/4 and 6/6 equal 1?" → "The numerator equals the denominator"
 
 **What It Looks Like:** Student identifies which fractions equal 1 from a set; selects correct pattern description.
 
-**Verbs:** identify  
-**Tiers:** confidence, support, baseline  
+**Verbs:** identify
+**Tiers:** confidence, support, baseline
 **Templates:** 7001, 7002
 
 ---
 
 ### M7-02: Explain WHY b/b \= 1 using "all parts make a whole" reasoning
 
-**Builds on:** M7-01 — Recognizing the pattern  
+**Builds on:** M7-01 — Recognizing the pattern
 **What's New:** Moving from pattern recognition to conceptual EXPLANATION
 
 **Lesson Alignment:** Step 6 — "4 parts out of 4 total. That's all of them, which equals 1."
 
 **What It Looks Like:** Student selects or demonstrates understanding that b/b means "all b parts out of b total \= everything \= 1 whole."
 
-**Verbs:** identify  
-**Tiers:** support, baseline, stretch  
+**Verbs:** identify
+**Tiers:** support, baseline, stretch
 **Templates:** 7003
 
 ---
 
 ### M7-03: Recognize that 2b/b \= 2 (pattern extends to whole number 2\)
 
-**Builds on:** M7-01 — Understanding b/b \= 1  
+**Builds on:** M7-01 — Understanding b/b \= 1
 **What's New:** Extending the formalized pattern: if b/b \= 1, then 2b/b \= 2
 
 **Lesson Alignment:** Step 7 — "If 4/4 equals 1, where would 8/4 go?"; Step 8 — "2 as 6/3"
 
 **What It Looks Like:** Student identifies that 8/4 \= 2, 6/3 \= 2, 4/2 \= 2; recognizes the doubling pattern.
 
-**Verbs:** identify  
-**Tiers:** baseline, stretch  
+**Verbs:** identify
+**Tiers:** baseline, stretch
 **Templates:** 7004
 
 ---
@@ -140,30 +140,30 @@ Students can perform multiples of the **same** action within a single problem:
 
 ### M7-04: Write 1 as a fraction with any given denominator
 
-**Builds on:** M7-01 — Recognizing b/b \= 1  
+**Builds on:** M7-01 — Recognizing b/b \= 1
 **What's New:** BIDIRECTIONAL fluency — given "write 1 using sixths," student produces 6/6
 
 **Lesson Alignment:** Step 8 — "We can write 1 as 3/3"; synthesis — "write 1 as 3/3 or 5/5 or 100/100"
 
 **What It Looks Like:** Given a denominator, student selects, drags, or produces the correct b/b fraction.
 
-**Verbs:** create, apply  
-**Tiers:** support, baseline, stretch  
+**Verbs:** create, apply
+**Tiers:** support, baseline, stretch
 **Templates:** 7005, 7006
 
 ---
 
 ### M7-05: Write 2 as a fraction with any given denominator
 
-**Builds on:** M7-03 — Recognizing 2b/b \= 2; M7-04 — Writing 1 as a fraction  
+**Builds on:** M7-03 — Recognizing 2b/b \= 2; M7-04 — Writing 1 as a fraction
 **What's New:** Same bidirectional task extended to whole number 2
 
 **Lesson Alignment:** Step 8 — "2 as 6/3"
 
 **What It Looks Like:** Given a denominator, student produces the correct 2b/b fraction (e.g., "Write 2 using fourths" → 8/4).
 
-**Verbs:** create, apply  
-**Tiers:** baseline, stretch, challenge  
+**Verbs:** create, apply
+**Tiers:** baseline, stretch, challenge
 **Templates:** 7007
 
 ---
@@ -176,30 +176,30 @@ Students can perform multiples of the **same** action within a single problem:
 
 ### M7-06: Find 1 on a number line given a unit fraction position
 
-**Builds on:** M6-05 — Identify fraction from point (INVERTED)  
+**Builds on:** M6-05 — Identify fraction from point (INVERTED)
 **What's New:** REVERSE direction — given where 1/b is, find where b/b (= 1\) is
 
 **Lesson Alignment:** Step 9 — "If this point is 1/4, where would 4/4 go?"
 
 **What It Looks Like:** Number line shows 0 and a point labeled 1/4. Student places point at position 1 by reasoning "3 more fourths to reach 4/4."
 
-**Verbs:** create, apply  
-**Tiers:** support, baseline, stretch  
+**Verbs:** create, apply
+**Tiers:** support, baseline, stretch
 **Templates:** 7008, 7009
 
 ---
 
 ### M7-07: Find 1 on a number line given a non-unit fraction position
 
-**Builds on:** M7-06 — Reverse from unit fraction  
+**Builds on:** M7-06 — Reverse from unit fraction
 **What's New:** HARDER reverse — given a/b where a \> 1, find 1 (requires more inference)
 
 **Lesson Alignment:** Step 10 — "If this is 3/5, where would 1 be?"
 
 **What It Looks Like:** Number line shows 0 and a point labeled 3/5. Student places point at 5/5 \= 1 by reasoning "2 more fifths."
 
-**Verbs:** create, apply  
-**Tiers:** baseline, stretch, challenge  
+**Verbs:** create, apply
+**Tiers:** baseline, stretch, challenge
 **Templates:** 7010, 7011
 
 ---
@@ -212,15 +212,15 @@ Students can perform multiples of the **same** action within a single problem:
 
 ### M7-08: Connect b/b \= 1 pattern across multiple representations
 
-**NEW:** First appearance of cross-representation connection for this concept  
+**NEW:** First appearance of cross-representation connection for this concept
 **Rationale:** M7 is in Modules 7-9 range where `connect` verb emerges (5-10% target)
 
 **Lesson Alignment:** Step 6 shows two number lines (fourths and sixths) with same position for 1
 
 **What It Looks Like:** Student sees 4/4 on one line and 6/6 on another; identifies that both equal 1 / both land at same position / recognizes the pattern holds regardless of denominator.
 
-**Verbs:** connect, compare  
-**Tiers:** stretch, challenge  
+**Verbs:** connect, compare
+**Tiers:** stretch, challenge
 **Templates:** 7012
 
 ---
@@ -295,17 +295,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Which of these fractions equals 1?"  
-- "Select all the fractions that are equal to one whole."  
-- "Which fraction lands exactly at 1 on the number line?"  
-- "Find the fraction that equals 1: 3/4, 4/4, 5/4, 4/3."  
+- "Which of these fractions equals 1?"
+- "Select all the fractions that are equal to one whole."
+- "Which fraction lands exactly at 1 on the number line?"
+- "Find the fraction that equals 1: 3/4, 4/4, 5/4, 4/3."
 - "Which fractions are the same as 1? Select all that apply."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Four-fourths equals 1."  
-- "Yes—when top and bottom match, it's one whole."  
-- "Correct. All the parts make 1."  
+- "Right. Four-fourths equals 1."
+- "Yes—when top and bottom match, it's one whole."
+- "Correct. All the parts make 1."
 - "You found it."
 
 ### Technical Details (JSON)
@@ -352,17 +352,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Look at 4/4 and 6/6. What makes these fractions equal 1?"  
-- "Why do 4/4 and 6/6 both land at the same spot?"  
-- "What do 3/3, 4/4, and 5/5 have in common?"  
-- "Select the reason these fractions all equal 1."  
+- "Look at 4/4 and 6/6. What makes these fractions equal 1?"
+- "Why do 4/4 and 6/6 both land at the same spot?"
+- "What do 3/3, 4/4, and 5/5 have in common?"
+- "Select the reason these fractions all equal 1."
 - "What pattern do you notice in fractions that equal 1?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. When top and bottom match, the fraction equals 1."  
-- "Yes—numerator equals denominator means one whole."  
-- "Correct. That's the pattern."  
+- "Right. When top and bottom match, the fraction equals 1."
+- "Yes—numerator equals denominator means one whole."
+- "Correct. That's the pattern."
 - "You see it."
 
 ### Technical Details (JSON)
@@ -413,17 +413,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Why does 4/4 equal 1?"  
-- "Explain why 6/6 is the same as one whole."  
-- "What makes 5/5 equal to 1?"  
-- "Select the best explanation for why 3/3 \= 1."  
+- "Why does 4/4 equal 1?"
+- "Explain why 6/6 is the same as one whole."
+- "What makes 5/5 equal to 1?"
+- "Select the best explanation for why 3/3 \= 1."
 - "Why is 8/8 the same as 1 whole?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. All 4 parts out of 4 makes one whole."  
-- "Yes—every part is there, so it's 1."  
-- "Correct. That's why b/b always equals 1."  
+- "Right. All 4 parts out of 4 makes one whole."
+- "Yes—every part is there, so it's 1."
+- "Correct. That's why b/b always equals 1."
 - "Good thinking."
 
 ### Technical Details (JSON)
@@ -478,17 +478,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Which of these fractions equals 2?"  
-- "Select all the fractions that are equal to 2 wholes."  
-- "Which fraction lands exactly at 2 on the number line?"  
-- "Find the fraction that equals 2: 4/4, 6/3, 5/4, 8/4."  
+- "Which of these fractions equals 2?"
+- "Select all the fractions that are equal to 2 wholes."
+- "Which fraction lands exactly at 2 on the number line?"
+- "Find the fraction that equals 2: 4/4, 6/3, 5/4, 8/4."
 - "If 4/4 \= 1, which fraction equals 2?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Eight-fourths equals 2."  
-- "Yes—double the bottom number on top means 2 wholes."  
-- "Correct. Two groups of fourths."  
+- "Right. Eight-fourths equals 2."
+- "Yes—double the bottom number on top means 2 wholes."
+- "Correct. Two groups of fourths."
 - "You see the pattern."
 
 ### Technical Details (JSON)
@@ -535,17 +535,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Write 1 as a fraction using fourths. Drag the correct label to 1."  
-- "The line shows sixths. Label position 1 with the correct fraction."  
-- "Using thirds, what fraction equals 1? Place it on the line."  
-- "Show 1 as a fraction with fifths."  
+- "Write 1 as a fraction using fourths. Drag the correct label to 1."
+- "The line shows sixths. Label position 1 with the correct fraction."
+- "Using thirds, what fraction equals 1? Place it on the line."
+- "Show 1 as a fraction with fifths."
 - "Drag the fraction that equals 1 to its position."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Four-fourths equals 1."  
-- "Yes—that's how we write 1 using sixths."  
-- "Correct. 1 \= 5/5."  
+- "Right. Four-fourths equals 1."
+- "Yes—that's how we write 1 using sixths."
+- "Correct. 1 \= 5/5."
 - "Good."
 
 ### Technical Details (JSON)
@@ -592,17 +592,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Label 1 on each number line using the correct fraction."  
-- "The lines show thirds, fourths, and fifths. Write 1 as a fraction on each."  
-- "Drag 3/3, 4/4, and 5/5 to show where they go."  
-- "Show that 1 can be written different ways. Label each line."  
+- "Label 1 on each number line using the correct fraction."
+- "The lines show thirds, fourths, and fifths. Write 1 as a fraction on each."
+- "Drag 3/3, 4/4, and 5/5 to show where they go."
+- "Show that 1 can be written different ways. Label each line."
 - "Place the fractions that equal 1 on each number line."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. All of them equal 1."  
-- "Yes—different fractions, same position."  
-- "Correct. 1 has many names."  
+- "Right. All of them equal 1."
+- "Yes—different fractions, same position."
+- "Correct. 1 has many names."
 - "Good work on all of them."
 
 ### Technical Details (JSON)
@@ -653,17 +653,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Write 2 as a fraction using fourths. Drag the correct label to 2."  
-- "The line shows thirds. What fraction equals 2? Place it."  
-- "If 4/4 \= 1, what fraction equals 2? Show it on the line."  
-- "Using halves, label position 2 with the correct fraction."  
+- "Write 2 as a fraction using fourths. Drag the correct label to 2."
+- "The line shows thirds. What fraction equals 2? Place it."
+- "If 4/4 \= 1, what fraction equals 2? Show it on the line."
+- "Using halves, label position 2 with the correct fraction."
 - "Drag the fraction that equals 2 to its position."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Eight-fourths equals 2."  
-- "Yes—that's 2 written as thirds."  
-- "Correct. Double the parts, double the whole."  
+- "Right. Eight-fourths equals 2."
+- "Yes—that's 2 written as thirds."
+- "Correct. Double the parts, double the whole."
 - "Good."
 
 ### Technical Details (JSON)
@@ -710,17 +710,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "This point shows 1/4. Where is 1? Place a point there."  
-- "If this is 1/3, find where 1 is on the line."  
-- "The point marks 1/5. Click where 1 would be."  
-- "Use 1/6 to find 1\. Place a point at 1."  
+- "This point shows 1/4. Where is 1? Place a point there."
+- "If this is 1/3, find where 1 is on the line."
+- "The point marks 1/5. Click where 1 would be."
+- "Use 1/6 to find 1\. Place a point at 1."
 - "This is one-fourth. Where is one whole?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Three more fourths from 1/4 gets to 1."  
-- "Yes—four fifths total makes 1."  
-- "Correct. You found 1."  
+- "Right. Three more fourths from 1/4 gets to 1."
+- "Yes—four fifths total makes 1."
+- "Correct. You found 1."
 - "Good reasoning."
 
 ### Technical Details (JSON)
@@ -766,17 +766,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "This is 1/4. Find 1 and place a point. Then label it with the correct fraction."  
-- "The point shows 1/3. Where is 1? Mark it, then name it as a fraction."  
-- "Use 1/5 to find 1\. Place a point at 1, then drag the fraction label."  
-- "Find where 1 is from this 1/6. Then show what fraction equals 1."  
+- "This is 1/4. Find 1 and place a point. Then label it with the correct fraction."
+- "The point shows 1/3. Where is 1? Mark it, then name it as a fraction."
+- "Use 1/5 to find 1\. Place a point at 1, then drag the fraction label."
+- "Find where 1 is from this 1/6. Then show what fraction equals 1."
 - "Two steps: Find 1 from the unit fraction, then label it."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. You found 1 and named it as 4/4."  
-- "Yes—1 equals 3/3."  
-- "Correct on both steps."  
+- "Right. You found 1 and named it as 4/4."
+- "Yes—1 equals 3/3."
+- "Correct on both steps."
 - "Good work finding and labeling."
 
 ### Technical Details (JSON)
@@ -833,17 +833,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "This point shows 3/5. Where is 1? Place a point there."  
-- "If this is 2/3, find where 1 is on the line."  
-- "The point marks 3/4. Click where 1 would be."  
-- "This is four-fifths. Where is one whole?"  
+- "This point shows 3/5. Where is 1? Place a point there."
+- "If this is 2/3, find where 1 is on the line."
+- "The point marks 3/4. Click where 1 would be."
+- "This is four-fifths. Where is one whole?"
 - "Use 2/5 to find where 1 is. Place a point."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Two more fifths from 3/5 gets to 1."  
-- "Yes—one more third reaches 1."  
-- "Correct. You found where 1 is."  
+- "Right. Two more fifths from 3/5 gets to 1."
+- "Yes—one more third reaches 1."
+- "Correct. You found where 1 is."
 - "Good reasoning."
 
 ### Technical Details (JSON)
@@ -889,17 +889,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "This is 3/5. Find 1 and place a point. Then label it with the correct fraction."  
-- "The point shows 2/3. Where is 1? Mark it, then name it as a fraction."  
-- "Use 3/4 to find 1\. Place a point at 1, then drag the fraction label."  
-- "Find where 1 is from this 4/5. Then show what fraction equals 1."  
+- "This is 3/5. Find 1 and place a point. Then label it with the correct fraction."
+- "The point shows 2/3. Where is 1? Mark it, then name it as a fraction."
+- "Use 3/4 to find 1\. Place a point at 1, then drag the fraction label."
+- "Find where 1 is from this 4/5. Then show what fraction equals 1."
 - "Two steps: Find 1, then label it."
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. You found 1 and named it as 5/5."  
-- "Yes—from 3/4, one more fourth reaches 4/4."  
-- "Correct on both steps."  
+- "Right. You found 1 and named it as 5/5."
+- "Yes—from 3/4, one more fourth reaches 4/4."
+- "Correct on both steps."
 - "Good work."
 
 ### Technical Details (JSON)
@@ -956,17 +956,17 @@ TRANSFER — CONNECTION (M7-08)
 
 🟠 **PROMPT EXAMPLES**
 
-- "Look at both lines. What do 4/4 and 6/6 have in common?"  
-- "Why do 4/4 and 6/6 land at the same spot?"  
-- "The top line shows 3/3 at position 1\. The bottom shows 5/5 at position 1\. What does this tell you?"  
-- "Compare the two fractions. Select what's true about them."  
+- "Look at both lines. What do 4/4 and 6/6 have in common?"
+- "Why do 4/4 and 6/6 land at the same spot?"
+- "The top line shows 3/3 at position 1\. The bottom shows 5/5 at position 1\. What does this tell you?"
+- "Compare the two fractions. Select what's true about them."
 - "Both fractions are at the same position. Why?"
 
 🟣 **SUCCESS DIALOGUE**
 
-- "Right. Both equal 1, just written differently."  
-- "Yes—any b/b fraction equals 1."  
-- "Correct. Same position, different names."  
+- "Right. Both equal 1, just written differently."
+- "Yes—any b/b fraction equals 1."
+- "Correct. Same position, different names."
 - "You see the connection."
 
 ### Technical Details (JSON)
@@ -1017,4 +1017,3 @@ TRANSFER — CONNECTION (M7-08)
 ```
 
 ---
-
