@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install ruff
+        run: pip install ruff
+      - name: Lint
+        run: ruff check .
+      - name: Format check
+        run: ruff format --check .
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: pip install anthropic python-dotenv streamlit pytest
+      - name: Run tests
+        run: pytest tests/
+        env:
+          # Tests that make real API calls should be skipped in CI.
+          # Add @pytest.mark.skipif(not os.getenv("ANTHROPIC_API_KEY"), ...)
+          # to any test that needs a live key.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
