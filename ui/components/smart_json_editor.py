@@ -343,13 +343,65 @@ def render_smart_json_editor(
         render_json_editor(data, key=f"{key}__raw", read_only=False, height=height, on_save=on_save)
         return
 
+    # ── Field selector for arrays of objects (outside form) ──────────────────
+    # Detected for top-level lists of dicts; lets writers omit technical fields
+    # while preserving them invisibly so saves never drop data.
+    hidden_fields: list[str] = []
+    display_data: Any = data
+
+    if (
+        isinstance(data, list)
+        and data
+        and _classify(data)
+        in (
+            "uniform_flat_dicts",
+            "uniform_complex_dicts",
+        )
+    ):
+        all_fields = list(data[0].keys())
+        visible_key = f"{key}__visible_fields"
+        if visible_key not in st.session_state:
+            st.session_state[visible_key] = all_fields
+
+        # Infer a schema hint from the @type field if present
+        type_hint = data[0].get("@type")
+        schema_label = f"{len(data)} items"
+        if isinstance(type_hint, str):
+            schema_label += f" ({type_hint})"
+        schema_label += f" · {len(all_fields)} fields"
+
+        with st.expander(f"🔍 Fields  —  {schema_label}", expanded=False):
+            # Guard: only offer fields that still exist in the current data
+            saved = [f for f in st.session_state[visible_key] if f in all_fields]
+            visible = st.multiselect(
+                "Visible fields (hidden fields are preserved on save)",
+                options=all_fields,
+                default=saved or all_fields,
+                key=f"{key}__field_selector",
+            )
+            if not visible:
+                st.warning("Select at least one field.")
+                visible = all_fields
+            st.session_state[visible_key] = visible
+
+        hidden_fields = [f for f in all_fields if f not in visible]
+        if hidden_fields:
+            display_data = [{k: v for k, v in item.items() if k in visible} for item in data]
+
     # ── Smart form ────────────────────────────────────────────────────────────
     with st.form(key=f"{key}__form"):
-        result = _node(data, path=key, depth=0, label=None)
+        result = _node(display_data, path=key, depth=0, label=None)
         submitted = st.form_submit_button(save_label, use_container_width=True)
 
     if submitted and on_save is not None:
         try:
+            # Re-attach hidden fields from the original data so they are not lost
+            if hidden_fields and isinstance(result, list):
+                for i, new_item in enumerate(result):
+                    if i < len(data) and isinstance(data[i], dict):
+                        for hf in hidden_fields:
+                            if hf in data[i]:
+                                new_item[hf] = data[i][hf]
             on_save(result)
             st.success("Saved.")
         except Exception as exc:
