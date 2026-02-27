@@ -139,7 +139,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(
         "✏️ Edit Prompts",
         "📋 Pipeline Steps",
         "▶️ Run Pipeline",
-        "📂 Output Files",
+        "📁 Files",
     ]
 )
 
@@ -1296,12 +1296,80 @@ with tab4:
             )
 
 
-# TAB 5: Output Files
+# TAB 5: Files
 with tab5:
-    st.header("📂 Output Files")
-    st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
+    st.header("📁 Files")
 
-    if not OUTPUTS_DIR.exists():
+    file_source = st.radio(
+        "Source",
+        options=["Output files", "Input files"],
+        horizontal=True,
+        key="files_source",
+        label_visibility="collapsed",
+    )
+
+    # ── INPUT FILES ──────────────────────────────────────────────────────────
+    if file_source == "Input files":
+        st.caption("Browse module input files (problem templates, etc.).")
+        modules_root = project_root / "modules"
+        input_module_dirs = sorted(
+            [
+                d
+                for d in modules_root.iterdir()
+                if d.is_dir()
+                and d.name.startswith("module")
+                and d.name != "starter_packs"
+                and any(d.glob("*.json"))
+            ],
+            key=lambda d: int("".join(filter(str.isdigit, d.name)) or "0"),
+        )
+
+        if not input_module_dirs:
+            st.info("No module directories with JSON files found.")
+        else:
+            sel_mod = st.selectbox(
+                "Module",
+                options=input_module_dirs,
+                format_func=lambda d: "Module " + "".join(filter(str.isdigit, d.name)),
+                key="input_files_module",
+            )
+            if sel_mod:
+                input_json_files = sorted(sel_mod.glob("*.json"), key=lambda p: p.name)
+                sel_input_file = st.selectbox(
+                    "File",
+                    options=input_json_files,
+                    format_func=lambda p: p.name,
+                    key="input_files_file",
+                )
+                if sel_input_file:
+                    st.divider()
+                    try:
+                        input_data = json.loads(sel_input_file.read_text(encoding="utf-8"))
+                    except json.JSONDecodeError as exc:
+                        st.error(f"Could not parse {sel_input_file.name}: {exc}")
+                        input_data = None
+
+                    if input_data is not None:
+
+                        def _save_input_file(parsed: dict) -> None:
+                            sel_input_file.write_text(
+                                json.dumps(parsed, indent=2, ensure_ascii=False),
+                                encoding="utf-8",
+                            )
+
+                        render_smart_json_editor(
+                            data=input_data,
+                            key=f"input_{sel_mod.name}_{sel_input_file.stem}",
+                            on_save=_save_input_file,
+                        )
+
+    # ── OUTPUT FILES ──────────────────────────────────────────────────────────
+    else:
+        st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
+
+    if file_source != "Output files":
+        pass  # input files handled in the block above
+    elif not OUTPUTS_DIR.exists():
         st.warning(f"Outputs directory not found: {OUTPUTS_DIR}")
     else:
         # Discover pipeline run directories (those that contain latest.txt)

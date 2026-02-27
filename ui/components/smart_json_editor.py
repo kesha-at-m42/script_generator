@@ -265,7 +265,18 @@ def _list(items: list, path: str, depth: int, label: Optional[str]) -> list:
     # ── Uniform flat dicts → spreadsheet ─────────────────────────────────────
     if kind == "uniform_flat_dicts":
         df = pd.DataFrame(items)
-        cfg = {c: st.column_config.TextColumn(_fmt(c)) for c in df.columns}
+        cfg = {}
+        for c in df.columns:
+            # Infer column config from the first non-None value in this column
+            sample = next((item[c] for item in items if c in item and item[c] is not None), None)
+            if isinstance(sample, bool):
+                cfg[c] = st.column_config.CheckboxColumn(_fmt(c))
+            elif isinstance(sample, int):
+                cfg[c] = st.column_config.NumberColumn(_fmt(c), format="%d", step=1)
+            elif isinstance(sample, float):
+                cfg[c] = st.column_config.NumberColumn(_fmt(c))
+            else:
+                cfg[c] = st.column_config.TextColumn(_fmt(c))
         edited = st.data_editor(
             df, num_rows="dynamic", use_container_width=True, key=k, column_config=cfg
         )
@@ -298,6 +309,58 @@ def _list(items: list, path: str, depth: int, label: Optional[str]) -> list:
 
 
 # ---------------------------------------------------------------------------
+# Markdown read view
+# ---------------------------------------------------------------------------
+
+_TEXT_TYPES = (str, int, float, bool)
+
+
+def _render_markdown_view(data: Any, visible_fields: Optional[list] = None) -> None:
+    """Render JSON as clean readable prose — no form widgets.
+
+    Useful for reviewing dialogue/prompt text without editor noise.
+    Only string and scalar fields are shown; nested structures are skipped.
+    """
+    if isinstance(data, list):
+        for i, item in enumerate(data):
+            if not isinstance(item, dict):
+                st.markdown(f"- {item}")
+                continue
+            label = _item_label(item, i)
+            st.markdown(f"#### {label}")
+            fields = visible_fields if visible_fields else list(item.keys())
+            for field in fields:
+                if field not in item:
+                    continue
+                val = item[field]
+                if not isinstance(val, _TEXT_TYPES):
+                    continue
+                display = _fmt(field)
+                if isinstance(val, str) and len(val) > 80:
+                    st.markdown(f"**{display}**")
+                    st.markdown(val)
+                else:
+                    st.markdown(f"**{display}:** {val}")
+            st.divider()
+    elif isinstance(data, dict):
+        fields = visible_fields if visible_fields else list(data.keys())
+        for field in fields:
+            if field not in data:
+                continue
+            val = data[field]
+            if not isinstance(val, _TEXT_TYPES):
+                continue
+            display = _fmt(field)
+            if isinstance(val, str) and len(val) > 80:
+                st.markdown(f"**{display}**")
+                st.markdown(val)
+            else:
+                st.markdown(f"**{display}:** {val}")
+    else:
+        st.markdown(str(data))
+
+
+# ---------------------------------------------------------------------------
 # Public component
 # ---------------------------------------------------------------------------
 
@@ -327,41 +390,32 @@ def render_smart_json_editor(
         st.json(data)
         return
 
-    # ── Raw JSON toggle (outside the form so the button triggers a rerun) ────
-    raw_key = f"{key}__raw_mode"
-    if raw_key not in st.session_state:
-        st.session_state[raw_key] = False
+    # ── View mode selector ────────────────────────────────────────────────────
+    mode: str = st.radio(
+        "View mode",
+        options=["Form", "Raw JSON", "Read"],
+        horizontal=True,
+        key=f"{key}__mode",
+        label_visibility="collapsed",
+    )
 
-    col_btn, _ = st.columns([2, 8])
-    with col_btn:
-        btn_lbl = "{ } Raw JSON" if not st.session_state[raw_key] else "☰ Form view"
-        if st.button(btn_lbl, key=f"{key}__raw_toggle"):
-            st.session_state[raw_key] = not st.session_state[raw_key]
-            st.rerun()
-
-    if st.session_state[raw_key]:
+    if mode == "Raw JSON":
         render_json_editor(data, key=f"{key}__raw", read_only=False, height=height, on_save=on_save)
         return
 
-    # ── Field selector for arrays of objects (outside form) ──────────────────
+    # ── Field checklist for arrays of objects (outside form) ─────────────────
     # Detected for top-level lists of dicts; lets writers omit technical fields
     # while preserving them invisibly so saves never drop data.
     hidden_fields: list[str] = []
     display_data: Any = data
+    visible: list[str] = []
 
     if (
         isinstance(data, list)
         and data
-        and _classify(data)
-        in (
-            "uniform_flat_dicts",
-            "uniform_complex_dicts",
-        )
+        and _classify(data) in ("uniform_flat_dicts", "uniform_complex_dicts")
     ):
         all_fields = list(data[0].keys())
-        visible_key = f"{key}__visible_fields"
-        if visible_key not in st.session_state:
-            st.session_state[visible_key] = all_fields
 
         # Infer a schema hint from the @type field if present
         type_hint = data[0].get("@type")
@@ -371,24 +425,32 @@ def render_smart_json_editor(
         schema_label += f" · {len(all_fields)} fields"
 
         with st.expander(f"🔍 Fields  —  {schema_label}", expanded=False):
-            # Guard: only offer fields that still exist in the current data
-            saved = [f for f in st.session_state[visible_key] if f in all_fields]
-            visible = st.multiselect(
-                "Visible fields (hidden fields are preserved on save)",
-                options=all_fields,
-                default=saved or all_fields,
-                key=f"{key}__field_selector",
-            )
-            if not visible:
-                st.warning("Select at least one field.")
-                visible = all_fields
-            st.session_state[visible_key] = visible
+            st.caption("Hidden fields are preserved on save.")
+            n_cols = min(len(all_fields), 4)
+            rows = [all_fields[i : i + n_cols] for i in range(0, len(all_fields), n_cols)]
+            for row_fields in rows:
+                cols = st.columns(n_cols)
+                for j, field in enumerate(row_fields):
+                    cb_key = f"{key}__field_{field}"
+                    if cb_key not in st.session_state:
+                        st.session_state[cb_key] = True  # visible by default
+                    with cols[j]:
+                        if st.checkbox(field, key=cb_key):
+                            visible.append(field)
+
+        if not visible:
+            visible = all_fields  # guard: never show nothing
 
         hidden_fields = [f for f in all_fields if f not in visible]
         if hidden_fields:
             display_data = [{k: v for k, v in item.items() if k in visible} for item in data]
 
-    # ── Smart form ────────────────────────────────────────────────────────────
+    # ── Read (markdown) mode ──────────────────────────────────────────────────
+    if mode == "Read":
+        _render_markdown_view(display_data, visible_fields=visible or None)
+        return
+
+    # ── Smart form (edit) mode ────────────────────────────────────────────────
     with st.form(key=f"{key}__form"):
         result = _node(display_data, path=key, depth=0, label=None)
         submitted = st.form_submit_button(save_label, use_container_width=True)
