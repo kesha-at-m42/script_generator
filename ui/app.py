@@ -3,36 +3,40 @@ Pipeline UI - Streamlit-based interface for pipeline management
 Run with: streamlit run pipeline_ui.py
 """
 
-import streamlit as st
-import sys
 import json
+import sys
 from pathlib import Path
-from datetime import datetime
+
+import streamlit as st
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "core"))
 
-from core.pipeline import Step, run_pipeline, run_single_step
-from core.prompt_builder import Prompt
-from path_manager import get_project_paths
-import importlib
+import importlib  # noqa: E402
 
- # Import output utilities
-from ui.utils.output import (
+from path_manager import get_project_paths  # noqa: E402
+
+from core.pipelines import run_pipeline_from_config, run_single_step_from_config  # noqa: E402
+from ui.components.json_editor import render_json_editor  # noqa: E402
+
+# Import output utilities
+from ui.utils.output import (  # noqa: E402
     capture_console_output_streaming,
-    display_unified_output
+    display_unified_output,
 )
+
+STARTER_PACKS_DIR = project_root / "modules" / "starter_packs"
 
 # Note: All pipelines are defined in config/pipelines.json and loaded via core/pipelines.py
 
 # Configuration
 paths = get_project_paths()
-PROMPTS_DIR = paths['prompts']
-FORMATTING_DIR = paths['formatting']
-OUTPUTS_DIR = paths['outputs']
-PIPELINES_FILE = paths['project_root'] / "config" / "pipelines.json"
+PROMPTS_DIR = paths["prompts"]
+FORMATTING_DIR = paths["formatting"]
+OUTPUTS_DIR = paths["outputs"]
+PIPELINES_FILE = paths["project_root"] / "config" / "pipelines.json"
 
 # Claude Models Configuration
 CLAUDE_MODELS = {
@@ -44,34 +48,34 @@ CLAUDE_MODELS = {
 DEFAULT_MODEL = "claude-sonnet-4-5-20250929"
 
 
-st.set_page_config(
-    page_title="Pipeline Manager",
-    page_icon="🔧",
-    layout="wide"
-)
+st.set_page_config(page_title="Pipeline Manager", page_icon="🔧", layout="wide")
+
 
 # Helper functions for saving/loading pipelines
 def load_saved_pipelines():
     """Load pipelines from centralized JSON file"""
     if PIPELINES_FILE.exists():
-        with open(PIPELINES_FILE, 'r', encoding='utf-8') as f:
+        with open(PIPELINES_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
+
 
 def save_pipeline_to_file(name: str, steps: list):
     """Save a pipeline to the centralized JSON file"""
     pipelines = load_saved_pipelines()
     pipelines[name] = steps
-    with open(PIPELINES_FILE, 'w', encoding='utf-8') as f:
+    with open(PIPELINES_FILE, "w", encoding="utf-8") as f:
         json.dump(pipelines, f, indent=2)
+
 
 def delete_saved_pipeline(name: str):
     """Delete a pipeline from the centralized JSON file"""
     pipelines = load_saved_pipelines()
     if name in pipelines:
         del pipelines[name]
-        with open(PIPELINES_FILE, 'w', encoding='utf-8') as f:
+        with open(PIPELINES_FILE, "w", encoding="utf-8") as f:
             json.dump(pipelines, f, indent=2)
+
 
 # Initialize session state
 if "pipeline_steps" not in st.session_state:
@@ -105,8 +109,9 @@ with st.sidebar:
 
     verbose = st.checkbox("Verbose Logging", value=True)
     parse_json = st.checkbox("Parse JSON Output", value=True)
-    interactive = st.checkbox("Interactive Mode (step-by-step)", value=False,
-                             help="Pause after each step for review")
+    interactive = st.checkbox(
+        "Interactive Mode (step-by-step)", value=False, help="Pause after each step for review"
+    )
 
     st.divider()
 
@@ -128,101 +133,77 @@ with st.sidebar:
 st.title("🔧 Pipeline Manager")
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📚 Module Viewer", "✏️ Edit Prompts", "📋 Pipeline Steps", "▶️ Run Pipeline"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    [
+        "📚 Module Editor",
+        "✏️ Edit Prompts",
+        "📋 Pipeline Steps",
+        "▶️ Run Pipeline",
+        "📂 Output Files",
+    ]
+)
 
-# TAB 1: Module Viewer
+# TAB 1: Module Editor
 with tab1:
-    st.header("📚 Module Viewer")
-    st.caption("View and explore module data from modules.py")
+    st.header("📚 Module Editor")
+    st.caption(
+        "View and edit module starter pack data. Changes are saved to modules/starter_packs/module_N.json."
+    )
 
-    # Import modules
-    modules_file = project_root / "modules" / "modules.py"
+    # Discover available modules from JSON files
+    available_modules: dict[int, dict] = {}
+    for _n in range(1, 13):
+        _json_path = STARTER_PACKS_DIR / f"module_{_n}.json"
+        if _json_path.exists():
+            try:
+                import json as _json
 
-    if modules_file.exists():
-        try:
-            # Import the modules file
-            import importlib.util
-            spec = importlib.util.spec_from_file_location("modules", modules_file)
-            modules_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(modules_module)
+                available_modules[_n] = _json.loads(_json_path.read_text(encoding="utf-8"))
+            except Exception:
+                pass
 
-            # Find all module_N variables
-            available_modules = {}
-            for name, obj in modules_module.__dict__.items():
-                if name.startswith("module_") and isinstance(obj, dict):
-                    module_num = name.split("_")[1]
-                    if module_num.isdigit():
-                        available_modules[int(module_num)] = obj
+    if available_modules:
+        selected_module_num = st.selectbox(
+            "Select Module",
+            options=sorted(available_modules.keys()),
+            format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', f'Module {x}')}",
+            key="module_editor_selector",
+        )
 
-            if available_modules:
-                # Module selector
-                selected_module_num = st.selectbox(
-                    "Select Module",
-                    options=sorted(available_modules.keys()),
-                    format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', 'Unnamed')}"
+        if selected_module_num:
+            module_data = available_modules[selected_module_num]
+            module_json_path = STARTER_PACKS_DIR / f"module_{selected_module_num}.json"
+
+            st.subheader(
+                f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}"
+            )
+
+            # Field path reference helper
+            with st.expander("Field Path Reference", expanded=False):
+                st.caption("Use these paths in module_ref to access fields:")
+                st.code(
+                    'module_name → "module_name"\n'
+                    'vocabulary → "vocabulary"\n'
+                    'phase → "phases.0"\n'
+                    'phase.phase_name → "phases.0.phase_name"\n'
+                    'phases[1].variables[0] → "phases.1.variables.0"'
                 )
 
-                if selected_module_num:
-                    module_data = available_modules[selected_module_num]
+            def _save_module(parsed: dict) -> None:
+                module_json_path.write_text(
+                    json.dumps(parsed, indent=2, ensure_ascii=False),
+                    encoding="utf-8",
+                )
 
-                    st.divider()
-
-                    # Helper function to display data recursively
-                    def display_data(data, level=0):
-                        indent = "  " * level
-
-                        if isinstance(data, dict):
-                            for key, value in data.items():
-                                if isinstance(value, (dict, list)):
-                                    st.markdown(f"{indent}**{key}:**")
-                                    display_data(value, level + 1)
-                                else:
-                                    st.markdown(f"{indent}**{key}:** `{value}`")
-
-                        elif isinstance(data, list):
-                            for idx, item in enumerate(data):
-                                if isinstance(item, (dict, list)):
-                                    st.markdown(f"{indent}**[{idx}]:**")
-                                    display_data(item, level + 1)
-                                else:
-                                    st.markdown(f"{indent}• `{item}`")
-                        else:
-                            st.markdown(f"{indent}`{data}`")
-
-                    # Display all fields
-                    st.subheader(f"Module {selected_module_num}: {module_data.get('module_name', 'Unnamed')}")
-
-                    # Show field paths helper
-                    with st.expander(" Field Path Reference", expanded=False):
-                        st.caption("Use these paths in module_ref to access fields:")
-                        st.code("""
-                        Examples:
-                        - module_name → "module_name"
-                        - vocabulary → "vocabulary"
-                        - phase → "phases.0"
-                        - phase.phase_name → "phases.0.phase_name"
-                        - phases[1].variables[0] → "phases.1.variables.0"
-                        """)
-
-                    # Display module data
-                    for key, value in module_data.items():
-                        with st.expander(f"**{key}**", expanded=(key in ["module_name", "vocabulary", "phases"])):
-                            display_data(value)
-
-                    st.divider()
-
-                    # JSON view
-                    with st.expander("📄 Raw JSON View", expanded=False):
-                        st.json(module_data)
-
-            else:
-                st.warning("No modules found in modules.py")
-
-        except Exception as e:
-            st.error(f"Failed to load modules.py: {e}")
-            st.exception(e)
+            render_json_editor(
+                data=module_data,
+                key=f"module_{selected_module_num}",
+                read_only=False,
+                height=600,
+                on_save=_save_module,
+            )
     else:
-        st.error(f"modules.py not found at: {modules_file}")
+        st.warning("No module JSON files found in modules/starter_packs/")
 
 # TAB 2: Edit Prompts
 with tab2:
@@ -238,10 +219,11 @@ with tab2:
     def highlight_variables(text):
         """Return markdown with variables highlighted"""
         import re
+
         if not text:
             return ""
         # Find all {{variable}} patterns
-        highlighted = re.sub(r'\{\{([^}]+)\}\}', r'`{{\1}}`', text)
+        highlighted = re.sub(r"\{\{([^}]+)\}\}", r"`{{\1}}`", text)
         return highlighted
 
     # Field tooltips
@@ -258,7 +240,7 @@ with tab2:
         "cache_ttl": "Cache time-to-live: '5m' for 5 minutes or '1h' for 1 hour.",
         "temperature": "Sampling temperature 0.0-1.0. Higher = more creative, lower = more focused.",
         "max_tokens": "Maximum tokens to generate in the response.",
-        "stop_sequences": "Custom sequences that stop generation when encountered."
+        "stop_sequences": "Custom sequences that stop generation when encountered.",
     }
 
     # Select prompt to edit
@@ -268,7 +250,9 @@ with tab2:
         if PROMPTS_DIR.exists():
             prompt_files = [pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"]
             if prompt_files:
-                selected_prompt_name = st.selectbox("Select Prompt", ["-- New Prompt --"] + prompt_files, key="visual_prompt_select")
+                selected_prompt_name = st.selectbox(
+                    "Select Prompt", ["-- New Prompt --"] + prompt_files, key="visual_prompt_select"
+                )
             else:
                 selected_prompt_name = "-- New Prompt --"
                 st.warning("No prompts found. Create a new one below.")
@@ -286,6 +270,7 @@ with tab2:
                 try:
                     # Import the prompt module
                     import importlib.util
+
                     spec = importlib.util.spec_from_file_location(selected_prompt_name, prompt_file)
                     module = importlib.util.module_from_spec(spec)
                     spec.loader.exec_module(module)
@@ -293,7 +278,7 @@ with tab2:
                     # Find the Prompt object
                     prompt_obj = None
                     for name, obj in module.__dict__.items():
-                        if hasattr(obj, '__class__') and obj.__class__.__name__ == 'Prompt':
+                        if hasattr(obj, "__class__") and obj.__class__.__name__ == "Prompt":
                             prompt_obj = obj
                             break
 
@@ -302,18 +287,22 @@ with tab2:
                         st.session_state.edit_prompt_name = selected_prompt_name
                         st.session_state.edit_role = prompt_obj.role or ""
                         st.session_state.edit_instructions = prompt_obj.instructions or ""
-                        st.session_state.edit_doc_refs = "\n".join(prompt_obj.doc_refs) if prompt_obj.doc_refs else ""
+                        st.session_state.edit_doc_refs = (
+                            "\n".join(prompt_obj.doc_refs) if prompt_obj.doc_refs else ""
+                        )
 
                         # Convert module_ref to list of tuples for visual editor
                         if isinstance(prompt_obj.module_ref, dict):
-                            st.session_state.edit_module_ref_items = list(prompt_obj.module_ref.items())
+                            st.session_state.edit_module_ref_items = list(
+                                prompt_obj.module_ref.items()
+                            )
                         elif isinstance(prompt_obj.module_ref, (list, set)):
                             # Handle both list and set formats
                             items = []
                             for field in prompt_obj.module_ref:
                                 # Check if it's in "var:path" format
-                                if ':' in str(field):
-                                    var, path = field.split(':', 1)
+                                if ":" in str(field):
+                                    var, path = field.split(":", 1)
                                     items.append((var, path))
                                 else:
                                     # Simple field reference
@@ -324,13 +313,25 @@ with tab2:
 
                         st.session_state.edit_output_structure = prompt_obj.output_structure or ""
                         st.session_state.edit_prefill = prompt_obj.prefill or ""
-                        st.session_state.edit_examples = str(prompt_obj.examples) if prompt_obj.examples else "[]"
-                        st.session_state.edit_template_ref = str(prompt_obj.template_ref) if prompt_obj.template_ref else "{}"
+                        st.session_state.edit_examples = (
+                            str(prompt_obj.examples) if prompt_obj.examples else "[]"
+                        )
+                        st.session_state.edit_template_ref = (
+                            str(prompt_obj.template_ref) if prompt_obj.template_ref else "{}"
+                        )
                         st.session_state.edit_cache_docs = prompt_obj.cache_docs
                         st.session_state.edit_cache_ttl = prompt_obj.cache_ttl or "5m"
-                        st.session_state.edit_temperature = prompt_obj.temperature if prompt_obj.temperature is not None else 1.0
-                        st.session_state.edit_max_tokens = prompt_obj.max_tokens if prompt_obj.max_tokens else 8000
-                        st.session_state.edit_stop_sequences = "\n".join(prompt_obj.stop_sequences) if prompt_obj.stop_sequences else ""
+                        st.session_state.edit_temperature = (
+                            prompt_obj.temperature if prompt_obj.temperature is not None else 1.0
+                        )
+                        st.session_state.edit_max_tokens = (
+                            prompt_obj.max_tokens if prompt_obj.max_tokens else 8000
+                        )
+                        st.session_state.edit_stop_sequences = (
+                            "\n".join(prompt_obj.stop_sequences)
+                            if prompt_obj.stop_sequences
+                            else ""
+                        )
                         st.success(f"Loaded {selected_prompt_name}")
                         st.rerun()
                     else:
@@ -361,8 +362,11 @@ with tab2:
         st.divider()
 
         # Prompt name
-        prompt_name_input = st.text_input("Prompt Name", value=st.session_state.edit_prompt_name,
-                                        help="Name of the prompt file (without .py extension). Spaces will be replaced with underscores.")
+        prompt_name_input = st.text_input(
+            "Prompt Name",
+            value=st.session_state.edit_prompt_name,
+            help="Name of the prompt file (without .py extension). Spaces will be replaced with underscores.",
+        )
 
         # Update session state when name changes
         if prompt_name_input != st.session_state.edit_prompt_name:
@@ -373,25 +377,29 @@ with tab2:
         st.subheader("Main Fields")
 
         # Role
-        st.markdown(f"**Role** ")
+        st.markdown("**Role** ")
         st.caption(FIELD_TOOLTIPS["role"])
         st.text_area("Role", height=100, key="edit_role", label_visibility="collapsed")
         if st.session_state.edit_role:
             import re
+
             # Match {variable} patterns that would be substituted by prompt_builder
             # Matches: {vocabulary}, {phase}, {animation_events}, etc.
-            role_vars = re.findall(r'\{(\w+(?:\[\d+\])?)\}', st.session_state.edit_role)
+            role_vars = re.findall(r"\{(\w+(?:\[\d+\])?)\}", st.session_state.edit_role)
             if role_vars:
                 st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in role_vars])}")
 
         # Instructions
-        st.markdown(f"**Instructions** ")
+        st.markdown("**Instructions** ")
         st.caption(FIELD_TOOLTIPS["instructions"])
-        st.text_area("Instructions", height=400, key="edit_instructions", label_visibility="collapsed")
+        st.text_area(
+            "Instructions", height=400, key="edit_instructions", label_visibility="collapsed"
+        )
         if st.session_state.edit_instructions:
             import re
+
             # Match {variable} patterns that would be substituted by prompt_builder
-            vars_found = re.findall(r'\{(\w+(?:\[\d+\])?)\}', st.session_state.edit_instructions)
+            vars_found = re.findall(r"\{(\w+(?:\[\d+\])?)\}", st.session_state.edit_instructions)
             if vars_found:
                 st.markdown(f"**Variables used:** {', '.join([f'`{{{v}}}`' for v in vars_found])}")
 
@@ -404,9 +412,9 @@ with tab2:
                     uploaded_files = st.file_uploader(
                         "Choose files",
                         accept_multiple_files=True,
-                        type=['txt', 'md', 'json', 'py', 'csv', 'xml', 'yaml', 'yml'],
+                        type=["txt", "md", "json", "py", "csv", "xml", "yaml", "yml"],
                         key="doc_uploader",
-                        label_visibility="collapsed"
+                        label_visibility="collapsed",
                     )
 
                     if uploaded_files:
@@ -425,16 +433,22 @@ with tab2:
                             if "edit_doc_refs" in st.session_state:
                                 current_refs = st.session_state.edit_doc_refs.strip()
                                 if current_refs:
-                                    existing_refs = set(line.strip() for line in current_refs.split('\n') if line.strip())
+                                    existing_refs = set(
+                                        line.strip()
+                                        for line in current_refs.split("\n")
+                                        if line.strip()
+                                    )
                                 else:
                                     existing_refs = set()
 
                                 for name in uploaded_names:
                                     existing_refs.add(name)
 
-                                st.session_state.edit_doc_refs = '\n'.join(sorted(existing_refs))
+                                st.session_state.edit_doc_refs = "\n".join(sorted(existing_refs))
 
-                            st.success(f"✅ Uploaded {len(uploaded_names)} file(s) and added to doc_refs")
+                            st.success(
+                                f"✅ Uploaded {len(uploaded_names)} file(s) and added to doc_refs"
+                            )
                             st.rerun()
 
                 with col_list:
@@ -451,13 +465,17 @@ with tab2:
                         st.caption("docs directory not found")
 
             # Doc Refs
-            st.markdown(f"**Doc Refs** ")
+            st.markdown("**Doc Refs** ")
             st.caption(FIELD_TOOLTIPS["doc_refs"])
-            st.text_area("Doc Refs (one per line)", height=80, key="edit_doc_refs",
-                        label_visibility="collapsed")
+            st.text_area(
+                "Doc Refs (one per line)",
+                height=80,
+                key="edit_doc_refs",
+                label_visibility="collapsed",
+            )
 
         # Module Ref - Visual Editor
-        st.markdown(f"**Module Ref** ")
+        st.markdown("**Module Ref** ")
         st.caption(FIELD_TOOLTIPS["module_ref"])
 
         # Initialize if not exists
@@ -469,11 +487,21 @@ with tab2:
         for idx, (var_name, field_path) in enumerate(st.session_state.edit_module_ref_items):
             col1, col2, col3 = st.columns([2, 3, 1])
             with col1:
-                var = st.text_input("Variable", value=var_name, key=f"modref_var_{idx}",
-                                   placeholder="phase_name", label_visibility="collapsed")
+                var = st.text_input(
+                    "Variable",
+                    value=var_name,
+                    key=f"modref_var_{idx}",
+                    placeholder="phase_name",
+                    label_visibility="collapsed",
+                )
             with col2:
-                path = st.text_input("Path", value=field_path, key=f"modref_path_{idx}",
-                                    placeholder="phases.0.phase_name", label_visibility="collapsed")
+                path = st.text_input(
+                    "Path",
+                    value=field_path,
+                    key=f"modref_path_{idx}",
+                    placeholder="phases.0.phase_name",
+                    label_visibility="collapsed",
+                )
             with col3:
                 st.write("")
                 if st.button("🗑️", key=f"modref_del_{idx}"):
@@ -490,57 +518,88 @@ with tab2:
 
         # Advanced fields in expander
         with st.expander("⚙️ Advanced Fields", expanded=False):
-
             # Output Structure
-            st.markdown(f"**Output Structure** ")
+            st.markdown("**Output Structure** ")
             st.caption(FIELD_TOOLTIPS["output_structure"])
-            st.text_area("Output Structure", height=200, key="edit_output_structure",
-                        label_visibility="collapsed")
+            st.text_area(
+                "Output Structure",
+                height=200,
+                key="edit_output_structure",
+                label_visibility="collapsed",
+            )
 
             # Prefill
-            st.markdown(f"**Prefill** ")
+            st.markdown("**Prefill** ")
             st.caption(FIELD_TOOLTIPS["prefill"])
             st.text_area("Prefill", height=80, key="edit_prefill", label_visibility="collapsed")
 
             # Examples
-            st.markdown(f"**Examples** ")
+            st.markdown("**Examples** ")
             st.caption(FIELD_TOOLTIPS["examples"])
-            st.text_area("Examples (list of dicts)", height=150, key="edit_examples",
-                        label_visibility="collapsed")
+            st.text_area(
+                "Examples (list of dicts)",
+                height=150,
+                key="edit_examples",
+                label_visibility="collapsed",
+            )
 
             # Template Ref
-            st.markdown(f"**Template Ref** ")
+            st.markdown("**Template Ref** ")
             st.caption(FIELD_TOOLTIPS["template_ref"])
-            st.text_area("Template Ref (dict format)", height=80, key="edit_template_ref",
-                        label_visibility="collapsed")
+            st.text_area(
+                "Template Ref (dict format)",
+                height=80,
+                key="edit_template_ref",
+                label_visibility="collapsed",
+            )
 
             st.divider()
             st.markdown("**Caching Settings**")
 
             col_cache1, col_cache2 = st.columns(2)
             with col_cache1:
-                cache_docs_input = st.checkbox("Cache Docs", value=st.session_state.edit_cache_docs,
-                                              help=FIELD_TOOLTIPS["cache_docs"])
+                cache_docs_input = st.checkbox(
+                    "Cache Docs",
+                    value=st.session_state.edit_cache_docs,
+                    help=FIELD_TOOLTIPS["cache_docs"],
+                )
             with col_cache2:
-                cache_ttl_input = st.selectbox("Cache TTL", ["5m", "1h"],
-                                              index=0 if st.session_state.edit_cache_ttl == "5m" else 1,
-                                              help=FIELD_TOOLTIPS["cache_ttl"])
+                cache_ttl_input = st.selectbox(
+                    "Cache TTL",
+                    ["5m", "1h"],
+                    index=0 if st.session_state.edit_cache_ttl == "5m" else 1,
+                    help=FIELD_TOOLTIPS["cache_ttl"],
+                )
 
             st.divider()
             st.markdown("**API Parameters**")
 
             col_api1, col_api2 = st.columns(2)
             with col_api1:
-                temperature_input = st.slider("Temperature", 0.0, 1.0,
-                                             float(st.session_state.edit_temperature), 0.1,
-                                             help=FIELD_TOOLTIPS["temperature"])
+                temperature_input = st.slider(
+                    "Temperature",
+                    0.0,
+                    1.0,
+                    float(st.session_state.edit_temperature),
+                    0.1,
+                    help=FIELD_TOOLTIPS["temperature"],
+                )
             with col_api2:
-                max_tokens_input = st.number_input("Max Tokens", min_value=100, max_value=200000,
-                                                  value=int(st.session_state.edit_max_tokens), step=1000,
-                                                  help=FIELD_TOOLTIPS["max_tokens"])
+                max_tokens_input = st.number_input(
+                    "Max Tokens",
+                    min_value=100,
+                    max_value=200000,
+                    value=int(st.session_state.edit_max_tokens),
+                    step=1000,
+                    help=FIELD_TOOLTIPS["max_tokens"],
+                )
 
-            st.text_area("Stop Sequences (one per line)", height=60,
-                        key="edit_stop_sequences", help=FIELD_TOOLTIPS["stop_sequences"])
+            st.text_area(
+                "Stop Sequences (one per line)",
+                height=60,
+                key="edit_stop_sequences",
+                help=FIELD_TOOLTIPS["stop_sequences"],
+            )
 
         st.divider()
 
@@ -566,11 +625,19 @@ with tab2:
                     stop_sequences_text = st.session_state.edit_stop_sequences
 
                     # Parse inputs
-                    doc_refs_list = [line.strip() for line in doc_refs_text.split('\n') if line.strip()]
-                    stop_sequences_list = [line.strip() for line in stop_sequences_text.split('\n') if line.strip()]
+                    doc_refs_list = [
+                        line.strip() for line in doc_refs_text.split("\n") if line.strip()
+                    ]
+                    stop_sequences_list = [
+                        line.strip() for line in stop_sequences_text.split("\n") if line.strip()
+                    ]
 
                     # Build module_ref dict from items
-                    module_ref_dict = {var: path for var, path in st.session_state.edit_module_ref_items if var and path}
+                    module_ref_dict = {
+                        var: path
+                        for var, path in st.session_state.edit_module_ref_items
+                        if var and path
+                    }
 
                     # Generate Python file content
                     file_content = f'''"""
@@ -618,7 +685,7 @@ from core.prompt_builder import Prompt
 
                     # Save to file
                     output_path = PROMPTS_DIR / f"{filename}.py"
-                    with open(output_path, 'w', encoding='utf-8') as f:
+                    with open(output_path, "w", encoding="utf-8") as f:
                         f.write(file_content)
 
                     st.rerun()
@@ -645,7 +712,7 @@ with tab3:
             selected_pipeline_name = st.selectbox(
                 "Select a pipeline to load",
                 options=[""] + list(all_pipelines.keys()),
-                format_func=lambda x: "-- Select --" if x == "" else x
+                format_func=lambda x: "-- Select --" if x == "" else x,
             )
 
         with col_load2:
@@ -656,7 +723,9 @@ with tab3:
                     # Load pipeline directly from JSON
                     st.session_state.pipeline_steps = all_pipelines[selected_pipeline_name]
                     st.session_state.pipeline_name = selected_pipeline_name
-                    st.success(f"✅ Loaded '{selected_pipeline_name}' with {len(st.session_state.pipeline_steps)} steps")
+                    st.success(
+                        f"✅ Loaded '{selected_pipeline_name}' with {len(st.session_state.pipeline_steps)} steps"
+                    )
                     st.rerun()
                 else:
                     st.warning("Please select a pipeline first")
@@ -683,22 +752,34 @@ with tab3:
         with col_save1:
             # Pre-fill with loaded pipeline name if exists
             default_name = st.session_state.pipeline_name if st.session_state.pipeline_name else ""
-            save_name = st.text_input("Pipeline Name",
-                                     value=default_name,
-                                     key="save_pipeline_name",
-                                     placeholder="my_pipeline",
-                                     help="Change name to save as new pipeline, or keep same name to update")
+            save_name = st.text_input(
+                "Pipeline Name",
+                value=default_name,
+                key="save_pipeline_name",
+                placeholder="my_pipeline",
+                help="Change name to save as new pipeline, or keep same name to update",
+            )
 
             # Detect if name changed (will create new pipeline)
-            if st.session_state.pipeline_name and save_name and save_name != st.session_state.pipeline_name:
-                st.caption(f"⚠️ Will create new pipeline '{save_name}' (original '{st.session_state.pipeline_name}' will remain)")
+            if (
+                st.session_state.pipeline_name
+                and save_name
+                and save_name != st.session_state.pipeline_name
+            ):
+                st.caption(
+                    f"⚠️ Will create new pipeline '{save_name}' (original '{st.session_state.pipeline_name}' will remain)"
+                )
 
         with col_save2:
             st.write("")  # Spacer
             st.write("")  # Spacer
 
             # Show appropriate button label
-            is_rename = st.session_state.pipeline_name and save_name and save_name != st.session_state.pipeline_name
+            is_rename = (
+                st.session_state.pipeline_name
+                and save_name
+                and save_name != st.session_state.pipeline_name
+            )
             button_label = "💾 Save As" if is_rename else "💾 Save"
 
             if st.button(button_label, use_container_width=True):
@@ -735,18 +816,18 @@ with tab3:
                     step_type = step.get("type", "ai")
 
                     if step_type == "ai":
-                        st.write(f"**Type:** AI Step")
+                        st.write("**Type:** AI Step")
                         st.write(f"**Prompt:** `{step.get('prompt_name')}`")
 
                         # Display model if set
-                        model = step.get('model')
+                        model = step.get("model")
                         if model:
                             model_desc = CLAUDE_MODELS.get(model, model)
                             st.write(f"**Model:** {model_desc}")
                         else:
                             st.write(f"**Model:** Default ({DEFAULT_MODEL})")
                     else:
-                        st.write(f"**Type:** Formatting Step")
+                        st.write("**Type:** Formatting Step")
                         st.write(f"**Function:** `{step.get('function')}`")
 
                     if step.get("description"):
@@ -757,9 +838,15 @@ with tab3:
                     col_up, col_down, col_edit, col_delete = st.columns(4)
 
                     with col_up:
-                        if st.button(f"⬆️", key=f"up_{idx}", disabled=(idx == 0), help="Move up"):
+                        if st.button("⬆️", key=f"up_{idx}", disabled=(idx == 0), help="Move up"):
                             # Swap with previous step
-                            st.session_state.pipeline_steps[idx], st.session_state.pipeline_steps[idx-1] =                                 st.session_state.pipeline_steps[idx-1], st.session_state.pipeline_steps[idx]
+                            (
+                                st.session_state.pipeline_steps[idx],
+                                st.session_state.pipeline_steps[idx - 1],
+                            ) = (
+                                st.session_state.pipeline_steps[idx - 1],
+                                st.session_state.pipeline_steps[idx],
+                            )
                             # Update edit_step_idx if in edit mode
                             if st.session_state.edit_step_idx == idx:
                                 st.session_state.edit_step_idx = idx - 1
@@ -768,9 +855,20 @@ with tab3:
                             st.rerun()
 
                     with col_down:
-                        if st.button(f"⬇️", key=f"down_{idx}", disabled=(idx == len(st.session_state.pipeline_steps) - 1), help="Move down"):
+                        if st.button(
+                            "⬇️",
+                            key=f"down_{idx}",
+                            disabled=(idx == len(st.session_state.pipeline_steps) - 1),
+                            help="Move down",
+                        ):
                             # Swap with next step
-                            st.session_state.pipeline_steps[idx], st.session_state.pipeline_steps[idx+1] =                                 st.session_state.pipeline_steps[idx+1], st.session_state.pipeline_steps[idx]
+                            (
+                                st.session_state.pipeline_steps[idx],
+                                st.session_state.pipeline_steps[idx + 1],
+                            ) = (
+                                st.session_state.pipeline_steps[idx + 1],
+                                st.session_state.pipeline_steps[idx],
+                            )
                             # Update edit_step_idx if in edit mode
                             if st.session_state.edit_step_idx == idx:
                                 st.session_state.edit_step_idx = idx + 1
@@ -779,12 +877,12 @@ with tab3:
                             st.rerun()
 
                     with col_edit:
-                        if st.button(f"✏️ Edit", key=f"edit_{idx}"):
+                        if st.button("✏️ Edit", key=f"edit_{idx}"):
                             st.session_state.edit_step_idx = idx
                             st.rerun()
 
                     with col_delete:
-                        if st.button(f"🗑️ Delete", key=f"delete_{idx}"):
+                        if st.button("🗑️ Delete", key=f"delete_{idx}"):
                             st.session_state.pipeline_steps.pop(idx)
                             st.session_state.edit_step_idx = None  # Clear edit mode if deleting
                             st.rerun()
@@ -806,9 +904,12 @@ with tab3:
             st.subheader("➕ Add Step")
             step_type_default = "AI Step"
 
-        step_type = st.radio("Step Type", ["AI Step", "Formatting Step"],
-                            key="step_type_radio",
-                            index=0 if step_type_default == "AI Step" else 1)
+        step_type = st.radio(
+            "Step Type",
+            ["AI Step", "Formatting Step"],
+            key="step_type_radio",
+            index=0 if step_type_default == "AI Step" else 1,
+        )
 
         if step_type == "AI Step":
             st.markdown("##### AI Step Configuration")
@@ -816,7 +917,9 @@ with tab3:
             # Get available prompts
             available_prompts = []
             if PROMPTS_DIR.exists():
-                available_prompts = [pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"]
+                available_prompts = [
+                    pf.stem for pf in PROMPTS_DIR.glob("*.py") if pf.stem != "__init__"
+                ]
 
             if available_prompts:
                 # Pre-populate if editing
@@ -834,7 +937,7 @@ with tab3:
                     "Prompt",
                     options=available_prompts,
                     index=default_idx,
-                    key="edit_ai_prompt_select" if editing else "ai_prompt_select"
+                    key="edit_ai_prompt_select" if editing else "ai_prompt_select",
                 )
             else:
                 st.warning("⚠️ No prompts found in steps/prompts/")
@@ -845,21 +948,25 @@ with tab3:
             if editing and edit_step.get("type") == "ai":
                 default_desc = edit_step.get("description", "")
 
-            description = st.text_area("Description",
-                                      value=default_desc,
-                                      key="edit_ai_description" if editing else "ai_description",
-                                      height=80,
-                                      placeholder="What does this step do?")
+            description = st.text_area(
+                "Description",
+                value=default_desc,
+                key="edit_ai_description" if editing else "ai_description",
+                height=80,
+                placeholder="What does this step do?",
+            )
 
             # Pre-populate output file if editing
             default_output = ""
             if editing and edit_step.get("type") == "ai":
                 default_output = edit_step.get("output_file", "")
 
-            output_file = st.text_input("Output File",
-                                       value=default_output,
-                                       key="edit_ai_output_file" if editing else "ai_output_file",
-                                       placeholder="e.g., interactions.json")
+            output_file = st.text_input(
+                "Output File",
+                value=default_output,
+                key="edit_ai_output_file" if editing else "ai_output_file",
+                placeholder="e.g., interactions.json",
+            )
 
             # Model selection
             model_options = list(CLAUDE_MODELS.keys())
@@ -878,7 +985,7 @@ with tab3:
                 format_func=lambda i: model_display_names[i],
                 index=default_model_idx,
                 key="edit_ai_model_select" if editing else "ai_model_select",
-                help="Choose which Claude model to use for this step"
+                help="Choose which Claude model to use for this step",
             )
             selected_model = model_options[selected_model_idx]
 
@@ -892,7 +999,7 @@ with tab3:
                     "description": description,
                     "variables": {},
                     "output_file": output_file,
-                    "model": selected_model
+                    "model": selected_model,
                 }
 
                 if editing:
@@ -914,6 +1021,7 @@ with tab3:
                     if ff.stem != "__init__":
                         try:
                             import importlib.util
+
                             spec = importlib.util.spec_from_file_location(ff.stem, ff)
                             module = importlib.util.module_from_spec(spec)
                             spec.loader.exec_module(module)
@@ -922,7 +1030,7 @@ with tab3:
                                 if callable(obj) and not name.startswith("_"):
                                     display_name = f"{ff.stem}.{name}"
                                     formatters[display_name] = f"{ff.stem}.{name}"
-                        except:
+                        except Exception:
                             pass
 
             if formatters:
@@ -938,7 +1046,7 @@ with tab3:
                     "Formatter",
                     options=list(formatters.keys()),
                     index=default_formatter_idx,
-                    key="edit_format_select" if editing else "format_select"
+                    key="edit_format_select" if editing else "format_select",
                 )
                 function = formatters[selected_formatter]
             else:
@@ -950,21 +1058,25 @@ with tab3:
             if editing and edit_step.get("type") == "formatting":
                 default_desc = edit_step.get("description", "")
 
-            description = st.text_area("Description",
-                                      value=default_desc,
-                                      key="edit_format_description" if editing else "format_description",
-                                      height=80,
-                                      placeholder="What does this step do?")
+            description = st.text_area(
+                "Description",
+                value=default_desc,
+                key="edit_format_description" if editing else "format_description",
+                height=80,
+                placeholder="What does this step do?",
+            )
 
             # Pre-populate output file if editing
             default_output = ""
             if editing and edit_step.get("type") == "formatting":
                 default_output = edit_step.get("output_file", "")
 
-            output_file = st.text_input("Output File",
-                                       value=default_output,
-                                       key="edit_format_output_file" if editing else "format_output_file",
-                                       placeholder="e.g., script.md")
+            output_file = st.text_input(
+                "Output File",
+                value=default_output,
+                key="edit_format_output_file" if editing else "format_output_file",
+                placeholder="e.g., script.md",
+            )
 
             # Add or Update button
             button_label = "💾 Save Changes" if editing else "➕ Add Formatting Step"
@@ -975,7 +1087,7 @@ with tab3:
                     "function": function,
                     "description": description,
                     "function_args": {},
-                    "output_file": output_file
+                    "output_file": output_file,
                 }
 
                 if editing:
@@ -996,7 +1108,7 @@ with tab4:
     else:
         st.subheader("Pipeline Summary")
 
-        #Show pipeline overview
+        # Show pipeline overview
         st.write(f"**Total Steps:** {len(st.session_state.pipeline_steps)}")
         st.write(f"**Module:** {module_number}")
         st.write(f"**Path:** {path_letter}")
@@ -1007,21 +1119,25 @@ with tab4:
         st.markdown("##### Execution Order")
         for idx, step in enumerate(st.session_state.pipeline_steps, 1):
             step_type = "🤖 AI" if step.get("type") == "ai" else "⚙️ Format"
-            st.write(f"{idx}. {step_type} - {step.get('name')} → `{step.get('output_file', 'N/A')}`")
+            st.write(
+                f"{idx}. {step_type} - {step.get('name')} → `{step.get('output_file', 'N/A')}`"
+            )
 
         st.divider()
 
         # Get output directory (reuse in interactive mode, otherwise let pipeline.py create it)
         if interactive and st.session_state.pipeline_output_dir is not None:
-        # Reuse existing directory for subsequent steps in interactive mode
+            # Reuse existing directory for subsequent steps in interactive mode
             actual_output_dir = st.session_state.pipeline_output_dir
         else:
-        # Let pipeline.py create the directory
+            # Let pipeline.py create the directory
             actual_output_dir = None
 
         # Show progress if interactive mode is active
         if interactive and st.session_state.interactive_step > 0:
-            st.markdown(f"### Step {st.session_state.interactive_step}/{len(st.session_state.pipeline_steps)}")
+            st.markdown(
+                f"### Step {st.session_state.interactive_step}/{len(st.session_state.pipeline_steps)}"
+            )
             st.progress(st.session_state.interactive_step / len(st.session_state.pipeline_steps))
 
         # Start or Continue button
@@ -1040,14 +1156,19 @@ with tab4:
             else:
                 button_label = f"▶️ Continue to Step {st.session_state.interactive_step + 1}"
 
-        if st.button(button_label, type="primary") or st.session_state.interactive_action == "proceed":
+        if (
+            st.button(button_label, type="primary")
+            or st.session_state.interactive_action == "proceed"
+        ):
             st.session_state.interactive_action = None
 
             # Reset state if re-running
             if not interactive and st.session_state.execution_result:
                 st.session_state.execution_result = None
                 st.rerun()
-            elif interactive and st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
+            elif interactive and st.session_state.interactive_step >= len(
+                st.session_state.pipeline_steps
+            ):
                 st.session_state.interactive_step = 0
                 st.session_state.interactive_outputs = []
                 st.session_state.pipeline_output_dir = None
@@ -1057,35 +1178,19 @@ with tab4:
             if not interactive:
                 # Original non-interactive execution
                 try:
-                    steps = []
-                    for step_config in st.session_state.pipeline_steps:
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables"),
-                                output_file=step_config.get("output_file")
-                            )
-                        else:
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args"),
-                                output_file=step_config.get("output_file")
-                            )
-                        steps.append(step)
-
-                    #Create console output container with real-time streaming
-                    with st.expander("Console Output", expanded = True):
+                    # Create console output container with real-time streaming
+                    with st.expander("Console Output", expanded=True):
                         console_display = st.empty()
 
                         with capture_console_output_streaming(console_display) as console_buffer:
-                            result = run_pipeline(
-                                steps=steps,
+                            result = run_pipeline_from_config(
+                                steps_config=st.session_state.pipeline_steps,
                                 pipeline_name=st.session_state.pipeline_name,
                                 module_number=module_number,
                                 path_letter=path_letter,
                                 output_dir=actual_output_dir,
                                 verbose=verbose,
-                                parse_json_output=parse_json
+                                parse_json_output=parse_json,
                             )
 
                         captured_output = console_buffer.getvalue()
@@ -1110,50 +1215,36 @@ with tab4:
                         # Get previous step's output file for auto-chaining
                         previous_output_file = None
                         if st.session_state.interactive_outputs:
-                            last_result = st.session_state.interactive_outputs[-1]['result']
-                            previous_output_file = last_result.get('last_output_file')
+                            last_result = st.session_state.interactive_outputs[-1]["result"]
+                            previous_output_file = last_result.get("last_output_file")
 
-                        # Convert step_config to Step object
-                        if step_config["type"] == "ai":
-                            step = Step(
-                                prompt_name=step_config["prompt_name"],
-                                variables=step_config.get("variables", {}),
-                                input_file=previous_output_file,
-                                output_file=step_config.get("output_file")
-                            )
-                        else:
-                            step = Step(
-                                function=step_config["function"],
-                                function_args=step_config.get("function_args", {}),
-                                input_file=previous_output_file,
-                                output_file=step_config.get("output_file")
-                            )
-                        # Create console output container for real-time streaming
-                        st.subheader(f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}")
-                        
+                        st.subheader(
+                            f"Executing Step {current_step_idx + 1}: {step_config.get('name', 'Unknown')}"
+                        )
+
                         console_display = st.empty()
-                        # Capture console output with real-time streaming
                         with capture_console_output_streaming(console_display) as output_buffer:
-                            result = run_single_step(
-                                step=step,
+                            result = run_single_step_from_config(
+                                step_config=step_config,
                                 module_number=module_number,
                                 path_letter=path_letter,
+                                previous_output_file=previous_output_file,
                                 output_dir=actual_output_dir,
                                 verbose=verbose,
-                                parse_json_output=parse_json
+                                parse_json_output=parse_json,
                             )
 
                         console_output = output_buffer.getvalue()
 
                         # Store output directory for subsequent steps
                         if st.session_state.interactive_step == 0 and actual_output_dir is None:
-                            st.session_state.pipeline_output_dir = result.get('output_dir')
+                            st.session_state.pipeline_output_dir = result.get("output_dir")
 
                         step_output = {
-                            'result': result,
-                            'console': console_output,
-                            'step_name': step_config.get('name', 'Unknown'),
-                            'step_type': step_config.get('type', 'unknown')
+                            "result": result,
+                            "console": console_output,
+                            "step_name": step_config.get("name", "Unknown"),
+                            "step_type": step_config.get("type", "unknown"),
                         }
 
                         st.session_state.interactive_outputs.append(step_output)
@@ -1168,41 +1259,138 @@ with tab4:
             # Show latest step output
             latest = st.session_state.interactive_outputs[-1]
 
-            st.subheader(f"✅ Step {len(st.session_state.interactive_outputs)}: {latest['step_name']}")
+            st.subheader(
+                f"✅ Step {len(st.session_state.interactive_outputs)}: {latest['step_name']}"
+            )
 
             # Use unified output display
-            if latest['result'].get('output_dir'):
-                output_dir = Path(latest['result']['output_dir'])
+            if latest["result"].get("output_dir"):
+                output_dir = Path(latest["result"]["output_dir"])
                 display_unified_output(
                     output_dir=output_dir,
                     console_output=None,
                     show_all_files=True,
-                    result=latest['result'],
-                    button_key_prefix=f"step_{len(st.session_state.interactive_outputs)}"
+                    result=latest["result"],
+                    button_key_prefix=f"step_{len(st.session_state.interactive_outputs)}",
                 )
 
             st.divider()
-        
+
             # Check if pipeline is complete
             if st.session_state.interactive_step >= len(st.session_state.pipeline_steps):
                 st.success("🎉 Pipeline Completed!")
 
         # Show results
         if st.session_state.execution_result:
-              st.divider()
-              st.subheader("Results")
+            st.divider()
+            st.subheader("Results")
 
-              result = st.session_state.execution_result
-              output_path = Path(result.get("output_dir"))
+            result = st.session_state.execution_result
+            output_path = Path(result.get("output_dir"))
 
-              # Use unified output display
-              display_unified_output(
-                  output_dir=output_path,
-                  console_output=None,
-                  show_all_files=True,
-                  result=result,
-                  button_key_prefix="final_result"
-              )
+            # Use unified output display
+            display_unified_output(
+                output_dir=output_path,
+                console_output=None,
+                show_all_files=True,
+                result=result,
+                button_key_prefix="final_result",
+            )
+
+
+# TAB 5: Output Files
+with tab5:
+    st.header("📂 Output Files")
+    st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
+
+    if not OUTPUTS_DIR.exists():
+        st.warning(f"Outputs directory not found: {OUTPUTS_DIR}")
+    else:
+        # Discover pipeline run directories (those that contain latest.txt)
+        run_dirs = sorted(
+            [d for d in OUTPUTS_DIR.iterdir() if d.is_dir() and (d / "latest.txt").exists()],
+            key=lambda d: d.stat().st_mtime,
+            reverse=True,
+        )
+
+        if not run_dirs:
+            st.info("No pipeline run directories found in outputs/.")
+        else:
+            # ── Level 1: pipeline run selector ──────────────────────────────
+            selected_run = st.selectbox(
+                "Pipeline run",
+                options=run_dirs,
+                format_func=lambda d: d.name,
+                key="output_files_run_selector",
+            )
+
+            if selected_run:
+                latest_txt = selected_run / "latest.txt"
+                latest_version = latest_txt.read_text(encoding="utf-8").strip()
+
+                # List available versions
+                versions = sorted(
+                    [d.name for d in selected_run.iterdir() if d.is_dir()],
+                    reverse=True,
+                )
+
+                if versions:
+                    default_ver_idx = (
+                        versions.index(latest_version) if latest_version in versions else 0
+                    )
+                    selected_version = st.selectbox(
+                        "Version",
+                        options=versions,
+                        index=default_ver_idx,
+                        key="output_files_version_selector",
+                    )
+                else:
+                    selected_version = latest_version
+
+                version_dir = selected_run / selected_version
+
+                # ── Level 2: JSON file selector ─────────────────────────────
+                json_files = sorted(version_dir.rglob("*.json"), key=lambda p: str(p))
+
+                if not json_files:
+                    st.info("No JSON files found in this version directory.")
+                else:
+                    selected_json = st.selectbox(
+                        "File",
+                        options=json_files,
+                        format_func=lambda p: str(p.relative_to(version_dir)),
+                        key="output_files_file_selector",
+                    )
+
+                    if selected_json:
+                        st.divider()
+
+                        try:
+                            file_data = json.loads(selected_json.read_text(encoding="utf-8"))
+                        except json.JSONDecodeError as exc:
+                            st.error(f"Could not parse {selected_json.name}: {exc}")
+                            file_data = None
+
+                        if file_data is not None:
+
+                            def _save_output_file(parsed: dict) -> None:
+                                selected_json.write_text(
+                                    json.dumps(parsed, indent=2, ensure_ascii=False),
+                                    encoding="utf-8",
+                                )
+
+                            render_json_editor(
+                                data=file_data,
+                                key=f"output_{selected_run.name}_{selected_version}_{selected_json.name}",
+                                read_only=False,
+                                height=600,
+                                on_save=_save_output_file,
+                            )
+
+                st.divider()
+                from ui.utils.output import open_output_folder
+
+                open_output_folder(selected_run, button_key="output_files_open_folder")
 
 
 # Footer

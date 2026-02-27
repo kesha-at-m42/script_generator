@@ -20,8 +20,8 @@ Note: Pipelines are now centralized in ui/saved_pipelines.json
       Edit pipelines through the UI or directly in the JSON file
 """
 
-import sys
 import argparse
+import sys
 from pathlib import Path
 
 # Add project root to path
@@ -29,9 +29,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "core"))
 
-from core.pipeline import run_pipeline
-from core.pipelines import PIPELINES
-
+from core.pipelines import PIPELINES, run_pipeline_from_config  # noqa: E402
 
 # =============================================================================
 # MAIN
@@ -47,45 +45,35 @@ Examples:
   python cli/run_pipeline.py -p 1 -m 5 --path a -i
   python cli/run_pipeline.py --pipeline "GODOT Formatter" --module 3
   python cli/run_pipeline.py -p 2
-        """
+        """,
     )
 
+    parser.add_argument("-p", "--pipeline", type=str, help="Pipeline name or number to run")
+    parser.add_argument("-m", "--module", type=int, help="Module number (optional)")
     parser.add_argument(
-        '-p', '--pipeline',
+        "--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c (optional)"
+    )
+    parser.add_argument(
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="Enable interactive mode (step-by-step confirmation)",
+    )
+    parser.add_argument(
+        "--batch-ids",
         type=str,
-        help='Pipeline name or number to run'
+        help='Only run these batch IDs (comma-separated, e.g., "1,3,5" or "template_001,template_003")',
     )
     parser.add_argument(
-        '-m', '--module',
-        type=int,
-        help='Module number (optional)'
-    )
-    parser.add_argument(
-        '--path',
+        "--skip-batch-ids",
         type=str,
-        choices=['a', 'b', 'c'],
-        help='Path letter: a, b, or c (optional)'
-    )
-    parser.add_argument(
-        '-i', '--interactive',
-        action='store_true',
-        help='Enable interactive mode (step-by-step confirmation)'
-    )
-    parser.add_argument(
-        '--batch-ids',
-        type=str,
-        help='Only run these batch IDs (comma-separated, e.g., "1,3,5" or "template_001,template_003")'
-    )
-    parser.add_argument(
-        '--skip-batch-ids',
-        type=str,
-        help='Skip these batch IDs (comma-separated, e.g., "2,4" or "template_002,template_004")'
+        help='Skip these batch IDs (comma-separated, e.g., "2,4" or "template_002,template_004")',
     )
 
     args = parser.parse_args()
 
     print("Pipeline Runner")
-    print("="*70)
+    print("=" * 70)
 
     # Determine pipeline name
     pipeline_name = None
@@ -122,7 +110,7 @@ Examples:
         elif choice in PIPELINES:
             pipeline_name = choice
         else:
-            print(f"Invalid choice")
+            print("Invalid choice")
             sys.exit(1)
 
     # Get module number
@@ -135,33 +123,26 @@ Examples:
     path_letter = args.path
     if path_letter is None and module_number:
         path_input = input("Path letter (a/b/c or Enter to skip): ").strip().lower()
-        path_letter = path_input if path_input in ['a', 'b', 'c'] else None
+        path_letter = path_input if path_input in ["a", "b", "c"] else None
 
     # Get interactive mode preference
     interactive = args.interactive
     if not interactive:
-        interactive_input = input("Enable interactive mode (step-by-step confirmation)? (y/n): ").strip().lower()
-        interactive = interactive_input == 'y'
+        interactive_input = (
+            input("Enable interactive mode (step-by-step confirmation)? (y/n): ").strip().lower()
+        )
+        interactive = interactive_input == "y"
 
     # Parse batch ID filters
     batch_only_items = None
     if args.batch_ids:
-        batch_only_items = [id.strip() for id in args.batch_ids.split(',')]
+        batch_only_items = [id.strip() for id in args.batch_ids.split(",")]
         print(f"  [BATCH FILTER] Only running IDs: {batch_only_items}")
 
     batch_skip_items = None
     if args.skip_batch_ids:
-        batch_skip_items = [id.strip() for id in args.skip_batch_ids.split(',')]
+        batch_skip_items = [id.strip() for id in args.skip_batch_ids.split(",")]
         print(f"  [BATCH FILTER] Skipping IDs: {batch_skip_items}")
-
-    # Apply batch skip items to steps if specified
-    steps = PIPELINES[pipeline_name].copy() if isinstance(PIPELINES[pipeline_name], list) else list(PIPELINES[pipeline_name])
-    if batch_skip_items:
-        for step in steps:
-            if isinstance(step, dict) and step.get('batch_mode'):
-                # Merge with existing skip items
-                existing_skip = step.get('batch_skip_items', [])
-                step['batch_skip_items'] = list(set(existing_skip + batch_skip_items))
 
     # Run pipeline
     try:
@@ -176,22 +157,22 @@ Examples:
             print(f"Batch filter (skip): {', '.join(batch_skip_items)}")
         print(f"Interactive mode: {'enabled' if interactive else 'disabled'}")
 
-        results = run_pipeline(
-            steps=steps,
+        results = run_pipeline_from_config(
+            steps_config=list(PIPELINES[pipeline_name]),
             pipeline_name=pipeline_name,
             module_number=module_number,
             path_letter=path_letter,
             verbose=True,
             interactive=interactive,
-            rerun_items=batch_only_items  # Use rerun_items for batch filtering
+            rerun_items=batch_only_items,
         )
 
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("RESULTS:")
-        print("="*70)
+        print("=" * 70)
         for key, value in results.items():
             # Skip printing final_output to avoid console clutter (it's saved to file)
-            if key == 'final_output':
+            if key == "final_output":
                 continue
 
             print(f"\n{key}:")
@@ -206,5 +187,6 @@ Examples:
     except Exception as e:
         print(f"\nError: {e}")
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
