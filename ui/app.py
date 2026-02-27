@@ -20,6 +20,7 @@ from path_manager import get_project_paths  # noqa: E402
 
 from core.pipelines import run_pipeline_from_config, run_single_step_from_config  # noqa: E402
 from ui.components.json_editor import render_json_editor  # noqa: E402
+from ui.components.module_editor import render_module_editor  # noqa: E402
 
 # Import output utilities
 from ui.utils.output import (  # noqa: E402
@@ -195,11 +196,9 @@ with tab1:
                     encoding="utf-8",
                 )
 
-            render_json_editor(
+            render_module_editor(
                 data=module_data,
                 key=f"module_{selected_module_num}",
-                read_only=False,
-                height=600,
                 on_save=_save_module,
             )
     else:
