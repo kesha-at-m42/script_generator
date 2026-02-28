@@ -133,13 +133,14 @@ with st.sidebar:
 st.title("🔧 Pipeline Manager")
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
     [
         "📚 Module Editor",
         "✏️ Edit Prompts",
         "📋 Pipeline Steps",
         "▶️ Run Pipeline",
-        "📁 Files",
+        "📂 Output Files",
+        "📁 Resources",
     ]
 )
 
@@ -1296,80 +1297,12 @@ with tab4:
             )
 
 
-# TAB 5: Files
+# TAB 5: Output Files
 with tab5:
-    st.header("📁 Files")
+    st.header("📂 Output Files")
+    st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
 
-    file_source = st.radio(
-        "Source",
-        options=["Output files", "Input files"],
-        horizontal=True,
-        key="files_source",
-        label_visibility="collapsed",
-    )
-
-    # ── INPUT FILES ──────────────────────────────────────────────────────────
-    if file_source == "Input files":
-        st.caption("Browse module input files (problem templates, etc.).")
-        modules_root = project_root / "modules"
-        input_module_dirs = sorted(
-            [
-                d
-                for d in modules_root.iterdir()
-                if d.is_dir()
-                and d.name.startswith("module")
-                and d.name != "starter_packs"
-                and any(d.glob("*.json"))
-            ],
-            key=lambda d: int("".join(filter(str.isdigit, d.name)) or "0"),
-        )
-
-        if not input_module_dirs:
-            st.info("No module directories with JSON files found.")
-        else:
-            sel_mod = st.selectbox(
-                "Module",
-                options=input_module_dirs,
-                format_func=lambda d: "Module " + "".join(filter(str.isdigit, d.name)),
-                key="input_files_module",
-            )
-            if sel_mod:
-                input_json_files = sorted(sel_mod.glob("*.json"), key=lambda p: p.name)
-                sel_input_file = st.selectbox(
-                    "File",
-                    options=input_json_files,
-                    format_func=lambda p: p.name,
-                    key="input_files_file",
-                )
-                if sel_input_file:
-                    st.divider()
-                    try:
-                        input_data = json.loads(sel_input_file.read_text(encoding="utf-8"))
-                    except json.JSONDecodeError as exc:
-                        st.error(f"Could not parse {sel_input_file.name}: {exc}")
-                        input_data = None
-
-                    if input_data is not None:
-
-                        def _save_input_file(parsed: dict) -> None:
-                            sel_input_file.write_text(
-                                json.dumps(parsed, indent=2, ensure_ascii=False),
-                                encoding="utf-8",
-                            )
-
-                        render_smart_json_editor(
-                            data=input_data,
-                            key=f"input_{sel_mod.name}_{sel_input_file.stem}",
-                            on_save=_save_input_file,
-                        )
-
-    # ── OUTPUT FILES ──────────────────────────────────────────────────────────
-    else:
-        st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
-
-    if file_source != "Output files":
-        pass  # input files handled in the block above
-    elif not OUTPUTS_DIR.exists():
+    if not OUTPUTS_DIR.exists():
         st.warning(f"Outputs directory not found: {OUTPUTS_DIR}")
     else:
         # Discover pipeline run directories (those that contain latest.txt)
@@ -1456,6 +1389,92 @@ with tab5:
                 from ui.utils.output import open_output_folder
 
                 open_output_folder(selected_run, button_key="output_files_open_folder")
+
+
+# TAB 6: Resources
+_RESOURCE_ROOTS = {
+    "modules/": project_root / "modules",
+    "docs/": project_root / "docs",
+}
+_RESOURCE_EXTS = {".json", ".md", ".txt"}
+
+with tab6:
+    st.header("📁 Resources")
+    st.caption("Browse and edit input files: module templates, docs, and reference data.")
+
+    res_root_name = st.radio(
+        "Source",
+        options=list(_RESOURCE_ROOTS.keys()),
+        horizontal=True,
+        key="resources_root",
+        label_visibility="collapsed",
+    )
+    res_root = _RESOURCE_ROOTS[res_root_name]
+
+    if not res_root.exists():
+        st.info(f"{res_root_name} directory not found.")
+    else:
+        res_files = sorted(
+            [p for p in res_root.rglob("*") if p.is_file() and p.suffix in _RESOURCE_EXTS],
+            key=lambda p: str(p.relative_to(res_root)),
+        )
+
+        if not res_files:
+            st.info(f"No supported files found in {res_root_name}.")
+        else:
+            sel_res = st.selectbox(
+                "File",
+                options=res_files,
+                format_func=lambda p: str(p.relative_to(res_root)),
+                key="resources_file_selector",
+            )
+
+            if sel_res:
+                st.divider()
+                raw_text = sel_res.read_text(encoding="utf-8")
+
+                if sel_res.suffix == ".json":
+                    try:
+                        res_data = json.loads(raw_text)
+                    except json.JSONDecodeError as exc:
+                        st.error(f"Could not parse {sel_res.name}: {exc}")
+                        res_data = None
+
+                    if res_data is not None:
+
+                        def _save_res_json(parsed: dict) -> None:
+                            sel_res.write_text(
+                                json.dumps(parsed, indent=2, ensure_ascii=False),
+                                encoding="utf-8",
+                            )
+
+                        render_smart_json_editor(
+                            data=res_data,
+                            key=f"res_{res_root_name.strip('/')}_{sel_res.stem}",
+                            on_save=_save_res_json,
+                        )
+
+                else:  # .md / .txt
+                    res_mode = st.radio(
+                        "View",
+                        options=["Read", "Edit"],
+                        horizontal=True,
+                        key=f"res_mode_{sel_res.stem}",
+                        label_visibility="collapsed",
+                    )
+                    if res_mode == "Read":
+                        st.markdown(raw_text)
+                    else:
+                        edited_text = st.text_area(
+                            sel_res.name,
+                            value=raw_text,
+                            height=600,
+                            label_visibility="collapsed",
+                            key=f"res_text_{sel_res.stem}",
+                        )
+                        if st.button("💾 Save", key=f"res_save_{sel_res.stem}"):
+                            sel_res.write_text(edited_text, encoding="utf-8")
+                            st.success("Saved.")
 
 
 # Footer
