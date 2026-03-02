@@ -101,6 +101,16 @@ def get_registry_entry(file_path: Path) -> dict | None:
     return load_registry().get(_registry_key(file_path))
 
 
+def get_file_path_for_page(page_id: str) -> Path | None:
+    """Reverse lookup: return the source file Path for a given page_id, or None."""
+    root = Path(__file__).parent.parent
+    normalised = page_id.replace("-", "")
+    for key, entry in load_registry().items():
+        if entry.get("page_id", "").replace("-", "") == normalised:
+            return root / key
+    return None
+
+
 def set_registry_entry(file_path: Path, page_id: str, title: str) -> None:
     registry = load_registry()
     registry[_registry_key(file_path)] = {
@@ -316,6 +326,7 @@ def push_to_notion(
     title: str,
     file_path: Path | None = None,
     existing_page_id: str | None = None,
+    blocks_fn: Any | None = None,
 ) -> str:
     """
     Push JSON data to Notion.  Returns the Notion page ID.
@@ -324,6 +335,8 @@ def push_to_notion(
       updated in-place (old blocks archived, new blocks appended).
     - Otherwise a new child page is created under NOTION_PARENT_PAGE_ID.
     - The page ID is saved to the registry if file_path is provided.
+    - blocks_fn: optional callable(data) -> list[dict] to override the default
+      json_to_blocks renderer (e.g. lesson_to_blocks for lesson.json files).
     """
     client = get_notion_client()
     parent_page_id = os.environ["NOTION_PARENT_PAGE_ID"]
@@ -334,7 +347,7 @@ def push_to_notion(
         if entry:
             existing_page_id = entry["page_id"]
 
-    blocks = json_to_blocks(data)
+    blocks = blocks_fn(data) if blocks_fn is not None else json_to_blocks(data)
 
     if existing_page_id:
         # Archive all existing blocks
