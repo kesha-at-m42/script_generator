@@ -21,11 +21,9 @@ def get_template_by_id(template_file_path, template_id, required=True):
         The template object, or None if not found and not required
     """
     if not os.path.exists(template_file_path):
-        raise FileNotFoundError(
-            f"Template file not found at {template_file_path}"
-        )
+        raise FileNotFoundError(f"Template file not found at {template_file_path}")
 
-    with open(template_file_path, 'r', encoding='utf-8') as f:
+    with open(template_file_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
     # Find template by ID
@@ -66,7 +64,7 @@ def get_template_field(module_number, template_id, field_path, required=True, de
     template = get_template_by_id(module_number, template_id, required=True)
 
     # Split the path by __ for nested access
-    path_parts = field_path.split('__')
+    path_parts = field_path.split("__")
     current = template
 
     try:
@@ -77,11 +75,15 @@ def get_template_field(module_number, template_id, field_path, required=True, de
                     index = int(part)
                     current = current[index]
                 except (ValueError, IndexError):
-                    raise KeyError(f"Invalid array index '{part}' at '{'__'.join(path_parts[:i+1])}'")
+                    raise KeyError(
+                        f"Invalid array index '{part}' at '{'__'.join(path_parts[: i + 1])}'"
+                    )
             # Handle dict access
             elif isinstance(current, dict):
                 if part not in current:
-                    raise KeyError(f"Field '{part}' not found at '{'__'.join(path_parts[:i+1])}'")
+                    raise KeyError(
+                        f"Field '{part}' not found at '{'__'.join(path_parts[: i + 1])}'"
+                    )
                 current = current[part]
             else:
                 raise KeyError(f"Cannot access '{part}' on non-dict/non-list value")
@@ -111,23 +113,24 @@ def get_all_fields(module_number, template_id):
     return list(template.keys())
 
 
-def get_all_templates(module_number, template_file):
+def get_all_templates(module_number, template_file, unit_number=None):
     """Get all templates from a module's template file."""
-    template_path = os.path.join(
-        "modules", f"module{module_number}", template_file
-    )
+    if unit_number is not None:
+        template_path = os.path.join(
+            "units", f"unit{unit_number}", f"module{module_number}", template_file
+        )
+    else:
+        template_path = os.path.join("modules", f"module{module_number}", template_file)
 
     if not os.path.exists(template_path):
-        raise FileNotFoundError(
-            f"{template_file} not found at {template_path}"
-        )
+        raise FileNotFoundError(f"{template_file} not found at {template_path}")
 
-    with open(template_path, 'r', encoding='utf-8') as f:
+    with open(template_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 # Counting functions
-def get_template_count(module_number, filter_field=None, filter_value=None):
+def get_template_count(module_number, filter_field=None, filter_value=None, unit_number=None):
     """
     Count templates, optionally filtered by a field value.
 
@@ -135,6 +138,7 @@ def get_template_count(module_number, filter_field=None, filter_value=None):
         module_number: Module number
         filter_field: Optional field path to filter by (supports __ for nested)
         filter_value: Value to match (if list field, checks if value is IN the list)
+        unit_number: Optional unit number
 
     Returns:
         Count of matching templates
@@ -144,7 +148,7 @@ def get_template_count(module_number, filter_field=None, filter_value=None):
         get_template_count(4, "goal_decomposition__mastery_tier", "baseline")  # Tier includes baseline
         get_template_count(4, "goal_decomposition__mastery_verb", "create")  # Verb is create
     """
-    templates = get_all_templates(module_number)
+    templates = get_all_templates(module_number, unit_number=unit_number)
 
     if filter_field is None:
         return len(templates)
@@ -167,7 +171,9 @@ def get_template_count(module_number, filter_field=None, filter_value=None):
     return count
 
 
-def get_target_count(module_number, tier=None, filter_field=None, filter_value=None):
+def get_target_count(
+    module_number, tier=None, filter_field=None, filter_value=None, unit_number=None
+):
     """
     Sum target_count values from tier_constraints.
 
@@ -176,6 +182,7 @@ def get_target_count(module_number, tier=None, filter_field=None, filter_value=N
         tier: Optional tier name (e.g., "baseline", "support"). If None, sums across ALL tiers.
         filter_field: Optional field path to filter templates (supports __)
         filter_value: Value to match for filtering
+        unit_number: Optional unit number
 
     Returns:
         Sum of target_count values
@@ -186,7 +193,7 @@ def get_target_count(module_number, tier=None, filter_field=None, filter_value=N
         get_target_count(4, None, "goal_decomposition__mastery_verb", "create")  # All tiers, create only
         get_target_count(4, "baseline", "goal_decomposition__mastery_verb", "create")  # Baseline + create
     """
-    templates = get_all_templates(module_number)
+    templates = get_all_templates(module_number, unit_number=unit_number)
     total = 0
 
     for template in templates:
@@ -226,7 +233,7 @@ def get_target_count(module_number, tier=None, filter_field=None, filter_value=N
 
 def _get_nested_field(template, field_path):
     """Helper to get nested field value using __ notation."""
-    path_parts = field_path.split('__')
+    path_parts = field_path.split("__")
     current = template
 
     for part in path_parts:
@@ -326,9 +333,17 @@ if __name__ == "__main__":
     print("=" * 70)
 
     print("\n📖 Usage Examples:")
-    print('  get_template_count(4)                                          # Total templates')
-    print('  get_template_count(4, "goal_decomposition__mastery_tier", "baseline")  # Filter by tier')
-    print('  get_target_count(4)                                            # ALL targets in module')
+    print("  get_template_count(4)                                          # Total templates")
+    print(
+        '  get_template_count(4, "goal_decomposition__mastery_tier", "baseline")  # Filter by tier'
+    )
+    print(
+        "  get_target_count(4)                                            # ALL targets in module"
+    )
     print('  get_target_count(4, "baseline")                                # Baseline tier only')
-    print('  get_target_count(4, None, "goal_decomposition__mastery_verb", "create")  # All tiers, create only')
-    print('  get_template_field(4, "4001", "tier_constraints__baseline__fractions")  # Nested access')
+    print(
+        '  get_target_count(4, None, "goal_decomposition__mastery_verb", "create")  # All tiers, create only'
+    )
+    print(
+        '  get_template_field(4, "4001", "tier_constraints__baseline__fractions")  # Nested access'
+    )

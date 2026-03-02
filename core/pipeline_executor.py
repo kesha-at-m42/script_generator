@@ -2,14 +2,12 @@
 Pipeline Executor - Handles execution of individual pipeline steps
 """
 
-from pathlib import Path
-from typing import Dict, Any
-import json
-import sys
 import importlib
+import sys
+from pathlib import Path
 
 
-def flatten_dict(obj, parent_key='', sep='__'):
+def flatten_dict(obj, parent_key="", sep="__"):
     """Flatten nested dict with __ separator
 
     Example:
@@ -60,10 +58,10 @@ def load_function(function, project_root: Path):
     if not isinstance(function, str):
         raise ValueError(f"function must be string or callable, got {type(function)}")
 
-    if '.' not in function:
+    if "." not in function:
         raise ValueError(f"function string must be 'module.function_name', got '{function}'")
 
-    module_name, func_name = function.rsplit('.', 1)
+    module_name, func_name = function.rsplit(".", 1)
 
     # Try to import the module
     try:
@@ -90,7 +88,16 @@ def load_function(function, project_root: Path):
         raise AttributeError(f"Module '{module_name}' has no function '{func_name}': {e}")
 
 
-def run_formatting_step(step, input_data, input_content, module_number: int, path_letter: str, project_root: Path, verbose: bool):
+def run_formatting_step(
+    step,
+    input_data,
+    input_content,
+    module_number: int,
+    path_letter: str,
+    project_root: Path,
+    verbose: bool,
+    unit_number: int = None,
+):
     """Execute a deterministic formatting step
 
     Args:
@@ -101,12 +108,13 @@ def run_formatting_step(step, input_data, input_content, module_number: int, pat
         path_letter: Path letter (automatically passed to function if it accepts it)
         project_root: Project root path for module imports
         verbose: Verbose logging flag
+        unit_number: Optional unit number (automatically passed to function if it accepts it)
 
     Returns:
         Output from the formatting function
     """
     if verbose:
-        print(f"  [EXEC] Running formatting function...")
+        print("  [EXEC] Running formatting function...")
 
     # Load the function
     func = load_function(step.function, project_root)
@@ -114,24 +122,30 @@ def run_formatting_step(step, input_data, input_content, module_number: int, pat
     # Prepare arguments - start with module context
     args = {}
 
-    # Add module_number and path_letter if function accepts them
+    # Add module_number, path_letter, and unit_number if function accepts them
     import inspect
+
     sig = inspect.signature(func)
     param_names = list(sig.parameters.keys())
 
     # Check which parameters the function accepts and add them
-    if 'module_number' in param_names:
-        args['module_number'] = module_number
+    if "module_number" in param_names:
+        args["module_number"] = module_number
         if verbose:
             print(f"  [EXEC] Passing module_number={module_number}")
 
-    if 'path_letter' in param_names:
-        args['path_letter'] = path_letter
+    if "path_letter" in param_names:
+        args["path_letter"] = path_letter
         if verbose:
             print(f"  [EXEC] Passing path_letter={path_letter}")
 
-    if 'verbose' in param_names:
-        args['verbose'] = verbose
+    if "unit_number" in param_names:
+        args["unit_number"] = unit_number
+        if verbose:
+            print(f"  [EXEC] Passing unit_number={unit_number}")
+
+    if "verbose" in param_names:
+        args["verbose"] = verbose
         if verbose:
             print(f"  [EXEC] Passing verbose={verbose}")
 
@@ -154,6 +168,6 @@ def run_formatting_step(step, input_data, input_content, module_number: int, pat
         result = func(**args)
 
     if verbose:
-        print(f"  [OK] Formatting complete")
+        print("  [OK] Formatting complete")
 
     return result

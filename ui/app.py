@@ -103,6 +103,8 @@ if "pipeline_name" not in st.session_state:
 with st.sidebar:
     st.title("⚙️ Pipeline Configuration")
 
+    unit_number_input = st.number_input("Unit Number", min_value=1, max_value=99, value=3)
+    unit_number = int(unit_number_input) if unit_number_input else None
     module_number = st.number_input("Module Number", min_value=1, max_value=10, value=1)
     path_letter = st.text_input("Path Letter", value="c", max_chars=1)
 
@@ -1242,6 +1244,7 @@ with tab_run_pipeline:
                             result = run_pipeline_from_config(
                                 steps_config=st.session_state.pipeline_steps,
                                 pipeline_name=st.session_state.pipeline_name,
+                                unit_number=unit_number,
                                 module_number=module_number,
                                 path_letter=path_letter,
                                 output_dir=actual_output_dir,
@@ -1282,6 +1285,7 @@ with tab_run_pipeline:
                         with capture_console_output_streaming(console_display) as output_buffer:
                             result = run_single_step_from_config(
                                 step_config=step_config,
+                                unit_number=unit_number,
                                 module_number=module_number,
                                 path_letter=path_letter,
                                 previous_output_file=previous_output_file,
@@ -1461,6 +1465,7 @@ with tab_output_files:
 
 # TAB 6: Resources
 _RESOURCE_ROOTS = {
+    "units/": project_root / "units",
     "modules/": project_root / "modules",
     "docs/": project_root / "docs",
 }

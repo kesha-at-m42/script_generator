@@ -25,6 +25,7 @@ def _try_notion_push(
     pipeline_name: str | None,
     module_number: int | None,
     path_letter: str | None,
+    unit_number: int | None = None,
 ) -> None:
     """Push the last step's output to Notion if configured.
 
@@ -42,6 +43,8 @@ def _try_notion_push(
             return
 
         title_parts = [pipeline_name or "Pipeline output"]
+        if unit_number:
+            title_parts.append(f"Unit {unit_number}")
         if module_number:
             title_parts.append(f"Module {module_number}")
         if path_letter:
@@ -148,6 +151,7 @@ def run_pipeline_from_config(
     pipeline_name: str = None,
     module_number: int = None,
     path_letter: str = None,
+    unit_number: int = None,
     **kwargs,
 ) -> Dict:
     """Convert a list of step config dicts to Step objects and run the pipeline.
@@ -161,9 +165,10 @@ def run_pipeline_from_config(
         pipeline_name=pipeline_name,
         module_number=module_number,
         path_letter=path_letter,
+        unit_number=unit_number,
         **kwargs,
     )
-    _try_notion_push(results, pipeline_name, module_number, path_letter)
+    _try_notion_push(results, pipeline_name, module_number, path_letter, unit_number)
     return results
 
 
@@ -171,6 +176,7 @@ def run_single_step_from_config(
     step_config: dict,
     module_number: int = None,
     path_letter: str = None,
+    unit_number: int = None,
     previous_output_file: str = None,
     **kwargs,
 ) -> Dict:
@@ -186,5 +192,6 @@ def run_single_step_from_config(
         step=step,
         module_number=module_number,
         path_letter=path_letter,
+        unit_number=unit_number,
         **kwargs,
     )

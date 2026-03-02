@@ -3,12 +3,12 @@ Path Manager - Handles all path resolution and directory structure for the proje
 """
 
 from pathlib import Path
-from typing import Dict, Optional, List
-
+from typing import Dict, List, Optional
 
 # =============================================================================
 # PROJECT STRUCTURE
 # =============================================================================
+
 
 def get_project_root() -> Path:
     """Get the project root directory
@@ -23,38 +23,45 @@ def get_project_paths() -> Dict[str, Path]:
     """Get all standard project directory paths
 
     Returns:
-        Dict with keys: project_root, docs, modules, prompts, utils, formatting, outputs, logs
+        Dict with keys: project_root, docs, modules, units, prompts, utils, formatting, outputs, logs
     """
     root = get_project_root()
     return {
-        'project_root': root,
-        'docs': root / 'docs',
-        'modules': root / 'modules',
-        'prompts': root / 'steps' / 'prompts',
-        'utils': root / 'utils',
-        'formatting': root / 'steps' / 'formatting',
-        'outputs': root / 'outputs',
-        'logs': root / 'logs'
+        "project_root": root,
+        "docs": root / "docs",
+        "modules": root / "modules",
+        "units": root / "units",
+        "prompts": root / "steps" / "prompts",
+        "utils": root / "utils",
+        "formatting": root / "steps" / "formatting",
+        "outputs": root / "outputs",
+        "logs": root / "logs",
     }
 
 
-def get_module_paths(module_number: int, path_letter: Optional[str] = None) -> Dict[str, Path]:
+def get_module_paths(
+    module_number: int, path_letter: Optional[str] = None, unit_number: Optional[int] = None
+) -> Dict[str, Path]:
     """Get paths for a specific module
 
     Args:
         module_number: Module number
         path_letter: Optional path letter (a, b, c)
+        unit_number: Optional unit number. When set, path uses units/unit{N}/module{M}/
 
     Returns:
         Dict with keys: module_dir, path_dir (if path_letter provided)
     """
     root = get_project_root()
-    module_dir = root / 'modules' / f'module{module_number}'
+    if unit_number is not None:
+        module_dir = root / "units" / f"unit{unit_number}" / f"module{module_number}"
+    else:
+        module_dir = root / "modules" / f"module{module_number}"
 
-    paths = {'module_dir': module_dir}
+    paths = {"module_dir": module_dir}
 
     if path_letter:
-        paths['path_dir'] = module_dir / f'path{path_letter.lower()}'
+        paths["path_dir"] = module_dir / f"path{path_letter.lower()}"
 
     return paths
 
@@ -89,6 +96,7 @@ def ensure_parent_dir(file_path: Path) -> Path:
 # PIPELINE PATHS
 # =============================================================================
 
+
 def get_step_directory(output_dir: Path, step_index: int, step_name: str) -> Path:
     """Get the directory for a step
 
@@ -117,19 +125,19 @@ def get_step_output_paths(step_dir: Path, step_name: str, is_batch: bool) -> Dic
     """
     if is_batch:
         return {
-            'items_dir': step_dir / 'items',
-            'prompts_dir': step_dir / 'prompts',
-            'main_output': step_dir / f'{step_name}.json',
-            'errors_file': step_dir / 'errors.json',
-            'prompt_file': None  # Batch uses prompts_dir
+            "items_dir": step_dir / "items",
+            "prompts_dir": step_dir / "prompts",
+            "main_output": step_dir / f"{step_name}.json",
+            "errors_file": step_dir / "errors.json",
+            "prompt_file": None,  # Batch uses prompts_dir
         }
     else:
         return {
-            'items_dir': None,
-            'prompts_dir': None,
-            'main_output': step_dir / f'{step_name}.json',
-            'errors_file': None,  # Non-batch doesn't track errors separately
-            'prompt_file': step_dir / 'prompt.md'
+            "items_dir": None,
+            "prompts_dir": None,
+            "main_output": step_dir / f"{step_name}.json",
+            "errors_file": None,  # Non-batch doesn't track errors separately
+            "prompt_file": step_dir / "prompt.md",
         }
 
 
@@ -137,9 +145,10 @@ def resolve_file_path(
     filename: str,
     module_number: int = None,
     path_letter: str = None,
+    unit_number: int = None,
     search_dirs: List[str] = None,
     output_dir: Path = None,
-    required: bool = False
+    required: bool = False,
 ) -> Optional[Path]:
     """Unified file path resolution with customizable fallback chain
 
@@ -190,14 +199,14 @@ def resolve_file_path(
 
     # 3-4. Module-specific locations
     if module_number is not None:
-        module_paths = get_module_paths(module_number, path_letter)
+        module_paths = get_module_paths(module_number, path_letter, unit_number)
 
         # 3. Module/path specific (if path_letter provided)
-        if path_letter and 'path_dir' in module_paths:
-            paths_to_check.append(module_paths['path_dir'] / filename)
+        if path_letter and "path_dir" in module_paths:
+            paths_to_check.append(module_paths["path_dir"] / filename)
 
         # 4. Module specific
-        paths_to_check.append(module_paths['module_dir'] / filename)
+        paths_to_check.append(module_paths["module_dir"] / filename)
 
     # 5. Custom search directories
     if search_dirs:
@@ -211,10 +220,8 @@ def resolve_file_path(
 
     # Not found
     if required:
-        checked_locations = '\n  - '.join(str(p) for p in paths_to_check)
-        raise FileNotFoundError(
-            f"File '{filename}' not found. Checked:\n  - {checked_locations}"
-        )
+        checked_locations = "\n  - ".join(str(p) for p in paths_to_check)
+        raise FileNotFoundError(f"File '{filename}' not found. Checked:\n  - {checked_locations}")
 
     return None
 
@@ -224,7 +231,8 @@ def resolve_doc_path(
     filename: str,
     module_number: int = None,
     path_letter: str = None,
-    required: bool = False
+    unit_number: int = None,
+    required: bool = False,
 ) -> Optional[Path]:
     """Resolve documentation/reference file path
 
@@ -234,6 +242,7 @@ def resolve_doc_path(
         filename: File name (e.g., 'visuals.md')
         module_number: Optional module number
         path_letter: Optional path letter
+        unit_number: Optional unit number
         required: If True, raises FileNotFoundError when not found
 
     Returns:
@@ -243,8 +252,9 @@ def resolve_doc_path(
         filename,
         module_number=module_number,
         path_letter=path_letter,
-        search_dirs=['docs'],
-        required=required
+        unit_number=unit_number,
+        search_dirs=["docs"],
+        required=required,
     )
 
 
@@ -252,7 +262,8 @@ def resolve_input_path(
     input_file: str,
     output_dir: Path = None,
     module_number: int = None,
-    path_letter: str = None
+    path_letter: str = None,
+    unit_number: int = None,
 ) -> Path:
     """Resolve pipeline input file path
 
@@ -263,6 +274,7 @@ def resolve_input_path(
         output_dir: Output directory (for chained files)
         module_number: Optional module number
         path_letter: Optional path letter
+        unit_number: Optional unit number
 
     Returns:
         Resolved Path (returns input path as-is if not found)
@@ -271,24 +283,32 @@ def resolve_input_path(
         input_file,
         module_number=module_number,
         path_letter=path_letter,
-        search_dirs=['.'],  # project root
+        unit_number=unit_number,
+        search_dirs=["."],  # project root
         output_dir=output_dir,
-        required=False
+        required=False,
     )
 
     # Return input path as-is if not found (will fail later with better error)
     return result if result else Path(input_file)
 
 
-def get_template_path(module_number: int, template_filename: str = "problem_templates_v2.json") -> Path:
+def get_template_path(
+    module_number: int,
+    template_filename: str = "problem_templates_v2.json",
+    unit_number: int = None,
+) -> Path:
     """Get path to template file for a module
 
     Args:
         module_number: Module number
         template_filename: Template filename
+        unit_number: Optional unit number. When set, path uses units/unit{N}/module{M}/
 
     Returns:
         Path to template file
     """
     root = get_project_root()
-    return root / 'modules' / f'module{module_number}' / template_filename
+    if unit_number is not None:
+        return root / "units" / f"unit{unit_number}" / f"module{module_number}" / template_filename
+    return root / "modules" / f"module{module_number}" / template_filename

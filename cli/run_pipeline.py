@@ -49,6 +49,7 @@ Examples:
     )
 
     parser.add_argument("-p", "--pipeline", type=str, help="Pipeline name or number to run")
+    parser.add_argument("-u", "--unit", type=int, help="Unit number (optional)")
     parser.add_argument("-m", "--module", type=int, help="Module number (optional)")
     parser.add_argument(
         "--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c (optional)"
@@ -113,6 +114,12 @@ Examples:
             print("Invalid choice")
             sys.exit(1)
 
+    # Get unit number
+    unit_number = args.unit
+    if unit_number is None:
+        unit_input = input("Unit number (or Enter to skip): ").strip()
+        unit_number = int(unit_input) if unit_input else None
+
     # Get module number
     module_number = args.module
     if module_number is None:
@@ -147,6 +154,8 @@ Examples:
     # Run pipeline
     try:
         print(f"\nRunning pipeline: {pipeline_name}")
+        if unit_number:
+            print(f"Unit: {unit_number}")
         if module_number:
             print(f"Module: {module_number}")
         if path_letter:
@@ -160,6 +169,7 @@ Examples:
         results = run_pipeline_from_config(
             steps_config=list(PIPELINES[pipeline_name]),
             pipeline_name=pipeline_name,
+            unit_number=unit_number,
             module_number=module_number,
             path_letter=path_letter,
             verbose=True,

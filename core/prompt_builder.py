@@ -10,11 +10,11 @@ Key improvements:
 6. Support for both list and dict format in module_ref
 """
 
-from pathlib import Path
-from typing import List, Dict, Optional, Union
-from datetime import datetime
-import sys
 import importlib
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional, Union
 
 
 class Prompt:
@@ -38,7 +38,7 @@ class Prompt:
         # API parameters (defaults, can be overridden by pipeline)
         temperature: float = None,
         max_tokens: int = None,
-        stop_sequences: List[str] = None
+        stop_sequences: List[str] = None,
     ):
         """
         Args:
@@ -75,9 +75,9 @@ class Prompt:
             # Handle set format with colon syntax: {"vocabulary", "phase:phases.0"}
             self.module_ref = {}
             for item in module_ref:
-                if ':' in item:
+                if ":" in item:
                     # Parse "var:path" format
-                    var, path = item.split(':', 1)
+                    var, path = item.split(":", 1)
                     self.module_ref[var] = path
                 else:
                     # Simple field reference
@@ -119,32 +119,45 @@ class Prompt:
             "cache_ttl": self.cache_ttl,
             "temperature": self.temperature,
             "max_tokens": self.max_tokens,
-            "stop_sequences": self.stop_sequences
+            "stop_sequences": self.stop_sequences,
         }
 
 
 class PromptBuilderV2:
     """Builds prompts with automatic prompt loading, variable resolution, and caching support"""
 
-    def __init__(self, module_number: int = None, path_letter: str = None, verbose: bool = False):
+    def __init__(
+        self,
+        module_number: int = None,
+        path_letter: str = None,
+        verbose: bool = False,
+        unit_number: int = None,
+    ):
         self.module_number = module_number
         self.path_letter = path_letter
+        self.unit_number = unit_number
         self.verbose = verbose
 
         # Import path_manager
-        from path_manager import get_project_paths, get_module_paths
+        from path_manager import get_project_paths
 
         # Base directories
         paths = get_project_paths()
-        self.project_root = paths['project_root']
-        self.docs_dir = paths['docs']
-        self.modules_dir = paths['modules']
-        self.prompts_dir = paths['prompts']
+        self.project_root = paths["project_root"]
+        self.docs_dir = paths["docs"]
+        self.modules_dir = paths["modules"]
+        self.prompts_dir = paths["prompts"]
 
         # Build module paths
         if module_number is not None and path_letter:
-            self.module_path = f"module{module_number}/path{path_letter.lower()}"
-            self.module_only_path = f"module{module_number}"
+            if unit_number is not None:
+                self.module_path = (
+                    f"units/unit{unit_number}/module{module_number}/path{path_letter.lower()}"
+                )
+                self.module_only_path = f"units/unit{unit_number}/module{module_number}"
+            else:
+                self.module_path = f"module{module_number}/path{path_letter.lower()}"
+                self.module_only_path = f"module{module_number}"
         else:
             self.module_path = None
             self.module_only_path = None
@@ -153,7 +166,13 @@ class PromptBuilderV2:
         if str(self.prompts_dir) not in sys.path:
             sys.path.insert(0, str(self.prompts_dir))
 
-    def build(self, prompt_name: str, variables: Dict = None, input_content: str = None, save_prompt_to: str = None) -> Dict:
+    def build(
+        self,
+        prompt_name: str,
+        variables: Dict = None,
+        input_content: str = None,
+        save_prompt_to: str = None,
+    ) -> Dict:
         """Build complete prompt with caching support
 
         Args:
@@ -169,9 +188,9 @@ class PromptBuilderV2:
             variables = {}
 
         if self.verbose:
-            print(f"\n{'='*70}")
+            print(f"\n{'=' * 70}")
             print(f"Building prompt: {prompt_name}")
-            print(f"{'='*70}")
+            print(f"{'=' * 70}")
 
         # Load prompt definition
         prompt = self._load_prompt(prompt_name)
@@ -209,7 +228,7 @@ class PromptBuilderV2:
                 self._create_block(
                     text=role_text,
                     block_type="role",
-                    purpose="Establishes AI role and task context"
+                    purpose="Establishes AI role and task context",
                 )
             )
 
@@ -225,7 +244,7 @@ class PromptBuilderV2:
                 self._create_block(
                     text=instructions_text,
                     block_type="instructions",
-                    purpose="Step-by-step task instructions"
+                    purpose="Step-by-step task instructions",
                 )
             )
 
@@ -236,7 +255,7 @@ class PromptBuilderV2:
                 self._create_block(
                     text=f"<examples>\n{examples_text}\n</examples>",
                     block_type="examples",
-                    purpose="Demonstration of expected output format"
+                    purpose="Demonstration of expected output format",
                 )
             )
 
@@ -247,7 +266,7 @@ class PromptBuilderV2:
                 self._create_block(
                     text=f"<output_structure>\n{structure_text}\n</output_structure>",
                     block_type="output_schema",
-                    purpose="Defines expected output structure"
+                    purpose="Defines expected output structure",
                 )
             )
 
@@ -292,14 +311,14 @@ class PromptBuilderV2:
                 system_blocks=system_blocks,
                 user_message=user_message,
                 prefill=final_prefill,
-                api_params=api_params
+                api_params=api_params,
             )
 
         return {
             "system": system_blocks,
             "user_message": user_message,
             "prefill": final_prefill,
-            "api_params": api_params
+            "api_params": api_params,
         }
 
     def _format_examples(self, examples: List[Dict], variables: Dict) -> str:
@@ -341,7 +360,9 @@ class PromptBuilderV2:
                     print(f"  [OK] Loaded {constant_name}")
                 return prompt
             else:
-                raise AttributeError(f"Prompt file '{prompt_name}.py' does not contain '{constant_name}'")
+                raise AttributeError(
+                    f"Prompt file '{prompt_name}.py' does not contain '{constant_name}'"
+                )
 
         except ImportError as e:
             raise FileNotFoundError(f"Could not find prompt file: {prompt_name}.py") from e
@@ -366,7 +387,7 @@ class PromptBuilderV2:
                         text=f"<{tag}>\n{content}\n</{tag}>",
                         block_type="reference_doc",
                         block_name=doc_ref,
-                        purpose="Reference documentation"
+                        purpose="Reference documentation",
                     )
                 )
             elif self.verbose:
@@ -374,9 +395,15 @@ class PromptBuilderV2:
 
         return blocks
 
-    def _create_block(self, text: str, block_type: str, block_name: str = None,
-                      cacheable: bool = True, purpose: str = None,
-                      add_context_header: bool = True) -> Dict:
+    def _create_block(
+        self,
+        text: str,
+        block_type: str,
+        block_name: str = None,
+        cacheable: bool = True,
+        purpose: str = None,
+        add_context_header: bool = True,
+    ) -> Dict:
         """Create a block with semantic metadata and optional context header
 
         Args:
@@ -400,10 +427,7 @@ class PromptBuilderV2:
         block = {
             "type": "text",
             "text": final_text,
-            "metadata": {
-                "block_type": block_type,
-                "cacheable": cacheable
-            }
+            "metadata": {"block_type": block_type, "cacheable": cacheable},
         }
 
         if block_name:
@@ -469,11 +493,12 @@ class PromptBuilderV2:
             doc_ref,
             module_number=self.module_number,
             path_letter=self.path_letter,
-            required=False
+            unit_number=self.unit_number,
+            required=False,
         )
 
         if resolved_path and resolved_path.exists():
-            with open(resolved_path, 'r', encoding='utf-8') as f:
+            with open(resolved_path, "r", encoding="utf-8") as f:
                 content = f.read()
             if self.verbose:
                 print(f"    [OK] Loaded from: {resolved_path}")
@@ -494,7 +519,7 @@ class PromptBuilderV2:
         from path_manager import get_project_paths
 
         paths = get_project_paths()
-        utils_path = paths['utils']
+        utils_path = paths["utils"]
         if str(utils_path) not in sys.path:
             sys.path.insert(0, str(utils_path))
 
@@ -527,12 +552,14 @@ class PromptBuilderV2:
 
         return variables
 
-    def _fetch_template_data(self, template_ref_fields: List[str], goal_id: int, variables: Dict) -> Dict:
+    def _fetch_template_data(
+        self, template_ref_fields: List[str], goal_id: int, variables: Dict
+    ) -> Dict:
         """Fetch problem template data fields"""
         from path_manager import get_project_paths
 
         paths = get_project_paths()
-        utils_path = paths['utils']
+        utils_path = paths["utils"]
         if str(utils_path) not in sys.path:
             sys.path.insert(0, str(utils_path))
 
@@ -543,10 +570,7 @@ class PromptBuilderV2:
 
         try:
             fetched_fields = get_fields_by_reference(
-                self.module_number,
-                goal_id,
-                template_ref_fields,
-                required=False
+                self.module_number, goal_id, template_ref_fields, required=False
             )
 
             for field_name, field_value in fetched_fields.items():
@@ -568,7 +592,14 @@ class PromptBuilderV2:
 
         return variables
 
-    def run(self, prompt_name: str, variables: Dict = None, input_content: str = None, model: str = None, save_prompt_to: str = None) -> str:
+    def run(
+        self,
+        prompt_name: str,
+        variables: Dict = None,
+        input_content: str = None,
+        model: str = None,
+        save_prompt_to: str = None,
+    ) -> str:
         """Build and execute a prompt in one call
 
         Args:
@@ -592,24 +623,26 @@ class PromptBuilderV2:
         from claude_client import ClaudeClient
 
         # Build the prompt using existing build() method
-        built_prompt = self.build(prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to)
+        built_prompt = self.build(
+            prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to
+        )
 
         # Create client and execute
         client = ClaudeClient()
 
         response = client.generate(
-            system=built_prompt['system'],
-            user_message=built_prompt['user_message'],
-            prefill=built_prompt.get('prefill'),
+            system=built_prompt["system"],
+            user_message=built_prompt["user_message"],
+            prefill=built_prompt.get("prefill"),
             model=model,
-            **built_prompt['api_params']
+            **built_prompt["api_params"],
         )
 
         if self.verbose:
             stats = client.get_stats()
-            print(f"\n{'='*70}")
-            print(f"USAGE STATS")
-            print(f"{'='*70}")
+            print(f"\n{'=' * 70}")
+            print("USAGE STATS")
+            print(f"{'=' * 70}")
             for key, value in stats.items():
                 print(f"  {key}: {value}")
 
@@ -632,12 +665,13 @@ class PromptBuilderV2:
 
         for key in sorted_keys:
             # Replace {key} with the actual value
-            placeholder = '{' + key + '}'
+            placeholder = "{" + key + "}"
             if placeholder in result:
                 # Convert value to string
                 value = variables[key]
                 if isinstance(value, (list, dict)):
                     import json
+
                     value_str = json.dumps(value, ensure_ascii=False)
                 else:
                     value_str = str(value)
@@ -656,8 +690,7 @@ class PromptBuilderV2:
         Returns:
             List of blocks matching the specified type
         """
-        return [b for b in blocks
-                if b.get("metadata", {}).get("block_type") == block_type]
+        return [b for b in blocks if b.get("metadata", {}).get("block_type") == block_type]
 
     def _get_cached_blocks(self, blocks: List[Dict]) -> List[Dict]:
         """Get all blocks with cache_control
@@ -670,96 +703,105 @@ class PromptBuilderV2:
         """
         return [b for b in blocks if "cache_control" in b]
 
-    def _save_prompt_to_file(self, save_path: str, prompt_name: str, system_blocks: list, user_message: str, prefill: str, api_params: dict):
-          """Save the complete prompt to a file in human-readable format
+    def _save_prompt_to_file(
+        self,
+        save_path: str,
+        prompt_name: str,
+        system_blocks: list,
+        user_message: str,
+        prefill: str,
+        api_params: dict,
+    ):
+        """Save the complete prompt to a file in human-readable format
 
-          Args:
-              save_path: Path to save the prompt file
-              prompt_name: Name of the prompt
-              system_blocks: List of system blocks
-              user_message: User message content
-              prefill: Prefill content (if any)
-              api_params: API parameters
-          """
-          try:
-              save_path = Path(save_path)
-              save_path.parent.mkdir(parents=True, exist_ok=True)
+        Args:
+            save_path: Path to save the prompt file
+            prompt_name: Name of the prompt
+            system_blocks: List of system blocks
+            user_message: User message content
+            prefill: Prefill content (if any)
+            api_params: API parameters
+        """
+        try:
+            save_path = Path(save_path)
+            save_path.parent.mkdir(parents=True, exist_ok=True)
 
-              with open(save_path, 'w', encoding='utf-8') as f:
-                  f.write(f"# Prompt: {prompt_name}\n")
-                  f.write(f"# Generated: {datetime.now().isoformat()}\n")
-                  f.write("="*70 + "\n\n")
+            with open(save_path, "w", encoding="utf-8") as f:
+                f.write(f"# Prompt: {prompt_name}\n")
+                f.write(f"# Generated: {datetime.now().isoformat()}\n")
+                f.write("=" * 70 + "\n\n")
 
-                  # Write API parameters
-                  f.write("## API Parameters\n")
-                  for key, value in api_params.items():
-                      f.write(f"- {key}: {value}\n")
-                  f.write("\n" + "="*70 + "\n\n")
+                # Write API parameters
+                f.write("## API Parameters\n")
+                for key, value in api_params.items():
+                    f.write(f"- {key}: {value}\n")
+                f.write("\n" + "=" * 70 + "\n\n")
 
-                  # Write system blocks
-                  f.write("## System Prompt\n\n")
-                  for i, block in enumerate(system_blocks, 1):
-                      metadata = block.get("metadata", {})
-                      block_type = metadata.get("block_type", "unknown")
-                      block_name = metadata.get("block_name", "")
-                      purpose = metadata.get("purpose", "")
+                # Write system blocks
+                f.write("## System Prompt\n\n")
+                for i, block in enumerate(system_blocks, 1):
+                    metadata = block.get("metadata", {})
+                    block_type = metadata.get("block_type", "unknown")
+                    block_name = metadata.get("block_name", "")
+                    purpose = metadata.get("purpose", "")
 
-                      # Block header with type
-                      header = f"### Block {i}"
-                      if block_type != "unknown":
-                          header += f": {block_type.replace('_', ' ').title()}"
-                      if block_name:
-                          header += f" ({block_name})"
+                    # Block header with type
+                    header = f"### Block {i}"
+                    if block_type != "unknown":
+                        header += f": {block_type.replace('_', ' ').title()}"
+                    if block_name:
+                        header += f" ({block_name})"
 
-                      f.write(f"{header}\n")
+                    f.write(f"{header}\n")
 
-                      # Purpose and cacheable status
-                      if purpose:
-                          f.write(f"Purpose: {purpose}\n")
-                      if metadata.get("cacheable"):
-                          f.write(f"Cacheable: Yes\n")
+                    # Purpose and cacheable status
+                    if purpose:
+                        f.write(f"Purpose: {purpose}\n")
+                    if metadata.get("cacheable"):
+                        f.write("Cacheable: Yes\n")
 
-                      # Cache control indicator
-                      if 'cache_control' in block:
-                          f.write(f"*[CACHED: {block['cache_control']}]*\n")
+                    # Cache control indicator
+                    if "cache_control" in block:
+                        f.write(f"*[CACHED: {block['cache_control']}]*\n")
 
-                      f.write(f"\n{block['text']}\n\n")
-                      f.write("-"*70 + "\n\n")
+                    f.write(f"\n{block['text']}\n\n")
+                    f.write("-" * 70 + "\n\n")
 
-                  # Write user message
-                  f.write("## User Message\n\n")
-                  f.write(user_message)
-                  f.write("\n\n" + "="*70 + "\n\n")
+                # Write user message
+                f.write("## User Message\n\n")
+                f.write(user_message)
+                f.write("\n\n" + "=" * 70 + "\n\n")
 
-                  # Write prefill if exists
-                  if prefill:
-                      f.write("## Prefill\n\n")
-                      f.write(prefill)
-                      f.write("\n\n")
+                # Write prefill if exists
+                if prefill:
+                    f.write("## Prefill\n\n")
+                    f.write(prefill)
+                    f.write("\n\n")
 
-              if self.verbose:
-                  print(f"  [SAVE] Saved prompt to: {save_path}")
+            if self.verbose:
+                print(f"  [SAVE] Saved prompt to: {save_path}")
 
-          except Exception as e:
-              if self.verbose:
-                  print(f"  [WARN] Failed to save prompt: {e}")
+        except Exception as e:
+            if self.verbose:
+                print(f"  [WARN] Failed to save prompt: {e}")
 
 
 # Test it
 if __name__ == "__main__":
     print("PromptBuilderV2 Test")
-    print("="*70)
+    print("=" * 70)
 
     # Test loading a prompt
-    builder = PromptBuilderV2(module_number=1, path_letter='b', verbose=True)
+    builder = PromptBuilderV2(module_number=1, path_letter="b", verbose=True)
 
     try:
-        result = builder.run('test', variables={'name': 'Hazel'})
-        print("\n" + "="*70)
+        result = builder.run("test", variables={"name": "Hazel"})
+        print("\n" + "=" * 70)
         print("RESPONSE:")
-        print("="*70)
+        print("=" * 70)
         print(result)
     except Exception as e:
         print(f"\nError: {e}")
         import traceback
+
         traceback.print_exc()
