@@ -26,6 +26,7 @@ from ui.utils.output import (  # noqa: E402
     capture_console_output_streaming,
     display_unified_output,
 )
+from utils import notion_sync  # noqa: E402
 
 STARTER_PACKS_DIR = project_root / "modules" / "starter_packs"
 
@@ -152,6 +153,53 @@ tab_pipeline_steps = _tabs["pipeline_steps"]
 tab_run_pipeline = _tabs["run_pipeline"]
 tab_output_files = _tabs["output_files"]
 tab_resources = _tabs["resources"]
+
+# ---------------------------------------------------------------------------
+# Notion helper
+# ---------------------------------------------------------------------------
+
+
+def _notion_panel(file_path: Path, data: object, title: str, key: str) -> None:
+    """Render Push / Open / Pull buttons for a single file."""
+    if not notion_sync.is_configured():
+        st.caption("💡 Set NOTION_API_KEY and NOTION_PARENT_PAGE_ID in .env to enable Notion sync.")
+        return
+
+    entry = notion_sync.get_registry_entry(file_path)
+    has_page = entry is not None
+
+    cols = st.columns(3 if has_page else 1)
+
+    with cols[0]:
+        label = "🔄 Update in Notion" if has_page else "☁️ Push to Notion"
+        if st.button(label, key=f"notion_push_{key}"):
+            with st.spinner("Pushing to Notion…"):
+                try:
+                    page_id = notion_sync.push_to_notion(
+                        data=data, title=title, file_path=file_path
+                    )
+                    url = notion_sync.get_page_url(page_id)
+                    st.success(f"Done — [Open in Notion ↗]({url})")
+                except Exception as exc:
+                    st.error(f"Push failed: {exc}")
+
+    if has_page:
+        url = notion_sync.get_page_url(entry["page_id"])
+        with cols[1]:
+            st.link_button("↗ Open in Notion", url)
+        with cols[2]:
+            if st.button("⬇️ Pull from Notion", key=f"notion_pull_{key}"):
+                with st.spinner("Pulling from Notion…"):
+                    try:
+                        pulled = notion_sync.pull_from_notion(entry["page_id"])
+                        file_path.write_text(
+                            json.dumps(pulled, indent=2, ensure_ascii=False), encoding="utf-8"
+                        )
+                        st.success("Pulled and saved locally.")
+                        st.rerun()
+                    except Exception as exc:
+                        st.error(f"Pull failed: {exc}")
+
 
 # TAB 1: Module Editor
 with tab_module_editor:
@@ -1305,6 +1353,9 @@ with tab_run_pipeline:
                 button_key_prefix="final_result",
             )
 
+            if result.get("notion_url"):
+                st.link_button("↗ Open in Notion", result["notion_url"])
+
 
 # TAB 5: Output Files
 with tab_output_files:
@@ -1394,6 +1445,14 @@ with tab_output_files:
                                 on_save=_save_output_file,
                             )
 
+                            st.divider()
+                            _notion_panel(
+                                file_path=selected_json,
+                                data=file_data,
+                                title=f"{selected_run.name} / {selected_json.stem}",
+                                key=f"{selected_run.name}_{selected_version}_{selected_json.stem}",
+                            )
+
                 st.divider()
                 from ui.utils.output import open_output_folder
 
@@ -1465,6 +1524,14 @@ with tab_resources:
                             data=res_data,
                             key=f"res_{res_root_name.strip('/')}_{sel_res.stem}",
                             on_save=_save_res_json,
+                        )
+
+                        st.divider()
+                        _notion_panel(
+                            file_path=sel_res,
+                            data=res_data,
+                            title=f"{res_root_name}{sel_res.stem}",
+                            key=f"res_{res_root_name.strip('/')}_{sel_res.stem}",
                         )
 
                 else:  # .md / .txt
