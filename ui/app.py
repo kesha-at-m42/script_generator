@@ -1424,7 +1424,11 @@ with tab_resources:
         st.info(f"{res_root_name} directory not found.")
     else:
         res_files = sorted(
-            [p for p in res_root.rglob("*") if p.is_file() and p.suffix in _RESOURCE_EXTS],
+            [
+                p
+                for p in res_root.rglob("*")
+                if p.is_file() and p.suffix in _RESOURCE_EXTS and "starter_packs" not in p.parts
+            ],
             key=lambda p: str(p.relative_to(res_root)),
         )
 
