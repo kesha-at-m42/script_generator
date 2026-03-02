@@ -133,19 +133,28 @@ with st.sidebar:
 st.title("🔧 Pipeline Manager")
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
-    [
-        "📚 Module Editor",
-        "✏️ Edit Prompts",
-        "📋 Pipeline Steps",
-        "▶️ Run Pipeline",
-        "📂 Output Files",
-        "📁 Resources",
-    ]
-)
+# ── Tab order ────────────────────────────────────────────────────────────────
+# To reorder tabs: change the sequence of entries in _TAB_ORDER.
+# Then reorder the matching  "with tab_XXX:"  blocks further down to match.
+_TAB_ORDER = [
+    ("📚 Module Editor", "module_editor"),
+    ("✏️ Edit Prompts", "edit_prompts"),
+    ("📋 Pipeline Steps", "pipeline_steps"),
+    ("▶️ Run Pipeline", "run_pipeline"),
+    ("📂 Output Files", "output_files"),
+    ("📁 Resources", "resources"),
+]
+_tab_widgets = st.tabs([label for label, _ in _TAB_ORDER])
+_tabs = dict(zip([key for _, key in _TAB_ORDER], _tab_widgets))
+tab_module_editor = _tabs["module_editor"]
+tab_edit_prompts = _tabs["edit_prompts"]
+tab_pipeline_steps = _tabs["pipeline_steps"]
+tab_run_pipeline = _tabs["run_pipeline"]
+tab_output_files = _tabs["output_files"]
+tab_resources = _tabs["resources"]
 
 # TAB 1: Module Editor
-with tab1:
+with tab_module_editor:
     st.header("📚 Module Editor")
     st.caption(
         "View and edit module starter pack data. Changes are saved to modules/starter_packs/module_N.json."
@@ -205,7 +214,7 @@ with tab1:
         st.warning("No module JSON files found in modules/starter_packs/")
 
 # TAB 2: Edit Prompts
-with tab2:
+with tab_edit_prompts:
     st.header("Edit Prompts")
     st.caption("Visual editor for creating and editing prompts with all fields")
 
@@ -695,7 +704,7 @@ from core.prompt_builder import Prompt
                     st.exception(e)
 
 # TAB 3: Pipeline Steps
-with tab3:
+with tab_pipeline_steps:
     st.header("Load Pipeline")
 
     # Load pipeline section
@@ -1099,7 +1108,7 @@ with tab3:
                 st.rerun()
 
 # TAB 4: Run Pipeline
-with tab4:
+with tab_run_pipeline:
     st.header("Run Pipeline")
 
     if not st.session_state.pipeline_steps:
@@ -1298,7 +1307,7 @@ with tab4:
 
 
 # TAB 5: Output Files
-with tab5:
+with tab_output_files:
     st.header("📂 Output Files")
     st.caption("Browse, view, and edit JSON artifacts from pipeline runs.")
 
@@ -1398,7 +1407,7 @@ _RESOURCE_ROOTS = {
 }
 _RESOURCE_EXTS = {".json", ".md", ".txt"}
 
-with tab6:
+with tab_resources:
     st.header("📁 Resources")
     st.caption("Browse and edit input files: module templates, docs, and reference data.")
 
