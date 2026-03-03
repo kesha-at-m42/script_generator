@@ -8,15 +8,33 @@ Reference for the `lesson.json` script format. Covers every field, beat type, co
 
 ```json
 {
-  "id": "lesson_1_7",
+  "id": "u3_m4_lesson",
   "sections": [ ... ]
 }
 ```
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | string | Lesson identifier, e.g. `lesson_1_7` |
+| `id` | string | Sequence identifier — see format below |
 | `sections` | array | Ordered list of all sections (main, transition, remediation) |
+
+### Lesson ID Format
+
+```
+u{unit}_m{module}_{phase}
+
+u3_m4_lesson
+u3_m4_warmup
+u3_m4_synthesis
+u3_m4_practice
+u3_m4_exitcheck
+```
+
+| Segment | Description |
+|---|---|
+| `u{n}` | Unit number |
+| `m{n}` | Module number within the unit |
+| `{phase}` | One of: `lesson`, `warmup`, `synthesis`, `practice`, `exitcheck` |
 
 ---
 
@@ -41,19 +59,30 @@ Reference for the `lesson.json` script format. Covers every field, beat type, co
 ### Section ID Naming Conventions
 
 ```
-s{major}_{minor}_{slug}            →  s1_1_most_votes
-s{major}_{slug}                    →  s2_transition
-{parent_id}_light/medium/heavy     →  s1_1_light
-{parent_id}_step{n}_light/medium/heavy  →  s3_4c_step2_light
+s{group}_{seq}_{slug}              →  s1_1_most_votes
+s{group}_{seq}{variant}_{slug}     →  s2_2a_fewest_books
+s{group}_transition                →  s2_transition
 ```
 
-Remediation IDs always end in `_light`, `_medium`, or `_heavy` and mirror their parent section ID:
-
-| Parent | Remediations |
+| Segment | Description |
 |---|---|
-| `s1_1_most_votes` | `s1_1_light`, `s1_1_medium`, `s1_1_heavy` |
-| `s2_2_books_sofia` | `s2_2_books_sofia_light`, `s2_2_books_sofia_medium`, `s2_2_books_sofia_heavy` |
-| `s3_4c_two_step` (multi-prompt) | `s3_4c_step1_light`, `s3_4c_step2_light`, `s3_4c_step2_medium`, `s3_4c_step2_heavy` |
+| `s` | Fixed prefix |
+| `{group}` | Concept group number — local to the unit/module, not the phase |
+| `{seq}` | Sequence position within the group |
+| `{variant}` | Optional letter suffix for sub-problems, e.g. `a`, `b`, `c` |
+| `{slug}` | Human-readable label for the problem |
+
+**Key rules:**
+- Section IDs are **unit/module specific** — they belong to a content area, not a phase
+- The same section can appear in multiple phases (lesson, warmup, synthesis, practice, exitcheck)
+- Some sections are **misconception specific** — written to address a known error pattern
+  rather than advancing the main concept sequence
+- Some sections are **validator-state dependent child sections** — they only execute
+  when a specific validator state is triggered. Remediation sections (`_light`, `_medium`,
+  `_heavy`) are the current example of this pattern, but other branching types will exist
+  (e.g. sections addressing a specific wrong answer, or sections unlocked by a correct
+  answer to a prerequisite prompt). These are always referenced via `child_section` in a
+  validator state, never appear in the main sequence directly.
 
 ---
 
@@ -101,15 +130,30 @@ Narration or teacher speech. Editable in Notion (💬 callout).
 
 ### Scene
 
-Manipulates a tangible on screen. Display-only in Notion (method emoji callout).
+Manipulates a tangible on screen. Display-only in Notion (method emoji callout). Basic workspace changes use 🎬; elaborate animation events use 🎞️.
 
-| Method | Notion icon | Params | Description |
+Three targeting levels — omit fields to broaden scope:
+
+| Target | Fields present |
+|---|---|
+| Specific instance | `tangible_id` |
+| All instances of a type | `tangible_type` |
+| All instances on workspace | neither |
+
+`add` is the exception — it always requires both `tangible_id` and `tangible_type`.
+
+Interactivity is **implicit** — a tangible becomes interactive when a prompt's `tool` targets it, and resets automatically when the prompt resolves. Use `lock`/`unlock` only for edge cases that need explicit control.
+
+| Method | Notion icon | `params` fields | Description |
 |---|---|---|---|
-| `show` | 🎬 | none | Make tangible visible |
-| `hide` | 🙈 | none | Remove tangible from view |
-| `animate` | 🎞️ | `event`, `status`, `description?`, `category?` | Trigger a named animation |
-| `update` | ✏️ | `highlight_categories: string[]` | Highlight specific categories |
-| `add` | ➕ | `label`, `status` | Overlay a label annotation |
+| `show` | 🎬 | — | Make tangible visible |
+| `hide` | 🎬 | — | Remove tangible from view |
+| `animate` | 🎞️ | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
+| `update` | 🎬 | `highlight_categories: string[]` | Highlight specific categories |
+| `add` | 🎬 | tangible-specific config (optional) | Add a new instance to the workspace |
+| `remove` | 🎬 | — | Remove a tangible instance from the workspace |
+| `lock` | 🎬 | — | Prevent student interaction regardless of active prompt |
+| `unlock` | 🎬 | — | Re-enable student interaction on a locked tangible |
 
 **show / hide**
 ```json
@@ -117,19 +161,7 @@ Manipulates a tangible on screen. Display-only in Notion (method emoji callout).
 { "type": "scene", "method": "hide", "tangible_id": "data_table" }
 ```
 
-**animate**
-```json
-{
-  "type": "scene",
-  "method": "animate",
-  "tangible_id": "pg_animals",
-  "params": {
-    "event": "transform_to_bar_graph",
-    "status": "proposed",
-    "description": "Picture graph symbols collapse into solid bars"
-  }
-}
-```
+**animate — specific instance**
 ```json
 {
   "type": "scene",
@@ -137,8 +169,23 @@ Manipulates a tangible on screen. Display-only in Notion (method emoji callout).
   "tangible_id": "bg_animals",
   "params": {
     "event": "draw_bar_guideline",
-    "category": "Monkeys",
-    "status": "proposed"
+    "status": "proposed",
+    "description": "Guideline draws from top of Monkeys bar to axis",
+    "category": "Monkeys"
+  }
+}
+```
+
+**animate — all instances of a type**
+```json
+{
+  "type": "scene",
+  "method": "animate",
+  "tangible_type": "picture_graph",
+  "params": {
+    "event": "transform_to_bar_graph",
+    "status": "proposed",
+    "description": "All picture graphs collapse into bar graphs"
   }
 }
 ```
@@ -158,17 +205,24 @@ Manipulates a tangible on screen. Display-only in Notion (method emoji callout).
 {
   "type": "scene",
   "method": "add",
-  "tangible_id": "bg_colors",
-  "params": { "label": "11 in all", "status": "proposed" }
+  "tangible_id": "numline_a",
+  "tangible_type": "number_line",
+  "params": { "min": 0, "max": 2 }
 }
+```
+
+**remove**
+```json
+{ "type": "scene", "method": "remove", "tangible_id": "numline_a" }
 ```
 
 | Field | Type | Required | Description |
 |---|---|---|---|
 | `type` | `"scene"` | yes | |
-| `method` | string | yes | `show` `hide` `animate` `update` `add` |
-| `tangible_id` | string | yes | Target tangible |
-| `params` | object | conditional | Required for `animate`, `update`, `add`; omit for `show`/`hide` |
+| `method` | string | yes | `show` `hide` `animate` `update` `add` `remove` |
+| `tangible_id` | string | conditional | Instance ID. Required for `add`. Omit to broaden scope to type or all. |
+| `tangible_type` | string | conditional | Required for `add`. Omit to broaden scope to all instances on workspace. |
+| `params` | object | no | Method-specific configuration; omit when not needed |
 
 ---
 
@@ -176,21 +230,42 @@ Manipulates a tangible on screen. Display-only in Notion (method emoji callout).
 
 Student interaction point. Text is editable in Notion (❓ callout).
 
+**Workspace tool** — activates interaction on a specific tangible:
 ```json
 {
   "type": "prompt",
   "text": "Which fruit got the most votes? Click it.",
-  "tool": "click_category",
+  "tool": { "name": "click_category", "tangible_id": "pg_fruits" },
   "validator": { "states": [...] }
 }
 ```
 
+**Workspace tool — tangibles as options (explicit list)**
+```json
+{
+  "type": "prompt",
+  "text": "Which graph shows the most cats?",
+  "tool": { "name": "click_tangible", "tangible_ids": ["pg_fruits", "pg_animals", "pg_pets"] },
+  "validator": { "states": [...] }
+}
+```
+
+**Workspace tool — tangibles as options (all of a type)**
+```json
+{
+  "type": "prompt",
+  "text": "Which graph shows the most cats?",
+  "tool": { "name": "click_tangible", "tangible_type": "picture_graph" },
+  "validator": { "states": [...] }
+}
+```
+
+**Overlay tool** — generates its own UI, not tied to a tangible:
 ```json
 {
   "type": "prompt",
   "text": "How many monkeys are at the zoo?",
-  "tool": "multiple_choice",
-  "options": [5, 6, 7, 8],
+  "tool": { "name": "multiple_choice", "options": [5, 6, 7, 8] },
   "validator": { "states": [...] }
 }
 ```
@@ -199,8 +274,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 {
   "type": "prompt",
   "text": "Select all the categories you need to answer this question.",
-  "tool": "multi_select",
-  "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"],
+  "tool": { "name": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"] },
   "validator": { "states": [...] }
 }
 ```
@@ -209,85 +283,103 @@ Student interaction point. Text is editable in Notion (❓ callout).
 |---|---|---|---|
 | `type` | `"prompt"` | yes | |
 | `text` | string | yes | Question or instruction shown to student |
-| `tool` | string | yes | `click_category` · `multiple_choice` · `multi_select` |
-| `options` | array | conditional | Required for `multiple_choice` and `multi_select`. Numbers or strings. |
+| `tool` | object | yes | See tool fields below |
 | `validator` | object | yes | See [Validator](#validator) |
+
+**`tool` fields:**
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `name` | string | yes | `click_category` · `click_tangible` · `multiple_choice` · `multi_select` |
+| `tangible_id` | string | conditional | Workspace tool targeting a single tangible |
+| `tangible_ids` | string[] | conditional | `click_tangible` — explicit list of selectable tangible instances |
+| `tangible_type` | string | conditional | `click_tangible` — all instances of a type are selectable |
+| `options` | array | conditional | Overlay tools — `multiple_choice` and `multi_select`. Numbers or strings. |
+| `config` | object | no | Tool-specific configuration (e.g. `{ "max_cells": 3 }` for `shade`) |
 
 ---
 
 ## Validator
 
-```json
-{
-  "states": [
-    { "name": "correct",            "condition": { ... }, "child_section": null },
-    { "name": "light_remediation",  "condition": { ... }, "child_section": "s1_1_light" },
-    { "name": "medium_remediation", "condition": { ... }, "child_section": "s1_1_medium" },
-    { "name": "heavy_remediation",  "condition": {},      "child_section": "s1_1_heavy" }
-  ]
-}
-```
+An array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. `goto` is always required — every state has a feedback section.
 
-States are evaluated **in order**; the first match wins. The final state typically has an empty condition (`{}`) as a catch-all fallback.
+States have no inherent correct/incorrect meaning — they are just defined states. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
+
+```json
+"validator": [
+  {
+    "condition": { "selected": "Apples" },
+    "description": "Student selected Apples",
+    "goto": "s1_1_chose_apples"
+  },
+  {
+    "condition": { "selected": "Bananas", "incorrect_count": 1 },
+    "description": "Student selected Bananas on first attempt",
+    "goto": "s1_1_chose_bananas_1"
+  },
+  {
+    "condition": { "selected": "Bananas", "incorrect_count": 2 },
+    "description": "Student selected Bananas on second attempt",
+    "goto": "s1_1_chose_bananas_2"
+  },
+  {
+    "condition": { "incorrect_count": 1 },
+    "description": "Student selected any other wrong answer on first attempt",
+    "goto": "s1_1_fallback_1"
+  },
+  {
+    "condition": {},
+    "description": "Catch-all — any remaining state",
+    "goto": "s1_1_fallback_3"
+  }
+]
+```
 
 | Field | Type | Description |
 |---|---|---|
-| `name` | string | `"correct"`, `"light_remediation"`, `"medium_remediation"`, `"heavy_remediation"` |
-| `condition` | object | Matching condition — see shapes below |
-| `child_section` | string \| null | Section to branch to, or `null` to continue forward |
+| `condition` | object | Matching condition. Multiple keys implicitly ANDed. Use `or`/`and` arrays for explicit logic. |
+| `description` | string | Precise plain-English description of exactly what student state this condition captures. |
+| `goto` | string | Section ID to branch to. Always required. |
 
-### Condition Shapes
+### Condition Parameters
 
-**Operator-based** — used for the `correct` state; compares a tangible expression to an expected value.
+| Parameter | Type | Description |
+|---|---|---|
+| `selected` | string \| number | What the student selected from the tool's available options |
+| `incorrect_count` | number | System counter — how many times the student has triggered a non-first-match state on this prompt. Max 3. |
+| `tangible_id` | string | Scopes remaining keys to a specific tangible instance. Used when checking tangible state fields directly. |
+| *(tangible fields)* | any | State fields exposed by the scoped tangible — used alongside `tangible_id` |
 
+### Condition Logic
+
+**Single tangible check:**
 ```json
-{
-  "operator": "eq",
-  "left": { "tangible": "pg_fruits", "expr": "selected_category" },
-  "right": { "value": "Apples" }
-}
-```
-```json
-{
-  "operator": "eq",
-  "left": { "tangible": "choice_input", "expr": "selected_value" },
-  "right": { "value": 7 }
-}
+{ "condition": { "selected": "Bananas", "incorrect_count": 1 } }
 ```
 
-| Sub-field | Description |
-|---|---|
-| `operator` | `"eq"` (only value currently used) |
-| `left.tangible` | Tangible ID to read from |
-| `left.expr` | Expression on that tangible (`selected_category`, `selected_value`) |
-| `right.value` | Expected value (string or number) |
-
----
-
-**Evaluate-based** — used for remediation states; arbitrary JS predicate against attempt context.
-
+**Specific tangible field check:**
 ```json
-{
-  "evaluate": "(p) => p.attempt_count === 1",
-  "description": "First wrong attempt"
-}
+{ "condition": { "tangible_id": "numline_a", "shaded_interval_count": 3 } }
 ```
+
+**Multiple tangibles (AND):**
 ```json
 {
-  "evaluate": "(p) => p.selected.length === 2 && p.selected.includes('Dogs') && p.selected.includes('Fish')",
-  "description": "Exactly Dogs and Fish selected"
+  "condition": {
+    "and": [
+      { "tangible_id": "bar_a", "points": [1, 2] },
+      { "tangible_id": "numline_a", "shaded_interval_count": 3 }
+    ]
+  }
 }
 ```
 
-| Sub-field | Description |
-|---|---|
-| `evaluate` | JS arrow function string; `p` is the attempt context |
-| `description` | Human-readable label for this condition |
+**OR across values:**
+```json
+{ "condition": { "or": [{ "selected": "Oranges" }, { "selected": "Grapes" }] } }
+```
 
----
-
-**Fallback** — empty object; always matches; used as the final catch-all state.
-
+**Fallback — empty object; always matches:**
 ```json
 {}
 ```

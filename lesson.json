@@ -1,0 +1,2074 @@
+{
+  "id": "lesson_1_7",
+  "sections": [
+    {
+      "id": "s1_1_most_votes",
+      "workspace": [
+        "pg_fruits",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "pg_fruits"
+          },
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "data_table"
+          },
+          {
+            "type": "dialogue",
+            "text": "You made a graph with your Minis' votes. Each picture stands for one vote."
+          },
+          {
+            "type": "prompt",
+            "text": "Which fruit got the most votes? Click it.",
+            "tool": { "name": "click_category", "tangible_id": "pg_fruits" },
+            "validator": [
+              {
+                "condition": { "selected": "Apples" },
+                "description": "Student selected Apples",
+                "goto": "s1_1_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s1_1_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s1_1_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s1_1_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Apples got 6 votes \u2014 more than any other fruit."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_least_votes",
+      "workspace": [
+        "pg_fruits",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Same graph. This time, find the fruit with the fewest votes."
+          },
+          {
+            "type": "prompt",
+            "text": "Which fruit got the least votes? Click it.",
+            "tool": { "name": "click_category", "tangible_id": "pg_fruits" },
+            "validator": [
+              {
+                "condition": { "selected": "Grapes" },
+                "description": "Student selected Grapes",
+                "goto": "s1_2_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s1_2_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s1_2_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s1_2_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Grapes, with just 3 votes."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_components",
+      "workspace": [
+        "pg_animals",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "pg_animals"
+          },
+          {
+            "type": "dialogue",
+            "text": "Here's a graph: animals at the zoo. Every picture graph has a key that tells you what each symbol means.",
+            "tags": [
+              "vocabulary"
+            ]
+          },
+          {
+            "type": "prompt",
+            "text": "Click on the key in this graph.",
+            "tool": { "name": "click_category", "tangible_id": "pg_animals" },
+            "validator": [
+              {
+                "condition": { "selected": "key" },
+                "description": "Student selected the key",
+                "goto": "s1_3_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s1_3_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s1_3_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s1_3_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "That's the key. It tells you what each picture represents \u2014 here, one symbol equals one animal."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_vertical_read",
+      "workspace": [
+        "pg_animals",
+        "data_table",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "This graph goes up instead of across. To read it, find the bar and trace across to the number on the side."
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many monkeys are at the zoo?",
+            "tool": { "name": "multiple_choice", "options": [5, 6, 7, 8] },
+            "validator": [
+              {
+                "condition": { "selected": 7 },
+                "description": "Student selected 7",
+                "goto": "s1_4_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s1_4_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s1_4_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s1_4_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "7 monkeys. You read that right off the axis."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_5_fewer",
+      "workspace": [
+        "pg_animals",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Now let's find an animal with fewer than 4."
+          },
+          {
+            "type": "prompt",
+            "text": "Click the animal that has fewer than 4.",
+            "tool": { "name": "click_category", "tangible_id": "pg_animals" },
+            "validator": [
+              {
+                "condition": { "selected": "Elephants" },
+                "description": "Student selected Elephants",
+                "goto": "s1_5_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s1_5_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s1_5_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s1_5_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Elephants, with 3. That's the only one under 4."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_transition",
+      "type": "transition",
+      "workspace": [
+        "pg_animals",
+        "bg_animals"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Watch what happens when we turn a picture graph into a bar graph. Same data \u2014 different look."
+          },
+          {
+            "type": "scene",
+            "method": "animate",
+            "tangible_id": "pg_animals",
+            "params": {
+              "event": "transform_to_bar_graph",
+              "status": "proposed",
+              "description": "Picture graph symbols collapse into solid bars, preserving category order and values"
+            }
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "bg_animals"
+          },
+          {
+            "type": "dialogue",
+            "text": "The bars replace the symbols. The numbers stay the same \u2014 just easier to read at a glance."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_1_bar_connect",
+      "workspace": [
+        "bg_animals",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Bar height shows the amount. The taller the bar, the more there are."
+          },
+          {
+            "type": "prompt",
+            "text": "Click the Monkeys bar.",
+            "tool": { "name": "click_category", "tangible_id": "bg_animals" },
+            "validator": [
+              {
+                "condition": { "selected": "Monkeys" },
+                "description": "Student selected Monkeys",
+                "goto": "s2_1_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s2_1_bar_connect_light"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s2_1_correct"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "animate",
+            "tangible_id": "bg_animals",
+            "params": {
+              "event": "draw_bar_guideline",
+              "category": "Monkeys",
+              "status": "proposed"
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "The helping line shows exactly where Monkeys lands \u2014 7."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2_books_sofia",
+      "workspace": [
+        "bg_books",
+        "data_table",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "bg_books"
+          },
+          {
+            "type": "dialogue",
+            "text": "New graph \u2014 books read this week. Five students, one week."
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many books did Sofia read?",
+            "tool": { "name": "multiple_choice", "options": [4, 5, 6, 7] },
+            "validator": [
+              {
+                "condition": { "selected": 5 },
+                "description": "Student selected 5",
+                "goto": "s2_2_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s2_2_books_sofia_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s2_2_books_sofia_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s2_2_books_sofia_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "5 books. Sofia's bar lands right at 5."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2a_fewest_books",
+      "workspace": [
+        "bg_books",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Now find the student who read the fewest books."
+          },
+          {
+            "type": "prompt",
+            "text": "Click the student who read the fewest books.",
+            "tool": { "name": "click_category", "tangible_id": "bg_books" },
+            "validator": [
+              {
+                "condition": { "selected": "Maya" },
+                "description": "Student selected Maya",
+                "goto": "s2_2a_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s2_2a_fewest_books_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s2_2a_fewest_books_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s2_2a_fewest_books_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Maya read 4 \u2014 that's the shortest bar."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_3_horizontal",
+      "workspace": [
+        "bg_colors",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "bg_colors"
+          },
+          {
+            "type": "dialogue",
+            "text": "This bar graph goes sideways. The bars are horizontal \u2014 longer means more."
+          },
+          {
+            "type": "prompt",
+            "text": "Click the most popular color.",
+            "tool": { "name": "click_category", "tangible_id": "bg_colors" },
+            "validator": [
+              {
+                "condition": { "selected": "Blue" },
+                "description": "Student selected Blue",
+                "goto": "s2_3_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s2_3_horizontal_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s2_3_horizontal_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s2_3_horizontal_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Blue, with 8 votes. Longest bar."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_4_bar_least",
+      "workspace": [
+        "bg_colors",
+        "data_table"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Same graph. Now find the color with the fewest votes."
+          },
+          {
+            "type": "prompt",
+            "text": "Click the least popular color.",
+            "tool": { "name": "click_category", "tangible_id": "bg_colors" },
+            "validator": [
+              {
+                "condition": { "selected": "Green" },
+                "description": "Student selected Green",
+                "goto": "s2_4_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s2_4_bar_least_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s2_4_bar_least_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s2_4_bar_least_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Green, with just 4."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_transition",
+      "type": "transition",
+      "workspace": [
+        "bg_colors"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "hide",
+            "tangible_id": "data_table"
+          },
+          {
+            "type": "dialogue",
+            "text": "Let's use bar graphs to answer harder questions \u2014 ones that take some math."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_1_how_many_more",
+      "workspace": [
+        "bg_colors",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'How many more' means we're comparing two bars. Let's look at Blue and Yellow."
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Blue",
+                "Yellow"
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many more students chose Blue than Yellow?",
+            "tool": { "name": "multiple_choice", "options": [2, 8, 14, 3] },
+            "validator": [
+              {
+                "condition": { "selected": 2 },
+                "description": "Student selected 2",
+                "goto": "s3_1_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_1_how_many_more_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_1_how_many_more_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_1_how_many_more_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "2 more. Blue has 8, Yellow has 6 \u2014 the difference is 2."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_2_how_many_fewer",
+      "workspace": [
+        "bg_colors",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'How many fewer' is the same kind of comparison, just asked from the other direction."
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Red",
+                "Blue"
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many fewer students chose Red than Blue?",
+            "tool": { "name": "multiple_choice", "options": [3, 5, 8, 13] },
+            "validator": [
+              {
+                "condition": { "selected": 3 },
+                "description": "Student selected 3",
+                "goto": "s3_2_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_2_how_many_fewer_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_2_how_many_fewer_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_2_how_many_fewer_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "3 fewer. Blue has 8, Red has 5."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3_in_all",
+      "workspace": [
+        "bg_colors",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'In all' means we add them together."
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Yellow",
+                "Red"
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many students chose Yellow or Red in all?",
+            "tool": { "name": "multiple_choice", "options": [1, 6, 11, 14] },
+            "validator": [
+              {
+                "condition": { "selected": 11 },
+                "description": "Student selected 11",
+                "goto": "s3_3_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_3_in_all_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_3_in_all_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_3_in_all_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bg_colors",
+            "params": {
+              "label": "11 in all",
+              "status": "proposed"
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "11 in all. 6 yellow + 5 red."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3b_two_step",
+      "workspace": [
+        "bg_colors",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Sometimes you need two steps. First find a total, then use it to answer the real question."
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "Step 1: How many students chose Yellow or Red in all?",
+            "tool": { "name": "multiple_choice", "options": [8, 9, 11, 13] },
+            "validator": [
+              {
+                "condition": { "selected": 11 },
+                "description": "Student selected 11",
+                "goto": "s3_3b_step1_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_3b_step1_light"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_3b_step1_correct"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "11 in all. Now let's compare that to Green."
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bg_colors",
+            "params": {
+              "label": "11 in all",
+              "status": "proposed"
+            }
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Green"
+              ]
+            }
+          },
+          {
+            "type": "prompt",
+            "text": "Step 2: How many more students chose Yellow or Red than Green?",
+            "tool": { "name": "multiple_choice", "options": [5, 6, 7, 9] },
+            "validator": [
+              {
+                "condition": { "selected": 7 },
+                "description": "Student selected 7",
+                "goto": "s3_3b_step2_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_3b_step2_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_3b_step2_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_3b_step2_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "7 more students. 11 minus 4."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4a_metacognitive",
+      "workspace": [
+        "pg_pets",
+        "multi_select_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "pg_pets"
+          },
+          {
+            "type": "dialogue",
+            "text": "Here's a pet graph. Read the question before you pick: 'How many fewer fish than dogs?' Which categories do you need?"
+          },
+          {
+            "type": "prompt",
+            "text": "Select all the categories you need to answer this question.",
+            "tool": { "name": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"] },
+            "validator": [
+              {
+                "condition": { "selected": ["Dogs", "Fish"] },
+                "description": "Student selected exactly Dogs and Fish",
+                "goto": "s3_4a_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_4a_metacognitive_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_4a_metacognitive_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_4a_metacognitive_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "Dogs and Fish \u2014 those are the two you're comparing."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4b_fewer_fish",
+      "workspace": [
+        "pg_pets",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Dogs",
+                "Fish"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Dogs have 7, fish have 4. Find the difference."
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "How many fewer fish than dogs?",
+            "tool": { "name": "multiple_choice", "options": [3, 4, 7, 11] },
+            "validator": [
+              {
+                "condition": { "selected": 3 },
+                "description": "Student selected 3",
+                "goto": "s3_4b_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_4b_fewer_fish_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_4b_fewer_fish_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_4b_fewer_fish_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "3 fewer fish. 7 dogs minus 4 fish."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4c_two_step",
+      "workspace": [
+        "pg_pets",
+        "choice_input"
+      ],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Two-step question: first add fish and lizards together, then compare that total to cats."
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "show",
+            "tangible_id": "choice_input"
+          },
+          {
+            "type": "prompt",
+            "text": "Step 1: How many fish and lizards are there in all?",
+            "tool": { "name": "multiple_choice", "options": [3, 4, 5, 7] },
+            "validator": [
+              {
+                "condition": { "selected": 5 },
+                "description": "Student selected 5",
+                "goto": "s3_4c_step1_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_4c_step1_light"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_4c_step1_correct"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "5 in all. 4 fish + 1 lizard. Now compare that to cats."
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "pg_pets",
+            "params": {
+              "label": "5 in all",
+              "status": "proposed"
+            }
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Cats"
+              ]
+            }
+          },
+          {
+            "type": "prompt",
+            "text": "Step 2: How many more cats than fish and lizards combined?",
+            "tool": { "name": "multiple_choice", "options": [2, 4, 6, 9] },
+            "validator": [
+              {
+                "condition": { "selected": 4 },
+                "description": "Student selected 4",
+                "goto": "s3_4c_step2_correct"
+              },
+              {
+                "condition": { "incorrect_count": 1 },
+                "description": "First wrong attempt",
+                "goto": "s3_4c_step2_light"
+              },
+              {
+                "condition": { "incorrect_count": 2 },
+                "description": "Second wrong attempt",
+                "goto": "s3_4c_step2_medium"
+              },
+              {
+                "condition": {},
+                "description": "Catch-all",
+                "goto": "s3_4c_step2_heavy"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "dialogue",
+            "text": "4 more cats. 9 cats minus 5."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_1_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Look at the numbers next to each row. Which one is biggest?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_1_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_fruits",
+            "params": {
+              "highlight_categories": [
+                "Apples"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Count the Apples row \u2014 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_1_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_fruits",
+            "params": {
+              "highlight_categories": [
+                "Apples"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Apples has 6 symbols \u2014 more than any other row. Click Apples."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Look for the row with the fewest symbols \u2014 the shortest one."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_fruits",
+            "params": {
+              "highlight_categories": [
+                "Grapes"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Grapes has only 3 symbols. Every other fruit has more. Which is least?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_fruits",
+            "params": {
+              "highlight_categories": [
+                "Grapes"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Grapes has 3 \u2014 the fewest. Click Grapes."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "The key is usually in a corner of the graph. Look for a small box that explains what the symbols mean."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "The key isn't a bar or a label \u2014 it's a legend. It shows one symbol and explains what it counts for."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Find the small box that says what each picture equals \u2014 that's the key. Click it."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_animals",
+            "params": {
+              "highlight_categories": [
+                "Monkeys"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Find the Monkeys row and count the symbols."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_animals",
+            "params": {
+              "highlight_categories": [
+                "Monkeys"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Count the monkey symbols one by one: 1, 2, 3, 4, 5, 6, 7. How many?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_animals",
+            "params": {
+              "highlight_categories": [
+                "Monkeys"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "The Monkeys row has 7 symbols. The answer is 7."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_5_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Fewer than 4 means the number is 3, 2, or 1. Look at each animal's count."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_5_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_animals",
+            "params": {
+              "highlight_categories": [
+                "Elephants"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Lions: 5, Monkeys: 7, Elephants: 3, Penguins: 6. Which of those is less than 4?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_5_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_animals",
+            "params": {
+              "highlight_categories": [
+                "Elephants"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Elephants has 3 \u2014 the only animal with fewer than 4. Click Elephants."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_1_bar_connect_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Look for the bar labeled Monkeys at the bottom."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2_books_sofia_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_books",
+            "params": {
+              "highlight_categories": [
+                "Sofia"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Find Sofia's bar and trace across to the number on the left side."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2_books_sofia_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_books",
+            "params": {
+              "highlight_categories": [
+                "Sofia"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Sofia's bar top lines up with 5 on the axis. It's not 4 (Maya) or 6 (Aiden)."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2_books_sofia_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_books",
+            "params": {
+              "highlight_categories": [
+                "Sofia"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Sofia's bar reaches 5. The answer is 5."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2a_fewest_books_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Find the shortest bar \u2014 that's the fewest books."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2a_fewest_books_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_books",
+            "params": {
+              "highlight_categories": [
+                "Maya"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Maya: 4, Aiden: 6, Sofia: 5, James: 7. The lowest is 4 \u2014 who is that?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_2a_fewest_books_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_books",
+            "params": {
+              "highlight_categories": [
+                "Maya"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Maya's bar only reaches 4 \u2014 the shortest. Click Maya."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_3_horizontal_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "The longest bar goes the furthest to the right. Which color bar is that?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_3_horizontal_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Blue"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Blue reaches 8, Red reaches 5, Green 4, Yellow 6. Which bar extends the furthest?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_3_horizontal_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Blue"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Blue reaches 8 \u2014 that's the longest bar. Click Blue."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_4_bar_least_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "The least popular is the shortest bar \u2014 find the one that barely extends."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_4_bar_least_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Green"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Blue: 8, Red: 5, Green: 4, Yellow: 6. The smallest number is 4 \u2014 which color?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_4_bar_least_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Green"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Green only reaches 4 \u2014 the shortest bar. Click Green."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_1_how_many_more_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'How many more' means subtract. Take the bigger number and subtract the smaller one."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_1_how_many_more_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Blue",
+                "Yellow"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Blue is 8. Yellow is 6. 8 minus 6 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_1_how_many_more_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Blue",
+                "Yellow"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "8 minus 6 equals 2. The answer is 2."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_2_how_many_fewer_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'How many fewer' also means subtract \u2014 bigger minus smaller."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_2_how_many_fewer_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Red",
+                "Blue"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Blue is 8. Red is 5. 8 minus 5 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_2_how_many_fewer_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Red",
+                "Blue"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "8 minus 5 equals 3. The answer is 3."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3_in_all_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'In all' means add the two together. Yellow plus Red."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3_in_all_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Yellow",
+                "Red"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Yellow is 6, Red is 5. 6 plus 5 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3_in_all_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Yellow",
+                "Red"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "6 plus 5 equals 11. The answer is 11."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3b_step1_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Yellow",
+                "Red"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Step 1 is just adding Yellow and Red. Yellow is 6, Red is 5."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3b_step2_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "You have the total from Step 1. Now subtract Green from it."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3b_step2_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Green"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "The total was 11. Green is 4. 11 minus 4 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_3b_step2_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bg_colors",
+            "params": {
+              "highlight_categories": [
+                "Green"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "11 minus 4 equals 7. The answer is 7."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4a_metacognitive_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Re-read the question. Which two animals are being compared?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4a_metacognitive_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "'How many fewer fish than dogs' \u2014 the question names two animals. Select only those two."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4a_metacognitive_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Dogs",
+                "Fish"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "The question asks about dogs and fish. Select Dogs and Fish \u2014 just those two."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4b_fewer_fish_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Fewer means subtract. Dogs minus fish."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4b_fewer_fish_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Dogs",
+                "Fish"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Dogs: 7, Fish: 4. 7 minus 4 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4b_fewer_fish_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Dogs",
+                "Fish"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "7 minus 4 equals 3. The answer is 3."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4c_step1_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Fish",
+                "Lizards"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Step 1 is just adding fish and lizards. Fish: 4, Lizards: 1."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4c_step2_light",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "You have the total from Step 1. Now subtract it from Cats."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4c_step2_medium",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Cats"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Cats: 9. Your Step 1 total was 5. 9 minus 5 equals what?"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_4c_step2_heavy",
+      "type": "remediation",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "pg_pets",
+            "params": {
+              "highlight_categories": [
+                "Cats"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "9 minus 5 equals 4. The answer is 4."
+          }
+        ]
+      ]
+    }
+  ]
+}
