@@ -7,7 +7,9 @@ import json
 import os
 
 
-def get_problem_template_field(module_number, goal_id, field_path, required=True, default=None):
+def get_problem_template_field(
+    module_number, goal_id, field_path, required=True, default=None, unit_number=None
+):
     """
     Fetch a field from a problem template for a specific goal, supporting nested access with dot notation.
 
@@ -18,6 +20,7 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
                    Examples: "cognitive_type", "tools_available", "variables.0.fractions"
         required: If True, raises error if field is missing. If False, returns default.
         default: Value to return if field not found and not required
+        unit_number: Optional unit number. When set, path uses units/unit{N}/module{M}/
 
     Returns:
         The requested field value, or default if not found and not required.
@@ -33,18 +36,19 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
         ValueError: If goal not found or required field is missing
     """
     # Construct path to problem_templates.json
-    template_path = os.path.join(
-        "modules", f"module{module_number}", "problem_templates.json"
-    )
+    if unit_number is not None:
+        template_path = os.path.join(
+            "units", f"unit{unit_number}", f"module{module_number}", "problem_templates.json"
+        )
+    else:
+        template_path = os.path.join("modules", f"module{module_number}", "problem_templates.json")
 
     # Check if file exists
     if not os.path.exists(template_path):
-        raise FileNotFoundError(
-            f"problem_templates.json not found at {template_path}"
-        )
+        raise FileNotFoundError(f"problem_templates.json not found at {template_path}")
 
     # Load the JSON file
-    with open(template_path, 'r', encoding='utf-8') as f:
+    with open(template_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # Find the goal by ID
@@ -58,22 +62,23 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
     if goal is None:
         available_ids = [g.get("id") for g in data.get("goals", [])]
         raise ValueError(
-            f"Goal {goal_id} not found in {template_path}. "
-            f"Available goal IDs: {available_ids}"
+            f"Goal {goal_id} not found in {template_path}. Available goal IDs: {available_ids}"
         )
 
     # Split the path by dots for nested access
-    path_parts = field_path.split('.')
+    path_parts = field_path.split(".")
     current = goal
 
     try:
         for i, part in enumerate(path_parts):
             # Handle wildcard for arrays (e.g., "variables.*.fractions")
-            if part == '*':
+            if part == "*":
                 if not isinstance(current, list):
-                    raise ValueError(f"Wildcard used on non-list field at '{'.'.join(path_parts[:i])}'")
+                    raise ValueError(
+                        f"Wildcard used on non-list field at '{'.'.join(path_parts[:i])}'"
+                    )
                 # Get remaining path
-                remaining_path = '.'.join(path_parts[i+1:])
+                remaining_path = ".".join(path_parts[i + 1 :])
                 if remaining_path:
                     # Recursively get field from each item
                     return [_get_nested_value(item, remaining_path) for item in current]
@@ -86,11 +91,13 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
                     index = int(part)
                     current = current[index]
                 except (ValueError, IndexError):
-                    raise KeyError(f"Invalid array index '{part}' at '{'.'.join(path_parts[:i+1])}'")
+                    raise KeyError(
+                        f"Invalid array index '{part}' at '{'.'.join(path_parts[: i + 1])}'"
+                    )
             # Handle dict access
             elif isinstance(current, dict):
                 if part not in current:
-                    raise KeyError(f"Field '{part}' not found at '{'.'.join(path_parts[:i+1])}'")
+                    raise KeyError(f"Field '{part}' not found at '{'.'.join(path_parts[: i + 1])}'")
                 current = current[part]
             else:
                 raise KeyError(f"Cannot access '{part}' on non-dict/non-list value")
@@ -109,7 +116,7 @@ def get_problem_template_field(module_number, goal_id, field_path, required=True
 
 def _get_nested_value(obj, path):
     """Helper to get nested value from object using dot notation"""
-    parts = path.split('.')
+    parts = path.split(".")
     current = obj
     for part in parts:
         if isinstance(current, dict):
@@ -158,41 +165,48 @@ def get_example_questions(module_number, goal_id):
 
 def get_remediations_per_step(module_number, goal_id):
     """Get remediation steps for a specific goal."""
-    return get_problem_template_field(module_number, goal_id, "remediations_per_step", required=False, default=[])
+    return get_problem_template_field(
+        module_number, goal_id, "remediations_per_step", required=False, default=[]
+    )
 
 
 def get_no_of_steps(module_number, goal_id):
     """Get number of steps for a specific goal."""
-    return get_problem_template_field(module_number, goal_id, "no_of_steps", required=False, default="1")
-
-
-def get_all_goal_templates(module_number):
-    """Get all goal templates from a module's problem_templates.json."""
-    template_path = os.path.join(
-        "modules", f"module{module_number}", "problem_templates.json"
+    return get_problem_template_field(
+        module_number, goal_id, "no_of_steps", required=False, default="1"
     )
 
-    if not os.path.exists(template_path):
-        raise FileNotFoundError(
-            f"problem_templates.json not found at {template_path}"
-        )
 
-    with open(template_path, 'r', encoding='utf-8') as f:
+def get_all_goal_templates(module_number, unit_number=None):
+    """Get all goal templates from a module's problem_templates.json."""
+    if unit_number is not None:
+        template_path = os.path.join(
+            "units", f"unit{unit_number}", f"module{module_number}", "problem_templates.json"
+        )
+    else:
+        template_path = os.path.join("modules", f"module{module_number}", "problem_templates.json")
+
+    if not os.path.exists(template_path):
+        raise FileNotFoundError(f"problem_templates.json not found at {template_path}")
+
+    with open(template_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     return data.get("goals", [])
 
 
-def get_goal_template_by_id(module_number, goal_id):
+def get_goal_template_by_id(module_number, goal_id, unit_number=None):
     """Get a specific goal template by ID."""
-    goals = get_all_goal_templates(module_number)
+    goals = get_all_goal_templates(module_number, unit_number=unit_number)
     for goal in goals:
         if goal.get("id") == goal_id:
             return goal
     raise ValueError(f"Goal {goal_id} not found in Module {module_number} problem templates")
 
 
-def get_fields_by_reference(module_number, goal_id, field_reference_list, required=True, default=None):
+def get_fields_by_reference(
+    module_number, goal_id, field_reference_list, required=True, default=None, unit_number=None
+):
     """
     Fetch multiple fields from a problem template based on a reference list.
     Automatically handles nested fields with dot notation.
@@ -203,6 +217,7 @@ def get_fields_by_reference(module_number, goal_id, field_reference_list, requir
         field_reference_list: List of field names/paths to fetch (supports dot notation for nested)
         required: If True, raises error if any field is missing. If False, returns default for missing fields.
         default: Value to return for missing fields when not required
+        unit_number: Optional unit number
 
     Returns:
         Dictionary mapping field names to their values
@@ -225,7 +240,8 @@ def get_fields_by_reference(module_number, goal_id, field_reference_list, requir
             goal_id,
             field_path,
             required=required,
-            default=default
+            default=default,
+            unit_number=unit_number,
         )
 
     return result
@@ -310,5 +326,5 @@ if __name__ == "__main__":
     print('  get_problem_template_field(1, 1, "cognitive_type")  # Top-level')
     print('  get_problem_template_field(1, 1, "tools_available")           # Array field')
     print('  get_problem_template_field(1, 1, "variables.0.fractions")  # Nested')
-    print('  get_cognitive_type(1, 1)                             # Convenience function')
-    print('  get_all_goal_templates(1)                            # Get all templates')
+    print("  get_cognitive_type(1, 1)                             # Convenience function")
+    print("  get_all_goal_templates(1)                            # Get all templates")

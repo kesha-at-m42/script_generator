@@ -19,6 +19,58 @@ from typing import Dict
 
 from .pipeline import Step, run_pipeline, run_single_step
 
+
+def _try_notion_push(
+    results: dict,
+    pipeline_name: str | None,
+    module_number: int | None,
+    path_letter: str | None,
+    unit_number: int | None = None,
+) -> None:
+    """Push the last step's output to Notion if configured.
+
+    Silently skips if NOTION_API_KEY / NOTION_PARENT_PAGE_ID are not set.
+    Never raises — a Notion failure must not break the pipeline.
+    """
+    try:
+        from utils import notion_sync  # lazy: notion-client may not be installed
+
+        if not notion_sync.is_configured():
+            return
+
+        final_output = results.get("final_output")
+        if final_output is None:
+            return
+
+        title_parts = [pipeline_name or "Pipeline output"]
+        if unit_number:
+            title_parts.append(f"Unit {unit_number}")
+        if module_number:
+            title_parts.append(f"Module {module_number}")
+        if path_letter:
+            title_parts.append(f"Path {path_letter.upper()}")
+        title = " — ".join(title_parts)
+
+        file_path = None
+        output_dir = results.get("output_dir")
+        last_output_file = results.get("last_output_file")
+        if output_dir and last_output_file:
+            file_path = Path(output_dir) / last_output_file
+
+        page_id = notion_sync.push_to_notion(
+            data=final_output,
+            title=title,
+            file_path=file_path,
+        )
+        url = notion_sync.get_page_url(page_id)
+        print(f"\n  [NOTION] Pushed → {url}")
+        results["notion_page_id"] = page_id
+        results["notion_url"] = url
+
+    except Exception as exc:
+        print(f"\n  [NOTION] Push failed (non-fatal): {exc}")
+
+
 # config/pipelines.json sits one level up from this file (core/)
 _JSON_PATH = Path(__file__).parent.parent / "config" / "pipelines.json"
 
@@ -99,6 +151,7 @@ def run_pipeline_from_config(
     pipeline_name: str = None,
     module_number: int = None,
     path_letter: str = None,
+    unit_number: int = None,
     **kwargs,
 ) -> Dict:
     """Convert a list of step config dicts to Step objects and run the pipeline.
@@ -107,19 +160,23 @@ def run_pipeline_from_config(
     neither caller needs to know about step_from_config / Step internals.
     """
     steps = [sc if isinstance(sc, Step) else step_from_config(sc) for sc in steps_config]
-    return run_pipeline(
+    results = run_pipeline(
         steps=steps,
         pipeline_name=pipeline_name,
         module_number=module_number,
         path_letter=path_letter,
+        unit_number=unit_number,
         **kwargs,
     )
+    _try_notion_push(results, pipeline_name, module_number, path_letter, unit_number)
+    return results
 
 
 def run_single_step_from_config(
     step_config: dict,
     module_number: int = None,
     path_letter: str = None,
+    unit_number: int = None,
     previous_output_file: str = None,
     **kwargs,
 ) -> Dict:
@@ -135,5 +192,6 @@ def run_single_step_from_config(
         step=step,
         module_number=module_number,
         path_letter=path_letter,
+        unit_number=unit_number,
         **kwargs,
     )

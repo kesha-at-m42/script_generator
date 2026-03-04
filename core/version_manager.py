@@ -2,9 +2,9 @@
 Version Manager - Handles version directory creation and management
 """
 
-from pathlib import Path
-from typing import Tuple, Optional
 import json
+from pathlib import Path
+from typing import Optional, Tuple
 
 
 def get_next_version(pipeline_dir: Path) -> str:
@@ -22,7 +22,7 @@ def get_next_version(pipeline_dir: Path) -> str:
     # Find all existing version directories
     versions = []
     for item in pipeline_dir.iterdir():
-        if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
+        if item.is_dir() and item.name.startswith("v") and item.name[1:].isdigit():
             versions.append(int(item.name[1:]))
 
     if not versions:
@@ -46,7 +46,7 @@ def get_latest_version(pipeline_dir: Path) -> Optional[str]:
     # Find all existing version directories
     versions = []
     for item in pipeline_dir.iterdir():
-        if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
+        if item.is_dir() and item.name.startswith("v") and item.name[1:].isdigit():
             versions.append(int(item.name[1:]))
 
     if not versions:
@@ -60,7 +60,8 @@ def create_version_directory(
     module_number: int = None,
     path_letter: str = None,
     base_version: str = None,
-    outputs_dir: Path = None
+    outputs_dir: Path = None,
+    unit_number: int = None,
 ) -> Tuple[Path, str, bool, str]:
     """Create a new version directory for a pipeline
 
@@ -70,13 +71,19 @@ def create_version_directory(
         path_letter: Path letter (optional, adds to directory name)
         base_version: Base version to build upon (for reruns)
         outputs_dir: Outputs directory (defaults to project_root/outputs)
+        unit_number: Optional unit number. When set, adds _unit_{N} before _module_{M}
 
     Returns:
         Tuple of (version_dir_path, version_str, is_rerun, full_pipeline_name)
     """
     if outputs_dir is None:
         from pathlib import Path
+
         outputs_dir = Path(__file__).parent.parent / "outputs"
+
+    # When unit_number is set, nest outputs under units/unit{N}/
+    if unit_number is not None:
+        outputs_dir = outputs_dir / f"unit{unit_number}"
 
     # Build full pipeline name with module and path
     full_pipeline_name = pipeline_name
@@ -109,6 +116,7 @@ def update_latest_symlink(pipeline_name: str, version_str: str, outputs_dir: Pat
     """
     if outputs_dir is None:
         from pathlib import Path
+
         outputs_dir = Path(__file__).parent.parent / "outputs"
 
     pipeline_dir = outputs_dir / pipeline_name
@@ -123,7 +131,7 @@ def update_latest_symlink(pipeline_name: str, version_str: str, outputs_dir: Pat
         latest_link.symlink_to(version_str, target_is_directory=True)
     except OSError:
         # On Windows, symlinks may require admin - create a text file instead
-        with open(latest_link.with_suffix('.txt'), 'w') as f:
+        with open(latest_link.with_suffix(".txt"), "w") as f:
             f.write(version_str)
 
 
@@ -135,5 +143,5 @@ def save_metadata(version_dir: Path, metadata: dict):
         metadata: Metadata dictionary to save
     """
     metadata_path = version_dir / "metadata.json"
-    with open(metadata_path, 'w', encoding='utf-8') as f:
+    with open(metadata_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
