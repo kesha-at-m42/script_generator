@@ -13,3 +13,7 @@ Deferred decisions, improvements, and ideas to revisit as the project matures.
 4. **Multimodal prompting from Notion images** — If prompts need to reference images stored on Notion pages, use the local API approach: fetch page blocks via `notion-client`, extract signed image URLs from image blocks, download bytes, base64-encode, and inject as `image` content blocks in the Claude API call. Do not use Notion MCP for this — MCP surfaces URLs as text strings, not image data, so Claude cannot see the image. Note that Notion-hosted image URLs are signed and expire (~1 hour), so download promptly after fetching the page. *(notion_sync.py, multimodal pipeline)*
 
 5. **Try tool calls/agentic behavior instead of API call chaining** — The current pipeline chains multiple sequential Claude API calls to build up outputs step by step. Consider using Claude's tool use / agentic capabilities instead, where a single orchestrating call can invoke tools (e.g., validators, formatters, structurers) as needed, reducing round-trips and giving Claude more context over the full pipeline. *(core/pipeline_executor.py, steps/)*
+
+6. **Rework and clean starter pack template** — The starter pack template structure needs to be revisited and cleaned up for clarity and consistency, using the latest template doc as the reference.
+
+7. **Add section metadata to lesson script schema** — Section-level metadata (e.g., phase name, purpose, interaction count) should be formally added to the schema. *(docs/references/lesson_script_schema_guide.md)*
