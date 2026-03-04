@@ -4,6 +4,39 @@ Reference for the `lesson.json` script format. Covers every field, beat type, co
 
 ---
 
+## Design Requirements
+
+Two goals shape this schema.
+
+### 1. Readability and Notion Portability
+
+The format is human-readable first and machine-processed second. This makes it suitable for collaborative review in Notion, where non-engineers can read, comment on, and edit lesson content without touching raw JSON.
+
+Key choices that serve this goal:
+
+- **Plain-text content fields** — `dialogue.text` and `prompt.text` contain natural language, not markup or encoded content
+- **Notion callout mapping** — each beat type maps to a specific Notion callout emoji (💬 dialogue, ❓ prompt, 🎬/🎞️ scene), so the JSON can round-trip to/from Notion without losing information on the editable fields
+- **Selective editability** — only `dialogue.text` and `prompt.text` are editable in Notion; `scene` beats are display-only, so reviewers cannot inadvertently break structural logic
+- **Human-readable IDs and slugs** — section IDs include a slug (e.g. `s1_1_most_votes`) so a reviewer can follow the navigation flow without reading code
+- **`description` on validator states** — every validator state carries a plain-English description of the student condition it captures, making branching logic readable without interpreting condition syntax
+
+### 2. Translatable Structured Data
+
+The schema is an authored intermediate representation — not the final runtime format. It must be structured enough to be mechanically translated to a downstream schema (a runtime engine, a CMS, or a future schema revision).
+
+Key choices that serve this goal:
+
+- **Typed beats** — `type` is always explicit (`"dialogue"`, `"scene"`, `"prompt"`), enabling switch-based translation with no ambiguity
+- **Explicit targeting** — tangibles are always referenced by `tangible_id` or `tangible_type`, never by position or implicit state
+- **No logic embedded in text** — conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
+- **Flat, predictable field shapes** — each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
+- **Validator as a declarative state machine** — validator states are a portable condition/goto structure with no runtime-specific implementation details, making them translatable to any branching execution model
+- **IDs as the only coupling between sections** — sections reference each other only via `goto` section IDs; the schema makes no assumptions about execution order beyond what those references specify
+
+These two goals can create tension: fully specified structured data tends toward verbosity, while readability pushes toward concision. The schema resolves this by separating concerns — structural and logic fields are fully specified for translation fidelity, while human-facing fields (`text`, `description`, ID slugs) carry the readability load.
+
+---
+
 ## Top-Level Structure
 
 ```json
