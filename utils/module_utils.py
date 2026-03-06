@@ -1,12 +1,16 @@
 """
-Utility functions for fetching data from modules.py
-Supports nested field access with dot notation
+Utility functions for fetching data from modules.
+Supports nested field access with dot notation.
 """
 
 import json as _json
 from pathlib import Path as _Path
 
-_STARTER_PACKS_DIR = _Path(__file__).parent.parent / "units" / "unit3" / "_starter_packs"
+_UNITS_DIR = _Path(__file__).parent.parent / "units"
+_DEFAULT_UNIT = "unit5"
+
+# Backwards-compatible MODULES dict using the default unit
+_STARTER_PACKS_DIR = _UNITS_DIR / _DEFAULT_UNIT / "_starter_packs"
 MODULES: dict[int, dict] = {}
 for _n in range(1, 13):
     _p = _STARTER_PACKS_DIR / f"module_{_n}.json"
@@ -14,7 +18,7 @@ for _n in range(1, 13):
         MODULES[_n] = _json.loads(_p.read_text(encoding="utf-8"))
 
 
-def get_module_field(module_number, field_path, required=True, default=None):
+def get_module_field(module_number, field_path, required=True, default=None, unit=_DEFAULT_UNIT):
     """
     Fetch a field from a module, supporting nested access with dot notation.
 
@@ -24,6 +28,7 @@ def get_module_field(module_number, field_path, required=True, default=None):
                    Examples: "vocabulary", "standards.addressing", "goals.0.text"
         required: If True, raises error if field is missing. If False, returns default.
         default: Value to return if field not found and not required
+        unit: Unit folder name (default: "unit5")
 
     Returns:
         The requested field value, or default if not found and not required.
@@ -33,16 +38,21 @@ def get_module_field(module_number, field_path, required=True, default=None):
         get_module_field(1, "standards.addressing")  # Nested dict
         get_module_field(1, "goals.0.text")  # Array index
         get_module_field(1, "goals.*.id")  # All IDs from goals array
+        get_module_field(1, "vocabulary", unit="unit1")  # Specific unit
 
     Raises:
         ValueError: If module not found or required field is missing.
     """
-    # Check module exists
-    if module_number not in MODULES:
-        available = ", ".join(str(k) for k in MODULES.keys())
-        raise ValueError(f"Module {module_number} not found. Available: {available}")
+    pack_dir = _UNITS_DIR / unit / "_starter_packs"
+    module_path = pack_dir / f"module_{module_number}.json"
 
-    module_data = MODULES[module_number]
+    if not module_path.exists():
+        available = [p.stem.replace("module_", "") for p in pack_dir.glob("module_*.json")]
+        raise ValueError(
+            f"Module {module_number} not found in {unit}. Available: {', '.join(sorted(available))}"
+        )
+
+    module_data = _json.loads(module_path.read_text(encoding="utf-8"))
 
     # Split the path by dots for nested access
     path_parts = field_path.split(".")
@@ -56,10 +66,8 @@ def get_module_field(module_number, field_path, required=True, default=None):
                     raise ValueError(
                         f"Wildcard used on non-list field at '{'.'.join(path_parts[:i])}'"
                     )
-                # Get remaining path
                 remaining_path = ".".join(path_parts[i + 1 :])
                 if remaining_path:
-                    # Recursively get field from each item
                     return [_get_nested_value(item, remaining_path) for item in current]
                 else:
                     return current
@@ -73,7 +81,6 @@ def get_module_field(module_number, field_path, required=True, default=None):
                     raise KeyError(
                         f"Invalid array index '{part}' at '{'.'.join(path_parts[: i + 1])}'"
                     )
-            # Handle dict access
             elif isinstance(current, dict):
                 if part not in current:
                     raise KeyError(f"Field '{part}' not found at '{'.'.join(path_parts[: i + 1])}'")
@@ -87,7 +94,7 @@ def get_module_field(module_number, field_path, required=True, default=None):
         if required:
             available_fields = _get_available_fields(module_data)
             raise ValueError(
-                f"Required field '{field_path}' not found in Module {module_number}. "
+                f"Required field '{field_path}' not found in Module {module_number} ({unit}). "
                 f"Error: {e}. Available top-level fields: {available_fields}"
             )
         return default

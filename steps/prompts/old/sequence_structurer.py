@@ -9,13 +9,12 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 SEQUENCE_STRUCTURER_PROMPT = Prompt(
     role="""You are an expert at transforming educational problem specifications into
 structured, interactive learning sequences. You convert flat problem descriptions into
 detailed step-by-step sequences with precise workspace configurations and interaction tools.""",
-
     instructions="""
 ## TASK
 
@@ -352,9 +351,7 @@ ALL tangible types (number_line, fraction_strip, etc.) support these universal f
 
 Generate NOW!
 """,
-
     doc_refs=["visuals.md", "guide_design.md"],
-
     output_structure="""{
   "problem_id": 1,
   "mastery_tier": "BASELINE",
@@ -386,14 +383,12 @@ Generate NOW!
     }
   ]
 }""",
-
     prefill="""{
   "problem_id": {problem_instance_id},
   "mastery_tier": "{mastery_tier}",
   "mastery_verb": "{mastery_verb}",
   "template_id": "{template_id}",
   "fractions": """,
-
     validation_prompt="""Check this sequence for specific errors.
 
 CRITICAL INSTRUCTIONS:
@@ -464,15 +459,11 @@ Return JSON:
 }
 
 Sequence to check:""",
-
     examples=[],
-
     module_ref={},
-
     template_ref=["mastery_verb", "success_dialogue", "skill"],
-
     cache_docs=True,
     temperature=1,
     max_tokens=16000,
-    stop_sequences=[]
+    stop_sequences=[],
 )

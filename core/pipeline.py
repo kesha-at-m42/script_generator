@@ -728,6 +728,33 @@ def run_pipeline(
                 print(f"  [ERROR] Failed to load input file: {e}")
                 raise
 
+        # Batch config override: if a formatting step outputs a dict with recognized
+        # batch config keys + optional "data", apply overrides and use "data" as input.
+        _BATCH_OVERRIDE_KEYS = {
+            "batch_only_items",
+            "batch_skip_items",
+            "batch_id_field",
+            "batch_output_id_field",
+            "batch_id_start",
+        }
+        batch_config_overrides = {}
+        if step.batch_mode and input_content:
+            try:
+                _parsed = json.loads(input_content)
+            except (json.JSONDecodeError, ValueError):
+                _parsed = None
+            if isinstance(_parsed, dict) and any(k in _parsed for k in _BATCH_OVERRIDE_KEYS):
+                for key in _BATCH_OVERRIDE_KEYS:
+                    if key in _parsed:
+                        batch_config_overrides[key] = _parsed[key]
+                if "data" in _parsed:
+                    input_content = json.dumps(_parsed["data"])
+                    input_data = _parsed["data"]
+                    if verbose:
+                        print(
+                            f"  [BATCH-OVERRIDE] Applied {list(batch_config_overrides.keys())} from prev step output"
+                        )
+
         # Execute the step (batch or non-batch mode)
         if step.batch_mode:
             # BATCH MODE: Process input array item-by-item
@@ -756,7 +783,11 @@ def run_pipeline(
             # If step has explicit batch_only_items set, use that (takes priority)
             # Otherwise, use rerun_items if available
             # This allows step 1 (problem_generator) to use template IDs while other steps use problem instance IDs
-            batch_filter = step.batch_only_items if step.batch_only_items else rerun_items
+            batch_filter = (
+                batch_config_overrides.get("batch_only_items")
+                or step.batch_only_items
+                or rerun_items
+            )
 
             # Initialize batch processor
             batch_proc = BatchProcessor(
@@ -781,7 +812,7 @@ def run_pipeline(
 
             for item_idx, item in enumerate(items, 1):
                 # Get item ID (with composite key support for multi-step items)
-                if step.batch_id_field:
+                if step.batch_id_field and isinstance(item, dict):
                     base_id = str(item.get(step.batch_id_field, item_idx))
                     # For multi-step items, append step_id to create unique file names
                     if "step_id" in item:
@@ -796,7 +827,14 @@ def run_pipeline(
                 if should_skip:
                     if verbose:
                         print(f"  [SKIP {item_idx}/{total_items}] {item_id} ({skip_reason})")
-                    batch_proc.increment_skipped()
+                    if (
+                        "batch_only_items" in batch_config_overrides
+                        and skip_reason == "not in only_items"
+                    ):
+                        # Pass through unchanged — item has no work to do in this step
+                        batch_proc.add_result(item, preserve_id=True)
+                    else:
+                        batch_proc.increment_skipped()
                     continue
 
                 # Process this item
@@ -957,9 +995,12 @@ Review your original instructions and schemas to ensure the regenerated output f
                                     {"role": "assistant", "content": item_output}
                                 )
 
-                            # Parse JSON from AI output
+                            # Parse JSON from AI output.
+                            # claude_client already prepends the prefill to item_output,
+                            # so item_output is always the full response (prefill + continuation).
                             try:
-                                json_str = extract_json(item_output)
+                                _raw = item_output
+                                json_str = extract_json(_raw)
                                 item_result = parse_json(json_str)
                             except Exception as e:
                                 if verbose:
@@ -1197,6 +1238,7 @@ Review your original instructions and schemas to ensure the regenerated output f
                             project_root,
                             False,
                             unit_number=unit_number,
+                            output_file_path=step_paths["main_output"],
                         )
 
                     # Add result to batch processor (handles collation and ID assignment).
@@ -1315,6 +1357,7 @@ Review your original instructions and schemas to ensure the regenerated output f
                     project_root,
                     verbose,
                     unit_number=unit_number,
+                    output_file_path=step_paths["main_output"],
                 )
                 last_output = output
 
@@ -1418,7 +1461,9 @@ Review your original instructions and schemas to ensure the regenerated output f
         version_str = metadata.get("version")
         full_pipeline_name = metadata.get("full_pipeline_name", pipeline_name)
         if version_str:
-            update_latest_symlink(full_pipeline_name, version_str)
+            update_latest_symlink(
+                full_pipeline_name, version_str, outputs_dir=output_dir_path.parent.parent
+            )
 
         if verbose:
             print(f"\n{'=' * 70}")

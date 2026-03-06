@@ -61,6 +61,19 @@ def _heading(level: int, text: str) -> dict:
     return {"object": "block", "type": t, t: {"rich_text": _rt(text)}}
 
 
+def _toggle_heading(level: int, text: str, children: list[dict]) -> dict:
+    t = f"heading_{level}"
+    return {
+        "object": "block",
+        "type": t,
+        t: {
+            "rich_text": _rt(text),
+            "is_toggleable": True,
+            "children": children or [_paragraph("—")],
+        },
+    }
+
+
 def _paragraph(text: str) -> dict:
     return {
         "object": "block",
@@ -100,14 +113,6 @@ def _callout(text: str, emoji: str = "💬") -> dict:
             "rich_text": _rt(text),
             "icon": {"type": "emoji", "emoji": emoji},
         },
-    }
-
-
-def _quote(text: str) -> dict:
-    return {
-        "object": "block",
-        "type": "quote",
-        "quote": {"rich_text": _rt(text)},
     }
 
 
@@ -157,55 +162,33 @@ def _render_scene(beat: dict) -> list[dict]:
     method = beat.get("method", "").lower()
     tid = beat.get("tangible_id", "")
     params = beat.get("params", {})
-
-    icons = {
-        "show": "🎬",
-        "hide": "🙈",
-        "update": "✏️",
-        "animate": "🎞️",
-        "add": "➕",
-        "remove": "🗑️",
-        "lock": "🔒",
-        "unlock": "🔓",
-    }
-    icon = icons.get(method, "🎬")
+    description = params.get("description", "").strip() if params else ""
 
     if method == "show":
-        text = f"Show {tid}"
+        action = f"Show {tid}"
     elif method == "hide":
-        text = f"Hide {tid}"
-    elif method == "update":
-        cats = params.get("highlight_categories", [])
-        if cats:
-            cats_str = ", ".join(str(c) for c in cats)
-            text = f"Highlight {cats_str} on {tid}"
-        else:
-            # Fallback: render any params
-            parts = [f"{k}: {v}" for k, v in params.items()]
-            text = f"Update {tid}" + (f"  ({', '.join(parts)})" if parts else "")
-    elif method == "animate":
-        text = params.get("description", f"Animate {tid}")
-    elif method == "add":
-        base = (
-            f"Add {params.get('tangible_type', tid)} as {tid}"
-            if "tangible_type" in params
-            else f"Add {tid}"
-        )
-        extra_params = {k: v for k, v in params.items() if k != "tangible_type"}
-        if extra_params:
-            parts = [f"{k}: {v}" for k, v in extra_params.items()]
-            base += f"  ({', '.join(parts)})"
-        text = base
+        action = f"Hide {tid}"
     elif method == "remove":
-        text = f"Remove {tid}"
+        action = f"Remove {tid}"
     elif method == "lock":
-        text = f"Lock {tid}  (override)"
+        action = f"Lock {tid}"
     elif method == "unlock":
-        text = f"Unlock {tid}  (override)"
+        action = f"Unlock {tid}"
+    elif method == "update":
+        cats = params.get("highlight_categories", []) if params else []
+        if cats:
+            action = f"Highlight {', '.join(str(c) for c in cats)} on {tid}"
+        else:
+            action = f"Update {tid}"
+    elif method == "animate":
+        action = f"Animate {tid}"
+    elif method == "add":
+        action = f"Add {tid}"
     else:
-        text = f"{method.upper()}  {tid}"
+        action = f"{method.upper()} {tid}"
 
-    return [_callout(text, icon)]
+    text = description if description else action
+    return [_callout(text, "🎬")]
 
 
 def _condition_summary(condition: dict) -> str:
@@ -253,7 +236,14 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
         description = state.get("description", "?")
         condition = state.get("condition", {})
         cond_summary = _condition_summary(condition)
-        toggle_header = f"{description}  [{cond_summary}]"
+        is_correct = state.get("is_correct")
+        if is_correct is True:
+            indicator = "✅"
+        elif is_correct is False:
+            indicator = "❌"
+        else:
+            indicator = "◻️"
+        toggle_header = f"{indicator} {description}  [{cond_summary}]"
 
         # Render child beats for each step inside this state
         child_blocks: list[dict] = []
@@ -261,7 +251,7 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             if i > 0:
                 child_blocks.append(_step_sep_block())
             for beat in step:
-                child_blocks.extend(_render_beat(beat, section_id))
+                child_blocks.extend(_render_beat(beat, section_id, nested=True))
 
         blocks.append(_toggle(toggle_header, child_blocks))
     return blocks
@@ -269,31 +259,27 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
 
 def _render_prompt(beat: dict, section_id: str) -> list[dict]:
     text = beat.get("text", "")
-    tool = beat.get("tool", {})
+    tool = beat.get("tool", "")
+    target = beat.get("target")
+    options = beat.get("options", [])
     validator = beat.get("validator", [])
 
     blocks: list[dict] = []
 
-    # First line of callout: tool name + tangible_id if present (workspace tool)
-    tool_name = tool.get("name", "") if isinstance(tool, dict) else str(tool)
-    tangible_id = tool.get("tangible_id", "") if isinstance(tool, dict) else ""
-    if tangible_id:
-        first_line = f"{tool_name}  on  {tangible_id}"
-    else:
-        first_line = tool_name
-
-    blocks.append(_callout(f'{first_line}\n"{text}"', "❓"))
-
-    # Options from tool (overlay tools like multiple_choice, multi_select)
-    options = tool.get("options", []) if isinstance(tool, dict) else []
+    # First line: labeled key-value pairs separated by two spaces
+    parts = [f"tool: {tool}"]
+    if target is not None:
+        if isinstance(target, list):
+            parts.append("target: " + ", ".join(str(t) for t in target))
+        elif isinstance(target, dict):
+            parts.append(f"target: {target.get('type', '?')} (all)")
+        else:
+            parts.append(f"target: {target}")
     if options:
-        blocks.append(_bullet("Options: " + "  |  ".join(str(o) for o in options)))
+        parts.append("options: " + ", ".join(str(o) for o in options))
 
-    # Config if present
-    config = tool.get("config", {}) if isinstance(tool, dict) else {}
-    if config:
-        config_parts = [f"{k}: {v}" for k, v in config.items()]
-        blocks.append(_bullet("config: " + ", ".join(config_parts)))
+    callout_lines = ["  ".join(parts), f'"{text}"']
+    blocks.append(_callout("\n".join(callout_lines), "❔"))
 
     # Validator states as toggles (flat array)
     if isinstance(validator, list):
@@ -302,12 +288,45 @@ def _render_prompt(beat: dict, section_id: str) -> list[dict]:
     return blocks
 
 
-def _render_beat(beat: dict, section_id: str) -> list[dict]:
+def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
+    """Render current_scene as a collapsed toggle (reference-only).
+
+    Only elements with a description are shown, as bullets.
+
+    When *nested* is True (inside a validator state toggle), Notion's API
+    forbids children on a toggle that is itself already nested inside another
+    toggle (L3 block cannot have children).  In that case we flatten to a
+    single callout so no extra nesting depth is required.
+    """
+    parts: list[str] = []
+    for element in beat.get("elements", []):
+        description = element.get("description", "").strip()
+        if not description:
+            continue
+        tid = element.get("tangible_id", "")
+        parts.append(f"{tid}: {description}" if tid else description)
+
+    if not parts:
+        return []
+
+    if nested:
+        # Single callout — no children, safe at any nesting depth.
+        summary = "  |  ".join(parts)
+        return [_callout(f"Scene: {summary}", "📋")]
+
+    # Top-level (inside section steps): toggle with bullets is fine (L2→L3).
+    children = [_bullet(p) for p in parts]
+    return [_toggle("📋 Current scene state (for reference, not to be edited)", children)]
+
+
+def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict]:
     t = beat.get("type", "")
     if t == "dialogue":
         return _render_dialogue(beat)
     if t == "scene":
         return _render_scene(beat)
+    if t == "current_scene":
+        return _render_current_scene(beat, nested=nested)
     if t == "prompt":
         return _render_prompt(beat, section_id)
     # fallback
@@ -336,22 +355,20 @@ def _render_main_section(section: dict) -> list[dict]:
     num, title = _section_label(section_id)
     header = f"{num}  {title}" if num else title
 
-    blocks: list[dict] = []
+    # Track visible workspace, starting from section's declared workspace.
+    # "scene" is the key used by lesson_generator.json output; "workspace" by lesson.json.
+    visible: set[str] = set(section.get("workspace") or section.get("scene") or [])
 
-    # Section header — [section_id] at end enables reliable pull parsing
-    blocks.append(_divider())
-    blocks.append(_heading(2, f"{header}  [{section_id}]"))
-
-    # Track visible workspace, starting from section's declared workspace
-    visible: set[str] = set(section.get("workspace", []))
+    # Collect section content as children of the toggle heading
+    content: list[dict] = []
 
     # Steps (just visual grouping, no "Step N" label)
     steps = section.get("steps", [])
     for i, step in enumerate(steps):
         if i > 0:
-            blocks.append(_step_sep_block())
+            content.append(_step_sep_block())
         for beat in step:
-            blocks.extend(_render_beat(beat, section_id))
+            content.extend(_render_beat(beat, section_id))
             # Update visible set based on scene beats
             if beat.get("type") == "scene":
                 method = beat.get("method", "")
@@ -360,10 +377,11 @@ def _render_main_section(section: dict) -> list[dict]:
                     visible.add(tid)
                 elif method in ("hide", "remove") and tid:
                     visible.discard(tid)
-        # After each step, emit workspace state callout
-        blocks.append(_callout(", ".join(sorted(visible)), "📋"))
 
-    return blocks
+    return [
+        _divider(),
+        _toggle_heading(2, f"{header}  [{section_id}]", content),
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -371,30 +389,40 @@ def _render_main_section(section: dict) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 
-def lesson_to_blocks(lesson: dict) -> list[dict]:
+def lesson_to_blocks(lesson: dict | list) -> list[dict]:
     """
-    Convert a lesson dict to Notion blocks formatted as a readable script.
+    Convert lesson data to Notion blocks formatted as a readable script.
+
+    Accepts either:
+    - A full lesson dict (lesson.json format) with "id", "tangibles", "sections".
+    - A bare list of section dicts (lesson_generator.json output format).
 
     Parameters
     ----------
-    lesson : dict
-        Parsed lesson.json content.
+    lesson : dict | list
+        Parsed lesson data.
 
     Returns
     -------
     list[dict]
         Notion block objects ready for blocks.children.append.
     """
-    sections: list[dict] = lesson.get("sections", [])
+    if isinstance(lesson, list):
+        sections = lesson
+        lesson_id = None
+        tangibles = {}
+    else:
+        sections = lesson.get("sections", [])
+        lesson_id = lesson.get("id")
+        tangibles = lesson.get("tangibles", {})
 
     blocks: list[dict] = []
 
     # Lesson title
-    lesson_id = lesson.get("id", "lesson")
-    blocks.append(_heading(1, lesson_id.replace("_", " ").title()))
+    if lesson_id:
+        blocks.append(_heading(1, lesson_id.replace("_", " ").title()))
 
     # Tangibles summary as a collapsed toggle
-    tangibles = lesson.get("tangibles", {})
     if tangibles:
         tang_blocks = [
             _bullet(f"{tid}: {t.get('type', '?')} — {t.get('title', t.get('input_type', ''))}")
@@ -468,9 +496,28 @@ def _section_callouts_from_blocks(
             _flush()
             current_callouts = []
             current_toggles = []
-            raw = _extract_rt_text(block.get("heading_2", {}).get("rich_text", []))
+            heading_data = block.get("heading_2", {})
+            raw = _extract_rt_text(heading_data.get("rich_text", []))
             m = _HEADING2_ID_RE.search(raw)
             current_section = m.group(1) if m else None
+
+            # Toggle heading: children are embedded after recursive fetch.
+            # Non-toggleable headings (legacy format) have their content as
+            # flat sibling blocks, handled by the elif branches below.
+            if heading_data.get("is_toggleable") and heading_data.get("children"):
+                for child in heading_data["children"]:
+                    ctype = child.get("type")
+                    if ctype == "callout" and current_section is not None:
+                        emoji = _callout_emoji(child) or ""
+                        text = _extract_rt_text(child.get("callout", {}).get("rich_text", []))
+                        current_callouts.append((emoji, text))
+                    elif ctype == "toggle" and current_section is not None:
+                        current_toggles.append(child)
+                _flush()
+                current_section = None
+                current_callouts = []
+                current_toggles = []
+
         elif btype == "callout" and current_section is not None:
             emoji = _callout_emoji(block) or ""
             text = _extract_rt_text(block.get("callout", {}).get("rich_text", []))
@@ -532,31 +579,46 @@ def _patch_section_beats(
                 except StopIteration:
                     return
                 if emoji == "❓":
-                    # First line: "{tool_name}  on  {tangible_id}" or just "{tool_name}"
-                    # Second line: the prompt text
-                    lines = text.split("\n", 1)
-                    if len(lines) >= 2:
-                        # Parse tool from first line
-                        first_line = lines[0].strip()
-                        if "  on  " in first_line:
-                            parts = first_line.split("  on  ", 1)
-                            beat["tool"] = {
-                                "name": parts[0].strip(),
-                                "tangible_id": parts[1].strip(),
-                            }
+                    # Line 0: "tool: X  target: Y  options: Z"
+                    # Line 1: "prompt text"
+                    all_lines = text.split("\n")
+                    first_line = all_lines[0].strip() if all_lines else ""
+
+                    # Parse key: value pairs (separated by 2+ spaces)
+                    kv: dict = {}
+                    for pair in re.split(r"  +", first_line):
+                        if ": " in pair:
+                            k, v = pair.split(": ", 1)
+                            kv[k.strip()] = v.strip()
+
+                    if "tool" in kv:
+                        beat["tool"] = kv["tool"]
+                    if "target" in kv:
+                        raw = kv["target"]
+                        if raw.endswith(" (all)"):
+                            beat["target"] = {"type": raw[:-6].strip()}
+                        elif ", " in raw:
+                            beat["target"] = [t.strip() for t in raw.split(", ")]
                         else:
-                            existing_tool = beat.get("tool", {})
-                            if isinstance(existing_tool, dict):
-                                beat["tool"] = dict(existing_tool, name=first_line.strip())
-                            else:
-                                beat["tool"] = {"name": first_line.strip()}
-                        # Prompt text
-                        beat["text"] = lines[1].strip().strip('"')
+                            beat["target"] = raw
+                    if "options" in kv:
+                        parsed_opts = []
+                        for o in kv["options"].split(", "):
+                            o = o.strip()
+                            try:
+                                parsed_opts.append(int(o))
+                            except ValueError:
+                                try:
+                                    parsed_opts.append(float(o))
+                                except ValueError:
+                                    parsed_opts.append(o)
+                        beat["options"] = parsed_opts
+
+                    # Prompt text (second line)
+                    if len(all_lines) >= 2:
+                        beat["text"] = all_lines[1].strip().strip('"')
                     else:
                         beat["text"] = text.strip('"')
-
-                    # Recover options from next bullet block if present (handled by caller via callout_iter)
-                    # The options are in the tool object, not patched from Notion (display-only)
 
                     # Patch validator state beats from corresponding toggles
                     validator = beat.get("validator", [])
@@ -587,35 +649,74 @@ def _patch_section_beats(
             # scene beats are display-only — skip
 
 
-def blocks_to_lesson(blocks: list[dict], original: dict) -> dict:
+def _collect_scene_flags(section_map: dict, sections: list) -> list[dict]:
     """
-    Patch *original* lesson dict with text edits found in Notion *blocks*.
+    Compare 🎬 callout texts in Notion against scene beat descriptions in the data.
+    Returns a flag for each beat where the description was edited.
+    """
+    flags = []
+    for section in sections:
+        sid = section["id"]
+        if sid not in section_map:
+            continue
 
-    Returns a deep copy of *original* with dialogue/prompt text overlaid
-    from the corresponding callout blocks.  All other fields are unchanged.
+        notion_scene_texts = [text for emoji, text in section_map[sid]["callouts"] if emoji == "🎬"]
 
-    Parameters
-    ----------
-    blocks : list[dict]
-        Flat list of Notion blocks fetched from the lesson page
-        (as returned by notion_sync._all_blocks).
-    original : dict
-        Parsed lesson.json content — used as the structural template.
+        # Collect top-level scene beats in order (skip beats inside validator toggles)
+        scene_beats = [
+            beat
+            for step in section.get("steps", [])
+            for beat in step
+            if beat.get("type") == "scene"
+        ]
 
-    Returns
-    -------
-    dict
-        Deep-copied lesson dict with text edits applied.
+        for beat, notion_text in zip(scene_beats, notion_scene_texts):
+            original_desc = (beat.get("params") or {}).get("description", "").strip()
+            notion_text = notion_text.strip()
+            if original_desc and notion_text and notion_text != original_desc:
+                # Patch description into the beat so it's preserved in the pulled file
+                if beat.get("params") is None:
+                    beat["params"] = {}
+                beat["params"]["description"] = notion_text
+                flags.append(
+                    {
+                        "section_id": sid,
+                        "tangible_id": beat.get("tangible_id", ""),
+                        "method": beat.get("method", ""),
+                        "original_description": original_desc,
+                        "notion_description": notion_text,
+                    }
+                )
+    return flags
+
+
+def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | list, list[dict]]:
+    """
+    Patch *original* lesson data with text edits found in Notion *blocks*.
+
+    Returns a tuple of:
+    - Deep copy of *original* with dialogue/prompt text overlaid.
+    - List of scene flag dicts where a 🎬 description was edited in Notion
+      (these need manual config updates — cannot be auto-applied).
+
+    Accepts either a full lesson dict (with "sections" key) or a bare list
+    of section dicts (lesson_generator.json output format).
     """
     patched = copy.deepcopy(original)
     section_map = _section_callouts_from_blocks(blocks)
 
-    for section in patched.get("sections", []):
+    if isinstance(patched, list):
+        sections = patched
+    else:
+        sections = patched.get("sections", [])
+
+    for section in sections:
         sid = section["id"]
         if sid in section_map:
             _patch_section_beats(section, section_map[sid])
 
-    return patched
+    flags = _collect_scene_flags(section_map, sections)
+    return patched, flags
 
 
 # ---------------------------------------------------------------------------
@@ -657,8 +758,17 @@ def pull_lesson_from_notion(page_id: str) -> dict:
     original = json.loads(file_path.read_text(encoding="utf-8"))
 
     client = get_notion_client()
-    blocks = _all_blocks(client, page_id)
-    patched = blocks_to_lesson(blocks, original)
+    blocks = _all_blocks(client, page_id, recursive=True)
+    patched, flags = blocks_to_lesson(blocks, original)
 
     file_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    return patched
+
+    flags_path = file_path.parent / "notion_flags.json"
+    if flags:
+        flags_path.write_text(
+            json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+    elif flags_path.exists():
+        flags_path.unlink()
+
+    return patched, flags

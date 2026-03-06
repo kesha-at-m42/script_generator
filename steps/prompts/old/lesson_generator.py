@@ -10,11 +10,10 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 LESSON_GENERATOR_PROMPT = Prompt(
     role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
-
     instructions="""
 
 
@@ -28,7 +27,7 @@ For each interaction,
  Using this, fill these fields of:
   "interaction_id": 1,
   "interaction_name": "Pithy name (3-6 words)"
- 
+
 
  #### Step 2: Analyze Visual Description and refer to <visuals> to Set Up Workspace
  For each shape described:
@@ -110,9 +109,7 @@ For each interaction,
 
 
 """,
-
-    doc_refs=['visuals.md'],  # Only static reference docs - lesson_specs is input data
-
+    doc_refs=["visuals.md"],  # Only static reference docs - lesson_specs is input data
     output_structure="""
 
 
@@ -156,20 +153,15 @@ For each interaction,
     }
   ]
 }
-  
+
 """,
-
     prefill="""""",
-
     examples=[],
-
     module_ref={},
-
     template_ref={},
-
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
     max_tokens=18000,
-    stop_sequences=[]
+    stop_sequences=[],
 )

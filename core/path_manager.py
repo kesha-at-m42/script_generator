@@ -208,7 +208,11 @@ def resolve_file_path(
         # 4. Module specific
         paths_to_check.append(module_paths["module_dir"] / filename)
 
-    # 5. Custom search directories
+    # 5. Unit directory (when unit_number provided without module_number, or as fallback)
+    if unit_number is not None:
+        paths_to_check.append(root / "units" / f"unit{unit_number}" / filename)
+
+    # 6. Custom search directories
     if search_dirs:
         for dir_name in search_dirs:
             paths_to_check.append(root / dir_name / filename)

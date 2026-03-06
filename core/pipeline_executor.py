@@ -97,6 +97,7 @@ def run_formatting_step(
     project_root: Path,
     verbose: bool,
     unit_number: int = None,
+    output_file_path: Path = None,
 ):
     """Execute a deterministic formatting step
 
@@ -109,6 +110,7 @@ def run_formatting_step(
         project_root: Project root path for module imports
         verbose: Verbose logging flag
         unit_number: Optional unit number (automatically passed to function if it accepts it)
+        output_file_path: Path where the step's output will be saved (automatically passed to function if it accepts it)
 
     Returns:
         Output from the formatting function
@@ -148,6 +150,11 @@ def run_formatting_step(
         args["verbose"] = verbose
         if verbose:
             print(f"  [EXEC] Passing verbose={verbose}")
+
+    if "output_file_path" in param_names:
+        args["output_file_path"] = output_file_path
+        if verbose:
+            print(f"  [EXEC] Passing output_file_path={output_file_path}")
 
     # Add custom function_args (these override if there's a conflict)
     args.update(step.function_args)

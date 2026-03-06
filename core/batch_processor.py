@@ -2,10 +2,10 @@
 Batch Processor - Handles batch mode item processing
 """
 
-from pathlib import Path
-from typing import List, Dict, Any
-from datetime import datetime, timezone
 import json
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, List
 
 
 class BatchProcessor:
@@ -22,19 +22,22 @@ class BatchProcessor:
         Returns:
             ID as string, or empty string if not found
         """
+        if not isinstance(item, dict):
+            return ""
+
         # Try top-level field first
         value = item.get(id_field)
         if value is not None:
             return str(value)
 
         # Try metadata.{id_field} for nested IDs
-        metadata = item.get('metadata')
+        metadata = item.get("metadata")
         if isinstance(metadata, dict):
             value = metadata.get(id_field)
             if value is not None:
                 return str(value)
 
-        return ''
+        return ""
 
     def __init__(
         self,
@@ -46,7 +49,7 @@ class BatchProcessor:
         batch_skip_items: List[str] = None,
         batch_skip_existing: bool = False,
         items_dir: Path = None,
-        base_version_dir: Path = None
+        base_version_dir: Path = None,
     ):
         """
         Args:
@@ -97,7 +100,7 @@ class BatchProcessor:
                 item_id = base_id
             else:
                 # For multi-step items, append step_id to create unique file names
-                if 'step_id' in item:
+                if isinstance(item, dict) and "step_id" in item:
                     item_id = f"{base_id}_{item['step_id']}"
                 else:
                     item_id = base_id
@@ -136,10 +139,10 @@ class BatchProcessor:
             if item_output_file.exists():
                 # Load existing result for collation
                 try:
-                    with open(item_output_file, 'r', encoding='utf-8') as f:
+                    with open(item_output_file, "r", encoding="utf-8") as f:
                         existing_result = json.load(f)
                         self.collated_results.append(existing_result)
-                except Exception as e:
+                except Exception:
                     pass  # Ignore load errors for existing files
                 return True, "already exists"
 
@@ -170,7 +173,7 @@ class BatchProcessor:
                             sub_item[self.batch_output_id_field] = self.sequential_id
                             self.sequential_id += 1
                     if not preserve_id:
-                        sub_item['_generated_at'] = datetime.now(timezone.utc).isoformat()
+                        sub_item["_generated_at"] = datetime.now(timezone.utc).isoformat()
                 self.collated_results.append(sub_item)
         else:
             # Single result - assign sequential ID if dict
@@ -187,7 +190,7 @@ class BatchProcessor:
                         result[self.batch_output_id_field] = self.sequential_id
                         self.sequential_id += 1
                 if not preserve_id:
-                    result['_generated_at'] = datetime.now(timezone.utc).isoformat()
+                    result["_generated_at"] = datetime.now(timezone.utc).isoformat()
             self.collated_results.append(result)
 
         self.processed_count += 1
@@ -202,12 +205,13 @@ class BatchProcessor:
             step_number: Step number where error occurred
         """
         import traceback
+
         error_info = {
             "item_id": item_id,
             "item_index": item_index,
             "error": str(error),
             "traceback": traceback.format_exc(),
-            "step": step_number
+            "step": step_number,
         }
         self.errors.append(error_info)
 
@@ -217,9 +221,9 @@ class BatchProcessor:
             ids_to_reserve = 1  # Default: reserve 1 ID
 
             # For template errors: check base version to see how many items it generated
-            if self.batch_id_field == 'template_id' and self.base_version_dir:
+            if self.batch_id_field == "template_id" and self.base_version_dir:
                 # Create a minimal item dict with just the template_id for _load_from_base
-                temp_item = {'template_id': item_id}
+                temp_item = {"template_id": item_id}
                 base_items = self._load_from_base(temp_item, item_id)
                 if base_items:
                     # Count items from base version
@@ -242,10 +246,10 @@ class BatchProcessor:
             Dict with processed, skipped, errors counts
         """
         return {
-            'total': len(self.items),
-            'processed': self.processed_count,
-            'skipped': self.skipped_count,
-            'errors': len(self.errors)
+            "total": len(self.items),
+            "processed": self.processed_count,
+            "skipped": self.skipped_count,
+            "errors": len(self.errors),
         }
 
     def get_collated_results(self) -> List:
@@ -272,8 +276,8 @@ class BatchProcessor:
 
         # For step 1 (problem_generator): load ALL items from template file
         # Only use template_id logic if batch_id_field is 'template_id'
-        if 'template_id' in item and self.batch_id_field == 'template_id':
-            template_id = item['template_id']
+        if "template_id" in item and self.batch_id_field == "template_id":
+            template_id = item["template_id"]
 
             # IMPORTANT: Try collated file FIRST. Individual items/ files hold pre-re-collation
             # IDs (wrong sequential IDs from when the template was originally generated).
@@ -281,8 +285,8 @@ class BatchProcessor:
             # preserve_id=True would advance sequential_id to the wrong value, causing the next
             # fresh template's items to get incorrect problem_instance_ids.
             parent_dir_name = self.base_version_dir.name
-            if 'step_' in parent_dir_name:
-                parts = parent_dir_name.split('_', 2)
+            if "step_" in parent_dir_name:
+                parts = parent_dir_name.split("_", 2)
                 if len(parts) >= 3:
                     step_name = parts[2]
                     collated_file = self.base_version_dir / f"{step_name}.json"
@@ -290,29 +294,30 @@ class BatchProcessor:
                         try:
                             # Load collated items (with caching)
                             if self._base_collated_cache is None:
-                                with open(collated_file, 'r', encoding='utf-8') as f:
+                                with open(collated_file, "r", encoding="utf-8") as f:
                                     self._base_collated_cache = json.load(f)
 
                             # Filter items by template_id
                             template_items = [
-                                i for i in self._base_collated_cache
-                                if str(i.get('template_id')) == str(template_id)
+                                i
+                                for i in self._base_collated_cache
+                                if str(i.get("template_id")) == str(template_id)
                             ]
                             if template_items:
                                 return template_items
-                        except Exception as e:
+                        except Exception:
                             pass  # Ignore errors, fall through to individual file
 
             # Fallback: individual items/ file (only if not in collated)
             base_file = self.base_version_dir / f"items/{template_id}.json"
             if base_file.exists():
                 try:
-                    with open(base_file, 'r', encoding='utf-8') as f:
+                    with open(base_file, "r", encoding="utf-8") as f:
                         base_items = json.load(f)
                     # Return ALL items from this template (not just one)
                     # add_result() will flatten the list and add all items to collated_results
                     return base_items
-                except Exception as e:
+                except Exception:
                     pass  # Ignore errors, will return None
 
             return None  # Template not found in base
@@ -321,9 +326,9 @@ class BatchProcessor:
         # Extract step name from directory path
         # e.g., "v8/step_02_sequence_structurer" -> look for "sequence_structurer.json"
         parent_dir_name = self.base_version_dir.name
-        if 'step_' in parent_dir_name:
+        if "step_" in parent_dir_name:
             # Extract step name (e.g., "step_02_sequence_structurer" -> "sequence_structurer")
-            parts = parent_dir_name.split('_', 2)  # Split on first 2 underscores
+            parts = parent_dir_name.split("_", 2)  # Split on first 2 underscores
             if len(parts) >= 3:
                 step_name = parts[2]
                 collated_file = self.base_version_dir / f"{step_name}.json"
@@ -332,13 +337,17 @@ class BatchProcessor:
                     try:
                         # Load collated items (with caching to avoid repeated file reads)
                         if self._base_collated_cache is None:
-                            with open(collated_file, 'r', encoding='utf-8') as f:
+                            with open(collated_file, "r", encoding="utf-8") as f:
                                 self._base_collated_cache = json.load(f)
 
                         # Search for item by ID in cached items
                         # IMPORTANT: Use output ID field when searching base outputs
                         # (base files have the transformed field name from batch_output_id_field)
-                        search_field = self.batch_output_id_field if self.batch_output_id_field else self.batch_id_field
+                        search_field = (
+                            self.batch_output_id_field
+                            if self.batch_output_id_field
+                            else self.batch_id_field
+                        )
 
                         # For multi-step items (e.g., "9_1"), search by base_id (e.g., "9")
                         # because base version has non-flattened items
@@ -349,16 +358,16 @@ class BatchProcessor:
                             collated_id = self._get_item_id(collated_item, search_field)
                             if collated_id == str(search_id):
                                 return collated_item
-                    except Exception as e:
+                    except Exception:
                         pass  # Ignore errors, fall through to individual file
 
         # Fallback: Try individual item file (legacy path, rarely used)
         base_file = self.base_version_dir / f"items/{item_id}.json"
         if base_file.exists():
             try:
-                with open(base_file, 'r', encoding='utf-8') as f:
+                with open(base_file, "r", encoding="utf-8") as f:
                     return json.load(f)
-            except Exception as e:
+            except Exception:
                 pass  # Ignore errors
 
         return None

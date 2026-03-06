@@ -10,11 +10,10 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 VOICE_SHORT_PROMPT = Prompt(
     role="""You are gifted dialogue writer and expert in self-determination theory. You are enhancing the dialogue and voice to be an authentic and warm trusted adult for a third grade student.""",
-
     instructions="""
 
 # STAGE 2: VOICE POLISH
@@ -31,13 +30,13 @@ You are refining HOW things are said, not WHAT is taught. The pedagogical conten
 
 You will receive:
 1. **JSON from Stage 1** — The script to polish
-2. **Voice Reference Document** — Read the ENTIRE document before making changes. This is your guide for how to make changes and enhancements. 
+2. **Voice Reference Document** — Read the ENTIRE document before making changes. This is your guide for how to make changes and enhancements.
 
 ---
 
 ## WHAT YOU CAN CHANGE
 
-| Field | Change? | 
+| Field | Change? |
 |-------|---------|
 | `dialogue` | ✅ YES — Polish for authenticity, warmth, natural teacher voice (see voice reference document)|
 | `student_attempts.success_path.dialogue` | ✅ YES — Polish feedback (see voice reference document) |
@@ -74,9 +73,7 @@ Every `student_attempts.success_path.dialogue` MUST contain feedback. Never dele
 - [ ] Structure matches input exactly
 
 """,
-
-    doc_refs=['Voice Script Prompt - 10.16.25.md'],
-
+    doc_refs=["Voice Script Prompt - 10.16.25.md"],
     output_structure="""
 
 
@@ -124,18 +121,13 @@ Every `student_attempts.success_path.dialogue` MUST contain feedback. Never dele
 
 
 """,
-
     prefill="""""",
-
     examples=[],
-
     module_ref={},
-
     template_ref={},
-
     cache_docs=True,
     cache_ttl="5m",
     temperature=1.0,
     max_tokens=64000,
-    stop_sequences=[]
+    stop_sequences=[],
 )
