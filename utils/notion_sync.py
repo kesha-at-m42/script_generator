@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -76,10 +77,22 @@ def get_page_url(page_id: str) -> str:
 
 
 def _registry_key(file_path: Path) -> str:
-    """Stable key: path relative to project root, forward slashes."""
+    """Stable, version-agnostic key: path relative to project root.
+
+    Strips version directories (v0, v1, …) and everything after them so that
+    outputs/unit1/pipeline/v0/step_01_foo/foo.json  →  outputs/unit1/pipeline/notion_page.json
+    outputs/unit1/pipeline/v1/step_01_foo/foo.json  →  same key (updates same page)
+    outputs/unit1/pipeline2/v0/…                    →  different key (new page)
+    Paths without a version component are returned as-is (e.g. lesson.json).
+    """
     try:
         root = Path(__file__).parent.parent
-        return str(file_path.resolve().relative_to(root.resolve())).replace("\\", "/")
+        rel = str(file_path.resolve().relative_to(root.resolve())).replace("\\", "/")
+        parts = rel.split("/")
+        for i, part in enumerate(parts):
+            if re.match(r"^v\d+$", part):
+                return "/".join(parts[:i]) + "/notion_page.json"
+        return rel
     except ValueError:
         return str(file_path)
 
@@ -300,8 +313,13 @@ def blocks_to_json(blocks: list[dict]) -> Any | None:
 # ---------------------------------------------------------------------------
 
 
-def _all_blocks(client: Client, block_id: str) -> list[dict]:
-    """Fetch all child blocks, handling Notion's pagination."""
+def _all_blocks(client: Client, block_id: str, recursive: bool = False) -> list[dict]:
+    """Fetch all child blocks, handling Notion's pagination.
+
+    When recursive=True, also fetches and embeds children for any block that
+    has_children (e.g. toggle headings, toggle blocks). Children are stored
+    under block[block_type]["children"].
+    """
     results: list[dict] = []
     cursor: str | None = None
     while True:
@@ -313,6 +331,12 @@ def _all_blocks(client: Client, block_id: str) -> list[dict]:
         if not response["has_more"]:
             break
         cursor = response["next_cursor"]
+    if recursive:
+        for block in results:
+            if block.get("has_children"):
+                btype = block.get("type", "")
+                block_data = block.get(btype, {})
+                block_data["children"] = _all_blocks(client, block["id"], recursive=True)
     return results
 
 
@@ -350,19 +374,28 @@ def push_to_notion(
     blocks = blocks_fn(data) if blocks_fn is not None else json_to_blocks(data)
 
     if existing_page_id:
-        # Archive all existing blocks
-        for block in _all_blocks(client, existing_page_id):
-            client.blocks.update(block["id"], archived=True)
-        # Re-append fresh blocks in batches of 100
-        for i in range(0, len(blocks), 100):
-            client.blocks.children.append(existing_page_id, children=blocks[i : i + 100])
-        # Update title
-        client.pages.update(
-            existing_page_id,
-            properties={"title": {"title": [{"text": {"content": title}}]}},
-        )
-        page_id = existing_page_id
-    else:
+        # Archive all existing blocks — if page is gone (404), fall through to create a new one
+        try:
+            for block in _all_blocks(client, existing_page_id):
+                client.blocks.update(block["id"], archived=True)
+            # Re-append fresh blocks in batches of 100
+            for i in range(0, len(blocks), 100):
+                client.blocks.children.append(existing_page_id, children=blocks[i : i + 100])
+            # Update title
+            client.pages.update(
+                existing_page_id,
+                properties={"title": {"title": [{"text": {"content": title}}]}},
+            )
+            page_id = existing_page_id
+        except Exception as e:
+            status = getattr(e, "status", None) or getattr(
+                getattr(e, "response", None), "status_code", None
+            )
+            if status == 404:
+                existing_page_id = None  # fall through to create new page below
+            else:
+                raise
+    if not existing_page_id:
         # Create new page (first 100 blocks inline, rest appended)
         page = client.pages.create(
             parent={"page_id": parent_page_id},
