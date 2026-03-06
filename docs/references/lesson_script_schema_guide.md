@@ -77,7 +77,7 @@ u3_m4_exitcheck
 {
   "id": "s1_1_most_votes",
   "type": "remediation",
-  "workspace": ["pg_fruits", "data_table"],
+  "scene": ["pg_fruits", "data_table"],
   "steps": [ [...], [...] ]
 }
 ```
@@ -86,7 +86,7 @@ u3_m4_exitcheck
 |---|---|---|---|
 | `id` | string | yes | Unique section ID — see [Naming Conventions](#section-id-naming-conventions) |
 | `type` | string | no | `"transition"` or `"remediation"`. Omit for normal sections. |
-| `workspace` | string[] | no | Tangible IDs visible on screen throughout this section |
+| `scene` | string[] | no | Tangible IDs on screen when the section begins |
 | `steps` | array[] | yes | Array of steps; each step is an array of beats |
 
 ### Section ID Naming Conventions
@@ -163,7 +163,7 @@ Narration or teacher speech. Editable in Notion (💬 callout).
 
 ### Scene
 
-Manipulates a tangible on screen. Display-only in Notion (method emoji callout). Basic workspace changes use 🎬; elaborate animation events use 🎞️.
+Manipulates a tangible on screen. Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
 
 Three targeting levels — omit fields to broaden scope:
 
@@ -171,7 +171,7 @@ Three targeting levels — omit fields to broaden scope:
 |---|---|
 | Specific instance | `tangible_id` |
 | All instances of a type | `tangible_type` |
-| All instances on workspace | neither |
+| All instances on screen | neither |
 
 `add` is the exception — it always requires both `tangible_id` and `tangible_type`.
 
@@ -183,8 +183,8 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 | `hide` | 🎬 | — | Remove tangible from view |
 | `animate` | 🎞️ | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
 | `update` | 🎬 | `highlight_categories: string[]` | Highlight specific categories |
-| `add` | 🎬 | tangible-specific config (optional) | Add a new instance to the workspace |
-| `remove` | 🎬 | — | Remove a tangible instance from the workspace |
+| `add` | 🎬 | tangible-specific config (optional) | Add a new instance to the scene |
+| `remove` | 🎬 | — | Remove a tangible instance from the scene |
 | `lock` | 🎬 | — | Prevent student interaction regardless of active prompt |
 | `unlock` | 🎬 | — | Re-enable student interaction on a locked tangible |
 
@@ -254,7 +254,7 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 | `type` | `"scene"` | yes | |
 | `method` | string | yes | `show` `hide` `animate` `update` `add` `remove` |
 | `tangible_id` | string | conditional | Instance ID. Required for `add`. Omit to broaden scope to type or all. |
-| `tangible_type` | string | conditional | Required for `add`. Omit to broaden scope to all instances on workspace. |
+| `tangible_type` | string | conditional | Required for `add`. Omit to broaden scope to all instances on screen. |
 | `params` | object | no | Method-specific configuration; omit when not needed |
 
 ---
@@ -263,43 +263,58 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 
 Student interaction point. Text is editable in Notion (❓ callout).
 
-**Workspace tool** — activates interaction on a specific tangible:
+**Workspace tool — single tangible:**
 ```json
 {
   "type": "prompt",
   "text": "Which fruit got the most votes? Click it.",
-  "tool": { "name": "click_category", "tangible_id": "pg_fruits" },
-  "validator": { "states": [...] }
+  "tool": "click_category",
+  "target": "pg_fruits",
+  "validator": [...]
 }
 ```
 
-**Workspace tool — tangibles as options (explicit list)**
+**Workspace tool — specific component:**
+```json
+{
+  "type": "prompt",
+  "text": "Click on the part that tells us what each symbol means.",
+  "tool": "click_component",
+  "target": "picture_graph_animals.key",
+  "validator": [...]
+}
+```
+
+**Workspace tool — explicit list of tangibles:**
 ```json
 {
   "type": "prompt",
   "text": "Which graph shows the most cats?",
-  "tool": { "name": "click_tangible", "tangible_ids": ["pg_fruits", "pg_animals", "pg_pets"] },
-  "validator": { "states": [...] }
+  "tool": "click_tangible",
+  "target": ["pg_fruits", "pg_animals", "pg_pets"],
+  "validator": [...]
 }
 ```
 
-**Workspace tool — tangibles as options (all of a type)**
+**Workspace tool — all tangibles of a type:**
 ```json
 {
   "type": "prompt",
   "text": "Which graph shows the most cats?",
-  "tool": { "name": "click_tangible", "tangible_type": "picture_graph" },
-  "validator": { "states": [...] }
+  "tool": "click_tangible",
+  "target": { "type": "picture_graph" },
+  "validator": [...]
 }
 ```
 
-**Overlay tool** — generates its own UI, not tied to a tangible:
+**Overlay tool** — generates its own UI, no tangible target:
 ```json
 {
   "type": "prompt",
   "text": "How many monkeys are at the zoo?",
-  "tool": { "name": "multiple_choice", "options": [5, 6, 7, 8] },
-  "validator": { "states": [...] }
+  "tool": "multiple_choice",
+  "options": [5, 6, 7, 8],
+  "validator": [...]
 }
 ```
 
@@ -307,8 +322,9 @@ Student interaction point. Text is editable in Notion (❓ callout).
 {
   "type": "prompt",
   "text": "Select all the categories you need to answer this question.",
-  "tool": { "name": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"] },
-  "validator": { "states": [...] }
+  "tool": "multi_select",
+  "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"],
+  "validator": [...]
 }
 ```
 
@@ -316,54 +332,73 @@ Student interaction point. Text is editable in Notion (❓ callout).
 |---|---|---|---|
 | `type` | `"prompt"` | yes | |
 | `text` | string | yes | Question or instruction shown to student |
-| `tool` | object | yes | See tool fields below |
-| `validator` | object | yes | See [Validator](#validator) |
+| `tool` | string | yes | `click_category` · `click_component` · `click_tangible` · `multiple_choice` · `multi_select` |
+| `target` | string \| string[] \| object | conditional | What the tool acts on. Omit for overlay tools. See shapes below. |
+| `options` | array | conditional | Overlay tools only — `multiple_choice` and `multi_select`. Numbers or strings. |
+| `validator` | array | yes | See [Validator](#validator) |
 
-**`tool` fields:**
+**`target` shapes:**
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `name` | string | yes | `click_category` · `click_tangible` · `multiple_choice` · `multi_select` |
-| `tangible_id` | string | conditional | Workspace tool targeting a single tangible |
-| `tangible_ids` | string[] | conditional | `click_tangible` — explicit list of selectable tangible instances |
-| `tangible_type` | string | conditional | `click_tangible` — all instances of a type are selectable |
-| `options` | array | conditional | Overlay tools — `multiple_choice` and `multi_select`. Numbers or strings. |
-| `config` | object | no | Tool-specific configuration (e.g. `{ "max_cells": 3 }` for `shade`) |
+| Shape | When to use | Example |
+|---|---|---|
+| `"tangible_id"` | Single tangible instance | `"target": "picture_graph_fruits"` |
+| `"tangible_id.component"` | Specific component within a tangible | `"target": "picture_graph_animals.key"` |
+| `["id1", "id2"]` | Explicit list of selectable instances | `"target": ["pg_fruits", "pg_animals"]` |
+| `{ "type": "..." }` | All instances of a tangible type | `"target": { "type": "picture_graph" }` |
 
 ---
 
 ## Validator
 
-An array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. `goto` is always required — every state has a feedback section.
+A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `steps` — beats that play when the state matches.
 
-States have no inherent correct/incorrect meaning — they are just defined states. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
+Every state must include `is_correct: true` or `is_correct: false`. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
 
 ```json
 "validator": [
   {
     "condition": { "selected": "Apples" },
     "description": "Student selected Apples",
-    "goto": "s1_1_chose_apples"
-  },
-  {
-    "condition": { "selected": "Bananas", "incorrect_count": 1 },
-    "description": "Student selected Bananas on first attempt",
-    "goto": "s1_1_chose_bananas_1"
-  },
-  {
-    "condition": { "selected": "Bananas", "incorrect_count": 2 },
-    "description": "Student selected Bananas on second attempt",
-    "goto": "s1_1_chose_bananas_2"
+    "is_correct": true,
+    "steps": [
+      [
+        { "type": "dialogue", "text": "Apples got 6 votes — the most of any fruit." }
+      ]
+    ]
   },
   {
     "condition": { "incorrect_count": 1 },
-    "description": "Student selected any other wrong answer on first attempt",
-    "goto": "s1_1_fallback_1"
+    "description": "Student selected any wrong answer on first attempt",
+    "is_correct": false,
+    "steps": [
+      [
+        { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" }
+      ]
+    ]
+  },
+  {
+    "condition": { "incorrect_count": 2 },
+    "description": "Student selected any wrong answer on second attempt",
+    "is_correct": false,
+    "steps": [
+      [
+        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+          "params": { "highlight_categories": ["Apples"] } },
+        { "type": "dialogue", "text": "Count the Apples row — 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
+      ]
+    ]
   },
   {
     "condition": {},
     "description": "Catch-all — any remaining state",
-    "goto": "s1_1_fallback_3"
+    "is_correct": false,
+    "steps": [
+      [
+        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+          "params": { "highlight_categories": ["Apples"] } },
+        { "type": "dialogue", "text": "Apples has 6 symbols — more than any other row. Click Apples." }
+      ]
+    ]
   }
 ]
 ```
@@ -372,7 +407,8 @@ States have no inherent correct/incorrect meaning — they are just defined stat
 |---|---|---|
 | `condition` | object | Matching condition. Multiple keys implicitly ANDed. Use `or`/`and` arrays for explicit logic. |
 | `description` | string | Precise plain-English description of exactly what student state this condition captures. |
-| `goto` | string | Section ID to branch to. Always required. |
+| `is_correct` | boolean | **Required.** `true` if this state represents a correct student response, `false` otherwise. |
+| `steps` | array[] | Inline beats to play when this state matches. Same structure as section `steps`. |
 
 ### Condition Parameters
 
@@ -419,70 +455,17 @@ States have no inherent correct/incorrect meaning — they are just defined stat
 
 ---
 
-## Remediation Sections
+## Remediation Pattern
 
-Remediation sections are structurally identical to normal sections but:
-- Have `"type": "remediation"`
-- No `workspace` field (inherit parent's workspace)
-- Contain simplified beats that scaffold the student toward the correct answer
+Remediation is inline — feedback beats live directly in validator states, not in separate sections. The three-level scaffold maps to `incorrect_count` values:
 
-Three levels, applied in order:
-
-| Level | Hint style |
+| Validator state | Hint style |
 |---|---|
-| `light` | Minimal nudge — direct attention without revealing the answer |
-| `medium` | Partial reveal — show the key data, let the student conclude |
-| `heavy` | Full scaffold — state the answer explicitly, prompt to confirm |
+| `incorrect_count: 1` | Light — minimal nudge, direct attention without revealing the answer |
+| `incorrect_count: 2` | Medium — partial reveal, show the key data, let the student conclude |
+| catch-all `{}` | Heavy — full scaffold, state the answer explicitly, prompt to confirm |
 
-**light**
-```json
-{
-  "id": "s1_1_light",
-  "type": "remediation",
-  "steps": [[
-    { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" }
-  ]]
-}
-```
-
-**medium**
-```json
-{
-  "id": "s1_1_medium",
-  "type": "remediation",
-  "steps": [[
-    { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-      "params": { "highlight_categories": ["Apples"] } },
-    { "type": "dialogue", "text": "Count the Apples row — 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
-  ]]
-}
-```
-
-**heavy**
-```json
-{
-  "id": "s1_1_heavy",
-  "type": "remediation",
-  "steps": [[
-    { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-      "params": { "highlight_categories": ["Apples"] } },
-    { "type": "dialogue", "text": "Apples has 6 symbols — more than any other row. Click Apples." }
-  ]]
-}
-```
-
----
-
-## Multi-Step Prompt Sections
-
-When a section contains two sequential prompts (e.g. a two-step math problem), each prompt's remediations use step-qualified IDs:
-
-```
-s3_4c_step1_light
-s3_4c_step2_light, s3_4c_step2_medium, s3_4c_step2_heavy
-```
-
-The parent section is `s3_4c_two_step`. Validator `child_section` fields reference the step-qualified IDs. Not every step needs all three levels — `s3_4c_step1` only has `light`.
+Each state's `steps` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
 
 ---
 
@@ -492,8 +475,8 @@ Tangibles are defined outside `lesson.json` but referenced by ID throughout. Obs
 
 | Prefix | Type | Examples |
 |---|---|---|
-| `pg_` | Picture graph | `pg_fruits`, `pg_animals`, `pg_pets` |
-| `bg_` | Bar graph | `bg_animals`, `bg_books`, `bg_colors` |
+| `picture_graph_` | Picture graph | `picture_graph_fruits`, `picture_graph_animals`, `picture_graph_pets` |
+| `bar_graph_` | Bar graph | `bar_graph_animals`, `bar_graph_books`, `bar_graph_colors` |
 | `data_table` | Data table UI component | `data_table` |
 | `choice_input` | Answer input widget | `choice_input` |
 
