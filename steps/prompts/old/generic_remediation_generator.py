@@ -11,7 +11,7 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 GENERIC_REMEDIATION_GENERATOR_PROMPT = Prompt(
     role="""You are an expert in designing error remediation for educational interactions.
@@ -22,7 +22,6 @@ Your task: Add ERROR PATHS to existing interaction sequences. Each error path ha
 - **Heavy**: Full demonstration through detailed explanation
 
 Follow the <remediation_system> documentation for error patterns, detection rules, and approved language templates.""",
-
     instructions="""
 ## YOUR TASK
 
@@ -88,11 +87,7 @@ The prefill will provide all the input fields - you only need to complete the er
 
 Return valid JSON only (see structure below).
 """,
-
-    doc_refs=[
-        'remediation_system.md'
-    ],
-
+    doc_refs=["remediation_system.md"],
     output_structure="""
 [
   {
@@ -131,10 +126,9 @@ Return valid JSON only (see structure below).
   }
 ]
 """,
-
     # Prefill includes all input fields, Claude completes with error_path_generic
     # Variables like {correct_answer}, {workspace}, {fractions} are auto-converted to JSON
-    prefill='''{
+    prefill="""{
   "problem_id": {problem_id},
   "step_id": {step_id},
   "no_of_steps": {no_of_steps},
@@ -152,17 +146,13 @@ Return valid JSON only (see structure below).
       "steps": [
         {
           "scaffolding_level": "light",
-          "dialogue": ''',
-
+          "dialogue": """,
     examples=[],
-
     module_ref={},
-
     template_ref={},
-
     cache_docs=True,
     cache_ttl="5m",
     temperature=1.0,
     max_tokens=64000,
-    stop_sequences=[]
+    stop_sequences=[],
 )

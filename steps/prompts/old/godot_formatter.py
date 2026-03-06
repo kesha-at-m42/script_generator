@@ -9,13 +9,12 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 GODOT_FORMATTER_PROMPT = Prompt(
     role="""You are an expert at transforming educational content schemas into Godot game engine format.
 
 Your task: Transform interaction sequences into Godot-processable format with @type annotations and proper component structure.""",
-
     instructions="""
 ## TASK
 
@@ -650,9 +649,7 @@ For multi-step sequences (NOTE: Step 2 does NOT have workspace field):
 
 Return ONLY valid JSON with Godot schema structure.
 """,
-
     doc_refs=["sequence.md", "tools.md", "validators.md", "workspace.md"],
-
     output_structure="""
 {
   "@type": "Sequence",
@@ -702,7 +699,6 @@ Return ONLY valid JSON with Godot schema structure.
   }]
 }
 """,
-
     # Prefill forces proper Godot structure with @types
     # Batch mode: processes one item at a time, outputs one Sequence
     # Uses input variables and template_ref for metadata
@@ -722,15 +718,11 @@ Return ONLY valid JSON with Godot schema structure.
       "mastery_skill_id": "{skill_id}",
       "tier": "{mastery_tier}",
       "non_curriculum_skills": """,
-
     examples=[],
-
     module_ref={},
-
     template_ref=["problem_type", "skill", "mastery_verb", "skill_id"],
-
     cache_docs=True,
     temperature=1,
     max_tokens=16000,
-    stop_sequences=[]
+    stop_sequences=[],
 )

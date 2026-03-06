@@ -10,11 +10,10 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 INTERACTION_GENERATOR_2_PROMPT = Prompt(
     role="""You are converting a detailed lesson specification into structured JSON format. This is TRANSLATION work, not creative work. The pedagogical decisions have already been made—your job is faithful conversion.""",
-
     instructions="""
 
 ## YOUR TASK
@@ -115,7 +114,7 @@ If the prompt describes an interaction NOT supported by Section 1.5's tools → 
 - For demonstrations, add `[event:event_name]` after action verbs
 - Do NOT rewrite for voice (Stage 2 handles voice polish)
 
-### Prompts  
+### Prompts
 - Transfer **Prompt:** lines directly to `prompt` field
 - If no Prompt line, use `"Watch the demonstration."` for demos or omit for observations
 
@@ -163,11 +162,11 @@ When Section 1.7 indicates Guide demonstrates an action, embed event tags.
 ---
 
 ## WHAT NOT TO DO
-**Do NOT invent tools** — Only Section 1.5 tools exist  
-**Do NOT use forbidden items** — Section 1.2 is absolute  
-**Do NOT add interactions** — Follow Section 1.7 exactly  
-**Do NOT rewrite dialogue** — Transfer as-is (Stage 2 polishes)  
-**Do NOT write remediation** — Leave remediation for Stage 3  
+**Do NOT invent tools** — Only Section 1.5 tools exist
+**Do NOT use forbidden items** — Section 1.2 is absolute
+**Do NOT add interactions** — Follow Section 1.7 exactly
+**Do NOT rewrite dialogue** — Transfer as-is (Stage 2 polishes)
+**Do NOT write remediation** — Leave remediation for Stage 3
 **Do NOT use generic type names** — Derive from Section 1.5 exactly
 
 ---
@@ -185,9 +184,7 @@ After generating, verify against Section 1.9 checklist:
 - [ ] Nothing from FORBIDDEN list appears anywhere
 
 """,
-
-    doc_refs=['Module 1 Starter Pack VPSS - AI Ready.md'],
-
+    doc_refs=["Module 1 Starter Pack VPSS - AI Ready.md"],
     output_structure="""
 {
   "sequences": [
@@ -226,18 +223,13 @@ After generating, verify against Section 1.9 checklist:
   ]
 }
 """,
-
     prefill="""""",
-
     examples=[],
-
     module_ref={},
-
     template_ref={},
-
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
     max_tokens=18000,
-    stop_sequences=[]
+    stop_sequences=[],
 )
