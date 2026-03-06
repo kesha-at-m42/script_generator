@@ -536,7 +536,13 @@ class PromptBuilderV2:
                 continue
 
             try:
-                field_value = get_module_field(self.module_number, field_path, required=False)
+                unit_kwarg = f"unit{self.unit_number}" if self.unit_number else None
+                field_value = get_module_field(
+                    self.module_number,
+                    field_path,
+                    required=False,
+                    **({"unit": unit_kwarg} if unit_kwarg else {}),
+                )
                 if field_value is not None:
                     variables[var_name] = field_value
                     if self.verbose:
