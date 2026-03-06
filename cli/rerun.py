@@ -30,6 +30,10 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "core"))
 
+from dotenv import load_dotenv  # noqa: E402
+
+load_dotenv()
+
 import json  # noqa: E402
 import re  # noqa: E402
 

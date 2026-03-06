@@ -16,6 +16,7 @@ notion-client is not installed.  Returns data unchanged.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 
@@ -25,6 +26,7 @@ def push(
     module_number: int | None = None,
     path_letter: str | None = None,
     unit_number: int | None = None,
+    output_file_path: Path | None = None,
 ) -> Any:
     """Push *data* to Notion and return it unchanged.
 
@@ -34,6 +36,10 @@ def push(
         module_number: Automatically injected by the pipeline runner.
         path_letter: Automatically injected by the pipeline runner.
         unit_number: Automatically injected by the pipeline runner.
+        output_file_path: Automatically injected by the pipeline runner.
+            Used to derive a stable, version-agnostic registry key so that
+            re-runs (v0 → v1) update the same Notion page, while a new
+            module always creates a fresh page.
     """
     try:
         from utils import notion_sync  # lazy: notion-client may not be installed
@@ -50,9 +56,14 @@ def push(
             title_parts.append(f"Path {path_letter.upper()}")
         title = " — ".join(title_parts)
 
-        page_id = notion_sync.push_to_notion(data=data, title=title)
+        from utils.lesson_notion_format import lesson_to_blocks
+
+        page_id = notion_sync.push_to_notion(
+            data=data, title=title, file_path=output_file_path, blocks_fn=lesson_to_blocks
+        )
         url = notion_sync.get_page_url(page_id)
-        print(f"\n  [NOTION] Pushed → {url}")
+        print(f"\n  [NOTION] Pushed -> {url}")
+        return {"notion_url": url}
 
     except Exception as exc:
         print(f"\n  [NOTION] Push failed (non-fatal): {exc}")
