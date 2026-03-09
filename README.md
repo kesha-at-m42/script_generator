@@ -1,486 +1,351 @@
-# Educational Content Generation Pipeline
+# script_generator
 
-An automated pipeline system for generating interactive educational content using Claude API. The system transforms learning goals into complete Godot-compatible interaction sequences with remediation paths.
+A pipeline system for generating interactive lesson scripts using Claude. Scripts are
+structured JSON consumed by a learning product runtime.
 
-## 🎯 Overview
+---
 
-The pipeline generates educational content through multiple steps:
+## How It Works
+
+Content moves through three phases before reaching the product.
+
+### 1. Preproduction
+
+Before any pipeline runs, the curriculum and design teams produce the inputs the
+pipeline depends on. This is a multi-step human process, not automated.
 
 ```
-Templates → Problems → Sequences → BBCode Format → Godot Output
-  (input)      (AI)       (AI)       (formatting)    (formatting)
+curriculum documents
+        |
+        v
+unit decomposition
+        |
+        v
+module map  (modules chunked to curriculum standards, one concept per module)
+        |
+        +---> toy_specs.md        (tangibles and their interaction surfaces)
+        |
+        +---> guide_design.md     (voice, tone, values the script must hold)
+        |
+        v
+starter packs  (units/unit{N}/_starter_packs/module_{N}.json)
 ```
 
-Each step processes items individually with AI and deterministic post-processing.
+**Starter packs** are the connective tissue between curriculum and pipeline. They encode
+everything a module needs: what tangibles exist, what misconceptions to address, what
+vocabulary is in play, what the one core concept is, and what constraints scope the lesson.
+They are built from curriculum documents, toy specs, and the module map.
 
-## 🚀 Quick Start
+**Toy specs** (`units/unit{N}/toy_specs.md`) describe every tangible available for that
+unit — what it looks like, what modes it supports, what interaction surfaces it exposes.
+These come from UX preproduction.
 
-### Prerequisites
-- Python 3.8+
-- Anthropic API key
+**Guide design** (`docs/guide_design.md`) holds the voice and values the script must
+embody — how the guide speaks, what to avoid, how to handle correct and incorrect
+student responses.
 
-### Installation
+---
 
-1. Clone and navigate:
+### 2. Content Authoring
+
+With preproduction in place, content authors write module spec files in plain markdown.
+Each spec describes the interactions for one lesson phase.
+
+```
+units/
+  unit1/
+    toy_specs.md
+    _starter_packs/
+      module_1.json
+      module_2.json
+    module1/
+      warmup.md       <- what the warmup does, beat by beat in plain language
+      lesson.md       <- the main lesson interactions
+      exitcheck.md    <- mastery check
+      practice.md     <- extended practice
+      synthesis.md    <- consolidation interactions
+    module2/
+      warmup.md
+      ...
+```
+
+Spec files describe pedagogical intent, not schema. The pipeline handles translation.
+
+---
+
+### 3. Generation Pipeline
+
+The pipeline transforms a spec file into a structured JSON array of sections.
+
+```
+spec (.md)
+    |
+    v  [AI] script_generator / section_structurer
+    |
+    v  section array  [{ id, type, scene, steps }]
+    |
+    v  [FORMATTING] filter_sections
+    |
+    v  [AI] remediation_generator  (batch: one call per section)
+    |
+    v  [FORMATTING] remediation_merger
+    |
+    v  full section array  (correct + incorrect validator states)
+    |
+    v  [AI] dialogue_rewriter  (optional voice pass)
+    |
+    v  [FORMATTING] dialogue_merger
+    |
+    v  final section array
+    |
+    v  [FORMATTING] push -> Notion
+```
+
+**AI steps** call Claude with a prompt built from the spec, starter pack fields,
+toy specs, and guide design. **Formatting steps** are deterministic Python functions
+with no API calls.
+
+Each pipeline run creates a versioned output directory:
+```
+outputs/unit1/warmup_generator_module_2/
+  v0/
+    step_01_script_generator/
+    step_02_filter_sections/
+    step_03_remediation_generator/
+    step_04_merge_remediation/
+    step_05_push/        <- push.json (notion url)
+    step_06_pull/        <- pull.json (edited content, after review)
+```
+
+---
+
+### 4. Review and Editing
+
+After generation, the script is pushed to Notion for human review. Writers improve
+dialogue voice; teachers validate pedagogical intent and visual alignment. Changes
+are pulled back as a versioned file.
+
+See `docs/references/script_editing_process.md` for the full workflow.
+
 ```bash
-git clone https://github.com/kesha-at-m42/script_generator.git
+# Push to Notion (runs as step 5 in pipeline; can also run standalone)
+python cli/push_to_notion.py outputs/unit1/warmup_generator_module_2/v0/step_05_push/push.json
+
+# Pull after editing -> saves to step_06_pull/pull.json in the same version
+python cli/push_to_notion.py outputs/unit1/warmup_generator_module_2/v0/step_05_push/push.json --pull
+```
+
+---
+
+### 5. Output Format and Product Ingestion
+
+The pipeline produces a JSON array of **sections**. Each section is a self-contained sub-sequence — one concept. A section may contain
+multiple student actions, one, or none (transitions, demonstrations, bridging narration). The product executes them as a
+beat-by-beat student journey.
+
+#### Section
+
+```json
+{
+  "id": "s5_1_scale_toggle",
+  "type": "main",
+  "scene": ["data_table"],
+  "steps": [ [ beat, beat, beat ] ]
+}
+```
+
+| Field | Meaning |
+|-------|---------|
+| `id` | Unique slug. Format: `s{major}_{minor}_{name}` or `s{major}_{name}`. Used for analytics and goto targets. |
+| `type` | `main` (interactive), `transition` (dialogue-only), `remediation` (remediation path). |
+| `scene` | Tangible IDs already visible when the section begins. Product ensures these are loaded. |
+| `steps` | Groups of beats. Executed in order. Steps within a section are separated by a visual pause. |
+
+#### Beat Types
+
+**dialogue** — guide speaks to the student.
+```json
+{ "type": "dialogue", "text": "Here's data you know — and a graph with scale of 2." }
+```
+Product action: display text / play TTS.
+
+---
+
+**scene** — workspace command.
+```json
+{
+  "type": "scene",
+  "method": "add",
+  "tangible_id": "picture_graph_pets",
+  "tangible_type": "picture_graph",
+  "params": { "mode": "reading", "scale": 2, "categories": [...], "values": [...] }
+}
+```
+
+| `method` | Product action |
+|----------|---------------|
+| `add` | Instantiate and show tangible |
+| `remove` | Destroy tangible |
+| `show` / `hide` | Toggle visibility |
+| `update` | Mutate props on existing tangible |
+| `animate` | Trigger named animation event |
+| `lock` / `unlock` | Disable / enable student interaction |
+
+`tangible_type` maps to a product component class. `params` are concrete values — no
+placeholders. The `description` field in params is human-readable context, not rendered.
+
+---
+
+**prompt** — student interaction gate. Blocks execution until resolved.
+```json
+{
+  "type": "prompt",
+  "text": "Toggle the scale to 1. What happens to the graph?",
+  "tool": "click_component",
+  "target": "picture_graph_pets.scale_toggle",
+  "validator": [ ... ]
+}
+```
+
+| Tool | Student action |
+|------|---------------|
+| `click_component` | Tap a specific component on a tangible |
+| `multiple_choice` | Select one from a list |
+| `multi_select` | Select one or more |
+| `drag_item` | Drag to a target |
+| `build_graph` | Place symbols to construct a graph |
+| `input_number` | Enter or adjust a numeric value |
+
+---
+
+**validator** — declarative state machine. Evaluated top-to-bottom; first match executes.
+```json
+{
+  "condition": { "selected": "Scale of 2" },
+  "description": "Student selected Scale of 2 — correct",
+  "is_correct": true,
+  "steps": [ [ beat, beat ] ]
+}
+```
+
+| Condition shape | Meaning |
+|----------------|---------|
+| `{}` | Always matches — use as fallback or any-response-advances |
+| `{ "selected": "value" }` | MC/multi-select answer equals value |
+| `{ "incorrect_count": N }` | Student has failed this prompt N times |
+| `{ "and": [...] }` | All sub-conditions must match |
+| `{ "or": [...] }` | Any sub-condition must match |
+
+`is_correct: true` closes the gate and advances to the next section.
+`is_correct: false` re-presents the prompt (attempt count increments).
+
+---
+
+**current_scene** — reference snapshot of workspace state at this point. Not rendered.
+The product may use it for state reconciliation or QA; it is not required for execution.
+
+---
+
+#### Execution Model
+
+```
+load section array
+for each section in order:
+    ensure section.scene tangibles are loaded
+    for each step in section.steps:
+        for each beat in step:
+            dialogue      -> speak / display
+            scene         -> execute workspace command
+            prompt        -> present, wait for input
+                            evaluate validator conditions in order
+                            first match -> execute state.steps
+                            is_correct: true  -> next section
+                            is_correct: false -> re-present prompt
+            current_scene -> skip
+```
+
+#### Architecture Mapping
+
+| Script concept | Architecture equivalent |
+|---------------|------------------------|
+| `section` | Screen / node in a lesson graph |
+| `section.type` | Node type |
+| `scene` (field) | Scene preload / prop state at entry |
+| `scene` (beat) | World state mutation command |
+| `dialogue` beat | NPC speech event |
+| `prompt` beat | Input gate |
+| `validator` | Condition-response table / state machine transitions |
+| `validator condition` | Guard clause |
+| `validator state.steps` | Transition payload |
+| `tangible_id` | Entity / prop instance ID |
+| `tangible_type` | Component / prefab class |
+| `tool` | Input handler type |
+| `is_correct` | Whether interaction closes the gate |
+| `current_scene` | State snapshot — optional reconciliation data |
+
+`tangible_type` and `tool` are the two extension points where product-specific
+component mappings are required.
+
+---
+
+## Setup
+
+**Prerequisites:** Python 3.8+, Anthropic API key, Notion API key (optional)
+
+```bash
+git clone <repo>
 cd script_generator
-```
-
-2. Create virtual environment:
-```bash
 python -m venv venv
+source venv/Scripts/activate   # Windows Git Bash
+pip install -r requirements.txt
+
+# Configure
+cp .env.example .env
+# Set: ANTHROPIC_API_KEY, NOTION_API_KEY, NOTION_PARENT_PAGE_ID
 ```
 
-3. Activate virtual environment:
+---
+
+## CLI Reference
+
+**Run a pipeline:**
 ```bash
-# Windows (Git Bash)
-source venv/Scripts/activate
-
-# Windows (PowerShell)
-venv\Scripts\Activate.ps1
-
-# Linux/Mac
-source venv/bin/activate
+python cli/run_pipeline.py -p warmup_generator -u 1 -m 2
 ```
 
-4. Install dependencies:
+**Rerun a specific step:**
 ```bash
-pip install anthropic python-dotenv
+python cli/rerun.py warmup_generator --start-from 5 --end-at 5 --unit 1 --module 2
 ```
 
-5. Create `.env` file:
+**Push to / pull from Notion:**
 ```bash
-ANTHROPIC_API_KEY=your-api-key-here
+python cli/push_to_notion.py outputs/unit1/warmup_generator_module_2/v0/step_05_push/push.json
+python cli/push_to_notion.py outputs/unit1/warmup_generator_module_2/v0/step_05_push/push.json --pull
 ```
 
-### Running the Pipeline
-
-**Interactive Mode (Recommended):**
-```bash
-python cli/run_pipeline.py
-```
-Follow prompts to select pipeline, module, and path.
-
-**Command Line Mode:**
-```bash
-# Run full pipeline
-python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a
-
-# Run with custom status
-python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a --status alpha
-```
-
-## 📁 Project Structure
-
-```
-script_generator-content/
-├── core/                           # Core pipeline components
-│   ├── pipeline.py                 # Main pipeline orchestration
-│   ├── claude_client.py            # Claude API wrapper
-│   ├── prompt_builder.py           # Prompt assembly
-│   ├── batch_processor.py          # Batch processing logic
-│   ├── version_manager.py          # Version control
-│   └── path_manager.py             # Path resolution
-│
-├── cli/                            # Command-line interfaces
-│   ├── run_pipeline.py             # Interactive pipeline runner
-│   ├── rerun.py                    # Rerun specific items/steps
-│   ├── list.py                     # List versions/outputs
-│   └── create_prompt.py            # Create new prompts
-│
-├── config/                         # Configuration
-│   ├── pipelines.json              # Pipeline definitions
-│   └── pipelines.py                # Pipeline loader
-│
-├── steps/                          # Step definitions
-│   ├── prompts/                    # AI prompt files
-│   │   ├── problem_generator.py
-│   │   ├── sequence_structurer.py
-│   │   └── ...
-│   └── formatting/                 # Deterministic formatters
-│       ├── bbcode_formatter.py
-│       └── ...
-│
-├── modules/                        # Module-specific content
-│   ├── module4/
-│   │   ├── problem_templates_v2.json
-│   │   ├── patha/
-│   │   │   ├── visuals.md
-│   │   │   └── ...
-│   │   └── pathb/
-│   │       └── ...
-│   └── module5/
-│       └── ...
-│
-├── docs/                           # Reference documentation
-│   ├── remediation_system.md
-│   ├── guide_design.md
-│   └── ...
-│
-├── outputs/                        # Generated content (gitignored)
-│   └── problem_generator_module_4_path_a/
-│       ├── v0/                     # Initial version
-│       │   ├── step_01_problem_generator/
-│       │   │   ├── items/          # Individual outputs
-│       │   │   ├── prompts/        # Prompts sent to Claude
-│       │   │   └── problem_generator.json
-│       │   ├── step_02_sequence_structurer/
-│       │   └── metadata.json
-│       ├── v1/                     # Rerun version
-│       └── latest -> v1            # Symlink to latest
-│
-└── utils/                          # Utility functions
-    ├── json_utils.py
-    └── template_utils.py
-```
-
-## 🔄 Pipeline System
-
-### Pipeline Configuration
-
-Pipelines are defined in `config/pipelines.json`:
-
-```json
-{
-  "problem_generator": [
-    {
-      "type": "ai",
-      "prompt_name": "problem_generator",
-      "batch_mode": true,
-      "batch_id_field": "template_id",
-      "batch_output_id_field": "problem_id",
-      "batch_id_start": 4001
-    },
-    {
-      "type": "ai",
-      "prompt_name": "sequence_structurer",
-      "batch_mode": true,
-      "batch_id_field": "problem_id"
-    },
-    {
-      "type": "formatting",
-      "function": "bbcode_formatter.process_godot_sequences",
-      "batch_mode": true,
-      "batch_id_field": "problem_id"
-    }
-  ]
-}
-```
-
-### Step Types
-
-**AI Steps:**
-- Call Claude API with prompt
-- Process items individually
-- Auto-chain outputs between steps
-
-**Formatting Steps:**
-- Run deterministic Python functions
-- Apply post-processing (BBCode, metadata)
-- No API calls
-
-### Batch Processing
-
-Steps can process items individually with:
-- `batch_mode: true` - Process array item-by-item
-- `batch_id_field` - Field to use as item ID
-- `batch_output_id_field` - Add sequential IDs to outputs
-- `batch_id_start` - Starting number for IDs
-
-## 🔁 Rerun System
-
-### Item-Level Reruns
-
-Rerun specific items from batch steps:
-
-```bash
-# Rerun items 4001 and 4005
-python cli/rerun.py problem_generator 4001 4005 --module 4 --path a
-
-# Rerun with note
-python cli/rerun.py problem_generator 4001 --note "Fixed prompt" --module 4 --path a
-
-# Rerun from specific base version
-python cli/rerun.py problem_generator 4001 --base v2 --module 4 --path a
-```
-
-### Step-Level Reruns (NEW)
-
-Rerun specific step ranges without re-running earlier steps:
-
-```bash
-# Run from step 3 onwards
-python cli/rerun.py problem_generator --start-from 3 --module 4 --path a
-
-# Run ONLY step 3
-python cli/rerun.py problem_generator --start-from 3 --end-at 3 --module 4 --path a
-
-# Run steps 2-4
-python cli/rerun.py problem_generator --start-from 2 --end-at 4 --module 4 --path a
-
-# Use step names instead of numbers
-python cli/rerun.py problem_generator --start-from sequence_structurer --module 4 --path a
-```
-
-**How it works:**
-- Steps outside the range are skipped
-- First executed step loads input from base version
-- Subsequent steps chain normally from current version
-- Creates a new version with only executed steps
-
-**Combined mode:**
-Rerun specific items within a step range:
-```bash
-python cli/rerun.py problem_generator 4001 4005 --start-from 2 --end-at 3 --module 4 --path a
-```
-
-### Use Cases for Step Reruns
-
-1. **Iterate on a specific step's prompt** - Change step 3's prompt, rerun only step 3
-2. **Debug a single step** - Isolate and test one step
-3. **Resume from failure** - Continue from where pipeline failed
-4. **Skip expensive steps** - Skip early steps that don't need changes
-
-## 📊 Version Control
-
-### Automatic Versioning
-
-Each pipeline run creates a new version:
-```
-outputs/problem_generator_module_4_path_a/
-├── v0/         # Initial run
-├── v1/         # First rerun
-├── v2/         # Second rerun
-└── latest/     # Symlink to latest version
-```
-
-### Metadata Tracking
-
-Each version includes `metadata.json`:
-
-```json
-{
-  "version": "v1",
-  "base_version": "v0",
-  "mode": "partial_rerun",
-  "step_range": "3-3",
-  "skipped_steps": [1, 2, 4, 5],
-  "executed_steps": [3],
-  "timestamp": "2026-01-24T10:30:00",
-  "duration_seconds": 12.5,
-  "pipeline_name": "problem_generator",
-  "module_number": 4,
-  "path_letter": "a",
-  "pipeline_status": "alpha",
-  "notes": "Testing updated prompt for step 3"
-}
-```
-
-**Modes:**
-- `initial` - First run of pipeline
-- `rerun` - Full pipeline rerun
-- `partial_rerun` - Step range execution
-
-## 🛠️ CLI Tools
-
-### run_pipeline.py
-
-Interactive pipeline execution:
-```bash
-python cli/run_pipeline.py
-# Prompts for: pipeline, module, path, status, notes
-```
-
-### rerun.py
-
-Rerun items or steps:
-```bash
-# Item reruns
-python cli/rerun.py <pipeline> <item_ids> --module N --path X
-
-# Step reruns
-python cli/rerun.py <pipeline> --start-from N --end-at N --module N --path X
-```
-
-### list.py
-
-List available pipelines and versions:
-```bash
-# List all pipelines
-python cli/list.py
-
-# List versions for a pipeline
-python cli/list.py problem_generator_module_4_path_a
-```
-
-### create_prompt.py
-
-Create new prompt files:
-```bash
-python cli/create_prompt.py my_new_prompt
-```
-
-## 📝 Development
-
-### Creating a New Pipeline
-
-1. **Define steps** in `config/pipelines.json`:
-```json
-{
-  "my_pipeline": [
-    {
-      "type": "ai",
-      "prompt_name": "my_prompt",
-      "batch_mode": true,
-      "batch_id_field": "id"
-    }
-  ]
-}
-```
-
-2. **Create prompt** in `steps/prompts/my_prompt.py`:
-```python
-ROLE = "You are an expert..."
-DOCS = ["reference_doc.md"]
-MODULE_REF = ["field1", "field2"]
-INSTRUCTIONS = """
-Generate output based on {field1} and {field2}.
-"""
-EXAMPLES = ["example1", "example2"]
-```
-
-3. **Run pipeline**:
-```bash
-python cli/run_pipeline.py --pipeline my_pipeline --module 4 --path a
-```
-
-### Adding a Formatting Step
-
-1. **Create function** in `steps/formatting/my_formatter.py`:
-```python
-def process_data(data, module_number=None, path_letter=None):
-    """Process data deterministically"""
-    # Transform data
-    return processed_data
-```
-
-2. **Add to pipeline**:
-```json
-{
-  "type": "formatting",
-  "function": "my_formatter.process_data",
-  "batch_mode": true,
-  "batch_id_field": "id"
-}
-```
-
-### Modifying Prompts
-
-**Safe to modify:**
-- `ROLE` - Change persona/expertise
-- `INSTRUCTIONS` - Update task description
-- `DOCS` - Add/remove reference docs
-- `EXAMPLES` - Add more examples
-
-**Be careful with:**
-- Variable names in `{brackets}` - must match `MODULE_REF`
-- JSON structure in examples
-
-**Documentation references:**
-Add docs to `DOCS` list, then reference with XML tags:
-```python
-DOCS = ["my_guide.md"]
-INSTRUCTIONS = """
-Follow guidelines in <my_guide> for formatting.
-"""
-```
-
-## 🔐 Security
-
-Never commit:
-- `.env` (API keys)
-- `outputs/` (generated content)
-- `venv/` (virtual environment)
-
-These are in `.gitignore`.
-
-## 📋 Output Format
-
-### Final Output Structure
-
-```json
-{
-  "@type": "SequencePool",
-  "sequences": [
-    {
-      "@type": "Sequence",
-      "metadata": {
-        "@type": "SequenceMetadata",
-        "problem_id": 4001,
-        "template_id": 5,
-        "mastery_tier": 2,
-        "mastery_component": "PROCEDURAL"
-      },
-      "steps": [
-        {
-          "@type": "Step",
-          "dialogue": "Here's a [fraction]3/4[/fraction] bar.",
-          "workspace": {
-            "@type": "WorkspaceData",
-            "tangibles": [...]
-          }
-        }
-      ]
-    }
-  ]
-}
-```
-
-## 💡 Best Practices
-
-**Running pipelines:**
-1. Use interactive mode for first run
-2. Check outputs in `outputs/pipeline_name/latest/`
-3. Use step reruns to iterate on prompts
-4. Add notes to track changes
-
-**Debugging:**
-1. Check `prompts/` directory for exact prompts sent
-2. Check `items/` directory for individual outputs
-3. Look at `errors.json` for failed items
-4. Use `--verbose` for detailed logging
-
-**Version management:**
-1. Keep base versions when iterating
-2. Use meaningful notes for reruns
-3. Use pipeline status (alpha/beta/rc/final) to track maturity
-
-## 🆘 Common Issues
-
-**Import errors:**
-```bash
-# Make sure you're in project root
-cd /path/to/script_generator-content
-
-# Activate virtual environment
-source venv/Scripts/activate  # Windows Git Bash
-```
-
-**API key not found:**
-```bash
-# Create .env file in project root
-echo "ANTHROPIC_API_KEY=your-key-here" > .env
-```
-
-**No versions found:**
-```bash
-# Run full pipeline first before rerun
-python cli/run_pipeline.py --pipeline problem_generator --module 4 --path a
-```
-
-**Step range requires base version:**
-```bash
-# Either specify base version or run full pipeline first
-python cli/rerun.py problem_generator --start-from 3 --base v0 --module 4 --path a
-```
+---
+
+## Key Directories
+
+| Path | Contents |
+|------|----------|
+| `units/unit{N}/` | Spec files, toy specs, starter packs per unit |
+| `config/pipelines.json` | Pipeline definitions |
+| `steps/prompts/` | AI prompt steps |
+| `steps/formatting/` | Deterministic formatting steps |
+| `core/` | Pipeline orchestration, Claude client, prompt builder |
+| `utils/` | Shared utilities |
+| `docs/` | Design and reference documentation |
+| `outputs/` | Generated content (gitignored) |
+
+---
+
+## Documentation
+
+| Doc | What it covers |
+|-----|---------------|
+| `docs/guide_design.md` | Voice, tone, and values for the script guide |
+| `docs/references/lesson_script_schema_guide.md` | Full schema reference |
+| `docs/references/script_editing_process.md` | Writer and teacher editing workflows |
+| `docs/remediation_design_ref.md` | Remediation system design |
