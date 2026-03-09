@@ -275,12 +275,12 @@ For MC, Medium is targeted to the specific distractor chosen:
 ### 6.1 Approved Opening Language
 
 - "This is tricky, so let's work through it together..."
-- "This can be tricky, so let's do it together."
 - "Let me show you how this works."
 - "Here, let me walk you through this one."
 - "Let's work through this step by step..."
 - "These can be challenging. Let me show you..."
 - "Let me help a bit more."
+- "This can be tricky, so let's do it together."
 
 ### 6.2 Heavy Structure (Non-MC)
 

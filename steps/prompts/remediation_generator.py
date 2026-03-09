@@ -83,9 +83,9 @@ For each qualifying prompt, check `tool.name`:
 
 ## STEP 2A — NON-MC: THREE STATES
 
-Emit in this order:
+Emit in this order. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
-**Light** (`incorrect_count: 1`) — 10–20 words, dialogue only:
+**Light** (`incorrect_count: 1`) — dialogue only:
 ```json
 {
   "condition": { "incorrect_count": 1 },
@@ -97,7 +97,7 @@ Emit in this order:
 }
 ```
 
-**Medium** (`incorrect_count: 2`) — 20–30 words + one `scene update` or `scene animate` beat:
+**Medium** (`incorrect_count: 2`) — scene beat required:
 ```json
 {
   "condition": { "incorrect_count": 2 },
@@ -112,7 +112,7 @@ Emit in this order:
 }
 ```
 
-**Heavy** (`condition: {}`) — 30–60 words + `scene animate` beat (system demonstrates the answer):
+**Heavy** (`condition: {}`) — `scene animate` beat required (system demonstrates the answer):
 ```json
 {
   "condition": {},
@@ -122,7 +122,7 @@ Emit in this order:
     [
       { "type": "scene", "method": "animate", "tangible_id": "...",
         "params": { "event": "...", "status": "confirmed", "description": "..." } },
-      { "type": "dialogue", "text": "This is tricky, so let me show you. ..." }
+      { "type": "dialogue", "text": "..." }
     ]
   ]
 }
@@ -134,9 +134,9 @@ Emit in this order:
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
-**No Light state for MC.**
+See `<remediation_design_ref>` Section 3.2 for MC structure (no Light state; per-distractor Mediums + one Heavy).
 
-One **Medium** per distractor — 20–30 words + scene beat:
+One **Medium** per distractor — scene beat required:
 ```json
 {
   "condition": { "selected": <distractor> },
@@ -151,7 +151,7 @@ One **Medium** per distractor — 20–30 words + scene beat:
 }
 ```
 
-One **Heavy** (`condition: {}`) — 30–60 words + `scene animate` beat:
+One **Heavy** (`condition: {}`) — `scene animate` beat required:
 ```json
 {
   "condition": {},
@@ -161,7 +161,7 @@ One **Heavy** (`condition: {}`) — 30–60 words + `scene animate` beat:
     [
       { "type": "scene", "method": "animate", "tangible_id": "...",
         "params": { "event": "...", "status": "confirmed", "description": "..." } },
-      { "type": "dialogue", "text": "Let me show you how this works. ..." }
+      { "type": "dialogue", "text": "..." }
     ]
   ]
 }
@@ -184,26 +184,13 @@ One **Heavy** (`condition: {}`) — 30–60 words + `scene animate` beat:
 
 ## LANGUAGE RULES
 
-**Light (non-MC only):**
-- 10–20 words. No scene beat.
-- Use error signals 40–50% of the time: "Not quite.", "Almost.", "Let's try again."
-- Or skip the signal: "Count the shaded parts only.", "Check the spacing."
-- Never use "Remember" at Light level.
+Follow all language patterns, word counts, visual requirements, and prohibited constructs from `<remediation_design_ref>` Sections 4–8 and 12.4.
 
-**Medium:**
-- 20–30 words. One scene beat required.
-- Starters: "Let's think about this together.", "Here's a hint:", "You're working on it."
-- For MC: address specifically why the chosen distractor is wrong.
+**Light:** Draw openers from `<remediation_design_ref>` Sections 4.1–4.2. Cycle through the full lists — do not reuse the same phrase within a section.
 
-**Heavy:**
-- 30–60 words. One `scene animate` beat required — system demonstrates the answer.
-- Opens with: "This is tricky, so let me show you.", "Let me show you how this works."
-- States the correct answer explicitly with step-by-step demonstration.
-- Post-modeling acknowledgment where natural: "See how that works?", "There we go."
+**Medium:** Open with a starter from `<remediation_design_ref>` Section 5.1. Cycle through the full list — do not reuse the same starter within a section. For MC: address specifically why the chosen distractor is wrong.
 
-**Never:**
-- Alternative paths ("Try X or Y")
-- Post-modeling independent-success praise ("Great job!", "Perfect!", "Excellent work!")
+**Heavy:** Open with a phrase from `<remediation_design_ref>` Section 6.1. Cycle through the full list — do not reuse the same opener within a section. States the correct answer explicitly with step-by-step demonstration. Follow post-modeling language from `<remediation_design_ref>` Section 7.
 
 ---
 
