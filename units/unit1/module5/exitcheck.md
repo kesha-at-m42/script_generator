@@ -2,113 +2,110 @@
 
 **Detail Level:** Full interaction specification (AI formats and tags)
 
+---
+
 ### **Purpose**
 
-Verify Lesson understanding before Practice. Tests whether student can calculate correct symbol counts using skip-counting, create scaled picture graphs from data tables, and read values from completed graphs.
+Verify Lesson understanding before Practice. Tests whether student can identify when a scale is too small (biggest number doesn't fit), recognize when smaller scales (1 or 2) are the best choice, and select an appropriate scale for a given dataset.
 
-**Scope Note:** Exit Check tests PICTURE GRAPH creation only. Bar graph creation is assessed in M4. This focuses assessment on the primary M3 skill (scale of 5 with skip-counting) without overloading with format variety.
+---
 
 ### **Parameters**
 
 | Element | Specification |
 | :---- | :---- |
 | Problems | 3 |
-| Cognitive Types | IDENTIFY and CREATE only (per Playbook: Modules 1-3 focus) |
+| Cognitive Types | IDENTIFY and COMPARE (per Playbook: Modules 4-6 can add COMPARE when taught) |
 | Time | 3-4 minutes |
 | Tone | Calm, low-stakes, neutral |
-| Remediation | Full L-M-H added via Remediation Pipeline |
+| Remediation | Light only (pipeline adds M-H) |
+
+---
 
 ### **Constraints**
 
 | MUST | MUST NOT |
 | :---- | :---- |
-| Use scaled picture graphs (1:5 scale) | Use bar graphs (M4 assessment) |
-| Use vertical orientation (primary Lesson orientation) | Switch orientations within Exit Check |
-| Use numeric Data Table as data source | Exclude Data Table when creating Picture Graph |
-| Use only multiples of 5 | Include non-multiples (would require half-symbols) |
-| Use values in 10-40 range (matches Lesson) | Use values outside Lesson range |
-| Use same interaction type as Lesson (click-to-height) | Introduce new interaction types |
+| Use bar graphs (Lesson format) | Use picture graphs |
+| Use vertical orientation (primary Lesson orientation) | Switch orientations |
+| Use Scale Preview System feedback language | Introduce new terminology |
+| Include both multiples and non-multiples of 5 | Use only one data type |
+| Use values in similar range to Lesson | Use significantly larger/smaller values |
 | Match Lesson difficulty | Increase complexity beyond Lesson |
+
+---
 
 ### **Alignment Check**
 
 | Problem | Cognitive Type | Tests | Lesson Source |
 | :---- | :---- | :---- | :---- |
-| EC.1 | IDENTIFY | Calculate symbol count for given value (skip-counting) | Section 1: Interactions 1.3-1.5 |
-| EC.2 | CREATE | Create picture graph columns from data table | Section 1: Interactions 1.4-1.5; Section 3: 3.1-3.2 |
-| EC.3 | IDENTIFY | Read total value from completed scaled graph | Section 1: Interaction 1.6; Section 2: 2.1-2.2 |
+| EC.1 | IDENTIFY | Recognize when scale is too small (biggest number doesn't fit) | Section 1: Interactions 1.2-1.4 |
+| EC.2 | IDENTIFY | Recognize when Scale of 2 is the best choice (last digits aren't 0 or 5) | Section 2: Interactions 2.3-2.5 |
+| EC.3 | COMPARE | Select appropriate scale for dataset with justification | Section 3: Interaction 3.1 |
 
 ---
 
 ### **Transition into Exit Check**
 
-- **Visual:** Lesson graphs clear. Clean transition.
-- **Guide:** "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know."
-
-**Voice Note:** Low-stakes framing. No "test" or "check if you can" language. Brief, calm.
+- **Visual:** Lesson graph clears. Clean transition.
+- **Guide:** "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Let's see what you know."
 
 ---
 
-**Problem EC.1: Symbol Count Calculation (IDENTIFY)**
+**Problem EC.1: Scale Too Small (IDENTIFY)**
 
-- **Visual: Data Tables (Numeric Display).** "Favorite Drinks" — Juice=25, Milk=15, Water=30, Lemonade=20. 4 categories. Horizontal Data Table.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Empty template (no columns filled yet). Key visible: "Each ⭐ = 5."
-- **Guide:** "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?"
-- **Prompt:** "How many symbols do you need for 25?"
-- **Student Action:** \[Multiple choice: 4, 5, 25, 30\]
-- **Correct Answer:** 5
-- **Answer Rationale:**
-  - 5 = Correct (count by 5s: 5, 10, 15, 20, 25 — that's 5 fives)
-  - 4 = Counting error (stopped early)
-  - 25 = Error: Used value as symbol count (Misconception #1)
-  - 30 = Error: Added 25+5 (Misconception #2)
-- **On Correct:** "5 symbols. Count by 5s: 5, 10, 15, 20, 25."
-- **On Incorrect:** \[Remediation Pipeline\]
+- **Visual:** Vertical Data Table displayed: "Toys Collected" — Amy: 45, Ben: 70, Cora: 15, Dan: 30. Below it, four scale options shown with indicators:
+  * Scale of 1: ❌ "70 doesn't fit"
+  * Scale of 2: ❌ "70 doesn't fit"
+  * Scale of 5: ❌ "70 doesn't fit"
+  * Scale of 10: ✓
+- **Guide:** "Four friends collected toys for a donation drive. Ben collected the most with 70 toys. Which scale works best for this data?"
+- **Prompt:** "Which scale works best for this data?"
+- **Student Action:** [Multiple choice: Scale of 1 / Scale of 2 / Scale of 5 / Scale of 10]
+- **Correct Answer:** Scale of 10
+- **On Correct:** "Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8 — much easier to read."
+- **On Incorrect:** [Remediation Pipeline]
 
-**Alignment:** Tests same skill as Lesson 1.3-1.5 (using skip-counting to determine symbol count).
+**Alignment:** Tests same skill as Lesson 1.2-1.4 (recognizing when scale is too small for biggest value).
 
 ---
 
-**Problem EC.2: Create Picture Graph (CREATE)**
+**Problem EC.2: Non-Multiples Need Scale of 2 (IDENTIFY)**
 
-- **Visual: Data Tables (Numeric Display).** Same "Favorite Drinks" data visible.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. 2 of 4 columns pre-filled: Juice=5 symbols (from EC.1 discussion), Lemonade=4 symbols. Milk and Water columns empty. Key visible: "Each ⭐ = 5."
-- **Guide:** "Complete the rest of the graph."
-- **Prompt:** "Set the heights for Milk and Water."
-- **Student Action:** Hover over columns to preview, click to set Milk=3 symbols (15), Water=6 symbols (30)
-- **Correct Answer:** Milk=3, Water=6
-- **On Correct:** "You built the graph. Each symbol represents 5."
-- **On Incorrect:** \[Remediation Pipeline\]
+- **Visual:** Horizontal Data Table displayed: "Minutes Reading" — Gus: 23, Hal: 31, Eli: 9, Fay: 16.
+- **Guide:** "These students tracked how many minutes they read this week. Check the numbers: 23, 31, 9, 16. Which scale will show ALL these values exactly?"
+- **Prompt:** "Which scale will show ALL these values exactly?"
+- **Student Action:** [Multiple choice: Scale of 2 / Scale of 5 / Scale of 10]
+- **Correct Answer:** Scale of 2
+- **On Correct:** "Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5—that's your Scale of 2 signal to show the exact values on the graph."
+- **On Incorrect:** [Remediation Pipeline]
+- **On "Scale of 5" (Incorrect):** "Scale of 5 works when the biggest number is 31, but we can't show the exact bars because 23, 31, 9, 16 aren't multiples of 5."
+- **On "Scale of 10" (Incorrect):** "These numbers are too small for Scale of 10 and we wouldn't know exactly where to draw the bars."
 
-**Alignment:** Tests same skill as Lesson 1.4-1.5 and 3.1-3.2 (creating picture graph from data table).
+**Alignment:** Tests same skill as Lesson 2.1-2.4 (recognizing when Scale of 2 is the best choice based on last digits).
 
 ---
 
-**Problem EC.3: Read Total Value (IDENTIFY)**
+**Problem EC.3: Select Appropriate Scale (COMPARE)**
 
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Completed "Favorite Drinks" graph: Juice=5 symbols, Milk=3 symbols, Water=6 symbols, Lemonade=4 symbols. Data Table NOT visible.
-- **Guide:** "Look at the completed graph. How many students chose Water?"
-- **Prompt:** "How many students chose Water?"
-- **Student Action:** \[Multiple choice: 6, 25, 30, 35\]
-- **Correct Answer:** 30
-- **Answer Rationale:**
-  - 30 = Correct (6 symbols, count by 5s: 5, 10, 15, 20, 25, 30)
-  - 6 = Error: Counted symbols only (Misconception #1)
-  - 25 = Misread (Juice's value)
-  - 35 = Calculation error
-- **On Correct:** "30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.6 and 2.1-2.2 (reading values from scaled graphs).
+- **Visual:** Vertical Data Table displayed: "Steps Walked" — Ana: 30, Ben: 70, Cara: 90, Dan: 50. No Scale Preview System. No bar graph shown.
+- **Guide:** "All these numbers end in 0. Think about the biggest number."
+- **Prompt:** "Which scale is the best choice for this data?"
+- **Student Action:** [Multiple choice:
+  - A) "Scale of 10 — it's easiest to read."
+  - B) "Scale of 5 — it shows more detail."
+  - C) "Scale of 2 — it works for any numbers."]
+- **Correct Answer:** A
+- **On Correct:** "Scale of 10. For data up to 90, Scale of 10 gives you a clean graph with only 10 lines on the axis."
+- **On B (Incorrect):** "Scale of 5 could work, but the biggest number is 90. You'd need a lot of lines to reach 90. Scale of 10 only needs 10 — much cleaner for numbers this big."
+- **On C (Incorrect):** "Scale of 2 would need too many lines to reach 90! For big data like this, use a bigger scale."
 
 ---
 
 ### **Exit Check Closure**
 
-- **Visual:** Completed graph remains briefly.
-- **Guide:** "You understand scale of 5. Let's connect what you learned."
-
-**Voice Note:** Brief transition to Synthesis. No overpraise.
+- **Visual:** Final problem clears.
+- **Guide:** "You're ready to practice."
 
 ---
 
@@ -123,18 +120,22 @@ Verify Lesson understanding before Practice. Tests whether student can calculate
 
 **Alignment:**
 
-- [ ] EC.1 tests symbol calculation via skip-counting (Lesson Section 1)
-- [ ] EC.2 tests graph creation from data table (Lesson Sections 1 and 3)
-- [ ] EC.3 tests reading scaled graph values (Lesson Sections 1 and 2)
+- [ ] EC.1 tests range/fit recognition (Lesson Section 1)
+- [ ] EC.2 tests precision/multiples recognition (Lesson Section 2)
+- [ ] EC.3 tests scale selection with justification (Lesson Section 3)
 
 **Constraints:**
 
-- [ ] Uses picture graphs only (bar graphs assessed in M4)
-- [ ] Uses numeric Data Table (matches Lesson)
-- [ ] Uses vertical orientation (primary Lesson orientation)
-- [ ] All values are multiples of 5 (no half-symbols)
-- [ ] Values in 10-40 range
-- [ ] IDENTIFY and CREATE only (no COMPARE per Modules 1-3 guidance)
-- [ ] Difficulty matches Lesson
-- [ ] No new visual models or formats introduced
-- [ ] Interaction is click-to-height (not drag)
+- [ ] Uses bar graphs only (Lesson format)
+- [ ] Uses vertical orientation (matches Lesson majority)
+- [ ] Uses Scale Preview System feedback language (✓, ❌, "doesn't fit")
+- [ ] IDENTIFY and COMPARE only (appropriate for Module 5)
+- [ ] Difficulty matches Lesson (same value ranges, same reasoning)
+- [ ] No new visual models introduced
+
+**Voice Quality:**
+
+- [ ] Feedback is brief and specific (5-10 words)
+- [ ] No overpraise
+- [ ] Observable results only
+- [ ] Low-stakes tone throughout

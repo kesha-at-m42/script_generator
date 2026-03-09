@@ -1,0 +1,458 @@
+{
+  "module_name": "Scale Selection Strategy",
+  "module_number": 5,
+  "grade_level": 3,
+  "the_one_thing": {
+    "statement": "Scale selection follows a decision sequence: first, check which scales fit your biggest number; then, choose the most efficient (easiest to read) scale. For large data ranges, bigger scales (5 or 10) are more efficient. For small data ranges, scale of 2 (or 1) may be both practical and precise.",
+    "critical_misconception": {
+      "id": "4",
+      "label": "Wrong Scale Selection",
+      "why_critical": "Students choose inefficient scales (too small, so data doesn't fit) or impossible scales (can't represent data precisely). Without the decision sequence, students default to the most recently learned scale (10) even when data requires scale of 2 for precision."
+    },
+    "success_indicator": "Given a dataset with values like 15, 30, 45, 70, student correctly identifies that scale of 10 works and can create the graph accurately. Given a dataset like 7, 12, 19, 23, student correctly identifies that scale of 2 works well and can create the graph accurately.",
+    "biggest_risk": "Students who don't understand the decision sequence may always default to scale of 2 (thinking it's 'safer' for precision) even when the data range makes it impractical, or may ignore fit entirely and choose an inefficient scale. M6 problem-solving requires flexible scale reading."
+  },
+  "student_facing_goal": "You know how to use scales of 1, 2, 5, and 10. But which one should you CHOOSE? Today you'll learn to pick the best scale for your data—and explain why it's the smart choice.",
+  "exit_check_tests": [
+    "Can student identify when a scale WON'T work (biggest data value exceeds graph range)?",
+    "Can student select an appropriate scale for a given dataset?",
+    "Can student justify their scale choice using data characteristics (range, multiples)?",
+    "Can student recognize efficiency tradeoffs (for the same data, a larger working scale is often easier to read)?",
+    "Can student apply scale selection to create a bar graph?"
+  ],
+  "learning_goals": [
+    "Choose an appropriate scale for a bar graph that represents a given data set."
+  ],
+  "vocabulary": [
+    "scale",
+    "scaled bar graph",
+    "data",
+    "category",
+    "axis",
+    "range",
+    "efficient",
+    "easier to read",
+    "appropriate",
+    "fit",
+    "multiples of 5",
+    "end in 0 or 5",
+    "doesn't fit"
+  ],
+  "vocabulary_staging": [
+    {
+      "phase": "Warm-Up",
+      "terms": ["range (informal)", "fits", "works", "easier to read"],
+      "approach": "Use naturally: 'Look at your data. What's the biggest number? That tells us what scales might work.' No formal selection criteria vocabulary yet."
+    },
+    {
+      "phase": "Lesson Section 1",
+      "terms": ["doesn't fit", "easier to read"],
+      "approach": "Introduce during poor-choice demonstration: 'The bar goes off the graph—it doesn't fit. The scale is too small.'"
+    },
+    {
+      "phase": "Lesson Section 2",
+      "terms": ["multiples of 5", "end in 0 or 5"],
+      "approach": "Formalize during non-multiples introduction: 'Numbers that end in 0 or 5 are multiples of 5.'"
+    },
+    {
+      "phase": "Lesson Section 3",
+      "terms": ["(all terms)"],
+      "approach": "Expect student use in justification tasks"
+    },
+    {
+      "phase": "Exit Check",
+      "terms": ["(all terms)"],
+      "approach": "Use in question contexts"
+    },
+    {
+      "phase": "Synthesis",
+      "terms": ["(all terms)"],
+      "approach": "Consolidate patterns; students articulate decision rules"
+    }
+  ],
+  "variables": {
+    "graph_contexts": [
+      "Books Read This Month",
+      "Marbles in Jars",
+      "Points Scored",
+      "Stickers Earned Today",
+      "Favorite Fruits",
+      "Minutes of Practice",
+      "Team Scores",
+      "Toys Collected",
+      "Minutes Reading",
+      "Steps Walked",
+      "Coins Collected",
+      "Daily Steps"
+    ],
+    "graph_orientations": [
+      "vertical",
+      "horizontal"
+    ],
+    "graph_types": [
+      "bar graph (primary)"
+    ],
+    "scales_available": ["1:1", "1:2", "1:5", "1:10"],
+    "value_range": {
+      "warmup": "10-45 (multiples of 5 only)",
+      "lesson_section_1": "20-80 (multiples of 5, large range)",
+      "lesson_section_2": "3-31 (small range; includes non-multiples of 5)",
+      "lesson_section_3": "15-70 (mixed multiples and non-multiples)",
+      "exit_check": "7-90 (mixed; tests both precision and fit scenarios)"
+    },
+    "category_counts": {
+      "warmup": "4",
+      "lesson_section_1": 4,
+      "lesson_section_2": "4",
+      "lesson_section_3": "4",
+      "exit_check": "4"
+    },
+    "data_types_by_phase": {
+      "early": "Clear digit signals; moderate range (e.g., 20, 35, 55, 80 or 10, 15, 20, 25)",
+      "mid": "Mixed digits; includes non-multiples of 5 (e.g., 7, 12, 19, 23)",
+      "late": "Ambiguous; justification required (e.g., 25, 55, 70, 40)"
+    }
+  },
+  "standards": {
+    "building_on": [
+      "3.MD.B.3 (partial, from M1-M4)"
+    ],
+    "addressing": [
+      "3.MD.B.3"
+    ],
+    "building_toward": [
+      "3.MD.B.3 (full): Solve one- and two-step 'how many more' and 'how many fewer' problems using information presented in scaled bar graphs (M6)"
+    ],
+    "bridge": {
+      "from_module_4": "Students mastered bar graph creation with scale of 10. They learned interpolation ('half of 10 = 5') for reading values between tick marks. They have formal 'axis' vocabulary and fluency with both orientations. M4 Synthesis asked: 'Bars work great for big numbers. But how do you CHOOSE which scale?' Students are primed for strategic thinking.",
+      "this_module": "Students shift from FOLLOWING a given scale to CHOOSING the appropriate scale. Key learning: data range determines scale feasibility (highest value must fit); data characteristics determine precision requirements (non-multiples of 5 require scale of 2); efficiency matters (bigger scale = fewer tick marks = easier to read); Scale Preview System lets students see consequences before committing; justification is part of the skill.",
+      "to_module_6": "Students will apply scale selection AND graph reading to solve one-step and two-step comparison problems. M5's strategic foundation ensures students can flexibly read any scaled graph they encounter in M6."
+    }
+  },
+  "core_concepts": [
+    "Scale Selection Decision Sequence: Fit → Efficiency → Precision",
+    "Scale Preview System: See Consequences Before Committing",
+    "Range Determines Feasibility: Biggest Number Must Fit",
+    "Digit Pattern Recognition: Last Digits 0 or 5 = Multiples of 5",
+    "Scale of 2 for Non-Multiples: Works for Any Whole Number",
+    "Scale of 1 for Very Small Data: Each Number on Its Own Line",
+    "Efficiency Principle: Bigger Scale = Fewer Tick Marks = Easier to Read",
+    "Justification Language: 'I chose scale of ___ because...'",
+    "Task-Data Alignment: Creation Tasks Use Clean Multiples"
+  ],
+  "available_visuals": {
+    "tangibles": [
+      "bar graph (Scale Preview Mode)",
+      "bar graph (Creating Mode)",
+      "data table",
+      "data collection game"
+    ],
+    "description": "Bar Graphs are the PRIMARY visual for M5. Scale Preview System (Mode 3) is the central new teaching tool—students see how data renders at each scale before committing. Bar creation (Mode 2) is used for self-selected scale graphs in Sections 2-3. Picture graphs are NOT used. Data Tables are read-only reference throughout.",
+    "scale_preview_system": {
+      "description": "New in M5. Allows students to see how the same data renders at different scales before committing. Four clickable buttons: Scale of 1 / Scale of 2 / Scale of 5 / Scale of 10. Visual feedback: ✓ (fits cleanly), ⚠️ (imprecision warning), ❌ (doesn't fit).",
+      "activation": "Student (button click), Guide (demonstration), or System (remediation)"
+    },
+    "bar_graph_specs": {
+      "scales_available": ["1:1", "1:2", "1:5", "1:10"],
+      "snap_behavior": "Snap-to-scale (bars land exactly on tick marks or halfway points). Scale of 1: snap-to-1. Scale of 2: snap-to-1. Scale of 5: snap-to-5. Scale of 10: snap-to-5.",
+      "ghost_gridlines": "Match snap increment",
+      "orientations": "Both horizontal and vertical",
+      "interaction": "Click-to-set (hover shows preview, click confirms). NOT drag. Consistent with M3-M4."
+    },
+    "constraints": [
+      "No picture graph creation (bar graphs only—reduces cognitive load)",
+      "Scales limited to 1, 2, 5, 10 (no scale of 3, 4, etc.)",
+      "Creation tasks always use clean data (multiples of target scale)",
+      "Justification tasks may use non-multiples (students explain reasoning)",
+      "Scale Preview System required for all scale selection activities",
+      "Both orientations used across Lesson sections"
+    ]
+  },
+  "scope_fence": {
+    "terms_to_avoid": [
+      "overflow (not age-appropriate; use 'doesn't fit')",
+      "messy data (not student-facing; describe as 'not multiples of 5' or 'numbers that don't end in 0 or 5')",
+      "best scale as absolute (multiple scales can be appropriate—discuss tradeoffs)",
+      "estimate or about for bar placement during creation tasks",
+      "technical terms beyond Grade 3 (e.g., 'domain,' 'interval')"
+    ],
+    "advanced_concepts": [
+      "Picture graph creation (bar graphs only in M5)",
+      "Scales other than 1, 2, 5, 10 (e.g., scale of 3, scale of 4)",
+      "Two-step problem solving (M6)",
+      "Multiplication notation (M7+)",
+      "Graphing tasks with imprecise data (creation always uses clean multiples)"
+    ],
+    "required_phrases": [
+      "doesn't fit",
+      "multiples of 5",
+      "end in 0 or 5",
+      "Scale of 2 works for any numbers",
+      "easier to read",
+      "easiest to read",
+      "Check the biggest number"
+    ],
+    "forbidden_phrases": [
+      {
+        "phrase": "overflow",
+        "reason": "Not age-appropriate; use 'doesn't fit'"
+      },
+      {
+        "phrase": "messy data",
+        "reason": "Not student-facing; describe the characteristic instead"
+      },
+      {
+        "phrase": "best scale (as absolute)",
+        "reason": "Multiple scales can be appropriate—we discuss tradeoffs"
+      },
+      {
+        "phrase": "estimate / about (for bar placement)",
+        "reason": "Creation uses clean data; students should know exactly where bars go"
+      },
+      {
+        "phrase": "guess where to put the bar",
+        "reason": "Students should know exactly where bars go"
+      },
+      {
+        "phrase": "You're so smart! / Perfect! / Amazing! / Excellent!",
+        "reason": "Identity labels, overpraise"
+      },
+      {
+        "phrase": "You thought carefully about that",
+        "reason": "Assumed internal state"
+      }
+    ]
+  },
+  "misconceptions": [
+    {
+      "id": "4",
+      "misconception": "Wrong Scale Selection",
+      "description": "Student selects scale of 1 for data ranging 0-85 (inefficient, tedious), or scale of 10 for data like 7, 12, 19 (impossible to show precisely).",
+      "why_it_happens": [
+        "No explicit instruction on HOW to choose scales (M2-M4 always provided the scale)",
+        "Preference for 'bigger is better' (scale of 10 seems more impressive)",
+        "Defaulting to most recently learned scale (scale of 10 from M4)",
+        "Not checking if data values can actually be represented precisely on chosen scale"
+      ],
+      "prevention": [
+        "Preview System: Students see consequences before committing",
+        "Guide demonstrates failure first: 'Let's try scale of 5 for this data... oh no, the bar went off the graph!'",
+        "Explicit decision sequence: '1. What's my biggest number? 2. Can ALL my numbers be shown exactly? 3. Which scale is easiest to read?'",
+        "Non-multiples encounters: Multiple activities where scale of 2 works better because of precision"
+      ],
+      "remediation": {
+        "light": "Check the biggest number. Does it fit? Now check—can every number land exactly on a line or halfway between lines?",
+        "medium": "Remediation Pipeline",
+        "heavy": "Remediation Pipeline"
+      }
+    },
+    {
+      "id": "4b",
+      "misconception": "Ignoring Precision Requirements",
+      "description": "Student chooses scale of 5 or 10 for data containing values like 7, 13, 23—values that can't be shown exactly on those scales.",
+      "why_it_happens": [
+        "Focus on 'efficiency' without checking 'precision'",
+        "Assuming all numbers work on all scales",
+        "Not connecting 'multiples of 5' concept to scale selection"
+      ],
+      "prevention": [
+        "Explicit identification: Guide teaches 'Numbers that end in 0 or 5 are multiples of 5. Other numbers can be shown more precisely with scale of 2.'",
+        "Preview shows the problem: '⚠️ 7 won't land exactly on a line or in the middle'",
+        "Scale of 2 as precision tool: 'Scale of 2 works for ANY number. Half of 2 is 1, so we can always be exact.'",
+        "Reinforcement across activities: Non-multiples of 5 appear in mid AND late activities"
+      ],
+      "remediation": {
+        "light": "Look at the last digit of each number. Does it end in 0 or 5? If not, you need scale of 2.",
+        "medium": "Remediation Pipeline",
+        "heavy": "Remediation Pipeline"
+      }
+    }
+  ],
+  "phases": [
+    {
+      "phase_name": "warm_up",
+      "purpose": "Activate prior knowledge of all four scales (1, 2, 5, 10) from M1-M4 while introducing the key M5 question: 'Which scale should you CHOOSE?' Students collect personal data, then use the Scale Preview System to see that multiple scales can work for the same data. The discovery that 'you have options' sets up Lesson's teaching of selection criteria.",
+      "vocabulary_introduced_in_order": [
+        "range (informal)",
+        "fits",
+        "works",
+        "easier to read"
+      ],
+      "variables": [
+        {
+          "format": "Data Collection Game → Scale Preview Exploration → Efficiency Comparison → Bridge"
+        },
+        {
+          "categories": "4"
+        },
+        {
+          "value_range": "10-45 (multiples of 5 only)"
+        },
+        {
+          "orientations": ["vertical"]
+        },
+        {
+          "engagement_anchors": ["Narrative Setup (Minis)", "Personalization (their data)", "Choice/Agency (which scale?)"]
+        }
+      ],
+      "interaction_count": "4",
+      "interactions": [
+        "W.1: Data Collection Game — Minis counting context, 4 categories, multiples of 5 only (10-45 range)",
+        "W.2: Scale Preview Exploration — all four scales shown working; student clicks each; 'All four work!'",
+        "W.3: Efficiency Comparison — side-by-side Scale of 5 vs Scale of 10; no 'correct' answer; validates all choices",
+        "W.4: Bridge to Lesson — 'what if scales DON'T work?'; creates anticipation for decision criteria"
+      ]
+    },
+    {
+      "phase_name": "lesson_section_1",
+      "purpose": "Establish that scale selection has consequences. Students see what happens when a scale needs too many tick marks and learn to check if their biggest value fits cleanly. All data is multiples of 5 to focus on range/efficiency before introducing precision.",
+      "vocabulary_introduced_in_order": [
+        "doesn't fit",
+        "easier to read"
+      ],
+      "variables": [
+        {
+          "graph_type": "bar graph (vertical)"
+        },
+        {
+          "orientations": ["vertical"]
+        },
+        {
+          "categories": 4
+        },
+        {
+          "value_range": "20-80 (multiples of 5, large range)"
+        },
+        {
+          "data_type": "multiples of 5 only"
+        },
+        {
+          "scale_preview": "Scale of 5 (crowded) → Scale of 10 (clean)"
+        }
+      ],
+      "interaction_count": "4",
+      "interactions": [
+        "1.1: Transition from Warmup — callback to Warmup Scale Preview; 'all four worked, but what about bigger numbers?'",
+        "1.2: When the Scale Needs Too Many Tick Marks [WORKED EXAMPLE] — 'Books Read This Month'; Scale of 5 → 17 tick marks; Scale of 10 → 9 tick marks; no student prompt",
+        "1.3: Trying a Bigger Scale — student clicks Scale of 10; sees clean graph with 9 tick marks",
+        "1.4: Range Check + Efficiency — 'What's the biggest number?'; MC: 20/35/55/80; teaches 'check biggest number first'"
+      ]
+    },
+    {
+      "phase_name": "lesson_section_2",
+      "purpose": "Teach when smaller scales (1 and 2) are the best choice. Students first confirm that ALL scales FIT small data, then discover that for small numbers, we CAN achieve precision—so we SHOULD. Decision sequence (fit → efficiency → precision) explicitly modeled.",
+      "vocabulary_introduced_in_order": [
+        "multiples of 5",
+        "end in 0 or 5"
+      ],
+      "variables": [
+        {
+          "graph_type": "bar graph (both orientations)"
+        },
+        {
+          "orientations": ["horizontal (2.1-2.3)", "vertical (2.4-2.6)"]
+        },
+        {
+          "categories": 4
+        },
+        {
+          "value_range": "3-31 (small range; includes non-multiples of 5)"
+        },
+        {
+          "data_type": "non-multiples of 5 introduced"
+        },
+        {
+          "scale_preview": "All four scales interactive"
+        }
+      ],
+      "interaction_count": "6",
+      "interactions": [
+        "2.1: All Scales Fit Small Data [FIT CHECK] — 'Marbles in Jars' (7, 12, 19, 23); horizontal; student explores all 4 scales; Scale of 1 = 24 tick marks",
+        "2.2: But Which Is Best? [EFFICIENCY vs. PRECISION SETUP] — Scale of 10 shows ⚠️ warnings; '7 won't land exactly'",
+        "2.3: Scale of 2 Works for Non-Multiples [PRECISION ACHIEVED] — Scale of 2 → all bars land exactly; 'half of 2 is 1'",
+        "2.4: Digit Pattern Recognition [SHORTCUT] — side-by-side Data Set A (multiples) vs Data Set B (non-multiples); student clicks non-multiples set",
+        "2.5: Practice with Non-Multiples — 'Points Scored' (22, 15, 8, 31); MC scale choice; Scale of 2 correct",
+        "2.6: Very Small Data — Scale of 1 — 'Stickers Earned' (9, 5, 7, 3); student tries Scale of 10 → ⚠️, Scale of 2 → ✓, Scale of 1 → ✓ (all on lines)"
+      ]
+    },
+    {
+      "phase_name": "lesson_section_3",
+      "purpose": "Apply learning independently. Students select appropriate scales for mixed datasets, justify their choices (multiple choice), and create bar graphs. Both orientations used.",
+      "vocabulary_introduced_in_order": [],
+      "variables": [
+        {
+          "graph_type": "bar graph (both orientations)"
+        },
+        {
+          "orientations": ["horizontal (3.1)", "vertical (3.2)", "horizontal (3.3)"]
+        },
+        {
+          "categories": 4
+        },
+        {
+          "value_range": "15-70 (mixed multiples and non-multiples)"
+        },
+        {
+          "data_type": "mixed — multiples and non-multiples"
+        },
+        {
+          "scale_preview": "Available; student selects scale before creating"
+        }
+      ],
+      "interaction_count": "3",
+      "interactions": [
+        "3.1: Independent Selection — Multiples of 5 — 'Favorite Fruits' (60, 45, 30, 15); horizontal; student selects Scale of 10; multi-select justification (all 4 reasons correct)",
+        "3.2: Selection + Creation — Non-Multiples — 'Minutes of Practice' (27, 14, 41, 33); vertical; student selects Scale of 2; creates full bar graph",
+        "3.3: Final Application — 'Team Scores' (25, 55, 70, 40); horizontal; student selects Scale of 10; creates graph bar by bar (Red=25, Blue=40, Green=55, Yellow=70)"
+      ]
+    },
+    {
+      "phase_name": "exit_check",
+      "purpose": "Verify Lesson understanding before Practice. Tests whether student can identify when a scale is too small, recognize when Scale of 2 is the best choice, and select an appropriate scale with justification.",
+      "vocabulary_introduced_in_order": [],
+      "variables": [
+        {
+          "graph_types": ["bar graph only"]
+        },
+        {
+          "orientations": ["vertical (primary)"]
+        },
+        {
+          "cognitive_types": ["IDENTIFY", "COMPARE"]
+        },
+        {
+          "value_range": "9-90 (tests both precision and fit scenarios)"
+        },
+        {
+          "scale_preview": "Feedback language used (✓, ❌, 'doesn't fit', ⚠️)"
+        }
+      ],
+      "interaction_count": "3",
+      "interactions": [
+        "EC.1: Scale Too Small (IDENTIFY) — 'Toys Collected' (45, 70, 15, 30); Scale indicators shown; MC: Scale of 10 correct; tests Lesson 1.2-1.4",
+        "EC.2: Non-Multiples Need Scale of 2 (IDENTIFY) — 'Minutes Reading' (23, 31, 9, 16); MC: Scale of 2 correct; tests Lesson 2.1-2.4",
+        "EC.3: Select Appropriate Scale (COMPARE) — 'Steps Walked' (30, 70, 90, 50); MC justification: Scale of 10 correct; tests Lesson 3.1"
+      ]
+    },
+    {
+      "phase_name": "synthesis",
+      "purpose": "Consolidate the scale selection decision sequence into a unified process. Connect the two-question check (fit? digits?) to real-world contexts. Metacognitive reflection on most helpful strategies. NOT more practice—connection-making and consolidation.",
+      "vocabulary_introduced_in_order": [],
+      "variables": [
+        {
+          "task_types": ["Type B: Decision Checklist Consolidation", "Type A: Scale Strengths (Pattern Discovery)", "Type C: Real-World Bridge", "Metacognitive Reflection (two-question strategy)"]
+        },
+        {
+          "graph_types": ["bar graph only"]
+        }
+      ],
+      "interaction_count": "4",
+      "interactions": [
+        "S.1: Decision Checklist Consolidation — sequential: Question 1 (fit) → Question 2 (digits) → 'Which first?'; MC: 'Does the biggest number fit?' is first",
+        "S.2: Scale Strengths — four bar graphs same data at scales 1, 2, 5, 10; click easiest to read; Scale of 10 correct for multiples data",
+        "S.3: Real-World Connection — three data tables (Steps, Coins, Books); click which MUST use Scale of 2; Coins correct (non-multiples)",
+        "S.4: Metacognitive Reflection + Closure — 'What helped most?'; validate all; coach toward two key questions; M6 bridge"
+      ]
+    }
+  ]
+}

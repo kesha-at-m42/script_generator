@@ -1,30 +1,38 @@
-## **1.9 SYNTHESIS (4-5 minutes)**
+## **1.9 SYNTHESIS (5-6 minutes)**
 
 **Detail Level:** Structure + parameters (AI writes dialogue)
 
+---
+
 ### **Purpose**
 
-Connect scale of 5 to real-world contexts and consolidate that students now have multiple scales in their toolkit. M3 has thinner conceptual depth than M2 (same concept, different number), so Synthesis is intentionally lean—3 interactions focused on genuine M3-specific insights.
+Consolidate understanding that scale selection is a strategic decision based on data characteristics. Connect the decision sequence (Does it fit? What do the last digits tell you? Which is easiest to read?) into a unified process. Reflect on when each scale is most useful. This is NOT more practice—it's connection-making and consolidation.
+
+---
 
 ### **Parameters**
 
 | Element | Specification |
 | :---- | :---- |
-| Interactions | 3 (2 connection tasks + closure) |
-| Task Types | Type C (Real-World Bridge), Metacognitive Reflection |
+| Interactions | 4 (3 connection tasks + 1 metacognitive reflection) |
+| Task Types | Type A (Pattern Discovery), Type B (Progressive/Consolidation), Type C (Real-World Bridge) |
 | Remediation | Light only—mastery assumed |
 | Tone | Reflective, warm, discovering together |
 | Energy | Medium (not exhausted, not high-energy) |
+
+---
 
 ### **Constraints**
 
 | DO | DO NOT |
 | :---- | :---- |
-| Real-world connection (5s in life) | Format comparison (covered in M1) |
-| "Two scales in your toolkit" framing | Scale efficiency comparison (covered in M2) |
+| Connection tasks (pattern, consolidation, real-world) | More practice problems |
+| Consolidate the decision sequence (fit → digits → efficiency) | Introduce new decision criteria |
+| Connect scales to real-world data contexts | Introduce scales beyond 1, 2, 5, 10 |
 | Light remediation if needed | Extended teaching or heavy remediation |
 | Specific identity closure | Generic praise ("Great job!") |
-| Visual support for every task | Artificially inflate interactions |
+| Visual support for every task | Abstract discussion without visuals |
+| Use bar graphs and Scale Preview System from Lesson | Introduce picture graphs or new formats |
 
 ---
 
@@ -32,54 +40,89 @@ Connect scale of 5 to real-world contexts and consolidate that students now have
 
 - **Purpose:** Signal shift from Exit Check to reflection/connection.
 - **Visual:** Clean transition screen.
-- **Guide:** "You made graphs with scale of 5. Let's connect what you learned to the world around you."
+- **Guide:** "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Now let's connect what you discovered."
 
 ---
 
-**Task S.1: Real-World Bridge (Type C) — 5s Are Everywhere**
+**Task S.1: Decision Checklist Consolidation (Type B - Consolidation)**
 
-- **Purpose:** Connect scale of 5 to familiar real-world contexts where grouping by 5s appears naturally.
-- **Visual:** Four real-world images displayed:
-  - ✋ A hand (5 fingers)
-  - 📊 Tally marks (groups of 5)
-  - 🪙 Nickels (worth 5 cents each)
-  - 🕐 Clock face (marks every 5 minutes)
-- **Guide:** "You've been grouping by 5s all lesson. But 5s show up everywhere in real life! Which of these uses groups of 5?"
-- **Prompt:** "Which of these uses groups of 5? Select all that apply."
-- **Student Action:** \[Multi-select: ☐ Hand  ☐ Tally marks  ☐ Nickels  ☐ Clock\]
-- **Correct Answer:** All four
-- **On Correct:** "All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere—and now you use it for graphs too."
-- **Connection (Guide states):** "Scale of 5 isn't just for math class. People group by 5s all the time because it's easy to count."
-
----
-
-**Task S.2: Metacognitive Reflection — Two Scales in Your Toolkit**
-
-- **Purpose:** Help students recognize they now have OPTIONS for representing data.
-- **Visual:** Simple display showing:
-  - "Scale of 2: Each symbol = 2"
-  - "Scale of 5: Each symbol = 5"
-- **Guide:** "You now know TWO scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?"
-- **Prompt:** "If you had to show 30 items on a graph, which scale would need fewer symbols?"
-- **Student Action:** \[Multiple choice:
-  - "Scale of 2"
-  - "Scale of 5"
-  - "They'd need the same"\]
-- **Correct Answer:** "Scale of 5"
-- **On Correct:** "Scale of 5. You'd need 6 symbols instead of 15. Bigger scale, fewer symbols."
-- **Connection (Guide states):** "You're building a toolkit. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one."
+- **Purpose:** Explicitly consolidate the two-question decision process students learned across Sections 1 and 2.
+- **Visual (Step 1):** Data Table: "Points Scored" — Ana: 20, Ben: 35, Cara: 55, Dan: 80. Scale Preview shows Scale of 5 selected → ❌ "80 doesn't fit"
+- **Guide:** "Here's the first question you learned: Does the biggest number fit?"
+- **Guide:** "Dan scored 80. That's too big for Scale of 5. You'd need a bigger scale."
+- **Visual (Step 2):** Data Table: "Stickers Collected" — Eli: 7, Fay: 12, Gus: 19, Hal: 23. Scale Preview shows Scale of 5 selected → ⚠️ "Can't be shown exactly"
+- **Guide:** "Here's the second question: Do all the numbers end in 0 or 5?"
+- **Guide:** "7, 12, 19, 23—none of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check FIRST?"
+- **Prompt:** "Which question should you check FIRST?"
+- **Student Action:** [Multiple choice: "Does the biggest number fit?" / "Do the numbers end in 0 or 5?"]
+- **Correct Answer:** "Does the biggest number fit?"
+- **On Correct:** "Right. Check if it fits first—that tells you which scales are even possible. Then check the digits."
 
 ---
 
-**Task S.3: Identity-Building Closure + Bridge to M4**
+### **Task S.2: Scale Strengths (Type A - Pattern Discovery)**
 
-- **Purpose:** Specific, growth-oriented affirmation. Connect to future learning.
-- **Visual:** Representative graphs from Lesson (picture graph and bar graph with scale of 5).
-- **Guide:** "You started this unit knowing scale of 2. Now you can make graphs with scale of 5 too."
-- **Guide:** "And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data."
-- **Guide:** "Two scales in your toolkit. Two formats you can create. You're ready for more."
-- **Bridge:** "You started with scale of 1, then 2, now 5. Next time, we'll add scale of 10 to your toolkit."
-- **No student prompt** (closure)
+- **Purpose:** Help students SEE what each scale is "good for" through visual comparison.
+- **Visual:** Four bar graphs side-by-side, ALL showing the same data (Apples: 20, Bananas: 40, Cherries: 60):
+  - Graph A: Scale of 1 (most tick marks, very detailed)
+  - Graph B: Scale of 2 (many tick marks)
+  - Graph C: Scale of 5 (medium tick marks)
+  - Graph D: Scale of 10 (fewest tick marks, clean)
+- **Guide:** "Here's the same data shown four different ways. Look at the differences."
+- **Guide:** "Scale of 1 has the most lines. Scale of 10 has the fewest. All four show the same information. Which graph is easiest to read?"
+- **Prompt:** "Which graph is easiest to read?"
+- **Student Action:** [Click Graph A / Graph B / Graph C / Graph D]
+- **Correct Answer:** Graph D (Scale of 10)
+- **On Correct:** "Scale of 10 is easiest to read here—fewer lines to count. When all your numbers end in 0 or 5, the bigger scale is usually cleaner."
+- **On Incorrect (A, B, or C):** "That one works! But look at Scale of 10—fewer lines makes it quicker to read. When numbers are multiples of 5, bigger scales are often easier."
+- **Guide (connection):** "Scale of 1 and 2 are for smaller data—they show every number exactly. Scale of 5 and 10 are for bigger data—they're cleaner and easier to read."
+
+---
+
+### **Task S.3: Real-World Connection (Type C - Real-World Bridge)**
+
+- **Purpose:** Connect scale selection to authentic data by examining actual data tables.
+- **Visual:** Three data tables displayed:
+  - Table A: "Daily Steps" — Mon: 4,500 / Tue: 3,200 / Wed: 5,100 / Thu: 2,800
+  - Table B: "Coins Collected" — Jar 1: 7 / Jar 2: 12 / Jar 3: 19 / Jar 4: 23
+  - Table C: "Books Read" — Room A: 25 / Room B: 30 / Room C: 35 / Room D: 40
+- **Guide:** "People collect data about all kinds of things. Look at these three tables. Which data would HAVE to use Scale of 2?"
+- **Prompt:** "Which data would HAVE to use Scale of 2?"
+- **Student Action:** [Click Table A / Table B / Table C]
+- **Correct Answer:** Table B (Coins: 7, 12, 19, 23)
+- **On Correct:** "The coin counts—7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly."
+- **On Incorrect (A):** "Look at the step counts—4,500, 3,200, 5,100, 2,800. These are very large numbers and would need a larger scale. Which has smaller numbers to graph exactly with scale of 2?"
+- **On Incorrect (C):** "The book counts all end in 0 or 5 so scales of 5 and 10 both work. Check the coins."
+- **Guide (connection):** "Remember this quick check: Do all the numbers end in 0 or 5? If yes, you have options. If no and the numbers are small, Scale of 2 is your go-to."
+
+---
+
+### **Task S.4: Metacognitive Reflection (Type 1 - Strategy Identification)**
+
+- **Purpose:** Help students recognize effective strategies and reinforce the two key questions.
+- **Visual:** Scale Preview System shown with all four scale buttons visible.
+- **Guide:** "What helped you most when deciding which scale to use?"
+- **Prompt:** "What helped you most when deciding which scale to use?"
+- **Student Action:** [Multiple choice:
+  - "Checking the biggest number first"
+  - "Looking at the last digits"
+  - "Trying the preview to see what happens"
+  - "Thinking about which graph would be easiest to read"]
+- **On Selection:** Guide validates, then coaches toward key strategies:
+  - (Biggest number): "That's one of the two key questions. Checking the biggest number tells you right away which scales can even work."
+  - (Last digits): "That's one of the key checks. Spotting those last digits tells you whether you have multiples of 5 or need a smaller scale like 1 or 2."
+  - (Preview): "The preview is helpful! And here's a shortcut: ask yourself the two key questions first—Does the biggest number fit without too many lines? Are the numbers multiples of 5? Those two checks guide you every time."
+  - (Easiest to read): "That matters once you know your options. Start with the two key questions: Does the biggest number fit? Are the numbers multiples of 5? Then pick what's easiest to read without too many lines."
+
+---
+
+### **Identity-Building Closure**
+
+- **Purpose:** Specific, growth-oriented affirmation connecting to future learning.
+- **Visual:** Brief display of a completed bar graph with Scale of 10.
+- **Guide:** "You learned to CHOOSE scales—not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines."
+- **Guide:** "That's strategic thinking. You're not just following rules—you're making decisions."
+- **Bridge to M6:** "Next time, you'll use your graphs to solve problems and answer questions. The scale you choose will help you find answers faster."
 
 ---
 
@@ -87,21 +130,36 @@ Connect scale of 5 to real-world contexts and consolidate that students now have
 
 **Structure:**
 
-- [ ] Opening frame signals shift to reflection (brief, warm)
-- [ ] 2 connection tasks with different focuses
-- [ ] Identity-building closure previews M4
-- [ ] Total time 4-5 minutes (lean, appropriate for thin conceptual depth)
+- [ ] Opening frame signals shift to reflection (30-45 sec)
+- [ ] 3 connection tasks (4-5 min total)
+- [ ] 1 metacognitive reflection moment
+- [ ] Identity-building closure previews M6
+- [ ] Total time 5-6 minutes
 
 **Task Coverage:**
 
-- [ ] S.1: Real-World Bridge — 5s appear in hands, tallies, nickels, clocks
-- [ ] S.2: Metacognitive — "Two scales in your toolkit" with practical comparison
-- [ ] S.3: Closure — Specific growth statement + acknowledges both formats + M4 bridge
+- [ ] Type B (Consolidation): Two-question process shown sequentially, then order question
+- [ ] Type A (Pattern Discovery): Four graphs showing same data at different scales
+- [ ] Type C (Real-World Bridge): Three data tables—student identifies which needs Scale of 2
+- [ ] Metacognitive: Validate + coach toward the two key questions
+
+**Visual Design:**
+
+- [ ] S.1 is sequential (Question 1 visual → Question 2 visual → prompt)
+- [ ] S.2 shows four actual bar graphs, not text descriptions
+- [ ] S.3 shows three data tables, not text scenarios
+- [ ] All tasks have visual support
+
+**Alignment to Lesson:**
+
+- [ ] S.1 consolidates Sections 1 and 2 (fit + digit pattern)
+- [ ] S.2 reinforces efficiency principle from 1.4
+- [ ] S.3 extends to transfer contexts
+- [ ] S.4 reinforces the two key questions as core strategy
 
 **Constraints:**
 
 - [ ] Light remediation only (mastery assumed)
 - [ ] No new procedures introduced
-- [ ] No format comparison (redundant with M1)
-- [ ] No scale efficiency deep-dive (redundant with M2)
-- [ ] No skip-counting assumption in closure
+- [ ] Uses only bar graphs and Scale Preview System from Lesson
+- [ ] Connections emerge from student's Lesson experience
