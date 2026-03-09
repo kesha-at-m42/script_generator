@@ -49,18 +49,41 @@ def merge_remediation(data, output_file_path=None):
         output_file_path: path where this step's output will be saved; used to
                           locate the original lesson_generator output from step 1
     """
-    # Load original sections from step 1 to reconstruct processed items
+    # Load original sections to reconstruct processed items.
+    # Walk prior step directories in reverse order and use the most recent one
+    # whose output is a sections array (list of objects with "id" and "steps").
     original_by_id = {}
     if output_file_path is not None:
         version_dir = Path(output_file_path).parent.parent
-        for step1_dir in sorted(version_dir.glob("step_01_*")):
-            # Derive filename from directory name: "step_01_script_generator" → "script_generator.json"
-            step_name = step1_dir.name.split("_", 2)[2]
-            lesson_file = step1_dir / f"{step_name}.json"
-            if lesson_file.exists():
-                originals = json.loads(lesson_file.read_text(encoding="utf-8"))
-                original_by_id = {s["id"]: s for s in originals}
+        own_step_num = int(Path(output_file_path).parent.name.split("_")[1])
+
+        source_file = None
+        for step_dir in sorted(version_dir.glob("step_*"), reverse=True):
+            try:
+                step_num = int(step_dir.name.split("_")[1])
+            except (IndexError, ValueError):
+                continue
+            if step_num >= own_step_num:
+                continue
+            for json_file in sorted(step_dir.glob("*.json")):
+                try:
+                    data = json.loads(json_file.read_text(encoding="utf-8"))
+                    if (
+                        isinstance(data, list)
+                        and data
+                        and isinstance(data[0], dict)
+                        and "steps" in data[0]
+                    ):
+                        source_file = json_file
+                        break
+                except Exception:
+                    continue
+            if source_file:
                 break
+
+        if source_file is not None:
+            originals = json.loads(source_file.read_text(encoding="utf-8"))
+            original_by_id = {s["id"]: s for s in originals}
 
     result = []
     for item in data:

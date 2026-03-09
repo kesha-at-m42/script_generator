@@ -226,6 +226,42 @@
       "description": "Merges rewritten dialogue texts back into full section objects positionally",
       "function_args": {},
       "output_file": "lesson_sections.json"
+    },
+    {
+      "name": "remediation_filter",
+      "type": "formatting",
+      "function": "remediation_filter.filter_sections",
+      "description": "Filters sections array to only those with real prompts — skips transitions and dialogue-only sections",
+      "function_args": {},
+      "output_file": "sections_to_remediate.json"
+    },
+    {
+      "name": "remediation_generator",
+      "type": "ai",
+      "prompt_name": "remediation_generator",
+      "description": "Generates incorrect validator states (L/M/H) for each prompt in a section",
+      "variables": {},
+      "input_file": "",
+      "output_file": "lesson_sections_incorrects.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    },
+    {
+      "name": "remediation_merger",
+      "type": "formatting",
+      "function": "remediation_merger.merge_remediation",
+      "description": "Merges {id, incorrects} items back into full section objects to produce final lesson_sections.json",
+      "function_args": {},
+      "output_file": "lesson_sections.json"
+    },
+    {
+      "name": "notion_push",
+      "type": "formatting",
+      "function": "notion_push.push",
+      "function_args": {
+        "pipeline_name": "Lesson"
+      }
     }
   ],
   "problem_pool_generator": [
