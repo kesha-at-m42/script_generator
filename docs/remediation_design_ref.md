@@ -274,13 +274,13 @@ For MC, Medium is targeted to the specific distractor chosen:
 
 ### 6.1 Approved Opening Language
 
-- "This is tricky, so let's work through it together..."
+- "This one takes a bit of thought, so let's work through it together..."
 - "Let me show you how this works."
 - "Here, let me walk you through this one."
 - "Let's work through this step by step..."
 - "These can be challenging. Let me show you..."
 - "Let me help a bit more."
-- "This can be tricky, so let's do it together."
+- "This one needs a closer look, so let's do it together."
 
 ### 6.2 Heavy Structure (Non-MC)
 
@@ -302,7 +302,7 @@ Guide: "[Post-modeling acknowledgment]"
 
 ### 6.4 Heavy Examples
 
-**Non-MC:** "This is tricky, so let me show you. First, I count the total parts—that's my denominator: 4\. Then I count just the shaded parts—that's my numerator: 3\. So the fraction is 3/4." \[Visual: System highlights total parts, then shaded parts, then shows 3/4\]
+**Non-MC:** "Let me show you how this works. First, I count the total parts—that's my denominator: 4\. Then I count just the shaded parts—that's my numerator: 3\. So the fraction is 3/4." \[Visual: System highlights total parts, then shaded parts, then shows 3/4\]
 
 **MC:** "Let me show you how to think about this. The question asks which fraction is shown. I count 4 equal parts total—that's the denominator. 3 parts are shaded—that's the numerator. So the answer is 3/4, not 4/3." \[Visual: Correct answer highlighted, visual shows counting sequence\]
 
@@ -316,7 +316,7 @@ After Heavy remediation with \[Modeling\], use **only** language that acknowledg
 
 - "There we go."
 - "See how that works?"
-- "It's okay if this is tricky."
+- "It's okay if this takes a moment."
 - "You're getting it now."
 - "Now you understand."
 - "That makes sense now, right?"
@@ -445,7 +445,7 @@ Intervention Activities are **standalone instructional sequences** that address 
 
 | Phase | Name | Purpose | Approach |
 | :---- | :---- | :---- | :---- |
-| 1 | **Clarify** | Name the misconception | Metacognitive: "A lot of students think X. Let's look at why that's tricky..." |
+| 1 | **Clarify** | Name the misconception | Metacognitive: "A lot of students think X. Let's look at why that's hard to see..." |
 | 2 | **Model** | Worked examples | Guide demonstrates across 2-3 examples using multiple visuals |
 | 3 | **Confirm** | Independent verification | 2-3 problems student completes independently |
 
