@@ -4,7 +4,7 @@ remediation_generator - AI Prompt
 Generates incorrect validator states (L/M/H for Non-MC, per-distractor for MC)
 for each prompt in a lesson section.
 
-Runs in batch mode — input is pre-filtered to sections that have at least one
+Runs in batch mode. Input is pre-filtered to sections that have at least one
 prompt with a real validator (not any-response-advances).
 
 Input per call: section JSON auto-wrapped as <input> by the pipeline.
@@ -19,7 +19,7 @@ Output per call:
   }
   One inner array per prompt in the section, in section order.
   Prompts with any-response-advances validators (single condition: {}) are
-  skipped — no inner array emitted for them.
+  skipped. No inner array emitted for them.
 
 A downstream formatter (remediation_merger) inserts these states into the
 correct validator arrays in the original section.
@@ -35,13 +35,13 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt  # noqa: E402
 
 REMEDIATION_GENERATOR_PROMPT = Prompt(
-    role="""You are generating remediation feedback states for lesson section JSON. This is AUTHORING work — you write instructional dialogue and scene beats that guide a student who answered incorrectly.""",
+    role="""You are generating remediation feedback states for lesson section JSON. This is AUTHORING work. You write instructional dialogue and scene beats that guide a student who answered incorrectly.""",
     instructions="""
 ## TASK
 
 The section to process is in `<input>`. Walk its `steps` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
-**Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances) — emit nothing for it.
+**Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
 ---
 
@@ -70,7 +70,7 @@ Each state follows the validator state schema:
 
 ---
 
-## STEP 1 — DETECT QUESTION TYPE
+## STEP 1: DETECT QUESTION TYPE
 
 For each qualifying prompt, check `tool.name`:
 
@@ -81,11 +81,11 @@ For each qualifying prompt, check `tool.name`:
 
 ---
 
-## STEP 2A — NON-MC: THREE STATES
+## STEP 2A: NON-MC: THREE STATES
 
 Emit in this order. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
-**Light** (`incorrect_count: 1`) — dialogue only:
+**Light** (`incorrect_count: 1`): dialogue only.
 ```json
 {
   "condition": { "incorrect_count": 1 },
@@ -97,7 +97,7 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 }
 ```
 
-**Medium** (`incorrect_count: 2`) — scene beat required:
+**Medium** (`incorrect_count: 2`): scene beat required.
 ```json
 {
   "condition": { "incorrect_count": 2 },
@@ -112,11 +112,11 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 }
 ```
 
-**Heavy** (`condition: {}`) — `scene animate` beat required (system demonstrates the answer):
+**Heavy** (`condition: {}`): `scene animate` beat required (system demonstrates the answer).
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly three or more times — system models the answer",
+  "description": "Student answered incorrectly three or more times. System models the answer.",
   "is_correct": false,
   "steps": [
     [
@@ -130,17 +130,17 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 
 ---
 
-## STEP 2B — MC: PER-DISTRACTOR STATES
+## STEP 2B: MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
 See `<remediation_design_ref>` Section 3.2 for MC structure (no Light state; per-distractor Mediums + one Heavy).
 
-One **Medium** per distractor — scene beat required:
+One **Medium** per distractor: scene beat required.
 ```json
 {
   "condition": { "selected": <distractor> },
-  "description": "Student selected <distractor> — <why this is wrong>",
+  "description": "Student selected <distractor>: <why this is wrong>",
   "is_correct": false,
   "steps": [
     [
@@ -151,11 +151,11 @@ One **Medium** per distractor — scene beat required:
 }
 ```
 
-One **Heavy** (`condition: {}`) — `scene animate` beat required:
+One **Heavy** (`condition: {}`): `scene animate` beat required.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly — system models the correct answer",
+  "description": "Student answered incorrectly. System models the correct answer.",
   "is_correct": false,
   "steps": [
     [
@@ -174,11 +174,11 @@ One **Heavy** (`condition: {}`) — `scene animate` beat required:
 **Non-MC inner array:**
 1. Light (`incorrect_count: 1`)
 2. Medium (`incorrect_count: 2`)
-3. Heavy (`condition: {}`) — always last
+3. Heavy (`condition: {}`): always last
 
 **MC inner array:**
 1. One Medium per distractor (any order among themselves)
-2. Heavy (`condition: {}`) — always last
+2. Heavy (`condition: {}`): always last
 
 ---
 
@@ -186,11 +186,11 @@ One **Heavy** (`condition: {}`) — `scene animate` beat required:
 
 Follow all language patterns, word counts, visual requirements, and prohibited constructs from `<remediation_design_ref>` Sections 4–8 and 12.4.
 
-**Light:** Draw openers from `<remediation_design_ref>` Sections 4.1–4.2. Cycle through the full lists — do not reuse the same phrase within a section.
+**Light:** Draw openers from `<remediation_design_ref>` Sections 4.1–4.2. Cycle through the full lists. Do not reuse the same phrase within a section.
 
-**Medium:** Open with a starter from `<remediation_design_ref>` Section 5.1. Cycle through the full list — do not reuse the same starter within a section. For MC: address specifically why the chosen distractor is wrong.
+**Medium:** Open with a starter from `<remediation_design_ref>` Section 5.1. Cycle through the full list. Do not reuse the same starter within a section. For MC: address specifically why the chosen distractor is wrong.
 
-**Heavy:** Open with a phrase from `<remediation_design_ref>` Section 6.1. Cycle through the full list — do not reuse the same opener within a section. States the correct answer explicitly with step-by-step demonstration. Follow post-modeling language from `<remediation_design_ref>` Section 7.
+**Heavy:** Open with a phrase from `<remediation_design_ref>` Section 6.1. Cycle through the full list. Do not reuse the same opener within a section. States the correct answer explicitly with step-by-step demonstration. Follow post-modeling language from `<remediation_design_ref>` Section 7.
 
 ---
 
@@ -202,10 +202,11 @@ Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_p
 
 ## OUTPUT RULES
 
-- Output ONLY the `incorrects` array content — no explanation, no markdown fences
-- The prefill already opens `{"id": "...", "incorrects": [` — complete from that point
+- Output ONLY the `incorrects` array content. No explanation, no markdown fences.
+- The prefill already opens `{"id": "...", "incorrects": [`. Complete from that point.
 - Use double quotes throughout
 - `is_correct: false` on every state
+- Do not use em dashes (—) or double hyphens (--) in any text field; to create a pause or connect two thoughts, use a period or comma instead
 
 """,
     doc_refs=[

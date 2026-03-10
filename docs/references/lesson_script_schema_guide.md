@@ -14,26 +14,26 @@ The format is human-readable first and machine-processed second. This makes it s
 
 Key choices that serve this goal:
 
-- **Plain-text content fields** — `dialogue.text` and `prompt.text` contain natural language, not markup or encoded content
-- **Notion callout mapping** — each beat type maps to a specific Notion callout emoji (💬 dialogue, ❓ prompt, 🎬/🎞️ scene), so the JSON can round-trip to/from Notion without losing information on the editable fields
-- **Selective editability** — only `dialogue.text` and `prompt.text` are editable in Notion; `scene` beats are display-only, so reviewers cannot inadvertently break structural logic
-- **Human-readable IDs and slugs** — section IDs include a slug (e.g. `s1_1_most_votes`) so a reviewer can follow the navigation flow without reading code
-- **`description` on validator states** — every validator state carries a plain-English description of the student condition it captures, making branching logic readable without interpreting condition syntax
+- **Plain-text content fields**: `dialogue.text` and `prompt.text` contain natural language, not markup or encoded content
+- **Notion callout mapping**: each beat type maps to a specific Notion callout emoji (💬 dialogue, ❓ prompt, 🎬/🎞️ scene), so the JSON can round-trip to/from Notion without losing information on the editable fields
+- **Selective editability**: only `dialogue.text` and `prompt.text` are editable in Notion; `scene` beats are display-only, so reviewers cannot inadvertently break structural logic
+- **Human-readable IDs and slugs**: section IDs include a slug (e.g. `s1_1_most_votes`) so a reviewer can follow the navigation flow without reading code
+- **`description` on validator states**: every validator state carries a plain-English description of the student condition it captures, making branching logic readable without interpreting condition syntax
 
 ### 2. Translatable Structured Data
 
-The schema is an authored intermediate representation — not the final runtime format. It must be structured enough to be mechanically translated to a downstream schema (a runtime engine, a CMS, or a future schema revision).
+The schema is an authored intermediate representation, not the final runtime format. It must be structured enough to be mechanically translated to a downstream schema (a runtime engine, a CMS, or a future schema revision).
 
 Key choices that serve this goal:
 
-- **Typed beats** — `type` is always explicit (`"dialogue"`, `"scene"`, `"prompt"`), enabling switch-based translation with no ambiguity
-- **Explicit targeting** — tangibles are always referenced by `tangible_id` or `tangible_type`, never by position or implicit state
-- **No logic embedded in text** — conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
-- **Flat, predictable field shapes** — each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
-- **Validator as a declarative state machine** — validator states are a portable condition/goto structure with no runtime-specific implementation details, making them translatable to any branching execution model
-- **IDs as the only coupling between sections** — sections reference each other only via `goto` section IDs; the schema makes no assumptions about execution order beyond what those references specify
+- **Typed beats**: `type` is always explicit (`"dialogue"`, `"scene"`, `"prompt"`), enabling switch-based translation with no ambiguity
+- **Explicit targeting**: tangibles are always referenced by `tangible_id` or `tangible_type`, never by position or implicit state
+- **No logic embedded in text**: conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
+- **Flat, predictable field shapes**: each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
+- **Validator as a declarative state machine**: validator states are a portable condition/goto structure with no runtime-specific implementation details, making them translatable to any branching execution model
+- **IDs as the only coupling between sections**: sections reference each other only via `goto` section IDs; the schema makes no assumptions about execution order beyond what those references specify
 
-These two goals can create tension: fully specified structured data tends toward verbosity, while readability pushes toward concision. The schema resolves this by separating concerns — structural and logic fields are fully specified for translation fidelity, while human-facing fields (`text`, `description`, ID slugs) carry the readability load.
+These two goals can create tension: fully specified structured data tends toward verbosity, while readability pushes toward concision. The schema resolves this by separating concerns. Structural and logic fields are fully specified for translation fidelity, while human-facing fields (`text`, `description`, ID slugs) carry the readability load.
 
 ---
 
@@ -48,7 +48,7 @@ These two goals can create tension: fully specified structured data tends toward
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | string | Sequence identifier — see format below |
+| `id` | string | Sequence identifier. See format below. |
 | `sections` | array | Ordered list of all sections (main, transition, remediation) |
 
 ### Lesson ID Format
@@ -84,7 +84,7 @@ u3_m4_exitcheck
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | yes | Unique section ID — see [Naming Conventions](#section-id-naming-conventions) |
+| `id` | string | yes | Unique section ID. See [Naming Conventions](#section-id-naming-conventions). |
 | `type` | string | no | `"transition"` or `"remediation"`. Omit for normal sections. |
 | `scene` | string[] | no | Tangible IDs on screen when the section begins |
 | `steps` | array[] | yes | Array of steps; each step is an array of beats |
@@ -100,17 +100,17 @@ s{group}_transition                →  s2_transition
 | Segment | Description |
 |---|---|
 | `s` | Fixed prefix |
-| `{group}` | Concept group number — local to the unit/module, not the phase |
+| `{group}` | Concept group number, local to the unit/module, not the phase |
 | `{seq}` | Sequence position within the group |
 | `{variant}` | Optional letter suffix for sub-problems, e.g. `a`, `b`, `c` |
 | `{slug}` | Human-readable label for the problem |
 
 **Key rules:**
-- Section IDs are **unit/module specific** — they belong to a content area, not a phase
+- Section IDs are **unit/module specific**: they belong to a content area, not a phase
 - The same section can appear in multiple phases (lesson, warmup, synthesis, practice, exitcheck)
-- Some sections are **misconception specific** — written to address a known error pattern
+- Some sections are **misconception specific**: written to address a known error pattern
   rather than advancing the main concept sequence
-- Some sections are **validator-state dependent child sections** — they only execute
+- Some sections are **validator-state dependent child sections**: they only execute
   when a specific validator state is triggered. Remediation sections (`_light`, `_medium`,
   `_heavy`) are the current example of this pattern, but other branching types will exist
   (e.g. sections addressing a specific wrong answer, or sections unlocked by a correct
@@ -121,12 +121,12 @@ s{group}_transition                →  s2_transition
 
 ## Steps
 
-`steps` is an **array of arrays**. Each inner array is one step — a group of beats that play together before the lesson pauses for student interaction.
+`steps` is an **array of arrays**. Each inner array is one step, a group of beats that play together before the lesson pauses for student interaction.
 
 ```json
 "steps": [
-  [beat, beat, beat],   // step 1 — scene setup + dialogue + prompt
-  [beat, beat]          // step 2 — follow-up after correct answer
+  [beat, beat, beat],   // step 1: scene setup + dialogue + prompt
+  [beat, beat]          // step 2: follow-up after correct answer
 ]
 ```
 
@@ -165,7 +165,7 @@ Narration or teacher speech. Editable in Notion (💬 callout).
 
 Manipulates a tangible on screen. Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
 
-Three targeting levels — omit fields to broaden scope:
+Three targeting levels. Omit fields to broaden scope:
 
 | Target | Fields present |
 |---|---|
@@ -173,9 +173,9 @@ Three targeting levels — omit fields to broaden scope:
 | All instances of a type | `tangible_type` |
 | All instances on screen | neither |
 
-`add` is the exception — it always requires both `tangible_id` and `tangible_type`.
+`add` is the exception: it always requires both `tangible_id` and `tangible_type`.
 
-Interactivity is **implicit** — a tangible becomes interactive when a prompt's `tool` targets it, and resets automatically when the prompt resolves. Use `lock`/`unlock` only for edge cases that need explicit control.
+Interactivity is **implicit**. A tangible becomes interactive when a prompt's `tool` targets it, and resets automatically when the prompt resolves. Use `lock`/`unlock` only for edge cases that need explicit control.
 
 | Method | Notion icon | `params` fields | Description |
 |---|---|---|---|
@@ -194,7 +194,7 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 { "type": "scene", "method": "hide", "tangible_id": "data_table" }
 ```
 
-**animate — specific instance**
+**animate: specific instance**
 ```json
 {
   "type": "scene",
@@ -209,7 +209,7 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 }
 ```
 
-**animate — all instances of a type**
+**animate: all instances of a type**
 ```json
 {
   "type": "scene",
@@ -263,7 +263,7 @@ Interactivity is **implicit** — a tangible becomes interactive when a prompt's
 
 Student interaction point. Text is editable in Notion (❓ callout).
 
-**Workspace tool — single tangible:**
+**Workspace tool: single tangible**
 ```json
 {
   "type": "prompt",
@@ -274,7 +274,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 }
 ```
 
-**Workspace tool — specific component:**
+**Workspace tool: specific component**
 ```json
 {
   "type": "prompt",
@@ -285,7 +285,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 }
 ```
 
-**Workspace tool — explicit list of tangibles:**
+**Workspace tool: explicit list of tangibles**
 ```json
 {
   "type": "prompt",
@@ -296,7 +296,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 }
 ```
 
-**Workspace tool — all tangibles of a type:**
+**Workspace tool: all tangibles of a type**
 ```json
 {
   "type": "prompt",
@@ -307,7 +307,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 }
 ```
 
-**Overlay tool** — generates its own UI, no tangible target:
+**Overlay tool**: generates its own UI, no tangible target.
 ```json
 {
   "type": "prompt",
@@ -334,7 +334,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 | `text` | string | yes | Question or instruction shown to student |
 | `tool` | string | yes | `click_category` · `click_component` · `click_tangible` · `multiple_choice` · `multi_select` |
 | `target` | string \| string[] \| object | conditional | What the tool acts on. Omit for overlay tools. See shapes below. |
-| `options` | array | conditional | Overlay tools only — `multiple_choice` and `multi_select`. Numbers or strings. |
+| `options` | array | conditional | Overlay tools only: `multiple_choice` and `multi_select`. Numbers or strings. |
 | `validator` | array | yes | See [Validator](#validator) |
 
 **`target` shapes:**
@@ -350,7 +350,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 
 ## Validator
 
-A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `steps` — beats that play when the state matches.
+A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `steps`, beats that play when the state matches.
 
 Every state must include `is_correct: true` or `is_correct: false`. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
 
@@ -362,7 +362,7 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "is_correct": true,
     "steps": [
       [
-        { "type": "dialogue", "text": "Apples got 6 votes — the most of any fruit." }
+        { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." }
       ]
     ]
   },
@@ -384,19 +384,19 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
       [
         { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
           "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Count the Apples row — 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
+        { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
       ]
     ]
   },
   {
     "condition": {},
-    "description": "Catch-all — any remaining state",
+    "description": "Catch-all: any remaining state",
     "is_correct": false,
     "steps": [
       [
         { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
           "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Apples has 6 symbols — more than any other row. Click Apples." }
+        { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." }
       ]
     ]
   }
@@ -415,9 +415,9 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 | Parameter | Type | Description |
 |---|---|---|
 | `selected` | string \| number | What the student selected from the tool's available options |
-| `incorrect_count` | number | System counter — how many times the student has triggered a non-first-match state on this prompt. Max 3. |
+| `incorrect_count` | number | System counter: how many times the student has triggered a non-first-match state on this prompt. Max 3. |
 | `tangible_id` | string | Scopes remaining keys to a specific tangible instance. Used when checking tangible state fields directly. |
-| *(tangible fields)* | any | State fields exposed by the scoped tangible — used alongside `tangible_id` |
+| *(tangible fields)* | any | State fields exposed by the scoped tangible, used alongside `tangible_id` |
 
 ### Condition Logic
 
@@ -448,7 +448,7 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 { "condition": { "or": [{ "selected": "Oranges" }, { "selected": "Grapes" }] } }
 ```
 
-**Fallback — empty object; always matches:**
+**Fallback: empty object; always matches:**
 ```json
 {}
 ```
@@ -457,13 +457,13 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 
 ## Remediation Pattern
 
-Remediation is inline — feedback beats live directly in validator states, not in separate sections. The three-level scaffold maps to `incorrect_count` values:
+Remediation is inline. Feedback beats live directly in validator states, not in separate sections. The three-level scaffold maps to `incorrect_count` values:
 
 | Validator state | Hint style |
 |---|---|
-| `incorrect_count: 1` | Light — minimal nudge, direct attention without revealing the answer |
-| `incorrect_count: 2` | Medium — partial reveal, show the key data, let the student conclude |
-| catch-all `{}` | Heavy — full scaffold, state the answer explicitly, prompt to confirm |
+| `incorrect_count: 1` | Light: minimal nudge, direct attention without revealing the answer |
+| `incorrect_count: 2` | Medium: partial reveal, show the key data, let the student conclude |
+| catch-all `{}` | Heavy: full scaffold, state the answer explicitly, prompt to confirm |
 
 Each state's `steps` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
 
@@ -486,6 +486,6 @@ Tangibles are defined outside `lesson.json` but referenced by ID throughout. Obs
 
 | Type | Notion format | Editable | Fields |
 |---|---|---|---|
-| `dialogue` | 💬 callout | yes — `text` | `text`, `tags?` |
+| `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
 | `scene` | method-emoji callout | no | `method`, `tangible_id`, `params?` |
-| `prompt` | ❓ callout | yes — `text` | `text`, `tool`, `options?`, `validator` |
+| `prompt` | ❓ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |

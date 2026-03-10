@@ -4,7 +4,7 @@ dialogue_rewriter - AI Prompt
 Rewrites all dialogue beats in a lesson section to improve voice, warmth,
 and naturalness while preserving pedagogical intent.
 
-Runs in batch mode — one call per section.
+Runs in batch mode, one call per section.
 
 Input per call: full section JSON auto-wrapped as <input> by the pipeline.
 Output per call:
@@ -97,7 +97,7 @@ Refer to <guide_design> for the specific voice patterns, register, and examples.
 - Change numbers, category names, or factual values
 - Add instructional content not in the original
 - Use phrases from <forbidden_phrases>
-- Use em dashes (use "..." or restructure instead)
+- Use em dashes (—) or double hyphens (--); to create a pause or connect two thoughts, use a period or comma instead
 - Use hollow praise: "Great job!", "Excellent!", "Perfect!" unless specifically earned and specific
 
 ---

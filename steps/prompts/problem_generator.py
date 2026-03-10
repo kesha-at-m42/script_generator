@@ -10,14 +10,13 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.prompt_builder import Prompt
+from core.prompt_builder import Prompt  # noqa: E402
 
 PROBLEM_GENERATOR_PROMPT = Prompt(
     role="""You are an expert educational content generator specializing in creating diverse,
 high-quality practice problems for grade 3 mathematics students. You excel at taking problem
 templates and generating specific, varied problem instances that maintain pedagogical quality
 while maximizing engagement and coverage.""",
-
     instructions="""
 ## TASK
 
@@ -39,7 +38,7 @@ The problem template contains:
 - **no_of_steps**: The number of steps required to complete the problem
 - **target_count**: How many problem instances to generate
   - Single integer (e.g., `10`): generate exactly that many
-  - Array `[min, max]` (e.g., `[5, 8]`): generate between min and max inclusive — aim for max to maximize coverage
+  - Array `[min, max]` (e.g., `[5, 8]`): generate between min and max inclusive. Aim for max to maximize coverage.
 - **parameter_coverage**: The mathematical parameters to vary (fractions, denominators, etc.)
 
 ## GENERATION STRATEGY
@@ -48,7 +47,7 @@ The problem template contains:
 
 **CRITICAL: Respect target_count**
 - If target_count is an integer (e.g., `10`): generate **exactly** that many problems
-- If target_count is an array `[min, max]` (e.g., `[5, 8]`): generate between min and max problems. Generate as many as needed to cover the parameter space with meaningful variation — stop when additional problems would require redundant repetition. Do NOT add the two numbers together.
+- If target_count is an array `[min, max]` (e.g., `[5, 8]`): generate between min and max problems. Generate as many as needed to cover the parameter space with meaningful variation. Stop when additional problems would require redundant repetition. Do NOT add the two numbers together.
 - Distribute problems across allowed mastery tiers and parameter values
 - Maximize variation while staying within the target_count requirement
 
@@ -85,7 +84,7 @@ Never: 1/3 appears twice in BASELINE (same tier, same parameters = ERROR)
 **1. Parameters:** Use values from parameter_coverage. Track in variables_used (use "fractions" as key when possible).
 
 **CRITICAL for Parameter Repetition:**
-- Prefer unique parameters in every problem — repetition across ANY tier is discouraged
+- Prefer unique parameters in every problem. Repetition across ANY tier is discouraged.
 - Only repeat a parameter when target_count exceeds the total number of unique parameters
 - When forced to repeat: use a DIFFERENT mastery tier AND a different prompt_example phrasing
 
@@ -203,13 +202,13 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
    - Generate an array of answer options exactly as they'll be presented to the student
    - Follow template's option count specification (3-4 options typically)
    - Include exactly ONE correct option and the rest as distractors
-   - **CRITICAL: Use the mcq_options format LITERALLY** — substitute fraction values into the template placeholders and output the result verbatim
+   - **CRITICAL: Use the mcq_options format LITERALLY**: substitute fraction values into the template placeholders and output the result verbatim
      - Template `"{a/b} > {c/d}"` with a/b=3/4, c/d=2/4 → option is `"3/4 > 2/4"` (NOT "Bar A (3/4) is greater than Bar C (2/4)")
      - Template `"{a/b} = {c/d}"` with a/b=3/4, c/d=2/4 → option is `"3/4 = 2/4"`
      - Never rewrite the format into natural language or add bar labels/names to the option text
    - **NEVER reference visual elements (Bar A, Bar B, Bar C, number lines, etc.) in option text** unless the mcq_options template string explicitly contains such references
-   - **Vary the correct answer position across problems** — do NOT always put the correct option first. Rotate the correct answer to different positions (first, second, third, fourth) across the problem set
-   - **Vary which distractor types appear** — use different wrong-comparison and wrong-symbol combinations across problems so option sets feel distinct
+   - **Vary the correct answer position across problems**: do NOT always put the correct option first. Rotate the correct answer to different positions (first, second, third, fourth) across the problem set
+   - **Vary which distractor types appear**: use different wrong-comparison and wrong-symbol combinations across problems so option sets feel distinct
    - Ensure distractors are clearly incorrect (see "Distractors Must Be Clearly Incorrect" section)
    - For same_whole_scenarios: use mcq_options.same_whole_scenarios
    - For different_whole_scenarios: use mcq_options.different_whole_scenarios
@@ -221,7 +220,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - If target_count is an integer: generate exactly that many problems
 - If target_count is [min, max]: generate enough to cover the parameter space with meaningful variation, within the range
 - First pass: cover each parameter once, distributed across allowed tiers
-- If more problems are needed to reach target_count: repeat parameters ONLY across different mastery tiers, with different prompt_example phrasings — repetition is a last resort
+- If more problems are needed to reach target_count: repeat parameters ONLY across different mastery tiers, with different prompt_example phrasings. Repetition is a last resort.
 - MCQ: Parameters can repeat if option sets differ meaningfully
 - Use ONLY tiers from template's mastery_tier field
 
@@ -244,7 +243,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 - ✗ Using tiers not in template's mastery_tier field
 - ✗ Inventing new prompt language/verbs not in prompt_examples
 - ✗ Identical option sets (MCQ)
-- ✗ Rewriting mcq_options templates into natural language — output the template format as-is with values substituted
+- ✗ Rewriting mcq_options templates into natural language: output the template format as-is with values substituted
 - ✗ Referencing visual element names (Bar A, Bar B, etc.) in option text when the mcq_options template doesn't include them
 - ✗ Binary questions (2 options) - always find a third option or use 3-4 options
 - ✗ Binary questions at BASELINE, STRETCH, or CHALLENGE tiers (if binary MUST exist, only in SUPPORT or CONFIDENCE)
@@ -253,9 +252,7 @@ Reference **visuals.md** for allowed student actions. Map template actions to cl
 
 Generate problem instances NOW with maximum variation and quality!
 """,
-
     doc_refs=["difficulty_levels.md", "visuals.md"],
-
     output_structure="""
 [
   {
@@ -307,9 +304,7 @@ Generate problem instances NOW with maximum variation and quality!
   }
 ]
 """,
-
     prefill="""[{"problem_instance_id":""",
-
     validation_prompt="""Check this problem for specific errors.
 
 CRITICAL: Think through each check internally first. Only include something in the "errors" array if you are CERTAIN it is wrong after completing your analysis. If you determine something is correct during your reasoning, do NOT report it as an error.
@@ -369,16 +364,12 @@ Return JSON:
 }
 
 Problem to check:""",
-
     examples=[],
-
     module_ref={},
-
     template_ref={},
-
     cache_docs=True,
     cache_ttl="5m",
     temperature=1,
     max_tokens=18000,
-    stop_sequences=[]
+    stop_sequences=[],
 )

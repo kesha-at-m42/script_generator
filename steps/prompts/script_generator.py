@@ -5,7 +5,7 @@ Converts a script.md spec into section JSON objects following the
 script script schema (sections / steps / beats).
 
 Input (user message):
-    <input>   — full script.md content
+    <input>   - full script.md content
 """
 
 import sys
@@ -18,20 +18,20 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt  # noqa: E402
 
 SCRIPT_GENERATOR_PROMPT = Prompt(
-    role="""You are building a fully realized lesson script from a specification. The spec defines the pedagogical structure — what interactions happen, what content is taught, what the student does. Your job is to flesh that out into a complete, living script: translate the structure into the lesson schema, and bring the guide to life through warm, authentic, personality-filled dialogue as defined in <guide_design>.""",
+    role="""You are building a fully realized lesson script from a specification. The spec defines the pedagogical structure: what interactions happen, what content is taught, what the student does. Your job is to flesh that out into a complete, living script: translate the structure into the lesson schema, and bring the guide to life through warm, authentic, personality-filled dialogue as defined in <guide_design>.""",
     instructions="""
 ## TASK
 
 Convert every interaction in <input> into a section JSON object.
 Produce one section per interaction, in order. Output the full array.
 
-Scripts are static. Use concrete values throughout — values are defined
+Scripts are static. Use concrete values throughout. Values are defined
 in the spec. Do not invent values; do not use placeholders like [X].
 
-**Dialogue is not transcription — it is authorship.** The spec contains draft
+**Dialogue is not transcription. It is authorship.** The spec contains draft
 dialogue that captures pedagogical intent: what to teach, when to praise, what
 to explain. Your job is to rewrite and flesh out every dialogue line so it
-sounds like a real, warm, specific guide — the character defined in
+sounds like a real, warm, specific guide, the character defined in
 <guide_design>. Preserve the meaning, purpose, and any required vocabulary or
 phrases from the spec. Add personality, specificity, and human warmth where the
 draft is bare or generic. The guide should feel present, not mechanical.
@@ -40,18 +40,18 @@ draft is bare or generic. The guide should feel present, not mechanical.
 
 ## WHAT IS A STEP
 
-A step is a **do-together block**: all beats in a step play together without pausing. The step ends — the system pauses — when student input is required.
+A step is a **do-together block**: all beats in a step play together without pausing. The step ends, and the system pauses, when student input is required.
 
 Student input is required when:
-1. **Dialogue plays** (animations happen alongside dialogue) — the student must act or respond after the guide speaks
-2. **A prompt beat** — the student explicitly interacts with a tangible or overlay tool
+1. **Dialogue plays** (animations happen alongside dialogue): the student must act or respond after the guide speaks
+2. **A prompt beat**: the student explicitly interacts with a tangible or overlay tool
 
 Everything before that pause belongs in the same step. Beat order within a step:
 
-1. Scene beats (`add`, `show`, `animate`, `update`) — things appear or change on screen
-2. Dialogue beats — the guide speaks (animations play alongside)
-3. Prompt beat — student interacts (only one prompt per step; always the last non-snapshot beat)
-4. `current_scene` — snapshot of what is on screen after all beats in this step
+1. Scene beats (`add`, `show`, `animate`, `update`): things appear or change on screen
+2. Dialogue beats: the guide speaks (animations play alongside)
+3. Prompt beat: student interacts (only one prompt per step; always the last non-snapshot beat)
+4. `current_scene`: snapshot of what is on screen after all beats in this step
 
 ---
 
@@ -65,23 +65,23 @@ Everything before that pause belongs in the same step. Beat order within a step:
 }
 ```
 
-- `id` — derive from the spec's section numbering. Group = lesson section
+- `id`: derive from the spec's section numbering. Group = lesson section
   (1, 2, 3). Seq = interaction number within that section. Slug = purpose.
   Examples: `s1_1_most_votes`, `s2_2_reading_independently`,
   `s3_3b_two_step_total`, `s2_transition`
-- `scene` — tangible IDs **already on screen** when this section begins,
-  carried in from the previous section. Empty array `[]` if the screen is
-  starting fresh.
-- `steps` — array of arrays; each inner array is one step (do-together block ending when student input is required)
+- `scene`: tangible IDs on screen when this section begins. Each section
+  starts with its own fresh workspace. Tangibles do not carry over from the
+  previous section. List only what the spec says is present at section start.
+- `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
 
 **Transition sections** use `"type": "transition"` on the section object.
-They have scene and dialogue beats — no prompts.
+They have scene and dialogue beats. No prompts.
 
 ---
 
 ## BEAT TYPES
 
-### Scene — things happen on screen
+### Scene: things happen on screen
 
 ```json
 { "type": "scene", "method": "add", "tangible_id": "picture_graph_fruits", "tangible_type": "picture_graph",
@@ -117,7 +117,7 @@ For the section-to-section transition (picture graph → bar graph), use
 `animate` with `event: "transform_to_bar_graph"` on the picture graph
 tangible, then treat subsequent sections as having the bar graph on screen.
 
-### Dialogue — guide speaks
+### Dialogue: guide speaks
 
 ```json
 { "type": "dialogue", "text": "Every part of a graph has a job." }
@@ -126,15 +126,16 @@ tangible, then treat subsequent sections as having the bar graph on screen.
 { "type": "dialogue", "text": "The KEY shows the SCALE." }
 ```
 
-Treat every dialogue line in <input> as bare-bones — it captures the
+Treat every dialogue line in <input> as bare-bones. It captures the
 right pedagogical intent but not the final voice. Use <guide_design> to enhance
 it: add warmth, specificity, and personality so it sounds like a real guide
 speaking to a student, not a script being read aloud. Preserve the meaning and
-all required vocabulary. Do not use em dashes (—).
+all required vocabulary. Do not use em dashes (—) or double hyphens (--);
+to create a pause or connect two thoughts, use a period or comma instead.
 
 Include all required phrases from <input>. Avoid all forbidden phrases.
 
-### Prompt — student interacts
+### Prompt: student interacts
 
 ```json
 {
@@ -171,7 +172,7 @@ For `multiple_choice`, include the exact options from the spec:
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
-### current_scene — snapshot of the resulting scene
+### current_scene: snapshot of the resulting scene
 
 **Must be the last beat in every step** (and the last beat in every
 validator state's inner step). It captures what is visible on screen
@@ -199,9 +200,9 @@ after all beats in this step have played.
 ```
 
 Each element includes:
-- `tangible_id` — the instance ID
-- `description` — plain English of what's visible and its current state
-- `tangible_type` — canonical type from <toy_specs>
+- `tangible_id`: the instance ID
+- `description`: plain English of what's visible and its current state
+- `tangible_type`: canonical type from <toy_specs>
 - Relevant state fields from <toy_specs> (mode, orientation, categories, etc.)
 
 If the scene is empty at the end of a step, write `"elements": []`.
@@ -218,7 +219,7 @@ you generate.
 "validator": [
   {
     "condition": { "selected": "Apples" },
-    "description": "Student clicked Apples — correct, 6 votes",
+    "description": "Student clicked Apples, correct, 6 votes",
     "is_correct": true,
     "steps": [
       [
@@ -262,7 +263,7 @@ begins with those scene changes already reflected.
       "validator": [
         {
           "condition": { "selected": 11 },
-          "description": "Student answered 11 — correct",
+          "description": "Student answered 11, correct",
           "steps": [
             [
               { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." },
@@ -283,7 +284,7 @@ begins with those scene changes already reflected.
       "validator": [
         {
           "condition": { "selected": 7 },
-          "description": "Student answered 7 — correct",
+          "description": "Student answered 7, correct",
           "steps": [
             [
               { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then subtracted to compare." },
@@ -315,7 +316,7 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ## OUTPUT RULES
 
-- Output ONLY valid JSON — no explanation, no markdown fences
+- Output ONLY valid JSON. No explanation, no markdown fences.
 - Entire response must be an array starting with `[` and ending with `]`
 - One section object per interaction (plus transition sections), in spec order
 - Use double quotes throughout
@@ -355,7 +356,7 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
         },
         {
           "type": "dialogue",
-          "text": "You made a graph with your Minis. Now let's read some other graphs. A graph isn't just a picture to look at — every part gives us information to READ. Look at this Favorite Fruits graph."
+          "text": "You made a graph with your Minis. Now let's read some other graphs. A graph isn't just a picture to look at. Every part gives us information to READ. Look at this Favorite Fruits graph."
         },
         {
           "type": "prompt",
@@ -364,7 +365,7 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
           "validator": [
             {
               "condition": { "selected": "Apples" },
-              "description": "Student clicked Apples — correct, 6 votes",
+              "description": "Student clicked Apples, correct, 6 votes",
               "steps": [
                 [
                   { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },

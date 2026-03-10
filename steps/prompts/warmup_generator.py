@@ -5,7 +5,7 @@ Converts a warmup.md spec into section JSON objects following the
 lesson script schema (sections / steps / beats).
 
 Input (user message):
-    <warmup_spec>   — full warmup.md content
+    <warmup_spec>   - full warmup.md content
 """
 
 import sys
@@ -18,14 +18,14 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt  # noqa: E402
 
 WARMUP_GENERATOR_PROMPT = Prompt(
-    role="""You are converting a warmup specification into structured JSON sections. This is TRANSLATION work — the pedagogical decisions have already been made. Your job is faithful conversion into the lesson script schema.""",
+    role="""You are converting a warmup specification into structured JSON sections. This is TRANSLATION work. The pedagogical decisions have already been made. Your job is faithful conversion into the lesson script schema.""",
     instructions="""
 ## TASK
 
 Convert every interaction in <warmup_spec> into a section JSON object.
 Produce one section per interaction, in order. Output the full array.
 
-Scripts are static. Use concrete values throughout — never write placeholders
+Scripts are static. Use concrete values throughout. Never write placeholders
 like [X] or [category_A]. If the spec describes dynamic values (e.g. counting
 results that vary per student), choose specific example values that fit the
 spec's constraints and use those consistently across all sections.
@@ -42,19 +42,19 @@ spec's constraints and use those consistently across all sections.
 }
 ```
 
-- `id` — follow the naming convention from the schema guide. For warmup interactions
+- `id`: follow the naming convention from the schema guide. For warmup interactions
   use a slug that reflects the interaction's purpose (e.g. `s1_1_data_collection`,
   `s1_2_symbol_selection`, `s1_3_graph_creation`, `s1_4_bridge`)
-- `scene` — tangible IDs **already on screen** when the section begins (carried
+- `scene`: tangible IDs **already on screen** when the section begins (carried
   in from a previous section). Omit or leave empty if the screen starts fresh.
-- `steps` — array of arrays; each inner array is one step (all beats in a step
+- `steps`: array of arrays; each inner array is one step (all beats in a step
   play together before the lesson pauses)
 
 ---
 
 ## SCENE RULES
 
-The section-level `scene` array is the **initial state** — tangibles present
+The section-level `scene` array is the **initial state**, listing tangibles present
 on screen when the section begins. Every scene beat that adds, removes, shows, or
 hides a tangible changes what is on screen.
 
@@ -67,7 +67,7 @@ that point in the step sequence.
 
 ### current_scene
 **Must be the first beat in every step.** Reflects the exact state of the
-workspace at the start of that step — after all scene changes from previous steps.
+workspace at the start of that step, after all scene changes from previous steps.
 
 ```json
 {
@@ -87,9 +87,9 @@ workspace at the start of that step — after all scene changes from previous st
 ```
 
 Each element includes:
-- `tangible_id` — the instance ID
-- `description` — plain English of what's currently visible and its state
-- `tangible_type` — canonical type from <toy_specs>
+- `tangible_id`: the instance ID
+- `description`: plain English of what's currently visible and its state
+- `tangible_type`: canonical type from <toy_specs>
 - Any relevant state fields drawn from <toy_specs> (mode, orientation, categories, etc.)
 
 If the workspace is empty at the start of a step, write `"elements": []`.
@@ -100,7 +100,7 @@ If the workspace is empty at the start of a step, write `"elements": []`.
 ```json
 { "type": "dialogue", "text": "Let's count how many of each there are." }
 ```
-Guide speech. Follow <guide_design> for all voice and language decisions —
+Guide speech. Follow <guide_design> for all voice and language decisions:
 tone calibration, praise language, conciseness limits, and anti-patterns.
 For warmup: lean toward "Friendly Teacher" on the warmth spectrum; keep
 pre-action dialogue to 1–3 sentences.
@@ -198,14 +198,14 @@ Define only the correct state. The remediation generator adds incorrect states l
     "description": "Student selected the correct category",
     "steps": [
       [
-        { "type": "dialogue", "text": "Right — Apples had the most." }
+        { "type": "dialogue", "text": "Right. Apples had the most." }
       ]
     ]
   }
 ]
 ```
 
-**Any-response-advances** (no wrong answer — e.g. open choice, game completion):
+**Any-response-advances** (no wrong answer, e.g. open choice, game completion):
 use `condition: {}` as the single state:
 
 ```json
@@ -255,14 +255,14 @@ For each interaction:
 ## TANGIBLE TYPES
 
 `tangible_type` is required on `scene add` beats. Use the canonical type names
-defined in <toy_specs> — do not invent type strings. For example, the type
+defined in <toy_specs>. Do not invent type strings. For example, the type
 for a picture graph tangible must match the name defined in toy_specs exactly.
 
 ---
 
 ## OUTPUT RULES
 
-- Output ONLY valid JSON — no explanation, no markdown fences
+- Output ONLY valid JSON. No explanation, no markdown fences.
 - Entire response must be an array starting with `[` and ending with `]`
 - One section object per interaction, in spec order
 - Use double quotes throughout
@@ -291,7 +291,7 @@ for a picture graph tangible must match the name defined in toy_specs exactly.
         },
         {
           "type": "dialogue",
-          "text": "Check this out — the Minis are on the move! Let's count how many of each there are."
+          "text": "Check this out. The Minis are on the move! Let's count how many of each there are."
         },
         {
           "type": "prompt",
@@ -300,7 +300,7 @@ for a picture graph tangible must match the name defined in toy_specs exactly.
           "validator": [
             {
               "condition": {},
-              "description": "Any count recorded — game completes",
+              "description": "Any count recorded, game completes",
               "steps": [
                 [
                   { "type": "dialogue", "text": "Let's see if you counted them all." },
@@ -344,7 +344,7 @@ for a picture graph tangible must match the name defined in toy_specs exactly.
         { "type": "dialogue", "text": "5 symbols. Each one means 1 cat." }
       ],
       [
-        { "type": "dialogue", "text": "Your turn. You counted 3 dogs. Add 3 symbols — one for each dog you counted." },
+        { "type": "dialogue", "text": "Your turn. You counted 3 dogs. Add 3 symbols, one for each dog you counted." },
         {
           "type": "prompt",
           "text": "Add 3 symbols to the dogs row.",

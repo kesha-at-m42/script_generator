@@ -8,7 +8,7 @@ Dialogue voice and enhancement are handled downstream by dialogue_rewriter.
 This step focuses on structural correctness and faithful spec translation.
 
 Input (user message):
-    <input>   — full script.md content
+    <input>   - full script.md content
 """
 
 import sys
@@ -21,19 +21,19 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt  # noqa: E402
 
 SECTION_STRUCTURER_PROMPT = Prompt(
-    role="""You are translating a lesson specification into structured section JSON. Your job is faithful, precise translation: every interaction in the spec becomes a correctly structured section object with the right beats, tools, validators, and scene state. Dialogue is functional — preserve the pedagogical intent from the spec without embellishment.""",
+    role="""You are translating a lesson specification into structured section JSON. Your job is faithful, precise translation: every interaction in the spec becomes a correctly structured section object with the right beats, tools, validators, and scene state. Dialogue is functional. Preserve the pedagogical intent from the spec without embellishment.""",
     instructions="""
 ## TASK
 
 Convert every interaction in <input> into a section JSON object.
 Produce one section per interaction, in order. Output the full array.
 
-Scripts are static. Use concrete values throughout — values are defined
+Scripts are static. Use concrete values throughout. Values are defined
 in the spec. Do not invent values; do not use placeholders like [X].
 
 **Dialogue:** carry the spec's dialogue intent directly into the text field.
-Keep it clear and functional. Do not add warmth, personality, or flair —
-a separate pass handles dialogue enhancement. Do not use em dashes (—).
+Keep it clear and functional. Do not add warmth, personality, or flair.
+A separate pass handles dialogue enhancement. Do not use em dashes (—).
 
 Include all required phrases from <input>. Avoid all forbidden phrases.
 
@@ -41,18 +41,18 @@ Include all required phrases from <input>. Avoid all forbidden phrases.
 
 ## WHAT IS A STEP
 
-A step is a **do-together block**: all beats in a step play together without pausing. The step ends — the system pauses — when student input is required.
+A step is a **do-together block**: all beats in a step play together without pausing. The step ends, and the system pauses, when student input is required.
 
 Student input is required when:
-1. **Dialogue plays** (animations happen alongside dialogue) — the student must act or respond after the guide speaks
-2. **A prompt beat** — the student explicitly interacts with a tangible or overlay tool
+1. **Dialogue plays** (animations happen alongside dialogue): the student must act or respond after the guide speaks
+2. **A prompt beat**: the student explicitly interacts with a tangible or overlay tool
 
 Everything before that pause belongs in the same step. Beat order within a step:
 
-1. Scene beats (`add`, `show`, `animate`, `update`) — things appear or change on screen
-2. Dialogue beats — the guide speaks (animations play alongside)
-3. Prompt beat — student interacts (only one prompt per step; always the last non-snapshot beat)
-4. `current_scene` — snapshot of what is on screen after all beats in this step
+1. Scene beats (`add`, `show`, `animate`, `update`): things appear or change on screen
+2. Dialogue beats: the guide speaks (animations play alongside)
+3. Prompt beat: student interacts (only one prompt per step; always the last non-snapshot beat)
+4. `current_scene`: snapshot of what is on screen after all beats in this step
 
 ---
 
@@ -66,23 +66,23 @@ Everything before that pause belongs in the same step. Beat order within a step:
 }
 ```
 
-- `id` — derive from the spec's section numbering. Group = lesson section
+- `id`: derive from the spec's section numbering. Group = lesson section
   (1, 2, 3). Seq = interaction number within that section. Slug = purpose.
   Examples: `s1_1_most_votes`, `s2_2_reading_independently`,
   `s3_3b_two_step_total`, `s2_transition`
-- `scene` — tangible IDs **already on screen** when this section begins,
+- `scene`: tangible IDs **already on screen** when this section begins,
   carried in from the previous section. Empty array `[]` if the screen is
   starting fresh.
-- `steps` — array of arrays; each inner array is one step (do-together block ending when student input is required)
+- `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
 
 **Transition sections** use `"type": "transition"` on the section object.
-They have scene and dialogue beats — no prompts.
+They have scene and dialogue beats. No prompts.
 
 ---
 
 ## BEAT TYPES
 
-### Scene — things happen on screen
+### Scene: things happen on screen
 
 ```json
 { "type": "scene", "method": "add", "tangible_id": "picture_graph_fruits", "tangible_type": "picture_graph",
@@ -118,7 +118,7 @@ For the section-to-section transition (picture graph → bar graph), use
 `animate` with `event: "transform_to_bar_graph"` on the picture graph
 tangible, then treat subsequent sections as having the bar graph on screen.
 
-### Dialogue — guide speaks
+### Dialogue: guide speaks
 
 ```json
 { "type": "dialogue", "text": "Every part of a graph has a job." }
@@ -128,9 +128,9 @@ tangible, then treat subsequent sections as having the bar graph on screen.
 ```
 
 Translate the spec's dialogue intent directly. Keep it clear and on-point.
-Do not embellish — voice enhancement happens in a later step.
+Do not embellish. Voice enhancement happens in a later step.
 
-### Prompt — student interacts
+### Prompt: student interacts
 
 ```json
 {
@@ -167,7 +167,7 @@ For `multiple_choice`, include the exact options from the spec:
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
-### current_scene — snapshot of the resulting scene
+### current_scene: snapshot of the resulting scene
 
 **Must be the last beat in every step** (and the last beat in every
 validator state's inner step). It captures what is visible on screen
@@ -195,9 +195,9 @@ after all beats in this step have played.
 ```
 
 Each element includes:
-- `tangible_id` — the instance ID
-- `description` — plain English of what's visible and its current state
-- `tangible_type` — canonical type from <toy_specs>
+- `tangible_id`: the instance ID
+- `description`: plain English of what's visible and its current state
+- `tangible_type`: canonical type from <toy_specs>
 - Relevant state fields from <toy_specs> (mode, orientation, categories, etc.)
 
 If the scene is empty at the end of a step, write `"elements": []`.
@@ -214,7 +214,7 @@ you generate.
 "validator": [
   {
     "condition": { "selected": "Apples" },
-    "description": "Student clicked Apples — correct, 6 votes",
+    "description": "Student clicked Apples, correct, 6 votes",
     "is_correct": true,
     "steps": [
       [
@@ -258,7 +258,7 @@ begins with those scene changes already reflected.
       "validator": [
         {
           "condition": { "selected": 11 },
-          "description": "Student answered 11 — correct",
+          "description": "Student answered 11, correct",
           "steps": [
             [
               { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." },
@@ -279,7 +279,7 @@ begins with those scene changes already reflected.
       "validator": [
         {
           "condition": { "selected": 7 },
-          "description": "Student answered 7 — correct",
+          "description": "Student answered 7, correct",
           "steps": [
             [
               { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then subtracted to compare." },
@@ -311,7 +311,7 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ## OUTPUT RULES
 
-- Output ONLY valid JSON — no explanation, no markdown fences
+- Output ONLY valid JSON. No explanation, no markdown fences.
 - Entire response must be an array starting with `[` and ending with `]`
 - One section object per interaction (plus transition sections), in spec order
 - Use double quotes throughout
@@ -359,7 +359,7 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
           "validator": [
             {
               "condition": { "selected": "Apples" },
-              "description": "Student clicked Apples — correct, 6 votes",
+              "description": "Student clicked Apples, correct, 6 votes",
               "is_correct": true,
               "steps": [
                 [

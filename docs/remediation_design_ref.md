@@ -37,7 +37,7 @@
 
 **Why This Works:**
 
-- Non-MC errors are noisy—kids click wrong for many reasons
+- Non-MC errors are noisy. Kids click wrong for many reasons
 - MC distractors give clear diagnostic signal about thinking
 - True misconceptions are caught by pattern tracking, not single-instance diagnosis
 - Content volume becomes manageable without sacrificing quality
@@ -85,7 +85,7 @@ For all non-multiple-choice interactions (shading, partitioning, placing on numb
 
 ### 2.2 Why Generic Works
 
-- Single errors are noisy—we can't reliably diagnose from one mistake
+- Single errors are noisy. We can't reliably diagnose from one mistake
 - Pattern detection across multiple opportunities is more accurate
 - Reduces content creation burden dramatically
 - Interventions (when triggered) provide better conceptual support than in-the-moment micro-corrections
@@ -160,7 +160,7 @@ Each distractor should represent a **diagnosable error:**
 | Numerator/denominator confusion | Selected 4/3 instead of 3/4 | "The numerator tells us how many parts we have, not the total" |
 | Counted total instead of shaded | Selected 6/6 when 4/6 shaded | "Count only the shaded parts for the numerator" |
 | Ignored equal parts requirement | Selected unequal partition | "For fractions, all parts must be equal size" |
-| Whole number thinking | Selected 3 instead of 3/4 | "We need a fraction—the bottom number tells us the size of parts" |
+| Whole number thinking | Selected 3 instead of 3/4 | "We need a fraction. The bottom number tells us the size of parts" |
 
 ### 3.5 Metacognitive MC Questions
 
@@ -185,7 +185,7 @@ Use at beginning of module, after successes, when student might think they're ri
 - "Let's look at this problem again."
 - "Let's take another look."
 - "Let's try that again."
-- "Let's look closely—\[specific guidance\]"
+- "Let's look closely: \[specific guidance\]"
 
 ### 4.2 Without Error Signal (50-60% of interactions)
 
@@ -212,7 +212,7 @@ Save "Remember" for Medium/Heavy. At Light level, use:
 - "Not quite. Count the shaded parts only."
 - "Check the spacing between marks."
 - "Focus on equal-sized parts."
-- "Let's look closely—which parts are shaded?"
+- "Let's look closely: which parts are shaded?"
 - "Count from zero, not from one."
 
 ---
@@ -246,7 +246,7 @@ For MC, Medium is targeted to the specific distractor chosen:
 **Example (student chose 6/6 when 4/6 was shaded):**
 
 ```
-[Medium_Remediation - Distractor_B] [Meta_Remediation]: "You counted all the parts. The numerator only counts the shaded parts—how many are filled in?"
+[Medium_Remediation - Distractor_B] [Meta_Remediation]: "You counted all the parts. The numerator only counts the shaded parts. How many are filled in?"
 [Visual: Shaded parts pulse/highlight, unshaded parts dim]
 ```
 
@@ -302,9 +302,9 @@ Guide: "[Post-modeling acknowledgment]"
 
 ### 6.4 Heavy Examples
 
-**Non-MC:** "Let me show you how this works. First, I count the total parts—that's my denominator: 4\. Then I count just the shaded parts—that's my numerator: 3\. So the fraction is 3/4." \[Visual: System highlights total parts, then shaded parts, then shows 3/4\]
+**Non-MC:** "Let me show you how this works. First, I count the total parts. That's my denominator: 4\. Then I count just the shaded parts. That's my numerator: 3\. So the fraction is 3/4." \[Visual: System highlights total parts, then shaded parts, then shows 3/4\]
 
-**MC:** "Let me show you how to think about this. The question asks which fraction is shown. I count 4 equal parts total—that's the denominator. 3 parts are shaded—that's the numerator. So the answer is 3/4, not 4/3." \[Visual: Correct answer highlighted, visual shows counting sequence\]
+**MC:** "Let me show you how to think about this. The question asks which fraction is shown. I count 4 equal parts total. That's the denominator. 3 parts are shaded. That's the numerator. So the answer is 3/4, not 4/3." \[Visual: Correct answer highlighted, visual shows counting sequence\]
 
 ---
 
@@ -320,8 +320,8 @@ After Heavy remediation with \[Modeling\], use **only** language that acknowledg
 - "You're getting it now."
 - "Now you understand."
 - "That makes sense now, right?"
-- "That's it—now you've got it."
-- "Good—you understand now."
+- "That's it. Now you've got it."
+- "Good. You understand now."
 - "Now you see the pattern."
 
 ### 7.2 NEVER Use After Modeling
