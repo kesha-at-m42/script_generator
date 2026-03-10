@@ -34,6 +34,8 @@ Layout per main section
 from __future__ import annotations
 
 import copy
+import difflib
+import json
 import re
 
 # ---------------------------------------------------------------------------
@@ -442,6 +444,8 @@ def lesson_to_blocks(lesson: dict | list) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 _HEADING2_ID_RE = re.compile(r"\[([^\]]+)\]\s*$")
+_EDITABLE_BEAT_TYPES = {"dialogue", "scene", "prompt"}
+_EDITABLE_CALLOUT_EMOJIS = {"💬", "🎬", "❔"}
 
 
 def _extract_rt_text(rich_text: list[dict]) -> str:
@@ -468,159 +472,213 @@ def _collect_toggle_callouts(toggle_block: dict) -> list[tuple[str, str]]:
     return results
 
 
-def _section_callouts_from_blocks(
-    blocks: list[dict],
-) -> dict[str, dict]:
+def _blocks_to_steps(blocks: list[dict]) -> list[dict]:
+    """
+    Group a flat list of section content blocks into steps.
+
+    Steps are delimited by paragraph blocks containing "· · ·".
+    Each step is {"callouts": [(emoji, text), ...], "toggles": [block, ...]}.
+    """
+    steps: list[dict] = []
+    current_callouts: list[tuple[str, str]] = []
+    current_toggles: list[dict] = []
+
+    for block in blocks:
+        btype = block.get("type")
+        if btype == "paragraph":
+            text = _extract_rt_text(block.get("paragraph", {}).get("rich_text", []))
+            if text.strip() == "· · ·":
+                steps.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
+                current_callouts = []
+                current_toggles = []
+                continue
+        if btype == "callout":
+            emoji = _callout_emoji(block) or ""
+            text = _extract_rt_text(block.get("callout", {}).get("rich_text", []))
+            current_callouts.append((emoji, text))
+        elif btype == "toggle":
+            current_toggles.append(block)
+
+    if current_callouts or current_toggles:
+        steps.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
+
+    return steps
+
+
+def _section_callouts_from_blocks(blocks: list[dict]) -> dict[str, dict]:
     """
     Walk all blocks and build a mapping of section_id → section_data.
 
     section_data has:
-      - "callouts": [(emoji, text), ...]  — callouts directly in the section
-      - "toggles": [toggle_block, ...]    — validator state toggles (in order)
+      - "steps": [{"callouts": [(emoji, text), ...], "toggles": [toggle_block, ...]}, ...]
+        One entry per step group, delimited by · · · paragraph blocks.
     """
     mapping: dict[str, dict] = {}
     current_section: str | None = None
-    current_callouts: list[tuple[str, str]] = []
-    current_toggles: list[dict] = []
+    current_blocks: list[dict] = []
 
-    def _flush():
+    def _flush() -> None:
         if current_section is not None:
-            mapping[current_section] = {
-                "callouts": list(current_callouts),
-                "toggles": list(current_toggles),
-            }
+            mapping[current_section] = {"steps": _blocks_to_steps(current_blocks)}
 
     for block in blocks:
         btype = block.get("type")
         if btype == "heading_2":
             _flush()
-            current_callouts = []
-            current_toggles = []
+            current_blocks = []
             heading_data = block.get("heading_2", {})
             raw = _extract_rt_text(heading_data.get("rich_text", []))
             m = _HEADING2_ID_RE.search(raw)
             current_section = m.group(1) if m else None
 
             # Toggle heading: children are embedded after recursive fetch.
-            # Non-toggleable headings (legacy format) have their content as
-            # flat sibling blocks, handled by the elif branches below.
+            # Non-toggleable headings (legacy format) fall through to flat sibling handling.
             if heading_data.get("is_toggleable") and heading_data.get("children"):
-                for child in heading_data["children"]:
-                    ctype = child.get("type")
-                    if ctype == "callout" and current_section is not None:
-                        emoji = _callout_emoji(child) or ""
-                        text = _extract_rt_text(child.get("callout", {}).get("rich_text", []))
-                        current_callouts.append((emoji, text))
-                    elif ctype == "toggle" and current_section is not None:
-                        current_toggles.append(child)
-                _flush()
+                if current_section is not None:
+                    mapping[current_section] = {"steps": _blocks_to_steps(heading_data["children"])}
                 current_section = None
-                current_callouts = []
-                current_toggles = []
+                current_blocks = []
 
-        elif btype == "callout" and current_section is not None:
-            emoji = _callout_emoji(block) or ""
-            text = _extract_rt_text(block.get("callout", {}).get("rich_text", []))
-            current_callouts.append((emoji, text))
-        elif btype == "toggle" and current_section is not None:
-            current_toggles.append(block)
+        elif current_section is not None:
+            current_blocks.append(block)
 
     _flush()
     return mapping
 
 
-def _patch_section_beats(
-    section: dict,
-    section_data: dict,
-) -> None:
-    """
-    Overlay callout texts onto the beats of *section* (mutates in place).
+def _strip_dialogue_text(text: str) -> str:
+    """Strip surrounding quotes and trailing tag annotation from a dialogue callout text."""
+    s = text
+    if s.startswith('"'):
+        s = s[1:]
+    s = re.sub(r'"\s*\[[^\]]*\]\s*$', "", s)
+    if s.endswith('"'):
+        s = s[:-1]
+    return s
 
-    Positional matching: DialogueBeat → next 💬 callout, PromptBeat → next ❓.
-    SceneBeats are skipped (display-only, not editable).
-    Workspace (📋) and scene-icon callouts are also skipped.
 
-    For prompt beats, also patches dialogue beats inside validator state toggles.
+def _parse_prompt_fields(text: str) -> dict:
+    """Parse a ❔ callout text into prompt field updates (tool, target, options, text)."""
+    all_lines = text.split("\n")
+    first_line = all_lines[0].strip() if all_lines else ""
 
-    Limitation: adding/removing callout blocks in Notion breaks alignment.
-    """
-    callouts = section_data.get("callouts", [])
-    toggles = section_data.get("toggles", [])
+    kv: dict = {}
+    for pair in re.split(r"  +", first_line):
+        if ": " in pair:
+            k, v = pair.split(": ", 1)
+            kv[k.strip()] = v.strip()
 
-    # Only editable callouts: 💬 dialogue and ❓ prompt
-    _EDITABLE_EMOJIS = {"💬", "❓"}
-    filtered_callouts = [(e, t) for e, t in callouts if e in _EDITABLE_EMOJIS]
-    callouts = filtered_callouts
-
-    callout_iter = iter(callouts)
-    toggle_iter = iter(toggles)
-
-    for step in section.get("steps", []):
-        for beat in step:
-            btype = beat.get("type")
-            if btype == "dialogue":
+    fields: dict = {}
+    if "tool" in kv:
+        fields["tool"] = kv["tool"]
+    if "target" in kv:
+        raw = kv["target"]
+        if raw.endswith(" (all)"):
+            fields["target"] = {"type": raw[:-6].strip()}
+        elif ", " in raw:
+            fields["target"] = [t.strip() for t in raw.split(", ")]
+        else:
+            fields["target"] = raw
+    if "options" in kv:
+        parsed_opts = []
+        for o in kv["options"].split(", "):
+            o = o.strip()
+            try:
+                parsed_opts.append(int(o))
+            except ValueError:
                 try:
-                    emoji, text = next(callout_iter)
-                except StopIteration:
-                    return
-                if emoji == "💬":
-                    # Format pushed: "text content"  [tag1, tag2]
-                    # Strip leading quote, remove trailing "  [tags]" annotation, strip closing quote
-                    s = text
-                    if s.startswith('"'):
-                        s = s[1:]
-                    s = re.sub(r'"\s*\[[^\]]*\]\s*$', "", s)
-                    if s.endswith('"'):
-                        s = s[:-1]
-                    beat["text"] = s
-            elif btype == "prompt":
-                try:
-                    emoji, text = next(callout_iter)
-                except StopIteration:
-                    return
-                if emoji == "❓":
-                    # Line 0: "tool: X  target: Y  options: Z"
-                    # Line 1: "prompt text"
-                    all_lines = text.split("\n")
-                    first_line = all_lines[0].strip() if all_lines else ""
+                    parsed_opts.append(float(o))
+                except ValueError:
+                    parsed_opts.append(o)
+        fields["options"] = parsed_opts
 
-                    # Parse key: value pairs (separated by 2+ spaces)
-                    kv: dict = {}
-                    for pair in re.split(r"  +", first_line):
-                        if ": " in pair:
-                            k, v = pair.split(": ", 1)
-                            kv[k.strip()] = v.strip()
+    fields["text"] = all_lines[1].strip().strip('"') if len(all_lines) >= 2 else text.strip('"')
+    return fields
 
-                    if "tool" in kv:
-                        beat["tool"] = kv["tool"]
-                    if "target" in kv:
-                        raw = kv["target"]
-                        if raw.endswith(" (all)"):
-                            beat["target"] = {"type": raw[:-6].strip()}
-                        elif ", " in raw:
-                            beat["target"] = [t.strip() for t in raw.split(", ")]
-                        else:
-                            beat["target"] = raw
-                    if "options" in kv:
-                        parsed_opts = []
-                        for o in kv["options"].split(", "):
-                            o = o.strip()
-                            try:
-                                parsed_opts.append(int(o))
-                            except ValueError:
-                                try:
-                                    parsed_opts.append(float(o))
-                                except ValueError:
-                                    parsed_opts.append(o)
-                        beat["options"] = parsed_opts
 
-                    # Prompt text (second line)
-                    if len(all_lines) >= 2:
-                        beat["text"] = all_lines[1].strip().strip('"')
-                    else:
-                        beat["text"] = text.strip('"')
+_NEW_BEAT_TAG = re.compile(r"\s*\[new beat\]\s*", re.IGNORECASE)
 
-                    # Patch validator state beats from corresponding toggles
+
+def _parse_new_beat(emoji: str, text: str) -> dict:
+    """
+    Convert a [new beat]-tagged Notion callout into a suggested beat with placeholders.
+    The returned beat has notion_flag: "suggested".
+    """
+    if emoji == "💬":
+        return {"type": "dialogue", "text": _strip_dialogue_text(text), "notion_flag": "suggested"}
+    if emoji == "🎬":
+        return {
+            "type": "scene",
+            "method": "PLACEHOLDER",
+            "tangible_id": "PLACEHOLDER",
+            "params": {"description": text.strip()},
+            "notion_flag": "suggested",
+        }
+    if emoji == "❔":
+        beat: dict = {"type": "prompt", "notion_flag": "suggested"}
+        beat.update(_parse_prompt_fields(text))
+        beat.setdefault("tool", "PLACEHOLDER")
+        return beat
+    return {"type": "unknown", "text": text, "notion_flag": "suggested"}
+
+
+def _patch_section_beats(section: dict, section_data: dict) -> None:
+    """
+    Merge Notion callouts into the beats of *section* (mutates in place).
+
+    Single forward pass per step: walk Notion callouts in order, maintain a pointer
+    into JSON beats.
+    - Callout has [new beat] tag → strip tag, insert suggested beat at current position,
+      do NOT advance the JSON beat pointer (matching resumes from the same beat).
+    - No tag → merge with current JSON beat (Notion-editable fields only), advance both.
+    - Callouts exhausted before JSON beats → remaining JSON beats left untouched.
+
+    Editable fields per beat type:
+    - dialogue: text
+    - scene: params.description (method/tangible_id are not in Notion)
+    - prompt: tool, target, options, text + validator dialogue beats via toggles
+    """
+    notion_steps = section_data.get("steps", [])
+    json_steps = section.get("steps", [])
+
+    for i, notion_step in enumerate(notion_steps):
+        notion_callouts = [
+            (e, t) for e, t in notion_step["callouts"] if e in _EDITABLE_CALLOUT_EMOJIS
+        ]
+        toggle_iter = iter(notion_step["toggles"])
+
+        if i < len(json_steps):
+            json_step = json_steps[i]
+            editable_beats = [b for b in json_step if b.get("type") in _EDITABLE_BEAT_TYPES]
+            beat_ptr = 0
+            insert_offset = 0  # tracks how many suggested beats were inserted before beat_ptr
+
+            for emoji, text in notion_callouts:
+                if _NEW_BEAT_TAG.search(text):
+                    clean_text = _NEW_BEAT_TAG.sub("", text).strip()
+                    insert_pos = beat_ptr + insert_offset
+                    json_step.insert(insert_pos, _parse_new_beat(emoji, clean_text))
+                    insert_offset += 1
+                    continue
+
+                if beat_ptr >= len(editable_beats):
+                    break
+
+                beat = editable_beats[beat_ptr]
+                beat_ptr += 1
+                btype = beat.get("type")
+
+                if btype == "dialogue":
+                    beat["text"] = _strip_dialogue_text(text)
+                elif btype == "scene":
+                    original_desc = (beat.get("params") or {}).get("description", "").strip()
+                    new_desc = text.strip()
+                    if original_desc != new_desc:
+                        beat.setdefault("params", {})["description"] = new_desc
+                        beat["_original_description"] = original_desc
+                        beat["notion_flag"] = "updated"
+                elif btype == "prompt":
+                    beat.update(_parse_prompt_fields(text))
                     validator = beat.get("validator", [])
                     if isinstance(validator, list):
                         for state in validator:
@@ -628,7 +686,6 @@ def _patch_section_beats(
                                 toggle_block = next(toggle_iter)
                             except StopIteration:
                                 break
-                            # Walk toggle children for 💬 callouts, patch dialogue beats positionally
                             toggle_callouts = _collect_toggle_callouts(toggle_block)
                             tc_iter = iter(toggle_callouts)
                             for state_step in state.get("steps", []):
@@ -639,65 +696,49 @@ def _patch_section_beats(
                                         except StopIteration:
                                             break
                                         if t_emoji == "💬":
-                                            s = t_text
-                                            if s.startswith('"'):
-                                                s = s[1:]
-                                            s = re.sub(r'"\s*\[[^\]]*\]\s*$', "", s)
-                                            if s.endswith('"'):
-                                                s = s[:-1]
-                                            state_beat["text"] = s
-            # scene beats are display-only — skip
+                                            state_beat["text"] = _strip_dialogue_text(t_text)
+        else:
+            # Extra Notion step group beyond JSON steps → new suggested step
+            new_step = [
+                _parse_new_beat(e, _NEW_BEAT_TAG.sub("", t).strip())
+                for e, t in notion_callouts
+                if e in _EDITABLE_CALLOUT_EMOJIS
+            ]
+            if new_step:
+                json_steps.append(new_step)
 
 
-def _collect_scene_flags(section_map: dict, sections: list) -> list[dict]:
+def _collect_scene_flags(sections: list) -> list[dict]:
     """
-    Compare 🎬 callout texts in Notion against scene beat descriptions in the data.
-    Returns a flag for each beat where the description was edited.
+    Collect scene beats flagged as "updated" by _patch_section_beats.
+    Cleans up the temp _original_description key from each flagged beat.
     """
     flags = []
     for section in sections:
         sid = section["id"]
-        if sid not in section_map:
-            continue
-
-        notion_scene_texts = [text for emoji, text in section_map[sid]["callouts"] if emoji == "🎬"]
-
-        # Collect top-level scene beats in order (skip beats inside validator toggles)
-        scene_beats = [
-            beat
-            for step in section.get("steps", [])
-            for beat in step
-            if beat.get("type") == "scene"
-        ]
-
-        for beat, notion_text in zip(scene_beats, notion_scene_texts):
-            original_desc = (beat.get("params") or {}).get("description", "").strip()
-            notion_text = notion_text.strip()
-            if original_desc and notion_text and notion_text != original_desc:
-                # Patch description into the beat so it's preserved in the pulled file
-                if beat.get("params") is None:
-                    beat["params"] = {}
-                beat["params"]["description"] = notion_text
-                flags.append(
-                    {
-                        "section_id": sid,
-                        "tangible_id": beat.get("tangible_id", ""),
-                        "method": beat.get("method", ""),
-                        "original_description": original_desc,
-                        "notion_description": notion_text,
-                    }
-                )
+        for step in section.get("steps", []):
+            for beat in step:
+                if beat.get("type") == "scene" and beat.get("notion_flag") == "updated":
+                    original_desc = beat.pop("_original_description", "")
+                    flags.append(
+                        {
+                            "section_id": sid,
+                            "tangible_id": beat.get("tangible_id", ""),
+                            "method": beat.get("method", ""),
+                            "original_description": original_desc,
+                            "notion_description": (beat.get("params") or {}).get("description", ""),
+                        }
+                    )
     return flags
 
 
 def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | list, list[dict]]:
     """
-    Patch *original* lesson data with text edits found in Notion *blocks*.
+    Merge Notion edits into *original* lesson data.
 
     Returns a tuple of:
-    - Deep copy of *original* with dialogue/prompt text overlaid.
-    - List of scene flag dicts where a 🎬 description was edited in Notion
-      (these need manual config updates — cannot be auto-applied).
+    - Deep copy of *original* with Notion edits applied.
+    - List of scene flag dicts where a 🎬 description was edited in Notion.
 
     Accepts either a full lesson dict (with "sections" key) or a bare list
     of section dicts (lesson_generator.json output format).
@@ -715,7 +756,7 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
         if sid in section_map:
             _patch_section_beats(section, section_map[sid])
 
-    flags = _collect_scene_flags(section_map, sections)
+    flags = _collect_scene_flags(sections)
     return patched, flags
 
 
@@ -744,8 +785,6 @@ def pull_lesson_from_notion(page_id: str) -> dict:
     ValueError
         If page_id is not found in the registry.
     """
-    import json
-
     from utils.notion_sync import _all_blocks, get_file_path_for_page, get_notion_client
 
     file_path = get_file_path_for_page(page_id)
@@ -755,13 +794,15 @@ def pull_lesson_from_notion(page_id: str) -> dict:
             "Push the file first so the relationship is recorded."
         )
 
-    original = json.loads(file_path.read_text(encoding="utf-8"))
+    original_text = file_path.read_text(encoding="utf-8")
+    original = json.loads(original_text)
 
     client = get_notion_client()
     blocks = _all_blocks(client, page_id, recursive=True)
     patched, flags = blocks_to_lesson(blocks, original)
 
-    file_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    patched_text = json.dumps(patched, indent=2, ensure_ascii=False) + "\n"
+    file_path.write_text(patched_text, encoding="utf-8")
 
     flags_path = file_path.parent / "notion_flags.json"
     if flags:
@@ -771,4 +812,15 @@ def pull_lesson_from_notion(page_id: str) -> dict:
     elif flags_path.exists():
         flags_path.unlink()
 
-    return patched, flags
+    diff_lines = list(
+        difflib.unified_diff(
+            original_text.splitlines(keepends=True),
+            patched_text.splitlines(keepends=True),
+            fromfile=f"{file_path.name} (before)",
+            tofile=f"{file_path.name} (after)",
+        )
+    )
+    diff = "".join(diff_lines) if diff_lines else "No changes."
+    print(diff)
+
+    return patched, flags, diff
