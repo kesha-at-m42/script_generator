@@ -26,7 +26,7 @@ The schema is an authored intermediate representation, not the final runtime for
 
 Key choices that serve this goal:
 
-- **Typed beats**: `type` is always explicit (`"dialogue"`, `"scene"`, `"prompt"`), enabling switch-based translation with no ambiguity
+- **Typed beats**: `type` is always explicit (`"dialogue"`, `"scene"`, `"prompt"`, `"current_scene"`), enabling switch-based translation with no ambiguity
 - **Explicit targeting**: tangibles are always referenced by `tangible_id` or `tangible_type`, never by position or implicit state
 - **No logic embedded in text**: conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
 - **Flat, predictable field shapes**: each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
@@ -77,7 +77,6 @@ u3_m4_exitcheck
 {
   "id": "s1_1_most_votes",
   "type": "remediation",
-  "scene": ["pg_fruits", "data_table"],
   "steps": [ [...], [...] ]
 }
 ```
@@ -86,8 +85,9 @@ u3_m4_exitcheck
 |---|---|---|---|
 | `id` | string | yes | Unique section ID. See [Naming Conventions](#section-id-naming-conventions). |
 | `type` | string | no | `"transition"` or `"remediation"`. Omit for normal sections. |
-| `scene` | string[] | no | Tangible IDs on screen when the section begins |
 | `steps` | array[] | yes | Array of steps; each step is an array of beats |
+
+Every section begins with an empty screen. There is no carry-over from the previous section. Everything visible must be explicitly put on screen by `scene` beats in the first step.
 
 ### Section ID Naming Conventions
 
@@ -130,40 +130,22 @@ s{group}_transition                →  s2_transition
 ]
 ```
 
+Beats within a step follow this order:
+
+1. **`scene`** — things appear or change on screen
+2. **`dialogue`** — the guide speaks
+3. **`prompt`** — student interacts (at most one per step)
+4. **`current_scene`** — snapshot of the screen after all beats have played (always last)
+
 ---
 
 ## Beat Types
 
-### Dialogue
-
-Narration or teacher speech. Editable in Notion (💬 callout).
-
-```json
-{
-  "type": "dialogue",
-  "text": "You made a graph with your Minis' votes. Each picture stands for one vote."
-}
-```
-
-```json
-{
-  "type": "dialogue",
-  "text": "Here's a graph: animals at the zoo. Every picture graph has a key that tells you what each symbol means.",
-  "tags": ["vocabulary"]
-}
-```
-
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `type` | `"dialogue"` | yes | |
-| `text` | string | yes | Spoken/displayed text |
-| `tags` | string[] | no | Semantic labels, e.g. `["vocabulary"]` |
-
----
-
 ### Scene
 
-Manipulates a tangible on screen. Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
+**Scene beats are the only way to change screen state.** If anything needs to appear, disappear, animate, or update — a tangible, a parameter, any visual state at all — it must come from a `scene` beat.
+
+Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
 
 Three targeting levels. Omit fields to broaden scope:
 
@@ -259,6 +241,33 @@ Interactivity is **implicit**. A tangible becomes interactive when a prompt's `t
 
 ---
 
+### Dialogue
+
+Narration or teacher speech. Editable in Notion (💬 callout).
+
+```json
+{
+  "type": "dialogue",
+  "text": "You made a graph with your Minis' votes. Each picture stands for one vote."
+}
+```
+
+```json
+{
+  "type": "dialogue",
+  "text": "Here's a graph: animals at the zoo. Every picture graph has a key that tells you what each symbol means.",
+  "tags": ["vocabulary"]
+}
+```
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `type` | `"dialogue"` | yes | |
+| `text` | string | yes | Spoken/displayed text |
+| `tags` | string[] | no | Semantic labels, e.g. `["vocabulary"]` |
+
+---
+
 ### Prompt
 
 Student interaction point. Text is editable in Notion (❓ callout).
@@ -345,6 +354,30 @@ Student interaction point. Text is editable in Notion (❓ callout).
 | `"tangible_id.component"` | Specific component within a tangible | `"target": "picture_graph_animals.key"` |
 | `["id1", "id2"]` | Explicit list of selectable instances | `"target": ["pg_fruits", "pg_animals"]` |
 | `{ "type": "..." }` | All instances of a tangible type | `"target": { "type": "picture_graph" }` |
+
+---
+
+### current_scene
+
+Always the last beat in every step, and the last beat in every validator state's inner step. It is a pure derived snapshot: it reflects only what `scene` beats have established. Within a section, tangibles carry forward step to step — a tangible stays on screen until a `scene` beat removes or hides it. `current_scene` never introduces new tangibles or state that no `scene` beat has declared.
+
+```json
+{
+  "type": "current_scene",
+  "elements": [
+    {
+      "tangible_id": "picture_graph_fruits",
+      "description": "Horizontal picture graph. Favorite Fruits data. Apples row highlighted.",
+      "tangible_type": "picture_graph",
+      "mode": "reading",
+      "orientation": "horizontal",
+      "categories": ["Apples", "Bananas", "Oranges", "Grapes"]
+    }
+  ]
+}
+```
+
+If the screen is empty, write `"elements": []`.
 
 ---
 
@@ -486,6 +519,7 @@ Tangibles are defined outside `lesson.json` but referenced by ID throughout. Obs
 
 | Type | Notion format | Editable | Fields |
 |---|---|---|---|
-| `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
 | `scene` | method-emoji callout | no | `method`, `tangible_id`, `params?` |
+| `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
 | `prompt` | ❓ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
+| `current_scene` | — | no | `elements` |

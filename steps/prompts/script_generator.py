@@ -60,7 +60,6 @@ Everything before that pause belongs in the same step. Beat order within a step:
 ```json
 {
   "id": "s{group}_{seq}_{slug}",
-  "scene": ["tangible_id", ...],
   "steps": [ [...], [...] ]
 }
 ```
@@ -69,10 +68,9 @@ Everything before that pause belongs in the same step. Beat order within a step:
   (1, 2, 3). Seq = interaction number within that section. Slug = purpose.
   Examples: `s1_1_most_votes`, `s2_2_reading_independently`,
   `s3_3b_two_step_total`, `s2_transition`
-- `scene`: tangible IDs on screen when this section begins. Each section
-  starts with its own fresh workspace. Tangibles do not carry over from the
-  previous section. List only what the spec says is present at section start.
 - `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
+
+Every section begins with an empty screen. Everything visible must be put on screen explicitly by `scene` beats in the first step. Nothing carries over from the previous section.
 
 **Transition sections** use `"type": "transition"` on the section object.
 They have scene and dialogue beats. No prompts.
@@ -175,8 +173,11 @@ For `multi_select`, include the category names:
 ### current_scene: snapshot of the resulting scene
 
 **Must be the last beat in every step** (and the last beat in every
-validator state's inner step). It captures what is visible on screen
-after all beats in this step have played.
+validator state's inner step). It is a pure derived snapshot: reflect
+only what `scene` beats have established. Tangibles carry forward
+within a section — a tangible stays on screen until a `scene` beat
+removes or hides it. Never introduce a tangible or state that no
+`scene` beat has declared.
 
 ```json
 {
@@ -330,7 +331,6 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 [
   {
     "id": "s1_1_most_votes",
-    "scene": [],
     "steps": [
       [
         {
@@ -416,7 +416,6 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
   {
     "id": "s2_transition",
     "type": "transition",
-    "scene": ["picture_graph_animals", "data_table"],
     "steps": [
       [
         {
