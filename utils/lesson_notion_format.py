@@ -328,7 +328,9 @@ def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict
     if t == "scene":
         return _render_scene(beat)
     if t == "current_scene":
-        return _render_current_scene(beat, nested=nested)
+        if nested:
+            return []
+        return _render_current_scene(beat)
     if t == "prompt":
         return _render_prompt(beat, section_id)
     # fallback
