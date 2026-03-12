@@ -230,6 +230,34 @@ you generate.
 Validator state `steps` follow the same beat ordering and also end with
 `current_scene`.
 
+**`current_scene` in validator states must follow the same rule as everywhere
+else: it only mirrors what `scene` beats have declared. If the correct response
+requires no visual change, the `current_scene` must describe the tangibles in
+exactly the same state as before — no new adjectives, no "confirmed", no added
+state. Do not use the description field to imply a change that no `scene` beat
+produced.**
+
+```json
+// WRONG — current_scene inventing a visual state:
+[
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Red items confirmed as 40." }] }
+]
+
+// RIGHT — if no visual change, description is identical to prior state:
+[
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red, Blue, Yellow items visible." }] }
+]
+
+// RIGHT — if a visual change is needed, declare it with a scene beat first:
+[
+  { "type": "scene", "method": "update", "tangible_id": "minis_counting_scene", "params": { "highlight_categories": ["Red"] } },
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red row highlighted." }] }
+]
+```
+
 For `multiple_choice`: `{ "condition": { "selected": 7 } }`
 
 For `multi_select` requiring multiple selections:
