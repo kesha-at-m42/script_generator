@@ -224,8 +224,9 @@ you generate.
     "is_correct": true,
     "steps": [
       [
-        { "type": "scene", "method": "update", "tangible_id": "picture_graph_fruits",
-          "params": { "highlight_categories": ["Apples"] } },
+        { "type": "scene", "method": "animate", "tangible_id": "picture_graph_fruits",
+          "params": { "event": "highlight_category", "status": "confirmed",
+                      "description": "Apples row highlights to confirm selection", "category": "Apples" } },
         { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },
         { "type": "current_scene", "elements": [ ... ] }
       ]
@@ -260,9 +261,11 @@ produced.**
 
 // RIGHT — if a visual change is needed, declare it with a scene beat first:
 [
-  { "type": "scene", "method": "update", "tangible_id": "minis_counting_scene", "params": { "highlight_categories": ["Red"] } },
+  { "type": "scene", "method": "animate", "tangible_id": "minis_counting_scene",
+    "params": { "event": "mark_counted", "status": "confirmed",
+                "description": "Red items highlight as counted, count of 40 appears", "category": "Red" } },
   { "type": "dialogue", "text": "That's right, 40." },
-  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red row highlighted." }] }
+  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red items highlighted as counted." }] }
 ]
 ```
 
