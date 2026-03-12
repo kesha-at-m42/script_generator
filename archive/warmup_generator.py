@@ -37,7 +37,6 @@ spec's constraints and use those consistently across all sections.
 ```json
 {
   "id": "s{group}_{seq}_{slug}",
-  "scene": ["tangible_id", ...],
   "steps": [ [...], [...] ]
 }
 ```
@@ -45,29 +44,33 @@ spec's constraints and use those consistently across all sections.
 - `id`: follow the naming convention from the schema guide. For warmup interactions
   use a slug that reflects the interaction's purpose (e.g. `s1_1_data_collection`,
   `s1_2_symbol_selection`, `s1_3_graph_creation`, `s1_4_bridge`)
-- `scene`: tangible IDs **already on screen** when the section begins (carried
-  in from a previous section). Omit or leave empty if the screen starts fresh.
 - `steps`: array of arrays; each inner array is one step (all beats in a step
   play together before the lesson pauses)
 
----
+Every section begins with an empty screen. Everything visible must be put on
+screen explicitly by `scene` beats in the first step. Nothing carries over from
+the previous section.
 
-## SCENE RULES
-
-The section-level `scene` array is the **initial state**, listing tangibles present
-on screen when the section begins. Every scene beat that adds, removes, shows, or
-hides a tangible changes what is on screen.
-
-A prompt may only reference tangibles that currently exist in the scene at
-that point in the step sequence.
+A prompt may only reference tangibles that a `scene` beat has already added or
+shown earlier in the same section.
 
 ---
 
 ## BEAT TYPES
 
+Beats within a step follow this order:
+
+1. **`scene`** — things appear or change on screen
+2. **`dialogue`** — the guide speaks
+3. **`prompt`** — student interacts (at most one per step)
+4. **`current_scene`** — snapshot of the screen after all beats have played (always last)
+
 ### current_scene
-**Must be the first beat in every step.** Reflects the exact state of the
-workspace at the start of that step, after all scene changes from previous steps.
+**Must be the last beat in every step** (and the last beat in every validator
+state's inner step). It is a pure derived snapshot: reflect only what `scene`
+beats have established. Tangibles carry forward within a section — a tangible
+stays on screen until a `scene` beat removes or hides it. Never introduce a
+tangible or state that no `scene` beat has declared.
 
 ```json
 {
@@ -92,7 +95,7 @@ Each element includes:
 - `tangible_type`: canonical type from <toy_specs>
 - Any relevant state fields drawn from <toy_specs> (mode, orientation, categories, etc.)
 
-If the workspace is empty at the start of a step, write `"elements": []`.
+If the screen is empty at the end of a step, write `"elements": []`.
 
 ---
 
@@ -187,18 +190,21 @@ For `place_symbol`, include a `config` with the target category and expected cou
 ## VALIDATOR STRUCTURE
 
 The validator is a flat array of states evaluated in order; first match wins.
-Each state has `condition`, `description`, and `steps` (inline beats).
+Each state has `condition`, `description`, `is_correct`, and `steps` (inline beats).
 
 Define only the correct state. The remediation generator adds incorrect states later.
+Always include `"is_correct": true` on every validator state you generate.
 
 ```json
 "validator": [
   {
     "condition": { "selected": "Apples" },
     "description": "Student selected the correct category",
+    "is_correct": true,
     "steps": [
       [
-        { "type": "dialogue", "text": "Right. Apples had the most." }
+        { "type": "dialogue", "text": "Right. Apples had the most." },
+        { "type": "current_scene", "elements": [ ... ] }
       ]
     ]
   }
@@ -213,12 +219,40 @@ use `condition: {}` as the single state:
   {
     "condition": {},
     "description": "Any response advances",
+    "is_correct": true,
     "steps": [
       [
-        { "type": "dialogue", "text": "Got it. Let's make a graph with that data." }
+        { "type": "dialogue", "text": "Got it. Let's make a graph with that data." },
+        { "type": "current_scene", "elements": [ ... ] }
       ]
     ]
   }
+]
+```
+
+**`current_scene` in validator states follows the same rule as everywhere else.**
+If the correct response requires no visual change, describe the tangibles in
+exactly the same state as before — no "confirmed", no added state. If a visual
+change is needed, declare it with a `scene` beat first:
+
+```json
+// WRONG — current_scene inventing a visual state:
+[
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Red items confirmed as 40." }] }
+]
+
+// RIGHT — if no visual change, description matches prior state:
+[
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Counting scene. Red, Blue, Yellow items visible." }] }
+]
+
+// RIGHT — visual change declared with a scene beat first:
+[
+  { "type": "scene", "method": "update", "tangible_id": "counting_game", "params": { "highlight_categories": ["Red"] } },
+  { "type": "dialogue", "text": "That's right, 40." },
+  { "type": "current_scene", "elements": [{ ..., "description": "Counting scene. Red row highlighted." }] }
 ]
 ```
 
