@@ -395,6 +395,8 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "is_correct": true,
     "steps": [
       [
+        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+          "params": { "highlight_categories": ["Apples"] } },
         { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." }
       ]
     ]

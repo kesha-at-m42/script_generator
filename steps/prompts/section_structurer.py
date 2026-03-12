@@ -219,6 +219,8 @@ you generate.
     "is_correct": true,
     "steps": [
       [
+        { "type": "scene", "method": "update", "tangible_id": "picture_graph_fruits",
+          "params": { "highlight_categories": ["Apples"] } },
         { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },
         { "type": "current_scene", "elements": [ ... ] }
       ]
@@ -228,7 +230,8 @@ you generate.
 ```
 
 Validator state `steps` follow the same beat ordering and also end with
-`current_scene`.
+`current_scene`. **Scene beats are allowed and expected in correct validator
+states whenever a visual change accompanies the feedback.**
 
 **`current_scene` in validator states must follow the same rule as everywhere
 else: it only mirrors what `scene` beats have declared. If the correct response
