@@ -236,8 +236,6 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
     blocks: list[dict] = []
     for state in validator:
         description = state.get("description", "?")
-        condition = state.get("condition", {})
-        cond_summary = _condition_summary(condition)
         is_correct = state.get("is_correct")
         if is_correct is True:
             indicator = "✅"
@@ -245,7 +243,7 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             indicator = "❌"
         else:
             indicator = "◻️"
-        toggle_header = f"{indicator} {description}  [{cond_summary}]"
+        toggle_header = f"{indicator} {description}"
 
         # Render child beats for each step inside this state
         child_blocks: list[dict] = []

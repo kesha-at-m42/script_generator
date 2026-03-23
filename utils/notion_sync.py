@@ -503,6 +503,28 @@ def push_to_notion(
     return page_id
 
 
+def push_blocks_to_notion(
+    blocks: list[dict],
+    title: str,
+    file_path: Path | None = None,
+    existing_page_id: str | None = None,
+) -> str:
+    """
+    Push pre-built Notion blocks to a page.  Returns the page ID.
+
+    Use this instead of push_to_notion when you've already constructed the
+    blocks yourself (e.g. aggregated from multiple sources).  The registry
+    and create/sync logic is identical to push_to_notion.
+    """
+    return push_to_notion(
+        data=None,
+        title=title,
+        file_path=file_path,
+        existing_page_id=existing_page_id,
+        blocks_fn=lambda _: blocks,
+    )
+
+
 def pull_from_notion(page_id: str) -> Any:
     """
     Pull the original JSON data from a Notion page.
