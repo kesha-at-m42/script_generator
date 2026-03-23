@@ -175,51 +175,38 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 
 Identify **correct answers** from the success/correct validator state condition. All other options are **incorrect answers**.
 
-See `<remediation_design_ref>` Section 3B for Multiselect MC structure and language requirements (no Light; 3 branch Mediums + one Heavy).
+See `<remediation_design_ref>` Section 3B for structure, branch definitions, language requirements, and condition patterns (no Light; Branches 2/3/4 Mediums + one Heavy).
 
-### Branch Conditions
-
-Use these exact condition patterns. Let `[C...]` = correct answer values, `[W...]` = incorrect answer values.
-
-**Branch 2 — Under-selecting** (at least one correct selected, NOT all correct, no incorrect selected):
+One **Medium per branch**: scene beat required.
 ```json
 {
-  "and": [
-    { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] },
-    { "not": { "and": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] } },
-    { "not": { "or": [ { "selected": "<W1>" }, { "selected": "<W2>" } ] } }
+  "condition": { <see Section 3B.7 for correct condition logic per branch> },
+  "description": "Branch <N>: <description of student's selection state>",
+  "is_correct": false,
+  "steps": [
+    [
+      { "type": "scene", "method": "update", "tangible_id": "...", "params": { "highlight_categories": ["..."] } },
+      { "type": "dialogue", "text": "..." }
+    ]
   ]
 }
 ```
 
-**Branch 3 — All-wrong** (no correct answer selected):
-```json
-{ "not": { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] } }
-```
-
-**Branch 4 — Mixed** (at least one incorrect AND at least one correct selected):
+One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback for all branches.
 ```json
 {
-  "and": [
-    { "or": [ { "selected": "<W1>" }, { "selected": "<W2>" } ] },
-    { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] }
+  "condition": {},
+  "description": "Student answered incorrectly. System models the correct answer.",
+  "is_correct": false,
+  "steps": [
+    [
+      { "type": "scene", "method": "animate", "tangible_id": "...",
+        "params": { "event": "...", "status": "confirmed", "description": "..." } },
+      { "type": "dialogue", "text": "..." }
+    ]
   ]
 }
 ```
-
-**Heavy** (`condition: {}`): always last — shared fallback for all branches.
-
-**CRITICAL — do not collapse Branch 2 into per-combination variants.** A student who selected only C1 and a student who selected only C2 both receive the same Branch 2 Medium. See `<remediation_design_ref>` Section 3B.5. The condition already handles this — do not add nested per-value branches inside Branch 2.
-
-### Branch Language
-
-| Branch | Tone | Requirement |
-|---|---|---|
-| Branch 2 — under-selecting | Near-success | Acknowledge their picks were right; nudge toward finding the rest. Do not name which specific answers they chose. |
-| Branch 3 — all-wrong | Foundational | Redirect to what the concept means. Do NOT acknowledge their selections positively. Distinctly more remedial than Branches 2 and 4. |
-| Branch 4 — mixed | Genuine but corrective | Acknowledge the correct picks genuinely; clearly flag that one or more choices don't fit. |
-
-All three Mediums require a scene beat. Heavy requires `scene animate`.
 
 ---
 
