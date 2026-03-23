@@ -63,16 +63,16 @@ def merge_remediation(data, output_file_path=None):
                 step_num = int(step_dir.name.split("_")[1])
             except (IndexError, ValueError):
                 continue
-            if step_num >= own_step_num:
+            if step_num > own_step_num - 3:
                 continue
             for json_file in sorted(step_dir.glob("*.json")):
                 try:
-                    data = json.loads(json_file.read_text(encoding="utf-8"))
+                    candidate = json.loads(json_file.read_text(encoding="utf-8"))
                     if (
-                        isinstance(data, list)
-                        and data
-                        and isinstance(data[0], dict)
-                        and "steps" in data[0]
+                        isinstance(candidate, list)
+                        and candidate
+                        and isinstance(candidate[0], dict)
+                        and "steps" in candidate[0]
                     ):
                         source_file = json_file
                         break

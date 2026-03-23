@@ -21,7 +21,11 @@ class _TeeStream:
         self._log = log_file
 
     def write(self, data):
-        self._original.write(data)
+        try:
+            self._original.write(data)
+        except UnicodeEncodeError:
+            enc = getattr(self._original, "encoding", "utf-8") or "utf-8"
+            self._original.write(data.encode(enc, errors="replace").decode(enc))
         try:
             self._log.write(data)
             self._log.flush()

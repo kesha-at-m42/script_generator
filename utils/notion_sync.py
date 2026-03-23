@@ -341,6 +341,101 @@ def _all_blocks(client: Client, block_id: str, recursive: bool = False) -> list[
 
 
 # ---------------------------------------------------------------------------
+# Block sync (pointer/content matching — preserves comments on unchanged blocks)
+# ---------------------------------------------------------------------------
+
+
+def _block_content_equal(existing: dict, new_block: dict) -> bool:
+    """Return True if two blocks have identical type and text content."""
+    if existing.get("type") != new_block.get("type"):
+        return False
+    btype = existing["type"]
+    ex_data = existing.get(btype, {})
+    new_data = new_block.get(btype, {})
+    if _extract_rt(ex_data.get("rich_text", [])) != _extract_rt(new_data.get("rich_text", [])):
+        return False
+    # For callouts also compare the icon emoji
+    if btype == "callout":
+        if ex_data.get("icon", {}).get("emoji") != new_data.get("icon", {}).get("emoji"):
+            return False
+    return True
+
+
+_HEADING_TYPES = {"heading_1", "heading_2", "heading_3"}
+
+
+def _refresh_children(client: Client, block_id: str, new_children: list[dict]) -> None:
+    """Archive all existing children of block_id and append new_children."""
+    for child in _all_blocks(client, block_id):
+        client.blocks.update(child["id"], archived=True)
+    for i in range(0, len(new_children), 100):
+        client.blocks.children.append(block_id, children=new_children[i : i + 100])
+
+
+def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None:
+    """Sync new_blocks into parent_id using pointer/content matching.
+
+    For each new block, scans forward in existing blocks to find a content match:
+    - Match found: keep block in place (preserves ID and comments); archive any
+      existing blocks that were skipped over (no match in new script).
+    - No match: insert the new block after the last matched/inserted block using
+      Notion's `after=` parameter to maintain correct ordering.
+    After all new blocks are processed, remaining unmatched existing blocks are
+    archived.
+
+    Heading blocks (section toggle headings) are recursed into so beat-level
+    blocks also benefit from pointer matching. Toggle blocks (validator states,
+    current scene) have their children refreshed wholesale — their own block ID
+    is preserved but inner blocks are replaced.
+    """
+    existing = _all_blocks(client, parent_id)
+    ex_ptr = 0
+    last_id: str | None = None  # ID anchor for `after=` insertions
+
+    for new_block in new_blocks:
+        btype = new_block["type"]
+        bdata = new_block.get(btype, {})
+        new_children = bdata.get("children")
+
+        # Scan forward for a content match
+        match_idx = None
+        for k in range(ex_ptr, len(existing)):
+            if _block_content_equal(existing[k], new_block):
+                match_idx = k
+                break
+
+        if match_idx is not None:
+            # Archive every existing block we skipped over
+            for skipped in existing[ex_ptr:match_idx]:
+                client.blocks.update(skipped["id"], archived=True)
+
+            ex = existing[match_idx]
+            block_id = ex["id"]
+            last_id = block_id
+            ex_ptr = match_idx + 1
+
+            if new_children is not None:
+                if btype in _HEADING_TYPES:
+                    _sync_blocks(client, block_id, new_children)
+                else:
+                    _refresh_children(client, block_id, new_children)
+            elif ex.get("has_children"):
+                for child in _all_blocks(client, block_id):
+                    client.blocks.update(child["id"], archived=True)
+        else:
+            # No match — insert after the last known block
+            kwargs: dict = {"children": [new_block]}
+            if last_id is not None:
+                kwargs["after"] = last_id
+            resp = client.blocks.children.append(parent_id, **kwargs)
+            last_id = resp["results"][0]["id"]
+
+    # Archive remaining unmatched existing blocks
+    for leftover in existing[ex_ptr:]:
+        client.blocks.update(leftover["id"], archived=True)
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -374,13 +469,9 @@ def push_to_notion(
     blocks = blocks_fn(data) if blocks_fn is not None else json_to_blocks(data)
 
     if existing_page_id:
-        # Archive all existing blocks — if page is gone (404), fall through to create a new one
+        # Sync blocks in place — if page is gone (404), fall through to create a new one
         try:
-            for block in _all_blocks(client, existing_page_id):
-                client.blocks.update(block["id"], archived=True)
-            # Re-append fresh blocks in batches of 100
-            for i in range(0, len(blocks), 100):
-                client.blocks.children.append(existing_page_id, children=blocks[i : i + 100])
+            _sync_blocks(client, existing_page_id, blocks)
             # Update title
             client.pages.update(
                 existing_page_id,
