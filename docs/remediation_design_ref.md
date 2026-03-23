@@ -224,7 +224,13 @@ System moves forward
 
 ### 3B.5 Generic Language Requirement
 
-Multiselect MC Mediums use **generic language across all submissions in a given branch** — no per-combination branching. A student who selected only {A} and a student who selected only {B} (when the correct answers are {A, B, C}) both receive the same Branch 2 Medium. Rationale: the number of possible selection combinations is exponential. Per-combination scripting is unscalable. Generic branch-level language addresses the cognitive state, which is what matters.
+Multiselect MC Mediums use **generic language across all submissions in a given branch** — no per-combination branching. This is a deliberate architectural constraint, not an oversight.
+
+**The under-selecting case is where this is most tempting to violate.** When the correct answers are {A, B} and a student selects only A, it is natural to want to say "You got A — now find the other one." When a student selects only B, it is natural to say "You got B — now find the other one." But these are the same cognitive state (correct so far, incomplete) and must receive the same generic Medium. Do not enumerate partial-correct combinations, even when there are only two correct answers.
+
+**Why:** With N correct answers, the number of partial-correct combinations is 2ᴺ − 2. With 2 correct answers that is 2 variants; with 3 it is 6; with 4 it is 14. Per-combination branching is unscalable, and the combinations do not represent meaningfully different cognitive states — they represent the same state (under-selecting) reached via different paths.
+
+A student who selected only {A} and a student who selected only {A, B} (when correct answers are {A, B, C}) both receive Branch 2 Medium. The Medium acknowledges that their selections were valid but incomplete and prompts them to look for more — without referencing which specific answers they chose.
 
 ### 3B.6 Branch 3 Tone Distinction
 
