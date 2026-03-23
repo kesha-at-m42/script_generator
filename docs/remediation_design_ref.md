@@ -236,7 +236,22 @@ A student who selected only {A} and a student who selected only {A, B} (when cor
 
 Branch 3 (all-wrong) must be **distinctly more foundational in tone** than Branches 2 and 4. All-wrong signals a deeper conceptual gap — the student has not identified any correct answers. Branch 3 Medium should redirect the student to what the concept means before they attempt again. Do not frame this as "close" or acknowledge the selections positively in any way.
 
-### 3B.7 Heavy for Multiselect MC
+### 3B.7 Branch Condition Patterns
+
+Each branch must be expressed as a self-sufficient condition — do not rely on evaluation order to exclude cases that the condition itself does not rule out. The correct patterns, where `[C...]` are correct answer values and `[W...]` are incorrect answer values:
+
+| Branch | Condition logic |
+| :---- | :---- |
+| **Branch 2** (under-selecting) | (any correct selected) AND NOT (all correct selected) AND NOT (any incorrect selected) |
+| **Branch 3** (all-wrong) | NOT (any correct selected) |
+| **Branch 4** (mixed) | (any incorrect selected) AND (any correct selected) |
+| **Heavy** | `{}` — unconditional fallback |
+
+**Branch 2 must explicitly exclude incorrect selections.** Without that clause, a student who selects one correct answer plus one incorrect answer will be caught by Branch 2 (under-selecting) instead of Branch 4 (mixed). This is the most common condition bug for multiselect questions.
+
+**Branch 4 must explicitly require at least one correct selection.** Without that clause, the condition overlaps with Branch 3. The overlap is masked by evaluation order but makes the condition's intent ambiguous and fragile.
+
+### 3B.8 Heavy for Multiselect MC
 
 All branches escalate to the same single Heavy on the final attempt. Heavy for Multiselect MC:
 

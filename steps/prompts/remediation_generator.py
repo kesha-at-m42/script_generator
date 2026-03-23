@@ -1,8 +1,9 @@
 """
 remediation_generator - AI Prompt
 
-Generates incorrect validator states (L/M/H for Non-MC, per-distractor for MC)
-for each prompt in a lesson section.
+Generates incorrect validator states (L/M/H for Non-MC, per-distractor for
+single-select MC, per-branch for multiselect MC) for each prompt in a lesson
+section.
 
 Runs in batch mode. Input is pre-filtered to sections that have at least one
 prompt with a real validator (not any-response-advances).
@@ -77,7 +78,8 @@ For each qualifying prompt, check `tool.name`:
 | `tool.name` | Track |
 |---|---|
 | `click_category`, `click_tangible`, or any workspace tool | **Non-MC** → Generic L-M-H |
-| `multiple_choice`, `multi_select` | **MC** → Per-distractor Medium + Heavy |
+| `multiple_choice` | **Single-Select MC** → Per-distractor Medium + Heavy |
+| `multi_select` | **Multiselect MC** → Per-branch Medium + Heavy |
 
 ---
 
@@ -130,11 +132,11 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 
 ---
 
-## STEP 2B: MC: PER-DISTRACTOR STATES
+## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
-See `<remediation_design_ref>` Section 3.2 for MC structure (no Light state; per-distractor Mediums + one Heavy).
+See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
 One **Medium** per distractor: scene beat required.
 ```json
@@ -169,6 +171,58 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 
 ---
 
+## STEP 2C: MULTISELECT MC: PER-BRANCH STATES
+
+Identify **correct answers** from the success/correct validator state condition. All other options are **incorrect answers**.
+
+See `<remediation_design_ref>` Section 3B for Multiselect MC structure and language requirements (no Light; 3 branch Mediums + one Heavy).
+
+### Branch Conditions
+
+Use these exact condition patterns. Let `[C...]` = correct answer values, `[W...]` = incorrect answer values.
+
+**Branch 2 — Under-selecting** (at least one correct selected, NOT all correct, no incorrect selected):
+```json
+{
+  "and": [
+    { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] },
+    { "not": { "and": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] } },
+    { "not": { "or": [ { "selected": "<W1>" }, { "selected": "<W2>" } ] } }
+  ]
+}
+```
+
+**Branch 3 — All-wrong** (no correct answer selected):
+```json
+{ "not": { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] } }
+```
+
+**Branch 4 — Mixed** (at least one incorrect AND at least one correct selected):
+```json
+{
+  "and": [
+    { "or": [ { "selected": "<W1>" }, { "selected": "<W2>" } ] },
+    { "or": [ { "selected": "<C1>" }, { "selected": "<C2>" } ] }
+  ]
+}
+```
+
+**Heavy** (`condition: {}`): always last — shared fallback for all branches.
+
+**CRITICAL — do not collapse Branch 2 into per-combination variants.** A student who selected only C1 and a student who selected only C2 both receive the same Branch 2 Medium. See `<remediation_design_ref>` Section 3B.5. The condition already handles this — do not add nested per-value branches inside Branch 2.
+
+### Branch Language
+
+| Branch | Tone | Requirement |
+|---|---|---|
+| Branch 2 — under-selecting | Near-success | Acknowledge their picks were right; nudge toward finding the rest. Do not name which specific answers they chose. |
+| Branch 3 — all-wrong | Foundational | Redirect to what the concept means. Do NOT acknowledge their selections positively. Distinctly more remedial than Branches 2 and 4. |
+| Branch 4 — mixed | Genuine but corrective | Acknowledge the correct picks genuinely; clearly flag that one or more choices don't fit. |
+
+All three Mediums require a scene beat. Heavy requires `scene animate`.
+
+---
+
 ## STATE ORDER
 
 **Non-MC inner array:**
@@ -176,9 +230,15 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 2. Medium (`incorrect_count: 2`)
 3. Heavy (`condition: {}`): always last
 
-**MC inner array:**
+**Single-Select MC inner array:**
 1. One Medium per distractor (any order among themselves)
 2. Heavy (`condition: {}`): always last
+
+**Multiselect MC inner array:**
+1. Branch 2 Medium — under-selecting
+2. Branch 3 Medium — all-wrong
+3. Branch 4 Medium — mixed
+4. Heavy (`condition: {}`): always last
 
 ---
 
