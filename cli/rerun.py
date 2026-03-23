@@ -452,12 +452,47 @@ Examples:
         help="Exclude items with these problem/item IDs from ALL steps (comma-separated, e.g., '73,74,75')",
     )
 
+    # Step function_args overrides
+    parser.add_argument(
+        "--step-args",
+        nargs="+",
+        metavar="STEP_NAME|KEY=VALUE",
+        action="append",
+        help=(
+            "Override function_args for a named formatting step. "
+            "First token is the step name, remaining tokens are key=value pairs. "
+            "Example: --step-args remediation_filter mode=mc"
+        ),
+    )
+
     # Other
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
     parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
 
     args = parser.parse_args()
+
+    # Parse --step-args overrides: [[step_name, key=val, ...], ...]
+    step_args_overrides = {}
+    for group in args.step_args or []:
+        if not group:
+            continue
+        step_name = group[0]
+        overrides = {}
+        for token in group[1:]:
+            if "=" not in token:
+                print(f"Error: --step-args token '{token}' must be key=value")
+                sys.exit(1)
+            k, v = token.split("=", 1)
+            # Coerce value type
+            if v.lower() == "true":
+                v = True
+            elif v.lower() == "false":
+                v = False
+            elif v.isdigit():
+                v = int(v)
+            overrides[k] = v
+        step_args_overrides[step_name] = overrides
 
     # Parse exclusion filters
     exclude_template_ids = None
@@ -559,6 +594,21 @@ Examples:
 
     # Get pipeline steps
     steps = PIPELINES[args.pipeline_name]
+
+    # Apply --step-args overrides to matching steps.
+    # Steps are matched by the module prefix of step.function (formatting steps)
+    # or by step.prompt_name (AI steps).
+    if step_args_overrides:
+        for step in steps:
+            step_id = None
+            if step.function:
+                func = step.function if isinstance(step.function, str) else ""
+                step_id = func.split(".")[0]  # e.g. "remediation_filter"
+            elif step.prompt_name:
+                step_id = step.prompt_name
+            if step_id and step_id in step_args_overrides:
+                step.function_args = {**step.function_args, **step_args_overrides[step_id]}
+                print(f"  [STEP-ARGS] {step_id}: {step_args_overrides[step_id]}")
 
     # Detect exclude mode
     is_exclude_mode = bool(exclude_template_ids or exclude_item_ids)
