@@ -1,7 +1,7 @@
 # REMEDIATION DESIGN REFERENCE v3
 
-**Version:** 3.0
-**Last Updated:** January 2026
+**Version:** 3.1
+**Last Updated:** March 2026
 **Purpose:** Authoritative guide for all remediation across learning modules
 
 ---
@@ -10,7 +10,8 @@
 
 **SECTION 1** \- System Architecture Overview
 **SECTION 2** \- Non-MC Remediation (Generic L-M-H)
-**SECTION 3** \- MC Remediation (Per-Distractor Branching)
+**SECTION 3** \- Single-Select MC Remediation (Per-Distractor Branching)
+**SECTION 3B** \- Multiselect MC Remediation (Per-Branch Branching)
 **SECTION 4** \- Light Remediation Language Patterns
 **SECTION 5** \- Medium Remediation Language Patterns
 **SECTION 6** \- Heavy Remediation Language Patterns
@@ -28,17 +29,18 @@
 
 ### 1.1 The Simplified Model
 
-**v3 introduces a two-track approach based on question type:**
+**v3 introduces a three-track approach based on question type:**
 
 | Question Type | Remediation Approach | Rationale |
 | :---- | :---- | :---- |
 | **Non-MC** (create, shade, place, etc.) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
-| **Multiple Choice** | Per-distractor branching | We know exactly which wrong answer; targeted feedback valuable |
+| **Single-Select MC** (one correct answer) | Per-distractor branching | We know exactly which wrong answer; targeted feedback valuable |
+| **Multiselect MC** ("select all that apply") | Per-branch Medium + single Heavy | Selection pattern reveals cognitive state; generic language stays scalable |
 
 **Why This Works:**
 
 - Non-MC errors are noisy. Kids click wrong for many reasons
-- MC distractors give clear diagnostic signal about thinking
+- Single-Select MC distractors give clear diagnostic signal about thinking
 - True misconceptions are caught by pattern tracking, not single-instance diagnosis
 - Content volume becomes manageable without sacrificing quality
 
@@ -48,8 +50,10 @@
 IMMEDIATE FEEDBACK (This Document)
 ├── Non-MC: Generic L-M-H
 │   └── Validators tag probable error type (for tracking only)
-└── MC: Per-distractor Medium + Heavy
-    └── Targeted feedback based on which wrong answer chosen
+├── Single-Select MC: Per-distractor Medium + Heavy
+│   └── Targeted feedback based on which wrong answer chosen
+└── Multiselect MC: Per-branch Medium + Heavy
+    └── Branch by selection pattern (under-select, all-wrong, mixed, or success)
 
 PATTERN DETECTION (Background)
 ├── Rolling window tracks misconception indicators
@@ -68,9 +72,9 @@ PATTERN DETECTION (Background)
 
 | v2 (Old) | v3 (New) |
 | :---- | :---- |
-| Three remediation types at each level (Generic, Common Error, Misconception) | Non-MC: Generic only; MC: Per-distractor |
-| System detects error type and selects remediation in real-time | Non-MC: No detection needed; MC: Distractor choice is the detection |
-| 9-15 remediation pieces per question | 3 pieces (non-MC) or 4-5 pieces (MC) |
+| Three remediation types at each level (Generic, Common Error, Misconception) | Non-MC: Generic only; Single-Select MC: Per-distractor; Multiselect MC: Per-branch |
+| System detects error type and selects remediation in real-time | Non-MC: No detection needed; Single-Select MC: Distractor choice is the detection; Multiselect MC: Selection pattern is the detection |
+| 9-15 remediation pieces per question | 3 pieces (Non-MC), 4-5 pieces (Single-Select MC), or 4 pieces (Multiselect MC) |
 | Misconception addressed via targeted immediate feedback | Misconception addressed via Intervention after pattern detected |
 
 ---
@@ -116,22 +120,22 @@ System moves forward
 
 ---
 
-## SECTION 3: MC Remediation (Per-Distractor Branching)
+## SECTION 3: Single-Select MC Remediation (Per-Distractor Branching)
 
 ### 3.1 Overview
 
-For multiple choice questions, we know exactly which wrong answer the student chose. Each distractor represents a specific error or misconception, so we can provide **targeted feedback**.
+For single-select multiple choice questions, we know exactly which wrong answer the student chose. Each distractor represents a specific error or misconception, so we can provide **targeted feedback**.
 
-### 3.2 MC Structure
+### 3.2 Single-Select MC Structure
 
-For a 4-option MC question (1 correct \+ 3 distractors):
+For a 4-option Single-Select MC question (1 correct \+ 3 distractors):
 
 - **3 Medium remediations** (one per distractor)
 - **1 Heavy remediation** (explains the correct answer)
 
-**No Light remediation for MC.** Rationale: If they knew the right answer, they would have picked it. A generic "check your answer" rarely helps when we have specific diagnostic information.
+**No Light remediation for Single-Select MC.** Rationale: If they knew the right answer, they would have picked it. A generic "check your answer" rarely helps when we have specific diagnostic information.
 
-### 3.3 MC Flow
+### 3.3 Single-Select MC Flow
 
 ```
 Student selects Distractor A → Wrong
@@ -151,7 +155,7 @@ System moves forward
 
 **Same distractor twice:** Student receives the same Medium again. This provides reinforcement and removes any gaming incentive (no shortcut to Heavy/completion).
 
-### 3.4 MC Distractor Design Principles
+### 3.4 Single-Select MC Distractor Design Principles
 
 Each distractor should represent a **diagnosable error:**
 
@@ -162,9 +166,86 @@ Each distractor should represent a **diagnosable error:**
 | Ignored equal parts requirement | Selected unequal partition | "For fractions, all parts must be equal size" |
 | Whole number thinking | Selected 3 instead of 3/4 | "We need a fraction. The bottom number tells us the size of parts" |
 
-### 3.5 Metacognitive MC Questions
+### 3.5 Metacognitive Single-Select MC Questions
 
 Metacognitive questions ("Which strategy would help?", "What should you check first?") are **highest value for branching**. Each wrong strategy choice reveals specific thinking patterns we can address.
+
+---
+
+## SECTION 3B: Multiselect MC Remediation (Per-Branch Branching)
+
+### 3B.1 Overview
+
+For "select all that apply" questions, students may select multiple answers simultaneously. The error signal is not a single distractor but a **selection pattern** — which correct and incorrect options were included in the submission. Branching is based on that pattern rather than on a specific choice.
+
+### 3B.2 Multiselect MC Structure
+
+For a typical Multiselect MC question:
+
+- **3 Medium remediations** (one per error branch)
+- **1 Heavy remediation** (explains the full correct selection)
+
+**No Light remediation for Multiselect MC.** Same rationale as Single-Select MC: a generic "check your answer" provides little help when the selection pattern gives specific diagnostic information.
+
+### 3B.3 The Four Branches
+
+| Branch | Condition | Remediation | Tone |
+| :---- | :---- | :---- | :---- |
+| **Branch 1** | All correct answers selected, no incorrect | Success path | — |
+| **Branch 2** | Only correct answers selected, but not all | Medium 2 — under-selecting | Near-success: acknowledge what they got right; nudge toward the rest |
+| **Branch 3** | All incorrect answers selected, none correct | Medium 3 — all-wrong | Foundational: redirect to the concept before re-attempting; do not acknowledge selections positively |
+| **Branch 4** | Mix of correct and incorrect selected | Medium 4 — over-selecting | Acknowledge the correct picks genuinely; clearly flag that one or more choices don't fit |
+
+**Pedagogical principle:** Tone must reflect how close the student actually is to the correct answer. Branch 2 is a near-success — every selection was valid, the student just stopped short — and deserves meaningfully more positive framing than Branch 3, where no correct answers were identified. Remediation language should never feel uniform across branches; each branch represents a meaningfully different cognitive state.
+
+### 3B.4 Multiselect MC Flow
+
+```
+Student submits selection
+    ↓
+Branch 1: All correct → Success
+Branch 2: Correct-only, incomplete → Medium 2 + Visual scaffold
+Branch 3: All incorrect → Medium 3 + Visual scaffold
+Branch 4: Mixed correct + incorrect → Medium 4 + Visual scaffold
+    ↓
+Student submits again
+    ↓
+Same branch → Same Medium repeated (reinforcement; removes gaming incentive)
+Different branch → That branch's Medium
+    ↓
+Student submits again (3rd attempt)
+    ↓
+Heavy (all branches share one Heavy) + Full modeling → Reveals correct answer
+    ↓
+System moves forward
+```
+
+**Same branch twice:** Student receives the same Medium again. This provides reinforcement and removes any gaming incentive, consistent with Single-Select MC logic.
+
+### 3B.5 Generic Language Requirement
+
+Multiselect MC Mediums use **generic language across all submissions in a given branch** — no per-combination branching. A student who selected only {A} and a student who selected only {B} (when the correct answers are {A, B, C}) both receive the same Branch 2 Medium. Rationale: the number of possible selection combinations is exponential. Per-combination scripting is unscalable. Generic branch-level language addresses the cognitive state, which is what matters.
+
+### 3B.6 Branch 3 Tone Distinction
+
+Branch 3 (all-wrong) must be **distinctly more foundational in tone** than Branches 2 and 4. All-wrong signals a deeper conceptual gap — the student has not identified any correct answers. Branch 3 Medium should redirect the student to what the concept means before they attempt again. Do not frame this as "close" or acknowledge the selections positively in any way.
+
+### 3B.7 Heavy for Multiselect MC
+
+All branches escalate to the same single Heavy on the final attempt. Heavy for Multiselect MC:
+
+- Explains which answers are correct and why
+- Demonstrates the full correct selection with \[Modeling\] tag
+- Reveals the answer explicitly
+- Does not reference the student's specific wrong submission
+
+After Heavy, the system moves the student forward regardless of response.
+
+```
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct selections and demonstrating the reasoning]"
+[Visual: Correct answers highlighted; system demonstrates selection process]
+Guide: "[Post-modeling acknowledgment]"
+```
 
 ---
 
@@ -173,7 +254,7 @@ Metacognitive questions ("Which strategy would help?", "What should you check fi
 **Length:** 10-20 words
 **Tone:** Brief and direct
 **Visual:** None
-**Applies to:** Non-MC interactions only (MC skips Light)
+**Applies to:** Non-MC interactions only (Single-Select MC and Multiselect MC both skip Light)
 
 ### 4.1 With Error Signal (40-50% of interactions)
 
@@ -222,7 +303,7 @@ Save "Remember" for Medium/Heavy. At Light level, use:
 **Length:** 20-30 words
 **Tone:** Acknowledge struggle, collaborative
 **Visual:** REQUIRED (from Visual Scaffolds TSV)
-**Applies to:** Both Non-MC and MC
+**Applies to:** Non-MC, Single-Select MC, and Multiselect MC
 
 ### 5.1 Approved Starters (Non-MC)
 
@@ -232,9 +313,9 @@ Save "Remember" for Medium/Heavy. At Light level, use:
 - "You're getting there. The key is \[crucial detail\]"
 - "Let's think about this a bit more. \[guidance\]"
 
-### 5.2 MC Medium Structure
+### 5.2 Single-Select MC Medium Structure
 
-For MC, Medium is targeted to the specific distractor chosen:
+For Single-Select MC, Medium is targeted to the specific distractor chosen:
 
 **Template:**
 
@@ -270,7 +351,7 @@ For MC, Medium is targeted to the specific distractor chosen:
 **Tone:** Full support, complete demonstration
 **Visual:** REQUIRED (full modeling demonstration)
 **Tag:** \[Modeling\] REQUIRED
-**Applies to:** Both Non-MC and MC
+**Applies to:** Non-MC, Single-Select MC, and Multiselect MC
 
 ### 6.1 Approved Opening Language
 
@@ -290,9 +371,9 @@ For MC, Medium is targeted to the specific distractor chosen:
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 6.3 Heavy Structure (MC)
+### 6.3 Heavy Structure (Single-Select MC)
 
-For MC, Heavy explains why the correct answer is right:
+For Single-Select MC, Heavy explains why the correct answer is right:
 
 ```
 [Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct answer and demonstrating the thinking]"
@@ -304,7 +385,7 @@ Guide: "[Post-modeling acknowledgment]"
 
 **Non-MC:** "Let me show you how this works. First, I count the total parts. That's my denominator: 4\. Then I count just the shaded parts. That's my numerator: 3\. So the fraction is 3/4." \[Visual: System highlights total parts, then shaded parts, then shows 3/4\]
 
-**MC:** "Let me show you how to think about this. The question asks which fraction is shown. I count 4 equal parts total. That's the denominator. 3 parts are shaded. That's the numerator. So the answer is 3/4, not 4/3." \[Visual: Correct answer highlighted, visual shows counting sequence\]
+**Single-Select MC:** "Let me show you how to think about this. The question asks which fraction is shown. I count 4 equal parts total. That's the denominator. 3 parts are shaded. That's the numerator. So the answer is 3/4, not 4/3." \[Visual: Correct answer highlighted, visual shows counting sequence\]
 
 ---
 
@@ -471,14 +552,14 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ### 11.1 Requirements by Phase
 
-| Phase | Non-MC Requirement | MC Requirement | Notes |
-| :---- | :---- | :---- | :---- |
-| Warmup | Light minimum | Per-distractor Medium \+ Heavy | Heavy if key prior knowledge |
-| Lesson | Full L-M-H | Per-distractor Medium \+ Heavy | All interactions |
-| Exit Check | Full L-M-H | Per-distractor Medium \+ Heavy | MANDATORY \- gateway phase |
-| Practice | Full L-M-H | Per-distractor Medium \+ Heavy | Light only for confidence builders |
-| Synthesis | Light minimum | Per-distractor Medium \+ Heavy | Full L-M-H for pattern discovery |
-| Challenge | None | None | Assessment mode |
+| Phase | Non-MC Requirement | Single-Select MC Requirement | Multiselect MC Requirement | Notes |
+| :---- | :---- | :---- | :---- | :---- |
+| Warmup | Light minimum | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Heavy if key prior knowledge |
+| Lesson | Full L-M-H | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | All interactions |
+| Exit Check | Full L-M-H | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | MANDATORY \- gateway phase |
+| Practice | Full L-M-H | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Light only for confidence builders |
+| Synthesis | Light minimum | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Full L-M-H for pattern discovery |
+| Challenge | None | None | None | Assessment mode |
 
 ### 11.2 Module Complexity Considerations
 
@@ -514,14 +595,26 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Post-modeling language acknowledges assistance (not independent success)
 - [ ] Validator tags probable error type (noted in script or separate)
 
-### 12.2 MC Remediation Checklist
+### 12.2 Single-Select MC Remediation Checklist
 
 - [ ] One Medium per distractor (3 distractors \= 3 Mediums)
 - [ ] Each Medium targets specific error that distractor represents
 - [ ] One Heavy explaining correct answer
 - [ ] All Mediums have visual scaffolds
 - [ ] Heavy has \[Modeling\] tag
-- [ ] No Light remediation (MC skips to Medium)
+- [ ] No Light remediation (Single-Select MC skips to Medium)
+
+### 12.2B Multiselect MC Remediation Checklist
+
+- [ ] Three Medium remediations — one per error branch (under-selecting, all-wrong, mixed)
+- [ ] Branch 2 Medium (under-selecting) acknowledges correct picks and nudges toward missing answers — near-success tone
+- [ ] Branch 3 Medium (all-wrong) redirects to the concept without positively acknowledging selections — foundational tone, distinctly more remedial than Branches 2 and 4
+- [ ] Branch 4 Medium (mixed) acknowledges correct picks genuinely and clearly flags what doesn't fit
+- [ ] All three Mediums use generic language — no per-combination branching
+- [ ] One Heavy explaining the full correct selection with \[Modeling\] tag
+- [ ] All Mediums have visual scaffolds
+- [ ] No Light remediation (Multiselect MC skips to Medium)
+- [ ] Tone varies meaningfully across branches — remediation language does not feel uniform
 
 ### 12.3 Variety Checklist (Per Module)
 
@@ -570,7 +663,7 @@ Guide: "[Post-modeling acknowledgment]"
 [Validator: Probable error type for tracking - e.g., Misconception_#3]
 ```
 
-### 13.2 MC Format
+### 13.2 Single-Select MC Format
 
 ```
 Activity X - [Title] (Multiple Choice)
@@ -602,6 +695,45 @@ ERROR PATHS:
 
 [Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining why A is correct]"
 [Visual: Demonstrates correct answer with full explanation]
+Guide: "[Post-modeling acknowledgment]"
+```
+
+### 13.2B Multiselect MC Format
+
+```
+Activity X - [Title] (Multiselect MC — "Select all that apply")
+Visual: [Description]
+Prompt: "[Question]"
+Guide: "[Support]"
+
+Options:
+A) [Correct answer]
+B) [Correct answer]
+C) [Incorrect distractor]
+D) [Incorrect distractor]
+
+[Student selects and submits]
+
+SUCCESS PATH (all correct, none incorrect):
+Guide: "[Specific acknowledgment]"
+
+ERROR PATHS:
+
+BRANCH 2 — Under-selecting (correct answers only, but not all):
+[Medium_Remediation - Branch_2] [Meta_Remediation]: "[20-30 words: acknowledge correct picks; nudge student toward the answers they missed]"
+[Visual: Scaffold highlighting the concept; correct selections reinforced]
+
+BRANCH 3 — All-wrong (no correct answers selected):
+[Medium_Remediation - Branch_3] [Meta_Remediation]: "[20-30 words: redirect to what the concept means; do not acknowledge selections positively; foundational tone]"
+[Visual: Scaffold reorienting student to core concept]
+
+BRANCH 4 — Mixed (some correct, some incorrect selected):
+[Medium_Remediation - Branch_4] [Meta_Remediation]: "[20-30 words: genuinely acknowledge the correct picks; clearly flag that one or more choices don't fit]"
+[Visual: Scaffold distinguishing correct from incorrect selections]
+
+[Heavy — shared across all branches on final attempt]:
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining which answers are correct, why, and demonstrating the full correct selection]"
+[Visual: All correct answers highlighted; system demonstrates selection process]
 Guide: "[Post-modeling acknowledgment]"
 ```
 
@@ -648,7 +780,7 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.0
+**Version:** 3.1
 **Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
@@ -657,6 +789,14 @@ These aggregate to the misconception level for Intervention triggers.
 - Added Misconception Tracking & Intervention system overview
 - Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
+
+**Major Changes from v3.0:**
+
+- Added Multiselect MC as a third remediation track (Section 3B)
+- Renamed "Multiple Choice" to "Single-Select MC" throughout for clarity
+- Added Multiselect MC quality checklist (Section 12.2B)
+- Added Multiselect MC output format example (Section 13.2B)
+- Updated phase requirements table to include Multiselect MC column (Section 11.1)
 
 **Related Documents:**
 
