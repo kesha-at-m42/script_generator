@@ -1,0 +1,1254 @@
+[
+  {
+    "id": "s_intro",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "intervals": "1/2",
+            "description": "Whole bar appears. Bar visual, interval lines at halves pre-set."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now that you've spotted equal parts, let's learn exactly how to make equal parts and name them."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Whole bar. Bar visual with halves intervals.",
+              "visual": "bar",
+              "intervals": "1/2"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "intervals": null,
+            "lcm": 6,
+            "description": "Bar updates to empty whole bar. No intervals shown."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Before we divide it, let's think about this for a second: This bar is our whole. It's like one chocolate bar. Everything we do next is a piece of THIS whole, not a different one."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. No cuts.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_1_erase_mechanic",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 8,
+            "description": "Empty whole bar appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's divide it into equal parts. Watch first."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_place_cut",
+            "status": "confirmed",
+            "description": "Guide places a cut at the midpoint of the bar."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Oh, and here's something helpful: if you make a cut you don't like, like placing a cut here..."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_bad_cut",
+            "status": "proposed",
+            "description": "Guide places an off-center cut to illustrate an unwanted cut."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You can hover over the line and click with the eraser. Watch this!"
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_erase_cut",
+            "status": "confirmed",
+            "description": "Guide erases the off-center cut using the eraser, restoring the midpoint cut only."
+          }
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar with one cut at the midpoint. Erase demo complete.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 8,
+            "intervals": "1/2",
+            "description": "Bar updates to show a single pre-placed cut at the midpoint."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you try. Hover over that middle line and click to erase it."
+        },
+        {
+          "type": "prompt",
+          "text": "Hover over the line and click to erase it.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0", "1"] },
+              "description": "Student erased the middle cut. Only endpoints remain.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Good."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar with no cuts. Erase successful.",
+                        "visual": "bar"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar with one pre-placed cut at the midpoint. Erase tool active.",
+              "visual": "bar",
+              "intervals": "1/2"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_halves",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 4,
+            "description": "Empty whole bar appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Good. Now let's split the bar into two. Click right in the middle to make two equal parts."
+        },
+        {
+          "type": "prompt",
+          "text": "Click once in the middle to split the bar into 2 equal parts.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0/2", "1/2", "2/2"] },
+              "description": "Student placed a cut at the midpoint, creating 2 equal halves.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Yes. You made two equal parts: two halves. See how each part is exactly the same size?"
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into 2 equal halves.",
+                        "visual": "bar",
+                        "intervals": "1/2"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. Place tool active.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Now click one of those parts to shade it."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on 1 of the 2 parts to shade it.",
+          "tool": { "name": "paint" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "shaded": "1/2" },
+              "description": "Student shaded 1 of 2 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Yes. You selected one part out of two equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into halves. One half shaded.",
+                        "visual": "bar",
+                        "intervals": "1/2"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into 2 halves. Paint tool active.",
+              "visual": "bar",
+              "intervals": "1/2"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "When we split something into equal parts we make all the parts the same size. That's important for what we're learning about fractions. To make equal parts, some kids picture folding the shape, while others might measure it in their mind to check if the parts match. Think about how you did it."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into halves. One half shaded.",
+              "visual": "bar",
+              "intervals": "1/2"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "vocab_partitioning",
+          "tangible_type": "vocab_card",
+          "params": {
+            "label": "Partitioning",
+            "description": "Vocab card for Partitioning appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "When mathematicians divide something into equal parts like you just did, they call it PARTITIONING. You partitioned the bar into two equal parts. Partition is our special math word for dividing one whole into equal-sized sections."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into halves. One half shaded.",
+              "visual": "bar",
+              "intervals": "1/2"
+            },
+            {
+              "tangible_id": "vocab_partitioning",
+              "tangible_type": "vocab_card",
+              "description": "Vocab card: Partitioning.",
+              "label": "Partitioning"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_1_fourths",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 8,
+            "description": "New empty whole bar appears."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "vocab_equal_parts",
+          "tangible_type": "vocab_card",
+          "params": {
+            "label": "Equal Parts",
+            "description": "Vocab card for Equal Parts appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's see where this thinking takes us. Here's a new whole bar. This is a strategy to make four equal parts: first split it in half, then split each half in half again. That gives you four equal sections."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_fourths_strategy",
+            "status": "confirmed",
+            "description": "Guide demonstrates: cut in half, then each half in half again, showing 4 equal sections."
+          }
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar showing fourths strategy demo. 4 equal sections.",
+              "visual": "bar"
+            },
+            {
+              "tangible_id": "vocab_equal_parts",
+              "tangible_type": "vocab_card",
+              "description": "Vocab card: Equal Parts.",
+              "label": "Equal Parts"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 8,
+            "intervals": null,
+            "description": "Bar resets to empty whole bar for student turn."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Your turn! Click once in the middle, then click once in each half."
+        },
+        {
+          "type": "prompt",
+          "text": "Click 3 times to split the bar into 4 equal parts.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0/4", "1/4", "2/4", "3/4", "4/4"] },
+              "description": "Student placed 3 cuts creating 4 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Four equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into 4 equal parts.",
+                        "visual": "bar",
+                        "intervals": "1/4"
+                      },
+                      {
+                        "tangible_id": "vocab_equal_parts",
+                        "tangible_type": "vocab_card",
+                        "description": "Vocab card: Equal Parts.",
+                        "label": "Equal Parts"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. Place tool active.",
+              "visual": "bar"
+            },
+            {
+              "tangible_id": "vocab_equal_parts",
+              "tangible_type": "vocab_card",
+              "description": "Vocab card: Equal Parts.",
+              "label": "Equal Parts"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Now shade just one part."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on one of the 4 parts to shade it.",
+          "tool": { "name": "paint" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "shaded": "1/4" },
+              "description": "Student shaded 1 of 4 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Good. One out of four equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into fourths. One fourth shaded.",
+                        "visual": "bar",
+                        "intervals": "1/4"
+                      },
+                      {
+                        "tangible_id": "vocab_equal_parts",
+                        "tangible_type": "vocab_card",
+                        "description": "Vocab card: Equal Parts.",
+                        "label": "Equal Parts"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into 4 parts. Paint tool active.",
+              "visual": "bar",
+              "intervals": "1/4"
+            },
+            {
+              "tangible_id": "vocab_equal_parts",
+              "tangible_type": "vocab_card",
+              "description": "Vocab card: Equal Parts.",
+              "label": "Equal Parts"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "When all parts are the same size, we call them EQUAL PARTS. That's our special math word for parts that match perfectly."
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "sum_is_visible": true,
+            "lcm": 4,
+            "intervals": "1/4",
+            "intervals_is_shaded": [0],
+            "description": "Bar updates: fraction label appears. One fourth shaded and labeled 1/4."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "See this symbol: 1/4? That's how we write one out of four equal parts. The bottom number tells us how many equal parts we made. The top number tells us how many parts we selected."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into fourths. One fourth shaded and labeled 1/4.",
+              "visual": "bar",
+              "intervals": "1/4",
+              "sum_is_visible": true
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_2_thirds",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 6,
+            "description": "New empty whole bar appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's keep exploring. Here's another whole bar. Can you partition this one into three equal parts?"
+        },
+        {
+          "type": "prompt",
+          "text": "Click 2 times to partition this bar into 3 equal parts.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0/3", "1/3", "2/3", "3/3"] },
+              "description": "Student placed 2 cuts creating 3 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. You partitioned the bar into three equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into 3 equal thirds.",
+                        "visual": "bar",
+                        "intervals": "1/3"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. Place tool active.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "sum_is_visible": true,
+            "lcm": 3,
+            "intervals": "1/3",
+            "description": "Bar updates to show thirds with fraction label visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now shade one of them."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on 1 of the 3 parts to shade it.",
+          "tool": { "name": "paint" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "shaded": "1/3" },
+              "description": "Student shaded 1 of 3 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. That's one out of three equal parts. We write it as 1/3."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into thirds. One third shaded and labeled 1/3.",
+                        "visual": "bar",
+                        "intervals": "1/3",
+                        "sum_is_visible": true
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into thirds. Fraction label visible. Paint tool active.",
+              "visual": "bar",
+              "intervals": "1/3",
+              "sum_is_visible": true
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Notice the pattern? The bottom number always shows our total equal parts."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into thirds. One third shaded and labeled 1/3.",
+              "visual": "bar",
+              "intervals": "1/3",
+              "sum_is_visible": true
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_1_sixths",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 12,
+            "description": "New empty whole bar appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's partition this bar into six equal parts."
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the strategy: First split the bar in half. Then split each half into three equal parts. That gives you six equal sections."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_sixths_strategy",
+            "status": "confirmed",
+            "description": "Guide demonstrates sixths strategy: cut in half, then each half into thirds, creating 6 equal sections."
+          }
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar showing sixths strategy demo. 6 equal sections.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 12,
+            "intervals": null,
+            "description": "Bar resets to empty whole bar for student turn."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Give it a try! Click once in the middle, then click twice in each half to make thirds."
+        },
+        {
+          "type": "prompt",
+          "text": "Partition the bar into six equal parts.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0/6", "1/6", "2/6", "3/6", "4/6", "5/6", "6/6"] },
+              "description": "Student placed 5 cuts creating 6 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Correct! You divided the bar into sixths: six equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into 6 equal sixths.",
+                        "visual": "bar",
+                        "intervals": "1/6"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. Place tool active.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 6,
+            "intervals": "1/6",
+            "description": "Bar updates to show sixths intervals."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now shade just one part."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on 1 of the 6 parts to shade it.",
+          "tool": { "name": "paint" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "shaded": "1/6" },
+              "description": "Student shaded 1 of 6 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Yes. One out of six equal parts, that's 1/6."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into sixths. One sixth shaded.",
+                        "visual": "bar",
+                        "intervals": "1/6"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into 6 sixths. Paint tool active.",
+              "visual": "bar",
+              "intervals": "1/6"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_2_eighths",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 16,
+            "description": "New empty whole bar appears."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's do one more: eight equal parts this time. Remember how we made four parts? We can extend that strategy."
+        },
+        {
+          "type": "dialogue",
+          "text": "First, click once in the middle. Then click in the middle of each half. Then click in the middle of each of those four parts."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar",
+          "params": {
+            "event": "demo_eighths_strategy",
+            "status": "confirmed",
+            "description": "Guide demonstrates eighths strategy: halves, then fourths, then eighths, showing 8 equal sections."
+          }
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar showing eighths strategy demo. 8 equal sections.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 16,
+            "intervals": null,
+            "description": "Bar resets to empty whole bar for student turn."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you try. Remember the strategy: first, divide the bar in half. Then make fourths. Then eighths."
+        },
+        {
+          "type": "prompt",
+          "text": "Partition the bar into eight equal parts.",
+          "tool": { "name": "place" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "ticks": ["0/8", "1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8", "8/8"] },
+              "description": "Student placed 7 cuts creating 8 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Good. Eight equal parts."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into 8 equal eighths.",
+                        "visual": "bar",
+                        "intervals": "1/8"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Empty whole bar. Place tool active.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar",
+          "params": {
+            "lcm": 8,
+            "intervals": "1/8",
+            "description": "Bar updates to show eighths intervals."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now shade one of them."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on one of the 8 parts to shade it.",
+          "tool": { "name": "paint" },
+          "target": "bar",
+          "validator": [
+            {
+              "condition": { "shaded": "1/8" },
+              "description": "Student shaded 1 of 8 equal parts.",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "1/8. One out of eight equal parts. You're doing great!"
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar",
+                        "tangible_type": "NumLine",
+                        "description": "Bar partitioned into eighths. One eighth shaded.",
+                        "visual": "bar",
+                        "intervals": "1/8"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Bar partitioned into 8 eighths. Paint tool active.",
+              "visual": "bar",
+              "intervals": "1/8"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s_summary",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_half",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [0],
+            "lcm": 2,
+            "intervals": "1/2",
+            "sum_location": "left",
+            "description": "Bar showing 1/2: one half shaded, fraction label on left."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_fourth",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [0],
+            "lcm": 4,
+            "intervals": "1/4",
+            "sum_location": "left",
+            "description": "Bar showing 1/4: one fourth shaded, fraction label on left."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_third",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [0],
+            "lcm": 3,
+            "intervals": "1/3",
+            "sum_location": "left",
+            "description": "Bar showing 1/3: one third shaded, fraction label on left."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_eighth",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [0],
+            "lcm": 8,
+            "intervals": "1/8",
+            "sum_location": "left",
+            "description": "Bar showing 1/8: one eighth shaded, fraction label on left."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_sixth",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [0],
+            "lcm": 6,
+            "intervals": "1/6",
+            "sum_location": "left",
+            "description": "Bar showing 1/6: one sixth shaded, fraction label on left."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at all the fractions you've made: 1/2, 1/4, 1/3, 1/8, and 1/6. Each one shows one part of a whole that's been partitioned into equal parts."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_half",
+              "tangible_type": "NumLine",
+              "description": "Bar showing 1/2. One half shaded and labeled.",
+              "visual": "bar",
+              "intervals": "1/2",
+              "sum_is_visible": true
+            },
+            {
+              "tangible_id": "bar_fourth",
+              "tangible_type": "NumLine",
+              "description": "Bar showing 1/4. One fourth shaded and labeled.",
+              "visual": "bar",
+              "intervals": "1/4",
+              "sum_is_visible": true
+            },
+            {
+              "tangible_id": "bar_third",
+              "tangible_type": "NumLine",
+              "description": "Bar showing 1/3. One third shaded and labeled.",
+              "visual": "bar",
+              "intervals": "1/3",
+              "sum_is_visible": true
+            },
+            {
+              "tangible_id": "bar_eighth",
+              "tangible_type": "NumLine",
+              "description": "Bar showing 1/8. One eighth shaded and labeled.",
+              "visual": "bar",
+              "intervals": "1/8",
+              "sum_is_visible": true
+            },
+            {
+              "tangible_id": "bar_sixth",
+              "tangible_type": "NumLine",
+              "description": "Bar showing 1/6. One sixth shaded and labeled.",
+              "visual": "bar",
+              "intervals": "1/6",
+              "sum_is_visible": true
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "vocab_fractions",
+          "tangible_type": "vocab_card",
+          "params": {
+            "label": "Fractions",
+            "description": "Vocab card for Fractions appears."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar",
+          "tangible_type": "NumLine",
+          "params": {
+            "visual": "bar",
+            "lcm": 4,
+            "description": "Whole bar appears for closing demonstration."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You've learned that fractions are a way to name parts of a whole. The whole bar is always one, and we can partition it into equal parts to make fractions."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "vocab_fractions",
+              "tangible_type": "vocab_card",
+              "description": "Vocab card: Fractions.",
+              "label": "Fractions"
+            },
+            {
+              "tangible_id": "bar",
+              "tangible_type": "NumLine",
+              "description": "Whole bar for closing demo.",
+              "visual": "bar"
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

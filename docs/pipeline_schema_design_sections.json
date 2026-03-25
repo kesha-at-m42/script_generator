@@ -1,0 +1,601 @@
+[
+  {
+    "id": "s1_1_declarative_definition",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Pipelines are defined in config/pipelines.json, not as Python code. Each pipeline is a named array of step configs declaring its type, inputs, outputs, and parameters."
+        },
+        {
+          "type": "dialogue",
+          "text": "The executor is generic. It does not know or care what a lesson is. Dynamic branching logic cannot live in JSON. It is pushed to formatting steps that return control signals."
+        },
+        {
+          "type": "prompt",
+          "text": "Why define pipelines in JSON rather than Python?",
+          "tool": { "name": "multiple_choice", "options": [
+            "Steps can be inspected and reordered without touching code",
+            "Python is too slow for pipeline execution",
+            "Claude can read and modify JSON pipelines directly",
+            "JSON pipelines can branch based on AI output"
+          ]},
+          "validator": [
+            {
+              "condition": { "selected": "Steps can be inspected and reordered without touching code" },
+              "description": "Correct: declarative JSON keeps the executor generic and pipelines readable without touching Python",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Steps can be inspected, reordered, or replaced without touching Python. Non-engineers can read the pipeline definition."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_ai_vs_formatting_steps",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Every step is one of two types: ai or formatting. AI steps call Claude, validate output, and retry on failure. Formatting steps run deterministic Python functions."
+        },
+        {
+          "type": "dialogue",
+          "text": "The boundary is explicit: if a step mutates data without calling Claude, it is a formatting step. Formatting steps are cheap, fast, and fully testable without API calls."
+        },
+        {
+          "type": "prompt",
+          "text": "A step that merges two JSON arrays without calling Claude should be which type?",
+          "tool": { "name": "multiple_choice", "options": ["formatting", "ai", "hybrid", "batch"] },
+          "validator": [
+            {
+              "condition": { "selected": "formatting" },
+              "description": "Correct: deterministic transforms with no Claude call are formatting steps",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. The boundary is explicit: no Claude call means formatting step. This keeps AI calls isolated and retryable."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_auto_chaining",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "If a step's input_file is omitted, the pipeline automatically feeds the previous step's output as input."
+        },
+        {
+          "type": "dialogue",
+          "text": "Explicit input_file is reserved for steps that pull from a fixed source, like a shared template or module definition, rather than the preceding step."
+        },
+        {
+          "type": "dialogue",
+          "text": "Auto-chaining also simplifies reruns: when starting mid-pipeline, the executor loads the equivalent step output from the base version automatically."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s2_1_mutually_exclusive_step_kinds",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "A Step object carries either prompt_name (AI) or function (formatting), never both. This is enforced at construction time."
+        },
+        {
+          "type": "dialogue",
+          "text": "Mixing the two kinds would make the execution path ambiguous and the validation logic undefined."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s2_2_parameter_injection",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Formatting step functions are called using inspect.signature(). The executor detects which standard parameters the function accepts and injects only those."
+        },
+        {
+          "type": "dialogue",
+          "text": "Standard parameters include module_number, path_letter, unit_number, verbose, and output_file_path."
+        },
+        {
+          "type": "prompt",
+          "text": "Why inject parameters via inspect.signature() rather than passing them all explicitly?",
+          "tool": { "name": "multiple_choice", "options": [
+            "Functions declare only what they need, and adding new variables does not break existing functions",
+            "inspect.signature() is faster than keyword arguments at runtime",
+            "It allows formatting steps to call Claude using those parameters",
+            "It prevents functions from receiving unexpected types"
+          ]},
+          "validator": [
+            {
+              "condition": { "selected": "Functions declare only what they need, and adding new variables does not break existing functions" },
+              "description": "Correct: reflection-based injection keeps signatures minimal and the interface backward-compatible",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Each function declares exactly what it needs. Adding a new context variable to the executor does not require changes to any existing function."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s2_3_batch_config_override",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "A formatting step can return a dict containing batch_only_items or batch_skip_items. If those keys are present, the executor uses them to override the next step's batch configuration."
+        },
+        {
+          "type": "dialogue",
+          "text": "The actual data the next step should process lives in an optional data field in the same dict."
+        },
+        {
+          "type": "dialogue",
+          "text": "This lets a step like remediation_filter decide at runtime which items need processing, without hardcoding item IDs in pipelines.json."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s3_1_item_level_granularity",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "In batch mode, each item is written to its own file under items/ before collation into the step's final output."
+        },
+        {
+          "type": "dialogue",
+          "text": "A crash mid-batch preserves all completed items. Resume mode works by checking for the per-item file. IDs are assigned at collation time, not generation time."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s3_2_sequential_id_assignment",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Output IDs are assigned by the BatchProcessor when results are added, not by Claude. IDs are always sequential and gapless. Claude never needs to know or infer them."
+        },
+        {
+          "type": "dialogue",
+          "text": "Reruns that skip items via batch_skip_existing still produce correct IDs by advancing the counter past items loaded from the base version."
+        },
+        {
+          "type": "prompt",
+          "text": "Who assigns output IDs in the pipeline?",
+          "tool": { "name": "multiple_choice", "options": [
+            "BatchProcessor at collation time",
+            "Claude during generation",
+            "The formatting step that precedes the AI step",
+            "The pipeline config in pipelines.json"
+          ]},
+          "validator": [
+            {
+              "condition": { "selected": "BatchProcessor at collation time" },
+              "description": "Correct: BatchProcessor assigns IDs, keeping them deterministic and independent of Claude",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. BatchProcessor assigns IDs at collation time. Claude never needs to know them, so ID assignment is always deterministic."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s3_3_base_version_inheritance",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "When rerunning a subset of items, unchanged items are loaded from the base version and re-included in the collated output. Their IDs are reserved before new items are added."
+        },
+        {
+          "type": "dialogue",
+          "text": "Downstream steps, Notion pages, and other systems may reference items by ID. Reordering IDs when only a few items changed would invalidate those references."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s4_1_schema_inferred_from_example",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "There is no separate schema file. The expected output structure is inferred at runtime from the output_structure block in each prompt's JSON."
+        },
+        {
+          "type": "dialogue",
+          "text": "parse_schema_from_example() extracts whether the output is an array or object, and what the required top-level fields and types are."
+        },
+        {
+          "type": "dialogue",
+          "text": "Schema stays co-located with the prompt that produces the output. The tradeoff: inference is shallow. Deep structural validation is handled by domain-specific validators."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s4_2_two_phase_validation",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Every AI step runs validation in two phases: structural first, then content. Structural validation always runs. Content validation is opt-in per prompt."
+        },
+        {
+          "type": "dialogue",
+          "text": "Content validation runs a second Claude call to score quality. It only runs when structure is already correct."
+        },
+        {
+          "type": "prompt",
+          "text": "Why run structural validation before content validation?",
+          "tool": { "name": "multiple_choice", "options": [
+            "Structural errors are cheap to catch and worth retrying before spending a content validation call",
+            "Content validation can only parse structurally valid JSON",
+            "Structural validation uses Python; content validation uses Claude",
+            "Content validation would pass a malformed response anyway"
+          ]},
+          "validator": [
+            {
+              "condition": { "selected": "Structural errors are cheap to catch and worth retrying before spending a content validation call" },
+              "description": "Correct: separating phases keeps retry costs low",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Retrying a structural error before invoking content validation avoids burning an expensive API call on a response that is already broken."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s4_3_retry_with_conversation_history",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "On validation failure, the pipeline does not start a fresh Claude call. It appends the validation error as a user message and continues the conversation thread."
+        },
+        {
+          "type": "dialogue",
+          "text": "Claude sees its original prompt, the failed response, the specific error, and an instruction to fix it. This lets Claude correct targeted errors without regenerating the entire response."
+        },
+        {
+          "type": "dialogue",
+          "text": "Correct content is preserved. Token cost is lower than full regeneration on every retry."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s4_4_godot_validation",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Beyond generic structural validation, validate_godot_schema() enforces rules specific to the Godot interaction engine: NumLine tangible rules, MC equivalence checks, selection reference bar matching."
+        },
+        {
+          "type": "dialogue",
+          "text": "These errors are caught at generation time, not at Godot runtime. The validator is a contract between AI output and what Godot can consume."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s5_1_system_block_ordering",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "PromptBuilderV2 assembles system blocks in a fixed order: role, reference docs, instructions, examples, output structure. Cache control is applied to the last block."
+        },
+        {
+          "type": "dialogue",
+          "text": "All blocks above the last are eligible for caching. Dynamic item data lives in the user message, which is never cached."
+        },
+        {
+          "type": "prompt",
+          "text": "Why does dynamic item data live in the user message rather than the system message?",
+          "tool": { "name": "multiple_choice", "options": [
+            "The user message is never cached, so each item gets a fresh call while stable content stays cached",
+            "Claude ignores system message content when generating structured output",
+            "The system message has a token limit that item data would exceed",
+            "Putting item data in the system message would disable prefill"
+          ]},
+          "validator": [
+            {
+              "condition": { "selected": "The user message is never cached, so each item gets a fresh call while stable content stays cached" },
+              "description": "Correct: the split between stable cached system content and dynamic user message maximizes cache reuse",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Anthropic's prompt caching is prefix-based. Stable system blocks are cached across all items in a batch. The user message carries only the dynamic input."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s5_2_module_and_template_refs",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Prompts can declare module_ref or template_ref to pull in live module or template data at build time, resolved by PromptBuilderV2 before the prompt is sent."
+        },
+        {
+          "type": "dialogue",
+          "text": "Fields are accessed via dot-path syntax. Only the specific fields the prompt needs are fetched. This keeps the system message minimal and makes the prompt self-documenting about its data dependencies."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s5_3_prefill",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Prompts can declare a prefill string. The executor injects this as the start of Claude's response before the model continues generating."
+        },
+        {
+          "type": "dialogue",
+          "text": "Prefilling a structural prefix like [ reliably constrains Claude to produce a JSON array and eliminates the need to strip preamble text from responses."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s6_1_versioned_step_directories",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Every pipeline run produces a version directory (v0, v1, etc.) with one subdirectory per step. Versions are immutable after a run completes. A latest symlink points to the most recent."
+        },
+        {
+          "type": "dialogue",
+          "text": "Immutability means reruns never overwrite prior outputs. All versions stay on disk for diffing, rollback, and auditing."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s6_2_partial_rerun_copies_skipped_steps",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "When a partial rerun starts at step N, steps 0 through N-1 are copied from the base version. The new version directory looks the same as a full run."
+        },
+        {
+          "type": "dialogue",
+          "text": "Downstream steps use relative paths to find prior step outputs. If skipped steps were absent from the new version directory, those paths would break."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s7_1_three_execution_modes",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "There are three execution modes: initial (first run), rerun (full re-execution against a base version), and partial_rerun (subset of steps, remainder copied from base)."
+        },
+        {
+          "type": "prompt",
+          "text": "Which mode re-executes only some steps and copies the rest from a prior version?",
+          "tool": { "name": "multiple_choice", "options": ["partial_rerun", "rerun", "initial", "batch_skip_existing"] },
+          "validator": [
+            {
+              "condition": { "selected": "partial_rerun" },
+              "description": "Correct: partial_rerun executes a subset of steps and copies the rest from the base version",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. partial_rerun runs only the specified steps and copies everything else from the base version, keeping the directory structure intact."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s7_2_item_level_rerun",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "A rerun can target specific item IDs. Specified items are regenerated. All others are loaded from the base version and re-collated unchanged."
+        },
+        {
+          "type": "dialogue",
+          "text": "Regenerating an entire batch because two items failed is wasteful. Item-level reruns fix targeted failures while preserving the rest of the run's output exactly."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s8_1_no_branching_in_ai_steps",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "AI steps do not branch. They process one item and produce one output. Conditional logic is handled by a preceding formatting step that returns a batch_only_items filter."
+        },
+        {
+          "type": "dialogue",
+          "text": "Branching inside an AI step would couple control flow to AI output, making the pipeline harder to reason about and test. Formatting steps are deterministic and independently testable."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s8_2_misc_decisions",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Variables passed to formatting steps are flattened to double-underscore-separated keys. For example, goal_decomposition.mastery_verb becomes goal_decomposition__mastery_verb."
+        },
+        {
+          "type": "dialogue",
+          "text": "A validation failure on item N does not stop the batch. The failed item is logged and excluded. Items N+1 onward continue processing."
+        },
+        {
+          "type": "dialogue",
+          "text": "Each AI step declares its own model. There is no single global model. Per-step model selection keeps costs proportional to task complexity."
+        },
+        {
+          "type": "dialogue",
+          "text": "Formatting steps are stateless. They receive input, produce output, and return. The executor handles all file I/O."
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  },
+  {
+    "id": "s8_6_json_not_markdown",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "All pipeline data is JSON. This is load-bearing for how the pipeline validates, retries, reruns, and ingests reviewed content."
+        },
+        {
+          "type": "dialogue",
+          "text": "JSON gives named fields that downstream steps and the retry loop can address by name. Markdown has no named fields and requires fragile parsing that breaks when Claude varies its phrasing."
+        },
+        {
+          "type": "dialogue",
+          "text": "Every item is a JSON object with a stable ID. The pipeline can regenerate one item and copy the rest verbatim. There is no equivalent unit of addressability in a markdown document."
+        },
+        {
+          "type": "dialogue",
+          "text": "Reviewers can edit a step output file and a later step re-ingests it exactly as written, without passing it back through Claude. JSON edits are surgical. Markdown re-ingestion would require Claude to re-parse and re-render, introducing drift."
+        },
+        {
+          "type": "prompt",
+          "text": "What would be lost if pipeline outputs were markdown instead of JSON?",
+          "tool": { "name": "multi_select", "options": [
+            "Structural validation before acceptance",
+            "Addressable fields for targeted retries",
+            "Item-level reruns by stable ID",
+            "Deterministic ingestion of reviewed content"
+          ]},
+          "validator": [
+            {
+              "condition": { "and": [
+                { "selected": "Structural validation before acceptance" },
+                { "selected": "Addressable fields for targeted retries" },
+                { "selected": "Item-level reruns by stable ID" },
+                { "selected": "Deterministic ingestion of reviewed content" }
+              ]},
+              "description": "Correct: all four are load-bearing properties of JSON that markdown cannot provide",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. All four. Markdown has no named fields, no addressable items, no structural schema, and re-ingesting it through Claude introduces drift. JSON is the only format that supports all of these at once."
+                  },
+                  { "type": "current_scene", "elements": [] }
+                ]
+              ]
+            }
+          ]
+        },
+        { "type": "current_scene", "elements": [] }
+      ]
+    ]
+  }
+]
