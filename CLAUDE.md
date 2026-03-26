@@ -57,6 +57,33 @@ script_generator/
 - `steps/prompts/` — AI prompt steps (generators, structurers, etc.)
 - When a step becomes outdated or superseded, move it to `archive/` — do **not** leave old versions alongside new ones
 
+## scripts/ Directory
+
+One-off and experimental scripts that are not part of the core pipeline. Not imported by other modules.
+
+| File type                                        | Location                          |
+|--------------------------------------------------|-----------------------------------|
+| Experiments (dirty, exploratory, throwaway)      | `scripts/`                        |
+| Figma integration utilities                      | `scripts/figma_*.py`              |
+| Figma node manifest (name → node ID mapping)     | `scripts/figma_manifest.json`     |
+| Raw node tree dumps (auto-generated, throwaway)  | `scripts/figma_nodes_raw.json`    |
+
+**Rules:**
+- Scripts here are standalone — no imports from `core/`, `utils/`, etc.
+- Once an experiment proves out and needs to integrate with the pipeline, move the logic to the appropriate `core/` or `utils/` module and delete the script.
+- Do not create subdirectories inside `scripts/` — keep it flat.
+
+## When You're Not Sure Where a File Goes
+
+**Ask before creating.** If a new file doesn't clearly fit an existing directory from the table above, ask the user rather than guessing. Prefer:
+1. Extending an existing file over creating a new one
+2. Asking over assuming
+
+Common ambiguous cases and what to do:
+- "Is this a reusable utility or a one-off script?" → ask
+- "Should this be a CLI command or a module?" → ask
+- "Does this belong in `core/` or `modules/`?" → ask; generally: if it's part of the generation pipeline it's `core/`, if it's a standalone feature (e.g. Notion sync) it's `modules/`
+
 ## Do Not Touch
 
 - `venv/` — managed by pip/venv
