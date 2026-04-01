@@ -197,15 +197,35 @@
   ],
   "lesson_generator_dialogue_pass": [
     {
+      "name": "starterpack_parser",
+      "type": "ai",
+      "prompt_name": "starterpack_parser",
+      "description": "Converts lesson markdown spec into flat structured sections with workspace_specs (toys + tools per section)",
+      "variables": {},
+      "input_file": "lesson.md",
+      "output_file": "structured_spec.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": false
+    },
+    {
+      "name": "toy_spec_loader",
+      "type": "formatting",
+      "function": "toy_spec_loader.load_specs_for_lesson",
+      "description": "Scans structured spec for toy types, loads matching spec files, outputs enriched_spec.json",
+      "function_args": {},
+      "output_file": "enriched_spec.json"
+    },
+    {
       "name": "lesson_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
-      "description": "Converts lesson spec into section JSON objects — functional dialogue only, no voice enhancement",
+      "description": "Converts enriched spec into section JSON objects — functional dialogue only, no voice enhancement",
       "variables": {},
-      "input_file": "lesson.md",
+      "input_file": "enriched_spec.json",
       "output_file": "lesson_sections.json",
       "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": false
+      "batch_mode": true,
+      "batch_id_field": "id"
     },
     {
       "name": "dialogue_rewriter",

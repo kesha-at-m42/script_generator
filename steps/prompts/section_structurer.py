@@ -1,14 +1,18 @@
 """
 section_structurer - AI Prompt
 
-Converts a script.md spec into section JSON objects following the
-lesson script schema (sections / steps / beats).
+Converts a structured spec (output of spec_parser) into section JSON objects
+following the lesson script schema (sections / steps / beats).
+
+Input is a flat JSON array of section objects, each with:
+  - key-value fields extracted from the original markdown spec
+  - workspace_specs: { toys: [...], tools: [...] } declaring what's on screen
 
 Dialogue voice and enhancement are handled downstream by dialogue_rewriter.
 This step focuses on structural correctness and faithful spec translation.
 
 Input (user message):
-    <input>   - full script.md content
+    <input>   - structured_spec.json (array of parsed section objects)
 """
 
 import sys
@@ -25,8 +29,14 @@ SECTION_STRUCTURER_PROMPT = Prompt(
     instructions="""
 ## TASK
 
-Convert every interaction in <input> into a section JSON object.
-Produce one section per interaction, in order. Output the full array.
+<input> is a single structured section object produced by starterpack_parser.
+
+It contains key-value fields extracted from the original spec
+(visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
+and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
+
+Convert this section object into a single section JSON object following the lesson script schema.
+Output only that one section object (not an array).
 
 Scripts are static. Use concrete values throughout. Values are defined
 in the spec. Do not invent values; do not use placeholders like [X].
@@ -347,17 +357,15 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
-- Entire response must be an array starting with `[` and ending with `]`
-- One section object per interaction (plus transition sections), in spec order
+- Output a single section object starting with `{` and ending with `}`
 - Use double quotes throughout
 
 """,
     doc_refs=[
-        "toy_specs.md",
+        "glossary.md",
     ],
     output_structure="""
-[
-  {
+{
     "id": "s1_1_most_votes",
     "steps": [
       [
@@ -442,9 +450,9 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
       ]
     ]
   }
-]
+}
 """,
-    prefill="[",
+    prefill="{",
     examples=[],
     module_ref={},
     template_ref={},
