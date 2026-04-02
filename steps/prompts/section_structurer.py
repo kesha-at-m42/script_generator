@@ -35,6 +35,10 @@ It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
 
+**Canonical names:** `workspace_specs.toys` lists the only valid `tangible_type` values for this section.
+`workspace_specs.tools` lists the only valid `tool` values. Use these exact strings verbatim — they have
+already been resolved to their canonical forms.
+
 Convert this section object into a single section JSON object following the lesson script schema.
 Output only that one section object (not an array).
 
@@ -77,6 +81,11 @@ Everything before that pause belongs in the same step. Beat order within a step:
 
 - `id`: derive from the spec's section numbering. Group = lesson section
   (1, 2, 3). Seq = interaction number within that section. Slug = purpose.
+  Every section **must** have a unique `major.minor` combination — no two
+  sections may share the same number. When one interaction spans multiple
+  sections (e.g. build rows → add columns → write equation), use letter
+  suffixes to keep them distinct: `s3_2a_build_rows`, `s3_2b_add_columns`,
+  `s3_2c_write_equation`.
   Examples: `s1_1_most_votes`, `s2_2_reading_independently`,
   `s3_3b_two_step_total`, `s2_transition`
 - `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
@@ -105,7 +114,8 @@ They have scene and dialogue beats. No prompts.
 ```
 ```json
 { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
-  "params": { "highlight_categories": ["Blue", "Yellow"] } }
+  "params": { "highlight_categories": ["Blue", "Yellow"],
+              "description": "Blue and Yellow bars highlight." } }
 ```
 
 Methods: `add` `show` `hide` `animate` `update` `remove`
@@ -117,8 +127,9 @@ Methods: `add` `show` `hide` `animate` `update` `remove`
 - Use **`animate`** for named animation events: `event` (snake_case),
   `status` (`proposed` = setup in progress / `confirmed` = complete),
   `description` (plain English).
-- Use **`update`** with `highlight_categories` to direct attention to
-  specific bars or rows before a prompt.
+- Use **`update`** when a toy's state changes (highlighting, mode switch,
+  template change, button state, expression value, etc.). Always include a
+  `params.description` — plain English of what visually changes as a result.
 - Use **`show`** / **`hide`** to toggle visibility of a tangible that
   already exists.
 

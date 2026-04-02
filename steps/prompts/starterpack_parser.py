@@ -63,13 +63,20 @@ snake_case form as the key. Do not drop any field from the spec.
 
 ### Section IDs
 
-Derive `id` from the section header. Convert to snake_case, remove punctuation.
+Derive `id` from the section header using the format `s<major>_<minor><letter?>_<slug>`.
+- Major = top-level group number (W → w, 1, 2, 3, etc.)
+- Minor = interaction number within that group
+- Letter suffix (a, b, c…) = required when multiple sections share the same major.minor (e.g. W.3a, W.3b, W.3c)
+- Slug = snake_case purpose phrase
+
+**Every section must have a unique major.minor combination.** No two sections may share the same number — use letter suffixes to keep sub-sections distinct.
 
 Examples:
-- `Section W.1: Data Collection Game` → `w1_data_collection`
-- `W.3a: Guide Models First Category` → `w3a_model_first_category`
+- `Section W.1: Data Collection Game` → `sw_1_data_collection`
+- `W.3a: Guide Models First Category` → `sw_3a_model_first_category`
+- `W.3b: Student Completes Second Category` → `sw_3b_student_places_category_b`
 - `Section 1.2: Least Votes` → `s1_2_least_votes`
-- `Bridge to Lesson` → `bridge_to_lesson`
+- `Bridge to Lesson` → `sw_4_bridge_to_lesson`
 
 ### Tables
 
@@ -94,7 +101,7 @@ nested object under the key derived from the table's heading label.
     output_structure="""
 [
   {
-    "id": "w1_data_collection",
+    "id": "sw_1_data_collection",
     "purpose": "Generate personalized data via counting game. Create investment through active participation and Minis context.",
     "hook": "Minis characters appear in animated counting scenario.",
     "game_specifications": {
@@ -109,21 +116,21 @@ nested object under the key derived from the table's heading label.
     "design_note": "Student counter attempt is checked by Guide reveal. Ensures all students have correct data regardless of counting accuracy."
   },
   {
-    "id": "w2_symbol_selection",
+    "id": "sw_2_symbol_introduction",
     "purpose": "Give student agency in graph creation. Builds investment in their graph.",
     "visual": "Picture Graphs (Mode 2: Creating). Symbol palette appears (6-8 options). Empty horizontal graph template visible below with 3 category rows. Data from W.1 displayed as reference text.",
     "engagement_anchor": "Choice/Agency (student selects their symbol)",
     "guide": "Let's make a graph with the data."
   },
   {
-    "id": "w3a_model_first_category",
+    "id": "sw_3a_model_first_category",
     "purpose": "Guide models placing symbols for category A.",
     "visual": "Picture Graphs (Mode 2: Creating). Empty horizontal picture graph. Selected symbol ready. Key reads Each [symbol] = 1 [item]. W.1 data visible as reference. Data Table not visible.",
     "guide": "Watch how I show our [category A] on the graph. You counted [X] [category A]. So I add [X] [symbols]. One... two... three... [X] [symbols]. Each one means 1 [category A].",
     "scaffolding_note": "System places symbols while guide narrates. No student interaction."
   },
   {
-    "id": "w3b_student_places_category_b",
+    "id": "sw_3b_student_places_category_b",
     "purpose": "Student places symbols for category B.",
     "visual": "Picture Graphs (Mode 2: Creating). Horizontal picture graph. Category A complete (Guide-modeled). Categories B and C empty. Key visible. Data Table not visible.",
     "guide": "Your turn. You counted [Y] [category B]. Add [Y] [symbols]. Click to place them - one for each [category B] you counted.",

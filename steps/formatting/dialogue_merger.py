@@ -53,9 +53,10 @@ def merge_dialogues(data, output_file_path=None):
     original_by_id = {}
     if output_file_path is not None:
         version_dir = Path(output_file_path).parent.parent
-        for step1_dir in sorted(version_dir.glob("step_01_*")):
-            step_name = step1_dir.name.split("_", 2)[2]
-            lesson_file = step1_dir / f"{step_name}.json"
+        # Originals are the lesson_generator (section_structurer) output — step 4
+        for step4_dir in sorted(version_dir.glob("step_04_*")):
+            step_name = step4_dir.name.split("_", 2)[2]
+            lesson_file = step4_dir / f"{step_name}.json"
             if lesson_file.exists():
                 originals = json.loads(lesson_file.read_text(encoding="utf-8"))
                 original_by_id = {s["id"]: s for s in originals}
