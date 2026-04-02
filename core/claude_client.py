@@ -222,6 +222,11 @@ class ClaudeClient:
                 self._track_usage(message.usage)
                 self._log_request(message.usage, max_tokens, temperature, final_model)
 
+                if not message.content:
+                    raise ValueError(
+                        f"API returned empty content (stop_reason={message.stop_reason!r}). "
+                        "This may indicate a filtered or truncated response."
+                    )
                 response_text = message.content[0].text
 
                 # Prepend prefill to response if it was used
