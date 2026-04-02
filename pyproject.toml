@@ -16,6 +16,9 @@ dev = [
     "pre-commit",
 ]
 
+[tool.setuptools.packages.find]
+include = ["core*", "cli*", "ui*", "utils*", "steps*", "modules*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
