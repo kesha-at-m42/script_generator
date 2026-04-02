@@ -1,4 +1,15 @@
 {
+  "starter_pack_splitter": [
+    {
+      "name": "phase_splitter",
+      "type": "formatting",
+      "function": "phase_splitter.split_phases",
+      "description": "Splits _starter_pack_ref.md by section heading into warmup/lesson/exitcheck/synthesis .md files; converts HTML tables to markdown",
+      "function_args": {},
+      "input_file": "_starter_pack_ref.md",
+      "output_file": "phase_split.json"
+    }
+  ],
   "lesson_generator": [
     {
       "name": "lesson_generator",
@@ -216,12 +227,20 @@
       "output_file": "enriched_spec.json"
     },
     {
+      "name": "glossary_drift_checker",
+      "type": "formatting",
+      "function": "glossary_drift_checker.check_glossary_drift",
+      "description": "Scans enriched spec for terms not in canonical glossary; writes drift_report.md as a side effect",
+      "function_args": {},
+      "output_file": "enriched_spec.json"
+    },
+    {
       "name": "lesson_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
       "description": "Converts enriched spec into section JSON objects — functional dialogue only, no voice enhancement",
       "variables": {},
-      "input_file": "enriched_spec.json",
+      "input_file": "",
       "output_file": "lesson_sections.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
@@ -281,6 +300,103 @@
       "function": "notion_push.push",
       "function_args": {
         "pipeline_name": "Lesson"
+      }
+    }
+  ],
+  "warmup_generator_dialogue_pass": [
+    {
+      "name": "starterpack_parser",
+      "type": "ai",
+      "prompt_name": "starterpack_parser",
+      "description": "Converts warmup markdown spec into flat structured sections with workspace_specs (toys + tools per section)",
+      "variables": {},
+      "input_file": "warmup.md",
+      "output_file": "structured_spec.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": false
+    },
+    {
+      "name": "toy_spec_loader",
+      "type": "formatting",
+      "function": "toy_spec_loader.load_specs_for_lesson",
+      "description": "Scans structured spec for toy types, loads matching spec files, outputs enriched_spec.json",
+      "function_args": {},
+      "output_file": "enriched_spec.json"
+    },
+    {
+      "name": "glossary_drift_checker",
+      "type": "formatting",
+      "function": "glossary_drift_checker.check_glossary_drift",
+      "description": "Scans enriched spec for terms not in canonical glossary; writes drift_report.md as a side effect",
+      "function_args": {},
+      "output_file": "enriched_spec.json"
+    },
+    {
+      "name": "warmup_generator",
+      "type": "ai",
+      "prompt_name": "section_structurer",
+      "description": "Converts enriched spec into warmup section JSON objects — functional dialogue only, no voice enhancement",
+      "variables": {},
+      "input_file": "",
+      "output_file": "warmup_sections.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    },
+    {
+      "name": "dialogue_rewriter",
+      "type": "ai",
+      "prompt_name": "dialogue_rewriter",
+      "description": "Rewrites all dialogue beats in each section to improve voice, warmth, and naturalness",
+      "variables": {},
+      "input_file": "",
+      "output_file": "dialogue_rewritten.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    },
+    {
+      "name": "dialogue_merger",
+      "type": "formatting",
+      "function": "dialogue_merger.merge_dialogues",
+      "description": "Merges rewritten dialogue texts back into full section objects positionally",
+      "function_args": {},
+      "output_file": "warmup_sections.json"
+    },
+    {
+      "name": "remediation_filter",
+      "type": "formatting",
+      "function": "remediation_filter.filter_sections",
+      "description": "Filters sections array to only those with real prompts — skips transitions and dialogue-only sections",
+      "function_args": {},
+      "output_file": "sections_to_remediate.json"
+    },
+    {
+      "name": "remediation_generator",
+      "type": "ai",
+      "prompt_name": "remediation_generator",
+      "description": "Generates incorrect validator states (L/M/H) for each prompt in a section",
+      "variables": {},
+      "input_file": "",
+      "output_file": "warmup_sections_incorrects.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    },
+    {
+      "name": "remediation_merger",
+      "type": "formatting",
+      "function": "remediation_merger.merge_remediation",
+      "description": "Merges {id, incorrects} items back into full section objects to produce final warmup_sections.json",
+      "function_args": {},
+      "output_file": "warmup_sections.json"
+    },
+    {
+      "name": "notion_push",
+      "type": "formatting",
+      "function": "notion_push.push",
+      "function_args": {
+        "pipeline_name": "Warmup"
       }
     }
   ],
