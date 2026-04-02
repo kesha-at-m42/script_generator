@@ -30,20 +30,9 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-# Keyword map: lowercase phrases that appear in visual fields → spec filename stem
-KEYWORD_MAP = {
-    "picture graph": "picture_graph",
-    "bar graph": "bar_graph",
-    "data table": "data_table",
-    "equation builder": "equation_builder",
-    "arrays": "arrays",
-    "equal groups": "equal_groups",
-    "drop down": "dropdown_fillin",
-    "fill-in-the-blank": "dropdown_fillin",
-    "fill in the blank": "dropdown_fillin",
-    "multiple choice": "multiple_choice",
-    "word problem": "word_problems",
-}
+# Phrase map is loaded from glossary.md at runtime via _load_phrase_map().
+# The KEYWORD_MAP that was here has been migrated to the glossary's
+# "Common spec phrases" table — edit that file to add new phrase mappings.
 
 # Phrases in visual fields that suggest the spec assumes workspace carries over from a prior section.
 _CARRY_OVER_PHRASES = [
@@ -90,17 +79,17 @@ def _load_excerpts(toy_specs_dir: Path) -> dict:
     return excerpts
 
 
-def _match_toys_from_visual(visual_text: str, available: set) -> set:
-    """Return spec names matched by keyword map from a single visual field."""
+def _match_toys_from_visual(visual_text: str, available: set, phrase_map: dict) -> set:
+    """Return spec names matched by the glossary phrase map from a single visual field."""
     text_lower = visual_text.lower()
     matched = set()
-    for phrase, spec_name in KEYWORD_MAP.items():
+    for phrase, spec_name in phrase_map.items():
         if phrase in text_lower and spec_name in available:
             matched.add(spec_name)
     return matched
 
 
-def _extract_unmatched_phrases(visual_text: str, already_matched: set, available: set) -> list:
+def _extract_unmatched_phrases(visual_text: str, already_matched: set, phrase_map: dict) -> list:
     """Extract capitalised toy-like phrases from visual text that weren't matched."""
     candidates = []
     for m in _TOY_PHRASE_RE.finditer(visual_text):
@@ -108,7 +97,7 @@ def _extract_unmatched_phrases(visual_text: str, already_matched: set, available
         if len(phrase) < 4:
             continue
         phrase_lower = phrase.lower()
-        known = KEYWORD_MAP.get(phrase_lower)
+        known = phrase_map.get(phrase_lower)
         if known and known in already_matched:
             continue
         if phrase_lower in {"each", "same", "new", "student", "guide", "key", "data"}:
@@ -196,18 +185,25 @@ def _match_section_toys(
     section: dict,
     available: set,
     excerpts: dict,
+    phrase_map: dict,
     verbose: bool = False,
-) -> list:
+) -> tuple:
     """
-    Infer toy types for a single section. Returns list of {"type": toy_name} dicts.
+    Infer toy types for a single section.
+
+    Returns (matched_toys, unresolved_phrases) where:
+      - matched_toys: list of {"type": toy_name} dicts
+      - unresolved_phrases: list of visual phrases that couldn't be matched to any spec
     """
     visual = section.get("visual", "")
     if not visual:
-        return []
+        return [], []
 
-    matched = _match_toys_from_visual(visual, available)
+    matched = _match_toys_from_visual(visual, available, phrase_map)
 
-    unmatched_phrases = _extract_unmatched_phrases(visual, matched, available)
+    unmatched_phrases = _extract_unmatched_phrases(visual, matched, phrase_map)
+    unresolved = []
+
     if unmatched_phrases:
         if verbose:
             print(f"    [AI fallback] Unmatched phrases: {unmatched_phrases}")
@@ -217,8 +213,36 @@ def _match_section_toys(
                 matched.add(spec_name)
                 if verbose:
                     print(f"    [AI] '{phrase}' → {spec_name}")
+            else:
+                unresolved.append(phrase)
+                if verbose:
+                    print(f"    [UNRESOLVED] '{phrase}' — no matching spec")
 
-    return [{"type": name} for name in sorted(matched)]
+    return [{"type": name} for name in sorted(matched)], unresolved
+
+
+def _load_phrase_map(unit_number: int = None, module_number: int = None) -> dict:
+    """Load the phrase → canonical name map from glossary.md.
+
+    Falls back to an empty dict if glossary is not found, so the step still
+    runs — unmatched phrases will simply go through the AI fallback.
+    """
+    sys.path.insert(0, str(project_root / "core"))
+    from path_manager import resolve_doc_path
+
+    glossary_path = resolve_doc_path(
+        "glossary.md",
+        unit_number=unit_number,
+        module_number=module_number,
+    )
+    if not glossary_path or not glossary_path.exists():
+        return {}
+
+    sys.path.insert(0, str(project_root / "utils"))
+    from glossary_parser import parse_glossary
+
+    data = parse_glossary(glossary_path)
+    return data.full_alias_map
 
 
 def load_specs_for_lesson(
@@ -234,13 +258,18 @@ def load_specs_for_lesson(
     Processes each section individually to infer workspace_specs (toys + tools),
     then loads spec markdown files for all matched toy types.
 
+    Phrase → canonical name matching is driven by glossary.md (Common spec phrases
+    + Spec aliases tables). Phrases that can't be matched to any spec file are
+    tracked in workspace_specs["unresolved"] for the downstream drift checker.
+
     Args:
         input_data: Parsed structured_spec.json (list of section dicts)
-        unit_number: Unit number for locating toy_specs directory
+        unit_number: Unit number for locating toy_specs directory and glossary.md
+        module_number: Module number for locating glossary.md
         verbose: Enable verbose logging
 
     Returns:
-        Dict with 'toy_specs' (global, by name) and 'sections' (each with workspace_specs)
+        List of sections, each with workspace_specs (toys, tools, and optionally unresolved)
     """
     if unit_number is not None:
         toy_specs_dir = project_root / "units" / f"unit{unit_number}" / "toy_specs"
@@ -256,6 +285,19 @@ def load_specs_for_lesson(
     if verbose:
         print(f"  [TOY_SPEC_LOADER] Available specs: {sorted(available)}")
 
+    phrase_map = _load_phrase_map(unit_number=unit_number, module_number=module_number)
+    if verbose:
+        print(f"  [TOY_SPEC_LOADER] Loaded {len(phrase_map)} phrase mappings from glossary")
+
+    if isinstance(input_data, str):
+        import json as _json
+        try:
+            input_data = _json.loads(input_data)
+        except Exception:
+            raise ValueError(
+                "toy_spec_loader received raw text instead of parsed JSON. "
+                "Step 1 (starterpack_parser) likely produced malformed JSON — rerun from step 1."
+            )
     sections = input_data if isinstance(input_data, list) else input_data.get("sections", [])
 
     # Lazy-load excerpts only if AI fallback is needed
@@ -275,12 +317,16 @@ def load_specs_for_lesson(
                 print(f"  [{section_id}] Using existing workspace_specs")
             continue
 
-        toys = _match_section_toys(section, available, get_excerpts(), verbose=verbose)
+        toys, unresolved = _match_section_toys(
+            section, available, get_excerpts(), phrase_map, verbose=verbose
+        )
         tools = _infer_tools(section)
 
-        # Flatten toys to plain strings
         toy_names = [t["type"] for t in toys]
         workspace_specs = {"toys": toy_names, "tools": tools}
+
+        if unresolved:
+            workspace_specs["unresolved"] = unresolved
 
         if _detect_carry_over(section):
             workspace_specs["workspace_carry_over"] = True
@@ -290,6 +336,8 @@ def load_specs_for_lesson(
         section["workspace_specs"] = workspace_specs
 
         if verbose:
-            print(f"  [{section_id}] toys={toy_names}  tools={tools}")
+            toys_str = f"toys={toy_names}"
+            unresolved_str = f"  unresolved={unresolved}" if unresolved else ""
+            print(f"  [{section_id}] {toys_str}  tools={tools}{unresolved_str}")
 
     return sections

@@ -25,25 +25,37 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | `data_table` | Table showing category names and their values alongside a graph. | Fully specced |
 | `equation_builder` | Interactive equation construction tool. | Fully specced — not yet used in M1–M6 |
 | `data_collection_game` | Animated counting game used in warmups to generate class data. Replaces `counting_game`, `interactive_game`. | Needs spec |
-| `text_display` | Persistent on-screen text — running totals, strategy labels, equations. | Needs spec |
-| `text_overlay` | Temporary overlay text used to name or annotate mid-interaction. | Needs spec |
-| `scale_preview_system` | Interactive scale selector with preview pane (M5 only). Replaces `scale_selector`, `scale_toggle`, `scale_preview`. | Needs spec |
 | `sorting_area` | Workspace for drag-to-sort activities. | Needs spec |
+| `word_problem_area` | Container that composes a text stem, optional visual support, and a hosted response mechanism into a problem-solving interaction. Hosts other toys (bar graphs, arrays, equal groups) and response components (multiple choice, dropdown_fillin, equation builder). | Initial Spec Draft |
+| `dropdown_fillin` | Sentence-frame response widget with one or more inline fill blanks, each linked to an option palette via a shared icon indicator. | Initial Spec Draft |
 | `image` | Static image displayed for real-world connection or context. | Needs spec |
+| `equal_groups` | Visual representation of multiplication through equal groups — clusters of pictures or dots with optional containers. Supports highlighting, counting animations, and connection lines. | UX in Process |
+| `arrays` | Rectangular grid of objects or dots organized in rows and columns. Supports toggling between row and column interpretations. Progresses from concrete objects through mixed to abstract dot grids. **Mode: creating** — Add Row / Add Column button interface for student-constructed arrays (M11+). | Ready for UX |
 
-**Forbidden aliases** — use the canonical name above instead:
+**Common spec phrases** — natural language used in lesson specs that maps to canonical toy names:
 
-| Do NOT use | Use instead |
+| Spec phrase | Canonical name |
+|---|---|
+| picture graph | `picture_graph` |
+| bar graph | `bar_graph` |
+| data table | `data_table` |
+| equation builder | `equation_builder` |
+| arrays | `arrays` |
+| equal groups | `equal_groups` |
+| drop down | `dropdown_fillin` |
+| fill-in-the-blank | `dropdown_fillin` |
+| fill in the blank | `dropdown_fillin` |
+| word problem | `word_problem_area` |
+
+**Spec aliases** — renamed or superseded terms; flag these if they appear in a spec:
+
+| Spec term | Canonical name |
 |---|---|
 | `counting_game` | `data_collection_game` |
 | `interactive_game` | `data_collection_game` |
-| `data_collection_game` (varies) | `data_collection_game` |
-| `scale_selector` | `scale_preview_system` |
-| `scale_toggle` | `scale_preview_system` |
-| `scale_preview` | `scale_preview_system` |
-| `data_display` | `text_display` |
-| `animation` | — (animations are not standalone toys; use `animate` scene beats) |
-| `animation_canvas` | — (same as above) |
+| `word_problems` | `word_problem_area` |
+| `animation` | — (not a toy; use `animate` scene beats) |
+| `animation_canvas` | — (not a toy; use `animate` scene beats) |
 
 ---
 
@@ -63,8 +75,9 @@ These are the only valid `tool` values in a `prompt` beat.
 
 | Tool | What it does | Applies to | Validator shape |
 |---|---|---|---|
-| `multiple_choice` | Student picks one answer from a fixed list | standalone | `{ "selected": value }` |
-| `multi_select` | Student picks multiple items from a list | standalone | `{ "and": [{ "selected": "A" }, { "selected": "B" }] }` |
+| `multiple_choice` | Student picks one answer from a fixed list | standalone, `word_problem_area` | `{ "selected": value }` |
+| `multi_select` | Student picks multiple items from a list | standalone | `{ "selected": ["A", "B"] }` |
+| `select_fill_option` | Student selects an option from a palette to fill a blank in a sentence frame | `dropdown_fillin` | `{ "selected": "option_text" }` |
 
 ### Creating / Building Tools
 
@@ -72,27 +85,30 @@ These are the only valid `tool` values in a `prompt` beat.
 |---|---|---|---|
 | `click_to_place` | Student clicks to place symbols one at a time on a picture graph | `picture_graph` (mode: creating) | `{ "symbols_placed": 3 }` |
 | `click_to_set_height` | Student clicks or drags to set a bar to a specific height | `bar_graph` (mode: creating) | `{ "bar_height": 30 }` |
-| `click_symbol` | Student selects a symbol from the symbol palette | `picture_graph` (mode: creating) | `{ "selected": "symbol_name" }` |
+| `add_row` | Student presses Add Row button to append a row to an array under construction | `arrays` (mode: creating) | `{ "rows": 3 }` |
+| `add_column` | Student presses Add Column button to append a column to an array under construction | `arrays` (mode: creating) | `{ "columns": 2 }` |
+
+
+### Drag Tools
+
+| Tool | What it does | Applies to | Validator shape |
+|---|---|---|---|
+| `drag_to_sort` | Student drags items into categorized drop zones | `sorting_area` | `{ "placed": { "zone_id": ["item_id"] } }` — needs spec |
 
 ### Scale Tools
 
 | Tool | What it does | Applies to | Validator shape |
 |---|---|---|---|
-| `click_scale_button` | Student selects a scale option from the scale preview system | `scale_preview_system` | `{ "selected": 2 }` (the scale value chosen) |
+| `click_scale_button` | Student selects a scale option (1, 2, 5, or 10) from the scale selector on a bar graph (M5+) | `bar_graph` | `{ "selected": 2 }` (the scale value chosen) |
 
-**Forbidden aliases** — use the canonical name above instead:
+**Spec aliases** — renamed or superseded terms; flag these if they appear in a spec:
 
-| Do NOT use | Use instead |
+| Spec term | Canonical name |
 |---|---|
 | `click_to_set_bars` | `click_to_set_height` |
 | `bar_graph_creator` | `click_to_set_height` |
 | `click_place_symbols` | `click_to_place` |
-| `click_to_set_height` used for picture graph | `click_to_place` |
-| `click_component` used to set a bar height | `click_to_set_height` |
-| `click_component` used to place symbols | `click_to_place` |
 | `explore_scales` | `click_scale_button` |
-| `counter_input` | `click_scale_button` (for scale) or leave as `counter_input` pending spec |
-| `drag_to_sort` | pending spec — do not use yet |
 
 ---
 
