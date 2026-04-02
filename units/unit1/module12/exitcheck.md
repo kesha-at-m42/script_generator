@@ -1,140 +1,87 @@
-## **1.8 EXIT CHECK (3-4 minutes)**
-
-**Detail Level:** Full interaction specification (AI formats and tags)
-
-### **Purpose**
-
-Verify Lesson understanding before Practice. Tests whether student can calculate correct symbol counts using skip-counting, create scaled picture graphs from data tables, and read values from completed graphs.
-
-**Scope Note:** Exit Check tests PICTURE GRAPH creation only. Bar graph creation is assessed in M4. This focuses assessment on the primary M3 skill (scale of 5 with skip-counting) without overloading with format variety.
-
+## **1.8 EXIT CHECK (\~3-4 minutes)**
+**Purpose**
+Verify Lesson understanding before Practice. Tests whether student can write both expressions for an array using highlighting (dual interpretation fluency), predict the expression that results from rotation (rotation understanding), and determine whether two arrays with the same product are the same array rotated or genuinely different arrays (equivalence discrimination) — all skills explicitly taught in Lesson Sections 1-3.
 ### **Parameters**
-
 | Element | Specification |
-| :---- | :---- |
-| Problems | 3 |
-| Cognitive Types | IDENTIFY and CREATE only (per Playbook: Modules 1-3 focus) |
+| --- | --- |
+| Problems | 3 (standard) |
+| Cognitive Types | CREATE (EC.1), IDENTIFY (EC.2), COMPARE (EC.3) — all three types per M7-12 guidance |
 | Time | 3-4 minutes |
 | Tone | Calm, low-stakes, neutral |
-| Remediation | Full L-M-H added via Remediation Pipeline |
-
+| Remediation | Pipeline (full L-M-H) |
 ### **Constraints**
-
 | MUST | MUST NOT |
-| :---- | :---- |
-| Use scaled picture graphs (1:5 scale) | Use bar graphs (M4 assessment) |
-| Use vertical orientation (primary Lesson orientation) | Switch orientations within Exit Check |
-| Use numeric Data Table as data source | Exclude Data Table when creating Picture Graph |
-| Use only multiples of 5 | Include non-multiples (would require half-symbols) |
-| Use values in 10-40 range (matches Lesson) | Use values outside Lesson range |
-| Use same interaction type as Lesson (click-to-height) | Introduce new interaction types |
+| --- | --- |
+| Use dot arrays only (Lesson format) | Introduce concrete contexts (Practice territory) |
+| Use Arrays with Pictures + Equation Builder (same toys as Lesson) | Add new toys or interaction types |
+| Use Guide-controlled highlighting and rotation (same as Lesson) | Allow student-controlled emphasis or rotation |
+| Include all three Lesson skills (dual expression, rotation prediction, discrimination) | Test only one skill type |
+| Use non-square arrays with products ≤ 100, avoiding product 12 | Use square arrays, product 12, or products \> 100 |
+| Use values within Lesson factor range (2–9) not identical to Lesson at same cognitive type | Repeat Lesson arrays at same cognitive demand |
 | Match Lesson difficulty | Increase complexity beyond Lesson |
-
+| Include Answer Rationale for all MC interactions | Omit rationale for any MC option |
 ### **Alignment Check**
-
 | Problem | Cognitive Type | Tests | Lesson Source |
-| :---- | :---- | :---- | :---- |
-| EC.1 | IDENTIFY | Calculate symbol count for given value (skip-counting) | Section 1: Interactions 1.3-1.5 |
-| EC.2 | CREATE | Create picture graph columns from data table | Section 1: Interactions 1.4-1.5; Section 3: 3.1-3.2 |
-| EC.3 | IDENTIFY | Read total value from completed scaled graph | Section 1: Interaction 1.6; Section 2: 2.1-2.2 |
-
+| --- | --- | --- | --- |
+| EC.1 | CREATE | Build both expressions for one array using highlighting | Section 1: Interactions 1.2–1.3 (dual expression building) |
+| EC.2 | IDENTIFY | Predict post-rotation expression without seeing animation first | Section 2: Interactions 2.2–2.3 (rotation prediction) |
+| EC.3 | COMPARE | Determine whether two same-product arrays are rotated or genuinely different | Section 3: Interaction 3.3 (equivalence discrimination) |
 ---
-
 ### **Transition into Exit Check**
-
-- **Visual:** Lesson graphs clear. Clean transition.
-- **Guide:** "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know."
-
-**Voice Note:** Low-stakes framing. No "test" or "check if you can" language. Brief, calm.
-
+- **Visual:** Lesson clears. Clean transition.
+- **Guide:** "You proved that when you change the order of the factors, the product stays the same. You used highlighting, rotation, and turn-around facts. Let's see what you know."
+> **Voice Note:** References what student DID (proved, used highlighting, rotation, strategy). Low-stakes. Matches Lesson bridge language for continuity.
 ---
-
-**Problem EC.1: Symbol Count Calculation (IDENTIFY)**
-
-- **Visual: Data Tables (Numeric Display).** "Favorite Drinks" — Juice=25, Milk=15, Water=30, Lemonade=20. 4 categories. Horizontal Data Table.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Empty template (no columns filled yet). Key visible: "Each ⭐ = 5."
-- **Guide:** "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?"
-- **Prompt:** "How many symbols do you need for 25?"
-- **Student Action:** \[Multiple choice: 4, 5, 25, 30\]
-- **Correct Answer:** 5
+### **Problem EC.1: Dual Expression Building (CREATE)**
+- **Visual:** Arrays with Pictures (dot mode): 6×7 dot array. System applies row emphasis (6 horizontal bands highlighted).
+- **Guide:** "Here's an array with the rows highlighted. Build the equation for the rows."
+- **Prompt:** "Build the equation for the rows."
+- **Student Action:** Equation Builder Mode 2 (equation mode — 3 slots: `[___] × [___] = [___]`), Methods C/D. Tiles: 5, 6, 7, 8, 40, 42, 46, 48
+- **Correct Answer:** 6 × 7 = 42
+- **Guide (on correct):** "6 rows of 7. 6 times 7 equals 42."
+- **Remediation:** Pipeline
+*(Immediately followed by:)*
+- **Visual:** Row emphasis clears. System applies column emphasis (7 vertical bands highlighted).
+- **Guide:** "Now the columns. Build the column equation."
+- **Prompt:** "Build the equation for the columns."
+- **Student Action:** Equation Builder Mode 2 (equation mode), Methods C/D. Tiles: 5, 6, 7, 8, 40, 42, 46, 48
+- **Correct Answer:** 7 × 6 = 42
+- **Guide (on correct):** "7 columns of 6. 7 times 6 equals 42. Same product."
+- **Remediation:** Pipeline
+> **Alignment:** Tests dual expression building from Lesson 1.2-1.3. Uses 6×7 (product 42) — not used in any Lesson dual-expression interaction (Lesson used 4×5 and 3×7). Same EB equation mode and Methods C/D as Lesson.
+---
+### **Problem EC.2: Rotation Prediction (IDENTIFY)**
+- **Visual:** Arrays with Pictures (dot mode): 2×8 dot array. System highlights rows.
+- **Guide:** "2 rows of 8. That's 2 × 8 = 16. If I rotate this array, what will the new row expression be?"
+- **Prompt:** "After rotation, what will the row expression be?"
+- **Options (MC):** A) 8 × 2 \| B) 2 × 8 \| C) 16 × 2 \| D) 8 + 2
+- **Correct Answer:** A) 8 × 2
+- **Guide (on correct):** "8 times 2. After rotating, 8 rows of 2."
+- **Visual:** Rotation animation plays confirming 8×2 = 16.
+- **Remediation:** Pipeline
 - **Answer Rationale:**
-  - 5 = Correct (count by 5s: 5, 10, 15, 20, 25 — that's 5 fives)
-  - 4 = Counting error (stopped early)
-  - 25 = Error: Used value as symbol count (Misconception #1)
-  - 30 = Error: Added 25+5 (Misconception #2)
-- **On Correct:** "5 symbols. Count by 5s: 5, 10, 15, 20, 25."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.3-1.5 (using skip-counting to determine symbol count).
-
+	- A) 8 × 2 = Correct. Rotation swaps row and column counts.
+	- B) 2 × 8 = Misconception. Student believes expression is unchanged by rotation. May indicate #13 — not connecting physical rotation to expression change.
+	- C) 16 × 2 = Misconception. Student confuses the product (16) with a factor. Conflating total with group count.
+	- D) 8 + 2 = Misconception. Student adds factors instead of multiplying.
+> **Alignment:** Tests rotation prediction from Lesson 2.2-2.3. Uses 2×8 (product 16) — not used in any Lesson rotation interaction (Lesson used 5×3 and 5×8). Strong asymmetry (2 vs 8) makes the rotation visually dramatic. Same MC prediction format as Lesson.
 ---
-
-**Problem EC.2: Create Picture Graph (CREATE)**
-
-- **Visual: Data Tables (Numeric Display).** Same "Favorite Drinks" data visible.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. 2 of 4 columns pre-filled: Juice=5 symbols (from EC.1 discussion), Lemonade=4 symbols. Milk and Water columns empty. Key visible: "Each ⭐ = 5."
-- **Guide:** "Complete the rest of the graph."
-- **Prompt:** "Set the heights for Milk and Water."
-- **Student Action:** Hover over columns to preview, click to set Milk=3 symbols (15), Water=6 symbols (30)
-- **Correct Answer:** Milk=3, Water=6
-- **On Correct:** "You built the graph. Each symbol represents 5."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.4-1.5 and 3.1-3.2 (creating picture graph from data table).
-
+### **Problem EC.3: Equivalence Discrimination (COMPARE)**
+- **Visual:** Arrays with Pictures: A 5×6 dot array displayed as the reference. Four dot arrays displayed as options: A) 3×10 \| B) 6×5 \| C) 10×3 \| D) 2×15 {color="yellow_bg"}
+- **Guide:** "Here's an array — 5 rows of 6. That's 30 dots. These four arrays all have 30 dots too. Which one is the same array, just rotated?" {color="yellow_bg"}
+- **Prompt:** "Which array is the same as 5 × 6, just rotated?" {color="yellow_bg"}
+- **Options (MC):** A) 3 × 10 \| B) 6 × 5 \| C) 10 × 3 \| D) 2 × 15 {color="yellow_bg"}
+- **Correct Answer:** B) 6 × 5 {color="yellow_bg"}
+- **Guide (on correct):** "6 rows of 5. That's 5 rows of 6, just turned. Same dots, same product. {color="yellow_bg"}
+- **Remediation:** Pipeline {color="yellow_bg"}
+- **Answer Rationale:** {color="yellow_bg"}
+	- A) 3 × 10 = Different array, same product. Different factor pair.
+	- B) 6 × 5 = Correct. Rotation swaps 5 rows of 6 into 6 rows of 5.
+	- C) 10 × 3 = Rotation of 3×10, not of 5×6. Same trap as Lesson 3.3's 6×4 distractor — tests whether student tracks *which* dimensions are swapping.
+	- D) 2 × 15 = Different array, same product. Exceeds 10 columns (like Lesson's 2×12), visually very distinct from reference.
+> **Design Note:** EC.3 deliberately uses the "genuinely different" variant (not the rotated variant) because this is the harder discrimination — if students can correctly identify genuinely different arrays despite matching products, they've demonstrated robust understanding.
 ---
-
-**Problem EC.3: Read Total Value (IDENTIFY)**
-
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Completed "Favorite Drinks" graph: Juice=5 symbols, Milk=3 symbols, Water=6 symbols, Lemonade=4 symbols. Data Table NOT visible.
-- **Guide:** "Look at the completed graph. How many students chose Water?"
-- **Prompt:** "How many students chose Water?"
-- **Student Action:** \[Multiple choice: 6, 25, 30, 35\]
-- **Correct Answer:** 30
-- **Answer Rationale:**
-  - 30 = Correct (6 symbols, count by 5s: 5, 10, 15, 20, 25, 30)
-  - 6 = Error: Counted symbols only (Misconception #1)
-  - 25 = Misread (Juice's value)
-  - 35 = Calculation error
-- **On Correct:** "30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.6 and 2.1-2.2 (reading values from scaled graphs).
-
----
-
 ### **Exit Check Closure**
-
-- **Visual:** Completed graph remains briefly.
-- **Guide:** "You understand scale of 5. Let's connect what you learned."
-
-**Voice Note:** Brief transition to Synthesis. No overpraise.
-
+- **Guide:** "You're ready. Let's practice."
+> **Voice Note:** Brief. No overpraising. Matches playbook transition formula (Exit Check → Practice).
 ---
-
-### **Verification Checklist**
-
-**Structure:**
-
-- [ ] Exactly 3 problems
-- [ ] Transition references Lesson content with low-stakes framing
-- [ ] Closure statement present (brief, no overpraise)
-- [ ] Total time 3-4 minutes
-
-**Alignment:**
-
-- [ ] EC.1 tests symbol calculation via skip-counting (Lesson Section 1)
-- [ ] EC.2 tests graph creation from data table (Lesson Sections 1 and 3)
-- [ ] EC.3 tests reading scaled graph values (Lesson Sections 1 and 2)
-
-**Constraints:**
-
-- [ ] Uses picture graphs only (bar graphs assessed in M4)
-- [ ] Uses numeric Data Table (matches Lesson)
-- [ ] Uses vertical orientation (primary Lesson orientation)
-- [ ] All values are multiples of 5 (no half-symbols)
-- [ ] Values in 10-40 range
-- [ ] IDENTIFY and CREATE only (no COMPARE per Modules 1-3 guidance)
-- [ ] Difficulty matches Lesson
-- [ ] No new visual models or formats introduced
-- [ ] Interaction is click-to-height (not drag)
