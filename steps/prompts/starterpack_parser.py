@@ -29,8 +29,13 @@ STARTERPACK_PARSER_PROMPT = Prompt(
 
 Parse the markdown spec in <input> into a flat array of section objects.
 
-One section object per interaction. Sub-sections (e.g. W.3a, W.3b, W.3c)
-become separate section objects — do not nest them.
+One section object per spec section header. Sub-sections (e.g. W.3a, W.3b,
+W.3c) become separate section objects — do not nest them.
+
+**Section boundaries come only from spec headers** (e.g. `### Interaction 1.3`,
+`## Section W.1`). Never split a section because of text inside a field value,
+including `[Immediately followed by:]` annotations. That content stays in the
+same section object, captured verbatim in its field.
 
 ---
 
@@ -57,26 +62,36 @@ Common field mappings:
 | Engagement Anchor | `engagement_anchor` |
 | Design Note | `design_note` |
 | Scaffolding Note | `scaffolding_note` |
+| Student Action | `student_action` |
 
 If a label appears that is not in this table, still include it — use its
 snake_case form as the key. Do not drop any field from the spec.
 
+If the same label appears more than once in a section, suffix each occurrence with `_1`, `_2`, `_3`, etc. (e.g. three `**Student Action:**` fields become `student_action_1`, `student_action_2`, `student_action_3`). Apply this to all repeated labels including `visual`, `guide`, `prompt`, `correct_answer`, `on_correct`, etc. Never silently overwrite a field — every occurrence must be preserved.
+
+### Prose between fields
+
+Spec sections sometimes contain plain sentences or bold step markers between key-value pairs (e.g. `**Step 1 — Specification:**` with no content after the colon, or a sentence like "Sequential enforcement same as 3.2/3.3."). These are not fields and not section boundaries. Capture them as `"divider": "..."` — one divider entry per run of such text. Do not let them interrupt field parsing or bleed into adjacent field values.
+
+Any `**Label:** content` lines that follow a divider are still parsed as normal fields — the divider does not consume them. If a step marker like `**Step 1 — Specification:**` is immediately followed by bullet-point fields (`- **Student Action:** ...`, `- **Correct State:** ...`), those bullets are fields, not divider content. Only lines with no `**Label:** content` structure belong in the divider.
+
 ### Section IDs
 
-Derive `id` from the section header using the format `s<major>_<minor><letter?>_<slug>`.
-- Major = top-level group number (W → w, 1, 2, 3, etc.)
-- Minor = interaction number within that group
-- Letter suffix (a, b, c…) = required when multiple sections share the same major.minor (e.g. W.3a, W.3b, W.3c)
+All sections use `s<major>_<minor>_<slug>` — no phase prefix, no letter suffixes.
+- Major = top-level spec group number (W.1 → major 1, W.3 → major 3, Section 2 → major 2)
+- Minor = sequential interaction counter within that group, starting at 1, **never reused**
 - Slug = snake_case purpose phrase
 
-**Every section must have a unique major.minor combination.** No two sections may share the same number — use letter suffixes to keep sub-sections distinct.
+When the spec has sub-sections (e.g. W.3a, W.3b, W.3c), each becomes its own section with a unique minor number — do not append letters.
 
 Examples:
-- `Section W.1: Data Collection Game` → `sw_1_data_collection`
-- `W.3a: Guide Models First Category` → `sw_3a_model_first_category`
-- `W.3b: Student Completes Second Category` → `sw_3b_student_places_category_b`
+- `Section W.1: Data Collection Game` → `s1_1_data_collection`
+- `Section W.2: Symbol Introduction` → `s2_1_symbol_introduction`
+- `W.3a: Guide Models First Category` → `s3_1_model_first_category`
+- `W.3b: Student Completes Second Category` → `s3_2_student_places_category_b`
+- `W.3c: Student Completes Third Category` → `s3_3_student_places_category_c`
+- `Section W.4: Bridge to Lesson` → `s4_1_bridge_to_lesson`
 - `Section 1.2: Least Votes` → `s1_2_least_votes`
-- `Bridge to Lesson` → `sw_4_bridge_to_lesson`
 
 ### Tables
 
@@ -93,15 +108,14 @@ nested object under the key derived from the table's heading label.
 - Flat — no nested sections arrays
 - Use double quotes throughout
 - Omit fields that are empty or not present in the spec for that section
+- **Escape all double quotes inside string values** — if a field value contains a `"` character (e.g. `"3 columns of 4"`), it must be written as `\"3 columns of 4\"` in the JSON string
 
 """,
-    doc_refs=[
-        "glossary.md",
-    ],
+    doc_refs=[ ],
     output_structure="""
 [
   {
-    "id": "sw_1_data_collection",
+    "id": "s1_1_data_collection",
     "purpose": "Generate personalized data via counting game. Create investment through active participation and Minis context.",
     "hook": "Minis characters appear in animated counting scenario.",
     "game_specifications": {
@@ -116,21 +130,21 @@ nested object under the key derived from the table's heading label.
     "design_note": "Student counter attempt is checked by Guide reveal. Ensures all students have correct data regardless of counting accuracy."
   },
   {
-    "id": "sw_2_symbol_introduction",
+    "id": "s2_1_symbol_introduction",
     "purpose": "Give student agency in graph creation. Builds investment in their graph.",
     "visual": "Picture Graphs (Mode 2: Creating). Symbol palette appears (6-8 options). Empty horizontal graph template visible below with 3 category rows. Data from W.1 displayed as reference text.",
     "engagement_anchor": "Choice/Agency (student selects their symbol)",
     "guide": "Let's make a graph with the data."
   },
   {
-    "id": "sw_3a_model_first_category",
+    "id": "s3_1_model_first_category",
     "purpose": "Guide models placing symbols for category A.",
     "visual": "Picture Graphs (Mode 2: Creating). Empty horizontal picture graph. Selected symbol ready. Key reads Each [symbol] = 1 [item]. W.1 data visible as reference. Data Table not visible.",
     "guide": "Watch how I show our [category A] on the graph. You counted [X] [category A]. So I add [X] [symbols]. One... two... three... [X] [symbols]. Each one means 1 [category A].",
     "scaffolding_note": "System places symbols while guide narrates. No student interaction."
   },
   {
-    "id": "sw_3b_student_places_category_b",
+    "id": "s3_2_student_places_category_b",
     "purpose": "Student places symbols for category B.",
     "visual": "Picture Graphs (Mode 2: Creating). Horizontal picture graph. Category A complete (Guide-modeled). Categories B and C empty. Key visible. Data Table not visible.",
     "guide": "Your turn. You counted [Y] [category B]. Add [Y] [symbols]. Click to place them - one for each [category B] you counted.",

@@ -2,29 +2,24 @@
 
 import json
 
+from json_repair import repair_json
+
 
 def extract_json(text: str) -> str:
-    """Extract JSON from Claude's response"""
+    """Extract JSON from Claude's response, repairing common LLM output errors."""
 
     # Try to find JSON in code blocks
     if "```json" in text:
         start = text.find("```json") + 7
         end = text.find("```", start)
-        if end != -1:
-            return text[start:end].strip()
-        else:
-            # Code fence not closed - might be truncated, extract everything after ```json
-            return text[start:].strip()
+        candidate = text[start:end].strip() if end != -1 else text[start:].strip()
+        return repair_json(candidate)
 
-    # Try to find JSON in regular code blocks
     if "```" in text:
         start = text.find("```") + 3
         end = text.find("```", start)
-        if end != -1:
-            return text[start:end].strip()
-        else:
-            # Code fence not closed - extract everything after ```
-            return text[start:].strip()
+        candidate = text[start:end].strip() if end != -1 else text[start:].strip()
+        return repair_json(candidate)
 
     # Try to find JSON array or object (prefer object over array so that
     # responses like {"id": "...", "incorrects": [[...]]} are returned whole
@@ -33,16 +28,15 @@ def extract_json(text: str) -> str:
         start = text.find(start_char)
         end = text.rfind(end_char)
         if start != -1 and end != -1:
-            potential_json = text[start : end + 1]
+            candidate = text[start : end + 1]
             try:
-                # Validate it's actually JSON
-                json.loads(potential_json)
-                return potential_json
-            except Exception:
-                continue
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                return repair_json(candidate)
 
-    # If all else fails, return original
-    return text
+    # If all else fails, attempt repair on the full text
+    return repair_json(text)
 
 
 def parse_json(text: str) -> dict:

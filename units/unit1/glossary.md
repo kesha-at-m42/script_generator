@@ -77,7 +77,7 @@ These are the only valid `tool` values in a `prompt` beat.
 |---|---|---|---|
 | `multiple_choice` | Student picks one answer from a fixed list | standalone, `word_problem_area` | `{ "selected": value }` |
 | `multi_select` | Student picks multiple items from a list | standalone | `{ "selected": ["A", "B"] }` |
-| `select_fill_option` | Student selects an option from a palette to fill a blank in a sentence frame | `dropdown_fillin` | `{ "selected": "option_text" }` |
+| `select_fill_option` | Student selects an option from a palette to fill a blank in a sentence frame. Dropdowns only exist in the `dropdown_fillin` toy — if the section does not use `dropdown_fillin`, this tool never applies. | `dropdown_fillin` | `{ "selected": "option_text" }` |
 
 ### Creating / Building Tools
 
@@ -94,6 +94,7 @@ These are the only valid `tool` values in a `prompt` beat.
 | Tool | What it does | Applies to | Validator shape |
 |---|---|---|---|
 | `drag_to_sort` | Student drags items into categorized drop zones | `sorting_area` | `{ "placed": { "zone_id": ["item_id"] } }` — needs spec |
+| `place_tile` | Student drags or clicks a numbered tile from the palette into an expression/equation slot | `equation_builder` | `{ "placed": { "groups": 4, "items": 2 } }` — only student-filled slots included; keys are `groups`, `items`, `total`. Dynamic forms: `{ "product_equals": 20 }` (any factor pair with that product); `{ "product_equals": 20, "matches_step": "section_id" }` (product check + values must match placed output of the named prior section) |
 
 ### Scale Tools
 
@@ -109,6 +110,9 @@ These are the only valid `tool` values in a `prompt` beat.
 | `bar_graph_creator` | `click_to_set_height` |
 | `click_place_symbols` | `click_to_place` |
 | `explore_scales` | `click_scale_button` |
+| `drag_tile` | `place_tile` |
+| `equation builder methods c/d` | `place_tile` |
+| `methods c/d` | `place_tile` |
 
 ---
 

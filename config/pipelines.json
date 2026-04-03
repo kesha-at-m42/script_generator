@@ -247,6 +247,14 @@
       "batch_id_field": "id"
     },
     {
+      "name": "dialogue_extractor",
+      "type": "formatting",
+      "function": "dialogue_extractor.extract_dialogues",
+      "description": "Pre-extracts dialogue beats with context labels (lesson/on_correct) before AI rewriting",
+      "function_args": {},
+      "output_file": "dialogue_extracted.json"
+    },
+    {
       "name": "dialogue_rewriter",
       "type": "ai",
       "prompt_name": "dialogue_rewriter",
@@ -342,6 +350,14 @@
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
       "batch_id_field": "id"
+    },
+    {
+      "name": "dialogue_extractor",
+      "type": "formatting",
+      "function": "dialogue_extractor.extract_dialogues",
+      "description": "Pre-extracts dialogue beats with context labels (lesson/on_correct) before AI rewriting",
+      "function_args": {},
+      "output_file": "dialogue_extracted.json"
     },
     {
       "name": "dialogue_rewriter",

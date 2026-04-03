@@ -12,6 +12,7 @@ markdown content to its corresponding file in the module directory:
 Returns input data unchanged so the pipeline chain continues.
 """
 
+import re
 import sys
 from pathlib import Path
 
@@ -65,6 +66,7 @@ def write_phases(
                 print(f"  [PHASE_WRITER] No content for '{phase_key}' — skipping {filename}")
             continue
 
+        content = re.sub(r"<span[^>]*>(.*?)</span>", r"\1", content, flags=re.DOTALL)
         output_path = module_dir / filename
         output_path.write_text(content, encoding="utf-8")
         written.append(filename)

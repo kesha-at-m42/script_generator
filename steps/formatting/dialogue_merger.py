@@ -21,14 +21,26 @@ import json
 from pathlib import Path
 
 
+def _count_dialogues(steps):
+    """Count dialogue beats in steps using the same traversal as the rewriter."""
+    count = 0
+    for step_group in steps:
+        for beat in step_group:
+            if beat.get("type") == "dialogue":
+                count += 1
+            elif beat.get("type") == "prompt":
+                for state in beat.get("validator", []):
+                    count += _count_dialogues(state.get("steps", []))
+    return count
+
+
 def _walk_and_replace(steps, texts, idx):
     """Walk steps depth-first, replacing dialogue texts from the texts list."""
     for step_group in steps:
         for beat in step_group:
             if beat.get("type") == "dialogue":
-                if idx[0] < len(texts):
-                    beat["text"] = texts[idx[0]]
-                    idx[0] += 1
+                beat["text"] = texts[idx[0]]
+                idx[0] += 1
             elif beat.get("type") == "prompt":
                 for state in beat.get("validator", []):
                     _walk_and_replace(state.get("steps", []), texts, idx)
@@ -36,6 +48,12 @@ def _walk_and_replace(steps, texts, idx):
 
 def _replace_dialogues(section, new_texts):
     """Return a deep copy of section with all dialogue texts replaced positionally."""
+    expected = _count_dialogues(section.get("steps", []))
+    if len(new_texts) != expected:
+        raise RuntimeError(
+            f"dialogue_merger: section '{section.get('id')}' has {expected} dialogue beats "
+            f"but rewriter returned {len(new_texts)}"
+        )
     section = copy.deepcopy(section)
     idx = [0]
     _walk_and_replace(section.get("steps", []), new_texts, idx)

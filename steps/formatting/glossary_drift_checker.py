@@ -86,7 +86,16 @@ def _scan_section(section: dict, glossary) -> list:
                 "snippet": None,
             })
 
-    # 4. Deprecated spec aliases appearing in raw spec text fields
+    # 4. Tool inferred by fallback — no rule matched, defaulted to multiple_choice
+    if ws.get("tool_inferred_by_fallback"):
+        findings.append({
+            "kind": "tool_fallback",
+            "term": ", ".join(ws.get("tools", ["multiple_choice"])),
+            "field": "workspace_specs.tools",
+            "snippet": (section.get("task") or section.get("prompt") or "")[:80],
+        })
+
+    # 5. Deprecated spec aliases appearing in raw spec text fields
     for field in _SCAN_FIELDS:
         text = section.get(field) or ""
         if not text:
@@ -110,6 +119,7 @@ def _build_report(all_findings, unit_number, module_number, input_file, generate
         "unresolved_phrase": [],
         "toy_not_in_glossary": [],
         "tool_not_in_glossary": [],
+        "tool_fallback": [],
         "deprecated_alias_used": [],
     }
     for f in all_findings:
@@ -189,6 +199,18 @@ def _build_report(all_findings, unit_number, module_number, input_file, generate
         ),
     )
 
+    section_block(
+        "Tool Inferred by Fallback",
+        "No inference rule matched — `toy_spec_loader` defaulted to `multiple_choice`.\n"
+        "Review these sections: the correct tool may be something else.",
+        by_kind["tool_fallback"],
+        ["Assigned tool", "Section", "Snippet"],
+        lambda f: (
+            f"| `{f['term']}` | `{f['section_id']}` "
+            f"| {(f['snippet'] or '').replace('|', '/').replace(chr(10), ' ')[:80]} |"
+        ),
+    )
+
     # Section detail
     sections_with_findings = {}
     for f in all_findings:
@@ -210,6 +232,8 @@ def _build_report(all_findings, unit_number, module_number, input_file, generate
                     lines.append(f"- **Toy not in glossary:** `{term}`")
                 elif kind == "tool_not_in_glossary":
                     lines.append(f"- **Tool not in glossary:** `{term}`")
+                elif kind == "tool_fallback":
+                    lines.append(f"- **Tool fallback:** defaulted to `{term}` — no rule matched")
                 elif kind == "deprecated_alias_used":
                     lines.append(
                         f"- **Deprecated alias:** `{term}` → `{f['resolves_to']}` "
@@ -276,12 +300,13 @@ def check_glossary_drift(
     if verbose or all_findings:
         counts = {k: sum(1 for f in all_findings if f["kind"] == k) for k in (
             "unresolved_phrase", "toy_not_in_glossary",
-            "tool_not_in_glossary", "deprecated_alias_used",
+            "tool_not_in_glossary", "tool_fallback", "deprecated_alias_used",
         )}
         print(
             f"  [DRIFT] Report → {report_path}  |  "
             f"unresolved={counts['unresolved_phrase']}  "
             f"missing={counts['toy_not_in_glossary'] + counts['tool_not_in_glossary']}  "
+            f"fallback={counts['tool_fallback']}  "
             f"deprecated={counts['deprecated_alias_used']}"
         )
 

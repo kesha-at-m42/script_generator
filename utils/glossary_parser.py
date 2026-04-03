@@ -13,7 +13,9 @@ from pathlib import Path
 @dataclass
 class GlossaryData:
     canonical_toys: set        # valid tangible_type values
+    toy_descriptions: dict     # toy name → description (for AI inference)
     canonical_tools: set       # valid tool values in prompt beats
+    tool_descriptions: dict    # tool name → "What it does" description (for AI inference)
     phrase_map: dict           # natural language phrase → canonical (not flagged as drift)
     spec_aliases: dict         # renamed/superseded term → canonical (flagged as drift)
 
@@ -33,7 +35,9 @@ def parse_glossary(glossary_path: Path) -> GlossaryData:
       - `spec term`      → spec_aliases (deprecated terms, drift-flagged)
     """
     canonical_toys: set = set()
+    toy_descriptions: dict = {}
     canonical_tools: set = set()
+    tool_descriptions: dict = {}
     phrase_map: dict = {}
     spec_aliases: dict = {}
 
@@ -77,8 +81,12 @@ def parse_glossary(glossary_path: Path) -> GlossaryData:
 
         if current_table == "toys":
             canonical_toys.add(val)
+            if len(cols) >= 2 and cols[1]:
+                toy_descriptions[val] = cols[1]
         elif current_table == "tools":
             canonical_tools.add(val)
+            if len(cols) >= 2 and cols[1]:
+                tool_descriptions[val] = cols[1]
         elif current_table in ("phrases", "aliases") and len(cols) >= 2:
             target = cols[1].strip("`")
             if not target or target.startswith("—") or target.startswith("-"):
@@ -91,7 +99,9 @@ def parse_glossary(glossary_path: Path) -> GlossaryData:
 
     return GlossaryData(
         canonical_toys=canonical_toys,
+        toy_descriptions=toy_descriptions,
         canonical_tools=canonical_tools,
+        tool_descriptions=tool_descriptions,
         phrase_map=phrase_map,
         spec_aliases=spec_aliases,
     )

@@ -6,20 +6,24 @@ and naturalness while preserving pedagogical intent.
 
 Runs in batch mode, one call per section.
 
-Input per call: full section JSON auto-wrapped as <input> by the pipeline.
+Input per call (from dialogue_extractor):
+  {
+    "id": "<section_id>",
+    "dialogues": [
+      {"text": "...", "context": "lesson"},
+      {"text": "...", "context": "on_correct"},
+      ...
+    ],
+    "section": { ...full original section JSON for factual context... }
+  }
+
 Output per call:
   {
     "id": "<section_id>",
-    "dialogues": ["rewritten text 1", "rewritten text 2", ...]
+    "dialogues": ["rewritten text 0", "rewritten text 1", ...]
   }
 
-The dialogues array contains one string per dialogue beat, in the order
-they appear when walking the section depth-first:
-  - for each step_group in section.steps:
-      - for each beat in step_group:
-          - if type == "dialogue": include
-          - if type == "prompt": recurse into each validator state's steps
-
+One output string per input dialogue beat, in the same order.
 A downstream formatter (dialogue_merger) reinserts these texts positionally
 into the original section.
 """
@@ -38,19 +42,15 @@ DIALOGUE_REWRITER_PROMPT = Prompt(
     instructions="""
 ## TASK
 
-Walk the section in `<input>` and collect every dialogue beat in depth-first order, following this traversal:
+`<input>` contains:
+- `dialogues`: a pre-extracted list of dialogue beats, each with `text` and `context`
+- `section`: the full section JSON for factual context (data values, visuals, concept)
 
-```
-for each step_group in section.steps:
-  for each beat in step_group:
-    if beat.type == "dialogue" -- include it
-    if beat.type == "prompt" -- recurse:
-      for each state in beat.validator:
-        for each step_group in state.steps:
-          (same walk)
-```
+Rewrite every beat in `input.dialogues`. Output one string per beat, in the same order. Your output `dialogues` array must have exactly the same number of strings as `input.dialogues` — no more, no fewer.
 
-Rewrite every dialogue line. Output one string per beat, in the same order.
+**Context values:**
+- `"lesson"` — regular guide dialogue
+- `"on_correct"` — feedback after the student answers correctly: open with a brief confirmation signal ("Right.", "Yes.", "You got it.") before the factual restatement. Do not use hollow praise.
 
 ---
 
@@ -115,9 +115,9 @@ Refer to <guide_design> for the specific voice patterns, register, and examples.
 }
 ```
 
-- One string per dialogue beat, in traversal order
-- Strings only -- no beat metadata, no type fields
-- The count MUST match the number of dialogue beats in the input section
+- One string per input dialogue beat, in the same order
+- Strings only -- no beat metadata, no type fields, no context labels
+- Count MUST equal `len(input.dialogues)`
 
 ---
 
@@ -142,7 +142,7 @@ Refer to <guide_design> for the specific voice patterns, register, and examples.
   "id": "s1_1_most_votes",
   "dialogues": [
     "You made your own graph. Nice. Now let's look at some graphs other people made. Here's the thing about graphs... they're not just pictures. Every part is actually telling you something. Let's figure out what.",
-    "Apples got 6 votes. You read that right from the graph."
+    "Right. Apples got 6 votes. You read that right from the graph."
   ]
 }
 """,

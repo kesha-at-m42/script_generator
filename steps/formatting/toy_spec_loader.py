@@ -42,13 +42,20 @@ _CARRY_OVER_PHRASES = [
     "still visible", "still on screen",
 ]
 
-# Ordered tool inference rules: (phrases_any_of, tool_name)
-# First match wins per section.
+# Ordered tool inference rules: (phrases_any_of, tool_name_or_list)
+# First match wins per section. tool_name may be a list for interactions requiring multiple tools.
 _TOOL_RULES = [
     (["select all that apply", "select all"], "multi_select"),
     (["click on the part", "click the part", "click on the key", "click on the title",
       "click on the label", "click on the component"], "click_component"),
     (["click on", "click the bar", "click the category", "click the"], "click_category"),
+    (["tile palette", "equation builder tiles", "using tiles", "drag tile",
+      "place tile", "drag the tile", "place the tile",
+      "build the expression", "build an expression", "build the equation",
+      "build an equation"], "place_tile"),
+    (["add row", "add the row", "add rows", "add the rows",
+      "add column", "add the column", "add columns", "add the columns"],
+     ["add_row", "add_column"]),
 ]
 
 # Pattern to extract toy-like phrases from visual fields.
@@ -161,24 +168,98 @@ def _detect_carry_over(section: dict) -> bool:
     return any(phrase in visual for phrase in _CARRY_OVER_PHRASES)
 
 
-def _infer_tools(section: dict) -> list:
+def _ai_infer_tools(section: dict, tool_descriptions: dict) -> list | None:
     """
-    Infer interaction tools from a section's prompt and guide text.
+    Use Claude to infer interaction tools when no keyword rule matched.
+    Returns a list of tool names, or None if inference is inconclusive.
+    """
+    if not tool_descriptions:
+        return None
+
+    sys.path.insert(0, str(project_root / "core"))
+    from claude_client import ClaudeClient
+
+    tools_list = "\n".join(
+        f"- {name}: {desc}" for name, desc in sorted(tool_descriptions.items())
+    )
+
+    section_text = "\n".join(
+        f"{k}: {v}" for k, v in section.items()
+        if isinstance(v, str) and k not in ("id", "purpose")
+    )
+
+    prompt = f"""A lesson section describes one or more student interactions (sometimes across numbered steps like Step 1, Step 2, Step 3). Identify every tool the student uses across ALL steps in this section.
+
+Section:
+{section_text[:800]}
+
+Available tools (name: description):
+{tools_list}
+
+Rules:
+- A single student_action field may describe two actions joined by "and" (e.g. "selects X or Y and fills slots") — identify a tool for each sub-action separately.
+- Choosing between two named word options (e.g. "rows" or "columns") is multiple_choice.
+- Output each tool name once (no duplicates), one per line.
+- If the section is purely observational with no student action, output "none".
+- No explanation."""
+
+    client = ClaudeClient()
+    response = client.generate(user_message=prompt, max_tokens=200, temperature=0)
+
+    tools = []
+    for line in response.strip().splitlines():
+        name = line.strip().lstrip("-").strip()
+        if name and name != "none" and name in tool_descriptions:
+            tools.append(name)
+
+    return tools if tools else None
+
+
+def _infer_tools(section: dict, tool_descriptions: dict | None = None) -> list:
+    """
+    Infer interaction tools from all string fields in the section.
+    First tries keyword rules, then AI inference, then falls back to multiple_choice.
     Returns a list of tool names (may be empty for transition sections).
     """
-    prompt_text = section.get("prompt", "") or ""
-    guide_text = section.get("guide", "") or ""
-    combined = (prompt_text + " " + guide_text).lower()
-
-    if not prompt_text.strip():
+    # Check for any prompt field to determine if this section has student interaction
+    has_prompt = any(
+        (k == "prompt" or (k.startswith("prompt") and k[6:].lstrip("_").isdigit()))
+        and bool(v)
+        for k, v in section.items()
+    )
+    if not has_prompt:
         return []
 
+    combined = " ".join(
+        v for k, v in section.items()
+        if isinstance(v, str) and k not in ("id", "purpose")
+    ).lower()
+
+    matched = []
     for phrases, tool_name in _TOOL_RULES:
         if any(p in combined for p in phrases):
-            return [tool_name]
+            tools = tool_name if isinstance(tool_name, list) else [tool_name]
+            for t in tools:
+                if t not in matched:
+                    matched.append(t)
 
-    # Default: any section with a prompt gets multiple_choice
-    return ["multiple_choice"]
+    is_multi_step = any(
+        k.startswith("prompt_") and k[7:].isdigit()
+        for k in section.keys()
+    )
+
+    if tool_descriptions and (not matched or is_multi_step):
+        ai_result = _ai_infer_tools(section, tool_descriptions)
+        if ai_result:
+            for t in ai_result:
+                if t not in matched:
+                    matched.append(t)
+
+    if matched:
+        return matched
+
+    # Final fallback: flag for review
+    return ["multiple_choice", "__fallback__"]
 
 
 def _match_section_toys(
@@ -221,12 +302,8 @@ def _match_section_toys(
     return [{"type": name} for name in sorted(matched)], unresolved
 
 
-def _load_phrase_map(unit_number: int = None, module_number: int = None) -> dict:
-    """Load the phrase → canonical name map from glossary.md.
-
-    Falls back to an empty dict if glossary is not found, so the step still
-    runs — unmatched phrases will simply go through the AI fallback.
-    """
+def _load_glossary(unit_number: int = None, module_number: int = None):
+    """Load and parse glossary.md. Returns GlossaryData or None if not found."""
     sys.path.insert(0, str(project_root / "core"))
     from path_manager import resolve_doc_path
 
@@ -236,13 +313,24 @@ def _load_phrase_map(unit_number: int = None, module_number: int = None) -> dict
         module_number=module_number,
     )
     if not glossary_path or not glossary_path.exists():
-        return {}
+        return None
 
     sys.path.insert(0, str(project_root / "utils"))
     from glossary_parser import parse_glossary
 
-    data = parse_glossary(glossary_path)
-    return data.full_alias_map
+    return parse_glossary(glossary_path)
+
+
+def _load_phrase_map(unit_number: int = None, module_number: int = None) -> dict:
+    """Load the phrase → canonical name map from glossary.md."""
+    data = _load_glossary(unit_number=unit_number, module_number=module_number)
+    return data.full_alias_map if data else {}
+
+
+def _load_tool_descriptions(unit_number: int = None, module_number: int = None) -> dict:
+    """Load tool name → description map from glossary.md for AI inference."""
+    data = _load_glossary(unit_number=unit_number, module_number=module_number)
+    return data.tool_descriptions if data else {}
 
 
 def load_specs_for_lesson(
@@ -285,9 +373,12 @@ def load_specs_for_lesson(
     if verbose:
         print(f"  [TOY_SPEC_LOADER] Available specs: {sorted(available)}")
 
-    phrase_map = _load_phrase_map(unit_number=unit_number, module_number=module_number)
+    glossary = _load_glossary(unit_number=unit_number, module_number=module_number)
+    phrase_map = glossary.full_alias_map if glossary else {}
+    tool_descriptions = glossary.tool_descriptions if glossary else {}
     if verbose:
         print(f"  [TOY_SPEC_LOADER] Loaded {len(phrase_map)} phrase mappings from glossary")
+        print(f"  [TOY_SPEC_LOADER] Loaded {len(tool_descriptions)} tool descriptions for AI inference")
 
     if isinstance(input_data, str):
         import json as _json
@@ -320,10 +411,14 @@ def load_specs_for_lesson(
         toys, unresolved = _match_section_toys(
             section, available, get_excerpts(), phrase_map, verbose=verbose
         )
-        tools = _infer_tools(section)
+        tools = _infer_tools(section, tool_descriptions=tool_descriptions)
+        tool_fallback = "__fallback__" in tools
+        tools = [t for t in tools if t != "__fallback__"]
 
         toy_names = [t["type"] for t in toys]
         workspace_specs = {"toys": toy_names, "tools": tools}
+        if tool_fallback:
+            workspace_specs["tool_inferred_by_fallback"] = True
 
         if unresolved:
             workspace_specs["unresolved"] = unresolved
