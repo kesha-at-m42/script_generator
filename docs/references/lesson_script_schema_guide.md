@@ -31,7 +31,7 @@ Key choices that serve this goal:
 - **No logic embedded in text**: conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
 - **Flat, predictable field shapes**: each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
 - **Validator as a declarative state machine**: validator states are a portable condition/goto structure with no runtime-specific implementation details, making them translatable to any branching execution model
-- **IDs as the only coupling between sections**: sections reference each other only via `goto` section IDs; the schema makes no assumptions about execution order beyond what those references specify
+- **IDs as the only coupling between sections**: sections are independent units; the schema makes no assumptions about execution order
 
 These two goals can create tension: fully specified structured data tends toward verbosity, while readability pushes toward concision. The schema resolves this by separating concerns. Structural and logic fields are fully specified for translation fidelity, while human-facing fields (`text`, `description`, ID slugs) carry the readability load.
 
@@ -106,16 +106,9 @@ s{group}_transition                →  s2_transition
 | `{slug}` | Human-readable label for the problem |
 
 **Key rules:**
-- Section IDs are **unit/module specific**: they belong to a content area, not a phase
-- The same section can appear in multiple phases (lesson, warmup, synthesis, practice, exitcheck)
+- Section IDs are **sequential**: `{group}` and `{seq}` reflect the order sections appear in the phase
 - Some sections are **misconception specific**: written to address a known error pattern
   rather than advancing the main concept sequence
-- Some sections are **validator-state dependent child sections**: they only execute
-  when a specific validator state is triggered. Remediation sections (`_light`, `_medium`,
-  `_heavy`) are the current example of this pattern, but other branching types will exist
-  (e.g. sections addressing a specific wrong answer, or sections unlocked by a correct
-  answer to a prerequisite prompt). These are always referenced via `child_section` in a
-  validator state, never appear in the main sequence directly.
 
 ---
 
@@ -145,7 +138,7 @@ Beats within a step follow this order:
 
 **Scene beats are the only way to change screen state.** If anything needs to appear, disappear, animate, or update — a tangible, a parameter, any visual state at all — it must come from a `scene` beat.
 
-Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
+Display-only in Notion (🎬 callout for all methods).
 
 Three targeting levels. Omit fields to broaden scope:
 
@@ -163,8 +156,8 @@ Interactivity is **implicit**. A tangible becomes interactive when a prompt's `t
 |---|---|---|---|
 | `show` | 🎬 | — | Make tangible visible |
 | `hide` | 🎬 | — | Remove tangible from view |
-| `animate` | 🎞️ | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
-| `update` | 🎬 | `highlight_categories: string[]` | Highlight specific categories |
+| `animate` | 🎬 | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
+| `update` | 🎬 | `description: string` (required), ...tangible-specific | Change toy state (highlighting, mode switch, template change, etc.) |
 | `add` | 🎬 | tangible-specific config (optional) | Add a new instance to the scene |
 | `remove` | 🎬 | — | Remove a tangible instance from the scene |
 | `lock` | 🎬 | — | Prevent student interaction regardless of active prompt |
@@ -211,9 +204,14 @@ Interactivity is **implicit**. A tangible becomes interactive when a prompt's `t
   "type": "scene",
   "method": "update",
   "tangible_id": "bg_colors",
-  "params": { "highlight_categories": ["Blue", "Yellow"] }
+  "params": {
+    "highlight_categories": ["Blue", "Yellow"],
+    "description": "Blue and Yellow bars highlight."
+  }
 }
 ```
+
+`params.description` is required on every `update` beat — plain English of what visually changes. Include any additional toy-specific state fields alongside it.
 
 **add**
 ```json
@@ -270,7 +268,7 @@ Narration or teacher speech. Editable in Notion (💬 callout).
 
 ### Prompt
 
-Student interaction point. Text is editable in Notion (❓ callout).
+Student interaction point. Text is editable in Notion (❔ callout).
 
 **Workspace tool: single tangible**
 ```json
@@ -398,7 +396,8 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
         { "type": "scene", "method": "animate", "tangible_id": "pg_fruits",
           "params": { "event": "highlight_category", "status": "confirmed",
                       "description": "Apples row highlights to confirm selection", "category": "Apples" } },
-        { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." }
+        { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
+        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
       ]
     ]
   },
@@ -408,7 +407,8 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "is_correct": false,
     "steps": [
       [
-        { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" }
+        { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" },
+        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Picture graph unchanged.", "tangible_type": "picture_graph" } ] }
       ]
     ]
   },
@@ -419,8 +419,9 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "steps": [
       [
         { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
+          "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+        { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" },
+        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
       ]
     ]
   },
@@ -431,8 +432,9 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "steps": [
       [
         { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." }
+          "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+        { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." },
+        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
       ]
     ]
   }
@@ -507,14 +509,7 @@ Each state's `steps` contains the beats for that hint level. See the [Validator]
 
 ## Tangible ID Conventions
 
-Tangibles are defined outside `lesson.json` but referenced by ID throughout. Observed prefixes:
-
-| Prefix | Type | Examples |
-|---|---|---|
-| `picture_graph_` | Picture graph | `picture_graph_fruits`, `picture_graph_animals`, `picture_graph_pets` |
-| `bar_graph_` | Bar graph | `bar_graph_animals`, `bar_graph_books`, `bar_graph_colors` |
-| `data_table` | Data table UI component | `data_table` |
-| `choice_input` | Answer input widget | `choice_input` |
+Tangible ID prefixes and naming patterns are defined in the toy spec files (`toy_specs/`). Consult the relevant toy spec for the canonical prefix and any instance-naming rules for that toy type.
 
 ---
 
@@ -522,7 +517,7 @@ Tangibles are defined outside `lesson.json` but referenced by ID throughout. Obs
 
 | Type | Notion format | Editable | Fields |
 |---|---|---|---|
-| `scene` | method-emoji callout | no | `method`, `tangible_id`, `params?` |
+| `scene` | 🎬 callout | no | `method`, `tangible_id`, `params?` |
 | `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
-| `prompt` | ❓ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
-| `current_scene` | — | no | `elements` |
+| `prompt` | ❔ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
+| `current_scene` | 📋 toggle | no | `elements` |

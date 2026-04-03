@@ -1,5 +1,5 @@
 # Prompt: test_doc_prompt
-# Generated: 2026-01-21T16:09:35.941611
+# Generated: 2026-04-03T10:54:13.574152
 ======================================================================
 
 ## API Parameters
@@ -18,64 +18,17 @@ You are a test assistant.
 
 ----------------------------------------------------------------------
 
-### Block 2: Reference Doc (visuals.md)
-Purpose: Reference documentation
+### Block 2: Instructions
+Purpose: Step-by-step task instructions
 Cacheable: Yes
 
-# REFERENCE DOCUMENTATION: visuals.md
+# TASK INSTRUCTIONS
 
-<visuals>
-# Visual Constraints - Module 1 Path B
-
-## Tangible Types
-- Rectangle bars
-
-## Description
-Rectangle bars are the primary visual for this module. Bars can be partly shaded or unshaded, partitioned into equal or unequal parts.
-
-## Constraints
-- All fractions are shown using rectangle bars divided into parts
-- Parts can be shaded or unshaded
-- A maximum of 4 bars can be shown for comparison
-- Bars can show 2, 3, 4, 5, 6, or 8 parts based on the denominator
-
-</visuals>
+Process the input data.
 
 ----------------------------------------------------------------------
 
-### Block 3: Reference Doc (visual_guide.md)
-Purpose: Reference documentation
-Cacheable: Yes
-
-# REFERENCE DOCUMENTATION: visual_guide.md
-
-<visual_guide>
-# Visual Guide for Module 1 Path B
-
-## Tangible Types
-- Rectangle Bars
----
-
-## Task 1: Divide/Partition into X Equal Parts
-- **Tangible**: Rectangle Bars
-- **Tool**: cut
-
-## Task 2: Shade 1 Part
-- **Tangible**: Rectangle Bars
-- **Tool**: shade
-
-## Task 3: Identify Shape with Equal/Unequal Parts
-- **Tangible**: Rectangle Bars
-- **Tool**: select
-
-## Task 4: Identify Shape with X Equal Parts
-- **Tangible**: Rectangle Bars
-- **Tool**: select
-</visual_guide>
-
-----------------------------------------------------------------------
-
-### Block 4: Examples
+### Block 3: Examples
 Purpose: Demonstration of expected output format
 Cacheable: Yes
 
@@ -90,7 +43,7 @@ Test output
 
 ----------------------------------------------------------------------
 
-### Block 5: Output Schema
+### Block 4: Output Schema
 Purpose: Defines expected output structure
 Cacheable: Yes
 *[CACHED: {'type': 'ephemeral'}]*
@@ -111,8 +64,6 @@ Expected output format:
 <input>
 Test input content here.
 </input>
-
-Process the input data.
 
 ======================================================================
 
