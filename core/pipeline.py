@@ -546,6 +546,7 @@ def run_pipeline(
     # Project root for path resolution
     project_root = get_project_root()
 
+
     # Construct template path for template lookup
     template_path = None
     if module_number is not None and template_filename:
@@ -941,7 +942,7 @@ def run_pipeline(
                                     save_prompt_to=str(prompt_save_path) if not is_retry else None,
                                 )
 
-                                # Build initial conversation from the prompt for future turns
+                                # Build prompt for conversation tracking
                                 built_prompt = builder.build(
                                     step.prompt_name, merged_vars, input_content=item_input
                                 )

@@ -4,6 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
     "anthropic",
+    "json-repair",
     "notion-client",
     "python-dotenv",
     "streamlit",
@@ -15,6 +16,9 @@ dev = [
     "ruff",
     "pre-commit",
 ]
+
+[tool.setuptools.packages.find]
+include = ["core*", "cli*", "ui*", "utils*", "steps*", "modules*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

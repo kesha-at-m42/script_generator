@@ -341,7 +341,7 @@ def _all_blocks(client: Client, block_id: str, recursive: bool = False) -> list[
 
 
 # ---------------------------------------------------------------------------
-# Block sync (pointer/content matching — preserves comments on unchanged blocks)
+# Block sync
 # ---------------------------------------------------------------------------
 
 
@@ -372,21 +372,82 @@ def _refresh_children(client: Client, block_id: str, new_children: list[dict]) -
         client.blocks.children.append(block_id, children=new_children[i : i + 100])
 
 
+def _block_skeleton(block: dict) -> str:
+    """Return a structural fingerprint for a block (type + emoji for callouts)."""
+    btype = block.get("type", "")
+    if btype == "callout":
+        emoji = block.get("callout", {}).get("icon", {}).get("emoji", "")
+        return f"callout:{emoji}"
+    return btype
+
+
+def _update_block_content(client: Client, block_id: str, new_block: dict) -> None:
+    """Update an existing Notion block's displayable content in-place.
+
+    Children are intentionally excluded — manage those separately via
+    _refresh_children so block IDs (and any comments) are preserved.
+    """
+    btype = new_block.get("type", "")
+    bdata = dict(new_block.get(btype, {}))
+    bdata.pop("children", None)
+    bdata.pop("is_toggleable", None)
+    if bdata:
+        client.blocks.update(block_id, **{btype: bdata})
+
+
+def _smart_sync_children(client: Client, parent_id: str, new_children: list[dict]) -> None:
+    """Sync children of a section heading block.
+
+    Compares the structural skeleton — the ordered sequence of block types and
+    callout emojis — of new_children against existing children.
+
+    - Skeleton matches: positional update-in-place.  Each beat's Notion block ID
+      (and any reviewer comments on it) is preserved; only changed text is
+      patched via blocks.update.  Toggle children (current_scene snapshots,
+      validator states) are always refreshed wholesale.
+    - Skeleton differs: fall back to _refresh_children (archive all, re-append).
+      This handles structural edits (added/removed beats, reordered steps) and
+      also recovers from previously scrambled Notion pages where prior syncs left
+      beats in the wrong order.
+    """
+    existing = _all_blocks(client, parent_id)
+
+    new_skel = [_block_skeleton(b) for b in new_children]
+    ex_skel = [_block_skeleton(b) for b in existing]
+
+    if new_skel != ex_skel:
+        _refresh_children(client, parent_id, new_children)
+        return
+
+    # Positional update — walk new / existing in lockstep
+    for nb, eb in zip(new_children, existing):
+        btype = nb["type"]
+        nb_children = nb.get(btype, {}).get("children")
+
+        if not _block_content_equal(nb, eb):
+            _update_block_content(client, eb["id"], nb)
+
+        if nb_children is not None:
+            _refresh_children(client, eb["id"], nb_children)
+        elif eb.get("has_children"):
+            # New version has no children here — clear existing ones
+            for child in _all_blocks(client, eb["id"]):
+                client.blocks.update(child["id"], archived=True)
+
+
 def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None:
-    """Sync new_blocks into parent_id using pointer/content matching.
+    """Sync new_blocks into parent_id using forward content-matching.
 
     For each new block, scans forward in existing blocks to find a content match:
     - Match found: keep block in place (preserves ID and comments); archive any
-      existing blocks that were skipped over (no match in new script).
-    - No match: insert the new block after the last matched/inserted block using
-      Notion's `after=` parameter to maintain correct ordering.
-    After all new blocks are processed, remaining unmatched existing blocks are
-    archived.
+      existing blocks skipped over.
+    - No match: insert after the last matched/inserted block via Notion's
+      ``after=`` parameter.
 
-    Heading blocks (section toggle headings) are recursed into so beat-level
-    blocks also benefit from pointer matching. Toggle blocks (validator states,
-    current scene) have their children refreshed wholesale — their own block ID
-    is preserved but inner blocks are replaced.
+    Heading blocks (section toggle headings) recurse into _smart_sync_children,
+    which does positional in-place updates when the beat structure is unchanged
+    and falls back to a full refresh when structure has changed.
+    Toggle blocks (validator states, current_scene) are refreshed wholesale.
     """
     existing = _all_blocks(client, parent_id)
     ex_ptr = 0
@@ -416,7 +477,7 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
 
             if new_children is not None:
                 if btype in _HEADING_TYPES:
-                    _sync_blocks(client, block_id, new_children)
+                    _smart_sync_children(client, block_id, new_children)
                 else:
                     _refresh_children(client, block_id, new_children)
             elif ex.get("has_children"):

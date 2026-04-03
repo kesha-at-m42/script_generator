@@ -39,6 +39,104 @@ class ClaudeClient:
 
         self.request_count = 0
 
+    def generate_with_tools(self,
+                            system=None,
+                            user_message: str = "",
+                            tools: list = None,
+                            tool_executor=None,
+                            max_tokens: int = 1000,
+                            temperature: float = 1.0,
+                            prefill: str = None,
+                            stop_sequences=None,
+                            model: str = None) -> str:
+        """Generate response from Claude with tool use support.
+
+        Runs a two-turn loop:
+          Turn 1 (no prefill): Claude calls tools as needed.
+          Turn 2 (with prefill): Claude generates final output with tool results in context.
+
+        Args:
+            system: List of system blocks or string
+            user_message: The user prompt
+            tools: List of Anthropic tool definitions
+            tool_executor: Callable (tool_name: str, tool_input: dict) -> str
+            max_tokens: Maximum tokens for final generation turn
+            temperature: Sampling temperature
+            prefill: Text to prefill on the final generation turn
+            stop_sequences: Optional stop sequences
+            model: Claude model to use
+
+        Returns:
+            Generated text response (with prefill prepended if used)
+        """
+        final_model = model if model else self.model
+
+        # Build base API params (no prefill for tool turn)
+        def _base_params(messages):
+            params = {
+                "model": final_model,
+                "max_tokens": max_tokens,
+                "temperature": temperature,
+                "messages": messages,
+            }
+            if system:
+                params["system"] = self._strip_metadata(system) if isinstance(system, list) else system
+            if stop_sequences:
+                params["stop_sequences"] = stop_sequences
+            if tools:
+                params["tools"] = tools
+            return params
+
+        messages = [{"role": "user", "content": user_message}]
+
+        # Tool loop: keep going until Claude stops making tool calls
+        while True:
+            response = self.client.messages.create(**_base_params(messages))
+            self._track_usage(response.usage)
+            self._log_request(response.usage, max_tokens, temperature, final_model)
+
+            # Collect any tool_use blocks
+            tool_results = []
+            for block in response.content:
+                if block.type == "tool_use" and tool_executor:
+                    result = tool_executor(block.name, block.input)
+                    tool_results.append({
+                        "type": "tool_result",
+                        "tool_use_id": block.id,
+                        "content": result,
+                    })
+
+            if not tool_results:
+                # No tool calls — Claude is done with the tool phase
+                break
+
+            # Append assistant turn and tool results, then loop
+            messages.append({"role": "assistant", "content": response.content})
+            messages.append({"role": "user", "content": tool_results})
+
+        # Final generation turn: append last assistant message, add prefill, drop tools
+        messages.append({"role": "assistant", "content": response.content})
+        if prefill:
+            messages.append({"role": "assistant", "content": prefill})
+
+        final_params = _base_params(messages)
+        final_params.pop("tools", None)
+
+        if max_tokens > 10000:
+            full_response = ""
+            with self.client.messages.stream(**final_params) as stream:
+                for text in stream.text_stream:
+                    full_response += text
+                final_message = stream.get_final_message()
+                self._track_usage(final_message.usage)
+                self._log_request(final_message.usage, max_tokens, temperature, final_model)
+            return (prefill or "") + full_response
+        else:
+            final_message = self.client.messages.create(**final_params)
+            self._track_usage(final_message.usage)
+            self._log_request(final_message.usage, max_tokens, temperature, final_model)
+            return (prefill or "") + final_message.content[0].text
+
     def generate(self,
                  system=None,
                  user_message: str = "",
@@ -124,6 +222,11 @@ class ClaudeClient:
                 self._track_usage(message.usage)
                 self._log_request(message.usage, max_tokens, temperature, final_model)
 
+                if not message.content:
+                    raise ValueError(
+                        f"API returned empty content (stop_reason={message.stop_reason!r}). "
+                        "This may indicate a filtered or truncated response."
+                    )
                 response_text = message.content[0].text
 
                 # Prepend prefill to response if it was used

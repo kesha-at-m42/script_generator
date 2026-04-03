@@ -1,14 +1,18 @@
 """
 section_structurer - AI Prompt
 
-Converts a script.md spec into section JSON objects following the
-lesson script schema (sections / steps / beats).
+Converts a structured spec (output of spec_parser) into section JSON objects
+following the lesson script schema (sections / steps / beats).
+
+Input is a flat JSON array of section objects, each with:
+  - key-value fields extracted from the original markdown spec
+  - workspace_specs: { toys: [...], tools: [...] } declaring what's on screen
 
 Dialogue voice and enhancement are handled downstream by dialogue_rewriter.
 This step focuses on structural correctness and faithful spec translation.
 
 Input (user message):
-    <input>   - full script.md content
+    <input>   - structured_spec.json (array of parsed section objects)
 """
 
 import sys
@@ -25,8 +29,38 @@ SECTION_STRUCTURER_PROMPT = Prompt(
     instructions="""
 ## TASK
 
-Convert every interaction in <input> into a section JSON object.
-Produce one section per interaction, in order. Output the full array.
+<input> is a single structured section object produced by starterpack_parser.
+
+It contains key-value fields extracted from the original spec
+(visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
+and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
+
+**Map all fields by meaning, not by name.** The input object may present
+information in various field names and formats — interpret every field and
+map it to the appropriate schema context:
+- `student_action: "MC (2, 6, 8, 12)"` → `multiple_choice` prompt with
+  options `[2, 6, 8, 12]`
+- `student_action: "Multi-select: Dogs, Cats, Fish"` → `multi_select` with
+  those options
+- `guide_2`, `prompt_2`, `on_correct_2` etc. → a second step in the section
+- `divider` fields are contextual labels only — they describe what is happening at that point in the spec. Do not use them to determine step boundaries and do not output them as beats. Use the surrounding prompt, student_action, and guide fields to determine structure.
+- A `student_action` field that contains two actions joined by "and" (e.g. "selects X or Y and fills two number slots") represents two sequential prompts — split them into separate steps
+- Inline annotations in any text field (e.g. `[System highlights rows
+  sequentially]`, `[3 tile places into first slot]`) → `scene` beats at
+  that point in the step
+- `task` describing a build/click/drag action → infer the tool type from it
+
+Do not ignore fields because their name is unfamiliar. Read every field in
+the input object and decide where it belongs in the output structure.
+
+**Canonical names:** `workspace_specs.toys` lists the only valid `tangible_type` values for this section.
+`workspace_specs.tools` lists the only valid `tool` values. Use these exact strings verbatim — they have already been resolved to their canonical forms.
+
+When `workspace_specs.tools` contains multiple tools, the section has multiple prompt beats — one per tool. Map each tool to the step it belongs to using the dividers and numbered fields as context.
+
+
+Convert this section object into a single section JSON object following the lesson script schema.
+Output only that one section object (not an array).
 
 Scripts are static. Use concrete values throughout. Values are defined
 in the spec. Do not invent values; do not use placeholders like [X].
@@ -41,18 +75,20 @@ Include all required phrases from <input>. Avoid all forbidden phrases.
 
 ## WHAT IS A STEP
 
-A step is a **do-together block**: all beats in a step play together without pausing. The step ends, and the system pauses, when student input is required.
+A step contains at most one prompt beat and at most one dialogue beat.
 
-Student input is required when:
-1. **Dialogue plays** (animations happen alongside dialogue): the student must act or respond after the guide speaks
-2. **A prompt beat**: the student explicitly interacts with a tangible or overlay tool
+**Scene beats group with the dialogue they are tied to.** A scene beat either sets up the visual before the guide speaks, or fires immediately after the dialogue as the guide's words take visual effect on screen. Group them accordingly.
 
-Everything before that pause belongs in the same step. Beat order within a step:
+Valid step compositions (scene beats may appear before dialogue, after dialogue, or both):
+- Scene beat(s) → Dialogue → `current_scene`
+- Scene beat(s) → Prompt → `current_scene`
+- Scene beat(s) → Dialogue → Scene beat(s) → `current_scene`
+- Scene beat(s) → Dialogue → Prompt → `current_scene`
+- Scene beat(s) → Dialogue → Scene beat(s) → Prompt → `current_scene`
 
-1. Scene beats (`add`, `show`, `animate`, `update`): things appear or change on screen
-2. Dialogue beats: the guide speaks (animations play alongside)
-3. Prompt beat: student interacts (only one prompt per step; always the last non-snapshot beat)
-4. `current_scene`: snapshot of what is on screen after all beats in this step
+A `student_action` field that describes multiple interactions (e.g. "selects X, then presses button Y, then fills slot") means multiple steps — one step per interaction. Split them accordingly.
+
+`current_scene` is always the last beat in every step.
 
 ---
 
@@ -65,10 +101,7 @@ Everything before that pause belongs in the same step. Beat order within a step:
 }
 ```
 
-- `id`: derive from the spec's section numbering. Group = lesson section
-  (1, 2, 3). Seq = interaction number within that section. Slug = purpose.
-  Examples: `s1_1_most_votes`, `s2_2_reading_independently`,
-  `s3_3b_two_step_total`, `s2_transition`
+- `id`: copy verbatim from the input section's `id` field. Do not modify or re-derive it.
 - `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
 
 Every section begins with an empty screen. Everything visible must be put on screen explicitly by `scene` beats in the first step. Nothing carries over from the previous section.
@@ -95,7 +128,8 @@ They have scene and dialogue beats. No prompts.
 ```
 ```json
 { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
-  "params": { "highlight_categories": ["Blue", "Yellow"] } }
+  "params": { "highlight_categories": ["Blue", "Yellow"],
+              "description": "Blue and Yellow bars highlight." } }
 ```
 
 Methods: `add` `show` `hide` `animate` `update` `remove`
@@ -107,8 +141,9 @@ Methods: `add` `show` `hide` `animate` `update` `remove`
 - Use **`animate`** for named animation events: `event` (snake_case),
   `status` (`proposed` = setup in progress / `confirmed` = complete),
   `description` (plain English).
-- Use **`update`** with `highlight_categories` to direct attention to
-  specific bars or rows before a prompt.
+- Use **`update`** when a toy's state changes (highlighting, mode switch,
+  template change, button state, expression value, etc.). Always include a
+  `params.description` — plain English of what visually changes as a result.
 - Use **`show`** / **`hide`** to toggle visibility of a tangible that
   already exists.
 
@@ -152,6 +187,8 @@ already exist in the scene at this point in the step.
 | `click_tangible` | array of IDs or `{ "type": "..." }` | — |
 | `multiple_choice` | — | array of numbers or strings |
 | `multi_select` | — | array of strings |
+
+For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`, etc.) — refer to the **Canonical Tools** table in <glossary.md> for the correct `target` and validator condition shape.
 
 `target` shapes:
 - Single tangible: `"target": "picture_graph_fruits"`
@@ -347,17 +384,15 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
-- Entire response must be an array starting with `[` and ending with `]`
-- One section object per interaction (plus transition sections), in spec order
+- Output a single section object starting with `{` and ending with `}`
 - Use double quotes throughout
 
 """,
     doc_refs=[
-        "toy_specs.md",
+        "glossary.md",
     ],
     output_structure="""
-[
-  {
+{
     "id": "s1_1_most_votes",
     "steps": [
       [
@@ -442,9 +477,9 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
       ]
     ]
   }
-]
+}
 """,
-    prefill="[",
+    prefill="{",
     examples=[],
     module_ref={},
     template_ref={},

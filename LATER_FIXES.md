@@ -17,3 +17,5 @@ Deferred decisions, improvements, and ideas to revisit as the project matures.
 6. **Rework and clean starter pack template** — The starter pack template structure needs to be revisited and cleaned up for clarity and consistency, using the latest template doc as the reference.
 
 7. **Add section metadata to lesson script schema** — Section-level metadata (e.g., phase name, purpose, interaction count) should be formally added to the schema. *(docs/references/lesson_script_schema_guide.md)*
+
+8. **Restructure unit1 toy specs for pipeline ingestion** — Toy specs in `units/unit1/toy_specs/` are being replaced by per-toy `visuals.md` files. Once the new format is finalized, clean up the source docs: remove mode overloading, scope arrays.md to unit 1 only, clarify which "student actions" are actually array inputs vs response toy inputs. *(units/unit1/toy_specs/)*

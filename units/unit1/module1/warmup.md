@@ -11,11 +11,11 @@ Activate prior knowledge of data collection and graphing from Grade 2\. Build ow
 | Element | Specification |
 | :---- | :---- |
 | Interactions | 3 meaningful interactions \+ bridge |
-| Format | Data Collection Game → Symbol Selection → Graph Creation |
+| Format | Data Collection Game → Symbol Introduction → Graph Creation |
 | Cognitive Load | 20-30% (light, accessible) |
 | Remediation | Light only |
 | Tone | Medium-High energy, playful, inviting |
-| Engagement Anchors | Narrative Setup (Minis), Personalization (their data), Choice/Agency (symbol selection) |
+| Engagement Anchors | Narrative Setup (Minis), Personalization (their data), Anticipation (graph about to be built) |
 
 ### **Constraints**
 
@@ -73,16 +73,23 @@ Activate prior knowledge of data collection and graphing from Grade 2\. Build ow
 
 ---
 
-**Section W.2: Symbol Selection**
+### **Interaction W.2: Symbol Introduction**
 
-* **Purpose:** Give student agency in graph creation. Builds investment in "their" graph.
-* **Visual: Picture Graphs (Mode 2: Creating).** Symbol palette appears (6–8 options). Empty horizontal graph template visible below with 3 category rows. Data from W.1 displayed as reference text (not in Data Table format).
-* **Engagement Anchor:** Choice/Agency (student selects their symbol)
-* **Visual:**
-  * Results displayed: "We counted \[X\] \[category A\] and \[Y\] \[category B\] and \[Z\] \[category C\]."
-* **Guide:** "Let's make a graph with the data."
+**Purpose:** Establish that ONE symbol represents all data on this graph; introduce "each symbol = 1 item" rule.
 
-**Design Principle:** ONE symbol type for entire graph (not different symbols per category). This teaches that the KEY identifies what symbols represent, while LABELS identify categories. Prepares for M2 where symbol-to-value relationship (scale) becomes critical focus.
+**Engagement Anchor:** Anticipation (graph is about to be built)
+
+**Visual:**
+
+- Data from W.1 displayed as reference text: "You counted [X] [category A], [Y] [category B], and [Z] [category C]."
+- Empty horizontal picture graph template appears with 3 category rows
+- Symbol pre-assigned by system (e.g., stars) and visible in key area
+
+**Guide [verbal]:** "Let's make a picture graph with your data. We'll use stars. Each star shows 1 item."
+
+**No student interaction** — proceeds directly to W.3.
+
+**Design Note:** Symbol is system-assigned (no student selection). This maintains the pedagogical point: ONE symbol type for entire graph, KEY shows what symbols represent. Student agency comes from graph creation in W.3, not symbol choice.
 
 ---
 

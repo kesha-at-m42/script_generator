@@ -39,6 +39,7 @@ class Prompt:
         temperature: float = None,
         max_tokens: int = None,
         stop_sequences: List[str] = None,
+        tools: List[Dict] = None,
     ):
         """
         Args:
@@ -102,6 +103,7 @@ class Prompt:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.stop_sequences = stop_sequences or []
+        self.tools = tools or []
 
     def to_dict(self) -> Dict:
         """Convert to dictionary for backwards compatibility"""
@@ -298,6 +300,8 @@ class PromptBuilderV2:
             api_params["max_tokens"] = prompt.max_tokens
         if prompt.stop_sequences:
             api_params["stop_sequences"] = prompt.stop_sequences
+        if prompt.tools:
+            api_params["tools"] = prompt.tools
 
         if self.verbose:
             print(f"  [OK] Built prompt with {len(system_blocks)} system blocks")

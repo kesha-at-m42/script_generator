@@ -1,140 +1,67 @@
-## **1.8 EXIT CHECK (3-4 minutes)**
-
-**Detail Level:** Full interaction specification (AI formats and tags)
-
-### **Purpose**
-
-Verify Lesson understanding before Practice. Tests whether student can calculate correct symbol counts using skip-counting, create scaled picture graphs from data tables, and read values from completed graphs.
-
-**Scope Note:** Exit Check tests PICTURE GRAPH creation only. Bar graph creation is assessed in M4. This focuses assessment on the primary M3 skill (scale of 5 with skip-counting) without overloading with format variety.
-
-### **Parameters**
-
+## 1.8 EXIT CHECK
+**Purpose:** Verify Lesson understanding before Practice. Tests whether student can build multiplication expressions from equal groups visuals using the Equation Builder (Methods C/D tiles), and identify visuals that match given expressions (reverse direction). M8 Exit Check does NOT test computation—it tests expression production and interpretation only.
+### Parameters
 | Element | Specification |
-| :---- | :---- |
-| Problems | 3 |
-| Cognitive Types | IDENTIFY and CREATE only (per Playbook: Modules 1-3 focus) |
+| --- | --- |
+| Interactions | 3 |
+| Cognitive Types | CREATE (build from visual) and IDENTIFY (match expression to visual) |
 | Time | 3-4 minutes |
-| Tone | Calm, low-stakes, neutral |
-| Remediation | Full L-M-H added via Remediation Pipeline |
-
-### **Constraints**
-
+| Tone | Calm, low-stakes |
+| Remediation | Pipeline (full L-M-H) |
+### Exit Check Constraints
 | MUST | MUST NOT |
-| :---- | :---- |
-| Use scaled picture graphs (1:5 scale) | Use bar graphs (M4 assessment) |
-| Use vertical orientation (primary Lesson orientation) | Switch orientations within Exit Check |
-| Use numeric Data Table as data source | Exclude Data Table when creating Picture Graph |
-| Use only multiples of 5 | Include non-multiples (would require half-symbols) |
-| Use values in 10-40 range (matches Lesson) | Use values outside Lesson range |
-| Use same interaction type as Lesson (click-to-height) | Introduce new interaction types |
-| Match Lesson difficulty | Increase complexity beyond Lesson |
-
-### **Alignment Check**
-
+| --- | --- |
+| Use Context Visualizations + Equation Builder (same toys as Lesson) | Introduce new visual models |
+| Use tile construction Methods C/D for CREATE problems | Use Method A (MC selection) for CREATE |
+| Use both concrete (bags/boxes) AND semi-abstract (circles) | Use only one representation type |
+| Use MC visual selection for IDENTIFY (reverse direction) | Add expression comparison or production tasks |
+| Use values within Lesson range (2-5 groups, 2-6 items per group) | Use values outside Lesson range |
+| Use values NOT identical to Lesson interactions | Repeat exact Lesson combinations |
+| Include reversal distractor in IDENTIFY tasks | Add new distractor types |
+### Alignment Check
 | Problem | Cognitive Type | Tests | Lesson Source |
-| :---- | :---- | :---- | :---- |
-| EC.1 | IDENTIFY | Calculate symbol count for given value (skip-counting) | Section 1: Interactions 1.3-1.5 |
-| EC.2 | CREATE | Create picture graph columns from data table | Section 1: Interactions 1.4-1.5; Section 3: 3.1-3.2 |
-| EC.3 | IDENTIFY | Read total value from completed scaled graph | Section 1: Interaction 1.6; Section 2: 2.1-2.2 |
-
+| --- | --- | --- | --- |
+| EC.1 | CREATE | Build expression from concrete visual using tiles (Methods C/D) | RELATIONAL/APPLICATION: 1.5, 1.6 |
+| EC.2 | IDENTIFY | Select visual that matches given expression (reverse direction) | APPLICATION: 2.2, 2.3 |
+| EC.3 | CREATE | Build expression from semi-abstract visual using tiles | TRANSFER: 3.1, 3.2 |
+### Transition into Exit Check
+- **Visual:** Lesson visualization fades. Clean transition.
+- **Guide:** "You've built expressions from pictures and matched expressions to pictures. Let's see what you know."
+> **Voice Note:** Low-stakes framing. References both directions (Visual→Expression and Expression→Visual) taught in Lesson. No "test" language.
 ---
-
-### **Transition into Exit Check**
-
-- **Visual:** Lesson graphs clear. Clean transition.
-- **Guide:** "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know."
-
-**Voice Note:** Low-stakes framing. No "test" or "check if you can" language. Brief, calm.
-
+### Problem EC.1: Build Expression from Boxes
+- **Purpose:** Verify CREATE ability with concrete context.
+- **Visual: Context Visualizations (Mode 2) + Equation Builder (Methods C/D).** Concrete context (boxes with cookies/markers). 3 boxes with 4 items each. Tile palette shows 1 through 10. \[CREATE\] designation.
+- **Guide:** "Build the expression for these boxes."
+- **Prompt:** "Build the expression."
+- **Student Action:** Equation Builder Methods C or D.
+	- Validation: Expression must be `3 × 4`
+- **Correct Answer:** 3 × 4
+- **On Correct:** "You built it—3 times 4."
+- **Remediation:** Pipeline
 ---
-
-**Problem EC.1: Symbol Count Calculation (IDENTIFY)**
-
-- **Visual: Data Tables (Numeric Display).** "Favorite Drinks" — Juice=25, Milk=15, Water=30, Lemonade=20. 4 categories. Horizontal Data Table.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Empty template (no columns filled yet). Key visible: "Each ⭐ = 5."
-- **Guide:** "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?"
-- **Prompt:** "How many symbols do you need for 25?"
-- **Student Action:** \[Multiple choice: 4, 5, 25, 30\]
-- **Correct Answer:** 5
-- **Answer Rationale:**
-  - 5 = Correct (count by 5s: 5, 10, 15, 20, 25 — that's 5 fives)
-  - 4 = Counting error (stopped early)
-  - 25 = Error: Used value as symbol count (Misconception #1)
-  - 30 = Error: Added 25+5 (Misconception #2)
-- **On Correct:** "5 symbols. Count by 5s: 5, 10, 15, 20, 25."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.3-1.5 (using skip-counting to determine symbol count).
-
+### Problem EC.2: Identify Visual for Expression
+- **Purpose:** Verify IDENTIFY ability (reverse direction).
+- **Visual: Equation Builder (expression mode) + Context Visualizations (×3 options).** Expression `4 × 2` displayed. Three visual options with different group structures.
+- **Guide:** "Which picture matches this expression?"
+- **Prompt:** "Select the picture that shows 4 times 2."
+- **Student Action:** Multiple Choice selection (click visual).
+	- **Options:** A: 4 bags of 2 ✓, B: 2 bags of 4 (reversal), C: 6 items scattered (sum of factors)
+- **Correct Answer:** A
+- **On Correct:** "That's right—4 groups with 2 in each."
+- **Remediation:** Pipeline
 ---
-
-**Problem EC.2: Create Picture Graph (CREATE)**
-
-- **Visual: Data Tables (Numeric Display).** Same "Favorite Drinks" data visible.
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. 2 of 4 columns pre-filled: Juice=5 symbols (from EC.1 discussion), Lemonade=4 symbols. Milk and Water columns empty. Key visible: "Each ⭐ = 5."
-- **Guide:** "Complete the rest of the graph."
-- **Prompt:** "Set the heights for Milk and Water."
-- **Student Action:** Hover over columns to preview, click to set Milk=3 symbols (15), Water=6 symbols (30)
-- **Correct Answer:** Milk=3, Water=6
-- **On Correct:** "You built the graph. Each symbol represents 5."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.4-1.5 and 3.1-3.2 (creating picture graph from data table).
-
+### Problem EC.3: Build Expression from Circles
+- **Purpose:** Verify CREATE ability with semi-abstract context.
+- **Visual: Context Visualizations (Mode 2) + Equation Builder (Methods C/D).** Semi-abstract context (circles with dots). 5 circles with 3 dots each. Tile palette shows 3, 5, 7, 8, 10, 12, 15, 18. \[CREATE\] designation.
+- **Guide:** "Build the expression for the circles."
+- **Prompt:** "Build the expression."
+- **Student Action:** Equation Builder Methods C or D.
+	- Validation: Expression must be `5 × 3`
+- **Correct Answer:** 5 × 3
+- **On Correct:** "Nice—5 times 3."
+- **Remediation:** Pipeline
 ---
-
-**Problem EC.3: Read Total Value (IDENTIFY)**
-
-- **Visual: Picture Graphs (Mode 2: Creating).** Vertical. Completed "Favorite Drinks" graph: Juice=5 symbols, Milk=3 symbols, Water=6 symbols, Lemonade=4 symbols. Data Table NOT visible.
-- **Guide:** "Look at the completed graph. How many students chose Water?"
-- **Prompt:** "How many students chose Water?"
-- **Student Action:** \[Multiple choice: 6, 25, 30, 35\]
-- **Correct Answer:** 30
-- **Answer Rationale:**
-  - 30 = Correct (6 symbols, count by 5s: 5, 10, 15, 20, 25, 30)
-  - 6 = Error: Counted symbols only (Misconception #1)
-  - 25 = Misread (Juice's value)
-  - 35 = Calculation error
-- **On Correct:** "30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30."
-- **On Incorrect:** \[Remediation Pipeline\]
-
-**Alignment:** Tests same skill as Lesson 1.6 and 2.1-2.2 (reading values from scaled graphs).
-
+## 1.8.5 PRACTICE PHASE INPUTS
+> **Design Note:** Practice for M8 is generated via a separate Practice Pipeline using the Exit Check items and lesson content as inputs. No authored practice interactions are included in this Starter Pack. Practice will target fluency in tile construction (Methods C/D) and bidirectional understanding (Visual ↔ Expression) before students reach Synthesis.
 ---
-
-### **Exit Check Closure**
-
-- **Visual:** Completed graph remains briefly.
-- **Guide:** "You understand scale of 5. Let's connect what you learned."
-
-**Voice Note:** Brief transition to Synthesis. No overpraise.
-
----
-
-### **Verification Checklist**
-
-**Structure:**
-
-- [ ] Exactly 3 problems
-- [ ] Transition references Lesson content with low-stakes framing
-- [ ] Closure statement present (brief, no overpraise)
-- [ ] Total time 3-4 minutes
-
-**Alignment:**
-
-- [ ] EC.1 tests symbol calculation via skip-counting (Lesson Section 1)
-- [ ] EC.2 tests graph creation from data table (Lesson Sections 1 and 3)
-- [ ] EC.3 tests reading scaled graph values (Lesson Sections 1 and 2)
-
-**Constraints:**
-
-- [ ] Uses picture graphs only (bar graphs assessed in M4)
-- [ ] Uses numeric Data Table (matches Lesson)
-- [ ] Uses vertical orientation (primary Lesson orientation)
-- [ ] All values are multiples of 5 (no half-symbols)
-- [ ] Values in 10-40 range
-- [ ] IDENTIFY and CREATE only (no COMPARE per Modules 1-3 guidance)
-- [ ] Difficulty matches Lesson
-- [ ] No new visual models or formats introduced
-- [ ] Interaction is click-to-height (not drag)

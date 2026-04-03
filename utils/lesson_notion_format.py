@@ -166,6 +166,21 @@ def _render_scene(beat: dict) -> list[dict]:
     params = beat.get("params", {})
     description = params.get("description", "").strip() if params else ""
 
+    if method == "update":
+        skip = {"description"}
+        changed = {k: v for k, v in (params or {}).items() if k not in skip}
+        if changed:
+            params_str = ", ".join(f"{k}: {v}" for k, v in changed.items())
+            fields_part = f" [{params_str}]"
+        else:
+            fields_part = ""
+
+        if description:
+            text = description
+        else:
+            text = f"Update {tid}{fields_part}" if fields_part else f"Update {tid}"
+        return [_callout(text, "🎬")]
+
     if method == "show":
         action = f"Show {tid}"
     elif method == "hide":
@@ -176,12 +191,6 @@ def _render_scene(beat: dict) -> list[dict]:
         action = f"Lock {tid}"
     elif method == "unlock":
         action = f"Unlock {tid}"
-    elif method == "update":
-        cats = params.get("highlight_categories", []) if params else []
-        if cats:
-            action = f"Highlight {', '.join(str(c) for c in cats)} on {tid}"
-        else:
-            action = f"Update {tid}"
     elif method == "animate":
         action = f"Animate {tid}"
     elif method == "add":

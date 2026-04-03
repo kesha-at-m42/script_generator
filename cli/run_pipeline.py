@@ -61,6 +61,11 @@ Examples:
         help="Enable interactive mode (step-by-step confirmation)",
     )
     parser.add_argument(
+        "--end-at",
+        type=str,
+        help="Stop after this step (step number or step name, e.g. glossary_drift_checker)",
+    )
+    parser.add_argument(
         "--batch-ids",
         type=str,
         help='Only run these batch IDs (comma-separated, e.g., "1,3,5" or "template_001,template_003")',
@@ -69,6 +74,11 @@ Examples:
         "--skip-batch-ids",
         type=str,
         help='Skip these batch IDs (comma-separated, e.g., "2,4" or "template_002,template_004")',
+    )
+    parser.add_argument(
+        "-y", "--yes",
+        action="store_true",
+        help="Skip all confirmation prompts (non-interactive run)",
     )
 
     args = parser.parse_args()
@@ -128,13 +138,13 @@ Examples:
 
     # Get path letter
     path_letter = args.path
-    if path_letter is None and module_number:
+    if path_letter is None and module_number and not args.yes:
         path_input = input("Path letter (a/b/c or Enter to skip): ").strip().lower()
         path_letter = path_input if path_input in ["a", "b", "c"] else None
 
     # Get interactive mode preference
     interactive = args.interactive
-    if not interactive:
+    if not interactive and not args.yes:
         interactive_input = (
             input("Enable interactive mode (step-by-step confirmation)? (y/n): ").strip().lower()
         )
@@ -166,6 +176,10 @@ Examples:
             print(f"Batch filter (skip): {', '.join(batch_skip_items)}")
         print(f"Interactive mode: {'enabled' if interactive else 'disabled'}")
 
+        end_at = args.end_at
+        if end_at and end_at.isdigit():
+            end_at = int(end_at)
+
         results = run_pipeline_from_config(
             steps_config=list(PIPELINES[pipeline_name]),
             pipeline_name=pipeline_name,
@@ -175,6 +189,7 @@ Examples:
             verbose=True,
             interactive=interactive,
             rerun_items=batch_only_items,
+            end_at_step=end_at,
         )
 
         print("\n" + "=" * 70)
