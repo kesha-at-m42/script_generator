@@ -403,8 +403,9 @@ def _smart_sync_children(client: Client, parent_id: str, new_children: list[dict
 
     - Skeleton matches: positional update-in-place.  Each beat's Notion block ID
       (and any reviewer comments on it) is preserved; only changed text is
-      patched via blocks.update.  Toggle children (current_scene snapshots,
-      validator states) are always refreshed wholesale.
+      patched via blocks.update.  Toggle children (validator states, current_scene
+      snapshots) recurse into _smart_sync_children so comments inside them also
+      survive re-push when their structure is unchanged.
     - Skeleton differs: fall back to _refresh_children (archive all, re-append).
       This handles structural edits (added/removed beats, reordered steps) and
       also recovers from previously scrambled Notion pages where prior syncs left
@@ -428,7 +429,10 @@ def _smart_sync_children(client: Client, parent_id: str, new_children: list[dict
             _update_block_content(client, eb["id"], nb)
 
         if nb_children is not None:
-            _refresh_children(client, eb["id"], nb_children)
+            if btype == "toggle":
+                _smart_sync_children(client, eb["id"], nb_children)
+            else:
+                _refresh_children(client, eb["id"], nb_children)
         elif eb.get("has_children"):
             # New version has no children here — clear existing ones
             for child in _all_blocks(client, eb["id"]):
@@ -469,13 +473,18 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
 
     # Pre-parse existing heading_2 blocks with their section sort keys.
     # Used to find the correct sorted insertion point for new sections.
+    # Only pre-existing h2s are valid sort anchors — newly inserted ones must not
+    # be used, because blocks inserted after them in the same sync run (dividers)
+    # would end up in the wrong position.
     existing_h2s: list[tuple[dict, tuple]] = []
+    pre_existing_h2_ids: set[str] = set()
     for block in existing:
         if block.get("type") == "heading_2":
             rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
             m = re.search(r"\[([^\]]+)\]\s*$", rt)
             if m:
                 existing_h2s.append((block, _section_sort_key(m.group(1))))
+                pre_existing_h2_ids.add(block["id"])
 
     for new_block in new_blocks:
         btype = new_block["type"]
@@ -525,7 +534,10 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
                     for h2_block, h2_key in existing_h2s:
                         if h2_key < new_key:
                             after_h2 = h2_block
-                    after_id = after_h2["id"] if after_h2 is not None else (anchor_id or last_id)
+                    if after_h2 is not None and after_h2["id"] in pre_existing_h2_ids:
+                        after_id = after_h2["id"]
+                    else:
+                        after_id = anchor_id or last_id
 
             kwargs: dict = {"children": [new_block]}
             if after_id is not None:

@@ -40,3 +40,36 @@ Every batch item gets a `validation_errors.json` entry. Two causes:
 **Benefit:** Comments survive re-push even when beats are added or removed from a section.
 
 **Implementation plan:** `C:\Users\kesha\.claude\plans\delightful-wibbling-sutherland.md` — full step-by-step with exact code for `_strip_meta`, the updated `_smart_sync_children`, embedding `_notion_block_id` in `_render_beat`, and a new live test.
+
+---
+
+## Interactive walkthrough test: open items from last run
+
+**Status:** `tests/test_notion_interactive.py` — Journeys 1–4 passed. Journey 5 partially passed. Journey 6 failed.
+
+### Journey 5 — Pull gaps
+
+The pull ran after user edits in Notion. Only the s1_1 dialogue edit was captured. The s1_1 scene description edit (should have flagged `scene_description_updated`) and the s1_3 prompt text edit were not reflected in the pull output.
+
+**Possible causes:**
+- Notion API propagation delay: edits weren't flushed to API yet when the pull ran
+- User edited the wrong callout (e.g. wrong section or non-editable block)
+- The scene description comparison in `_scene_rendered_text` returned the edited text as a false-positive match (unlikely, but worth verifying)
+
+**To investigate:** Re-run Journey 5 alone; add explicit assertion for all 3 edits; add a short wait after pressing Enter before pulling.
+
+### Journey 6 — `[new beat]` detection failed (0 suggested beats)
+
+The test instructs the user to add a `[new beat] Let's take a moment to reflect.` callout with emoji 💬 inside the s1_3 toggle in Notion. The pull returned 0 suggested beats.
+
+**Most likely cause:** The callout was added at the page level (outside the s1_3 toggle) rather than as a child of the heading toggle. `_section_callouts_from_blocks` only reads `heading_2.children`, so page-level callouts are invisible to the pull.
+
+**Secondary cause:** The callout emoji wasn't set to 💬 (Notion default is something else; user needs to explicitly pick 💬).
+
+**Workaround for next run:** Instruct the user more explicitly — expand the toggle first, click inside it, then add the callout. Add a reminder that the emoji must be 💬.
+
+**Code fix to consider:** Add a note in the test instructions print to clarify placement. No code bug confirmed yet.
+
+### J4 double-divider visual
+
+Each section renders as `[divider][heading]`. Inserting s1_2b between s1_2 and s1_3 gives two visible dividers in that gap. Cosmetic only — could be fixed by moving dividers to be "between" sections rather than "before" each one, but requires a renderer change.

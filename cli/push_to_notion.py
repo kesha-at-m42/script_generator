@@ -165,21 +165,35 @@ def _pull(file_path: Path, new_version: bool = False) -> None:
     out_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"[OK] Saved to {out_path.relative_to(project_root)}")
 
+    blocks_path = out_path.parent / "notion_blocks.json"
+    blocks_path.write_text(json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"[OK] Notion blocks saved to {blocks_path.relative_to(project_root)}")
+
     flags_path = out_path.parent / "notion_flags.json"
     if flags:
         flags_path.write_text(
             json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )
-        print(f"\n[FLAGS] {len(flags)} scene description(s) changed — manual config update needed:")
+        print(f"\n[FLAGS] {len(flags)} issue(s) flagged:")
         for f in flags:
-            print(f"  [{f['section_id']}] {f['method']} {f['tangible_id']}")
-            print(f"    was:   {f['original_description']}")
-            print(f"    now:   {f['notion_description']}")
+            ftype = f.get("flag_type", "")
+            if ftype == "scene_description_updated":
+                print(f"  [scene_description_updated] [{f['section_id']}] {f['method']} {f['tangible_id']}")
+                print(f"    was:   {f['original_description']}")
+                print(f"    now:   {f['notion_description']}")
+            elif ftype == "options_parse_failed":
+                print(f"  [options_parse_failed] [{f['section_id']}] beat {f['beat_id']} — {f['message']}")
+                if f.get("original_options"):
+                    print(f"    source: {f['original_options']}")
+                if f.get("notion_options_text"):
+                    print(f"    notion: {f['notion_options_text']}")
+            else:
+                print(f"  {f}")
         print(f"\n  Saved to: {flags_path.relative_to(project_root)}")
     else:
         if flags_path.exists():
             flags_path.unlink()
-        print("[OK] No scene description changes flagged.")
+        print("[OK] No flags.")
 
 
 if __name__ == "__main__":
