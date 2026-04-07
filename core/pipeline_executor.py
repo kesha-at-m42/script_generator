@@ -177,4 +177,18 @@ def run_formatting_step(
     if verbose:
         print("  [OK] Formatting complete")
 
+    # Validate that IDs are present on all beats if result looks like a sections list
+    try:
+        from utils.validators.section_id_validator import validate_section_ids
+
+        violations = validate_section_ids(result)
+        if violations:
+            msg = "\n  ".join(violations)
+            raise RuntimeError(
+                f"[ID VALIDATOR] Formatting step '{step.function}' returned sections "
+                f"with missing or unconverted IDs:\n  {msg}"
+            )
+    except ImportError:
+        pass
+
     return result

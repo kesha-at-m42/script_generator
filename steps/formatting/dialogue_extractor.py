@@ -8,7 +8,7 @@ This makes extraction deterministic so the AI never needs to traverse the
 section JSON itself — it only rewrites the pre-extracted list.
 
 Context labels:
-  "lesson"     — regular dialogue beat in section steps
+  "lesson"     — regular dialogue beat in section beats
   "on_correct" — dialogue beat inside an is_correct: true validator state
 
 Output per section:
@@ -18,35 +18,30 @@ Output per section:
       {"text": "...", "context": "lesson"},
       {"text": "...", "context": "on_correct"},
       ...
-    ],
-    "section": { ...original section JSON... }
+    ]
   }
 """
 
-import copy
 
-
-def _extract(steps, in_correct_state=False):
-    beats = []
-    for step_group in steps:
-        for beat in step_group:
-            if beat.get("type") == "dialogue":
-                context = "on_correct" if in_correct_state else "lesson"
-                beats.append({"text": beat["text"], "context": context})
-            elif beat.get("type") == "prompt":
-                for state in beat.get("validator", []):
-                    if state.get("is_correct"):
-                        beats.extend(_extract(state.get("steps", []), in_correct_state=True))
-    return beats
+def _extract(beats, in_correct_state=False):
+    result = []
+    for beat in beats:
+        if beat.get("type") == "dialogue":
+            context = "on_correct" if in_correct_state else "lesson"
+            result.append({"text": beat["text"], "context": context})
+        elif beat.get("type") == "prompt":
+            for state in beat.get("validator", []):
+                if state.get("is_correct"):
+                    result.extend(_extract(state.get("beats", []), in_correct_state=True))
+    return result
 
 
 def extract_dialogues(data, **_kwargs):
     """Extract dialogue beats with context labels from each section."""
-    result = []
-    for section in data:
-        result.append({
+    return [
+        {
             "id": section["id"],
-            "dialogues": _extract(section.get("steps", [])),
-            "section": copy.deepcopy(section),
-        })
-    return result
+            "dialogues": _extract(section.get("beats", [])),
+        }
+        for section in data
+    ]

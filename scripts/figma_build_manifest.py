@@ -13,7 +13,7 @@ load_dotenv()
 
 FIGMA_TOKEN = os.environ.get("FIGMA_TOKEN")
 FILE_KEY = "76SQoGqjxrmRLvtWT30ny3"
-NODE_ID = "11246-36751"  # Groupings section
+NODE_ID = "17936-124560"  # Arrays section
 
 
 def fetch_node(file_key, node_id):

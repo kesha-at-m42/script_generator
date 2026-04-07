@@ -27,15 +27,14 @@ def _merge_incorrects_into_section(section, incorrects):
     section = copy.deepcopy(section)
     queue = list(incorrects)  # one inner array per qualifying prompt, in order
 
-    for step_beats in section.get("steps", []):
-        for beat in step_beats:
-            if beat.get("type") != "prompt":
-                continue
-            validator = beat.get("validator", [])
-            if _is_ara(validator):
-                continue
-            if queue:
-                beat["validator"].extend(queue.pop(0))
+    for beat in section.get("beats", []):
+        if beat.get("type") != "prompt":
+            continue
+        validator = beat.get("validator", [])
+        if _is_ara(validator):
+            continue
+        if queue:
+            beat["validator"].extend(queue.pop(0))
 
     return section
 
@@ -47,13 +46,13 @@ def merge_remediation(data, output_file_path=None):
         data: collated output from remediation_generator (list of sections or
               {id, incorrects} dicts)
         output_file_path: path where this step's output will be saved; used to
-                          locate the original lesson_generator output from step 1
+                          locate the original sections from a prior step
     """
-    # Load original sections to reconstruct processed items.
-    # Walk prior step directories in reverse order and use the most recent one
-    # whose output is a sections array (list of objects with "id" and "steps").
+    from utils.pipeline_utils import find_prior_sections_file
+
     original_by_id = {}
     if output_file_path is not None:
+        # Skip at least 3 steps back to avoid picking up the filter output
         version_dir = Path(output_file_path).parent.parent
         own_step_num = int(Path(output_file_path).parent.name.split("_")[1])
 
@@ -72,7 +71,8 @@ def merge_remediation(data, output_file_path=None):
                         isinstance(candidate, list)
                         and candidate
                         and isinstance(candidate[0], dict)
-                        and "steps" in candidate[0]
+                        and "id" in candidate[0]
+                        and ("beats" in candidate[0] or "steps" in candidate[0])
                     ):
                         source_file = json_file
                         break
@@ -92,10 +92,14 @@ def merge_remediation(data, output_file_path=None):
             original = original_by_id.get(section_id)
             if original is None:
                 raise RuntimeError(
-                    f"remediation_merger: original section '{section_id}' not found in step 1 output"
+                    f"remediation_merger: original section '{section_id}' not found in prior steps"
                 )
             result.append(_merge_incorrects_into_section(original, item["incorrects"]))
         else:
             result.append(item)
 
-    return result
+    # Stamp IDs on any validator-state beats that remediation_generator left in
+    # legacy steps format (arrays-of-arrays). id_stamper is idempotent so this
+    # is safe even if beats were already stamped by an earlier pipeline step.
+    from steps.formatting.id_stamper import stamp_ids
+    return stamp_ids(result, output_file_path=output_file_path)

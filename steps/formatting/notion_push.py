@@ -12,10 +12,16 @@ Add this as the last step in a pipeline config:
 
 Skips silently if NOTION_API_KEY / NOTION_PARENT_PAGE_ID are not set or if
 notion-client is not installed.  Returns data unchanged.
+
+After a successful push the step also pulls Notion block IDs and writes
+``_notion_block_id`` back onto each beat in the source data file, enabling
+ID-based sync on subsequent pushes.
 """
 
 from __future__ import annotations
 
+import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -56,13 +62,44 @@ def push(
             title_parts.append(f"Path {path_letter.upper()}")
         title = " — ".join(title_parts)
 
+        reviewer_user_id = os.getenv("NOTION_REVIEWER_USER_ID")
+
         from utils.lesson_notion_format import lesson_to_blocks
 
         page_id = notion_sync.push_to_notion(
-            data=data, title=title, file_path=output_file_path, blocks_fn=lesson_to_blocks
+            data=data,
+            title=title,
+            file_path=output_file_path,
+            blocks_fn=lambda d: lesson_to_blocks(d, reviewer_user_id=reviewer_user_id),
         )
         url = notion_sync.get_page_url(page_id)
         print(f"\n  [NOTION] Pushed -> {url}")
+
+        # Tag beats with Notion block IDs and write back to the source sections file
+        if isinstance(data, list) and output_file_path is not None:
+            try:
+                from utils.pipeline_utils import find_prior_sections_file
+
+                source_file = find_prior_sections_file(Path(output_file_path))
+                if source_file is not None:
+                    source_content = json.loads(source_file.read_text(encoding="utf-8"))
+                    client = notion_sync.get_notion_client()
+                    tagged = notion_sync.tag_notion_ids(client, page_id, source_content)
+                    source_file.write_text(
+                        json.dumps(tagged, indent=2, ensure_ascii=False) + "\n",
+                        encoding="utf-8",
+                    )
+                    n_beats = sum(
+                        1
+                        for s in tagged
+                        if isinstance(s, dict)
+                        for b in s.get("beats", [])
+                        if b.get("_notion_block_id")
+                    )
+                    print(f"  [NOTION] Tagged {n_beats} beats → {source_file.name}")
+            except Exception as exc:
+                print(f"  [NOTION] Tag-back failed (non-fatal): {exc}")
+
         return {"notion_url": url}
 
     except Exception as exc:

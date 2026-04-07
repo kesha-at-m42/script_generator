@@ -7,11 +7,10 @@ full section objects, replacing dialogue beat texts positionally.
 Input: collated output from dialogue_rewriter step — an array of:
   {"id": "...", "dialogues": ["text 0", "text 1", ...]}
 
-Traversal order (must match dialogue_rewriter):
-  for each step_group in section.steps:
-    for each beat in step_group:
-      if type == "dialogue": replace text
-      if type == "prompt": recurse into each validator state's steps
+Traversal order (must match dialogue_rewriter / dialogue_extractor):
+  for each beat in section.beats:
+    if type == "dialogue": replace text
+    if type == "prompt": recurse into each is_correct validator state's beats
 
 Output: complete sections array with dialogue texts replaced.
 """
@@ -21,34 +20,32 @@ import json
 from pathlib import Path
 
 
-def _count_dialogues(steps):
-    """Count dialogue beats in steps using the same traversal as the rewriter."""
+def _count_dialogues(beats):
     count = 0
-    for step_group in steps:
-        for beat in step_group:
-            if beat.get("type") == "dialogue":
-                count += 1
-            elif beat.get("type") == "prompt":
-                for state in beat.get("validator", []):
-                    count += _count_dialogues(state.get("steps", []))
+    for beat in beats:
+        if beat.get("type") == "dialogue":
+            count += 1
+        elif beat.get("type") == "prompt":
+            for state in beat.get("validator", []):
+                if state.get("is_correct"):
+                    count += _count_dialogues(state.get("beats", []))
     return count
 
 
-def _walk_and_replace(steps, texts, idx):
-    """Walk steps depth-first, replacing dialogue texts from the texts list."""
-    for step_group in steps:
-        for beat in step_group:
-            if beat.get("type") == "dialogue":
-                beat["text"] = texts[idx[0]]
-                idx[0] += 1
-            elif beat.get("type") == "prompt":
-                for state in beat.get("validator", []):
-                    _walk_and_replace(state.get("steps", []), texts, idx)
+def _walk_and_replace(beats, texts, idx):
+    for beat in beats:
+        if beat.get("type") == "dialogue":
+            beat["text"] = texts[idx[0]]
+            idx[0] += 1
+        elif beat.get("type") == "prompt":
+            for state in beat.get("validator", []):
+                if state.get("is_correct"):
+                    _walk_and_replace(state.get("beats", []), texts, idx)
 
 
 def _replace_dialogues(section, new_texts):
     """Return a deep copy of section with all dialogue texts replaced positionally."""
-    expected = _count_dialogues(section.get("steps", []))
+    expected = _count_dialogues(section.get("beats", []))
     if len(new_texts) != expected:
         raise RuntimeError(
             f"dialogue_merger: section '{section.get('id')}' has {expected} dialogue beats "
@@ -56,7 +53,7 @@ def _replace_dialogues(section, new_texts):
         )
     section = copy.deepcopy(section)
     idx = [0]
-    _walk_and_replace(section.get("steps", []), new_texts, idx)
+    _walk_and_replace(section.get("beats", []), new_texts, idx)
     return section
 
 
@@ -66,19 +63,18 @@ def merge_dialogues(data, output_file_path=None):
     Args:
         data: collated output from dialogue_rewriter — list of {id, dialogues} dicts
         output_file_path: path where this step's output will be saved; used to
-                          locate the original lesson_generator output from step 1
+                          locate the id-stamped sections from earlier in the pipeline
     """
+    from steps.formatting.id_stamper import stamp_ids
+    from utils.pipeline_utils import find_prior_sections_file
+
     original_by_id = {}
     if output_file_path is not None:
-        version_dir = Path(output_file_path).parent.parent
-        # Originals are the lesson_generator (section_structurer) output — step 4
-        for step4_dir in sorted(version_dir.glob("step_04_*")):
-            step_name = step4_dir.name.split("_", 2)[2]
-            lesson_file = step4_dir / f"{step_name}.json"
-            if lesson_file.exists():
-                originals = json.loads(lesson_file.read_text(encoding="utf-8"))
-                original_by_id = {s["id"]: s for s in originals}
-                break
+        source_file = find_prior_sections_file(Path(output_file_path))
+        if source_file is not None:
+            originals = json.loads(source_file.read_text(encoding="utf-8"))
+            originals = stamp_ids(originals)
+            original_by_id = {s["id"]: s for s in originals}
 
     result = []
     for item in data:
@@ -87,7 +83,7 @@ def merge_dialogues(data, output_file_path=None):
             original = original_by_id.get(section_id)
             if original is None:
                 raise RuntimeError(
-                    f"dialogue_merger: original section '{section_id}' not found in step 1 output"
+                    f"dialogue_merger: original section '{section_id}' not found in prior steps"
                 )
             result.append(_replace_dialogues(original, item["dialogues"]))
         else:

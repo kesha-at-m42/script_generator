@@ -312,27 +312,42 @@ Controls whether the array is presented as a multiplication or division context.
 
 - UX to provide interaction visual/video
 
-**Description:** Student specifies array dimensions and system builds the array.
+**Description:** Student constructs an array by setting its dimensions using on-screen controls. The array updates live as the student adds rows/columns or items.
 
 **Interaction:**
 
 1. **Student receives prompt** (e.g., "Make an array with 20 items")
-2. **Student chooses interpretation:** "Rows" or "Columns"
-3. **Student specifies structure:**
-    - "Making  ***rows of*** " (e.g., 4 rows of 5)
-    - OR "Making  ***columns of*** " (e.g., 5 columns of 4)
-4. **System builds array** based on specification
+2. **Student chooses build orientation:** Rows or Columns — determines which control panel toy appears
+3. **Student sets dimensions** using the control panel toy:
+    - Row orientation: set number of rows and items per row (e.g., 4 rows of 5)
+    - Column orientation: set number of columns and items per column (e.g., 5 columns of 4)
+4. **Array updates on screen** to reflect current dimensions as student taps controls
 5. **Student writes matching expression** using Equation Builder
-6. **System validates:** Language matches expression?
+6. **System validates:** Equation matches the array dimensions and chosen orientation
 
 **Variations:**
 
 - **Given total, student chooses structure:** "Make an array with 20 items" → Student decides 4×5, 5×4, 2×10, etc.
-- **Given partial structure:** "Make 3 rows of ___" → Student completes specification
+- **Given partial structure:** "Make 3 rows of ___" → Student completes the dimensions
 
 **Purpose:** Active construction; connect language to structure; practice translating between verbal description and visual array.
 
-**Note:** Student specifies STRUCTURE; system generates the visual. NOT dragging individual dots.
+**Note:** Student sets dimensions via controls — the system renders the array. NOT dragging individual dots.
+
+**Toys on screen:**
+
+| Toy | Role | When shown |
+|---|---|---|
+| `arrays` | Array grid workspace | Always present in build mode |
+| `row_builder` | Row control panel | When build orientation is rows |
+| `column_builder` | Column control panel | When build orientation is columns |
+
+**Tools by toy:**
+
+| Toy | Available tools |
+|---|---|
+| `row_builder` | `add_row`, `add_item_per_row`, or `add_row_and_item_per_row` (both active) |
+| `column_builder` | `add_column`, `add_item_per_column`, or `add_column_and_item_per_column` (both active) |
 
 ### Unit 4: Identify Division Equation from Array
 

@@ -77,7 +77,7 @@ u3_m4_exitcheck
 {
   "id": "s1_1_most_votes",
   "type": "remediation",
-  "steps": [ [...], [...] ]
+  "beats": [ ... ]
 }
 ```
 
@@ -85,9 +85,31 @@ u3_m4_exitcheck
 |---|---|---|---|
 | `id` | string | yes | Unique section ID. See [Naming Conventions](#section-id-naming-conventions). |
 | `type` | string | no | `"transition"` or `"remediation"`. Omit for normal sections. |
-| `steps` | array[] | yes | Array of steps; each step is an array of beats |
+| `beats` | array | yes | Flat array of all beats in this section |
 
-Every section begins with an empty screen. There is no carry-over from the previous section. Everything visible must be explicitly put on screen by `scene` beats in the first step.
+Every section begins with an empty screen. There is no carry-over from the previous section. Everything visible must be explicitly put on screen by `scene` beats before it appears.
+
+### Step Groups
+
+Beats are flat, but are logically grouped into **step groups** — a group of beats that play together before the lesson pauses for student interaction. Step groups are delimited by `current_scene` beats: a new step group begins after each `current_scene`.
+
+Beat order within a step group:
+
+1. **`scene`** — things appear or change on screen
+2. **`dialogue`** — the guide speaks
+3. **`prompt`** — student interacts (at most one per step group)
+4. **`current_scene`** — snapshot of the screen after all beats have played (always last in a step group)
+
+```json
+"beats": [
+  { "type": "scene", "method": "show", "tangible_id": "pg_fruits" },
+  { "type": "dialogue", "text": "You made a graph with your Minis' votes." },
+  { "type": "prompt", "text": "Which fruit got the most votes? Click it.", "tool": "click_category", "target": "pg_fruits", "validator": [...] },
+  { "type": "current_scene", "elements": [...] },
+  { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
+  { "type": "current_scene", "elements": [...] }
+]
+```
 
 ### Section ID Naming Conventions
 
@@ -109,26 +131,6 @@ s{group}_transition                →  s2_transition
 - Section IDs are **sequential**: `{group}` and `{seq}` reflect the order sections appear in the phase
 - Some sections are **misconception specific**: written to address a known error pattern
   rather than advancing the main concept sequence
-
----
-
-## Steps
-
-`steps` is an **array of arrays**. Each inner array is one step, a group of beats that play together before the lesson pauses for student interaction.
-
-```json
-"steps": [
-  [beat, beat, beat],   // step 1: scene setup + dialogue + prompt
-  [beat, beat]          // step 2: follow-up after correct answer
-]
-```
-
-Beats within a step follow this order:
-
-1. **`scene`** — things appear or change on screen
-2. **`dialogue`** — the guide speaks
-3. **`prompt`** — student interacts (at most one per step)
-4. **`current_scene`** — snapshot of the screen after all beats have played (always last)
 
 ---
 
@@ -357,7 +359,7 @@ Student interaction point. Text is editable in Notion (❔ callout).
 
 ### current_scene
 
-Always the last beat in every step, and the last beat in every validator state's inner step. It is a pure derived snapshot: it reflects only what `scene` beats have established. Within a section, tangibles carry forward step to step — a tangible stays on screen until a `scene` beat removes or hides it. `current_scene` never introduces new tangibles or state that no `scene` beat has declared.
+Always the last beat in every step group. It is a pure derived snapshot: it reflects only what `scene` beats have established. Within a section, tangibles carry forward step to step — a tangible stays on screen until a `scene` beat removes or hides it. `current_scene` never introduces new tangibles or state that no `scene` beat has declared.
 
 ```json
 {
@@ -381,7 +383,7 @@ If the screen is empty, write `"elements": []`.
 
 ## Validator
 
-A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `steps`, beats that play when the state matches.
+A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `beats`, which play when the state matches.
 
 Every state must include `is_correct: true` or `is_correct: false`. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
 
@@ -391,51 +393,43 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "condition": { "selected": "Apples" },
     "description": "Student selected Apples",
     "is_correct": true,
-    "steps": [
-      [
-        { "type": "scene", "method": "animate", "tangible_id": "pg_fruits",
-          "params": { "event": "highlight_category", "status": "confirmed",
-                      "description": "Apples row highlights to confirm selection", "category": "Apples" } },
-        { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
-        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
-      ]
+    "beats": [
+      { "type": "scene", "method": "animate", "tangible_id": "pg_fruits",
+        "params": { "event": "highlight_category", "status": "confirmed",
+                    "description": "Apples row highlights to confirm selection", "category": "Apples" } },
+      { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": { "incorrect_count": 1 },
     "description": "Student selected any wrong answer on first attempt",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" },
-        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Picture graph unchanged.", "tangible_type": "picture_graph" } ] }
-      ]
+    "beats": [
+      { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Picture graph unchanged.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": { "incorrect_count": 2 },
     "description": "Student selected any wrong answer on second attempt",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
-        { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" },
-        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
-      ]
+    "beats": [
+      { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+        "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+      { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": {},
     "description": "Catch-all: any remaining state",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
-        { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." },
-        { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
-      ]
+    "beats": [
+      { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+        "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+      { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   }
 ]
@@ -446,7 +440,7 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 | `condition` | object | Matching condition. Multiple keys implicitly ANDed. Use `or`/`and` arrays for explicit logic. |
 | `description` | string | Precise plain-English description of exactly what student state this condition captures. |
 | `is_correct` | boolean | **Required.** `true` if this state represents a correct student response, `false` otherwise. |
-| `steps` | array[] | Inline beats to play when this state matches. Same structure as section `steps`. |
+| `beats` | array | Flat array of beats to play when this state matches. Same structure as section `beats`. |
 
 ### Condition Parameters
 
@@ -503,7 +497,7 @@ Remediation is inline. Feedback beats live directly in validator states, not in 
 | `incorrect_count: 2` | Medium: partial reveal, show the key data, let the student conclude |
 | catch-all `{}` | Heavy: full scaffold, state the answer explicitly, prompt to confirm |
 
-Each state's `steps` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
+Each state's `beats` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
 
 ---
 

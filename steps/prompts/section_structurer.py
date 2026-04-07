@@ -73,22 +73,22 @@ Include all required phrases from <input>. Avoid all forbidden phrases.
 
 ---
 
-## WHAT IS A STEP
+## WHAT IS A STEP GROUP
 
-A step contains at most one prompt beat and at most one dialogue beat.
+A step group contains at most one prompt beat and at most one dialogue beat, and always ends with `current_scene`.
 
 **Scene beats group with the dialogue they are tied to.** A scene beat either sets up the visual before the guide speaks, or fires immediately after the dialogue as the guide's words take visual effect on screen. Group them accordingly.
 
-Valid step compositions (scene beats may appear before dialogue, after dialogue, or both):
+Valid step group compositions (scene beats may appear before dialogue, after dialogue, or both):
 - Scene beat(s) → Dialogue → `current_scene`
 - Scene beat(s) → Prompt → `current_scene`
 - Scene beat(s) → Dialogue → Scene beat(s) → `current_scene`
 - Scene beat(s) → Dialogue → Prompt → `current_scene`
 - Scene beat(s) → Dialogue → Scene beat(s) → Prompt → `current_scene`
 
-A `student_action` field that describes multiple interactions (e.g. "selects X, then presses button Y, then fills slot") means multiple steps — one step per interaction. Split them accordingly.
+A `student_action` field that describes multiple interactions (e.g. "selects X, then presses button Y, then fills slot") means multiple step groups — one per interaction. Each step group ends with `current_scene`.
 
-`current_scene` is always the last beat in every step.
+`current_scene` is always the last beat in every step group. All step groups are in the flat `beats` array — do not wrap them in a `steps` array.
 
 ---
 
@@ -97,14 +97,16 @@ A `student_action` field that describes multiple interactions (e.g. "selects X, 
 ```json
 {
   "id": "s{group}_{seq}_{slug}",
-  "steps": [ [...], [...] ]
+  "beats": [ ... ]
 }
 ```
 
 - `id`: copy verbatim from the input section's `id` field. Do not modify or re-derive it.
-- `steps`: array of arrays; each inner array is one step (do-together block ending when student input is required)
+- `beats`: flat array of all beats for the entire section. Do **not** nest beats inside steps — put everything in one flat list.
 
-Every section begins with an empty screen. Everything visible must be put on screen explicitly by `scene` beats in the first step. Nothing carries over from the previous section.
+Step groups are implicit: a new step begins after each `current_scene` beat. Every step group ends with a `current_scene` beat.
+
+Every section begins with an empty screen. Everything visible must be put on screen explicitly by `scene` beats in the first step group. Nothing carries over from the previous section.
 
 **Transition sections** use `"type": "transition"` on the section object.
 They have scene and dialogue beats. No prompts.
@@ -254,20 +256,18 @@ you generate.
     "condition": { "selected": "Apples" },
     "description": "Student clicked Apples, correct, 6 votes",
     "is_correct": true,
-    "steps": [
-      [
-        { "type": "scene", "method": "animate", "tangible_id": "picture_graph_fruits",
-          "params": { "event": "highlight_category", "status": "confirmed",
-                      "description": "Apples row highlights to confirm selection", "category": "Apples" } },
-        { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },
-        { "type": "current_scene", "elements": [ ... ] }
-      ]
+    "beats": [
+      { "type": "scene", "method": "animate", "tangible_id": "picture_graph_fruits",
+        "params": { "event": "highlight_category", "status": "confirmed",
+                    "description": "Apples row highlights to confirm selection", "category": "Apples" } },
+      { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },
+      { "type": "current_scene", "elements": [ ... ] }
     ]
   }
 ]
 ```
 
-Validator state `steps` follow the same beat ordering and also end with
+Validator state `beats` follow the same beat ordering and also end with
 `current_scene`. **Scene beats are allowed and expected in correct validator
 states whenever a visual change accompanies the feedback.**
 
@@ -320,49 +320,41 @@ The correct validator state of step 1 sets up the visual state for step 2
 begins with those scene changes already reflected.
 
 ```json
-"steps": [
-  [
-    { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
-      "params": { "highlight_categories": ["Yellow", "Red"] } },
-    { "type": "dialogue", "text": "Step 1: Find how many chose Yellow or Red in all." },
-    { "type": "prompt", "text": "How many liked Yellow or Red in all?",
-      "tool": { "name": "multiple_choice", "options": [5, 6, 11, 14] },
-      "validator": [
-        {
-          "condition": { "selected": 11 },
-          "description": "Student answered 11, correct",
-          "steps": [
-            [
-              { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." },
-              { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
-                "params": { "highlight_categories": ["Green"] } },
-              { "type": "current_scene", "elements": [ ... ] }
-            ]
-          ]
-        }
-      ]
-    },
-    { "type": "current_scene", "elements": [ ... ] }
-  ],
-  [
-    { "type": "dialogue", "text": "Step 2: Now compare that total to Green." },
-    { "type": "prompt", "text": "How many MORE is 11 than Green's 4?",
-      "tool": { "name": "multiple_choice", "options": [4, 7, 11, 15] },
-      "validator": [
-        {
-          "condition": { "selected": 7 },
-          "description": "Student answered 7, correct",
-          "steps": [
-            [
-              { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then subtracted to compare." },
-              { "type": "current_scene", "elements": [ ... ] }
-            ]
-          ]
-        }
-      ]
-    },
-    { "type": "current_scene", "elements": [ ... ] }
-  ]
+"beats": [
+  { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
+    "params": { "highlight_categories": ["Yellow", "Red"] } },
+  { "type": "dialogue", "text": "Step 1: Find how many chose Yellow or Red in all." },
+  { "type": "prompt", "text": "How many liked Yellow or Red in all?",
+    "tool": { "name": "multiple_choice", "options": [5, 6, 11, 14] },
+    "validator": [
+      {
+        "condition": { "selected": 11 },
+        "description": "Student answered 11, correct",
+        "beats": [
+          { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." },
+          { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
+            "params": { "highlight_categories": ["Green"] } },
+          { "type": "current_scene", "elements": [ ... ] }
+        ]
+      }
+    ]
+  },
+  { "type": "current_scene", "elements": [ ... ] },
+  { "type": "dialogue", "text": "Step 2: Now compare that total to Green." },
+  { "type": "prompt", "text": "How many MORE is 11 than Green's 4?",
+    "tool": { "name": "multiple_choice", "options": [4, 7, 11, 15] },
+    "validator": [
+      {
+        "condition": { "selected": 7 },
+        "description": "Student answered 7, correct",
+        "beats": [
+          { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then subtracted to compare." },
+          { "type": "current_scene", "elements": [ ... ] }
+        ]
+      }
+    ]
+  },
+  { "type": "current_scene", "elements": [ ... ] }
 ]
 ```
 
@@ -393,90 +385,85 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
     ],
     output_structure="""
 {
-    "id": "s1_1_most_votes",
-    "steps": [
-      [
+  "id": "s1_1_most_votes",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_fruits",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": ["Apples", "Bananas", "Oranges", "Grapes"],
+        "description": "Horizontal picture graph appears. Favorite Fruits data. Apples=6, Bananas=4, Oranges=5, Grapes=3. Key: each fruit symbol = 1 vote."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears alongside graph, showing same Favorite Fruits values."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now let's read some other graphs. Every part gives us information to READ. Look at this Favorite Fruits graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Click on the category that got the MOST votes.",
+      "tool": { "name": "click_category", "tangible_id": "picture_graph_fruits" },
+      "validator": [
         {
-          "type": "scene",
-          "method": "add",
-          "tangible_id": "picture_graph_fruits",
-          "tangible_type": "picture_graph",
-          "params": {
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": ["Apples", "Bananas", "Oranges", "Grapes"],
-            "description": "Horizontal picture graph appears. Favorite Fruits data. Apples=6, Bananas=4, Oranges=5, Grapes=3. Key: each fruit symbol = 1 vote."
-          }
-        },
-        {
-          "type": "scene",
-          "method": "add",
-          "tangible_id": "data_table",
-          "tangible_type": "data_table",
-          "params": {
-            "description": "Data table appears alongside graph, showing same Favorite Fruits values."
-          }
-        },
-        {
-          "type": "dialogue",
-          "text": "Now let's read some other graphs. Every part gives us information to READ. Look at this Favorite Fruits graph."
-        },
-        {
-          "type": "prompt",
-          "text": "Click on the category that got the MOST votes.",
-          "tool": { "name": "click_category", "tangible_id": "picture_graph_fruits" },
-          "validator": [
+          "condition": { "selected": "Apples" },
+          "description": "Student clicked Apples, correct, 6 votes",
+          "is_correct": true,
+          "beats": [
+            { "type": "dialogue", "text": "Apples got the most votes: 6." },
             {
-              "condition": { "selected": "Apples" },
-              "description": "Student clicked Apples, correct, 6 votes",
-              "is_correct": true,
-              "steps": [
-                [
-                  { "type": "dialogue", "text": "Apples got the most votes: 6." },
-                  {
-                    "type": "current_scene",
-                    "elements": [
-                      {
-                        "tangible_id": "picture_graph_fruits",
-                        "description": "Horizontal picture graph. Apples row highlighted. Favorite Fruits data.",
-                        "tangible_type": "picture_graph",
-                        "mode": "reading",
-                        "orientation": "horizontal",
-                        "categories": ["Apples", "Bananas", "Oranges", "Grapes"]
-                      },
-                      {
-                        "tangible_id": "data_table",
-                        "description": "Data table showing Favorite Fruits values.",
-                        "tangible_type": "data_table"
-                      }
-                    ]
-                  }
-                ]
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "picture_graph_fruits",
+                  "description": "Horizontal picture graph. Apples row highlighted. Favorite Fruits data.",
+                  "tangible_type": "picture_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": ["Apples", "Bananas", "Oranges", "Grapes"]
+                },
+                {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Favorite Fruits values.",
+                  "tangible_type": "data_table"
+                }
               ]
-            }
-          ]
-        },
-        {
-          "type": "current_scene",
-          "elements": [
-            {
-              "tangible_id": "picture_graph_fruits",
-              "description": "Horizontal picture graph in reading mode. Favorite Fruits data. click_category tool active.",
-              "tangible_type": "picture_graph",
-              "mode": "reading",
-              "orientation": "horizontal",
-              "categories": ["Apples", "Bananas", "Oranges", "Grapes"]
-            },
-            {
-              "tangible_id": "data_table",
-              "description": "Data table showing Favorite Fruits values alongside the graph.",
-              "tangible_type": "data_table"
             }
           ]
         }
       ]
-    ]
-  }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_fruits",
+          "description": "Horizontal picture graph in reading mode. Favorite Fruits data. click_category tool active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": ["Apples", "Bananas", "Oranges", "Grapes"]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Fruits values alongside the graph.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ]
 }
 """,
     prefill="{",

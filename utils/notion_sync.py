@@ -435,6 +435,17 @@ def _smart_sync_children(client: Client, parent_id: str, new_children: list[dict
                 client.blocks.update(child["id"], archived=True)
 
 
+def _section_sort_key(section_id: str) -> tuple:
+    """Return a sort key for a section ID so headings are ordered s1_1, s1_2, …, s1_a, s1_b, …"""
+    m = re.match(r"^s(\d+)_(\d+)([a-z]?)(?:_.*)?$", section_id)
+    if m:
+        return (int(m.group(1)), int(m.group(2)), m.group(3))
+    m2 = re.match(r"^s(\d+)_([a-z].+)$", section_id)
+    if m2:
+        return (int(m2.group(1)), float("inf"), m2.group(2))
+    return (0, 0, "")
+
+
 def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None:
     """Sync new_blocks into parent_id using forward content-matching.
 
@@ -442,7 +453,9 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
     - Match found: keep block in place (preserves ID and comments); archive any
       existing blocks skipped over.
     - No match: insert after the last matched/inserted block via Notion's
-      ``after=`` parameter.
+      ``after=`` parameter.  For heading_2 blocks (lesson sections), the insertion
+      point is determined by sorted section ID order so new sections land in the
+      correct position among existing ones.
 
     Heading blocks (section toggle headings) recurse into _smart_sync_children,
     which does positional in-place updates when the beat structure is unchanged
@@ -452,6 +465,17 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
     existing = _all_blocks(client, parent_id)
     ex_ptr = 0
     last_id: str | None = None  # ID anchor for `after=` insertions
+    anchor_id: str | None = None  # ID of the 💡 reviewer guide callout (stable first block)
+
+    # Pre-parse existing heading_2 blocks with their section sort keys.
+    # Used to find the correct sorted insertion point for new sections.
+    existing_h2s: list[tuple[dict, tuple]] = []
+    for block in existing:
+        if block.get("type") == "heading_2":
+            rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+            m = re.search(r"\[([^\]]+)\]\s*$", rt)
+            if m:
+                existing_h2s.append((block, _section_sort_key(m.group(1))))
 
     for new_block in new_blocks:
         btype = new_block["type"]
@@ -475,6 +499,11 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
             last_id = block_id
             ex_ptr = match_idx + 1
 
+            # Track the 💡 anchor callout so new sections can use it as fallback after=
+            if anchor_id is None and btype == "callout":
+                if bdata.get("icon", {}).get("emoji") == "💡":
+                    anchor_id = block_id
+
             if new_children is not None:
                 if btype in _HEADING_TYPES:
                     _smart_sync_children(client, block_id, new_children)
@@ -484,16 +513,108 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
                 for child in _all_blocks(client, block_id):
                     client.blocks.update(child["id"], archived=True)
         else:
-            # No match — insert after the last known block
+            # No match — determine insertion point
+            after_id = last_id
+            if btype == "heading_2":
+                # Find sorted position: insert after the last existing h2 whose key < new key
+                rt = _extract_rt(bdata.get("rich_text", []))
+                m = re.search(r"\[([^\]]+)\]\s*$", rt)
+                if m:
+                    new_key = _section_sort_key(m.group(1))
+                    after_h2: dict | None = None
+                    for h2_block, h2_key in existing_h2s:
+                        if h2_key < new_key:
+                            after_h2 = h2_block
+                    after_id = after_h2["id"] if after_h2 is not None else (anchor_id or last_id)
+
             kwargs: dict = {"children": [new_block]}
-            if last_id is not None:
-                kwargs["after"] = last_id
+            if after_id is not None:
+                kwargs["after"] = after_id
             resp = client.blocks.children.append(parent_id, **kwargs)
-            last_id = resp["results"][0]["id"]
+            inserted_id = resp["results"][0]["id"]
+            last_id = inserted_id
+
+            # Register the newly inserted h2 so subsequent insertions sort correctly
+            if btype == "heading_2":
+                rt = _extract_rt(bdata.get("rich_text", []))
+                m = re.search(r"\[([^\]]+)\]\s*$", rt)
+                if m:
+                    new_key = _section_sort_key(m.group(1))
+                    insert_at = len(existing_h2s)
+                    for i, (_, k) in enumerate(existing_h2s):
+                        if k > new_key:
+                            insert_at = i
+                            break
+                    existing_h2s.insert(insert_at, ({"id": inserted_id, "type": "heading_2"}, new_key))
 
     # Archive remaining unmatched existing blocks
     for leftover in existing[ex_ptr:]:
         client.blocks.update(leftover["id"], archived=True)
+
+
+# ---------------------------------------------------------------------------
+# Notion block ID tag-back
+# ---------------------------------------------------------------------------
+
+
+def _tag_section(section: dict, children: list[dict]) -> None:
+    """Write _notion_block_id onto each editable beat using positional alignment.
+
+    Notion children for a section are: 🎬/💬/❔ callouts (one per scene/dialogue/
+    prompt beat), 📋 toggle blocks (current_scene), and · · · paragraph separators.
+    We match only the callout blocks to the corresponding editable beats, skipping
+    current_scene beats and toggle/paragraph Notion blocks, so the zip aligns
+    correctly across all steps.
+    """
+    beats = section.get("beats", [])
+    editable_beats = [b for b in beats if b.get("type") in {"scene", "dialogue", "prompt"}]
+
+    # Filter Notion children to the matching callout types (🎬 💬 ❔)
+    notion_callouts = [
+        b for b in children
+        if b.get("type") == "callout"
+        and b.get("callout", {}).get("icon", {}).get("emoji") in {"🎬", "💬", "❔"}
+    ]
+
+    for beat, nb in zip(editable_beats, notion_callouts):
+        beat["_notion_block_id"] = nb["id"]
+
+
+def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
+    """Fetch Notion block IDs and write ``_notion_block_id`` back onto each beat.
+
+    After a push, Notion has assigned block IDs to each rendered beat callout.
+    This function reads those IDs and stores them on the corresponding beat dicts
+    so that subsequent pushes can match beats by ID rather than by content text.
+
+    Returns a modified deep copy of *sections* with ``_notion_block_id`` added to
+    every beat that could be positionally matched.  Sections whose skeleton no
+    longer matches the Notion page (e.g. structural edits were made in Notion
+    since the last push) are skipped.
+    """
+    import copy
+    import re
+
+    sections = copy.deepcopy(sections)
+    section_by_id = {s["id"]: s for s in sections if isinstance(s, dict) and "id" in s}
+
+    blocks = _all_blocks(client, page_id, recursive=True)
+
+    for block in blocks:
+        if block.get("type") != "heading_2":
+            continue
+        rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+        m = re.search(r"\[([^\]]+)\]\s*$", rt)
+        if not m:
+            continue
+        section = section_by_id.get(m.group(1))
+        if section is None:
+            continue
+        children = block.get("heading_2", {}).get("children", [])
+        if children:
+            _tag_section(section, children)
+
+    return sections
 
 
 # ---------------------------------------------------------------------------

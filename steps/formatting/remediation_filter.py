@@ -18,22 +18,20 @@ _MULTISELECT_MC_TOOLS = {"multi_select"}
 
 
 def _has_real_prompt(section):
-    for step in section.get("steps", []):
-        for beat in step:
-            if beat.get("type") != "prompt":
-                continue
-            validator = beat.get("validator", [])
-            is_ara = len(validator) == 1 and validator[0].get("condition") == {}
-            if not is_ara:
-                return True
+    for beat in section.get("beats", []):
+        if beat.get("type") != "prompt":
+            continue
+        validator = beat.get("validator", [])
+        is_ara = len(validator) == 1 and validator[0].get("condition") == {}
+        if not is_ara:
+            return True
     return False
 
 
 def _has_mc_prompt(section, tools):
-    for step in section.get("steps", []):
-        for beat in step:
-            if beat.get("type") == "prompt" and beat.get("tool") in tools:
-                return True
+    for beat in section.get("beats", []):
+        if beat.get("type") == "prompt" and beat.get("tool") in tools:
+            return True
     return False
 
 

@@ -39,10 +39,9 @@ def has_multiselect(json_path):
     if not isinstance(data, list):
         return False
     for section in data:
-        for step_beats in section.get("steps", []):
-            for beat in step_beats:
-                if beat.get("type") == "prompt" and beat.get("tool") == "multi_select":
-                    return True
+        for beat in section.get("beats", []):
+            if beat.get("type") == "prompt" and beat.get("tool") == "multi_select":
+                return True
     return False
 
 

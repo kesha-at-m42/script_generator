@@ -23,14 +23,18 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | `picture_graph` | Horizontal or vertical graph using symbols to represent data. Supports reading and creating modes. | Fully specced |
 | `bar_graph` | Horizontal or vertical bar graph. Supports reading and creating modes. | Fully specced |
 | `data_table` | Table showing category names and their values alongside a graph. | Fully specced |
-| `equation_builder` | Interactive equation construction tool. | Fully specced — not yet used in M1–M6 |
+| `equation_builder` | Interactive equation construction tool — student fills in blanks using `place_tile`. Described as an array of strings: `__` for a blank, `x` for multiplication symbol, plain words for labels. Variants: equation style and word style — both use the same string array format. Always uses `place_tile` tool. | Fully specced — not yet used in M1–M6 |
+| `equation` | Static, read-only equation displayed on screen. Same string array format as `equation_builder` but not interactive — no tool. | UX Done |
+| `multiple_choice_options` | Answer options panel displayed alongside `arrays`. Student answers a multiple choice question *about* the array. Always uses `multiple_choice` tool. | UX Done |
 | `data_collection_game` | Animated counting game used in warmups to generate class data. Replaces `counting_game`, `interactive_game`. | Needs spec |
 | `sorting_area` | Workspace for drag-to-sort activities. | Needs spec |
 | `word_problem_area` | Container that composes a text stem, optional visual support, and a hosted response mechanism into a problem-solving interaction. Hosts other toys (bar graphs, arrays, equal groups) and response components (multiple choice, dropdown_fillin, equation builder). | Initial Spec Draft |
 | `dropdown_fillin` | Sentence-frame response widget with one or more inline fill blanks, each linked to an option palette via a shared icon indicator. | Initial Spec Draft |
 | `image` | Static image displayed for real-world connection or context. | Needs spec |
 | `equal_groups` | Visual representation of multiplication through equal groups — clusters of pictures or dots with optional containers. Supports highlighting, counting animations, and connection lines. | UX in Process |
-| `arrays` | Rectangular grid of objects or dots organized in rows and columns. Supports toggling between row and column interpretations. Progresses from concrete objects through mixed to abstract dot grids. **Mode: creating** — Add Row / Add Column button interface for student-constructed arrays (M11+). | Ready for UX |
+| `arrays` | Rectangular grid of objects or dots organized in rows and columns. Covers both read and build modes — mode is determined by which toys are present on screen. Read mode: displayed alone or alongside `multiple_choice_options` or `equation_builder`. Build mode: always paired with `row_builder` or `column_builder`. See `toy_specs/arrays.md`. | UX Done |
+| `row_builder` | Bottom panel for building by rows. Contains two button pairs: Row +/− and Items per Row +/−. Mutually exclusive with `column_builder`. | UX Done |
+| `column_builder` | Bottom panel for building by columns. Contains two button pairs: Column +/− and Items per Column +/−. Mutually exclusive with `row_builder`. | UX Done |
 
 **Common spec phrases** — natural language used in lesson specs that maps to canonical toy names:
 
@@ -40,7 +44,7 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | bar graph | `bar_graph` |
 | data table | `data_table` |
 | equation builder | `equation_builder` |
-| arrays | `arrays` |
+| arrays | `array` |
 | equal groups | `equal_groups` |
 | drop down | `dropdown_fillin` |
 | fill-in-the-blank | `dropdown_fillin` |
@@ -85,8 +89,12 @@ These are the only valid `tool` values in a `prompt` beat.
 |---|---|---|---|
 | `click_to_place` | Student clicks to place symbols one at a time on a picture graph | `picture_graph` (mode: creating) | `{ "symbols_placed": 3 }` |
 | `click_to_set_height` | Student clicks or drags to set a bar to a specific height | `bar_graph` (mode: creating) | `{ "bar_height": 30 }` |
-| `add_row` | Student presses Add Row button to append a row to an array under construction | `arrays` (mode: creating) | `{ "rows": 3 }` |
-| `add_column` | Student presses Add Column button to append a column to an array under construction | `arrays` (mode: creating) | `{ "columns": 2 }` |
+| `add_row` | Student presses Row + button to append a row | `row_builder` | `{ "rows": 3 }` |
+| `add_item_per_row` | Student presses Items per Row + button to add an item to each row | `row_builder` | `{ "items_per_row": 4 }` |
+| `add_row_and_item_per_row` | Both Row + and Items per Row + are active; student may tap either | `row_builder` | `{ "rows": 3, "items_per_row": 4 }` |
+| `add_column` | Student presses Column + button to append a column | `column_builder` | `{ "columns": 2 }` |
+| `add_item_per_column` | Student presses Items per Column + button to add an item to each column | `column_builder` | `{ "items_per_column": 3 }` |
+| `add_column_and_item_per_column` | Both Column + and Items per Column + are active; student may tap either | `column_builder` | `{ "columns": 2, "items_per_column": 3 }` |
 
 
 ### Drag Tools
@@ -132,6 +140,26 @@ The **workspace** is the set of toys on screen at any point within a section. A 
 A section that assumes a toy from a previous section is still on screen is **incorrect**. Every section must re-declare all toys it uses, even if the spec says "same graph as before." Carry-over is a spec shorthand, not an instruction to skip `add` beats.
 
 Sections flagged with `"workspace_carry_over": true` in `workspace_specs` were detected as likely assuming carry-over from the spec language (e.g. "Same graph", "Same visual"). These must be reviewed to ensure the section fully re-declares its workspace.
+
+---
+
+## Array Template Screens
+
+Valid toy combinations for array-based sections. No other combinations are permitted.
+
+| Template | Toys | Tool(s) |
+|---|---|---|
+| array-read-mc | `arrays` + `multiple_choice_options` | `multiple_choice` — student answers MCQ about the array |
+| array-read-eq | `arrays` + `equation_builder` | `place_tile` — student describes the array using the equation |
+| array-build-rows | `arrays` + `row_builder` | `add_row`, `add_item_per_row`, or `add_row_and_item_per_row` |
+| array-build-cols | `arrays` + `column_builder` | `add_column`, `add_item_per_column`, or `add_column_and_item_per_column` |
+| array-build-eq | `arrays` + `equation_builder` | `place_tile` — student drags factor tiles into equation slots; array updates to match |
+
+**Coupling constraints:**
+- `row_builder` and `column_builder` are mutually exclusive — never on the same screen
+- `row_builder` / `column_builder` always require `arrays`
+- `equation_builder`, `row_builder`, and `column_builder` are mutually exclusive — only one build mechanism per screen
+- `multiple_choice_options` always requires `arrays` and the `multiple_choice` tool
 
 ---
 

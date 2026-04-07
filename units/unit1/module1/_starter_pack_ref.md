@@ -660,7 +660,7 @@ M1 is review/activation of Grade 2 knowledge, so the CRA sequence is modified:
 **Interaction 3.1: "How Many More" \= Subtract (Explicit Teaching)**
 
 * **Visual: Bar Graphs (Mode 1: Reading).** Same "Favorite Colors" graph (horizontal). Data Table not visible. System highlights Blue (8) and Yellow (6) bars as Guide speaks.
-* **Guide:** "~~Here's the question:~~ How many MORE students chose Blue than Yellow?"
+* **Guide:** "How many MORE students chose Blue than Yellow?"
 * **Guide:** "This is a COMPARISON question. 'How many more' means we COMPARE two amounts. We find the DIFFERENCE by subtracting."
 * **Guide:** "Blue has 8\. Yellow has 6\. Since more students like Blue, subtract Blue minus Yellow. How many more students chose Blue than Yellow?"
 * **Prompt:** "How many more students chose Blue than Yellow?"
