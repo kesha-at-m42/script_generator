@@ -57,21 +57,21 @@ script_generator/
 - `steps/prompts/` — AI prompt steps (generators, structurers, etc.)
 - When a step becomes outdated or superseded, move it to `archive/` — do **not** leave old versions alongside new ones
 
-## scripts/ Directory
+## figma_experiment/ Directory
 
 One-off and experimental scripts that are not part of the core pipeline. Not imported by other modules.
 
 | File type                                        | Location                          |
 |--------------------------------------------------|-----------------------------------|
-| Experiments (dirty, exploratory, throwaway)      | `scripts/`                        |
-| Figma integration utilities                      | `scripts/figma_*.py`              |
-| Figma node manifest (name → node ID mapping)     | `scripts/figma_manifest.json`     |
-| Raw node tree dumps (auto-generated, throwaway)  | `scripts/figma_nodes_raw.json`    |
+| Experiments (dirty, exploratory, throwaway)      | `figma_experiment/`               |
+| Figma integration utilities                      | `figma_experiment/figma_*.py`     |
+| Figma node manifest (name → node ID mapping)     | `figma_experiment/figma_manifest.json` |
+| Raw node tree dumps (auto-generated, throwaway)  | `figma_experiment/figma_nodes_raw.json` |
 
 **Rules:**
 - Scripts here are standalone — no imports from `core/`, `utils/`, etc.
 - Once an experiment proves out and needs to integrate with the pipeline, move the logic to the appropriate `core/` or `utils/` module and delete the script.
-- Do not create subdirectories inside `scripts/` — keep it flat.
+- Do not create subdirectories inside `figma_experiment/` — keep it flat.
 
 ## When You're Not Sure Where a File Goes
 
