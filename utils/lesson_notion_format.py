@@ -286,7 +286,9 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             indicator = "❌"
         else:
             indicator = "◻️"
-        toggle_header = f"{indicator} {description}"
+        branch_condition = state.get("branch_condition")
+        branch_prefix = f"🔀 {branch_condition} — " if branch_condition else ""
+        toggle_header = f"{indicator} {branch_prefix}{description}"
 
         child_blocks: list[dict] = []
         prev_was_current_scene = False
@@ -318,7 +320,7 @@ def _render_prompt(beat: dict, section_id: str) -> list[dict]:
         else:
             parts.append(f"target: {target}")
     if options:
-        parts.append("options: " + ", ".join(str(o) for o in options))
+        parts.append("options: " + json.dumps(options))
 
     callout_lines = ["  ".join(parts), f'"{text}"']
     blocks.append(_callout("\n".join(callout_lines), "❔"))
@@ -353,16 +355,26 @@ def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
 def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict]:
     t = beat.get("type", "")
     if t == "dialogue":
-        return _render_dialogue(beat)
-    if t == "scene":
-        return _render_scene(beat)
-    if t == "current_scene":
+        blocks = _render_dialogue(beat)
+    elif t == "scene":
+        blocks = _render_scene(beat)
+    elif t == "current_scene":
         if nested:
             return []
-        return _render_current_scene(beat)
-    if t == "prompt":
-        return _render_prompt(beat, section_id)
-    return [_paragraph(str(beat))]
+        blocks = _render_current_scene(beat)
+    elif t == "prompt":
+        blocks = _render_prompt(beat, section_id)
+    else:
+        blocks = [_paragraph(str(beat))]
+
+    branch_condition = beat.get("branch_condition")
+    if branch_condition and blocks and blocks[0].get("type") == "callout":
+        prefix = f"🔀 {branch_condition} — "
+        prefix_span = {"text": {"content": prefix}, "annotations": {"bold": True}}
+        existing_rt = blocks[0]["callout"].get("rich_text", [])
+        blocks[0]["callout"]["rich_text"] = [prefix_span] + existing_rt
+
+    return blocks
 
 
 # ---------------------------------------------------------------------------
@@ -597,23 +609,52 @@ def _parse_prompt_fields(text: str) -> dict:
         else:
             fields["target"] = raw
     if "options" in kv:
-        parsed_opts = []
-        for o in kv["options"].split(", "):
-            o = o.strip()
-            try:
-                parsed_opts.append(int(o))
-            except ValueError:
+        raw_opts = kv["options"].strip()
+        try:
+            # New format: JSON array e.g. ["Same dots, just organized differently", ...]
+            fields["options"] = json.loads(raw_opts)
+        except (json.JSONDecodeError, ValueError):
+            # Legacy format: comma-separated plain values (may be ambiguous for string options)
+            parsed_opts = []
+            for o in raw_opts.split(", "):
+                o = o.strip()
                 try:
-                    parsed_opts.append(float(o))
+                    parsed_opts.append(int(o))
                 except ValueError:
-                    parsed_opts.append(o)
-        fields["options"] = parsed_opts
+                    try:
+                        parsed_opts.append(float(o))
+                    except ValueError:
+                        parsed_opts.append(o)
+            fields["options"] = parsed_opts
 
     fields["text"] = all_lines[1].strip().strip('"') if len(all_lines) >= 2 else text.strip('"')
     return fields
 
 
 _NEW_BEAT_TAG = re.compile(r"\s*\[new beat\]\s*", re.IGNORECASE)
+
+
+def _scene_rendered_text(beat: dict) -> str:
+    """Return the text that _render_scene would display for this beat (description or fallback)."""
+    method = beat.get("method", "").lower()
+    tid = beat.get("tangible_id", "")
+    params = beat.get("params", {})
+    description = params.get("description", "").strip() if params else ""
+    if description:
+        return description
+    if method == "update":
+        skip = {"description"}
+        changed = {k: v for k, v in (params or {}).items() if k not in skip}
+        if changed:
+            params_str = ", ".join(f"{k}: {v}" for k, v in changed.items())
+            return f"Update {tid} [{params_str}]"
+        return f"Update {tid}"
+    action_map = {
+        "show": f"Show {tid}", "hide": f"Hide {tid}", "remove": f"Remove {tid}",
+        "lock": f"Lock {tid}", "unlock": f"Unlock {tid}",
+        "animate": f"Animate {tid}", "add": f"Add {tid}",
+    }
+    return action_map.get(method, f"{method.upper()} {tid}")
 
 
 def _parse_new_beat(emoji: str, text: str) -> dict:
@@ -699,14 +740,25 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
                 if btype == "dialogue":
                     beat["text"] = _strip_dialogue_text(text)
                 elif btype == "scene":
-                    original_desc = (beat.get("params") or {}).get("description", "").strip()
                     new_desc = text.strip()
-                    if original_desc != new_desc:
+                    if new_desc != _scene_rendered_text(beat):
+                        original_desc = (beat.get("params") or {}).get("description", "").strip()
                         beat.setdefault("params", {})["description"] = new_desc
                         beat["_original_description"] = original_desc
                         beat["notion_flag"] = "updated"
                 elif btype == "prompt":
+                    original_options = list(beat.get("options") or [])
                     beat.update(_parse_prompt_fields(text))
+                    # If option count changed, the parse split on commas inside option text —
+                    # restore the original options rather than corrupt the beat.
+                    if len(beat.get("options") or []) != len(original_options):
+                        beat["options"] = original_options
+                        beat["notion_flag"] = "options_parse_failed"
+                        beat["_original_options"] = original_options
+                        # Extract raw options string from the first line of the callout text
+                        first_line = text.split("\n")[0]
+                        m = re.search(r"options:\s*(.+?)(?:  |$)", first_line)
+                        beat["_notion_options_text"] = m.group(1).strip() if m else first_line
                     validator = beat.get("validator", [])
                     if isinstance(validator, list):
                         for state in validator:
@@ -736,20 +788,42 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
 
 
 def _collect_scene_flags(sections: list) -> list[dict]:
-    """Collect scene beats flagged as "updated". Cleans up temp _original_description."""
+    """Collect flagged beats. Cleans up temp fields set during patching.
+
+    Flag types:
+    - "scene_description_updated": 🎬 description was edited in Notion; needs manual config update.
+    - "options_parse_failed": ❔ options could not be parsed (legacy comma format with commas in
+      option text); re-push the page to upgrade to JSON format and make options editable.
+    """
     flags = []
     for section in sections:
         sid = section["id"]
         for beat in section.get("beats", []):
-            if beat.get("type") == "scene" and beat.get("notion_flag") == "updated":
+            flag = beat.get("notion_flag")
+            if beat.get("type") == "scene" and flag == "updated":
                 original_desc = beat.pop("_original_description", "")
                 flags.append(
                     {
+                        "flag_type": "scene_description_updated",
                         "section_id": sid,
                         "tangible_id": beat.get("tangible_id", ""),
                         "method": beat.get("method", ""),
                         "original_description": original_desc,
                         "notion_description": (beat.get("params") or {}).get("description", ""),
+                    }
+                )
+            elif beat.get("type") == "prompt" and flag == "options_parse_failed":
+                beat.pop("notion_flag")
+                notion_options_text = beat.pop("_notion_options_text", "")
+                original_options = beat.pop("_original_options", beat.get("options", []))
+                flags.append(
+                    {
+                        "flag_type": "options_parse_failed",
+                        "section_id": sid,
+                        "beat_id": beat.get("id", ""),
+                        "original_options": original_options,
+                        "notion_options_text": notion_options_text,
+                        "message": "Options could not be parsed from legacy comma format — re-push to enable editing.",
                     }
                 )
     return flags

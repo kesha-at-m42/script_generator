@@ -49,6 +49,8 @@ map it to the appropriate schema context:
   sequentially]`, `[3 tile places into first slot]`) → `scene` beats at
   that point in the step
 - `task` describing a build/click/drag action → infer the tool type from it
+- Any beat that only applies on a specific branch gets a `"branch_condition": "<condition>"` field — plain English describing the prior selection, e.g. `"rows selected"` or `"columns selected"`. Omit the field entirely when the beat is unconditional. When pushed to Notion this renders as `⎇ if <branch_condition> →` before the beat text.
+- Fields with parenthetical context in their key — e.g. `correct_answer_if_rows`, `on_correct_if_columns` — each represent a named branch of the same prompt. Generate one validator state per unique context. The condition is multi-part: the parenthetical value as a prior-selection check AND the answer derived from `correct_answer_if_<context>`. For example: `{ "and": [{ "selected": "Rows" }, { "placed": { "groups": 3, "items": 4 } }] }`. The `description` must capture both parts: e.g. `"Student chose Rows, placed 3 rows of 4, 3 × 4 = 12"`. Do not collapse these into a single `"condition": {}` state.
 
 Do not ignore fields because their name is unfamiliar. Read every field in
 the input object and decide where it belongs in the output structure.
@@ -309,6 +311,31 @@ For `multi_select` requiring multiple selections:
 ```
 
 **Any-response-advances** (no wrong answer): `"condition": {}`
+
+Use `"condition": {}` **only when every response leads to the exact same next scene and step.** If the choice determines what the student sees or does next, use `branch_condition` instead (see below).
+
+### Branching validator states
+
+When a prompt offers two valid paths that lead to different follow-up interactions, use `branch_condition` instead of `condition` on each validator state. Both states have `"is_correct": true`. The `branch_condition` value is plain English matching the choice made, e.g. `"rows selected"`.
+
+```json
+"validator": [
+  {
+    "branch_condition": "rows selected",
+    "description": "Student chose rows — follow-up uses rows framing",
+    "is_correct": true,
+    "beats": [ ... ]
+  },
+  {
+    "branch_condition": "columns selected",
+    "description": "Student chose columns — follow-up uses columns framing",
+    "is_correct": true,
+    "beats": [ ... ]
+  }
+]
+```
+
+Use `condition` for answer-checking (one correct answer, remediation possible). Use `branch_condition` for path-taking (both options valid, different prompts follow).
 
 ---
 

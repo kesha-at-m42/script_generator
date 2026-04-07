@@ -1,0 +1,311 @@
+[
+  {
+    "id": "s2_4_choose_description_write_equation_compute",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_dots",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "display": "dots",
+          "rows": 3,
+          "columns": 4,
+          "description": "3×4 dot array appears in reading mode."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's your chance to choose. You can describe this array by rows OR by columns. It's up to you. Then build the full equation, including the product."
+      },
+      {
+        "type": "dialogue",
+        "text": "First, choose whether you'd like to describe this array by rows or columns."
+      },
+      {
+        "type": "prompt",
+        "text": "Choose if you'd like to describe this array using ROWS or COLUMNS.",
+        "tool": "multiple_choice",
+        "options": ["Rows", "Columns"],
+        "validator": [
+          {
+            "branch_condition": "rows selected",
+            "description": "Student chose rows — highlights rows, sets word builder to rows template",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "event": "highlight_rows",
+                  "status": "confirmed",
+                  "description": "All 3 rows highlight to show row orientation."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "add",
+                "tangible_id": "equation_builder_word",
+                "tangible_type": "equation_builder",
+                "params": {
+                  "mode": "word",
+                  "template": ["__", "rows of", "__", "items"],
+                  "description": "Word builder appears: blank rows of blank items."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "add",
+                "tangible_id": "equation_builder_equation",
+                "tangible_type": "equation_builder",
+                "params": {
+                  "mode": "equation",
+                  "template": ["__", "x", "__", "=", "__"],
+                  "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14],
+                  "description": "Equation builder appears: blank x blank = blank. Tile palette visible."
+                }
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "arrays_dots",
+                    "description": "3×4 dot array. All 3 rows highlighted.",
+                    "tangible_type": "arrays",
+                    "mode": "reading",
+                    "display": "dots",
+                    "rows": 3,
+                    "columns": 4
+                  },
+                  {
+                    "tangible_id": "equation_builder_word",
+                    "description": "Word builder: blank rows of blank items.",
+                    "tangible_type": "equation_builder",
+                    "mode": "word",
+                    "template": ["__", "rows of", "__", "items"]
+                  },
+                  {
+                    "tangible_id": "equation_builder_equation",
+                    "description": "Equation builder: blank x blank = blank. Tile palette visible.",
+                    "tangible_type": "equation_builder",
+                    "mode": "equation",
+                    "template": ["__", "x", "__", "=", "__"],
+                    "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "branch_condition": "columns selected",
+            "description": "Student chose columns — highlights columns, sets word builder to columns template",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "confirmed",
+                  "description": "All 4 columns highlight to show column orientation."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "add",
+                "tangible_id": "equation_builder_word",
+                "tangible_type": "equation_builder",
+                "params": {
+                  "mode": "word",
+                  "template": ["__", "columns of", "__", "items"],
+                  "description": "Word builder appears: blank columns of blank items."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "add",
+                "tangible_id": "equation_builder_equation",
+                "tangible_type": "equation_builder",
+                "params": {
+                  "mode": "equation",
+                  "template": ["__", "x", "__", "=", "__"],
+                  "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14],
+                  "description": "Equation builder appears: blank x blank = blank. Tile palette visible."
+                }
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "arrays_dots",
+                    "description": "3×4 dot array. All 4 columns highlighted.",
+                    "tangible_type": "arrays",
+                    "mode": "reading",
+                    "display": "dots",
+                    "rows": 3,
+                    "columns": 4
+                  },
+                  {
+                    "tangible_id": "equation_builder_word",
+                    "description": "Word builder: blank columns of blank items.",
+                    "tangible_type": "equation_builder",
+                    "mode": "word",
+                    "template": ["__", "columns of", "__", "items"]
+                  },
+                  {
+                    "tangible_id": "equation_builder_equation",
+                    "description": "Equation builder: blank x blank = blank. Tile palette visible.",
+                    "tangible_type": "equation_builder",
+                    "mode": "equation",
+                    "template": ["__", "x", "__", "=", "__"],
+                    "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_dots",
+            "description": "3×4 dot array in reading mode. Multiple choice active.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "display": "dots",
+            "rows": 3,
+            "columns": 4
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Now describe this array by words and build the equation."
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in the word equation and the number equation to describe this array.",
+        "tool": "place_tile",
+        "target": "equation_builder_word",
+        "validator": [
+          {
+            "branch_condition": "rows selected",
+            "condition": { "placed": { "groups": 3, "items": 4 }, "product_equals": 12 },
+            "description": "Student chose rows, placed 3 rows of 4, 3 x 4 = 12",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You described it by rows. 3 rows of 4. 3 times 4 equals 12."
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "arrays_dots",
+                    "description": "3×4 dot array. Rows highlighted.",
+                    "tangible_type": "arrays",
+                    "mode": "reading",
+                    "display": "dots",
+                    "rows": 3,
+                    "columns": 4
+                  },
+                  {
+                    "tangible_id": "equation_builder_word",
+                    "description": "Word builder filled: 3 rows of 4 items.",
+                    "tangible_type": "equation_builder",
+                    "mode": "word",
+                    "template": ["__", "rows of", "__", "items"]
+                  },
+                  {
+                    "tangible_id": "equation_builder_equation",
+                    "description": "Equation builder filled: 3 x 4 = 12.",
+                    "tangible_type": "equation_builder",
+                    "mode": "equation",
+                    "template": ["__", "x", "__", "=", "__"],
+                    "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "branch_condition": "columns selected",
+            "condition": { "placed": { "groups": 4, "items": 3 }, "product_equals": 12 },
+            "description": "Student chose columns, placed 4 columns of 3, 4 x 3 = 12",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You described it by columns. 4 columns of 3. 4 times 3 equals 12."
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "arrays_dots",
+                    "description": "3×4 dot array. Columns highlighted.",
+                    "tangible_type": "arrays",
+                    "mode": "reading",
+                    "display": "dots",
+                    "rows": 3,
+                    "columns": 4
+                  },
+                  {
+                    "tangible_id": "equation_builder_word",
+                    "description": "Word builder filled: 4 columns of 3 items.",
+                    "tangible_type": "equation_builder",
+                    "mode": "word",
+                    "template": ["__", "columns of", "__", "items"]
+                  },
+                  {
+                    "tangible_id": "equation_builder_equation",
+                    "description": "Equation builder filled: 4 x 3 = 12.",
+                    "tangible_type": "equation_builder",
+                    "mode": "equation",
+                    "template": ["__", "x", "__", "=", "__"],
+                    "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_dots",
+            "description": "3×4 dot array in reading mode.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "display": "dots",
+            "rows": 3,
+            "columns": 4
+          },
+          {
+            "tangible_id": "equation_builder_word",
+            "description": "Word builder active. place_tile tool active.",
+            "tangible_type": "equation_builder",
+            "mode": "word",
+            "template": ["__", "rows/columns of", "__", "items"]
+          },
+          {
+            "tangible_id": "equation_builder_equation",
+            "description": "Equation builder active. Tile palette visible. place_tile tool active.",
+            "tangible_type": "equation_builder",
+            "mode": "equation",
+            "template": ["__", "x", "__", "=", "__"],
+            "tile_palette": [2, 3, 4, 5, 6, 7, 8, 10, 12, 14]
+          }
+        ]
+      }
+    ]
+  }
+]
