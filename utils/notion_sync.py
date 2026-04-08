@@ -124,13 +124,30 @@ def get_file_path_for_page(page_id: str) -> Path | None:
     return None
 
 
+def _extract_version(file_path: Path) -> str | None:
+    """Return the version component (e.g. 'v2') from the path, or None."""
+    try:
+        root = Path(__file__).parent.parent
+        parts = str(file_path.resolve().relative_to(root.resolve())).replace("\\", "/").split("/")
+        for part in parts:
+            if re.match(r"^v\d+$", part):
+                return part
+    except ValueError:
+        pass
+    return None
+
+
 def set_registry_entry(file_path: Path, page_id: str, title: str) -> None:
     registry = load_registry()
-    registry[_registry_key(file_path)] = {
+    entry = {
         "page_id": page_id,
         "title": title,
         "pushed_at": datetime.now(timezone.utc).isoformat(),
     }
+    version = _extract_version(file_path)
+    if version is not None:
+        entry["last_version"] = version
+    registry[_registry_key(file_path)] = entry
     save_registry(registry)
 
 
