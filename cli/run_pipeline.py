@@ -24,6 +24,10 @@ import argparse
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
@@ -61,6 +65,11 @@ Examples:
         help="Enable interactive mode (step-by-step confirmation)",
     )
     parser.add_argument(
+        "--start-at",
+        type=str,
+        help="Start from this step, skipping earlier ones (step number or step name, e.g. section_structurer)",
+    )
+    parser.add_argument(
         "--end-at",
         type=str,
         help="Stop after this step (step number or step name, e.g. glossary_drift_checker)",
@@ -79,6 +88,11 @@ Examples:
         "-y", "--yes",
         action="store_true",
         help="Skip all confirmation prompts (non-interactive run)",
+    )
+    parser.add_argument(
+        "--test-push",
+        action="store_true",
+        help="Push to a new temporary Notion page without updating the registry",
     )
 
     args = parser.parse_args()
@@ -176,12 +190,26 @@ Examples:
             print(f"Batch filter (skip): {', '.join(batch_skip_items)}")
         print(f"Interactive mode: {'enabled' if interactive else 'disabled'}")
 
+        start_at = args.start_at
+        if start_at and start_at.isdigit():
+            start_at = int(start_at)
+
         end_at = args.end_at
         if end_at and end_at.isdigit():
             end_at = int(end_at)
 
+        steps_config = list(PIPELINES[pipeline_name])
+        if args.test_push:
+            import copy
+            steps_config = copy.deepcopy(steps_config)
+            for s in steps_config:
+                fn = str(getattr(s, "function", "") or "")
+                if "notion_push" in fn:
+                    s.function_args = {**getattr(s, "function_args", {}), "test_push": True}
+            print("  [TEST PUSH] Will create a temporary Notion page (registry not updated)")
+
         results = run_pipeline_from_config(
-            steps_config=list(PIPELINES[pipeline_name]),
+            steps_config=steps_config,
             pipeline_name=pipeline_name,
             unit_number=unit_number,
             module_number=module_number,
@@ -189,6 +217,7 @@ Examples:
             verbose=True,
             interactive=interactive,
             rerun_items=batch_only_items,
+            start_from_step=start_at,
             end_at_step=end_at,
         )
 

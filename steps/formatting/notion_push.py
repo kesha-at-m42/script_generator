@@ -33,6 +33,7 @@ def push(
     path_letter: str | None = None,
     unit_number: int | None = None,
     output_file_path: Path | None = None,
+    test_push: bool = False,
 ) -> Any:
     """Push *data* to Notion and return it unchanged.
 
@@ -46,6 +47,9 @@ def push(
             Used to derive a stable, version-agnostic registry key so that
             re-runs (v0 → v1) update the same Notion page, while a new
             module always creates a fresh page.
+        test_push: If True, always create a new temporary page and never
+            update the registry. Useful for reviewing output without
+            overwriting the canonical page.
     """
     try:
         from utils import notion_sync  # lazy: notion-client may not be installed
@@ -61,6 +65,8 @@ def push(
         if path_letter:
             title_parts.append(f"Path {path_letter.upper()}")
         title = " — ".join(title_parts)
+        if test_push:
+            title = f"[TEST] {title}"
 
         reviewer_user_id = os.getenv("NOTION_REVIEWER_USER_ID")
 
@@ -69,14 +75,15 @@ def push(
         page_id = notion_sync.push_to_notion(
             data=data,
             title=title,
-            file_path=output_file_path,
+            # Pass file_path=None on test push so registry is never consulted or updated
+            file_path=None if test_push else output_file_path,
             blocks_fn=lambda d: lesson_to_blocks(d, reviewer_user_id=reviewer_user_id),
         )
         url = notion_sync.get_page_url(page_id)
         print(f"\n  [NOTION] Pushed -> {url}")
 
         # Tag beats with Notion block IDs and write back to the source sections file
-        if isinstance(data, list) and output_file_path is not None:
+        if not test_push and isinstance(data, list) and output_file_path is not None:
             try:
                 from utils.pipeline_utils import find_prior_sections_file
 

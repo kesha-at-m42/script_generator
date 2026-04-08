@@ -59,9 +59,12 @@ def _rt_rich(spans: list[dict]) -> list[dict]:
     ]
 
 
-def _heading(level: int, text: str) -> dict:
+def _heading(level: int, text: str, color: str = "default") -> dict:
     t = f"heading_{level}"
-    return {"object": "block", "type": t, t: {"rich_text": _rt(text)}}
+    block = {"object": "block", "type": t, t: {"rich_text": _rt(text)}}
+    if color != "default":
+        block[t]["color"] = color
+    return block
 
 
 def _toggle_heading(level: int, text: str, children: list[dict]) -> dict:
@@ -95,6 +98,49 @@ def _bullet(text: str) -> dict:
 
 def _divider() -> dict:
     return {"object": "block", "type": "divider", "divider": {}}
+
+
+# Block types that carry a color field inside their type-specific object
+_COLORABLE_TYPES = {
+    "paragraph", "heading_1", "heading_2", "heading_3",
+    "bulleted_list_item", "numbered_list_item", "toggle",
+    "callout", "quote", "to_do",
+}
+
+
+def _colorize_blocks(blocks: list[dict], color: str) -> list[dict]:
+    """Recursively apply a background color to all colorable blocks."""
+    result = []
+    for block in blocks:
+        block = dict(block)
+        btype = block.get("type")
+        if btype in _COLORABLE_TYPES and btype in block:
+            inner = dict(block[btype])
+            inner["color"] = color
+            # Recurse into children if present
+            if "children" in inner:
+                inner["children"] = _colorize_blocks(inner["children"], color)
+            block[btype] = inner
+        result.append(block)
+    return result
+
+
+def _column_list(columns: list[list[dict]]) -> dict:
+    """Wrap a list of block-lists into a Notion column_list block."""
+    return {
+        "object": "block",
+        "type": "column_list",
+        "column_list": {
+            "children": [
+                {
+                    "object": "block",
+                    "type": "column",
+                    "column": {"children": col_blocks or [_paragraph("—")]},
+                }
+                for col_blocks in columns
+            ]
+        },
+    }
 
 
 def _toggle(summary: str, children: list[dict]) -> dict:
@@ -286,8 +332,7 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             indicator = "❌"
         else:
             indicator = "◻️"
-        branch_condition = state.get("branch_condition")
-        branch_prefix = f"🔀 {branch_condition} — " if branch_condition else ""
+        branch_prefix = "🔀 " if state.get("branch") else ""
         toggle_header = f"{indicator} {branch_prefix}{description}"
 
         child_blocks: list[dict] = []
@@ -367,13 +412,6 @@ def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict
     else:
         blocks = [_paragraph(str(beat))]
 
-    branch_condition = beat.get("branch_condition")
-    if branch_condition and blocks and blocks[0].get("type") == "callout":
-        prefix = f"🔀 {branch_condition} — "
-        prefix_span = {"text": {"content": prefix}, "annotations": {"bold": True}}
-        existing_rt = blocks[0]["callout"].get("rich_text", [])
-        blocks[0]["callout"]["rich_text"] = [prefix_span] + existing_rt
-
     return blocks
 
 
@@ -391,25 +429,81 @@ def _step_sep_block() -> dict:
 # ---------------------------------------------------------------------------
 
 
+def _render_beat_group(beats: list[dict], section_id: str) -> list[dict]:
+    """Render a contiguous group of beats with · · · separators after each current_scene."""
+    blocks: list[dict] = []
+    for i, beat in enumerate(beats):
+        blocks.extend(_render_beat(beat, section_id))
+        if beat.get("type") == "current_scene" and i < len(beats) - 1:
+            blocks.append(_step_sep_block())
+    return blocks
+
+
 def _render_main_section(section: dict) -> list[dict]:
-    """Render a main section as script blocks with step separators derived from current_scene beats."""
+    """Render a main section as script blocks.
+
+    Branch-tagged beats are grouped by branch_condition regardless of their
+    order in the source, so interleaved AI output still renders cleanly.
+    Each named branch is introduced by an H3 heading (🔀 <branch>).
+    Unconditional beats before the first branch render normally; any
+    unconditional beats after the branch point render last without a heading.
+    """
     section_id = section["id"]
     num, title = _section_label(section_id)
     header = f"{num}  {title}" if num else title
 
     beats = section.get("beats", [])
-    content: list[dict] = []
 
-    for i, beat in enumerate(beats):
-        content.extend(_render_beat(beat, section_id))
-        # Insert · · · after current_scene if more beats follow
-        if beat.get("type") == "current_scene" and i < len(beats) - 1:
-            content.append(_step_sep_block())
+    # Split at the first beat that carries a branch_name
+    branch_start = next(
+        (i for i, b in enumerate(beats) if b.get("branch_name")), len(beats)
+    )
+    pre_branch = beats[:branch_start]
+    post_branch = beats[branch_start:]
 
-    return [
-        _divider(),
-        _toggle_heading(2, f"{header}  [{section_id}]", content),
-    ]
+    # Group post-branch beats by branch_name, preserving first-appearance order
+    branches: dict[str | None, list[dict]] = {}
+    branch_order: list[str | None] = []
+    for beat in post_branch:
+        bc = beat.get("branch_name") or None
+        if bc not in branches:
+            branches[bc] = []
+            branch_order.append(bc)
+        branches[bc].append(beat)
+
+    pre_content: list[dict] = _render_beat_group(pre_branch, section_id)
+
+    named_branches = [bc for bc in branch_order if bc]
+    if len(named_branches) == 2:
+        # Two named branches → side-by-side column_list (column_list not allowed
+        # inside toggleable headings, so section renders flat with a plain H2)
+        _branch_colors = ["brown_background", "gray_background"]
+        columns = []
+        for i, bc in enumerate(named_branches):
+            color = _branch_colors[i % len(_branch_colors)]
+            col = [_heading(3, f"🔀 {bc}", color=color)]
+            col.extend(_colorize_blocks(_render_beat_group(branches[bc], section_id), color))
+            columns.append(col)
+        branch_blocks: list[dict] = [_column_list(columns)]
+        if None in branches:
+            branch_blocks.extend(_render_beat_group(branches[None], section_id))
+        return [
+            _divider(),
+            _heading(2, f"{header}  [{section_id}]"),
+            *pre_content,
+            *branch_blocks,
+        ]
+    else:
+        content = pre_content
+        for bc in branch_order:
+            if bc:
+                content.append(_heading(3, f"🔀 {bc}"))
+            content.extend(_render_beat_group(branches[bc], section_id))
+        return [
+            _divider(),
+            _heading(2, f"{header}  [{section_id}]"),
+            *content,
+        ]
 
 
 # ---------------------------------------------------------------------------

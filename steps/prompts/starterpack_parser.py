@@ -70,7 +70,12 @@ If a label appears that is not in this table, still include it — use its snake
 
 If the same label appears more than once, suffix each occurrence with `_1`, `_2`, `_3`, etc. (e.g. three `**Guide:**` fields become `guide_1`, `guide_2`, `guide_3`). Apply this to all repeated labels. Never silently overwrite a field — every occurrence must be preserved.
 
-If a label contains parenthetical context — e.g. `**Correct Answer (if rows):**` or `**On Correct (if columns):**` — include the parenthetical in the key: `correct_answer_if_rows`, `on_correct_if_columns`. Labels with different parentheticals are distinct keys and do not get `_1`/`_2` suffixes.
+If a label contains any qualifier in parentheses `()` or brackets `[]` — e.g. `**On Correct (example: 4 × 5 = 20):**`, `**Visual [selected_rows]:**`, `**Student Action [selected_columns]:**` — strip the qualifier from the label and prepend it to the extracted value. Use the bare base label for key generation and apply `_1`/`_2` suffixing as normal. The qualifier stays in the value as-is (preserving its `()` or `[]` delimiters).
+
+Examples:
+- `**On Correct (example: 4 × 5 = 20):** "4 times 5 equals 20..."` → key `on_correct_2`, value `"(example: 4 × 5 = 20) \"4 times 5 equals 20...\"`
+- `**Visual [selected_rows]:** Rows buttons activate.` → key `visual_2`, value `"[selected_rows] Rows buttons activate."`
+- `**Visual [selected_columns]:** Columns buttons activate.` → key `visual_3`, value `"[selected_columns] Columns buttons activate."`
 
 ### Prose between fields
 
