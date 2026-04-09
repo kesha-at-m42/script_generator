@@ -268,7 +268,6 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
         "required_phrases": "scope_fence.required_phrases",
         "vocabulary": "vocabulary",
         "the_one_thing": "the_one_thing.statement",
-        "visual_constraints": "available_visuals.constraints",
     },
     output_structure="""
 {

@@ -26,7 +26,7 @@ from ui.utils.output import (  # noqa: E402
     capture_console_output_streaming,
     display_unified_output,
 )
-from utils import notion_sync  # noqa: E402
+from utils import notion as notion_sync  # noqa: E402
 
 STARTER_PACKS_DIR = project_root / "modules" / "starter_packs"
 

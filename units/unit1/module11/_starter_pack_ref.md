@@ -1,3 +1,13 @@
+---
+Unit: Unit 1
+IM/OUR Lessons: L16, L17, L18
+Module Number: 11
+Script: Module 11 
+Name: "Module 11: Arrays as Multiplication"
+---
+
+# **Module 11: Arrays as Multiplication**
+
 # BACKBONE
 
 ---
@@ -463,7 +473,7 @@ CRA Sequence for M11:
 * **Prompt:** "Build the row expression for this array."
 * **Student Action:** Equation Builder Methods C/D.
 * **Correct Answer:** Expression must be `2 × 5`.
-* **On Correct:** "2 times 5. 2 rows of 5.. You've got it."
+* **On Correct:** "2 times 5. 2 rows of 5. You've got it."
 ---
 
 **[SECTION 1 TRANSITION]**

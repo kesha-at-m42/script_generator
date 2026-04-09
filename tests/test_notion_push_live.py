@@ -17,18 +17,19 @@ import pytest
 from dotenv import load_dotenv
 load_dotenv()
 
-from utils import notion_sync
-from utils.lesson_notion_format import lesson_to_blocks, blocks_to_lesson
-from utils.notion_sync import (
+from utils.notion import (
     _all_blocks,
     _extract_rt,
+    blocks_to_lesson,
     get_notion_client,
     get_page_url,
+    is_configured,
+    lesson_to_blocks,
     push_to_notion,
 )
 
 notion_configured = pytest.mark.skipif(
-    not notion_sync.is_configured(),
+    not is_configured(),
     reason="NOTION_API_KEY / NOTION_PARENT_PAGE_ID not set",
 )
 

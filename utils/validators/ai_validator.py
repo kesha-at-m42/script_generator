@@ -109,15 +109,11 @@ class AIValidator:
                 for m in module_data.get('misconceptions', [])
             ])
 
-            tangibles = module_data.get('available_visuals', {}).get('tangibles', [])
-            tangibles_text = ", ".join(tangibles) if tangibles else "Not specified"
-
             variables = {
                 'module_name': module_data.get('module_name', 'Unknown'),
                 'grade_level': module_data.get('grade_level', 'Unknown'),
                 'goal': sequence.get('goal', 'Unknown'),
                 'misconceptions': misconceptions_text,
-                'tangibles': tangibles_text,
                 'sequence_json': json.dumps(sequence, indent=2)
             }
 

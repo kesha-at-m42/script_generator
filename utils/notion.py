@@ -1,34 +1,31 @@
-"""lesson_notion_format.py
+"""utils/notion.py
 
-Converts a lesson.json structure into human-readable Notion blocks,
-formatted as a script rather than a raw JSON dump.
+Notion integration for script_generator — push, pull, and sync lesson JSON with Notion pages.
 
-Layout per main section
------------------------
-  ─────────────────────────────────────
-  1.1  Most Votes
-  ─────────────────────────────────────
+Architecture
+------------
+JSON files (source of truth)  ──push──►  Notion pages (review / comment layer)
+                               ◄──pull──  (reads rendered callout blocks + raw JSON footer)
 
-  🎬 Show pg_fruits
-  🎬 Show data_table
-  💬 "You made a graph with your Minis' votes..."
+Every push renders the lesson as a human-readable script (emoji callouts, toggle validators)
+and appends a hidden "Raw JSON" code block at the bottom of the page.
+Pull merges reviewer edits from the rendered section back into the JSON.
 
-  · · ·
+Setup
+-----
+Add to .env:
+    NOTION_API_KEY=secret_...
+    NOTION_PARENT_PAGE_ID=<page-id of the parent page in your workspace>
 
-  ❓ click_category  on  pg_fruits
-     "Which fruit got the most votes? Click it."
+Usage
+-----
+    from utils.notion import push_lesson, pull_lesson, is_configured, get_page_url
 
-  [toggle] Student selected Apples  [if selected = Apples]
-    💬 "Apples got 6 votes — the most of any fruit."
+    if is_configured():
+        page_id = push_lesson(data, title="Module 4", file_path=path)
+        url = get_page_url(page_id)
 
-  [toggle] First wrong attempt  [attempt 1]
-    💬 "Look at the numbers next to each row. Which one is biggest?"
-
-  · · ·
-
-  💬 "Apples got 6 votes — more than any other fruit."
-
-  📋 data_table, pg_fruits
+    patched, flags, blocks = pull_lesson(page_id, original)
 """
 
 from __future__ import annotations
@@ -38,15 +35,132 @@ import difflib
 import json
 import os
 import re
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+from notion_client import Client
 
 # ---------------------------------------------------------------------------
-# Notion block primitives
+# Config
 # ---------------------------------------------------------------------------
 
+# Registry of { relative_file_path: { page_id, title, pushed_at } }
+_REGISTRY_PATH = Path(__file__).parent.parent / "config" / "notion_pages.json"
+
+# Notion's hard limit for a single rich_text span is 2000 chars.
+# We use 1900 to stay safely under it.
 _RT_LIMIT = 1900
 
 
+# ---------------------------------------------------------------------------
+# Client & helpers
+# ---------------------------------------------------------------------------
+
+
+def is_configured() -> bool:
+    """Return True if both required env vars are present."""
+    return bool(os.getenv("NOTION_API_KEY")) and bool(os.getenv("NOTION_PARENT_PAGE_ID"))
+
+
+def get_notion_client() -> Client:
+    api_key = os.getenv("NOTION_API_KEY")
+    if not api_key:
+        raise ValueError("NOTION_API_KEY is not set in your .env file.")
+    return Client(auth=api_key)
+
+
+def get_page_url(page_id: str) -> str:
+    return f"https://notion.so/{page_id.replace('-', '')}"
+
+
+# ---------------------------------------------------------------------------
+# Page registry  (config/notion_pages.json)
+# ---------------------------------------------------------------------------
+
+
+def _registry_key(file_path: Path) -> str:
+    """Stable, version-agnostic key: path relative to project root.
+
+    Strips version directories (v0, v1, …) and everything after them so that
+    outputs/unit1/pipeline/v0/step_01_foo/foo.json  →  outputs/unit1/pipeline/notion_page.json
+    outputs/unit1/pipeline/v1/step_01_foo/foo.json  →  same key (updates same page)
+    outputs/unit1/pipeline2/v0/…                    →  different key (new page)
+    Paths without a version component are returned as-is (e.g. lesson.json).
+    """
+    try:
+        root = Path(__file__).parent.parent
+        rel = str(file_path.resolve().relative_to(root.resolve())).replace("\\", "/")
+        parts = rel.split("/")
+        for i, part in enumerate(parts):
+            if re.match(r"^v\d+$", part):
+                return "/".join(parts[:i]) + "/notion_page.json"
+        return rel
+    except ValueError:
+        return str(file_path)
+
+
+def load_registry() -> dict:
+    if _REGISTRY_PATH.exists():
+        return json.loads(_REGISTRY_PATH.read_text(encoding="utf-8"))
+    return {}
+
+
+def save_registry(registry: dict) -> None:
+    _REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _REGISTRY_PATH.write_text(
+        json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+
+
+def get_registry_entry(file_path: Path) -> dict | None:
+    return load_registry().get(_registry_key(file_path))
+
+
+def get_file_path_for_page(page_id: str) -> Path | None:
+    """Reverse lookup: return the source file Path for a given page_id, or None."""
+    root = Path(__file__).parent.parent
+    normalised = page_id.replace("-", "")
+    for key, entry in load_registry().items():
+        if entry.get("page_id", "").replace("-", "") == normalised:
+            return root / key
+    return None
+
+
+def _extract_version(file_path: Path) -> str | None:
+    """Return the version component (e.g. 'v2') from the path, or None."""
+    try:
+        root = Path(__file__).parent.parent
+        parts = str(file_path.resolve().relative_to(root.resolve())).replace("\\", "/").split("/")
+        for part in parts:
+            if re.match(r"^v\d+$", part):
+                return part
+    except ValueError:
+        pass
+    return None
+
+
+def set_registry_entry(file_path: Path, page_id: str, title: str) -> None:
+    registry = load_registry()
+    entry = {
+        "page_id": page_id,
+        "title": title,
+        "pushed_at": datetime.now(timezone.utc).isoformat(),
+    }
+    version = _extract_version(file_path)
+    if version is not None:
+        entry["last_version"] = version
+    registry[_registry_key(file_path)] = entry
+    save_registry(registry)
+
+
+# ---------------------------------------------------------------------------
+# Block primitives
+# ---------------------------------------------------------------------------
+
+
 def _rt(text: str) -> list[dict]:
+    """Single rich_text span (truncated to Notion's limit)."""
     return [{"text": {"content": str(text)[:_RT_LIMIT]}}]
 
 
@@ -84,7 +198,7 @@ def _paragraph(text: str) -> dict:
     return {
         "object": "block",
         "type": "paragraph",
-        "paragraph": {"rich_text": _rt(text)},
+        "paragraph": {"rich_text": _rt(str(text))},
     }
 
 
@@ -92,55 +206,12 @@ def _bullet(text: str) -> dict:
     return {
         "object": "block",
         "type": "bulleted_list_item",
-        "bulleted_list_item": {"rich_text": _rt(text)},
+        "bulleted_list_item": {"rich_text": _rt(str(text))},
     }
 
 
 def _divider() -> dict:
     return {"object": "block", "type": "divider", "divider": {}}
-
-
-# Block types that carry a color field inside their type-specific object
-_COLORABLE_TYPES = {
-    "paragraph", "heading_1", "heading_2", "heading_3",
-    "bulleted_list_item", "numbered_list_item", "toggle",
-    "callout", "quote", "to_do",
-}
-
-
-def _colorize_blocks(blocks: list[dict], color: str) -> list[dict]:
-    """Recursively apply a background color to all colorable blocks."""
-    result = []
-    for block in blocks:
-        block = dict(block)
-        btype = block.get("type")
-        if btype in _COLORABLE_TYPES and btype in block:
-            inner = dict(block[btype])
-            inner["color"] = color
-            # Recurse into children if present
-            if "children" in inner:
-                inner["children"] = _colorize_blocks(inner["children"], color)
-            block[btype] = inner
-        result.append(block)
-    return result
-
-
-def _column_list(columns: list[list[dict]]) -> dict:
-    """Wrap a list of block-lists into a Notion column_list block."""
-    return {
-        "object": "block",
-        "type": "column_list",
-        "column_list": {
-            "children": [
-                {
-                    "object": "block",
-                    "type": "column",
-                    "column": {"children": col_blocks or [_paragraph("—")]},
-                }
-                for col_blocks in columns
-            ]
-        },
-    }
 
 
 def _toggle(summary: str, children: list[dict]) -> dict:
@@ -201,6 +272,592 @@ def _reviewer_guide_callout(reviewer_user_id: str | None = None) -> dict:
     }
 
 
+# Block types that carry a color field inside their type-specific object
+_COLORABLE_TYPES = {
+    "paragraph", "heading_1", "heading_2", "heading_3",
+    "bulleted_list_item", "numbered_list_item", "toggle",
+    "callout", "quote", "to_do",
+}
+
+
+def _colorize_blocks(blocks: list[dict], color: str) -> list[dict]:
+    """Recursively apply a background color to all colorable blocks."""
+    result = []
+    for block in blocks:
+        block = dict(block)
+        btype = block.get("type")
+        if btype in _COLORABLE_TYPES and btype in block:
+            inner = dict(block[btype])
+            inner["color"] = color
+            if "children" in inner:
+                inner["children"] = _colorize_blocks(inner["children"], color)
+            block[btype] = inner
+        result.append(block)
+    return result
+
+
+def _column_list(columns: list[list[dict]]) -> dict:
+    """Wrap a list of block-lists into a Notion column_list block."""
+    return {
+        "object": "block",
+        "type": "column_list",
+        "column_list": {
+            "children": [
+                {
+                    "object": "block",
+                    "type": "column",
+                    "column": {"children": col_blocks or [_paragraph("—")]},
+                }
+                for col_blocks in columns
+            ]
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# Generic JSON → Notion blocks
+# ---------------------------------------------------------------------------
+
+
+def _code_blocks(text: str) -> list[dict]:
+    """Split a long string into ≤ _RT_LIMIT-char code blocks."""
+    return [
+        {
+            "object": "block",
+            "type": "code",
+            "code": {
+                "language": "json",
+                "rich_text": [{"text": {"content": text[i : i + _RT_LIMIT]}}],
+            },
+        }
+        for i in range(0, len(text), _RT_LIMIT)
+    ]
+
+
+_LABEL_HINTS = (
+    "name",
+    "title",
+    "misconception",
+    "label",
+    "phase_name",
+    "problem_instance_id",
+    "id",
+)
+
+
+def _item_label(item: dict, index: int) -> str:
+    for hint in _LABEL_HINTS:
+        val = item.get(hint)
+        if val is not None and str(val).strip():
+            return f"{index + 1}. {val}"
+    return f"Item {index + 1}"
+
+
+def _value_blocks(value: Any, depth: int = 0) -> list[dict]:
+    """Recursively convert a JSON value to Notion blocks."""
+    if value is None:
+        return [_paragraph("—")]
+    if isinstance(value, bool):
+        return [_paragraph("Yes" if value else "No")]
+    if isinstance(value, (int, float)):
+        return [_paragraph(str(value))]
+    if isinstance(value, str):
+        return [_paragraph(value) if value.strip() else _paragraph("—")]
+
+    if isinstance(value, list):
+        if not value:
+            return [_paragraph("(empty)")]
+        if all(isinstance(v, (str, int, float, bool)) or v is None for v in value):
+            return [_bullet(str(v)) for v in value]
+        if all(isinstance(v, dict) for v in value):
+            return [
+                _toggle(_item_label(item, i), _dict_blocks(item, depth + 1))
+                for i, item in enumerate(value)
+            ]
+        return [_paragraph(json.dumps(value))]
+
+    if isinstance(value, dict):
+        return _dict_blocks(value, depth)
+
+    return [_paragraph(str(value))]
+
+
+def _dict_blocks(data: dict, depth: int = 0) -> list[dict]:
+    blocks: list[dict] = []
+    for key, value in data.items():
+        label = key.replace("_", " ").capitalize()
+        blocks.append(_heading(2 if depth == 0 else 3, label))
+        blocks.extend(_value_blocks(value, depth + 1))
+    return blocks
+
+
+def json_to_blocks(data: Any) -> list[dict]:
+    """
+    Convert JSON to Notion blocks:
+      - Human-readable formatted section (for reading and commenting)
+      - Divider
+      - "Raw JSON" heading + code block(s) (used by pull_from_notion)
+    """
+    blocks: list[dict] = []
+
+    if isinstance(data, dict):
+        blocks.extend(_dict_blocks(data, depth=0))
+    elif isinstance(data, list):
+        for i, item in enumerate(data):
+            if isinstance(item, dict):
+                blocks.append(_heading(2, _item_label(item, i)))
+                blocks.extend(_dict_blocks(item, depth=1))
+            else:
+                blocks.append(_bullet(str(item)))
+    else:
+        blocks.append(_paragraph(str(data)))
+
+    blocks.append(_divider())
+    blocks.append(_heading(3, "Raw JSON — do not edit"))
+    blocks.extend(_code_blocks(json.dumps(data, indent=2, ensure_ascii=False)))
+
+    return blocks
+
+
+# ---------------------------------------------------------------------------
+# Generic Notion blocks → JSON  (raw-footer pull)
+# ---------------------------------------------------------------------------
+
+
+def _extract_rt(rich_text: list[dict]) -> str:
+    return "".join(span.get("text", {}).get("content", "") for span in rich_text)
+
+
+def blocks_to_json(blocks: list[dict]) -> Any | None:
+    """
+    Reconstruct the original JSON from the raw-JSON code block(s) at the
+    bottom of the page.  Returns None if no code blocks are found.
+    """
+    raw_parts = [
+        _extract_rt(block.get("code", {}).get("rich_text", []))
+        for block in blocks
+        if block.get("type") == "code"
+    ]
+    if not raw_parts:
+        return None
+    return json.loads("".join(raw_parts))
+
+
+# ---------------------------------------------------------------------------
+# Pagination helper
+# ---------------------------------------------------------------------------
+
+
+def _all_blocks(client: Client, block_id: str, recursive: bool = False) -> list[dict]:
+    """Fetch all child blocks, handling Notion's pagination.
+
+    When recursive=True, also fetches and embeds children for any block that
+    has_children (e.g. toggle headings, toggle blocks). Children are stored
+    under block[block_type]["children"].
+    """
+    results: list[dict] = []
+    cursor: str | None = None
+    while True:
+        kwargs: dict = {"block_id": block_id}
+        if cursor:
+            kwargs["start_cursor"] = cursor
+        response = client.blocks.children.list(**kwargs)
+        results.extend(response["results"])
+        if not response["has_more"]:
+            break
+        cursor = response["next_cursor"]
+    if recursive:
+        for block in results:
+            if block.get("has_children"):
+                btype = block.get("type", "")
+                block_data = block.get(btype, {})
+                block_data["children"] = _all_blocks(client, block["id"], recursive=True)
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Block sync engine
+# ---------------------------------------------------------------------------
+
+
+def _block_content_equal(existing: dict, new_block: dict) -> bool:
+    """Return True if two blocks have identical type and text content."""
+    if existing.get("type") != new_block.get("type"):
+        return False
+    btype = existing["type"]
+    ex_data = existing.get(btype, {})
+    new_data = new_block.get(btype, {})
+    if _extract_rt(ex_data.get("rich_text", [])) != _extract_rt(new_data.get("rich_text", [])):
+        return False
+    if btype == "callout":
+        if ex_data.get("icon", {}).get("emoji") != new_data.get("icon", {}).get("emoji"):
+            return False
+    return True
+
+
+_HEADING_TYPES = {"heading_1", "heading_2", "heading_3"}
+
+
+def _refresh_children(client: Client, block_id: str, new_children: list[dict]) -> None:
+    """Archive all existing children of block_id and append new_children."""
+    for child in _all_blocks(client, block_id):
+        client.blocks.update(child["id"], archived=True)
+    for i in range(0, len(new_children), 100):
+        client.blocks.children.append(block_id, children=new_children[i : i + 100])
+
+
+def _block_skeleton(block: dict) -> str:
+    """Return a structural fingerprint for a block (type + emoji for callouts)."""
+    btype = block.get("type", "")
+    if btype == "callout":
+        emoji = block.get("callout", {}).get("icon", {}).get("emoji", "")
+        return f"callout:{emoji}"
+    return btype
+
+
+def _update_block_content(client: Client, block_id: str, new_block: dict) -> None:
+    """Update an existing Notion block's displayable content in-place.
+
+    Children are intentionally excluded — manage those separately via
+    _refresh_children so block IDs (and any comments) are preserved.
+    """
+    btype = new_block.get("type", "")
+    bdata = dict(new_block.get(btype, {}))
+    bdata.pop("children", None)
+    bdata.pop("is_toggleable", None)
+    if bdata:
+        client.blocks.update(block_id, **{btype: bdata})
+
+
+def _smart_sync_children(client: Client, parent_id: str, new_children: list[dict]) -> None:
+    """Sync children of a section heading block.
+
+    Compares the structural skeleton — the ordered sequence of block types and
+    callout emojis — of new_children against existing children.
+
+    - Skeleton matches: positional update-in-place.  Each beat's Notion block ID
+      (and any reviewer comments on it) is preserved; only changed text is
+      patched via blocks.update.  Toggle children (validator states, current_scene
+      snapshots) recurse into _smart_sync_children so comments inside them also
+      survive re-push when their structure is unchanged.
+    - Skeleton differs: fall back to _refresh_children (archive all, re-append).
+      This handles structural edits (added/removed beats, reordered steps) and
+      also recovers from previously scrambled Notion pages where prior syncs left
+      beats in the wrong order.
+    """
+    existing = _all_blocks(client, parent_id)
+
+    new_skel = [_block_skeleton(b) for b in new_children]
+    ex_skel = [_block_skeleton(b) for b in existing]
+
+    if new_skel != ex_skel:
+        _refresh_children(client, parent_id, new_children)
+        return
+
+    for nb, eb in zip(new_children, existing):
+        btype = nb["type"]
+        nb_children = nb.get(btype, {}).get("children")
+
+        if not _block_content_equal(nb, eb):
+            _update_block_content(client, eb["id"], nb)
+
+        if nb_children is not None:
+            if btype == "toggle":
+                _smart_sync_children(client, eb["id"], nb_children)
+            else:
+                _refresh_children(client, eb["id"], nb_children)
+        elif eb.get("has_children"):
+            for child in _all_blocks(client, eb["id"]):
+                client.blocks.update(child["id"], archived=True)
+
+
+def _section_sort_key(section_id: str) -> tuple:
+    """Return a sort key for a section ID so headings are ordered s1_1, s1_2, …, s1_a, s1_b, …"""
+    m = re.match(r"^s(\d+)_(\d+)([a-z]?)(?:_.*)?$", section_id)
+    if m:
+        return (int(m.group(1)), int(m.group(2)), m.group(3))
+    m2 = re.match(r"^s(\d+)_([a-z].+)$", section_id)
+    if m2:
+        return (int(m2.group(1)), float("inf"), m2.group(2))
+    return (0, 0, "")
+
+
+def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None:
+    """Sync new_blocks into parent_id using forward content-matching.
+
+    For each new block, scans forward in existing blocks to find a content match:
+    - Match found: keep block in place (preserves ID and comments); archive any
+      existing blocks skipped over.
+    - No match: insert after the last matched/inserted block via Notion's
+      ``after=`` parameter.  For heading_2 blocks (lesson sections), the insertion
+      point is determined by sorted section ID order so new sections land in the
+      correct position among existing ones.
+
+    Heading blocks (section toggle headings) recurse into _smart_sync_children,
+    which does positional in-place updates when the beat structure is unchanged
+    and falls back to a full refresh when structure has changed.
+    Toggle blocks (validator states, current_scene) are refreshed wholesale.
+    """
+    existing = _all_blocks(client, parent_id)
+    ex_ptr = 0
+    last_id: str | None = None
+    anchor_id: str | None = None  # ID of the 💡 reviewer guide callout (stable first block)
+
+    existing_h2s: list[tuple[dict, tuple]] = []
+    pre_existing_h2_ids: set[str] = set()
+    for block in existing:
+        if block.get("type") == "heading_2":
+            rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+            m = re.search(r"\[([^\]]+)\]\s*$", rt)
+            if m:
+                existing_h2s.append((block, _section_sort_key(m.group(1))))
+                pre_existing_h2_ids.add(block["id"])
+
+    for new_block in new_blocks:
+        btype = new_block["type"]
+        bdata = new_block.get(btype, {})
+        new_children = bdata.get("children")
+
+        match_idx = None
+        for k in range(ex_ptr, len(existing)):
+            if _block_content_equal(existing[k], new_block):
+                match_idx = k
+                break
+
+        if match_idx is not None:
+            for skipped in existing[ex_ptr:match_idx]:
+                client.blocks.update(skipped["id"], archived=True)
+
+            ex = existing[match_idx]
+            block_id = ex["id"]
+            last_id = block_id
+            ex_ptr = match_idx + 1
+
+            if anchor_id is None and btype == "callout":
+                if bdata.get("icon", {}).get("emoji") == "💡":
+                    anchor_id = block_id
+
+            if new_children is not None:
+                if btype in _HEADING_TYPES:
+                    _smart_sync_children(client, block_id, new_children)
+                else:
+                    _refresh_children(client, block_id, new_children)
+            elif ex.get("has_children"):
+                for child in _all_blocks(client, block_id):
+                    client.blocks.update(child["id"], archived=True)
+        else:
+            after_id = last_id
+            if btype == "heading_2":
+                rt = _extract_rt(bdata.get("rich_text", []))
+                m = re.search(r"\[([^\]]+)\]\s*$", rt)
+                if m:
+                    new_key = _section_sort_key(m.group(1))
+                    after_h2: dict | None = None
+                    for h2_block, h2_key in existing_h2s:
+                        if h2_key < new_key:
+                            after_h2 = h2_block
+                    if after_h2 is not None and after_h2["id"] in pre_existing_h2_ids:
+                        after_id = after_h2["id"]
+                    else:
+                        after_id = anchor_id or last_id
+
+            kwargs: dict = {"children": [new_block]}
+            if after_id is not None:
+                kwargs["after"] = after_id
+            resp = client.blocks.children.append(parent_id, **kwargs)
+            inserted_id = resp["results"][0]["id"]
+            last_id = inserted_id
+
+            if btype == "heading_2":
+                rt = _extract_rt(bdata.get("rich_text", []))
+                m = re.search(r"\[([^\]]+)\]\s*$", rt)
+                if m:
+                    new_key = _section_sort_key(m.group(1))
+                    insert_at = len(existing_h2s)
+                    for i, (_, k) in enumerate(existing_h2s):
+                        if k > new_key:
+                            insert_at = i
+                            break
+                    existing_h2s.insert(insert_at, ({"id": inserted_id, "type": "heading_2"}, new_key))
+
+    for leftover in existing[ex_ptr:]:
+        client.blocks.update(leftover["id"], archived=True)
+
+
+# ---------------------------------------------------------------------------
+# Notion block ID tag-back
+# ---------------------------------------------------------------------------
+
+
+def _tag_section(section: dict, heading_block_id: str, children: list[dict]) -> None:
+    """Write _notion_block_id onto the section heading and each editable beat."""
+    section["_notion_block_id"] = heading_block_id
+
+    beats = section.get("beats", [])
+    editable_beats = [b for b in beats if b.get("type") in {"scene", "dialogue", "prompt"}]
+
+    notion_callouts = [
+        b for b in children
+        if b.get("type") == "callout"
+        and b.get("callout", {}).get("icon", {}).get("emoji") in {"🎬", "💬", "❔"}
+    ]
+
+    for beat, nb in zip(editable_beats, notion_callouts):
+        beat["_notion_block_id"] = nb["id"]
+
+
+def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
+    """Fetch Notion block IDs and write ``_notion_block_id`` back onto each section and beat.
+
+    After a push, Notion has assigned block IDs to each rendered heading and callout.
+    This function reads those IDs and stores them:
+    - section["_notion_block_id"] = the heading_2 toggle block ID
+    - beat["_notion_block_id"]    = the callout block ID for each editable beat
+
+    Returns a modified deep copy of *sections* with ``_notion_block_id`` added.
+    Sections whose skeleton no longer matches the Notion page are skipped.
+    """
+    sections = copy.deepcopy(sections)
+    section_by_id = {s["id"]: s for s in sections if isinstance(s, dict) and "id" in s}
+
+    blocks = _all_blocks(client, page_id, recursive=True)
+
+    for block in blocks:
+        if block.get("type") != "heading_2":
+            continue
+        rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+        m = re.search(r"\[([^\]]+)\]\s*$", rt)
+        if not m:
+            continue
+        section = section_by_id.get(m.group(1))
+        if section is None:
+            continue
+        children = block.get("heading_2", {}).get("children", [])
+        _tag_section(section, block["id"], children)
+
+    return sections
+
+
+# ---------------------------------------------------------------------------
+# Public push/pull API
+# ---------------------------------------------------------------------------
+
+
+def push_to_notion(
+    data: Any,
+    title: str,
+    file_path: Path | None = None,
+    existing_page_id: str | None = None,
+    blocks_fn: Any | None = None,
+) -> str:
+    """
+    Push JSON data to Notion.  Returns the Notion page ID.
+
+    - If existing_page_id is given (or found in the registry), the page is
+      updated in-place (old blocks archived, new blocks appended).
+    - Otherwise a new child page is created under NOTION_PARENT_PAGE_ID.
+    - The page ID is saved to the registry if file_path is provided.
+    - blocks_fn: optional callable(data) -> list[dict] to override the default
+      json_to_blocks renderer (e.g. lesson_to_blocks for lesson.json files).
+    """
+    client = get_notion_client()
+    parent_page_id = os.environ["NOTION_PARENT_PAGE_ID"]
+
+    if existing_page_id is None and file_path is not None:
+        entry = get_registry_entry(file_path)
+        if entry:
+            existing_page_id = entry["page_id"]
+
+    if existing_page_id:
+        url = get_page_url(existing_page_id)
+        print(f"Updating existing page: {url}")
+        confirm = input("Overwrite this page? [y/N] ").strip().lower()
+        if confirm != "y":
+            print("Aborted.")
+            raise SystemExit(0)
+
+    blocks = blocks_fn(data) if blocks_fn is not None else json_to_blocks(data)
+
+    if existing_page_id:
+        try:
+            _sync_blocks(client, existing_page_id, blocks)
+            client.pages.update(
+                existing_page_id,
+                properties={"title": {"title": [{"text": {"content": title}}]}},
+            )
+            page_id = existing_page_id
+        except Exception as e:
+            status = getattr(e, "status", None) or getattr(
+                getattr(e, "response", None), "status_code", None
+            )
+            if status == 404:
+                existing_page_id = None
+            else:
+                raise
+    if not existing_page_id:
+        page = client.pages.create(
+            parent={"page_id": parent_page_id},
+            properties={"title": {"title": [{"text": {"content": title}}]}},
+            children=blocks[:100],
+        )
+        page_id = page["id"]
+        for i in range(100, len(blocks), 100):
+            client.blocks.children.append(page_id, children=blocks[i : i + 100])
+
+    if file_path is not None:
+        set_registry_entry(file_path, page_id, title)
+
+    return page_id
+
+
+def push_blocks_to_notion(
+    blocks: list[dict],
+    title: str,
+    file_path: Path | None = None,
+    existing_page_id: str | None = None,
+) -> str:
+    """
+    Push pre-built Notion blocks to a page.  Returns the page ID.
+
+    Use this instead of push_to_notion when you've already constructed the
+    blocks yourself (e.g. aggregated from multiple sources).
+    """
+    return push_to_notion(
+        data=None,
+        title=title,
+        file_path=file_path,
+        existing_page_id=existing_page_id,
+        blocks_fn=lambda _: blocks,
+    )
+
+
+def pull_from_notion(page_id: str) -> Any:
+    """
+    Pull the original JSON data from a Notion page.
+    Reads the raw-JSON code block appended during push.
+    Raises ValueError if no raw JSON block is found.
+    """
+    client = get_notion_client()
+    blocks = _all_blocks(client, page_id)
+    data = blocks_to_json(blocks)
+    if data is None:
+        raise ValueError(
+            "No raw JSON code block found on this Notion page. "
+            "Was this page created by push_to_notion?"
+        )
+    return data
+
+
+def get_page_comments(page_id: str) -> list[dict]:
+    """
+    Return all top-level comment threads on a Notion page.
+    Each entry has: created_by, created_time, rich_text (list of spans).
+    """
+    client = get_notion_client()
+    response = client.comments.list(block_id=page_id)
+    return response.get("results", [])
+
+
 # ---------------------------------------------------------------------------
 # Section ID → human label
 # ---------------------------------------------------------------------------
@@ -232,7 +889,7 @@ def _section_label(section_id: str) -> tuple[str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Beat renderers
+# Beat renderers  (lesson JSON → Notion blocks)
 # ---------------------------------------------------------------------------
 
 
@@ -403,21 +1060,19 @@ def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
 def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict]:
     t = beat.get("type", "")
     if t == "dialogue":
-        blocks = _render_dialogue(beat)
+        return _render_dialogue(beat)
     elif t == "scene":
-        blocks = _render_scene(beat)
+        return _render_scene(beat)
     elif t == "current_scene":
         if nested:
             return []
-        blocks = _render_current_scene(beat)
+        return _render_current_scene(beat)
     elif t == "prompt":
-        blocks = _render_prompt(beat, section_id)
+        return _render_prompt(beat, section_id)
     elif t == "empty":
-        blocks = []
+        return []
     else:
-        blocks = [_paragraph(str(beat))]
-
-    return blocks
+        return [_paragraph(str(beat))]
 
 
 # ---------------------------------------------------------------------------
@@ -447,7 +1102,7 @@ def _render_beat_group(beats: list[dict], section_id: str) -> list[dict]:
 def _render_main_section(section: dict) -> list[dict]:
     """Render a main section as script blocks.
 
-    Branch-tagged beats are grouped by branch_condition regardless of their
+    Branch-tagged beats are grouped by branch_name regardless of their
     order in the source, so interleaved AI output still renders cleanly.
     Each named branch is introduced by an H3 heading (🔀 <branch>).
     Unconditional beats before the first branch render normally; any
@@ -512,7 +1167,7 @@ def _render_main_section(section: dict) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Public entry point
+# Lesson → Notion blocks  (public)
 # ---------------------------------------------------------------------------
 
 
@@ -531,11 +1186,6 @@ def lesson_to_blocks(lesson: dict | list, reviewer_user_id: str | None = None) -
     reviewer_user_id : str | None
         Notion user ID for the reviewer @mention in the anchor callout.
         Falls back to env var NOTION_REVIEWER_USER_ID if None.
-
-    Returns
-    -------
-    list[dict]
-        Notion block objects ready for blocks.children.append.
     """
     if reviewer_user_id is None:
         reviewer_user_id = os.getenv("NOTION_REVIEWER_USER_ID")
@@ -551,7 +1201,6 @@ def lesson_to_blocks(lesson: dict | list, reviewer_user_id: str | None = None) -
 
     blocks: list[dict] = []
 
-    # Always-first anchor block for reviewer guidance and after= insertion
     blocks.append(_reviewer_guide_callout(reviewer_user_id))
 
     if lesson_id:
@@ -571,16 +1220,12 @@ def lesson_to_blocks(lesson: dict | list, reviewer_user_id: str | None = None) -
 
 
 # ---------------------------------------------------------------------------
-# Pull helpers
+# Pull helpers  (Notion blocks → lesson JSON)
 # ---------------------------------------------------------------------------
 
 _HEADING2_ID_RE = re.compile(r"\[([^\]]+)\]\s*$")
 _EDITABLE_BEAT_TYPES = {"dialogue", "scene", "prompt"}
 _EDITABLE_CALLOUT_EMOJIS = {"💬", "🎬", "❔"}
-
-
-def _extract_rt_text(rich_text: list[dict]) -> str:
-    return "".join(span.get("text", {}).get("content", "") for span in rich_text)
 
 
 def _callout_emoji(block: dict) -> str | None:
@@ -598,7 +1243,7 @@ def _collect_toggle_callouts(toggle_block: dict) -> list[tuple[str, str]]:
     for block in children:
         if block.get("type") == "callout":
             emoji = _callout_emoji(block) or ""
-            text = _extract_rt_text(block.get("callout", {}).get("rich_text", []))
+            text = _extract_rt(block.get("callout", {}).get("rich_text", []))
             results.append((emoji, text))
     return results
 
@@ -617,7 +1262,7 @@ def _blocks_to_steps(blocks: list[dict]) -> list[dict]:
     for block in blocks:
         btype = block.get("type")
         if btype == "paragraph":
-            text = _extract_rt_text(block.get("paragraph", {}).get("rich_text", []))
+            text = _extract_rt(block.get("paragraph", {}).get("rich_text", []))
             if text.strip() == "· · ·":
                 groups.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
                 current_callouts = []
@@ -625,7 +1270,7 @@ def _blocks_to_steps(blocks: list[dict]) -> list[dict]:
                 continue
         if btype == "callout":
             emoji = _callout_emoji(block) or ""
-            text = _extract_rt_text(block.get("callout", {}).get("rich_text", []))
+            text = _extract_rt(block.get("callout", {}).get("rich_text", []))
             current_callouts.append((emoji, text))
         elif btype == "toggle":
             current_toggles.append(block)
@@ -657,7 +1302,7 @@ def _section_callouts_from_blocks(blocks: list[dict]) -> dict[str, dict]:
             _flush()
             current_blocks = []
             heading_data = block.get("heading_2", {})
-            raw = _extract_rt_text(heading_data.get("rich_text", []))
+            raw = _extract_rt(heading_data.get("rich_text", []))
             m = _HEADING2_ID_RE.search(raw)
             current_section = m.group(1) if m else None
 
@@ -710,10 +1355,8 @@ def _parse_prompt_fields(text: str) -> dict:
     if "options" in kv:
         raw_opts = kv["options"].strip()
         try:
-            # New format: JSON array e.g. ["Same dots, just organized differently", ...]
             fields["options"] = json.loads(raw_opts)
         except (json.JSONDecodeError, ValueError):
-            # Legacy format: comma-separated plain values (may be ambiguous for string options)
             parsed_opts = []
             for o in raw_opts.split(", "):
                 o = o.strip()
@@ -817,14 +1460,12 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
                 if _NEW_BEAT_TAG.search(text):
                     clean_text = _NEW_BEAT_TAG.sub("", text).strip()
                     new_beat = _parse_new_beat(emoji, clean_text)
-                    # Insert before the current editable beat using identity lookup
                     if beat_ptr < len(editable_beats):
                         target = editable_beats[beat_ptr]
                         actual_pos = next(
                             idx for idx, b in enumerate(json_beats) if b is target
                         )
                         json_beats.insert(actual_pos, new_beat)
-                        # editable_beats references are still valid; target shifted by 1
                     else:
                         json_beats.append(new_beat)
                     continue
@@ -848,13 +1489,10 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
                 elif btype == "prompt":
                     original_options = list(beat.get("options") or [])
                     beat.update(_parse_prompt_fields(text))
-                    # If option count changed, the parse split on commas inside option text —
-                    # restore the original options rather than corrupt the beat.
                     if len(beat.get("options") or []) != len(original_options):
                         beat["options"] = original_options
                         beat["notion_flag"] = "options_parse_failed"
                         beat["_original_options"] = original_options
-                        # Extract raw options string from the first line of the callout text
                         first_line = text.split("\n")[0]
                         m = re.search(r"options:\s*(.+?)(?:  |$)", first_line)
                         beat["_notion_options_text"] = m.group(1).strip() if m else first_line
@@ -876,7 +1514,6 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
                                     if t_emoji == "💬":
                                         state_beat["text"] = _strip_dialogue_text(t_text)
         else:
-            # Extra Notion step group beyond JSON groups → new suggested step group
             new_beats = [
                 _parse_new_beat(e, _NEW_BEAT_TAG.sub("", t).strip())
                 for e, t in notion_callouts
@@ -891,8 +1528,7 @@ def _collect_scene_flags(sections: list) -> list[dict]:
 
     Flag types:
     - "scene_description_updated": 🎬 description was edited in Notion; needs manual config update.
-    - "options_parse_failed": ❔ options could not be parsed (legacy comma format with commas in
-      option text); re-push the page to upgrade to JSON format and make options editable.
+    - "options_parse_failed": ❔ options could not be parsed; re-push to upgrade to JSON format.
     """
     flags = []
     for section in sections:
@@ -934,7 +1570,7 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
 
     Returns a tuple of:
     - Deep copy of *original* with Notion edits applied.
-    - List of scene flag dicts where a 🎬 description was edited in Notion.
+    - List of flag dicts for scenes/prompts that need follow-up.
     """
     from steps.formatting.id_stamper import stamp_ids
 
@@ -957,18 +1593,13 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
     return patched, flags
 
 
-# ---------------------------------------------------------------------------
-# Public pull helper
-# ---------------------------------------------------------------------------
-
-
-def pull_lesson_from_notion(page_id: str) -> dict:
+def pull_lesson_from_notion(page_id: str) -> tuple:
     """
     Fetch a lesson page from Notion, patch it with any text edits, and write
     the result back to the source file recorded in config/notion_pages.json.
-    """
-    from utils.notion_sync import _all_blocks, get_file_path_for_page, get_notion_client
 
+    Returns (patched, flags, diff).
+    """
     file_path = get_file_path_for_page(page_id)
     if file_path is None:
         raise ValueError(
@@ -1006,3 +1637,42 @@ def pull_lesson_from_notion(page_id: str) -> dict:
     print(diff)
 
     return patched, flags, diff
+
+
+# ---------------------------------------------------------------------------
+# Convenience wrappers
+# ---------------------------------------------------------------------------
+
+
+def push_lesson(
+    data: Any,
+    title: str,
+    file_path: Path | None = None,
+    reviewer_user_id: str | None = None,
+) -> str:
+    """Push lesson data to Notion. Returns the page ID.
+
+    Wrapper around push_to_notion with lesson_to_blocks as renderer.
+    Pass file_path=None to skip registry (e.g. for test pushes).
+    """
+    return push_to_notion(
+        data=data,
+        title=title,
+        file_path=file_path,
+        blocks_fn=lambda d: lesson_to_blocks(d, reviewer_user_id=reviewer_user_id),
+    )
+
+
+def pull_lesson(
+    page_id: str,
+    original: dict | list,
+) -> tuple[dict | list, list[dict], list[dict]]:
+    """Pull lesson edits from Notion. Returns (patched, flags, raw_blocks).
+
+    raw_blocks is the full fetched block tree, returned so callers can save
+    it as a debug artifact if needed.
+    """
+    client = get_notion_client()
+    blocks = _all_blocks(client, page_id, recursive=True)
+    patched, flags = blocks_to_lesson(blocks, original)
+    return patched, flags, blocks

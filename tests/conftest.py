@@ -23,7 +23,7 @@ def pytest_addoption(parser):
 def sandbox_page(request):
     """Create a blank child page under NOTION_PARENT_PAGE_ID, yield its ID, archive on teardown
     (unless --keep-sandbox is set)."""
-    from utils.notion_sync import get_notion_client, get_page_url
+    from utils.notion import get_notion_client, get_page_url
     client = get_notion_client()
     parent_id = os.environ["NOTION_PARENT_PAGE_ID"]
     test_name = request.node.name

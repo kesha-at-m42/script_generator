@@ -15,8 +15,10 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
+from typing import Any
 
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
@@ -29,8 +31,14 @@ sys.path.insert(0, str(project_root / "core"))
 
 from version_manager import get_next_version  # noqa: E402
 
-from utils import notion_sync  # noqa: E402
-from utils.lesson_notion_format import blocks_to_lesson, lesson_to_blocks  # noqa: E402
+from utils.notion import (  # noqa: E402
+    blocks_to_lesson,
+    get_page_url,
+    get_registry_entry,
+    is_configured,
+    pull_lesson,
+    push_lesson,
+)
 
 
 def main():
@@ -52,7 +60,7 @@ def main():
     )
     args = parser.parse_args()
 
-    if not notion_sync.is_configured():
+    if not is_configured():
         print("[ERROR] NOTION_API_KEY or NOTION_PARENT_PAGE_ID not set in .env")
         sys.exit(1)
 
@@ -77,20 +85,13 @@ def _push(file_path: Path, title: str | None, test_push: bool = False) -> None:
 
     if test_push:
         print("Test push — creating new page (registry not updated)...")
-    else:
-        existing = notion_sync.get_registry_entry(file_path)
-        if existing:
-            print(f"Updating existing page: {notion_sync.get_page_url(existing['page_id'])}")
-        else:
-            print("Creating new page...")
 
-    page_id = notion_sync.push_to_notion(
+    page_id = push_lesson(
         data=data,
         title=title,
         file_path=None if test_push else file_path,
-        blocks_fn=lesson_to_blocks,
     )
-    print(f"[OK] {notion_sync.get_page_url(page_id)}")
+    print(f"[OK] {get_page_url(page_id)}")
 
 
 def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
@@ -117,7 +118,6 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
         return None
     push_step_num = int(m.group(1))
 
-    # Find the highest-numbered step dir before the push step
     step_dirs = sorted(
         [d for d in version_dir.iterdir() if d.is_dir() and re.match(r"step_(\d+)_", d.name)],
         key=lambda d: int(re.match(r"step_(\d+)_", d.name).group(1)),
@@ -143,37 +143,106 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
     return original_path, out_step_dir / "pull.json"
 
 
+def _collect_notion_ids(obj: Any, acc: dict[str, str]) -> None:
+    """Recursively collect {beat_id: _notion_block_id} from a lesson structure."""
+    if isinstance(obj, dict):
+        if "id" in obj and "_notion_block_id" in obj:
+            acc[obj["id"]] = obj["_notion_block_id"]
+        for v in obj.values():
+            _collect_notion_ids(v, acc)
+    elif isinstance(obj, list):
+        for item in obj:
+            _collect_notion_ids(item, acc)
+
+
+def _stamp_notion_ids(obj: Any, id_map: dict[str, str]) -> None:
+    """Recursively stamp _notion_block_id onto any object whose 'id' is in id_map."""
+    if isinstance(obj, dict):
+        obj_id = obj.get("id")
+        if obj_id and obj_id in id_map:
+            obj["_notion_block_id"] = id_map[obj_id]
+        for v in obj.values():
+            _stamp_notion_ids(v, id_map)
+    elif isinstance(obj, list):
+        for item in obj:
+            _stamp_notion_ids(item, id_map)
+
+
+def _ids_changed(original: Any, patched: Any) -> bool:
+    """Return True if the Notion block IDs in patched differ from those in original."""
+    orig_ids: dict[str, str] = {}
+    patched_ids: dict[str, str] = {}
+    _collect_notion_ids(original, orig_ids)
+    _collect_notion_ids(patched, patched_ids)
+    if not orig_ids:
+        return True  # no IDs yet — first pull, always stamp
+    return orig_ids != patched_ids
+
+
+def _copy_and_stamp_version(
+    src_version_dir: Path, dst_version_dir: Path, id_map: dict[str, str]
+) -> None:
+    """Copy all step outputs from src to dst, stamping _notion_block_id values."""
+    for step_dir in sorted(src_version_dir.glob("step_*")):
+        dst_step = dst_version_dir / step_dir.name
+        dst_step.mkdir(parents=True, exist_ok=True)
+        for f in step_dir.iterdir():
+            if not f.is_file():
+                continue
+            if f.name == "notion_blocks.json":
+                continue  # raw Notion data, don't copy stale blocks
+            if f.suffix == ".json":
+                data = json.loads(f.read_text(encoding="utf-8"))
+                _stamp_notion_ids(data, id_map)
+                (dst_step / f.name).write_text(
+                    json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+                )
+            else:
+                shutil.copy2(f, dst_step / f.name)
+
+
 def _pull(file_path: Path, new_version: bool = False) -> None:
-    entry = notion_sync.get_registry_entry(file_path)
+    entry = get_registry_entry(file_path)
     if not entry:
         print("[ERROR] No Notion page found for this file. Push it first.")
         sys.exit(1)
 
     page_id = entry["page_id"]
-    print(f"Pulling from: {notion_sync.get_page_url(page_id)}")
+    print(f"Pulling from: {get_page_url(page_id)}")
 
-    # If the file is a push step output, resolve the real source and output path.
     push_source = _resolve_push_source(file_path)
     if push_source:
-        original_path, out_path = push_source
+        original_path, default_out_path = push_source
         print(f"[PUSH OUTPUT] Using source: {original_path.relative_to(project_root)}")
-        print(f"[PUSH OUTPUT] Saving pull to: {out_path.relative_to(project_root)}")
         original = json.loads(original_path.read_text(encoding="utf-8"))
     else:
         original = json.loads(file_path.read_text(encoding="utf-8"))
-        if new_version:
-            pipeline_dir = file_path.parent.parent.parent
-            next_ver = get_next_version(pipeline_dir)
-            step_dir = pipeline_dir / next_ver / file_path.parent.name
-            step_dir.mkdir(parents=True, exist_ok=True)
-            out_path = step_dir / file_path.name
-            print(f"Creating new version: {next_ver}")
-        else:
-            out_path = file_path
+        default_out_path = file_path
 
-    client = notion_sync.get_notion_client()
-    blocks = notion_sync._all_blocks(client, page_id, recursive=True)
-    patched, flags = blocks_to_lesson(blocks, original)
+    version_dir = file_path.parent.parent
+    pipeline_dir = version_dir.parent
+
+    patched, flags, blocks = pull_lesson(page_id, original)
+
+    if _ids_changed(original, patched):
+        next_ver = get_next_version(pipeline_dir)
+        print(f"[IDs changed] Creating new version {next_ver} with reverse-stamped block IDs...")
+        id_map: dict[str, str] = {}
+        _collect_notion_ids(patched, id_map)
+        new_version_dir = pipeline_dir / next_ver
+        _copy_and_stamp_version(version_dir, new_version_dir, id_map)
+        rel = default_out_path.relative_to(version_dir)
+        out_path = new_version_dir / rel
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        print(f"[IDs changed] Reverse-stamped {len(id_map)} block IDs across {next_ver}")
+    elif new_version:
+        next_ver = get_next_version(pipeline_dir)
+        step_dir = pipeline_dir / next_ver / default_out_path.parent.name
+        step_dir.mkdir(parents=True, exist_ok=True)
+        out_path = step_dir / default_out_path.name
+        print(f"Creating new version: {next_ver}")
+    else:
+        out_path = default_out_path
 
     out_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"[OK] Saved to {out_path.relative_to(project_root)}")

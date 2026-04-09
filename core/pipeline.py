@@ -794,6 +794,10 @@ def run_pipeline(
                 pipeline_dir = _outputs_base / metadata["full_pipeline_name"]
                 base_version_dir = pipeline_dir / base_version
                 base_step_dir = get_step_directory(base_version_dir, i, step_name)
+                if not base_step_dir.exists():
+                    found = find_step_directory_by_name(base_version_dir, step_name)
+                    if found:
+                        base_step_dir = found
 
             # Determine which items to process
             # If step has explicit batch_only_items set, use that (takes priority)

@@ -17,6 +17,14 @@
       "description": "Splits starter pack markdown by section heading into warmup/lesson/exitcheck/synthesis .md files",
       "function_args": {},
       "output_file": "phase_split.json"
+    },
+    {
+      "name": "starter_pack_json_loader",
+      "type": "formatting",
+      "function": "starter_pack_json_loader.load",
+      "description": "Extracts structured module metadata from _starter_pack_ref.md — deterministic first, Claude fallback for missing fields",
+      "function_args": {},
+      "output_file": "starter_pack.json"
     }
   ],
   "lesson_generator": [
@@ -235,7 +243,8 @@
       "output_file": "structured_spec.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "index"
+      "batch_id_field": "index",
+      "batch_output_id_field": "id"
     },
     {
       "name": "toy_spec_loader",

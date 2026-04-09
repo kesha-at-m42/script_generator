@@ -10,7 +10,7 @@ import copy
 import json
 import pytest
 
-from utils.lesson_notion_format import (
+from utils.notion import (
     blocks_to_lesson,
     lesson_to_blocks,
     _strip_dialogue_text,
@@ -51,16 +51,39 @@ def _find_beat(section: dict, beat_type: str, index: int = 0) -> dict:
 
 
 def _callout_blocks(blocks: list[dict], section_id: str) -> list[dict]:
-    """Return the callout children of the heading_2 block for section_id."""
+    """Return callout blocks that follow the heading_2 for section_id (flat layout)."""
+    collecting = False
+    result = []
     for block in blocks:
-        if block.get("type") == "heading_2":
+        btype = block.get("type")
+        if btype == "heading_2":
             rt = block["heading_2"]["rich_text"][0]["text"]["content"]
             if f"[{section_id}]" in rt:
-                return [
-                    c for c in block["heading_2"].get("children", [])
-                    if c.get("type") == "callout"
-                ]
-    return []
+                collecting = True
+                continue
+            elif collecting:
+                break
+        if collecting and btype == "callout":
+            result.append(block)
+    return result
+
+
+def _section_blocks(blocks: list[dict], section_id: str) -> list[dict]:
+    """Return all blocks that follow the heading_2 for section_id (flat layout)."""
+    collecting = False
+    result = []
+    for block in blocks:
+        btype = block.get("type")
+        if btype == "heading_2":
+            rt = block["heading_2"]["rich_text"][0]["text"]["content"]
+            if f"[{section_id}]" in rt:
+                collecting = True
+                continue
+            elif collecting:
+                break
+        if collecting:
+            result.append(block)
+    return result
 
 
 def _set_callout_text(callout: dict, new_text: str) -> None:
@@ -199,19 +222,19 @@ def test_new_beat_insertion():
     ])
 
     def mutate(blocks):
-        for block in blocks:
+        heading_idx = None
+        for i, block in enumerate(blocks):
             if block.get("type") == "heading_2":
                 rt = block["heading_2"]["rich_text"][0]["text"]["content"]
                 if "[s1_5_insert]" in rt:
-                    children = block["heading_2"]["children"]
-                    first_dialogue_idx = next(
-                        i for i, c in enumerate(children)
-                        if c.get("type") == "callout"
-                        and c["callout"]["icon"]["emoji"] == "💬"
-                    )
-                    new_callout = copy.deepcopy(children[first_dialogue_idx])
+                    heading_idx = i
+            elif heading_idx is not None:
+                if block.get("type") == "callout" and block["callout"]["icon"]["emoji"] == "💬":
+                    new_callout = copy.deepcopy(block)
                     _set_callout_text(new_callout, '"[new beat] Inserted line."')
-                    children.insert(first_dialogue_idx, new_callout)
+                    blocks.insert(i, new_callout)
+                    return
+                elif block.get("type") == "heading_2":
                     return
 
     patched, flags = _push_pull(lesson, mutate)
@@ -247,16 +270,20 @@ def test_validator_dialogue_edit():
     ])
 
     def mutate(blocks):
+        collecting = False
         for block in blocks:
             if block.get("type") == "heading_2":
                 rt = block["heading_2"]["rich_text"][0]["text"]["content"]
                 if "[s2_1_validator]" in rt:
-                    for child in block["heading_2"].get("children", []):
-                        if child.get("type") == "toggle":
-                            for tc in child.get("toggle", {}).get("children", []):
-                                if tc.get("type") == "callout" and tc["callout"]["icon"]["emoji"] == "💬":
-                                    _set_callout_text(tc, '"That\'s correct! Great job."')
-                                    return
+                    collecting = True
+                    continue
+                elif collecting:
+                    return
+            if collecting and block.get("type") == "toggle":
+                for tc in block.get("toggle", {}).get("children", []):
+                    if tc.get("type") == "callout" and tc["callout"]["icon"]["emoji"] == "💬":
+                        _set_callout_text(tc, '"That\'s correct! Great job."')
+                        return
 
     patched, flags = _push_pull(lesson, mutate)
     sec = _find_section(patched, "s2_1_validator")
@@ -282,23 +309,28 @@ def test_extra_step_group_appended():
     ])
 
     def mutate(blocks):
-        for block in blocks:
+        heading_found = False
+        insert_at = len(blocks)
+        for i, block in enumerate(blocks):
             if block.get("type") == "heading_2":
                 rt = block["heading_2"]["rich_text"][0]["text"]["content"]
                 if "[s3_1_extra]" in rt:
-                    children = block["heading_2"]["children"]
-                    children.append({
-                        "object": "block", "type": "paragraph",
-                        "paragraph": {"rich_text": [{"text": {"content": "· · ·"}}]},
-                    })
-                    children.append({
-                        "object": "block", "type": "callout",
-                        "callout": {
-                            "rich_text": [{"text": {"content": '"Extra step."'}}],
-                            "icon": {"type": "emoji", "emoji": "💬"},
-                        },
-                    })
-                    return
+                    heading_found = True
+                elif heading_found:
+                    insert_at = i
+                    break
+        if heading_found:
+            blocks.insert(insert_at, {
+                "object": "block", "type": "paragraph",
+                "paragraph": {"rich_text": [{"text": {"content": "· · ·"}}]},
+            })
+            blocks.insert(insert_at + 1, {
+                "object": "block", "type": "callout",
+                "callout": {
+                    "rich_text": [{"text": {"content": '"Extra step."'}}],
+                    "icon": {"type": "emoji", "emoji": "💬"},
+                },
+            })
 
     patched, flags = _push_pull(lesson, mutate)
     sec = _find_section(patched, "s3_1_extra")

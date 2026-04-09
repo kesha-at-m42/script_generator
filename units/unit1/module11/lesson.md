@@ -116,7 +116,7 @@ CRA Sequence for M11:
 * **Prompt:** "Build the row expression for this array."
 * **Student Action:** Equation Builder Methods C/D.
 * **Correct Answer:** Expression must be `2 × 5`.
-* **On Correct:** "2 times 5. 2 rows of 5.. You've got it."
+* **On Correct:** "2 times 5. 2 rows of 5. You've got it."
 ---
 
 **[SECTION 1 TRANSITION]**
@@ -312,24 +312,21 @@ Part B — Column expression:
 
 * **Visual:** Two multiple choice options saying "Row" and "Column".  
 * **Guide:** "Last challenge. I want an array with 20 dots total. You choose: build it with rows first or columns first, pick your numbers, and find the equation. There's more than one right answer."
-* **Prompt:** “Choose rows or columns to build an array with 20 dots.” [branches: selected_rows | selected_columns]
+* **Prompt:** "Choose rows or columns to build an array with 20 dots."
 **Step 1 — Specification:**
 
-* **Student Action:** Student selects “rows” [selected_rows] or “columns” [selected_columns].
-* **Visual [selected_rows]:** “Rows & Items per Row” buttons activate.
-* **Visual [selected_columns]:** “Columns & Items per Column” buttons activate.
+* **Student Action:** Student selects "rows" or "columns".
+* **Visual:** On valid specification, the buttons activate (matches whichever the student named, "Rows & Items per Row" or "Columns & Items per Column").
 **Step 2 — Construction:**
 
-* **Student Action [selected_rows]:** Student builds rows, then items per row (dots fill in at intersections).
-* **Student Action [selected_columns]:** Student builds columns, then items per column (dots fill in at intersections).
+* **Student Action:** Student builds first dimension (placeholders) and second dimension (dots fill in at intersections).
 * **Correct State:** Completed array has exactly 20 dots (2 × 10, 10 × 2, 4 × 5, 5 × 4).
 **Step 3 - Words:**
 
-* **Visual [selected_rows]:** Equation Builder words mode: “__ rows of __”. Array from previous step still on screen.
-* **Visual [selected_columns]:** Equation Builder words mode: “__ columns of __”. Array from previous step still on screen.
-* **Guide:** “You built it. Now write the word description for your array”.
-* **Prompt:** “Describe your array using words.”
-* **Correct State:** Any valid specification that matches the row or column array which = 20 (e.g., “4 rows of 5,” “5 columns of 4,” “2 rows of 10,” “10 rows of 2”.).
+* **Visual:** Equation Builder words mode. The array from previous step still on the screen.
+* **Guide:** "You built it. Now write the word description for your array”.
+* **Prompt:** "Describe your array using words."
+* **Correct State:** Any valid specification that matches the row or column array which = 20 (e.g., "4 rows of 5," "5 columns of 4," "2 rows of 10," “10 rows of 2”.).
 **Step 4 — Equation:**
 
 * **Visual:** Equation Builder equation mode. The array and the word equation from the previous step still on the screen.

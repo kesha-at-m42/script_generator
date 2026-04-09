@@ -24,6 +24,11 @@ Output: [{index, major, minor, header, body}, ...]
 import re
 from collections import defaultdict
 
+# Matches any ## or ### header — used to detect trailing metadata sections
+# (Required Phrases, Forbidden Phrases, etc.) that should not be captured
+# in the last interaction section's body.
+_META_HEADER_RE = re.compile(r"^#{2,3}\s+\S", re.MULTILINE)
+
 # Matches the start of a real interaction/section header line.
 # Does NOT match meta-headers like "### 1.7.1 LESSON SECTION 1: ..." (start with digits).
 _HEADER_RE = re.compile(
@@ -95,7 +100,13 @@ def split_spec(input_data, **kwargs):
         minor = minor_counters[major]
 
         body_start = match.end()
-        body_end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        if i + 1 < len(matches):
+            body_end = matches[i + 1].start()
+        else:
+            # Last section: stop at the first ## or ### header that wasn't
+            # matched as an interaction (trailing metadata like Required Phrases).
+            meta = _META_HEADER_RE.search(text, body_start)
+            body_end = meta.start() if meta else len(text)
         body = text[body_start:body_end].strip()
 
         sections.append({

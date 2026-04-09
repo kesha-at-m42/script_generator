@@ -309,6 +309,45 @@ def _blocks_to_md(blocks: list, depth: int = 0) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
+# Page properties → dict
+# ---------------------------------------------------------------------------
+
+
+def _props_to_dict(properties: dict) -> dict:
+    """Convert Notion page property values to simple Python types."""
+    result = {}
+    for key, prop in properties.items():
+        ptype = prop.get("type", "")
+        if ptype == "title":
+            result[key] = "".join(s.get("plain_text", "") for s in prop.get("title", []))
+        elif ptype == "rich_text":
+            result[key] = "".join(s.get("plain_text", "") for s in prop.get("rich_text", []))
+        elif ptype == "number":
+            result[key] = prop.get("number")
+        elif ptype == "select":
+            sel = prop.get("select")
+            result[key] = sel["name"] if sel else None
+        elif ptype == "multi_select":
+            result[key] = [s["name"] for s in prop.get("multi_select", [])]
+        elif ptype == "checkbox":
+            result[key] = prop.get("checkbox")
+        elif ptype == "date":
+            date = prop.get("date")
+            result[key] = date["start"] if date else None
+        elif ptype == "url":
+            result[key] = prop.get("url")
+        elif ptype == "email":
+            result[key] = prop.get("email")
+        elif ptype == "phone_number":
+            result[key] = prop.get("phone_number")
+        elif ptype == "formula":
+            formula = prop.get("formula", {})
+            result[key] = formula.get(formula.get("type"), formula)
+        # relation, rollup, people, files, created_time, etc. are skipped
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Public entry point
 # ---------------------------------------------------------------------------
 
@@ -382,12 +421,16 @@ def pull(
     if verbose:
         print(f"  [NOTION_PULL] Fetching page {page_id} ...")
 
-    # ---- Page title --------------------------------------------------------
+    # ---- Page title + properties -------------------------------------------
     page_meta = client.pages.retrieve(page_id)
-    title_rt = (
-        page_meta.get("properties", {}).get("title", {}).get("title", [])
-    )
-    title = "".join(span.get("plain_text", "") for span in title_rt)
+    props = _props_to_dict(page_meta.get("properties", {}))
+
+    # Find the title-type property — key may be "Name", "title", etc.
+    title = ""
+    for prop_name, prop_value in page_meta.get("properties", {}).items():
+        if prop_value.get("type") == "title":
+            title = "".join(s.get("plain_text", "") for s in prop_value.get("title", []))
+            break
 
     if verbose:
         print(f"  [NOTION_PULL] Title: {title}")
@@ -399,7 +442,23 @@ def pull(
         print(f"  [NOTION_PULL] Fetched {len(blocks)} top-level blocks")
 
     # ---- Convert to markdown -----------------------------------------------
-    md_lines: list[str] = []
+    # Prepend page properties as YAML frontmatter so loader can read them
+    # without parsing the body.
+    md_lines: list[str] = ["---"]
+    for k, v in props.items():
+        if v is None:
+            continue
+        if isinstance(v, list):
+            v_str = ", ".join(str(i) for i in v)
+        else:
+            v_str = str(v)
+        # Quote values that contain colons to stay valid YAML
+        if ":" in v_str:
+            v_str = f'"{v_str}"'
+        md_lines.append(f"{k}: {v_str}")
+    md_lines.append("---")
+    md_lines.append("")
+
     if title:
         md_lines.append(f"# **{title}**")
         md_lines.append("")

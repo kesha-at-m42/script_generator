@@ -97,9 +97,11 @@ If the body contains a table (e.g. Game Specifications), capture it as a nested 
 - Omit fields that are empty or not present in the body
 - **Escape all double quotes inside string values** — if a field value contains a `"` character, it must be written as `\"` in the JSON string
 
-""",
-    doc_refs=[],
-    output_structure="""
+---
+
+## EXAMPLE OUTPUT (section 1.1)
+
+```json
 {
   "id": "s1_1_transition_introduce_array",
   "visual": "Arrays with Pictures (concrete mode): Sticker sheet showing 3 rows of 4 stickers in a clear rectangular arrangement.",
@@ -108,6 +110,17 @@ If the body contains a table (e.g. Game Specifications), capture it as a nested 
   "visual_2": "System briefly outlines the full rectangle shape around the sticker sheet.",
   "guide_3": "When objects are arranged like this — lined up in a rectangle, with every spot filled — that's called an ARRAY.",
   "vocabulary": "array — formally introduced here."
+}
+```
+
+This is an example for section 1.1 only. Other sections will have different fields depending on their body content — extract exactly what is present.
+
+""",
+    doc_refs=[],
+    output_structure="""
+{
+  "id": "s<major>_<minor>_<slug>",
+  "guide": "..."
 }
 """,
     prefill="{",

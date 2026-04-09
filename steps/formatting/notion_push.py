@@ -52,9 +52,15 @@ def push(
             overwriting the canonical page.
     """
     try:
-        from utils import notion_sync  # lazy: notion-client may not be installed
+        from utils.notion import (  # lazy: notion-client may not be installed
+            get_notion_client,
+            get_page_url,
+            is_configured,
+            push_lesson,
+            tag_notion_ids,
+        )
 
-        if not notion_sync.is_configured():
+        if not is_configured():
             return data
 
         title_parts = [pipeline_name or "Pipeline output"]
@@ -70,16 +76,13 @@ def push(
 
         reviewer_user_id = os.getenv("NOTION_REVIEWER_USER_ID")
 
-        from utils.lesson_notion_format import lesson_to_blocks
-
-        page_id = notion_sync.push_to_notion(
+        page_id = push_lesson(
             data=data,
             title=title,
-            # Pass file_path=None on test push so registry is never consulted or updated
             file_path=None if test_push else output_file_path,
-            blocks_fn=lambda d: lesson_to_blocks(d, reviewer_user_id=reviewer_user_id),
+            reviewer_user_id=reviewer_user_id,
         )
-        url = notion_sync.get_page_url(page_id)
+        url = get_page_url(page_id)
         print(f"\n  [NOTION] Pushed -> {url}")
 
         # Tag beats with Notion block IDs and write back to the source sections file
@@ -90,8 +93,8 @@ def push(
                 source_file = find_prior_sections_file(Path(output_file_path))
                 if source_file is not None:
                     source_content = json.loads(source_file.read_text(encoding="utf-8"))
-                    client = notion_sync.get_notion_client()
-                    tagged = notion_sync.tag_notion_ids(client, page_id, source_content)
+                    client = get_notion_client()
+                    tagged = tag_notion_ids(client, page_id, source_content)
                     source_file.write_text(
                         json.dumps(tagged, indent=2, ensure_ascii=False) + "\n",
                         encoding="utf-8",
