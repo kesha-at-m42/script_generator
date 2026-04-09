@@ -381,6 +381,18 @@ If the screen is empty, write `"elements": []`.
 
 ---
 
+### empty
+
+Used in validator state `beats` arrays to signal that no feedback is needed for this state. Preferred over an empty array (`[]`) because it makes the intent explicit — this state is intentionally silent, not accidentally incomplete.
+
+```json
+{ "type": "empty" }
+```
+
+Only valid inside validator state `beats`. Not used in outer section beats.
+
+---
+
 ## Validator
 
 A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `beats`, which play when the state matches.
@@ -515,3 +527,4 @@ Tangible ID prefixes and naming patterns are defined in the toy spec files (`toy
 | `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
 | `prompt` | ❔ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
 | `current_scene` | 📋 toggle | no | `elements` |
+| `empty` | plain text suffix | no | — (validator beats only) |

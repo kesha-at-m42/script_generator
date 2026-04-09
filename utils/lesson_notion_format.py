@@ -343,7 +343,10 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             child_blocks.extend(_render_beat(beat, section_id, nested=True))
             prev_was_current_scene = beat.get("type") == "current_scene"
 
-        blocks.append(_toggle(toggle_header, child_blocks))
+        if child_blocks:
+            blocks.append(_toggle(toggle_header, child_blocks))
+        else:
+            blocks.append(_paragraph(f"{indicator} {branch_prefix}{description} — student moves forward"))
     return blocks
 
 
@@ -409,6 +412,8 @@ def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict
         blocks = _render_current_scene(beat)
     elif t == "prompt":
         blocks = _render_prompt(beat, section_id)
+    elif t == "empty":
+        blocks = []
     else:
         blocks = [_paragraph(str(beat))]
 

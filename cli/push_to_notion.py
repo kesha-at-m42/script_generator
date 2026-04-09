@@ -45,6 +45,11 @@ def main():
         action="store_true",
         help="Pull into a new version directory instead of overwriting",
     )
+    parser.add_argument(
+        "--test-push",
+        action="store_true",
+        help="Create a new temporary page without updating the registry",
+    )
     args = parser.parse_args()
 
     if not notion_sync.is_configured():
@@ -59,23 +64,31 @@ def main():
     if args.pull:
         _pull(file_path, new_version=args.new_version)
     else:
-        _push(file_path, args.title)
+        _push(file_path, args.title, test_push=args.test_push)
 
 
-def _push(file_path: Path, title: str | None) -> None:
+def _push(file_path: Path, title: str | None, test_push: bool = False) -> None:
     data = json.loads(file_path.read_text(encoding="utf-8"))
     title = title or file_path.parent.parent.parent.name
+    if test_push:
+        title = f"[TEST] {title}"
 
     print(f"Pushing: {file_path.relative_to(project_root)}")
 
-    existing = notion_sync.get_registry_entry(file_path)
-    if existing:
-        print(f"Updating existing page: {notion_sync.get_page_url(existing['page_id'])}")
+    if test_push:
+        print("Test push — creating new page (registry not updated)...")
     else:
-        print("Creating new page...")
+        existing = notion_sync.get_registry_entry(file_path)
+        if existing:
+            print(f"Updating existing page: {notion_sync.get_page_url(existing['page_id'])}")
+        else:
+            print("Creating new page...")
 
     page_id = notion_sync.push_to_notion(
-        data=data, title=title, file_path=file_path, blocks_fn=lesson_to_blocks
+        data=data,
+        title=title,
+        file_path=None if test_push else file_path,
+        blocks_fn=lesson_to_blocks,
     )
     print(f"[OK] {notion_sync.get_page_url(page_id)}")
 

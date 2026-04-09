@@ -372,6 +372,7 @@ For Single-Select MC, Medium is targeted to the specific distractor chosen:
 **Tone:** Full support, complete demonstration
 **Visual:** REQUIRED (full modeling demonstration)
 **Tag:** \[Modeling\] REQUIRED
+**Closure:** REQUIRED — dialogue ends with a statement that names the correct answer and the concept the question was testing (see Section 7)
 **Applies to:** Non-MC, Single-Select MC, and Multiselect MC
 
 ### 6.1 Approved Opening Language
@@ -387,9 +388,8 @@ For Single-Select MC, Medium is targeted to the specific distractor chosen:
 ### 6.2 Heavy Structure (Non-MC)
 
 ```
-[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words with complete step-by-step demonstration]"
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words with complete step-by-step demonstration, ending with closure: name the correct answer and the concept it demonstrates]"
 [Visual: System demonstrates complete solution]
-Guide: "[Post-modeling acknowledgment]"
 ```
 
 ### 6.3 Heavy Structure (Single-Select MC)
@@ -397,9 +397,8 @@ Guide: "[Post-modeling acknowledgment]"
 For Single-Select MC, Heavy explains why the correct answer is right:
 
 ```
-[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct answer and demonstrating the thinking]"
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct answer and demonstrating the thinking, ending with closure: name the correct answer and the concept it demonstrates]"
 [Visual: Correct answer highlighted with supporting scaffold]
-Guide: "[Post-modeling acknowledgment]"
 ```
 
 ### 6.4 Heavy Examples
@@ -410,37 +409,48 @@ Guide: "[Post-modeling acknowledgment]"
 
 ---
 
-## SECTION 7: Post-Modeling Language
+## SECTION 7: Post-Modeling Closure
 
-After Heavy remediation with \[Modeling\], use **only** language that acknowledges assisted success:
+Heavy is the final state for a question. There is no student call-to-action after Heavy — the system moves the student forward automatically. The closing line of the Heavy dialogue must provide **closure**: a statement that names the correct answer and the concept the question was testing.
 
-### 7.1 Approved Post-Modeling Phrases
+This is the same function that on_correct feedback serves when a student answers correctly. After being shown the answer, the student should leave knowing what the answer was and why it is correct.
 
-- "There we go."
-- "See how that works?"
-- "It's okay if this takes a moment."
-- "You're getting it now."
-- "Now you understand."
-- "That makes sense now, right?"
-- "That's it. Now you've got it."
-- "Good. You understand now."
-- "Now you see the pattern."
+### 7.1 Closure Structure
 
-### 7.2 NEVER Use After Modeling
+The Heavy dialogue ends with a closure sentence that:
 
+- Names the correct answer explicitly in the context of the question
+- States the underlying concept briefly (the "so what")
+- Does not ask the student to do anything
+
+**Pattern:** `[Modeling narration ends.] [Correct answer stated in context.] [Brief concept restatement.]`
+
+### 7.2 Closure Examples
+
+**Non-MC (fraction shading):** "...I count the total parts. That is my denominator: 4. I count the shaded parts. That is my numerator: 3. The fraction shown is 3/4."
+
+**Single-Select MC:** "...The denominator is 4, the numerator is 3. The answer is 3/4, not 4/3. The numerator counts the shaded parts, not the total."
+
+**Multiselect MC:** "...Both A and C show equal parts of a whole. Those are the fractions. That is what makes something a fraction — equal parts with a count."
+
+### 7.3 NEVER Use as the Closing Line
+
+- ❌ "See how that works?" — does not name the answer
+- ❌ "There we go." — does not name the answer
+- ❌ "Now you understand." — does not name the answer
 - ❌ "Perfect\!" (they didn't do it alone)
 - ❌ "You figured it out\!" (guide showed them)
 - ❌ "Great job\!" (too independent)
 - ❌ "Excellent work\!" (overpraises assisted work)
 
-### 7.3 Post-Modeling Transitions
+### 7.4 Forward Move (Optional)
 
-After Heavy remediation, move forward assuming understanding:
+A brief forward phrase may follow the closure line but is not required:
 
-- "Let's try another one."
 - "Now let's continue."
-- "Ready for the next?"
 - "Let's keep going."
+
+Do not use "Let's try another one." — it implies an immediate retry of the same problem, which does not reflect system behavior after Heavy.
 
 ---
 
@@ -612,8 +622,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Light: 10-20 words, no visual
 - [ ] Medium: 20-30 words, visual REQUIRED
 - [ ] Heavy: 30-60 words, \[Modeling\] tag REQUIRED, visual REQUIRED
+- [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 - [ ] Different language at each level
-- [ ] Post-modeling language acknowledges assistance (not independent success)
+- [ ] No independent-success praise after modeling
 - [ ] Validator tags probable error type (noted in script or separate)
 
 ### 12.2 Single-Select MC Remediation Checklist

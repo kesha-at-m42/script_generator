@@ -233,17 +233,19 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 
 Follow all language patterns, word counts, visual requirements, and prohibited constructs from `<remediation_design_ref>` Sections 4–8 and 12.4.
 
-**Light:** Draw openers from `<remediation_design_ref>` Sections 4.1–4.2. Cycle through the full lists. Do not reuse the same phrase within a section.
+**Light:** Use openers from Sections 4.1–4.2. Cycle — do not reuse the same phrase within a section.
 
-**Medium:** Open with a starter from `<remediation_design_ref>` Section 5.1. Cycle through the full list. Do not reuse the same starter within a section. For MC: address specifically why the chosen distractor is wrong.
+**Medium:** Use a starter from Section 5.1. Cycle — do not reuse within a section.
 
-**Heavy:** Open with a phrase from `<remediation_design_ref>` Section 6.1. Cycle through the full list. Do not reuse the same opener within a section. States the correct answer explicitly with step-by-step demonstration. Follow post-modeling language from `<remediation_design_ref>` Section 7.
+**Heavy:** Use an opener from Section 6.1. Cycle — do not reuse within a section. End with closure per Section 7.
 
 ---
 
 ## SCOPE CONSTRAINTS
 
 Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+
+For prompts with `"variable_answer": true`: do not assume the student's specific attempt in Light or Medium dialogue. For Heavy, model one specific valid example but frame it as one way, not the only answer.
 
 ---
 

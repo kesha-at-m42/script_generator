@@ -49,8 +49,9 @@ map it to the appropriate schema context:
   sequentially]`, `[3 tile places into first slot]`) → `scene` beats at
   that point in the step
 - `task` describing a build/click/drag action → infer the tool type from it
-- Any beat that only applies on a specific branch gets a `"branch_condition": "<condition>"` field — plain English describing the prior selection, e.g. `"rows selected"` or `"columns selected"`. Omit the field entirely when the beat is unconditional. When pushed to Notion this renders as `⎇ if <branch_condition> →` before the beat text.
-- Fields with parenthetical context in their key — e.g. `correct_answer_if_rows`, `on_correct_if_columns` — each represent a named branch of the same prompt. Generate one validator state per unique context. The condition is multi-part: the parenthetical value as a prior-selection check AND the answer derived from `correct_answer_if_<context>`. For example: `{ "and": [{ "selected": "Rows" }, { "placed": { "groups": 3, "items": 4 } }] }`. The `description` must capture both parts: e.g. `"Student chose Rows, placed 3 rows of 4, 3 × 4 = 12"`. Do not collapse these into a single `"condition": {}` state.
+- Any beat in the outer `beats` array that only applies on a specific branch gets a `"branch_name": "<condition_id>"` field — referencing the `condition_id` of the validator state that established the branch (e.g. `"branch_name": "selected_rows"`). Omit the field when the beat is unconditional. When pushed to Notion, beats with the same `branch_name` are grouped under an H3 heading `🔀 <branch_name>`.
+- **Once a branch is established, output ALL beats for one branch consecutively before writing ANY beat for the other branch.** Do not interleave. Wrong: rows-step-1, cols-step-1, rows-step-2. Correct: rows-step-1, rows-step-2 … then cols-step-1, cols-step-2. Complete one branch entirely, then the other.
+- Fields whose value begins with a `[branch_name]` or `(qualifier)` prefix — e.g. `visual_2: "[selected_rows] Rows buttons activate."`, `on_correct_2: "(example: 4 × 5 = 20) \"4 times 5...\""` — carry inline context about which branch or condition the content belongs to. Strip the prefix when using the content; use `[branch_name]` values to assign `branch_name` to the corresponding beats, and use `(qualifier)` values to generate named validator states with `condition_id` matching the qualifier.
 
 Do not ignore fields because their name is unfamiliar. Read every field in
 the input object and decide where it belongs in the output structure.
@@ -252,56 +253,56 @@ Define only the correct state. The remediation generator adds incorrect
 states later. Always include `"is_correct": true` on every validator state
 you generate.
 
+Every validator state requires a `condition_id` — a short, semantic, stable
+identifier (e.g. `"correct"`, `"selected_rows"`, `"placed_3x4"`). Use snake_case.
+
 ```json
 "validator": [
   {
+    "condition_id": "correct",
     "condition": { "selected": "Apples" },
     "description": "Student clicked Apples, correct, 6 votes",
     "is_correct": true,
     "beats": [
       { "type": "scene", "method": "animate", "tangible_id": "picture_graph_fruits",
         "params": { "event": "highlight_category", "status": "confirmed",
-                    "description": "Apples row highlights to confirm selection", "category": "Apples" } },
-      { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." },
-      { "type": "current_scene", "elements": [ ... ] }
+                    "description": "Apples row highlights to confirm selection.", "category": "Apples" } },
+      { "type": "dialogue", "text": "Apples got the most. 6 people chose it. You read that from the graph." }
     ]
   }
 ]
 ```
 
-Validator state `beats` follow the same beat ordering and also end with
-`current_scene`. **Scene beats are allowed and expected in correct validator
-states whenever a visual change accompanies the feedback.**
+**Validator beats are feedback only.** They contain the immediate response to
+the student's answer: a confirmation scene animation and/or dialogue. They do
+NOT contain `current_scene`, do NOT set up the next step's scene, and do NOT
+advance the interaction. After the validator fires, execution returns to the
+outer beats and the next outer beat runs.
 
-**`current_scene` in validator states must follow the same rule as everywhere
-else: it only mirrors what `scene` beats have declared. If the correct response
-requires no visual change, the `current_scene` must describe the tangibles in
-exactly the same state as before — no new adjectives, no "confirmed", no added
-state. Do not use the description field to imply a change that no `scene` beat
-produced.**
+This means:
+- Scene setup for the NEXT step goes in outer beats, not in validator beats.
+- `current_scene` belongs in the outer beats array, not inside validators.
+- Remediation (incorrect) states added later follow the same rule: feedback only.
 
-```json
-// WRONG — current_scene inventing a visual state:
-[
-  { "type": "dialogue", "text": "That's right, 40." },
-  { "type": "current_scene", "elements": [{ ..., "description": "Red items confirmed as 40." }] }
-]
+**On-correct beats must only contain feedback directly about acknowledging
+the correct answer.** Do not add beats that narrate the student's specific
+path, set up the next scene, or make assumptions about what the student chose.
 
-// RIGHT — if no visual change, description is identical to prior state:
-[
-  { "type": "dialogue", "text": "That's right, 40." },
-  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red, Blue, Yellow items visible." }] }
-]
+- For concrete answers (MC, click_category): name the answer.
+  "Apples got the most votes: 6."
+- For open-ended interactions (`variable_answer: true`): simple achievement
+  acknowledgment only. Do not narrate the specific values the student may
+  have used. "You got to 20."
+- For branching or non-remediateable interactions where there is no meaningful
+  feedback to give: use `{ "type": "empty" }` to signal intentional silence.
+  Prefer this over an empty array.
 
-// RIGHT — if a visual change is needed, declare it with a scene beat first:
-[
-  { "type": "scene", "method": "animate", "tangible_id": "minis_counting_scene",
-    "params": { "event": "mark_counted", "status": "confirmed",
-                "description": "Red items highlight as counted, count of 40 appears", "category": "Red" } },
-  { "type": "dialogue", "text": "That's right, 40." },
-  { "type": "current_scene", "elements": [{ ..., "description": "Minis counting scene. Red items highlighted as counted." }] }
-]
-```
+**Flag variable-answer interactions.** When a prompt has no fixed correct
+answer (`product_equals`, `sum_equals`, or any condition that does not check
+a fixed `selected` value), add `"variable_answer": true` to the prompt beat.
+This applies to all feedback for that prompt — on_correct and all remediation
+states. Downstream steps use this flag to avoid generating language that
+assumes a specific answer.
 
 For `multiple_choice`: `{ "condition": { "selected": 7 } }`
 
@@ -312,39 +313,80 @@ For `multi_select` requiring multiple selections:
 
 **Any-response-advances** (no wrong answer): `"condition": {}`
 
-Use `"condition": {}` **only when every response leads to the exact same next scene and step.** If the choice determines what the student sees or does next, use `branch_condition` instead (see below).
+Use `"condition": {}` only when every response leads to the exact same next scene and step. If the choice determines what the student sees or does next, use a branching prompt instead (see **Branching prompts** above).
 
-### Branching validator states
+Use `condition` for answer-checking (one correct answer, remediation possible). Use `branch: true` for path-taking (both options valid, different beat sequences follow).
 
-When a prompt offers two valid paths that lead to different follow-up interactions, use `branch_condition` instead of `condition` on each validator state. Both states have `"is_correct": true`. The `branch_condition` value is plain English matching the choice made, e.g. `"rows selected"`.
+### Branching prompts
+
+A **branching prompt** occurs when a student's choice leads to fundamentally
+different sequences of interactions — only one path is followed, paths do not
+reconverge. Both choices are valid; they lead to different beat sequences.
+
+Use branching when the student picks between options and each choice leads to
+different tools, different scene setup, or different follow-up prompts. Do NOT
+use branching for standard correct/incorrect validation.
+
+Set `"branching": true` on the prompt beat. Each validator state that
+establishes a branch gets `"branch": true` and a short stable `condition_id`
+(e.g. `"selected_rows"`, `"selected_columns"`). Both states have `"is_correct": true`.
+Branch validator beats must not contain scene setup. Scene setup for each
+branch goes in the outer beats with `branch_name`. Branch validator beats
+may contain a dialogue beat acknowledging the choice, or `{ "type": "empty" }`
+if there is nothing to say. No `current_scene`.
 
 ```json
-"validator": [
-  {
-    "branch_condition": "rows selected",
-    "description": "Student chose rows — follow-up uses rows framing",
-    "is_correct": true,
-    "beats": [ ... ]
-  },
-  {
-    "branch_condition": "columns selected",
-    "description": "Student chose columns — follow-up uses columns framing",
-    "is_correct": true,
-    "beats": [ ... ]
-  }
-]
+{
+  "type": "prompt",
+  "text": "Choose rows or columns.",
+  "tool": "multiple_choice",
+  "options": ["Rows", "Columns"],
+  "branching": true,
+  "validator": [
+    {
+      "condition_id": "selected_rows",
+      "branch": true,
+      "description": "Student chose rows",
+      "is_correct": true,
+      "beats": [ { "type": "empty" } ]
+    },
+    {
+      "condition_id": "selected_columns",
+      "branch": true,
+      "description": "Student chose columns",
+      "is_correct": true,
+      "beats": [ { "type": "empty" } ]
+    }
+  ]
+}
 ```
 
-Use `condition` for answer-checking (one correct answer, remediation possible). Use `branch_condition` for path-taking (both options valid, different prompts follow).
+All outer beats that belong to a specific branch get `"branch_name": "<condition_id>"`.
+Output ALL beats for one branch together before any beats for the other branch.
+The unconditional `current_scene` right after the branching prompt captures
+the pending-choice state; each branch's own `current_scene` carries `branch_name`.
+
+```json
+{ "type": "current_scene", "elements": [ ... ] },
+
+{ "type": "scene", "method": "add", ..., "branch_name": "branch_a" },
+{ "type": "prompt", ..., "branch_name": "branch_a",
+  "validator": [ { "condition_id": "correct", "condition": { ... }, ... } ] },
+{ "type": "current_scene", "elements": [ ... ], "branch_name": "branch_a" },
+
+{ "type": "scene", "method": "add", ..., "branch_name": "branch_b" },
+{ "type": "prompt", ..., "branch_name": "branch_b",
+  "validator": [ { "condition_id": "correct", "condition": { ... }, ... } ] },
+{ "type": "current_scene", "elements": [ ... ], "branch_name": "branch_b" }
+```
 
 ---
 
 ## TWO-STEP INTERACTIONS
 
-Two-step sections have two separate steps, each ending with `current_scene`.
-The correct validator state of step 1 sets up the visual state for step 2
-(highlight the next target, display the running total, etc.), then step 2
-begins with those scene changes already reflected.
+Two-step sections have two separate steps, each ending with `current_scene`
+in the outer beats. Scene setup for step 2 goes in the outer beats after
+step 1's `current_scene` — not inside step 1's validator.
 
 ```json
 "beats": [
@@ -352,31 +394,33 @@ begins with those scene changes already reflected.
     "params": { "highlight_categories": ["Yellow", "Red"] } },
   { "type": "dialogue", "text": "Step 1: Find how many chose Yellow or Red in all." },
   { "type": "prompt", "text": "How many liked Yellow or Red in all?",
-    "tool": { "name": "multiple_choice", "options": [5, 6, 11, 14] },
+    "tool": "multiple_choice", "options": [5, 6, 11, 14],
     "validator": [
       {
+        "condition_id": "correct",
         "condition": { "selected": 11 },
         "description": "Student answered 11, correct",
+        "is_correct": true,
         "beats": [
-          { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." },
-          { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
-            "params": { "highlight_categories": ["Green"] } },
-          { "type": "current_scene", "elements": [ ... ] }
+          { "type": "dialogue", "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11." }
         ]
       }
     ]
   },
   { "type": "current_scene", "elements": [ ... ] },
+  { "type": "scene", "method": "update", "tangible_id": "bar_graph_colors",
+    "params": { "highlight_categories": ["Green"], "description": "Green bar highlights for step 2." } },
   { "type": "dialogue", "text": "Step 2: Now compare that total to Green." },
   { "type": "prompt", "text": "How many MORE is 11 than Green's 4?",
-    "tool": { "name": "multiple_choice", "options": [4, 7, 11, 15] },
+    "tool": "multiple_choice", "options": [4, 7, 11, 15],
     "validator": [
       {
+        "condition_id": "correct",
         "condition": { "selected": 7 },
         "description": "Student answered 7, correct",
+        "is_correct": true,
         "beats": [
-          { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then subtracted to compare." },
-          { "type": "current_scene", "elements": [ ... ] }
+          { "type": "dialogue", "text": "7 more. You used TWO steps: first added, then compared." }
         ]
       }
     ]

@@ -67,7 +67,7 @@ from json_utils import extract_json, parse_json  # noqa: E402
 from output_validator import validate_ai_output_structure  # noqa: E402
 
 # Import refactored modules
-from path_manager import get_step_directory, get_step_output_paths, resolve_input_path  # noqa: E402
+from path_manager import find_step_directory_by_name, get_step_directory, get_step_output_paths, resolve_input_path  # noqa: E402
 from pipeline_executor import flatten_dict, run_formatting_step  # noqa: E402
 from template_utils import get_template_by_id  # noqa: E402
 from version_manager import (  # noqa: E402
@@ -308,6 +308,7 @@ def run_pipeline(
     notes: str = None,
     template_filename: str = "problem_templates.json",
     reuse_version_dir: Path = None,
+    skip_base_validation: bool = False,
 ) -> Dict:
     """Run a pipeline of steps with file I/O support
 
@@ -462,7 +463,8 @@ def run_pipeline(
                 if start_idx > 1:
                     pipeline_dir = _outputs_base / full_pipeline_name
                     base_version_dir = pipeline_dir / base_version
-                    validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
+                    if not skip_base_validation:
+                        validate_base_version_outputs(base_version_dir, steps, 1, start_idx - 1)
 
                     # Copy skipped step outputs from base version to new version
                     if verbose:
@@ -482,6 +484,11 @@ def run_pipeline(
                         base_step_dir = get_step_directory(
                             base_version_dir, skip_step_num, skip_step_name
                         )
+                        # Fallback: base version may use different step numbering
+                        if not base_step_dir.exists():
+                            found = find_step_directory_by_name(base_version_dir, skip_step_name)
+                            if found:
+                                base_step_dir = found
 
                         # Destination: new version step directory
                         new_step_dir = get_step_directory(
@@ -502,7 +509,6 @@ def run_pipeline(
                             # Use copytree with dirs_exist_ok=True to copy directory
                             shutil.copytree(base_step_dir, new_step_dir, dirs_exist_ok=True)
                         else:
-                            # This should not happen due to validation, but handle gracefully
                             print(f"  [WARNING] Base step directory not found: {base_step_dir}")
 
             if verbose:
@@ -658,6 +664,11 @@ def run_pipeline(
                 pipeline_dir = _outputs_base / metadata["full_pipeline_name"]
                 base_version_dir = pipeline_dir / base_version
                 prev_step_dir = get_step_directory(base_version_dir, i - 1, prev_step_name)
+                # Fallback: base version may use different step numbering — search by name
+                if not prev_step_dir.exists():
+                    found = find_step_directory_by_name(base_version_dir, prev_step_name)
+                    if found:
+                        prev_step_dir = found
                 prev_step_paths = get_step_output_paths(
                     prev_step_dir, prev_step_name, prev_step.batch_mode
                 )

@@ -112,6 +112,20 @@ def get_step_directory(output_dir: Path, step_index: int, step_name: str) -> Pat
     return output_dir / step_dir_name
 
 
+def find_step_directory_by_name(output_dir: Path, step_name: str) -> Path | None:
+    """Search for a step directory by name, ignoring the step number prefix.
+
+    Used when rerunnning from a base version with a different pipeline structure
+    (different step numbering). Returns the first matching directory, or None.
+    """
+    if not output_dir.exists():
+        return None
+    for entry in sorted(output_dir.iterdir()):
+        if entry.is_dir() and entry.name.endswith(f"_{step_name}"):
+            return entry
+    return None
+
+
 def get_step_output_paths(step_dir: Path, step_name: str, is_batch: bool) -> Dict[str, Path]:
     """Get output paths for a step
 

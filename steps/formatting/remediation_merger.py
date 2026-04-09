@@ -22,6 +22,15 @@ def _is_ara(validator):
     return len(validator) == 1 and validator[0].get("condition") == {}
 
 
+def _all_branch(validator):
+    """Return True if every state in the validator is a branch state.
+
+    Branch states (branch: true) are choice points where both options are
+    correct — there is no wrong answer, so no remediations should be merged.
+    """
+    return bool(validator) and all(v.get("branch") is True for v in validator)
+
+
 def _merge_incorrects_into_section(section, incorrects):
     """Append incorrect states from incorrects queue into matching prompt beats."""
     section = copy.deepcopy(section)
@@ -31,7 +40,11 @@ def _merge_incorrects_into_section(section, incorrects):
         if beat.get("type") != "prompt":
             continue
         validator = beat.get("validator", [])
-        if _is_ara(validator):
+        if _is_ara(validator) or _all_branch(validator):
+            # Generator may have produced a placeholder empty group for this
+            # prompt — consume and discard it to keep the queue aligned.
+            if queue and not queue[0]:
+                queue.pop(0)
             continue
         if queue:
             beat["validator"].extend(queue.pop(0))

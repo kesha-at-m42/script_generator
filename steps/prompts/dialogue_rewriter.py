@@ -50,7 +50,7 @@ Rewrite every beat in `input.dialogues`. Output one string per beat, in the same
 
 **Context values:**
 - `"lesson"` — regular guide dialogue
-- `"on_correct"` — feedback after the student answers correctly: open with a brief confirmation signal ("Right.", "Yes.", "You got it.") before the factual restatement. Do not use hollow praise.
+- `"on_correct"` — feedback after the student answers correctly: open with a brief positive signal before the factual restatement. Do not use hollow praise.
 
 ---
 

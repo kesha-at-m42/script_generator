@@ -469,6 +469,11 @@ Examples:
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
     parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
+    parser.add_argument(
+        "--skip-base-validation",
+        action="store_true",
+        help="Skip validation that base version has prerequisite step outputs (use when base uses old pipeline structure)",
+    )
 
     args = parser.parse_args()
 
@@ -753,6 +758,7 @@ Examples:
                 end_at_step=end_at,
                 notes=args.note,
                 pipeline_status=args.status,
+                skip_base_validation=args.skip_base_validation,
                 verbose=True,
             )
 
