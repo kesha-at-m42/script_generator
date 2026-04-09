@@ -1,5 +1,5 @@
 """
-One-off script: push tests/test_outputs/s2_4_branching_test.json to a new Notion page
+One-off script: push s2_4_branching_test.json to a new Notion page
 to verify branch_condition rendering.
 """
 
@@ -15,10 +15,10 @@ from dotenv import load_dotenv
 load_dotenv(project_root / ".env")
 
 from notion_client import Client
-from utils.lesson_notion_format import lesson_to_blocks
+from utils.notion import lesson_to_blocks
 
 PARENT_PAGE_ID = os.environ["NOTION_PARENT_PAGE_ID"]
-TEST_FILE = project_root / "tests/test_outputs/s2_4_branching_test.json"
+TEST_FILE = Path(__file__).parent / "s2_4_branching_test.json"
 
 data = json.loads(TEST_FILE.read_text())
 blocks = lesson_to_blocks(data)
