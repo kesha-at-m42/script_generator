@@ -1,8 +1,8 @@
 """
 dialogue_rewriter - AI Prompt
 
-Rewrites all dialogue beats in a lesson section to improve voice, warmth,
-and naturalness while preserving pedagogical intent.
+Checks each dialogue beat against voice/style rules and rewrites only the
+beats that break a rule. Passing beats are returned unchanged.
 
 Runs in batch mode, one call per section.
 
@@ -38,7 +38,7 @@ if str(project_root) not in sys.path:
 from core.prompt_builder import Prompt  # noqa: E402
 
 DIALOGUE_REWRITER_PROMPT = Prompt(
-    role="""You are a dialogue writer for an interactive math lesson. The input dialogue is pedagogically approved placeholder text -- it captures WHAT the Guide needs to communicate. Your job is to transform HOW the Guide says it: rewrite every line to sound like a real person talking to an 8-year-old, using the voice defined in <guide_design>.""",
+    role="""You are a dialogue editor for an interactive math lesson. Each beat has already been written by a curriculum author. Your job is to check each beat against the rules below and rewrite ONLY the beats that break one or more rules. If a beat already follows all the rules, output it unchanged.""",
     instructions="""
 ## TASK
 
@@ -46,41 +46,35 @@ DIALOGUE_REWRITER_PROMPT = Prompt(
 - `dialogues`: a pre-extracted list of dialogue beats, each with `text` and `context`
 - `section`: the full section JSON for factual context (data values, visuals, concept)
 
-Rewrite every beat in `input.dialogues`. Output one string per beat, in the same order. Your output `dialogues` array must have exactly the same number of strings as `input.dialogues` — no more, no fewer.
+For each beat in `input.dialogues`: check it against the rules. If it passes all rules, copy it to output unchanged. If it breaks any rule, rewrite it to fix the violation(s) while preserving everything else.
+
+Output one string per beat, in the same order. Your output `dialogues` array must have exactly the same number of strings as `input.dialogues` — no more, no fewer.
 
 **Context values:**
 - `"lesson"` — regular guide dialogue
-- `"on_correct"` — feedback after the student answers correctly: open with a brief positive signal before the factual restatement. Do not use hollow praise.
+- `"on_correct"` — feedback after the student answers correctly: must open with a brief positive signal before the factual restatement. Do not use hollow praise.
 
 ---
 
-## THE CORE TASK
+## RULES — rewrite a beat only if it breaks one of these
 
-The input dialogue is competent placeholder text -- clear, purposeful, pedagogically correct. It is NOT the final voice. It reads like a curriculum document. Your job is to make it sound like a real tutor sitting next to a kid.
+1. **Forbidden phrases** — contains any phrase from <forbidden_phrases>
+2. **Hollow praise** — uses "Great job!", "Excellent!", "Perfect!", or similar hollow praise not tied to something specific the student did
+3. **Em dashes / double hyphens** — contains `—` or `--`
+4. **Wrong on_correct opening** — beat with context `"on_correct"` does not open with a brief positive signal
+5. **Curriculum-document register** — reads like written text rather than spoken language: overly formal, passive, or structured in a way no real teacher would say out loud
 
-**Every Guide line must be rewritten.** If your output contains lines unchanged from the input, you have not completed the task.
-
-The transformation is not about adding warmth on top of what is there. It is about finding the human register -- the rhythm, the casual phrasing, the dry observations, the thinking-out-loud quality that makes the guide feel present and unscripted.
-
-**Example of the transformation:**
-
-Input (placeholder register):
-"You made a graph with your Minis. Now let's read some other graphs. A graph isn't just a picture -- every part tells us something. Look at this Favorite Fruits graph."
-
-Rewritten (Guide voice):
-"You made a graph with your Minis. Each picture graph is more than just a picture -- every part of the graph gives us something to READ. Let's explore this by looking closer at this Favorite Fruits graph."
-
-Same pedagogical content. Same required concept. More specific, more present, more purposeful.
+If none of these apply, the beat is fine. Do not change it.
 
 ---
 
-## VOICE GOAL
+## WHEN YOU DO REWRITE
 
-The rewritten dialogue should sound like a real teacher talking -- not a curriculum document, not a voiceover script, not a well-written teacher's guide. A real teacher, speaking out loud, to a kid.
+Fix only the specific violation(s). Do not use a rewrite as an opportunity to generally improve or rephrase the beat.
 
-Read each line aloud before finalizing it. If it sounds like something you would read, not say, rewrite it.
+Refer to <guide_design> for voice patterns and register when rewriting rule 5.
 
-Refer to <guide_design> for the specific voice patterns, register, and examples.
+Read each rewritten line aloud before finalizing. If it sounds like something you would read, not say, adjust it.
 
 ---
 
