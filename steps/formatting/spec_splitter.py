@@ -7,17 +7,18 @@ into one item per interaction or transition section.
 Detected header patterns:
   ### Interaction X.Y: <title>           (lesson specs)
   ### Interaction W.N: <title>           (warmup specs)
+  ### Interaction S.N: <title>           (synthesis specs — bold variant allowed)
   ## Section W.X: <title>               (warmup sub-sections)
   ### W.Xa: <title>                      (warmup sub-sections)
   **[SECTION N TRANSITION]**             (in-lesson transition blocks)
   Bridge to <word>                       (closing bridge — lesson, warmup)
   Problem EC.N: <title>                  (exitcheck problems)
-  Task S.N: <title>                      (synthesis tasks)
+  Task S.N: <title>                      (synthesis tasks — legacy format)
   ### Transition into Exit Check         (exitcheck opener)
   ### Exit Check Closure                 (exitcheck closer)
-  ### Opening Frame                      (synthesis opener)
+  ### Opening Frame                      (synthesis opener — bold variant allowed)
   ### Metacognitive Reflection           (synthesis reflection)
-  ### Identity-Building Closure          (synthesis closer)
+  ### Identity-Building Closure          (synthesis closer — bold variant allowed)
 
 Preamble (content before the first header) and trailing metadata are excluded.
 
@@ -53,19 +54,21 @@ _HEADER_RE = re.compile(
     r'|'
     r'(?:#{2,3}\s+\*{0,2})?Bridge to \w[^\n]*'         # Bridge to Lesson / Bridge to Exit Check (plain or ### **Bridge to)
     r'|'
-    r'Problem\s+EC\.\d+:[^\n]*'                         # Problem EC.1: ... (exitcheck)
+    r'#{2,3}\s+\*{0,2}Problem\s+EC\.\d+:[^\n]*'          # ### Problem EC.1: ... (exitcheck), bold variant allowed
     r'|'
-    r'Task\s+S\.\d+:[^\n]*'                             # Task S.1: ... (synthesis)
+    r'#{2,3}\s+\*{0,2}Interaction\s+S\.\d+[^\n]*'      # ### Interaction S.N: ... (synthesis), bold variant allowed
     r'|'
-    r'#{2,3}\s+Transition\s+into\s+Exit\s+Check[^\n]*'  # ### Transition into Exit Check
+    r'Task\s+S\.\d+:[^\n]*'                             # Task S.1: ... (synthesis — legacy format)
     r'|'
-    r'#{2,3}\s+Exit\s+Check\s+Closure[^\n]*'            # ### Exit Check Closure
+    r'#{2,3}\s+\*{0,2}Transition\s+into\s+Exit\s+Check[^\n]*'  # ### Transition into Exit Check, bold variant allowed
     r'|'
-    r'#{2,3}\s+Opening\s+Frame[^\n]*'                   # ### Opening Frame (synthesis)
+    r'#{2,3}\s+\*{0,2}Exit\s+Check\s+Closure[^\n]*'    # ### Exit Check Closure, bold variant allowed
+    r'|'
+    r'#{2,3}\s+\*{0,2}Opening\s+Frame[^\n]*'            # ### Opening Frame (synthesis), bold variant allowed
     r'|'
     r'#{2,3}\s+Metacognitive\s+Reflection[^\n]*'        # ### Metacognitive Reflection (synthesis)
     r'|'
-    r'#{2,3}\s+Identity[-\s]Building\s+Closure[^\n]*'   # ### Identity-Building Closure (synthesis)
+    r'#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*'  # ### Identity-Building Closure (synthesis), bold variant allowed
     r')',
     re.MULTILINE,
 )
@@ -81,7 +84,11 @@ def _extract_major(header: str, last_major: int) -> int:
     m = re.search(r'Interaction\s+W\.(\d+)', header, re.IGNORECASE)
     if m:
         return int(m.group(1))
-    # Task S.N → N (synthesis tasks)
+    # Interaction S.N → N (synthesis tasks)
+    m = re.search(r'Interaction\s+S\.(\d+)', header, re.IGNORECASE)
+    if m:
+        return int(m.group(1))
+    # Task S.N → N (synthesis tasks — legacy format)
     m = re.search(r'Task\s+S\.(\d+)', header, re.IGNORECASE)
     if m:
         return int(m.group(1))
