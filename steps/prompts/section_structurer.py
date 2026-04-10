@@ -111,6 +111,8 @@ Step groups are implicit: a new step begins after each `current_scene` beat. Eve
 
 Every section begins with an empty screen. Everything visible must be put on screen explicitly by `scene` beats in the first step group. Nothing carries over from the previous section.
 
+**Visual clearing phrases** — phrases like "Clean transition", "Practice clears", "Lesson graph clears", "Equation Builder clears", "Lesson visualization fades", and any similar `[thing] clears/fades` form in a `visual` field describe the empty starting state of the section, not an animation to generate. Do **not** create any `scene` or `animate` beat for these. The section already starts with an empty screen; these phrases confirm that and carry no actionable information.
+
 **Transition sections** use `"type": "transition"` on the section object.
 They have scene and dialogue beats. No prompts.
 

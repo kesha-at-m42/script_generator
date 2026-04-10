@@ -34,6 +34,19 @@ if str(project_root) not in sys.path:
 # The KEYWORD_MAP that was here has been migrated to the glossary's
 # "Common spec phrases" table — edit that file to add new phrase mappings.
 
+# Phrases in visual fields that describe section-start state (empty screen) — not toys.
+# Every section begins with a clear screen by definition, so these carry no toy information.
+# Exact forms (phrases that don't end in a clearing/fading verb but are still transition boilerplate):
+_SECTION_START_PHRASES = {
+    "clean transition",
+    "clean transition screen",
+}
+
+# Any capitalized phrase extracted from a visual field that ends with a clearing or fading verb
+# is also transition boilerplate — e.g. "Practice clears", "Lesson graph clears",
+# "Equation Builder clears", "Lesson visualization fades".
+_CLEARING_VERB_RE = re.compile(r'\b(clears?|fades?)\s*$', re.IGNORECASE)
+
 # Phrases in visual fields that suggest the spec assumes workspace carries over from a prior section.
 _CARRY_OVER_PHRASES = [
     "same graph", "same picture graph", "same bar graph", "same visual",
@@ -108,6 +121,10 @@ def _extract_unmatched_phrases(visual_text: str, already_matched: set, phrase_ma
         if known and known in already_matched:
             continue
         if phrase_lower in {"each", "same", "new", "student", "guide", "key", "data"}:
+            continue
+        if phrase_lower in _SECTION_START_PHRASES:
+            continue
+        if _CLEARING_VERB_RE.search(phrase_lower):
             continue
         candidates.append(phrase)
     return candidates
