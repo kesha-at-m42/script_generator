@@ -349,15 +349,26 @@
   ],
   "warmup_generator_dialogue_pass": [
     {
+      "name": "spec_splitter",
+      "type": "formatting",
+      "function": "spec_splitter.split_spec",
+      "description": "Splits warmup.md into one item per interaction/section — deterministic, no AI",
+      "function_args": {},
+      "input_file": "warmup.md",
+      "output_file": "split_spec.json"
+    },
+    {
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Converts warmup markdown spec into flat structured sections with workspace_specs (toys + tools per section)",
+      "description": "Extracts fields and generates ID for each pre-split section — one Claude call per section",
       "variables": {},
-      "input_file": "warmup.md",
+      "input_file": "",
       "output_file": "structured_spec.json",
       "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": false
+      "batch_mode": true,
+      "batch_id_field": "index",
+      "batch_output_id_field": "id"
     },
     {
       "name": "toy_spec_loader",
@@ -462,15 +473,26 @@
   ],
   "exitcheck_generator_dialogue_pass": [
     {
+      "name": "spec_splitter",
+      "type": "formatting",
+      "function": "spec_splitter.split_spec",
+      "description": "Splits exitcheck.md into one item per section — deterministic, no AI",
+      "function_args": {},
+      "input_file": "exitcheck.md",
+      "output_file": "split_spec.json"
+    },
+    {
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Converts exit check markdown spec into flat structured sections with workspace_specs (toys + tools per section)",
+      "description": "Extracts fields and generates ID for each pre-split section — one Claude call per section",
       "variables": {},
-      "input_file": "exitcheck.md",
+      "input_file": "",
       "output_file": "structured_spec.json",
       "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": false
+      "batch_mode": true,
+      "batch_id_field": "index",
+      "batch_output_id_field": "id"
     },
     {
       "name": "toy_spec_loader",
@@ -575,15 +597,26 @@
   ],
   "synthesis_generator_dialogue_pass": [
     {
+      "name": "spec_splitter",
+      "type": "formatting",
+      "function": "spec_splitter.split_spec",
+      "description": "Splits synthesis.md into one item per section — deterministic, no AI",
+      "function_args": {},
+      "input_file": "synthesis.md",
+      "output_file": "split_spec.json"
+    },
+    {
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Converts synthesis markdown spec into flat structured sections with workspace_specs (toys + tools per section)",
+      "description": "Extracts fields and generates ID for each pre-split section — one Claude call per section",
       "variables": {},
-      "input_file": "synthesis.md",
+      "input_file": "",
       "output_file": "structured_spec.json",
       "model": "claude-sonnet-4-5-20250929",
-      "batch_mode": false
+      "batch_mode": true,
+      "batch_id_field": "index",
+      "batch_output_id_field": "id"
     },
     {
       "name": "toy_spec_loader",

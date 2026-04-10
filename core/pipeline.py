@@ -1259,6 +1259,7 @@ Review your original instructions and schemas to ensure the regenerated output f
                             False,
                             unit_number=unit_number,
                             output_file_path=step_paths["main_output"],
+                            rerun_items=rerun_items,
                         )
 
                     # Add result to batch processor (handles collation and ID assignment).
@@ -1378,6 +1379,7 @@ Review your original instructions and schemas to ensure the regenerated output f
                     verbose,
                     unit_number=unit_number,
                     output_file_path=step_paths["main_output"],
+                    rerun_items=rerun_items,
                 )
                 last_output = output
 

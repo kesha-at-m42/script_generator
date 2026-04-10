@@ -34,6 +34,7 @@ def push(
     unit_number: int | None = None,
     output_file_path: Path | None = None,
     test_push: bool = False,
+    rerun_items: list | None = None,
 ) -> Any:
     """Push *data* to Notion and return it unchanged.
 
@@ -76,11 +77,15 @@ def push(
 
         reviewer_user_id = os.getenv("NOTION_REVIEWER_USER_ID")
 
+        if rerun_items:
+            print(f"  [NOTION] Rerun mode — pushing only: {rerun_items}")
+
         page_id = push_lesson(
             data=data,
             title=title,
             file_path=None if test_push else output_file_path,
             reviewer_user_id=reviewer_user_id,
+            sections=rerun_items if rerun_items else None,
         )
         url = get_page_url(page_id)
         print(f"\n  [NOTION] Pushed -> {url}")
@@ -99,6 +104,7 @@ def push(
                         json.dumps(tagged, indent=2, ensure_ascii=False) + "\n",
                         encoding="utf-8",
                     )
+                    n_sections = sum(1 for s in tagged if isinstance(s, dict) and s.get("_notion_block_id"))
                     n_beats = sum(
                         1
                         for s in tagged
@@ -106,7 +112,7 @@ def push(
                         for b in s.get("beats", [])
                         if b.get("_notion_block_id")
                     )
-                    print(f"  [NOTION] Tagged {n_beats} beats → {source_file.name}")
+                    print(f"  [NOTION] Tagged {n_sections} sections + {n_beats} beats → {source_file.name}")
             except Exception as exc:
                 print(f"  [NOTION] Tag-back failed (non-fatal): {exc}")
 

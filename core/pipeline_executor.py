@@ -98,6 +98,7 @@ def run_formatting_step(
     verbose: bool,
     unit_number: int = None,
     output_file_path: Path = None,
+    rerun_items: list = None,
 ):
     """Execute a deterministic formatting step
 
@@ -155,6 +156,11 @@ def run_formatting_step(
         args["output_file_path"] = output_file_path
         if verbose:
             print(f"  [EXEC] Passing output_file_path={output_file_path}")
+
+    if "rerun_items" in param_names and rerun_items is not None:
+        args["rerun_items"] = rerun_items
+        if verbose:
+            print(f"  [EXEC] Passing rerun_items={rerun_items}")
 
     # Add custom function_args (these override if there's a conflict)
     args.update(step.function_args)

@@ -58,6 +58,12 @@ def main():
         action="store_true",
         help="Create a new temporary page without updating the registry",
     )
+    parser.add_argument(
+        "--sections",
+        nargs="+",
+        metavar="SECTION_ID",
+        help="Push only these section IDs (surgical update using their _notion_block_id)",
+    )
     args = parser.parse_args()
 
     if not is_configured():
@@ -72,10 +78,10 @@ def main():
     if args.pull:
         _pull(file_path, new_version=args.new_version)
     else:
-        _push(file_path, args.title, test_push=args.test_push)
+        _push(file_path, args.title, test_push=args.test_push, sections=args.sections)
 
 
-def _push(file_path: Path, title: str | None, test_push: bool = False) -> None:
+def _push(file_path: Path, title: str | None, test_push: bool = False, sections: list[str] | None = None) -> None:
     data = json.loads(file_path.read_text(encoding="utf-8"))
     title = title or file_path.parent.parent.parent.name
     if test_push:
@@ -85,11 +91,14 @@ def _push(file_path: Path, title: str | None, test_push: bool = False) -> None:
 
     if test_push:
         print("Test push — creating new page (registry not updated)...")
+    if sections:
+        print(f"Sections: {', '.join(sections)}")
 
     page_id = push_lesson(
         data=data,
         title=title,
         file_path=None if test_push else file_path,
+        sections=sections,
     )
     print(f"[OK] {get_page_url(page_id)}")
 
