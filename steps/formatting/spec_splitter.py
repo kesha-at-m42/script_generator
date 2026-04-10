@@ -41,9 +41,9 @@ _META_HEADER_RE = re.compile(r"^#{2,3}\s+\S", re.MULTILINE)
 # Does NOT match meta-headers like "### 1.7.1 LESSON SECTION 1: ..." (start with digits).
 _HEADER_RE = re.compile(
     r'^(?:'
-    r'#{2,3}\s+Interaction\s+\d+\.\d+[^\n]*'           # ### Interaction X.Y: ... (lesson)
+    r'#{2,3}\s+\*{0,2}Interaction\s+\d+\.\d+[^\n]*'    # ### Interaction X.Y: ... (lesson), bold variant allowed
     r'|'
-    r'#{2,3}\s+Interaction\s+W\.\d+[^\n]*'              # ### Interaction W.N: ... (warmup)
+    r'#{2,3}\s+\*{0,2}Interaction\s+W\.\d+[^\n]*'      # ### Interaction W.N: ... (warmup), bold variant allowed
     r'|'
     r'#{2,3}\s+Section\s+W\.\d+[^\n]*'                 # ## Section W.X: ...
     r'|'
@@ -51,7 +51,7 @@ _HEADER_RE = re.compile(
     r'|'
     r'\*\*\[SECTION\s+\d+\s+TRANSITION\]\*\*[^\n]*'    # **[SECTION N TRANSITION]**
     r'|'
-    r'Bridge to \w[^\n]*'                                # Bridge to Lesson / Bridge to Exit Check
+    r'(?:#{2,3}\s+\*{0,2})?Bridge to \w[^\n]*'         # Bridge to Lesson / Bridge to Exit Check (plain or ### **Bridge to)
     r'|'
     r'Problem\s+EC\.\d+:[^\n]*'                         # Problem EC.1: ... (exitcheck)
     r'|'
