@@ -238,34 +238,14 @@ def _callout(text: str, emoji: str = "💬") -> dict:
 
 def _reviewer_guide_callout(reviewer_user_id: str | None = None) -> dict:
     """Anchor block — always first on every pushed page. Yellow 💡 tip for reviewers."""
-    if reviewer_user_id:
-        rich_text = [
-            {
-                "type": "text",
-                "text": {
-                    "content": (
-                        "Toggle all sections: Ctrl+Alt+T (Win) / Cmd+Opt+T (Mac)"
-                        "  •  Suggest edits: Ctrl+Shift+Alt+X"
-                        "  •  Questions? "
-                    )
-                },
-            },
-            {
-                "type": "mention",
-                "mention": {"type": "user", "user": {"id": reviewer_user_id}},
-            },
-        ]
-    else:
-        rich_text = _rt(
-            "Toggle all sections: Ctrl+Alt+T (Win) / Cmd+Opt+T (Mac)"
-            "  •  Suggest edits: Ctrl+Shift+Alt+X"
-            "  •  Questions? @Kesha"
-        )
     return {
         "object": "block",
         "type": "callout",
         "callout": {
-            "rich_text": rich_text,
+            "rich_text": _rt(
+                "Toggle all: Ctrl+Alt+T / Cmd+Opt+T"
+                "  •  {word} = vocab highlight — dialogue only"
+            ),
             "icon": {"type": "emoji", "emoji": "💡"},
             "color": "yellow_background",
         },
@@ -809,6 +789,35 @@ def _render_section_children(section: dict) -> list[dict]:
         return content
 
 
+def _beat_content_matches(beat: dict, section_id: str, notion_block: dict) -> bool:
+    """Return True if the beat's rendered text matches the Notion callout block."""
+    if beat.get("type") not in ("dialogue", "scene", "prompt"):
+        return True  # non-editable beats are always replaced
+    rendered = _render_beat(beat, section_id)
+    if not rendered:
+        return True
+    rendered_text = _extract_rt(rendered[0].get("callout", {}).get("rich_text", []))
+    notion_text = _extract_rt(notion_block.get("callout", {}).get("rich_text", []))
+    return rendered_text == notion_text
+
+
+def _section_needs_push(section: dict, blocks_by_id: dict, page_section_ids: set) -> bool:
+    """Return True if the section is absent from the page or any beat is out of sync."""
+    sid = section.get("id", "")
+    if sid not in page_section_ids:
+        return True  # H2 not on page
+    for beat in section.get("beats", []):
+        bid = beat.get("_notion_block_id")
+        if not bid:
+            return True  # new beat without a block ID
+        block = blocks_by_id.get(bid)
+        if block is None:
+            return True  # beat block missing from page
+        if not _beat_content_matches(beat, sid, block):
+            return True  # content changed
+    return False
+
+
 def push_section(
     client: Client,
     page_id: str,
@@ -817,8 +826,9 @@ def push_section(
 ) -> str:
     """Push a single section to Notion (flat heading style). Returns the heading_2 block ID.
 
-    Looks up the section on the page by heading text. If found, archives the
-    old beat blocks and inserts the new ones after the heading. If not found,
+    Looks up the section on the page by heading text. If found, surgically
+    syncs beats: keeps matching beats in place, archives changed/missing beats,
+    and inserts new or changed beats at the correct position. If not found,
     creates a new divider + heading + beats at the correct sorted position.
 
     page_blocks: current page children (fetched once by the caller and passed
@@ -851,45 +861,119 @@ def push_section(
             break
 
     if h2_block is not None:
-        # Archive old beats (flat siblings between this H2 and the next H2/divider)
-        old_beats = []
+        # Collect existing beats under this H2 (flat siblings until next H2/divider)
+        existing_section_blocks = []
         for block in page_blocks[h2_idx + 1:]:
             if block.get("type") in ("heading_2", "divider"):
                 break
-            old_beats.append(block)
-        for b in old_beats:
-            client.blocks.update(b["id"], archived=True)
+            existing_section_blocks.append(block)
+        existing_by_id = {b["id"]: b for b in existing_section_blocks}
 
-        # Also archive toggle-heading children (older push style stored beats inside the H2)
+        # Collect toggle-heading children if present (older push style)
+        toggle_children: list[dict] = []
         if h2_block.get("has_children"):
-            for child in _all_blocks(client, h2_block["id"]):
-                client.blocks.update(child["id"], archived=True)
+            toggle_children = _all_blocks(client, h2_block["id"])
 
-        # Convert toggle heading to plain heading if needed
+        # Convert toggle heading to plain heading if needed.
+        # Notion API requires all children to be archived BEFORE removing the toggle property.
         if h2_block.get("heading_2", {}).get("is_toggleable"):
+            for child in toggle_children:
+                client.blocks.update(child["id"], archived=True)
+            toggle_children = []  # already archived; skip the second archive pass below
             rt = h2_block["heading_2"]["rich_text"]
             client.blocks.update(h2_block["id"], heading_2={"rich_text": rt, "is_toggleable": False})
+        else:
+            # Non-toggle: include children in existing_by_id for KEEP/INSERT classification
+            for child in toggle_children:
+                existing_by_id[child["id"]] = child
 
-        # Insert new beats after the H2
-        last_after = h2_block["id"]
-        for i in range(0, max(len(new_beats), 1), 100):
-            chunk = new_beats[i : i + 100]
-            if not chunk:
-                break
-            resp = client.blocks.children.append(page_id, children=chunk, after=last_after)
-            last_after = resp["results"][-1]["id"]
+        # Classify each beat: KEEP (exists on page and content matches) or INSERT
+        kept_ids: set[str] = set()
+        plan: list[tuple] = []  # (action, beat, anchor_id)
+        last_anchor = h2_block["id"]
+
+        for beat in section.get("beats", []):
+            bid = beat.get("_notion_block_id")
+            existing = existing_by_id.get(bid) if bid else None
+            if existing and _beat_content_matches(beat, section_id, existing):
+                kept_ids.add(bid)
+                last_anchor = bid
+                plan.append(("keep", beat, bid))
+            else:
+                plan.append(("insert", beat, last_anchor))
+
+        # Archive everything not being kept
+        for block in existing_section_blocks:
+            if block["id"] not in kept_ids:
+                client.blocks.update(block["id"], archived=True)
+        for child in toggle_children:
+            if child["id"] not in kept_ids:
+                client.blocks.update(child["id"], archived=True)
+
+        # Insert new/changed beats in bulk runs.
+        # Consecutive INSERT beats that share the same anchor are batched into a
+        # single children.append call — avoids the "only 1 block lands" failure
+        # that occurs when sending many small calls with after=same_anchor.
+        current_tail: dict[str, str] = {}  # anchor_id → last inserted block ID
+
+        def _flush_run(anchor: str, blocks: list[dict]) -> None:
+            if not blocks:
+                return
+            effective_after = current_tail.get(anchor, anchor)
+            resp = client.blocks.children.append(
+                page_id, children=blocks[:100], after=effective_after
+            )
+            results = resp.get("results", [])
+            if results:
+                current_tail[anchor] = results[-1]["id"]
+            for i in range(100, len(blocks), 100):
+                resp = client.blocks.children.append(
+                    page_id,
+                    children=blocks[i : i + 100],
+                    after=current_tail.get(anchor, anchor),
+                )
+                if resp.get("results"):
+                    current_tail[anchor] = resp["results"][-1]["id"]
+
+        run_anchor: str | None = None
+        run_blocks: list[dict] = []
+
+        for action, beat, anchor in plan:
+            if action == "keep":
+                _flush_run(run_anchor, run_blocks)  # type: ignore[arg-type]
+                run_anchor = None
+                run_blocks = []
+                continue
+            if anchor != run_anchor:
+                _flush_run(run_anchor, run_blocks)  # type: ignore[arg-type]
+                run_anchor = anchor
+                run_blocks = []
+            run_blocks.extend(_render_beat(beat, section_id))
+
+        _flush_run(run_anchor, run_blocks)  # type: ignore[arg-type]
 
         return h2_block["id"]
 
     # Section not on page yet — insert at sorted position
     new_key = _section_sort_key(section_id)
+    after_h2_idx: int | None = None
     after_id: str | None = None
-    for block in page_blocks:
+    for i, block in enumerate(page_blocks):
         if block.get("type") != "heading_2":
             continue
         rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
         m = re.search(r"\[([^\]]+)\]\s*$", rt)
         if m and _section_sort_key(m.group(1)) < new_key:
+            after_h2_idx = i
+            after_id = block["id"]
+
+    # Advance after_id to the last beat of the preceding section so the new
+    # section is inserted AFTER all of that section's content, not right after
+    # its heading (which would displace its beats).
+    if after_h2_idx is not None:
+        for block in page_blocks[after_h2_idx + 1:]:
+            if block.get("type") in ("heading_2", "divider"):
+                break
             after_id = block["id"]
 
     new_h2 = _heading(2, heading_text)
@@ -1767,12 +1851,13 @@ def push_lesson(
 ) -> str:
     """Push lesson data to Notion section by section. Returns the page ID.
 
-    Each section is pushed via push_section (flat heading style):
-    - Sections whose _notion_block_id is set are considered in-sync and SKIPPED.
-    - Sections without _notion_block_id are pushed (archive old beats, insert new).
+    Each section is pushed via push_section (flat heading style). Sync is
+    determined by comparing against the actual Notion page state — sections
+    absent from the page or with missing/changed beats are pushed; the rest
+    are skipped.
 
     sections: optional allowlist of section IDs to push. Default: all sections
-    that lack _notion_block_id (i.e. changed or new sections only).
+    that are absent from or out of sync with the Notion page.
 
     Pass file_path=None to skip registry (e.g. for test pushes).
     """
@@ -1784,19 +1869,38 @@ def push_lesson(
     else:
         all_sections = data.get("sections", [])
 
-    if sections is not None:
-        # Explicit allowlist: push only these section IDs
-        target_ids = set(sections)
-        target_sections = [s for s in all_sections if s.get("id") in target_ids]
-    else:
-        # Default: push only sections that are new or changed (no block ID)
-        target_sections = [s for s in all_sections if not s.get("_notion_block_id")]
-
+    # Detect existing page first so we can check actual page state below
     existing_page_id: str | None = None
     if file_path is not None:
         entry = get_registry_entry(file_path)
         if entry:
             existing_page_id = entry["page_id"]
+
+    # Determine which sections need pushing
+    page_blocks: list[dict] = []
+    if sections is not None:
+        # Explicit allowlist: push only these section IDs
+        target_ids = set(sections)
+        target_sections = [s for s in all_sections if s.get("id") in target_ids]
+    elif existing_page_id:
+        # Check what's actually on the page; push sections that are absent or have changed beats
+        page_blocks = _all_blocks(client, existing_page_id)
+        blocks_by_id = {b["id"]: b for b in page_blocks}
+        page_section_ids: set[str] = set()
+        for block in page_blocks:
+            if block.get("type") != "heading_2":
+                continue
+            rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+            m = re.search(r"\[([^\]]+)\]\s*$", rt)
+            if m:
+                page_section_ids.add(m.group(1))
+        target_sections = [
+            s for s in all_sections
+            if _section_needs_push(s, blocks_by_id, page_section_ids)
+        ]
+    else:
+        # No existing page yet: all sections are new
+        target_sections = list(all_sections)
 
     if existing_page_id:
         url = get_page_url(existing_page_id)
@@ -1846,7 +1950,9 @@ def push_lesson(
         return page_id
 
     # Existing page: push each target section individually
-    page_blocks = _all_blocks(client, page_id)
+    # page_blocks may already be fetched above (default sync path); only fetch
+    # here when an explicit sections allowlist was used.
+    page_blocks = page_blocks or _all_blocks(client, page_id)
 
     # Archive stale sections from the page.
     # Full push: archive everything not in current data.
@@ -1881,6 +1987,24 @@ def push_lesson(
         client.blocks.update(block["id"], archived=True)
         print(f"  [ARCHIVE] stale section {sid}")
     page_blocks = _all_blocks(client, page_id)
+
+    # Ensure the 💡 reviewer guide callout is present and up to date.
+    _guide = next(
+        (b for b in page_blocks if b.get("type") == "callout"
+         and b.get("callout", {}).get("icon", {}).get("emoji") == "💡"),
+        None,
+    )
+    _desired_rt = _reviewer_guide_callout()["callout"]["rich_text"]
+    if _guide is not None:
+        if _extract_rt(_guide.get("callout", {}).get("rich_text", [])) != _extract_rt(_desired_rt):
+            client.blocks.update(
+                _guide["id"],
+                callout={"rich_text": _desired_rt, "icon": {"type": "emoji", "emoji": "💡"}, "color": "yellow_background"},
+            )
+    else:
+        client.blocks.children.append(page_id, children=[_reviewer_guide_callout()])
+        page_blocks = _all_blocks(client, page_id)
+        print("  [NOTION] ⚠️  💡 callout was missing — added at bottom of page. Move it to the top manually.")
 
     for section in target_sections:
         sid = section.get("id", "?")
