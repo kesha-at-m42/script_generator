@@ -152,6 +152,23 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
     return original_path, out_step_dir / "pull.json"
 
 
+def _pull_out_path(file_path: Path) -> Path:
+    """Derive the pull output path for any pipeline step file.
+
+    Always saves to step_{N+1}_pull/pull.json next to the source step,
+    rather than overwriting the source file.
+    """
+    step_dir = file_path.parent
+    version_dir = step_dir.parent
+    m = re.match(r"step_(\d+)_", step_dir.name)
+    if not m:
+        return file_path  # not in a numbered step dir — fall back to same file
+    step_num = int(m.group(1))
+    out_step_dir = version_dir / f"step_{step_num + 1:02d}_pull"
+    out_step_dir.mkdir(parents=True, exist_ok=True)
+    return out_step_dir / "pull.json"
+
+
 def _collect_notion_ids(obj: Any, acc: dict[str, str]) -> None:
     """Recursively collect {beat_id: _notion_block_id} from a lesson structure."""
     if isinstance(obj, dict):

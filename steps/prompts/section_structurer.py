@@ -78,7 +78,13 @@ Include all required phrases from <input>. Avoid all forbidden phrases.
 
 ## WHAT IS A STEP GROUP
 
-A step group contains at most one prompt beat and at most one dialogue beat, and always ends with `current_scene`.
+A step group contains at most one prompt beat, almost always contains dialogue, and always ends with `current_scene`. Multiple dialogue beats are allowed — they collapse into a single block of text for the student.
+
+**Step pacing** — each step is one "press Next" for the student. The goal is to match cognitive load: enough content to make the step meaningful, not so much that it overwhelms.
+
+- **Instructional content: one idea per step.** When the section is explaining concepts — naming something, introducing a property, articulating a strategy — each distinct idea belongs in its own step. Multiple blocks of explanatory text in one step create cognitive overload: the student is reading several different things before they can advance. Split by idea, not by paragraph count.
+- **Worked examples: don't over-fracture.** When the section is demonstrating a procedure (showing how something works step by step), maintain the flow of the demonstration. Splitting every animation into its own step breaks the student's mental model of what's being demonstrated. A demonstration move and the narration explaining it belong together in one step.
+- **No silent steps.** Don't create a step with only scene beats and no dialogue (or prompt). Scene beats belong with the dialogue they support — fold them into the adjacent step, not into their own isolated step.
 
 **Scene beats group with the dialogue they are tied to.** A scene beat either sets up the visual before the guide speaks, or fires immediately after the dialogue as the guide's words take visual effect on screen. Group them accordingly.
 

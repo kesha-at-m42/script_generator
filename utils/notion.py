@@ -1288,8 +1288,15 @@ def _render_prompt(beat: dict, section_id: str) -> list[dict]:
     return blocks
 
 
+_CURRENT_SCENE_TOGGLE_PREFIX = "⏭️"
+_CURRENT_SCENE_TOGGLE_LABEL = "⏭️ Student presses Next — toggle open to see current scene state"
+
+# Legacy current_scene toggle labels also treated as step breaks on pull
+_LEGACY_STEP_BREAK_PREFIXES = ("📋 Current scene state",)
+
+
 def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
-    """Render current_scene as a collapsed toggle (reference-only)."""
+    """Render current_scene as a collapsed toggle marking where the student presses Next."""
     parts: list[str] = []
     for element in beat.get("elements", []):
         description = element.get("description", "").strip()
@@ -1298,15 +1305,14 @@ def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
         tid = element.get("tangible_id", "")
         parts.append(f"{tid}: {description}" if tid else description)
 
-    if not parts:
-        return []
-
     if nested:
+        if not parts:
+            return []
         summary = "  |  ".join(parts)
         return [_callout(f"Scene: {summary}", "📋")]
 
-    children = [_bullet(p) for p in parts]
-    return [_toggle("📋 Current scene state (for reference, not to be edited)", children)]
+    children = [_bullet(p) for p in parts] if parts else [_bullet("(empty scene)")]
+    return [_toggle(_CURRENT_SCENE_TOGGLE_LABEL, children)]
 
 
 def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict]:
@@ -1342,12 +1348,10 @@ def _step_sep_block() -> dict:
 
 
 def _render_beat_group(beats: list[dict], section_id: str) -> list[dict]:
-    """Render a contiguous group of beats with · · · separators after each current_scene."""
+    """Render a contiguous group of beats. The ⏭️ current_scene toggle marks step boundaries."""
     blocks: list[dict] = []
-    for i, beat in enumerate(beats):
+    for beat in beats:
         blocks.extend(_render_beat(beat, section_id))
-        if beat.get("type") == "current_scene" and i < len(beats) - 1:
-            blocks.append(_step_sep_block())
     return blocks
 
 
@@ -1450,7 +1454,14 @@ def _blocks_to_steps(blocks: list[dict]) -> list[dict]:
     """
     Group a flat list of section content blocks into step groups.
 
-    Step groups are delimited by paragraph blocks containing "· · ·".
+    A step break is any of:
+    - ⏭️ current_scene toggle (new format — repositionable)
+    - paragraph containing "· · ·" (legacy format)
+
+    Both are recognised simultaneously, so mixed pages (e.g. after a partial
+    re-push) work correctly. Consecutive step-break markers produce an empty
+    group that is filtered out at the end.
+
     Each group is {"callouts": [(emoji, text), ...], "toggles": [block, ...]}.
     """
     groups: list[dict] = []
@@ -1459,24 +1470,35 @@ def _blocks_to_steps(blocks: list[dict]) -> list[dict]:
 
     for block in blocks:
         btype = block.get("type")
+        is_step_break = False
+
         if btype == "paragraph":
             text = _extract_rt(block.get("paragraph", {}).get("rich_text", []))
             if text.strip() == "· · ·":
-                groups.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
-                current_callouts = []
-                current_toggles = []
-                continue
-        if btype == "callout":
+                is_step_break = True
+        elif btype == "callout":
             emoji = _callout_emoji(block) or ""
             text = _extract_rt(block.get("callout", {}).get("rich_text", []))
             current_callouts.append((emoji, text))
         elif btype == "toggle":
-            current_toggles.append(block)
+            toggle_text = _extract_rt(block.get("toggle", {}).get("rich_text", []))
+            if toggle_text.startswith(_CURRENT_SCENE_TOGGLE_PREFIX) or any(
+                toggle_text.startswith(p) for p in _LEGACY_STEP_BREAK_PREFIXES
+            ):
+                is_step_break = True
+            else:
+                current_toggles.append(block)
+
+        if is_step_break:
+            groups.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
+            current_callouts = []
+            current_toggles = []
 
     if current_callouts or current_toggles:
         groups.append({"callouts": list(current_callouts), "toggles": list(current_toggles)})
 
-    return groups
+    # Drop empty groups produced by consecutive step-break markers (e.g. ⏭️ + · · · together)
+    return [g for g in groups if g["callouts"] or g["toggles"]]
 
 
 def _section_callouts_from_blocks(blocks: list[dict]) -> dict[str, dict]:
@@ -1635,90 +1657,112 @@ def _patch_section_beats(section: dict, section_data: dict) -> None:
     """
     Merge Notion callouts into the beats of *section* (mutates in place).
 
-    Splits both the Notion callouts and JSON beats into step groups (each
-    group ends at current_scene / · · · boundary), then matches groups
-    positionally. Within each group, editable beats are matched to callouts.
+    Callouts are matched to JSON editable beats in flat document order across
+    all step groups — not group-by-group. This means ⏭️ step-break toggles can
+    be repositioned in Notion and the pull will reflect the new step structure:
+    current_scene beats are redistributed to match the new group boundaries.
+
+    Validator toggles stay correct because each callout carries its group's
+    toggle iterator, and there is at most one prompt (with its own toggles) per
+    step group.
     """
     notion_step_groups = section_data.get("steps", [])
     json_beats = section.get("beats", [])
-    json_step_groups = _beats_to_step_groups(json_beats)
 
-    for i, notion_group in enumerate(notion_step_groups):
-        notion_callouts = [
-            (e, t) for e, t in notion_group["callouts"] if e in _EDITABLE_CALLOUT_EMOJIS
-        ]
-        toggle_iter = iter(notion_group["toggles"])
+    # --- Build a flat callout list with per-group toggle context ---
+    # Each entry: (emoji, text, toggle_iter) where toggle_iter is shared
+    # across all callouts in the same group (prompt consumes from it).
+    flat_callouts: list[tuple[str, str, object]] = []
+    group_editable_counts: list[int] = []
 
-        if i < len(json_step_groups):
-            group_beats = json_step_groups[i]
-            editable_beats = [b for b in group_beats if b.get("type") in _EDITABLE_BEAT_TYPES]
-            beat_ptr = 0
+    for group in notion_step_groups:
+        editable = [(e, t) for e, t in group["callouts"] if e in _EDITABLE_CALLOUT_EMOJIS]
+        toggle_iter = iter(group["toggles"])
+        for e, t in editable:
+            flat_callouts.append((e, t, toggle_iter))
+        group_editable_counts.append(len(editable))
 
-            for emoji, text in notion_callouts:
-                if _NEW_BEAT_TAG.search(text):
-                    clean_text = _NEW_BEAT_TAG.sub("", text).strip()
-                    new_beat = _parse_new_beat(emoji, clean_text)
-                    if beat_ptr < len(editable_beats):
-                        target = editable_beats[beat_ptr]
-                        actual_pos = next(
-                            idx for idx, b in enumerate(json_beats) if b is target
-                        )
-                        json_beats.insert(actual_pos, new_beat)
-                    else:
-                        json_beats.append(new_beat)
-                    continue
+    # Cumulative boundary positions: after N total callouts, insert a current_scene.
+    boundaries: list[int] = []
+    total = 0
+    for count in group_editable_counts:
+        total += count
+        boundaries.append(total)
+    boundary_set = set(boundaries)
 
-                if beat_ptr >= len(editable_beats):
-                    break
+    # --- Flat lists of editable and current_scene beats from JSON ---
+    editable_beats = [b for b in json_beats if b.get("type") in _EDITABLE_BEAT_TYPES]
+    current_scene_beats = [b for b in json_beats if b.get("type") == "current_scene"]
 
-                beat = editable_beats[beat_ptr]
-                beat_ptr += 1
-                btype = beat.get("type")
+    # --- Match callouts to beats in flat document order ---
+    beat_ptr = 0
+    new_beats: list[dict] = []
 
-                if btype == "dialogue":
-                    beat["text"] = _strip_dialogue_text(text)
-                elif btype == "scene":
-                    new_desc = text.strip()
-                    if new_desc != _scene_rendered_text(beat):
-                        original_desc = (beat.get("params") or {}).get("description", "").strip()
-                        beat.setdefault("params", {})["description"] = new_desc
-                        beat["_original_description"] = original_desc
-                        beat["notion_flag"] = "updated"
-                elif btype == "prompt":
-                    original_options = list(beat.get("options") or [])
-                    beat.update(_parse_prompt_fields(text))
-                    if len(beat.get("options") or []) != len(original_options):
-                        beat["options"] = original_options
-                        beat["notion_flag"] = "options_parse_failed"
-                        beat["_original_options"] = original_options
-                        first_line = text.split("\n")[0]
-                        m = re.search(r"options:\s*(.+?)(?:  |$)", first_line)
-                        beat["_notion_options_text"] = m.group(1).strip() if m else first_line
-                    validator = beat.get("validator", [])
-                    if isinstance(validator, list):
-                        for state in validator:
+    for emoji, text, toggle_iter in flat_callouts:
+        if _NEW_BEAT_TAG.search(text):
+            clean_text = _NEW_BEAT_TAG.sub("", text).strip()
+            new_beats.append(_parse_new_beat(emoji, clean_text))
+            continue
+
+        if beat_ptr >= len(editable_beats):
+            break
+
+        beat = editable_beats[beat_ptr]
+        beat_ptr += 1
+        btype = beat.get("type")
+
+        if btype == "dialogue":
+            beat["text"] = _strip_dialogue_text(text)
+        elif btype == "scene":
+            new_desc = text.strip()
+            if new_desc != _scene_rendered_text(beat):
+                original_desc = (beat.get("params") or {}).get("description", "").strip()
+                beat.setdefault("params", {})["description"] = new_desc
+                beat["_original_description"] = original_desc
+                beat["notion_flag"] = "updated"
+        elif btype == "prompt":
+            original_options = list(beat.get("options") or [])
+            beat.update(_parse_prompt_fields(text))
+            if len(beat.get("options") or []) != len(original_options):
+                beat["options"] = original_options
+                beat["notion_flag"] = "options_parse_failed"
+                beat["_original_options"] = original_options
+                first_line = text.split("\n")[0]
+                m = re.search(r"options:\s*(.+?)(?:  |$)", first_line)
+                beat["_notion_options_text"] = m.group(1).strip() if m else first_line
+            validator = beat.get("validator", [])
+            if isinstance(validator, list):
+                for state in validator:
+                    try:
+                        toggle_block = next(toggle_iter)  # type: ignore[call-overload]
+                    except StopIteration:
+                        break
+                    toggle_callouts = _collect_toggle_callouts(toggle_block)
+                    tc_iter = iter(toggle_callouts)
+                    for state_beat in state.get("beats", []):
+                        if state_beat.get("type") == "dialogue":
                             try:
-                                toggle_block = next(toggle_iter)
+                                t_emoji, t_text = next(tc_iter)
                             except StopIteration:
                                 break
-                            toggle_callouts = _collect_toggle_callouts(toggle_block)
-                            tc_iter = iter(toggle_callouts)
-                            for state_beat in state.get("beats", []):
-                                if state_beat.get("type") == "dialogue":
-                                    try:
-                                        t_emoji, t_text = next(tc_iter)
-                                    except StopIteration:
-                                        break
-                                    if t_emoji == "💬":
-                                        state_beat["text"] = _strip_dialogue_text(t_text)
-        else:
-            new_beats = [
-                _parse_new_beat(e, _NEW_BEAT_TAG.sub("", t).strip())
-                for e, t in notion_callouts
-                if e in _EDITABLE_CALLOUT_EMOJIS
-            ]
-            if new_beats:
-                json_beats.extend(new_beats)
+                            if t_emoji == "💬":
+                                state_beat["text"] = _strip_dialogue_text(t_text)
+
+    # --- Reconstruct beats with current_scene at each group boundary ---
+    result: list[dict] = []
+    cs_ptr = 0
+    matched_count = 0
+
+    for beat in editable_beats:
+        result.append(beat)
+        matched_count += 1
+        if matched_count in boundary_set:
+            cs = current_scene_beats[cs_ptr] if cs_ptr < len(current_scene_beats) else {"type": "current_scene", "elements": []}
+            result.append(cs)
+            cs_ptr += 1
+
+    result.extend(new_beats)
+    section["beats"] = result
 
 
 def _collect_scene_flags(sections: list) -> list[dict]:
