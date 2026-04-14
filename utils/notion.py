@@ -1631,6 +1631,7 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
             id_to_state_beat[child_id]["text"] = _strip_dialogue_text(text)
         elif positional_ptr < len(positional_pool):  # LEGACY
             positional_pool[positional_ptr]["text"] = _strip_dialogue_text(text)
+            positional_pool[positional_ptr]["_notion_block_id"] = child_id  # back-fill
             positional_ptr += 1
 
 
@@ -1714,6 +1715,7 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
                 cs = id_to_current_scene[block_id]
             elif cs_positional_ptr < len(cs_positional_pool):  # LEGACY
                 cs = cs_positional_pool[cs_positional_ptr]
+                cs["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
                 cs_positional_ptr += 1
             else:
                 cs = {"type": "current_scene", "elements": []}
@@ -1746,6 +1748,7 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
                 beat = id_to_beat[block_id]
             elif positional_ptr < len(positional_pool):  # LEGACY
                 beat = positional_pool[positional_ptr]
+                beat["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
                 positional_ptr += 1
             else:
                 result.append(_parse_new_beat(emoji, text))
