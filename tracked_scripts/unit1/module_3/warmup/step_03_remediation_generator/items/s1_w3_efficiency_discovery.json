@@ -1,0 +1,67 @@
+{
+  "id": "s1_w3_efficiency_discovery",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected scale of 2 as more efficient, incorrect",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale2",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count the symbols for Blue in each graph. Which one uses fewer symbols to show 25 items?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "description": "Blue category in scale of 5 graph pulses to show efficiency",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Scale of 2 needs 12 and a half symbols for 25 items. Scale of 5 only needs 5 symbols for the same 25 items. Fewer symbols means more efficient. Scale of 5 is the answer."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T01:50:59.974776+00:00"
+}

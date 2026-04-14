@@ -1,0 +1,206 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 13
+Output Directory: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0
+======================================================================
+
+[STEP 1/13] [FORMATTING] split_spec
+  [DIR] step_01_split_spec
+  [LOAD] Reading: C:\git\script_generator\units\unit1\module7\synthesis.md
+  [DEBUG] File size: 16411 bytes
+  [DEBUG] Read 15947 chars from 16411 bytes
+  [OK] Loaded as text
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'input_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_01_split_spec\split_spec.json
+
+[STEP 2/13] [AI] starterpack_parser
+  [DIR] step_02_starterpack_parser
+  [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_01_split_spec\split_spec.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded 2 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 0 items from JSON array
+
+  [BATCH COMPLETE]
+    Processed: 0/0
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 0 items to: step_02_starterpack_parser\starterpack_parser.json
+
+[STEP 3/13] [FORMATTING] load_specs_for_lesson
+  [DIR] step_03_load_specs_for_lesson
+  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser\starterpack_parser.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_02_starterpack_parser\starterpack_parser.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=7
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+  [TOY_SPEC_LOADER] Available specs: ['arrays', 'bar_graph', 'data_table', 'dropdown_fillin', 'equal_groups', 'equation_builder', 'multiple_choice', 'picture_graph', 'word_problems']
+  [TOY_SPEC_LOADER] Loaded 26 phrase mappings from glossary
+  [TOY_SPEC_LOADER] Loaded 17 tool descriptions for AI inference
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+
+[STEP 4/13] [FORMATTING] check_glossary_drift
+  [DIR] step_04_check_glossary_drift
+  [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=7
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing verbose=True
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_04_check_glossary_drift\check_glossary_drift.json
+  [EXEC] Passing input to parameter 'input_data'
+  [DRIFT] Report → C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_04_check_glossary_drift\drift_report.md  |  unresolved=0  missing=0  fallback=0  deprecated=0
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_check_glossary_drift\check_glossary_drift.json
+
+[STEP 5/13] [AI] section_structurer
+  [DIR] step_05_section_structurer
+  [AUTO-CHAIN] Using previous step output: step_04_check_glossary_drift\check_glossary_drift.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_04_check_glossary_drift\check_glossary_drift.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded 2 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 0 items from JSON array
+
+  [BATCH COMPLETE]
+    Processed: 0/0
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 0 items to: step_05_section_structurer\section_structurer.json
+
+[STEP 6/13] [FORMATTING] stamp_ids
+  [DIR] step_06_stamp_ids
+  [AUTO-CHAIN] Using previous step output: step_05_section_structurer\section_structurer.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_05_section_structurer\section_structurer.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_06_stamp_ids\stamp_ids.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_06_stamp_ids\stamp_ids.json
+
+[STEP 7/13] [FORMATTING] extract_dialogues
+  [DIR] step_07_extract_dialogues
+  [AUTO-CHAIN] Using previous step output: step_06_stamp_ids\stamp_ids.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_06_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_07_extract_dialogues\extract_dialogues.json
+
+[STEP 8/13] [AI] dialogue_rewriter
+  [DIR] step_08_dialogue_rewriter
+  [AUTO-CHAIN] Using previous step output: step_07_extract_dialogues\extract_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_07_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded 2 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 0 items from JSON array
+
+  [BATCH COMPLETE]
+    Processed: 0/0
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 0 items to: step_08_dialogue_rewriter\dialogue_rewriter.json
+
+[STEP 9/13] [FORMATTING] merge_dialogues
+  [DIR] step_09_merge_dialogues
+  [AUTO-CHAIN] Using previous step output: step_08_dialogue_rewriter\dialogue_rewriter.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_08_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_09_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_merge_dialogues\merge_dialogues.json
+
+[STEP 10/13] [FORMATTING] filter_sections
+  [DIR] step_10_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_09_merge_dialogues\merge_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_09_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_10_filter_sections\filter_sections.json
+
+[STEP 11/13] [AI] remediation_generator
+  [DIR] step_11_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_10_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_10_filter_sections\filter_sections.json
+  [DEBUG] File size: 45 bytes
+  [DEBUG] Read 42 chars from 45 bytes
+  [OK] Loaded 42 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 0 items from JSON array
+
+  [BATCH COMPLETE]
+    Processed: 0/0
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 0 items to: step_11_remediation_generator\remediation_generator.json
+
+[STEP 12/13] [FORMATTING] merge_remediation
+  [DIR] step_12_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_11_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_11_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_12_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_12_merge_remediation\merge_remediation.json
+
+[STEP 13/13] [FORMATTING] push
+  [DIR] step_13_push
+  [AUTO-CHAIN] Using previous step output: step_12_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_12_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=7
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_dialogue_pass_module_7\v0\step_13_push\push.json
+  [EXEC] Passing input to parameter 'data'
+
+  [NOTION] Pushed -> https://notion.so/3425917eac5281b08417f337fbb264ec
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_13_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v0
+Status: draft
+Duration: 1.2s
+Output: outputs/synthesis_generator_dialogue_pass_module_7/latest/
+======================================================================

@@ -1,0 +1,222 @@
+{
+  "id": "s4_ec4_transfer_scale2",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5: subtracted Maya (14) minus Ben (9) instead of adding them",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Together means we add Maya's books and Ben's books. What is 14 plus 9?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14: chose only Maya's value instead of combining Maya and Ben",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Maya read 14 books, but the question asks about Maya and Ben together. Add both amounts."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 22
+        },
+        "description": "Student selected 22: misread the scale, possibly reading Maya as 13 (14 minus 1) or calculation error",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: this graph counts by 2s. Maya's bar reaches 14, and Ben's reaches 9. Add those two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "event": "highlight_and_label_values",
+                "status": "confirmed",
+                "description": "Maya bar (14) and Ben bar (9) highlight. Labels show 14 + 9 = 23.",
+                "categories": [
+                  "Maya",
+                  "Ben"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Maya read 14 books. Ben read 9 books. Together means we add: 14 plus 9 equals 23 books. The answer is 23."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 34
+        },
+        "description": "Student selected 34: added all three values (23 + 11) instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Carla"
+                ],
+                "description": "Carla bar stays highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this a bit more. How many MORE means subtract. We need 23 minus 11, not add them together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 23
+        },
+        "description": "Student selected 23: gave the combined total instead of comparing it to Carla's value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Carla"
+                ],
+                "description": "Carla bar stays highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found the combined total. Now we need how many MORE. That means compare: 23 minus Carla's 11 books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 17
+        },
+        "description": "Student selected 17: subtracted Carla from Maya only (14 - 11 = 3) then added something, or other calculation error",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "highlight_categories": [
+                  "Carla"
+                ],
+                "description": "Carla bar stays highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: Maya and Ben together read 23 books. Carla read 11 books. To find how many more, subtract: 23 minus 11."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_booksweek",
+              "params": {
+                "event": "show_comparison",
+                "status": "confirmed",
+                "description": "Combined total (23) and Carla's value (11) compare visually. Difference of 12 displays.",
+                "categories": [
+                  "Carla"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This one takes a bit of thought, so let's work through it together. Maya and Ben read 23 books together. Carla read 11 books. To find how many more, we subtract: 23 minus 11 equals 12. The answer is 12."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:34:12.749946+00:00"
+}

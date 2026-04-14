@@ -1,0 +1,125 @@
+{
+  "id": "s1_3_equal_groups_vs_rectangular",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "There are more items"
+        },
+        "description": "Student selected 'There are more items': misconception that rectangular arrangement means more items",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_clustered",
+              "params": {
+                "highlight_all_items": true,
+                "description": "All 15 items in the clustered arrangement highlight."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_rectangular",
+              "params": {
+                "highlight_all_items": true,
+                "description": "All 15 items in the rectangular arrangement highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count both sides. The left has 15 items and the right has 15 items. Same number, just arranged differently."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The groups are bigger"
+        },
+        "description": "Student selected 'The groups are bigger': misconception that rectangular arrangement has larger groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_clustered",
+              "params": {
+                "highlight_groups": [
+                  0
+                ],
+                "description": "First group in clustered arrangement highlights, showing 5 items."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_rectangular",
+              "params": {
+                "highlight_rows": [
+                  0
+                ],
+                "description": "First row in rectangular arrangement highlights, showing 5 items."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: each bag on the left has 5 items. Each row on the right also has 5 items. The groups are the same size."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They're in bags"
+        },
+        "description": "Student selected 'They're in bags': focused on containers rather than arrangement pattern",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_rectangular",
+              "params": {
+                "highlight_alignment": true,
+                "description": "Grid lines appear over rectangular arrangement, emphasizing the rows and columns."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The bags are gone, yes. But look closer at how the items themselves are arranged. What's special about their positions?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_rectangular",
+              "params": {
+                "event": "trace_alignment",
+                "status": "confirmed",
+                "description": "System traces horizontal lines across each row, then vertical lines down each column, showing the perfect alignment."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. On the right, every item lines up perfectly in rows and columns. See how I can draw straight lines through them? That's what makes it different. The answer is Everything is lined up."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-07T18:23:43.323573+00:00"
+}

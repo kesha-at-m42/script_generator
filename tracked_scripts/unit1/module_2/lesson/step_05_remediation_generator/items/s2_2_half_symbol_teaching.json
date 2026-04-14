@@ -1,0 +1,106 @@
+{
+  "id": "s2_2_half_symbol_teaching",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — counted only the full symbols, ignored the half-symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Count the full symbols—that's 6. The half-symbol adds 1 more because half of 2 is 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — counted only the full symbols, missed that the half-symbol represents 1 more",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. You counted the 3 full symbols—that's 6. But there's also a half-symbol. Half of 2 is 1, so add 1 more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — likely treated the half-symbol as a full symbol or added incorrectly",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: each full symbol equals 2. Count the full symbols: 2, 4, 6. The half-symbol adds just 1 because half of 2 is 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "half_symbol_demonstration",
+                "status": "confirmed",
+                "description": "Animation replays: 3 full symbols light up sequentially (2, 4, 6), then half-symbol lights up showing +1 for total of 7"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each full symbol equals 2 sightings. So 3 full symbols: that's 2, 4, 6. The half-symbol adds 1 more because half of 2 is 1. 6 plus 1 equals 7 sightings. There we go."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:08:47.150931+00:00"
+}

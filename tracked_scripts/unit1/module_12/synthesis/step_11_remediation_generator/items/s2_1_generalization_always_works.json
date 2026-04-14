@@ -1,0 +1,126 @@
+{
+  "id": "s2_1_generalization_always_works",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "79"
+        },
+        "description": "Student selected 79, treating the problem as concatenation rather than multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You're thinking about this a bit differently. Here's a hint: 9 times 7 equals 63. The turn-around fact means 7 times 9 equals the same product."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "56"
+        },
+        "description": "Student selected 56, likely computing 7×8 or misremembering the fact",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. We know 9 times 7 is 63. When we switch the factors around, we get the same product. 7 times 9 also equals 63."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "I'd need to see the array"
+        },
+        "description": "Student selected need to see array, not yet trusting the property without visual support",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: you've seen that rotating an array doesn't change the total dots. That means the turn-around facts work even when you can't see the array. If 9 times 7 equals 63, then 7 times 9 equals 63 too."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. We know 9 times 7 equals 63. When we switch the factors, we get 7 times 9. The turn-around facts tell us this equals the same product: 63. You don't need an array because the property always works. The answer is 63."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "Only for small numbers"
+        },
+        "description": "Student selected only for small numbers, limiting the property to a subset of numbers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The key is that you could imagine an array for ANY two numbers. Whether it's 3 times 4 or 99 times 47, rotating the array always gives you the same dots. The property works for all numbers, not just small ones."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Only when you have an array"
+        },
+        "description": "Student selected only when you have an array, not yet seeing property as independent of visualization",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: you can always imagine an array, even when you don't draw one. Whether you see 5 times 8 as rows and columns or not, switching the factors still gives you the same product. The property works even when you don't have an array in front of you."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Only when I know the first multiplication fact"
+        },
+        "description": "Student selected only when I know the first fact, missing that property is structural not memorization-dependent",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's think about this a bit more. The turn-around facts aren't about what you've memorized. They're about how multiplication itself works. Any two numbers, whether you know the fact or not, will give you the same product when you switch them. That's what makes it a property."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this one. Imagine any two numbers, like 9 and 7. You could build an array with 9 rows and 7 columns. Now rotate it: 7 rows and 9 columns. Same dots, same product. This works for ANY two numbers, big or small, whether you see an array or just imagine one. That's why it's called a property. It's always true. The answer is yes, it always works."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T21:08:27.406191+00:00"
+}

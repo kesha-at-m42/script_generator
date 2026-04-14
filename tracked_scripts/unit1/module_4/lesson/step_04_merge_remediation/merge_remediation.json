@@ -1,0 +1,3602 @@
+[
+  {
+    "id": "s1_1_reading_bar_heights_worked",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_warmup_colors",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Red",
+              "Blue",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              30,
+              50,
+              20
+            ],
+            "highlight_categories": [
+              "Red"
+            ],
+            "description": "Vertical bar graph appears. Student's Warmup data: Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0-60 in 10s. Red bar highlighted with axis line at 40 glowing."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You saw this bar graph in Warmup. Now let's learn how to read it exactly."
+        },
+        {
+          "type": "dialogue",
+          "text": "See these numbers along the side? They show the scale. 10, 20, 30, 40. That's counting by 10s!"
+        },
+        {
+          "type": "dialogue",
+          "text": "Red has 40. The height of the bar ends at the 40 line."
+        },
+        {
+          "type": "dialogue",
+          "text": "I can count by 10s to check: 10, 20, 30, 40. You already know how to count by 10s!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_warmup_colors",
+              "description": "Vertical bar graph in reading mode. Red=40, Blue=30, Green=50, Yellow=20. Red bar highlighted with 40 axis line glowing. Scale of 10, axis 0-60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Green",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_reading_blue_bar",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_warmup_colors",
+          "params": {
+            "highlight_categories": [
+              "Blue"
+            ],
+            "description": "Blue bar highlighted, height at 30 axis line."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at Blue. The bar's height ends at a line on the axis. What value does this show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What value does this show?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            20,
+            30,
+            35
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 30
+              },
+              "description": "Student selected 30, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_warmup_colors",
+                        "description": "Vertical bar graph. Blue bar highlighted at height 30. Scale of 10, axis 0-60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Green",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 3
+              },
+              "description": "Student selected 3: likely counting symbols from picture graph instead of reading bar height",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue"
+                      ],
+                      "description": "Blue bar remains highlighted, 30 axis line pulses"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. On a bar graph, look where the bar ends. The Blue bar reaches the 30 line."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 20
+              },
+              "description": "Student selected 20: misread the axis line below the bar's actual height",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue"
+                      ],
+                      "description": "Blue bar highlighted, 20 and 30 axis lines both visible, 30 line pulses"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the bar goes higher than 20. Follow the Blue bar to its top. Which line does it reach?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35: estimated above the actual line or misread axis",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue"
+                      ],
+                      "description": "Blue bar highlighted, 30 and 40 axis lines visible, 30 line pulses"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The bar's top lines up exactly with a number. It stops at 30, not between lines."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "event": "trace_bar_to_axis",
+                      "status": "confirmed",
+                      "description": "Animation traces from top of Blue bar horizontally to axis, highlighting 30 line",
+                      "category": "Blue"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Start at the top of the Blue bar. Follow it to the left. It meets the axis at 30. That's the value."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_warmup_colors",
+              "description": "Vertical bar graph. Blue bar highlighted, height at 30. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Green",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_skip_counting_connection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_warmup_colors",
+          "params": {
+            "highlight_categories": [
+              "Green"
+            ],
+            "description": "Green bar highlighted at height 50."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar_graph_warmup_colors",
+          "params": {
+            "event": "axis_sequential_highlight",
+            "status": "confirmed",
+            "description": "Axis lines glow sequentially: 10, 20, 30, 40, 50.",
+            "sequence": [
+              10,
+              20,
+              30,
+              40,
+              50
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Green shows 50. Let's count by 10s to check: 10, 20, 30, 40, 50."
+        },
+        {
+          "type": "dialogue",
+          "text": "You already know how to count by 10s. That's exactly what we do with scale of 10."
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_warmup_colors",
+          "params": {
+            "highlight_categories": [
+              "Yellow"
+            ],
+            "description": "Yellow bar highlighted at height 20."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "The fourth bar shows Yellow. Count by 10s. What value does the bar show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What value does the bar show?",
+          "tool": "multiple_choice",
+          "options": [
+            2,
+            12,
+            20,
+            25
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 20
+              },
+              "description": "Student selected 20, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "20. Two jumps of 10: 10, 20."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_warmup_colors",
+                        "description": "Vertical bar graph. Yellow bar highlighted at height 20. Scale of 10, axis 0-60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Green",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 2
+              },
+              "description": "Student selected 2: counted the number of jumps instead of the value",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "event": "axis_sequential_highlight",
+                      "status": "proposed",
+                      "description": "Axis lines glow sequentially: 10, 20.",
+                      "sequence": [
+                        10,
+                        20
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Each line shows the value we count. The bar reaches the second line. Count: 10, 20."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 12
+              },
+              "description": "Student selected 12: added 10 and 2 instead of counting by 10s",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "event": "axis_sequential_highlight",
+                      "status": "proposed",
+                      "description": "Axis lines glow sequentially: 10, 20.",
+                      "sequence": [
+                        10,
+                        20
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: we count by 10s on this graph, not by 1s. The bar reaches the second line. Count by 10s: 10, 20."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 25
+              },
+              "description": "Student selected 25: estimated between lines instead of reading the scale",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "highlight_categories": [
+                        "Yellow"
+                      ],
+                      "description": "Yellow bar highlighted, top aligns exactly with second axis line at 20."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The bar top touches a line exactly. Count by 10s to that line: 10, 20."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_warmup_colors",
+                    "params": {
+                      "event": "axis_sequential_highlight",
+                      "status": "confirmed",
+                      "description": "Axis lines glow sequentially: 10, 20. Yellow bar pulses at height 20.",
+                      "sequence": [
+                        10,
+                        20
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. The Yellow bar reaches the second line. We count by 10s: 10, 20. The bar shows 20."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_warmup_colors",
+              "description": "Vertical bar graph. Yellow bar highlighted at height 20. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Green",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_4_create_bar_swings",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_recess",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Swings",
+              "Tag",
+              "Slides",
+              "Jump Rope"
+            ],
+            "values": [
+              30,
+              50,
+              40,
+              20
+            ],
+            "description": "Data table appears. Favorite Recess Activities: Swings=30, Tag=50, Slides=40, Jump Rope=20."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_recess",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Swings",
+              "Tag",
+              "Slides",
+              "Jump Rope"
+            ],
+            "bar_heights": [
+              0,
+              50,
+              40,
+              20
+            ],
+            "ghost_gridlines": true,
+            "snap_to_scale": true,
+            "description": "Vertical bar graph in creating mode. Scale of 10, axis 0-60. Tag=50, Slides=40, Jump Rope=20 pre-filled. Swings bar empty. Ghost gridlines at 10s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you create a bar. Swings has 30 votes. Set the height for Swings to show 30."
+        },
+        {
+          "type": "prompt",
+          "text": "Set the height for Swings to show 30.",
+          "tool": "click_component",
+          "target": "bar_graph_recess.Swings",
+          "validator": [
+            {
+              "condition": {
+                "bar_height": 30
+              },
+              "description": "Student set Swings bar to 30, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_recess",
+                    "params": {
+                      "bar_heights": [
+                        30,
+                        50,
+                        40,
+                        20
+                      ],
+                      "description": "Swings bar now at height 30."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "10, 20, 30. The bar ends at 30 on the axis. 30 votes for Swings."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_recess",
+                        "description": "Data table showing Favorite Recess Activities values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_recess",
+                        "description": "Vertical bar graph. All bars filled: Swings=30, Tag=50, Slides=40, Jump Rope=20. Scale of 10, axis 0-60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Swings",
+                          "Tag",
+                          "Slides",
+                          "Jump Rope"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set Swings bar to wrong height on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Check the data table. How many votes did Swings get?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set Swings bar to wrong height on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_recess",
+                    "params": {
+                      "highlight_categories": [
+                        "Swings"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Swings has 30 votes in the table. The bar needs to end at 30 on the axis."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set Swings bar to wrong height three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_recess",
+                    "params": {
+                      "event": "set_bar_height",
+                      "status": "confirmed",
+                      "description": "System sets Swings bar to height 30, stopping at the 30 mark on the axis.",
+                      "category": "Swings",
+                      "bar_height": 30
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Swings has 30 votes. I set the bar to end at 30 on the axis. Count the gridlines: 10, 20, 30. The top of the bar lines up with 30."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_recess",
+              "description": "Data table showing Favorite Recess Activities values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_recess",
+              "description": "Vertical bar graph in creating mode. Swings bar empty, awaiting student input. Tag=50, Slides=40, Jump Rope=20 pre-filled.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Swings",
+                "Tag",
+                "Slides",
+                "Jump Rope"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_5_create_bar_nonfiction",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_books",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Fiction",
+              "Nonfiction",
+              "Comics",
+              "Poetry"
+            ],
+            "values": [
+              40,
+              60,
+              20,
+              30
+            ],
+            "description": "Data table appears. Books Read This Month: Fiction=40, Nonfiction=60, Comics=20, Poetry=30."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_books",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              70
+            ],
+            "categories": [
+              "Fiction",
+              "Nonfiction",
+              "Comics",
+              "Poetry"
+            ],
+            "bar_heights": [
+              40,
+              0,
+              20,
+              30
+            ],
+            "ghost_gridlines": true,
+            "snap_to_scale": true,
+            "description": "Vertical bar graph in creating mode. Scale of 10, axis 0-70. Fiction=40, Comics=20, Poetry=30 pre-filled. Nonfiction bar empty. Ghost gridlines at 10s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Nonfiction has 60 books. That's the biggest number. Set the bar for Nonfiction."
+        },
+        {
+          "type": "prompt",
+          "text": "Set the bar for Nonfiction to show 60.",
+          "tool": "click_component",
+          "target": "bar_graph_books.Nonfiction",
+          "validator": [
+            {
+              "condition": {
+                "bar_height": 60
+              },
+              "description": "Student set Nonfiction bar to 60, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "bar_heights": [
+                        40,
+                        60,
+                        20,
+                        30
+                      ],
+                      "description": "Nonfiction bar now at height 60."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Nonfiction at 60. You found the 60 line and set the bar there."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_books",
+                        "description": "Data table showing Books Read This Month values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_books",
+                        "description": "Vertical bar graph. All bars filled: Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Scale of 10, axis 0-70.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Fiction",
+                          "Nonfiction",
+                          "Comics",
+                          "Poetry"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set Nonfiction bar to wrong height on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Not quite. Check the table: how many Nonfiction books?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set Nonfiction bar to wrong height on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_books",
+                    "params": {
+                      "highlight_categories": [
+                        "Nonfiction"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. The table shows 60 Nonfiction books. Find the line marked 60 on the graph."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set Nonfiction bar to wrong height three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "set_bar_height",
+                      "status": "confirmed",
+                      "description": "System sets Nonfiction bar to height 60, aligning with the 60 gridline.",
+                      "category": "Nonfiction",
+                      "height": 60
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. I look at the table: Nonfiction has 60 books. Then I find 60 on the axis. I set the bar to that line. There we go."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_books",
+              "description": "Data table showing Books Read This Month values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph in creating mode. Nonfiction bar empty, awaiting student input. Fiction=40, Comics=20, Poetry=30 pre-filled.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Fiction",
+                "Nonfiction",
+                "Comics",
+                "Poetry"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_6_comparison_books",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_books",
+          "params": {
+            "description": "Data table hides from view."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_books",
+          "params": {
+            "highlight_categories": [
+              "Nonfiction",
+              "Comics"
+            ],
+            "description": "Nonfiction and Comics bars highlighted."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the completed graph. Use it to answer a question. How many more books were Nonfiction than Comics?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many more books were Nonfiction than Comics?",
+          "tool": "multiple_choice",
+          "options": [
+            20,
+            40,
+            60,
+            80
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student selected 40, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "40 more. Nonfiction is 60, Comics is 20. The difference is 40."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_books",
+                        "description": "Vertical bar graph. Nonfiction and Comics bars highlighted. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Scale of 10, axis 0-70.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Fiction",
+                          "Nonfiction",
+                          "Comics",
+                          "Poetry"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 20
+              },
+              "description": "Student selected 20: likely read the Comics value instead of finding the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "highlight_categories": [
+                        "Nonfiction",
+                        "Comics"
+                      ],
+                      "description": "Nonfiction and Comics bars remain highlighted."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. We need the difference between the two categories, not just one value. Find how much more Nonfiction has than Comics."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 60
+              },
+              "description": "Student selected 60: likely read the Nonfiction value instead of finding the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "highlight_categories": [
+                        "Nonfiction",
+                        "Comics"
+                      ],
+                      "description": "Nonfiction and Comics bars remain highlighted."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. That's the Nonfiction total. We need to find how many more Nonfiction books there are than Comics books."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 80
+              },
+              "description": "Student selected 80: likely added the two values instead of finding the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "highlight_categories": [
+                        "Nonfiction",
+                        "Comics"
+                      ],
+                      "description": "Nonfiction and Comics bars remain highlighted."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: we're looking for the difference, not the total. Nonfiction is 60, Comics is 20. How much bigger is 60 than 20?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "show_difference",
+                      "status": "confirmed",
+                      "description": "Visual shows the gap between Nonfiction bar (60) and Comics bar (20), highlighting the 40-unit difference."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Nonfiction has 60 books. Comics has 20 books. To find how many more, we subtract: 60 minus 20 equals 40. The answer is 40."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph. Nonfiction and Comics bars highlighted. All bars complete. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Fiction",
+                "Nonfiction",
+                "Comics",
+                "Poetry"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_transition",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You can read bars that end right at the lines. But what if a bar ends between the lines?"
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_1_between_lines_worked",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_stickers",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              50
+            ],
+            "categories": [
+              "Emma",
+              "Jake",
+              "Mia",
+              "Leo"
+            ],
+            "values": [
+              30,
+              25,
+              40,
+              35
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "highlight_categories": [
+              "Jake"
+            ],
+            "description": "Vertical bar graph appears. Stickers Collected: Emma=30 (at 30 line), Jake=25 (between 20-30 lines), Mia=40 (at 40 line), Leo=35 (between 30-40 lines). Scale of 10, axis 0-50. Ghost gridlines at 5s visible. Jake's bar highlighted."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at Jake's bar. It doesn't end at a line. It ends between the lines."
+        },
+        {
+          "type": "dialogue",
+          "text": "Remember half-symbols from scale of 2? Half of 2 was 1. Same idea here. Half of 10 is 5."
+        },
+        {
+          "type": "dialogue",
+          "text": "Half of 10 is 5. So between 20 and 30, that's 20 plus 5, which equals 25. Jake has 25 stickers."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_stickers",
+              "description": "Vertical bar graph in reading mode. Stickers Collected. Emma=30, Jake=25, Mia=40, Leo=35. Jake's bar highlighted, ending between 20 and 30 lines. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Emma",
+                "Jake",
+                "Mia",
+                "Leo"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_2_reading_leo_between",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_stickers",
+          "params": {
+            "highlight_categories": [
+              "Leo"
+            ],
+            "description": "Leo's bar highlighted, ending between 30 and 40 lines."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now look at Leo's bar. It's also between the lines. Leo's bar is between 30 and 40. What value does this show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What value does Leo's bar show?",
+          "tool": "multiple_choice",
+          "options": [
+            30,
+            34,
+            35,
+            40
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "35. It's halfway between 30 and 40. Half of 10 is 5, so 30 plus 5 is 35."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_stickers",
+                        "description": "Vertical bar graph. Leo's bar highlighted at height 35, between 30 and 40 lines. Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Emma",
+                          "Jake",
+                          "Mia",
+                          "Leo"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 30
+              },
+              "description": "Student selected 30: reading the line below instead of between the lines",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_stickers",
+                    "params": {
+                      "highlight_categories": [
+                        "Leo"
+                      ],
+                      "description": "Leo's bar highlighted. 30 line pulses, then bar top pulses above it."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. The bar goes above the 30 line. It stops between 30 and 40."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 34
+              },
+              "description": "Student selected 34: close but not halfway between 30 and 40",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_stickers",
+                    "params": {
+                      "highlight_categories": [
+                        "Leo"
+                      ],
+                      "description": "Leo's bar highlighted. Midpoint between 30 and 40 pulses."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. Look at where the bar ends. It's exactly halfway between 30 and 40."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student selected 40: reading the line above instead of between the lines",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_stickers",
+                    "params": {
+                      "highlight_categories": [
+                        "Leo"
+                      ],
+                      "description": "Leo's bar highlighted. 40 line pulses, then bar top pulses below it."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the bar doesn't reach the 40 line. It stops between the 30 and 40 lines."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_stickers",
+                    "params": {
+                      "event": "highlight_midpoint",
+                      "status": "confirmed",
+                      "description": "Leo's bar highlighted. Midpoint between 30 and 40 glows. Value 35 appears."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. The bar ends halfway between 30 and 40. Half of 10 is 5. So 30 plus 5 equals 35. The answer is 35."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_stickers",
+              "description": "Vertical bar graph. Leo's bar highlighted, between 30-40 lines. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Emma",
+                "Jake",
+                "Mia",
+                "Leo"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_3_create_between_team_a",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_points",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Team A",
+              "Team B",
+              "Team C",
+              "Team D",
+              "Team E"
+            ],
+            "values": [
+              45,
+              30,
+              25,
+              50,
+              15
+            ],
+            "description": "Data table appears. Points Scored: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_points",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Team A",
+              "Team B",
+              "Team C",
+              "Team D",
+              "Team E"
+            ],
+            "bar_heights": [
+              0,
+              30,
+              25,
+              50,
+              15
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "snap_to_scale": 5,
+            "description": "Vertical bar graph in creating mode. Scale of 10, axis 0-60. Team B=30, Team C=25, Team D=50, Team E=15 pre-filled. Team A bar empty. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Team A scored 45 points. Set the bar for Team A at 45. That's halfway between 40 and 50."
+        },
+        {
+          "type": "prompt",
+          "text": "Set the bar for Team A.",
+          "tool": "click_component",
+          "target": "bar_graph_points.Team A",
+          "validator": [
+            {
+              "condition": {
+                "bar_height": 45
+              },
+              "description": "Student set Team A bar to 45, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "bar_heights": [
+                        45,
+                        30,
+                        25,
+                        50,
+                        15
+                      ],
+                      "description": "Team A bar now at height 45, halfway between 40 and 50."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "45. Right between the lines. Halfway from 40 to 50."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_points",
+                        "description": "Data table showing Points Scored values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_points",
+                        "description": "Vertical bar graph. All bars filled: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15. Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Team A",
+                          "Team B",
+                          "Team C",
+                          "Team D",
+                          "Team E"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set Team A bar to wrong height on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Check the data table. Team A scored 45 points."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set Team A bar to wrong height on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "highlight_categories": [
+                        "Team A"
+                      ],
+                      "description": "Team A column highlighted. Ghost gridlines pulse at 40 and 50."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. 45 is halfway between 40 and 50. Use the gridlines to find the middle."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set Team A bar to wrong height three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "event": "set_bar_height",
+                      "status": "confirmed",
+                      "description": "System sets Team A bar to 45, halfway between gridlines at 40 and 50.",
+                      "category": "Team A",
+                      "height": 45
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. I look at the data table: Team A scored 45. Now I find 40 and 50 on the axis. 45 is right in the middle, halfway between those two lines. I set the bar there."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_points",
+              "description": "Data table showing Points Scored values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_points",
+              "description": "Vertical bar graph in creating mode. Team A bar empty, awaiting student input. Team B=30, Team C=25, Team D=50, Team E=15 pre-filled.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Team A",
+                "Team B",
+                "Team C",
+                "Team D",
+                "Team E"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_4_create_between_runner_c",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_laps",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Runner A",
+              "Runner B",
+              "Runner C",
+              "Runner D"
+            ],
+            "values": [
+              20,
+              50,
+              35,
+              45
+            ],
+            "description": "Data table appears. Laps Completed: Runner A=20, Runner B=50, Runner C=35, Runner D=45."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_laps",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Runner A",
+              "Runner B",
+              "Runner C",
+              "Runner D"
+            ],
+            "bar_heights": [
+              20,
+              50,
+              0,
+              45
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "snap_to_scale": 5,
+            "description": "Vertical bar graph in creating mode. Scale of 10, axis 0-60. Runner A=20, Runner B=50, Runner D=45 pre-filled. Runner C bar empty. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Runner C completed 35 laps. Set the bar for Runner C to show 35."
+        },
+        {
+          "type": "prompt",
+          "text": "Set the bar for Runner C.",
+          "tool": "click_component",
+          "target": "bar_graph_laps.Runner C",
+          "validator": [
+            {
+              "condition": {
+                "bar_height": 35
+              },
+              "description": "Student set Runner C bar to 35, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_laps",
+                    "params": {
+                      "bar_heights": [
+                        20,
+                        50,
+                        35,
+                        45
+                      ],
+                      "description": "Runner C bar now at height 35, between 30 and 40."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "35. Between 30 and 40. Right in the middle."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_laps",
+                        "description": "Data table showing Laps Completed values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_laps",
+                        "description": "Vertical bar graph. All bars filled: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Runner A",
+                          "Runner B",
+                          "Runner C",
+                          "Runner D"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set Runner C bar to wrong height on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Check the data table. How many laps did Runner C complete?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set Runner C bar to wrong height on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_laps",
+                    "params": {
+                      "highlight_categories": [
+                        "Runner C"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Runner C completed 35 laps. Find 35 on the axis, between 30 and 40."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set Runner C bar to wrong height three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_laps",
+                    "params": {
+                      "event": "set_bar_height",
+                      "status": "confirmed",
+                      "description": "System sets Runner C bar to 35, between gridlines at 30 and 40",
+                      "category": "Runner C",
+                      "height": 35
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Runner C completed 35 laps. I look at the axis and find where 35 would be. It's between 30 and 40, right in the middle. I set the bar to that height."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_laps",
+              "description": "Data table showing Laps Completed values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_laps",
+              "description": "Vertical bar graph in creating mode. Runner C bar empty, awaiting student input. Runner A=20, Runner B=50, Runner D=45 pre-filled.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Runner A",
+                "Runner B",
+                "Runner C",
+                "Runner D"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_5_mixed_values_reading",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_reading",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ],
+            "values": [
+              40,
+              35,
+              50,
+              25
+            ],
+            "description": "Data table appears. Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_reading",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ],
+            "bar_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "snap_to_scale": 5,
+            "description": "Vertical bar graph in creating mode. Scale of 10, axis 0-60. All bars empty. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Some values are at the axis lines. Some are between. You decide where each bar goes. Try to complete the graph."
+        },
+        {
+          "type": "prompt",
+          "text": "Complete the graph.",
+          "tool": "click_tangible",
+          "target": [
+            "bar_graph_reading"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "bar_graph_reading.Monday": 40
+                  },
+                  {
+                    "bar_graph_reading.Tuesday": 35
+                  },
+                  {
+                    "bar_graph_reading.Wednesday": 50
+                  },
+                  {
+                    "bar_graph_reading.Thursday": 25
+                  }
+                ]
+              },
+              "description": "Student set all four bars correctly",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "bar_heights": [
+                        40,
+                        35,
+                        50,
+                        25
+                      ],
+                      "description": "All bars now filled: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Monday and Wednesday are at the axis lines. Tuesday and Thursday are between the lines. You figured out which is which."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_reading",
+                        "description": "Data table showing Minutes of Reading values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_reading",
+                        "description": "Vertical bar graph. All bars filled: Monday=40 (at line), Tuesday=35 (between), Wednesday=50 (at line), Thursday=25 (between). Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set at least one bar to an incorrect height on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Let's look closely: some values land on the lines, some are between. Check the table."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set at least one bar to an incorrect height on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_reading",
+                    "params": {
+                      "highlight_categories": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday"
+                      ],
+                      "description": "All rows in data table highlight to draw attention to values."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Monday is 40, that's at a line. Tuesday is 35, that's between 30 and 40. Use the ghost gridlines to find the right spots."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set at least one bar incorrectly three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "event": "demonstrate_bar_creation",
+                      "status": "confirmed",
+                      "description": "System demonstrates: Monday bar rises to 40 (at line). Tuesday bar rises to 35 (between 30 and 40). Wednesday bar rises to 50 (at line). Thursday bar rises to 25 (between 20 and 30)."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Monday is 40, right at the line. Tuesday is 35, between the 30 and 40 lines. Wednesday is 50, at the line. Thursday is 25, between 20 and 30. The gridlines help you see both kinds of values."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_reading",
+              "description": "Data table showing Minutes of Reading values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_reading",
+              "description": "Vertical bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_6_reading_total_monday_tuesday",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_reading",
+          "params": {
+            "description": "Data table hides from view."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_reading",
+          "params": {
+            "highlight_categories": [
+              "Monday",
+              "Tuesday"
+            ],
+            "description": "Monday and Tuesday bars highlighted."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Use this graph to answer. How many total minutes of reading for Monday and Tuesday?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many total minutes of reading for Monday and Tuesday?",
+          "tool": "multiple_choice",
+          "options": [
+            35,
+            40,
+            75,
+            85
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 75
+              },
+              "description": "Student selected 75, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "75 minutes total. Monday is 40, Tuesday is 35. 40 plus 35 is 75."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_reading",
+                        "description": "Vertical bar graph. Monday and Tuesday bars highlighted. Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35: only counted Tuesday, missed Monday",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "highlight_categories": [
+                        "Monday",
+                        "Tuesday"
+                      ],
+                      "description": "Both Monday and Tuesday bars pulse to emphasize both are needed."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. We need both days. What do Monday and Tuesday add up to?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student selected 40: only counted Monday, missed Tuesday",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "highlight_categories": [
+                        "Monday",
+                        "Tuesday"
+                      ],
+                      "description": "Both Monday and Tuesday bars pulse to emphasize both are needed."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the question asks for total minutes. You need to add Monday and Tuesday together."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 85
+              },
+              "description": "Student selected 85: likely added all four days or miscalculated",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "highlight_categories": [
+                        "Monday",
+                        "Tuesday"
+                      ],
+                      "description": "Only Monday and Tuesday bars highlighted, other bars dim."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The key is to use only Monday and Tuesday, not all the days."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_reading",
+                    "params": {
+                      "event": "highlight_value",
+                      "status": "confirmed",
+                      "description": "Monday bar shows 40, then Tuesday bar shows 35, then both values combine to show 75.",
+                      "categories": [
+                        "Monday",
+                        "Tuesday"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Monday is 40 minutes. Tuesday is 35 minutes. When we add them, 40 plus 35 equals 75 minutes total."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_reading",
+              "description": "Vertical bar graph. Monday and Tuesday bars highlighted. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_transition",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You've made vertical bar graphs. Now let's try one that goes sideways. Horizontal."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_1_horizontal_intro",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_field_trip",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Zoo",
+              "Museum",
+              "Park",
+              "Aquarium",
+              "Theater"
+            ],
+            "values": [
+              45,
+              30,
+              55,
+              40,
+              35
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "description": "Horizontal bar graph appears. Votes for Field Trip: Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. All 5 bars complete. Scale of 10, axis along bottom 0-60. Categories listed vertically on left. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "This bar graph is horizontal. The bars go sideways, but you read them the same way. Finding where the bar ends on the scale."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "bar_graph_field_trip",
+          "params": {
+            "event": "point_to_bar",
+            "status": "confirmed",
+            "description": "Guide points to Zoo bar extending to 45.",
+            "category": "Zoo"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Zoo's bar extends to 45. Between 40 and 50. Halfway. What value does the Museum bar show?"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_field_trip",
+          "params": {
+            "highlight_categories": [
+              "Museum"
+            ],
+            "description": "Museum bar highlighted."
+          }
+        },
+        {
+          "type": "prompt",
+          "text": "What value does the Museum bar show?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            25,
+            30,
+            35
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 30
+              },
+              "description": "Student selected 30, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "30. The bar ends right at the 30 line."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_field_trip",
+                        "description": "Horizontal bar graph. Museum bar highlighted at value 30. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Zoo",
+                          "Museum",
+                          "Park",
+                          "Aquarium",
+                          "Theater"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 3
+              },
+              "description": "Student selected 3: likely read the third position on the scale or misunderstood axis intervals",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "event": "trace_bar_to_axis",
+                      "status": "proposed",
+                      "description": "Line extends from Museum bar end down to axis, showing it lands at 30.",
+                      "category": "Museum"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Find where the Museum bar ends, then look straight down to the scale at the bottom."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 25
+              },
+              "description": "Student selected 25: estimated between gridlines but didn't identify that bar ends exactly at 30",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "highlight_categories": [
+                        "Museum"
+                      ],
+                      "description": "Museum bar and the 30 gridline both highlighted."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the bar ends right at a gridline. Check which line it touches."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35: read one gridline too far to the right",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "event": "highlight_gridline",
+                      "status": "proposed",
+                      "description": "30 gridline pulses to show where Museum bar actually ends.",
+                      "value": 30
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The Museum bar is shorter than that. Find exactly where it stops on the scale."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "event": "trace_bar_to_axis",
+                      "status": "confirmed",
+                      "description": "Line extends from Museum bar end to axis, landing exactly at 30. Value 30 highlights.",
+                      "category": "Museum"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. The Museum bar extends to the right and stops at 30 on the scale. That line shows us 30 votes. The answer is 30."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_field_trip",
+              "description": "Horizontal bar graph. Museum bar highlighted. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Zoo",
+                "Museum",
+                "Park",
+                "Aquarium",
+                "Theater"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_2_horizontal_between_park",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_field_trip",
+          "params": {
+            "highlight_categories": [
+              "Park"
+            ],
+            "description": "Park bar highlighted, extending to 55 (between 50-60)."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at the Park bar. What value does the Park bar represent?"
+        },
+        {
+          "type": "prompt",
+          "text": "What value does the Park bar represent?",
+          "tool": "multiple_choice",
+          "options": [
+            50,
+            55,
+            58,
+            60
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 55
+              },
+              "description": "Student selected 55, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "55. Halfway between 50 and 60."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_field_trip",
+                        "description": "Horizontal bar graph. Park bar highlighted at value 55, between 50 and 60 lines.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Zoo",
+                          "Museum",
+                          "Park",
+                          "Aquarium",
+                          "Theater"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 50
+              },
+              "description": "Student selected 50: read the gridline the bar starts from instead of where it ends",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "highlight_categories": [
+                        "Park"
+                      ],
+                      "description": "Park bar highlighted with emphasis on endpoint, not starting line."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. The bar starts at zero and ends between 50 and 60. Where does the end of the bar point?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 58
+              },
+              "description": "Student selected 58: estimated too high, closer to 60 than to 50",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "highlight_categories": [
+                        "Park"
+                      ],
+                      "description": "Park bar highlighted showing position exactly halfway between 50 and 60."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The bar ends exactly halfway between 50 and 60. Halfway between those numbers is 55, not closer to 60."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 60
+              },
+              "description": "Student selected 60: read the next gridline up instead of estimating the bar's actual endpoint",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "highlight_categories": [
+                        "Park"
+                      ],
+                      "description": "Park bar highlighted showing it stops before the 60 line."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the bar doesn't reach all the way to 60. It stops halfway between 50 and 60. What number is in the middle?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_field_trip",
+                    "params": {
+                      "event": "highlight_midpoint",
+                      "status": "confirmed",
+                      "description": "Animation shows 50 line, 60 line, then marks the exact midpoint at 55 where Park bar ends."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. The bar ends between 50 and 60. When something is exactly halfway between two numbers, we find the middle. 50 plus 10 is 60, so halfway is 50 plus 5, which is 55. The Park bar represents 55."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_field_trip",
+              "description": "Horizontal bar graph. Park bar highlighted. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Zoo",
+                "Museum",
+                "Park",
+                "Aquarium",
+                "Theater"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_3_create_horizontal_full",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_miles",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Kai",
+              "Ava",
+              "Noah",
+              "Zoe"
+            ],
+            "values": [
+              35,
+              50,
+              25,
+              45
+            ],
+            "description": "Data table appears. Miles Walked This Week: Kai=35, Ava=50, Noah=25, Zoe=45."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_miles",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Kai",
+              "Ava",
+              "Noah",
+              "Zoe"
+            ],
+            "bar_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "snap_to_scale": 5,
+            "description": "Horizontal bar graph in creating mode. Scale of 10, axis 0-60. All bars empty. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Create the whole graph. Some values are at axis lines, some are between."
+        },
+        {
+          "type": "prompt",
+          "text": "Complete the graph.",
+          "tool": "click_tangible",
+          "target": [
+            "bar_graph_miles"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "bar_graph_miles.Kai": 35
+                  },
+                  {
+                    "bar_graph_miles.Ava": 50
+                  },
+                  {
+                    "bar_graph_miles.Noah": 25
+                  },
+                  {
+                    "bar_graph_miles.Zoe": 45
+                  }
+                ]
+              },
+              "description": "Student set all four bars correctly",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "bar_heights": [
+                        35,
+                        50,
+                        25,
+                        45
+                      ],
+                      "description": "All bars now filled: Kai=35, Ava=50, Noah=25, Zoe=45."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Ava at 50. Right at the line. Kai, Noah, and Zoe? All between the lines."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_miles",
+                        "description": "Data table showing Miles Walked This Week values.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "bar_graph_miles",
+                        "description": "Horizontal bar graph. All bars filled: Kai=35 (between), Ava=50 (at line), Noah=25 (between), Zoe=45 (between). Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Kai",
+                          "Ava",
+                          "Noah",
+                          "Zoe"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set bars incorrectly on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Let's look closely. Check each bar against the data table."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set bars incorrectly on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_miles",
+                    "params": {
+                      "highlight_categories": [
+                        "Kai",
+                        "Ava",
+                        "Noah",
+                        "Zoe"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Each bar needs to match its number. Some end at lines, some between. Use the ghost gridlines to count by 5s."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set bars incorrectly three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "event": "model_bar_creation",
+                      "status": "confirmed",
+                      "description": "System demonstrates setting all four bars: Kai to 35 (between 30 and 40), Ava to 50 (at the line), Noah to 25 (between 20 and 30), Zoe to 45 (between 40 and 50)."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Kai walked 35 miles. I count by 10s to 30, then halfway to 40. That's 35. Ava walked 50, right at the line. Noah walked 25, halfway between 20 and 30. Zoe walked 45, halfway between 40 and 50. Now you see the pattern."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_miles",
+              "description": "Data table showing Miles Walked This Week values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_miles",
+              "description": "Horizontal bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Kai",
+                "Ava",
+                "Noah",
+                "Zoe"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_4_comparison_miles",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_miles",
+          "params": {
+            "description": "Data table hides from view."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_miles",
+          "params": {
+            "highlight_categories": [
+              "Ava",
+              "Noah"
+            ],
+            "description": "Ava and Noah bars highlighted."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Use the graph you made. How many more miles did Ava walk than Noah?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many more miles did Ava walk than Noah?",
+          "tool": "multiple_choice",
+          "options": [
+            15,
+            25,
+            50,
+            75
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 25
+              },
+              "description": "Student selected 25, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "25 more miles. Ava walked 50, Noah walked 25. The difference is 25."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_miles",
+                        "description": "Horizontal bar graph. Ava and Noah bars highlighted. Kai=35, Ava=50, Noah=25, Zoe=45.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Kai",
+                          "Ava",
+                          "Noah",
+                          "Zoe"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 15
+              },
+              "description": "Student selected 15: likely miscalculated the difference or confused values",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "highlight_categories": [
+                        "Ava",
+                        "Noah"
+                      ],
+                      "description": "Ava and Noah bars remain highlighted for comparison."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Find Ava's bar. It reaches 50. Now find Noah's bar. It reaches 25. How much longer is Ava's bar?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 50
+              },
+              "description": "Student selected 50: chose Ava's total instead of the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "highlight_categories": [
+                        "Ava",
+                        "Noah"
+                      ],
+                      "description": "Ava and Noah bars highlighted to show both values."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. 50 is how many miles Ava walked total. We need to find how many more miles she walked than Noah. Subtract Noah's miles from Ava's miles."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 75
+              },
+              "description": "Student selected 75: likely added instead of subtracting",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "highlight_categories": [
+                        "Ava",
+                        "Noah"
+                      ],
+                      "description": "Ava and Noah bars highlighted for comparison."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: when we ask how many more, we compare the two amounts by subtracting. Ava walked 50 miles and Noah walked 25 miles. What is 50 minus 25?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_miles",
+                    "params": {
+                      "event": "show_difference",
+                      "status": "confirmed",
+                      "description": "Visual shows Ava's bar at 50, Noah's bar at 25, with the difference of 25 highlighted between them."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Ava walked 50 miles. Noah walked 25 miles. To find how many more Ava walked, subtract: 50 minus 25 equals 25. The answer is 25 more miles."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_miles",
+              "description": "Horizontal bar graph. Ava and Noah bars highlighted. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Kai",
+                "Ava",
+                "Noah",
+                "Zoe"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_5_final_challenge",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_plants",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Tomatoes",
+              "Peppers",
+              "Carrots",
+              "Beans"
+            ],
+            "values": [
+              60,
+              35,
+              45,
+              20
+            ],
+            "description": "Data table appears. Plants in the Garden: Tomatoes=60, Peppers=35, Carrots=45, Beans=20."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_plants",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              70
+            ],
+            "categories": [
+              "Tomatoes",
+              "Peppers",
+              "Carrots",
+              "Beans"
+            ],
+            "bar_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "ghost_gridlines": true,
+            "gridline_interval": 5,
+            "snap_to_scale": 5,
+            "description": "Horizontal bar graph in creating mode. Scale of 10, axis 0-70. All bars empty. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Use the data table to complete the graph."
+        },
+        {
+          "type": "prompt",
+          "text": "Create the bar graph.",
+          "tool": "click_tangible",
+          "target": [
+            "bar_graph_plants"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "bar_graph_plants.Tomatoes": 60
+                  },
+                  {
+                    "bar_graph_plants.Peppers": 35
+                  },
+                  {
+                    "bar_graph_plants.Carrots": 45
+                  },
+                  {
+                    "bar_graph_plants.Beans": 20
+                  }
+                ]
+              },
+              "description": "Student set all four bars correctly",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "bar_heights": [
+                        60,
+                        35,
+                        45,
+                        20
+                      ],
+                      "description": "All bars now filled: Tomatoes=60, Peppers=35, Carrots=45, Beans=20."
+                    }
+                  },
+                  {
+                    "type": "scene",
+                    "method": "hide",
+                    "tangible_id": "data_table_plants",
+                    "params": {
+                      "description": "Data table hides from view."
+                    }
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_plants",
+                        "description": "Horizontal bar graph with all bars filled: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Ghost gridlines at 5s visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Tomatoes",
+                          "Peppers",
+                          "Carrots",
+                          "Beans"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set one or more bars incorrectly on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Check the data table. Match each bar to its number."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set one or more bars incorrectly on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_plants",
+                    "params": {
+                      "highlight_categories": [
+                        "Tomatoes"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Tomatoes need to reach 60. Use the gridlines to help you count by 5s."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set one or more bars incorrectly three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "event": "set_all_bars",
+                      "status": "confirmed",
+                      "description": "System sets all bars to correct heights: Tomatoes=60, Peppers=35, Carrots=45, Beans=20."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. I look at the table: Tomatoes is 60, so I count by 5s on the gridlines to 60. Peppers is 35, count to 35. Carrots is 45, count to 45. Beans is 20, count to 20. There we go."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_plants",
+              "description": "Data table showing Plants in the Garden values.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "bar_graph_plants",
+              "description": "Horizontal bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Tomatoes",
+                "Peppers",
+                "Carrots",
+                "Beans"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "bar_graph_plants",
+          "params": {
+            "highlight_categories": [
+              "Peppers",
+              "Carrots"
+            ],
+            "description": "Peppers and Carrots bars highlighted."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many plants in all for Peppers and Carrots?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many plants in all for Peppers and Carrots?",
+          "tool": "multiple_choice",
+          "options": [
+            70,
+            75,
+            80,
+            90
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 80
+              },
+              "description": "Student selected 80, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "80 plants in all. 35 plus 45 is 80."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_plants",
+                        "description": "Horizontal bar graph. Peppers and Carrots bars highlighted. Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
+                        "tangible_type": "bar_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 10,
+                        "categories": [
+                          "Tomatoes",
+                          "Peppers",
+                          "Carrots",
+                          "Beans"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 70
+              },
+              "description": "Student selected 70: miscounted or used wrong categories",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "highlight_categories": [
+                        "Peppers",
+                        "Carrots"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: Peppers is 35 and Carrots is 45. Add those two numbers together."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 75
+              },
+              "description": "Student selected 75: calculation error or estimation",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "highlight_categories": [
+                        "Peppers",
+                        "Carrots"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. Check the bars carefully. Peppers ends at 35, Carrots at 45. What's 35 plus 45?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 90
+              },
+              "description": "Student selected 90: added an extra category or doubled one value",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "highlight_categories": [
+                        "Peppers",
+                        "Carrots"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this a bit more. We only need Peppers and Carrots. Don't include the other plants."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_plants",
+                    "params": {
+                      "event": "show_addition",
+                      "status": "confirmed",
+                      "description": "System shows 35 + 45 = 80 with visual annotation on the two bars."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me walk you through this one. Peppers is 35 plants. Carrots is 45 plants. I add 35 plus 45, which equals 80. The answer is 80 plants in all. See how that works?"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_plants",
+              "description": "Horizontal bar graph. Peppers and Carrots bars highlighted. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Tomatoes",
+                "Peppers",
+                "Carrots",
+                "Beans"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "bridge_to_exit_check",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "show",
+          "tangible_id": "bar_graph_plants",
+          "params": {
+            "description": "Final graph remains briefly visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You made bar graphs with scale of 10. You used the axis to find values, even values between the lines. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_plants",
+              "description": "Horizontal bar graph. Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Tomatoes",
+                "Peppers",
+                "Carrots",
+                "Beans"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

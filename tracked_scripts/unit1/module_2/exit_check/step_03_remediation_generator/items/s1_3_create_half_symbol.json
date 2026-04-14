@@ -1,0 +1,71 @@
+{
+  "id": "s1_3_create_half_symbol",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed wrong number of symbols for Ava on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Check how many stickers Ava collected and what the scale tells you."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed wrong number of symbols for Ava on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Ava"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Ava has 7 stickers. Each symbol equals 2 stickers, so you need 3 full symbols plus a half-symbol for the extra 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed wrong number of symbols three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_stickers_create",
+              "params": {
+                "event": "place_symbols_ava",
+                "status": "confirmed",
+                "description": "System places 3 full symbols and 1 half-symbol in Ava's row, demonstrating the correct placement for 7 stickers with a scale of 2"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. Ava collected 7 stickers. Each symbol represents 2 stickers. So we place 3 full symbols—that's 6 stickers. Then we add a half-symbol for the remaining 1 sticker. 3 and a half symbols total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T21:46:06.187724+00:00"
+}

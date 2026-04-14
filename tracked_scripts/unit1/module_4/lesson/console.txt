@@ -1,0 +1,967 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [DIR] step_01_script_generator
+  [LOAD] Reading: C:\git\script_generator\units\unit1\module4\lesson.md
+  [DEBUG] File size: 21596 bytes
+  [DEBUG] Read 21467 chars from 21596 bytes
+  [OK] Loaded 21467 chars
+
+======================================================================
+Building prompt: script_generator
+======================================================================
+  Loading prompt definition: script_generator
+  [OK] Loaded SCRIPT_GENERATOR_PROMPT
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+    Resolving doc: toy_specs.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\toy_specs.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_01_script_generator\prompt.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 6874
+  output_tokens: 15977
+  total_tokens: 22851
+  requests: 1
+  cache_creation_tokens: 77325
+  cache_read_tokens: 0
+  cache_savings: 0%
+  [JSON] Extracting JSON from output...
+  [SAVE] Saved JSON array with 20 items to: step_01_script_generator\script_generator.json
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 70153 bytes
+  [DEBUG] Read 67941 chars from 70153 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 75126 bytes
+  [DEBUG] Read 72895 chars from 75126 bytes
+  [OK] Loaded 72895 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 20 items from JSON array
+  [SKIP 1/20] s1_1_reading_bar_heights_worked (not in only_items)
+
+  [BATCH 2/20] s1_2_reading_blue_bar
+    Variables: {'id': 's1_2_reading_blue_bar', 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_warmup_colors', 'params': {'highlight_categories': ['Blue'], 'description': 'Blue bar highlighted, height at 30 axis line.'}}, {'type': 'dialogue', 'text': "Look at Blue. The bar's height ends at a line on the axis. What value does this show?"}, {'type': 'prompt', 'text': 'What value does this show?', 'tool': 'multiple_choice', 'options': [3, 20, 30, 35], 'validator': [{'condition': {'selected': 30}, 'description': 'Student selected 30, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_warmup_colors', 'description': 'Vertical bar graph. Blue bar highlighted at height 30. Scale of 10, axis 0-60.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Red', 'Blue', 'Green', 'Yellow']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_warmup_colors', 'description': 'Vertical bar graph. Blue bar highlighted, height at 30. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Red', 'Blue', 'Green', 'Yellow']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s1_2_reading_blue_bar.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 676
+  output_tokens: 815
+  total_tokens: 1491
+  requests: 1
+  cache_creation_tokens: 13756
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/20] s1_3_skip_counting_connection
+    Variables: {'id': 's1_3_skip_counting_connection', 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_warmup_colors', 'params': {'highlight_categories': ['Green'], 'description': 'Green bar highlighted at height 50.'}}, {'type': 'scene', 'method': 'animate', 'tangible_id': 'bar_graph_warmup_colors', 'params': {'event': 'axis_sequential_highlight', 'status': 'confirmed', 'description': 'Axis lines glow sequentially: 10, 20, 30, 40, 50.', 'sequence': [10, 20, 30, 40, 50]}}, {'type': 'dialogue', 'text': "Green shows 50. Let's count by 10s to check: 10, 20, 30, 40, 50."}, {'type': 'dialogue', 'text': "You already know how to count by 10s. That's exactly what we do with scale of 10."}, {'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_warmup_colors', 'params': {'highlight_categories': ['Yellow'], 'description': 'Yellow bar highlighted at height 20.'}}, {'type': 'dialogue', 'text': 'The fourth bar shows Yellow. Count by 10s. What value does the bar show?'}, {'type': 'prompt', 'text': 'What value does the bar show?', 'tool': 'multiple_choice', 'options': [2, 12, 20, 25], 'validator': [{'condition': {'selected': 20}, 'description': 'Student selected 20, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '20. Two jumps of 10: 10, 20.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_warmup_colors', 'description': 'Vertical bar graph. Yellow bar highlighted at height 20. Scale of 10, axis 0-60.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Red', 'Blue', 'Green', 'Yellow']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_warmup_colors', 'description': 'Vertical bar graph. Yellow bar highlighted at height 20. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Red', 'Blue', 'Green', 'Yellow']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 55 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s1_3_skip_counting_connection.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 953
+  output_tokens: 867
+  total_tokens: 1820
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 55 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 4/20] s1_4_create_bar_swings
+    Variables: {'id': 's1_4_create_bar_swings', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_recess', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Swings', 'Tag', 'Slides', 'Jump Rope'], 'values': [30, 50, 40, 20], 'description': 'Data table appears. Favorite Recess Activities: Swings=30, Tag=50, Slides=40, Jump Rope=20.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_recess', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Swings', 'Tag', 'Slides', 'Jump Rope'], 'bar_heights': [0, 50, 40, 20], 'ghost_gridlines': True, 'snap_to_scale': True, 'description': 'Vertical bar graph in creating mode. Scale of 10, axis 0-60. Tag=50, Slides=40, Jump Rope=20 pre-filled. Swings bar empty. Ghost gridlines at 10s visible.'}}, {'type': 'dialogue', 'text': 'Now you create a bar. Swings has 30 votes. Set the height for Swings to show 30.'}, {'type': 'prompt', 'text': 'Set the height for Swings to show 30.', 'tool': 'click_component', 'target': 'bar_graph_recess.Swings', 'validator': [{'condition': {'bar_height': 30}, 'description': 'Student set Swings bar to 30, correct', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_recess', 'params': {'bar_heights': [30, 50, 40, 20], 'description': 'Swings bar now at height 30.'}}, {'type': 'dialogue', 'text': '10, 20, 30. The bar ends at 30 on the axis. 30 votes for Swings.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_recess', 'description': 'Data table showing Favorite Recess Activities values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_recess', 'description': 'Vertical bar graph. All bars filled: Swings=30, Tag=50, Slides=40, Jump Rope=20. Scale of 10, axis 0-60.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Swings', 'Tag', 'Slides', 'Jump Rope']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_recess', 'description': 'Data table showing Favorite Recess Activities values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_recess', 'description': 'Vertical bar graph in creating mode. Swings bar empty, awaiting student input. Tag=50, Slides=40, Jump Rope=20 pre-filled.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Swings', 'Tag', 'Slides', 'Jump Rope']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s1_4_create_bar_swings.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1264
+  output_tokens: 480
+  total_tokens: 1744
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 5/20] s1_5_create_bar_nonfiction
+    Variables: {'id': 's1_5_create_bar_nonfiction', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_books', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry'], 'values': [40, 60, 20, 30], 'description': 'Data table appears. Books Read This Month: Fiction=40, Nonfiction=60, Comics=20, Poetry=30.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_books', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'axis_range': [0, 70], 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry'], 'bar_heights': [40, 0, 20, 30], 'ghost_gridlines': True, 'snap_to_scale': True, 'description': 'Vertical bar graph in creating mode. Scale of 10, axis 0-70. Fiction=40, Comics=20, Poetry=30 pre-filled. Nonfiction bar empty. Ghost gridlines at 10s visible.'}}, {'type': 'dialogue', 'text': "Nonfiction has 60 books. That's the biggest number. Set the bar for Nonfiction."}, {'type': 'prompt', 'text': 'Set the bar for Nonfiction to show 60.', 'tool': 'click_component', 'target': 'bar_graph_books.Nonfiction', 'validator': [{'condition': {'bar_height': 60}, 'description': 'Student set Nonfiction bar to 60, correct', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_books', 'params': {'bar_heights': [40, 60, 20, 30], 'description': 'Nonfiction bar now at height 60.'}}, {'type': 'dialogue', 'text': 'Nonfiction at 60. You found the 60 line and set the bar there.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_books', 'description': 'Data table showing Books Read This Month values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph. All bars filled: Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Scale of 10, axis 0-70.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_books', 'description': 'Data table showing Books Read This Month values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph in creating mode. Nonfiction bar empty, awaiting student input. Fiction=40, Comics=20, Poetry=30 pre-filled.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 52 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s1_5_create_bar_nonfiction.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1231
+  output_tokens: 470
+  total_tokens: 1701
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 52 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 6/20] s1_6_comparison_books
+    Variables: {'id': 's1_6_comparison_books', 'steps': [[{'type': 'scene', 'method': 'hide', 'tangible_id': 'data_table_books', 'params': {'description': 'Data table hides from view.'}}, {'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_books', 'params': {'highlight_categories': ['Nonfiction', 'Comics'], 'description': 'Nonfiction and Comics bars highlighted.'}}, {'type': 'dialogue', 'text': "Here's the completed graph. Use it to answer a question. How many more books were Nonfiction than Comics?"}, {'type': 'prompt', 'text': 'How many more books were Nonfiction than Comics?', 'tool': 'multiple_choice', 'options': [20, 40, 60, 80], 'validator': [{'condition': {'selected': 40}, 'description': 'Student selected 40, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '40 more. Nonfiction is 60, Comics is 20. The difference is 40.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph. Nonfiction and Comics bars highlighted. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Scale of 10, axis 0-70.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph. Nonfiction and Comics bars highlighted. All bars complete. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Fiction', 'Nonfiction', 'Comics', 'Poetry']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s1_6_comparison_books.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 760
+  output_tokens: 831
+  total_tokens: 1591
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 7/20] s2_transition (not in only_items)
+  [SKIP 8/20] s2_1_between_lines_worked (not in only_items)
+
+  [BATCH 9/20] s2_2_reading_leo_between
+    Variables: {'id': 's2_2_reading_leo_between', 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_stickers', 'params': {'highlight_categories': ['Leo'], 'description': "Leo's bar highlighted, ending between 30 and 40 lines."}}, {'type': 'dialogue', 'text': "Now look at Leo's bar. It's also between the lines. Leo's bar is between 30 and 40. What value does this show?"}, {'type': 'prompt', 'text': "What value does Leo's bar show?", 'tool': 'multiple_choice', 'options': [30, 34, 35, 40], 'validator': [{'condition': {'selected': 35}, 'description': 'Student selected 35, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "35. It's halfway between 30 and 40. Half of 10 is 5, so 30 plus 5 is 35."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_stickers', 'description': "Vertical bar graph. Leo's bar highlighted at height 35, between 30 and 40 lines. Ghost gridlines at 5s visible.", 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Emma', 'Jake', 'Mia', 'Leo']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_stickers', 'description': "Vertical bar graph. Leo's bar highlighted, between 30-40 lines. Multiple choice tool active.", 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'scale': 10, 'categories': ['Emma', 'Jake', 'Mia', 'Leo']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s2_2_reading_leo_between.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 708
+  output_tokens: 812
+  total_tokens: 1520
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 10/20] s2_3_create_between_team_a
+    Variables: {'id': 's2_3_create_between_team_a', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_points', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'], 'values': [45, 30, 25, 50, 15], 'description': 'Data table appears. Points Scored: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_points', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'], 'bar_heights': [0, 30, 25, 50, 15], 'ghost_gridlines': True, 'gridline_interval': 5, 'snap_to_scale': 5, 'description': 'Vertical bar graph in creating mode. Scale of 10, axis 0-60. Team B=30, Team C=25, Team D=50, Team E=15 pre-filled. Team A bar empty. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': "Team A scored 45 points. Set the bar for Team A at 45. That's halfway between 40 and 50."}, {'type': 'prompt', 'text': 'Set the bar for Team A.', 'tool': 'click_component', 'target': 'bar_graph_points.Team A', 'validator': [{'condition': {'bar_height': 45}, 'description': 'Student set Team A bar to 45, correct', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_points', 'params': {'bar_heights': [45, 30, 25, 50, 15], 'description': 'Team A bar now at height 45, halfway between 40 and 50.'}}, {'type': 'dialogue', 'text': '45. Right between the lines. Halfway from 40 to 50.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_points', 'description': 'Data table showing Points Scored values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_points', 'description': 'Vertical bar graph. All bars filled: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_points', 'description': 'Data table showing Points Scored values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_points', 'description': 'Vertical bar graph in creating mode. Team A bar empty, awaiting student input. Team B=30, Team C=25, Team D=50, Team E=15 pre-filled.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 52 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s2_3_create_between_team_a.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1301
+  output_tokens: 485
+  total_tokens: 1786
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 52 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 11/20] s2_4_create_between_runner_c
+    Variables: {'id': 's2_4_create_between_runner_c', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_laps', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Runner A', 'Runner B', 'Runner C', 'Runner D'], 'values': [20, 50, 35, 45], 'description': 'Data table appears. Laps Completed: Runner A=20, Runner B=50, Runner C=35, Runner D=45.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_laps', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Runner A', 'Runner B', 'Runner C', 'Runner D'], 'bar_heights': [20, 50, 0, 45], 'ghost_gridlines': True, 'gridline_interval': 5, 'snap_to_scale': 5, 'description': 'Vertical bar graph in creating mode. Scale of 10, axis 0-60. Runner A=20, Runner B=50, Runner D=45 pre-filled. Runner C bar empty. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': 'Runner C completed 35 laps. Set the bar for Runner C to show 35.'}, {'type': 'prompt', 'text': 'Set the bar for Runner C.', 'tool': 'click_component', 'target': 'bar_graph_laps.Runner C', 'validator': [{'condition': {'bar_height': 35}, 'description': 'Student set Runner C bar to 35, correct', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_laps', 'params': {'bar_heights': [20, 50, 35, 45], 'description': 'Runner C bar now at height 35, between 30 and 40.'}}, {'type': 'dialogue', 'text': '35. Between 30 and 40. Right in the middle.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_laps', 'description': 'Data table showing Laps Completed values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_laps', 'description': 'Vertical bar graph. All bars filled: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Runner A', 'Runner B', 'Runner C', 'Runner D']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_laps', 'description': 'Data table showing Laps Completed values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_laps', 'description': 'Vertical bar graph in creating mode. Runner C bar empty, awaiting student input. Runner A=20, Runner B=50, Runner D=45 pre-filled.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Runner A', 'Runner B', 'Runner C', 'Runner D']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 54 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s2_4_create_between_runner_c.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1245
+  output_tokens: 467
+  total_tokens: 1712
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 54 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 12/20] s2_5_mixed_values_reading
+    Variables: {'id': 's2_5_mixed_values_reading', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_reading', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'values': [40, 35, 50, 25], 'description': 'Data table appears. Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_reading', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'bar_heights': [0, 0, 0, 0], 'ghost_gridlines': True, 'gridline_interval': 5, 'snap_to_scale': 5, 'description': 'Vertical bar graph in creating mode. Scale of 10, axis 0-60. All bars empty. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': 'Some values are at the axis lines. Some are between. You decide where each bar goes. Try to complete the graph.'}, {'type': 'prompt', 'text': 'Complete the graph.', 'tool': 'click_tangible', 'target': ['bar_graph_reading'], 'validator': [{'condition': {'and': [{'bar_graph_reading.Monday': 40}, {'bar_graph_reading.Tuesday': 35}, {'bar_graph_reading.Wednesday': 50}, {'bar_graph_reading.Thursday': 25}]}, 'description': 'Student set all four bars correctly', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_reading', 'params': {'bar_heights': [40, 35, 50, 25], 'description': 'All bars now filled: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.'}}, {'type': 'dialogue', 'text': 'Monday and Wednesday are at the axis lines. Tuesday and Thursday are between the lines. You figured out which is which.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_reading', 'description': 'Data table showing Minutes of Reading values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_reading', 'description': 'Vertical bar graph. All bars filled: Monday=40 (at line), Tuesday=35 (between), Wednesday=50 (at line), Thursday=25 (between). Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_reading', 'description': 'Data table showing Minutes of Reading values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_reading', 'description': 'Vertical bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 51 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s2_5_mixed_values_reading.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1281
+  output_tokens: 584
+  total_tokens: 1865
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 51 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 13/20] s2_6_reading_total_monday_tuesday
+    Variables: {'id': 's2_6_reading_total_monday_tuesday', 'steps': [[{'type': 'scene', 'method': 'hide', 'tangible_id': 'data_table_reading', 'params': {'description': 'Data table hides from view.'}}, {'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_reading', 'params': {'highlight_categories': ['Monday', 'Tuesday'], 'description': 'Monday and Tuesday bars highlighted.'}}, {'type': 'dialogue', 'text': 'Use this graph to answer. How many total minutes of reading for Monday and Tuesday?'}, {'type': 'prompt', 'text': 'How many total minutes of reading for Monday and Tuesday?', 'tool': 'multiple_choice', 'options': [35, 40, 75, 85], 'validator': [{'condition': {'selected': 75}, 'description': 'Student selected 75, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '75 minutes total. Monday is 40, Tuesday is 35. 40 plus 35 is 75.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_reading', 'description': 'Vertical bar graph. Monday and Tuesday bars highlighted. Monday=40, Tuesday=35, Wednesday=50, Thursday=25.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_reading', 'description': 'Vertical bar graph. Monday and Tuesday bars highlighted. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'vertical', 'scale': 10, 'categories': ['Monday', 'Tuesday', 'Wednesday', 'Thursday']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 59 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s2_6_reading_total_monday_tuesday.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 726
+  output_tokens: 771
+  total_tokens: 1497
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 59 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 14/20] s3_transition (not in only_items)
+
+  [BATCH 15/20] s3_1_horizontal_intro
+    Variables: {'id': 's3_1_horizontal_intro', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_field_trip', 'tangible_type': 'bar_graph', 'params': {'mode': 'reading', 'orientation': 'horizontal', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Zoo', 'Museum', 'Park', 'Aquarium', 'Theater'], 'values': [45, 30, 55, 40, 35], 'ghost_gridlines': True, 'gridline_interval': 5, 'description': 'Horizontal bar graph appears. Votes for Field Trip: Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. All 5 bars complete. Scale of 10, axis along bottom 0-60. Categories listed vertically on left. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': 'This bar graph is horizontal. The bars go sideways, but you read them the same way. Finding where the bar ends on the scale.'}, {'type': 'scene', 'method': 'animate', 'tangible_id': 'bar_graph_field_trip', 'params': {'event': 'point_to_bar', 'status': 'confirmed', 'description': 'Guide points to Zoo bar extending to 45.', 'category': 'Zoo'}}, {'type': 'dialogue', 'text': "Zoo's bar extends to 45. Between 40 and 50. Halfway. What value does the Museum bar show?"}, {'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_field_trip', 'params': {'highlight_categories': ['Museum'], 'description': 'Museum bar highlighted.'}}, {'type': 'prompt', 'text': 'What value does the Museum bar show?', 'tool': 'multiple_choice', 'options': [3, 25, 30, 35], 'validator': [{'condition': {'selected': 30}, 'description': 'Student selected 30, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '30. The bar ends right at the 30 line.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_field_trip', 'description': 'Horizontal bar graph. Museum bar highlighted at value 30. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Zoo', 'Museum', 'Park', 'Aquarium', 'Theater']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_field_trip', 'description': 'Horizontal bar graph. Museum bar highlighted. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Zoo', 'Museum', 'Park', 'Aquarium', 'Theater']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s3_1_horizontal_intro.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1078
+  output_tokens: 835
+  total_tokens: 1913
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 16/20] s3_2_horizontal_between_park
+    Variables: {'id': 's3_2_horizontal_between_park', 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_field_trip', 'params': {'highlight_categories': ['Park'], 'description': 'Park bar highlighted, extending to 55 (between 50-60).'}}, {'type': 'dialogue', 'text': 'Look at the Park bar. What value does the Park bar represent?'}, {'type': 'prompt', 'text': 'What value does the Park bar represent?', 'tool': 'multiple_choice', 'options': [50, 55, 58, 60], 'validator': [{'condition': {'selected': 55}, 'description': 'Student selected 55, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '55. Halfway between 50 and 60.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_field_trip', 'description': 'Horizontal bar graph. Park bar highlighted at value 55, between 50 and 60 lines.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Zoo', 'Museum', 'Park', 'Aquarium', 'Theater']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_field_trip', 'description': 'Horizontal bar graph. Park bar highlighted. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Zoo', 'Museum', 'Park', 'Aquarium', 'Theater']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 54 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s3_2_horizontal_between_park.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 664
+  output_tokens: 849
+  total_tokens: 1513
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 54 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 17/20] s3_3_create_horizontal_full
+    Variables: {'id': 's3_3_create_horizontal_full', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_miles', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Kai', 'Ava', 'Noah', 'Zoe'], 'values': [35, 50, 25, 45], 'description': 'Data table appears. Miles Walked This Week: Kai=35, Ava=50, Noah=25, Zoe=45.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_miles', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'axis_range': [0, 60], 'categories': ['Kai', 'Ava', 'Noah', 'Zoe'], 'bar_heights': [0, 0, 0, 0], 'ghost_gridlines': True, 'gridline_interval': 5, 'snap_to_scale': 5, 'description': 'Horizontal bar graph in creating mode. Scale of 10, axis 0-60. All bars empty. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': 'Create the whole graph. Some values are at axis lines, some are between.'}, {'type': 'prompt', 'text': 'Complete the graph.', 'tool': 'click_tangible', 'target': ['bar_graph_miles'], 'validator': [{'condition': {'and': [{'bar_graph_miles.Kai': 35}, {'bar_graph_miles.Ava': 50}, {'bar_graph_miles.Noah': 25}, {'bar_graph_miles.Zoe': 45}]}, 'description': 'Student set all four bars correctly', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_miles', 'params': {'bar_heights': [35, 50, 25, 45], 'description': 'All bars now filled: Kai=35, Ava=50, Noah=25, Zoe=45.'}}, {'type': 'dialogue', 'text': 'Ava at 50. Right at the line. Kai, Noah, and Zoe? All between the lines.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_miles', 'description': 'Data table showing Miles Walked This Week values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_miles', 'description': 'Horizontal bar graph. All bars filled: Kai=35 (between), Ava=50 (at line), Noah=25 (between), Zoe=45 (between). Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Kai', 'Ava', 'Noah', 'Zoe']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_miles', 'description': 'Data table showing Miles Walked This Week values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_miles', 'description': 'Horizontal bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Kai', 'Ava', 'Noah', 'Zoe']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 53 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s3_3_create_horizontal_full.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1320
+  output_tokens: 537
+  total_tokens: 1857
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 53 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 18/20] s3_4_comparison_miles
+    Variables: {'id': 's3_4_comparison_miles', 'steps': [[{'type': 'scene', 'method': 'hide', 'tangible_id': 'data_table_miles', 'params': {'description': 'Data table hides from view.'}}, {'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_miles', 'params': {'highlight_categories': ['Ava', 'Noah'], 'description': 'Ava and Noah bars highlighted.'}}, {'type': 'dialogue', 'text': 'Use the graph you made. How many more miles did Ava walk than Noah?'}, {'type': 'prompt', 'text': 'How many more miles did Ava walk than Noah?', 'tool': 'multiple_choice', 'options': [15, 25, 50, 75], 'validator': [{'condition': {'selected': 25}, 'description': 'Student selected 25, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '25 more miles. Ava walked 50, Noah walked 25. The difference is 25.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_miles', 'description': 'Horizontal bar graph. Ava and Noah bars highlighted. Kai=35, Ava=50, Noah=25, Zoe=45.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Kai', 'Ava', 'Noah', 'Zoe']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_miles', 'description': 'Horizontal bar graph. Ava and Noah bars highlighted. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Kai', 'Ava', 'Noah', 'Zoe']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s3_4_comparison_miles.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 740
+  output_tokens: 857
+  total_tokens: 1597
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 47 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 19/20] s3_5_final_challenge
+    Variables: {'id': 's3_5_final_challenge', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_plants', 'tangible_type': 'data_table', 'params': {'display_mode': 'numeric', 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans'], 'values': [60, 35, 45, 20], 'description': 'Data table appears. Plants in the Garden: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_plants', 'tangible_type': 'bar_graph', 'params': {'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'axis_range': [0, 70], 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans'], 'bar_heights': [0, 0, 0, 0], 'ghost_gridlines': True, 'gridline_interval': 5, 'snap_to_scale': 5, 'description': 'Horizontal bar graph in creating mode. Scale of 10, axis 0-70. All bars empty. Ghost gridlines at 5s visible.'}}, {'type': 'dialogue', 'text': 'Use the data table to complete the graph.'}, {'type': 'prompt', 'text': 'Create the bar graph.', 'tool': 'click_tangible', 'target': ['bar_graph_plants'], 'validator': [{'condition': {'and': [{'bar_graph_plants.Tomatoes': 60}, {'bar_graph_plants.Peppers': 35}, {'bar_graph_plants.Carrots': 45}, {'bar_graph_plants.Beans': 20}]}, 'description': 'Student set all four bars correctly', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_plants', 'params': {'bar_heights': [60, 35, 45, 20], 'description': 'All bars now filled: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.'}}, {'type': 'scene', 'method': 'hide', 'tangible_id': 'data_table_plants', 'params': {'description': 'Data table hides from view.'}}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_plants', 'description': 'Horizontal bar graph with all bars filled: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_plants', 'description': 'Data table showing Plants in the Garden values.', 'tangible_type': 'data_table'}, {'tangible_id': 'bar_graph_plants', 'description': 'Horizontal bar graph in creating mode. All bars empty, awaiting student input. Ghost gridlines at 5s visible.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans']}]}], [{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_plants', 'params': {'highlight_categories': ['Peppers', 'Carrots'], 'description': 'Peppers and Carrots bars highlighted.'}}, {'type': 'dialogue', 'text': 'How many plants in all for Peppers and Carrots?'}, {'type': 'prompt', 'text': 'How many plants in all for Peppers and Carrots?', 'tool': 'multiple_choice', 'options': [70, 75, 80, 90], 'validator': [{'condition': {'selected': 80}, 'description': 'Student selected 80, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '80 plants in all. 35 plus 45 is 80.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_plants', 'description': 'Horizontal bar graph. Peppers and Carrots bars highlighted. Tomatoes=60, Peppers=35, Carrots=45, Beans=20.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_plants', 'description': 'Horizontal bar graph. Peppers and Carrots bars highlighted. Multiple choice tool active.', 'tangible_type': 'bar_graph', 'mode': 'creating', 'orientation': 'horizontal', 'scale': 10, 'categories': ['Tomatoes', 'Peppers', 'Carrots', 'Beans']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 46 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\prompts\s3_5_final_challenge.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1900
+  output_tokens: 1145
+  total_tokens: 3045
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 46 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 20/20] bridge_to_exit_check (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 20/20
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 20 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 58088 bytes
+  [DEBUG] Read 56359 chars from 58088 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [DIR] step_05_push
+  [AUTO-CHAIN] Using previous step output: step_04_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_04_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 125059 bytes
+  [DEBUG] Read 121456 chars from 125059 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=4
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_module_4\v1\step_05_push\push.json
+  [EXEC] Passing input to parameter 'data'
+
+  [NOTION] Pushed -> https://notion.so/3205917eac528189b937c786cd0b6bfc
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 425.9s
+Output: outputs/lesson_generator_module_4/latest/
+======================================================================

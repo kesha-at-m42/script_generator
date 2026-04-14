@@ -1,0 +1,78 @@
+{
+  "id": "s3_4_mixed_application_faded_support",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect numbers on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. A turn-around fact swaps the order of the factors."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect numbers on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_given",
+              "params": {
+                "highlight_expression": [
+                  0,
+                  2
+                ],
+                "description": "The factors 9 and 4 highlight in the given equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the factors in the turn-around fact are the same, just switched. Look at the two factors in 9 × 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect numbers three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_turnaround",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 4 × 9 = 36.",
+                "tiles": [
+                  4,
+                  9,
+                  36
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The given fact is 9 times 4 equals 36. The turn-around fact swaps the order: 4 times 9 equals 36. The answer is 4 × 9 = 36."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T20:39:18.392936+00:00"
+}

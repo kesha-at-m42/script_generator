@@ -1,0 +1,143 @@
+{
+  "id": "s4_3_real_world_bridge",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "Your class votes on a field trip destination"
+                  },
+                  {
+                    "selected": "Library tracks which book genre students check out most"
+                  },
+                  {
+                    "selected": "Cafeteria tracks which lunch is most popular"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "Invalid_Option_1"
+                  },
+                  {
+                    "selected": "Invalid_Option_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected at least one correct scenario but not all three",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You're on the right track. The ones you picked do work with bar graphs. Think about the others. Do they also count and compare categories?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "or": [
+              {
+                "selected": "Your class votes on a field trip destination"
+              },
+              {
+                "selected": "Library tracks which book genre students check out most"
+              },
+              {
+                "selected": "Cafeteria tracks which lunch is most popular"
+              }
+            ]
+          }
+        },
+        "description": "Branch 3: Student selected no correct scenarios",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's think about what bar graphs show. They compare categories. In each of these scenarios, you're counting something and comparing the results. Can you see that pattern?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "Invalid_Option_1"
+                },
+                {
+                  "selected": "Invalid_Option_2"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected a mix of correct and incorrect scenarios",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You found some good ones. But check your choices again. All three scenarios involve counting and comparing categories, which is exactly what bar graphs do well."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to think about this. Each scenario counts something and compares the results. Field trips: you count votes for each destination. Library: you count checkouts for each genre. Cafeteria: you count choices for each lunch. All three compare categories, so all three work with bar graphs."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-23T19:06:57.334070+00:00"
+}

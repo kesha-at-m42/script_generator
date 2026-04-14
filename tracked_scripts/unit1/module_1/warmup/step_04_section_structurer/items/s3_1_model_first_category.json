@@ -1,0 +1,75 @@
+{
+  "id": "s3_1_model_first_category",
+  "type": "transition",
+  "steps": [
+    [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_class_data",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "creating",
+          "orientation": "horizontal",
+          "categories": [
+            "Red",
+            "Blue",
+            "Yellow"
+          ],
+          "symbol_selected": true,
+          "description": "Empty horizontal picture graph appears in creating mode. Categories Red, Blue, Yellow visible. Symbol selected and ready to place. Key reads 'Each symbol = 1 item.'"
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "visible": false,
+          "description": "Data table exists but not visible. Contains class data from counting activity."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Watch how I show our Red on the graph. You counted 5 Red. So I add 5 symbols. One... two... three... four... five. 5 symbols. Each one means 1 Red."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_class_data",
+        "params": {
+          "event": "place_symbols_with_count",
+          "status": "confirmed",
+          "category": "Red",
+          "count": 5,
+          "description": "System places symbols one at a time in Red row. Each placement accompanied by count narration. Final state shows 5 symbols in Red row."
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_class_data",
+            "description": "Horizontal picture graph in creating mode. Red row shows 5 symbols placed. Blue and Yellow rows empty. Key reads 'Each symbol = 1 item.'",
+            "tangible_type": "picture_graph",
+            "mode": "creating",
+            "orientation": "horizontal",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ]
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table not visible.",
+            "tangible_type": "data_table",
+            "visible": false
+          }
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-02T19:27:14.820834+00:00"
+}

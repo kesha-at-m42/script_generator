@@ -1,0 +1,108 @@
+{
+  "id": "s1_2_comparison_single_step",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 18
+        },
+        "description": "Student selected 18: added the two values instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer",
+                  "Tennis"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Here's what helps: 'how many more' means find the difference between the two numbers, not the total."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected 12: chose the larger value instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. That's how many chose soccer. We need to compare it to tennis. How much bigger is 12 than 6?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3: possibly misread the scale or divided instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer",
+                  "Tennis"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're getting there. The key is to subtract the tennis value from the soccer value. Count the spaces between 6 and 12."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "event": "highlight_comparison",
+                "status": "confirmed",
+                "description": "Soccer bar and Tennis bar highlight. Visual shows 12 minus 6 equals 6."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Soccer has 12 students. Tennis has 6 students. When we subtract 6 from 12, we get 6. That's how many more chose soccer."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:31:59.968768+00:00"
+}

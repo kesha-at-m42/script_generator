@@ -1,0 +1,839 @@
+{
+  "batch_only_items": [
+    "s1_1_scale_progression",
+    "s1_2_orientation_transfer",
+    "s1_3_real_world_connection",
+    "s1_4_metacognitive_reflection"
+  ],
+  "data": [
+    {
+      "id": "s1_opening_frame",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "You read and created bar graphs with scale of 10. You figured out values at the lines AND between the lines. Let's look at some patterns you discovered."
+          },
+          {
+            "type": "current_scene",
+            "elements": []
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_1_scale_progression",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_scale_1",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 1,
+              "categories": [
+                "Amount"
+              ],
+              "values": [
+                20
+              ],
+              "axis_range": [
+                0,
+                20
+              ],
+              "description": "Vertical bar graph with scale of 1. Single bar reaching 20. Axis shows 0, 1, 2, 3... up to 20. Twenty tick marks visible."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_scale_2",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Amount"
+              ],
+              "values": [
+                20
+              ],
+              "axis_range": [
+                0,
+                20
+              ],
+              "description": "Vertical bar graph with scale of 2. Single bar reaching 20. Axis shows 0, 2, 4, 6... up to 20. Ten tick marks visible."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_scale_5",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Amount"
+              ],
+              "values": [
+                20
+              ],
+              "axis_range": [
+                0,
+                20
+              ],
+              "description": "Vertical bar graph with scale of 5. Single bar reaching 20. Axis shows 0, 5, 10, 15, 20. Four tick marks visible."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_scale_10",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Amount"
+              ],
+              "values": [
+                20
+              ],
+              "axis_range": [
+                0,
+                20
+              ],
+              "description": "Vertical bar graph with scale of 10. Single bar reaching 20. Axis shows 0, 10, 20. Two tick marks visible."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Look at all four graphs. They show the same amount, 20. Which scale uses the fewest lines to show the same amount?"
+          },
+          {
+            "type": "prompt",
+            "text": "Click on the graph with the scale that uses the fewest lines.",
+            "tool": {
+              "name": "click_tangible",
+              "target": [
+                "bar_graph_scale_1",
+                "bar_graph_scale_2",
+                "bar_graph_scale_5",
+                "bar_graph_scale_10"
+              ]
+            },
+            "validator": [
+              {
+                "condition": {
+                  "selected": "bar_graph_scale_10"
+                },
+                "description": "Student clicked scale of 10 graph, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "scene",
+                      "method": "animate",
+                      "tangible_id": "bar_graph_scale_10",
+                      "params": {
+                        "event": "highlight_graph",
+                        "status": "confirmed",
+                        "description": "Scale of 10 graph highlights to confirm selection."
+                      }
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "Scale of 10 uses the fewest lines. Each line shows more, so you need fewer of them."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "You've learned four scales now: 1, 2, 5, and 10. Each one is useful for different sized numbers. Bigger numbers work better with bigger scales."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_scale_1",
+                          "description": "Vertical bar graph with scale of 1. Single bar at 20. Twenty tick marks.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 1,
+                          "categories": [
+                            "Amount"
+                          ],
+                          "values": [
+                            20
+                          ]
+                        },
+                        {
+                          "tangible_id": "bar_graph_scale_2",
+                          "description": "Vertical bar graph with scale of 2. Single bar at 20. Ten tick marks.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 2,
+                          "categories": [
+                            "Amount"
+                          ],
+                          "values": [
+                            20
+                          ]
+                        },
+                        {
+                          "tangible_id": "bar_graph_scale_5",
+                          "description": "Vertical bar graph with scale of 5. Single bar at 20. Four tick marks.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "categories": [
+                            "Amount"
+                          ],
+                          "values": [
+                            20
+                          ]
+                        },
+                        {
+                          "tangible_id": "bar_graph_scale_10",
+                          "description": "Vertical bar graph with scale of 10 highlighted. Single bar at 20. Two tick marks.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 10,
+                          "categories": [
+                            "Amount"
+                          ],
+                          "values": [
+                            20
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_scale_1",
+                "description": "Vertical bar graph with scale of 1. Single bar reaching 20. Twenty tick marks on axis.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 1,
+                "categories": [
+                  "Amount"
+                ],
+                "values": [
+                  20
+                ]
+              },
+              {
+                "tangible_id": "bar_graph_scale_2",
+                "description": "Vertical bar graph with scale of 2. Single bar reaching 20. Ten tick marks on axis.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 2,
+                "categories": [
+                  "Amount"
+                ],
+                "values": [
+                  20
+                ]
+              },
+              {
+                "tangible_id": "bar_graph_scale_5",
+                "description": "Vertical bar graph with scale of 5. Single bar reaching 20. Four tick marks on axis.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "categories": [
+                  "Amount"
+                ],
+                "values": [
+                  20
+                ]
+              },
+              {
+                "tangible_id": "bar_graph_scale_10",
+                "description": "Vertical bar graph with scale of 10. Single bar reaching 20. Two tick marks on axis.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 10,
+                "categories": [
+                  "Amount"
+                ],
+                "values": [
+                  20
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_orientation_transfer",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_scale_1"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_scale_2"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_scale_5"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_scale_10"
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_vertical",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow",
+                "Green"
+              ],
+              "values": [
+                35,
+                20,
+                50,
+                30
+              ],
+              "axis_range": [
+                0,
+                50
+              ],
+              "description": "Vertical bar graph with scale of 10. Four categories: Red at 35, Blue at 20, Yellow at 50, Green at 30. Axis shows 0, 10, 20, 30, 40, 50."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_horizontal",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow",
+                "Green"
+              ],
+              "values": [
+                35,
+                20,
+                50,
+                30
+              ],
+              "axis_range": [
+                0,
+                50
+              ],
+              "description": "Horizontal bar graph with scale of 10. Same four categories and values as vertical graph. Red at 35, Blue at 20, Yellow at 50, Green at 30."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_vertical",
+            "params": {
+              "highlight_categories": [
+                "Red"
+              ]
+            }
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_horizontal",
+            "params": {
+              "highlight_categories": [
+                "Red"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Here's the same data shown two ways, vertical and horizontal. Find the category with 35 in both graphs."
+          },
+          {
+            "type": "prompt",
+            "text": "What category shows 35 in both graphs?",
+            "tool": {
+              "name": "multiple_choice",
+              "options": [
+                "Red",
+                "Blue",
+                "Yellow",
+                "Green"
+              ]
+            },
+            "validator": [
+              {
+                "condition": {
+                  "selected": "Red"
+                },
+                "description": "Student selected Red, correct, value 35 in both graphs",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "Same value, same position between the lines. Just different directions."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_vertical",
+                          "description": "Vertical bar graph with Red category highlighted showing value 35.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 10,
+                          "categories": [
+                            "Red",
+                            "Blue",
+                            "Yellow",
+                            "Green"
+                          ],
+                          "values": [
+                            35,
+                            20,
+                            50,
+                            30
+                          ]
+                        },
+                        {
+                          "tangible_id": "bar_graph_horizontal",
+                          "description": "Horizontal bar graph with Red category highlighted showing value 35.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 10,
+                          "categories": [
+                            "Red",
+                            "Blue",
+                            "Yellow",
+                            "Green"
+                          ],
+                          "values": [
+                            35,
+                            20,
+                            50,
+                            30
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_vertical",
+                "description": "Vertical bar graph with scale of 10. Red category highlighted at 35.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 10,
+                "categories": [
+                  "Red",
+                  "Blue",
+                  "Yellow",
+                  "Green"
+                ],
+                "values": [
+                  35,
+                  20,
+                  50,
+                  30
+                ]
+              },
+              {
+                "tangible_id": "bar_graph_horizontal",
+                "description": "Horizontal bar graph with scale of 10. Red category highlighted at 35.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 10,
+                "categories": [
+                  "Red",
+                  "Blue",
+                  "Yellow",
+                  "Green"
+                ],
+                "values": [
+                  35,
+                  20,
+                  50,
+                  30
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_real_world_connection",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_vertical"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_horizontal"
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "image_money",
+            "tangible_type": "image",
+            "params": {
+              "description": "Image showing stacks of 10 dollar bills arranged in groups."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "image_ruler",
+            "tangible_type": "image",
+            "params": {
+              "description": "Image showing a ruler marked in tens of centimeters."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "image_counting_one",
+            "tangible_type": "image",
+            "params": {
+              "description": "Image showing items being counted one by one individually."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Scale of 10 is useful when numbers are bigger. Where might you see counting by tens outside of math class?"
+          },
+          {
+            "type": "prompt",
+            "text": "Which situations would work well with a scale of 10? Select all that apply.",
+            "tool": {
+              "name": "multi_select",
+              "options": [
+                "Counting money (stacks of 10 dollar bills)",
+                "Measuring height (ruler marked in 10s of centimeters)",
+                "Counting items one by one"
+              ]
+            },
+            "validator": [
+              {
+                "condition": {
+                  "and": [
+                    {
+                      "selected": "Counting money (stacks of 10 dollar bills)"
+                    },
+                    {
+                      "selected": "Measuring height (ruler marked in 10s of centimeters)"
+                    }
+                  ]
+                },
+                "description": "Student selected money and ruler, both correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "scene",
+                      "method": "animate",
+                      "tangible_id": "image_money",
+                      "params": {
+                        "event": "highlight_image",
+                        "status": "confirmed",
+                        "description": "Money image highlights as a correct selection."
+                      }
+                    },
+                    {
+                      "type": "scene",
+                      "method": "animate",
+                      "tangible_id": "image_ruler",
+                      "params": {
+                        "event": "highlight_image",
+                        "status": "confirmed",
+                        "description": "Ruler image highlights as a correct selection."
+                      }
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "Money and measuring often use tens. That's why scale of 10 feels natural for bigger amounts."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "You already know how to count by tens. Bar graphs use the same skill you use with money and measuring."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "image_money",
+                          "description": "Image of money stacks highlighted as correct selection.",
+                          "tangible_type": "image"
+                        },
+                        {
+                          "tangible_id": "image_ruler",
+                          "description": "Image of ruler highlighted as correct selection.",
+                          "tangible_type": "image"
+                        },
+                        {
+                          "tangible_id": "image_counting_one",
+                          "description": "Image of individual counting, not highlighted.",
+                          "tangible_type": "image"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "image_money",
+                "description": "Image showing stacks of 10 dollar bills.",
+                "tangible_type": "image"
+              },
+              {
+                "tangible_id": "image_ruler",
+                "description": "Image showing ruler marked in tens of centimeters.",
+                "tangible_type": "image"
+              },
+              {
+                "tangible_id": "image_counting_one",
+                "description": "Image showing items counted one by one.",
+                "tangible_type": "image"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_metacognitive_reflection",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "image_money"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "image_ruler"
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "image_counting_one"
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_reflection",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Value"
+              ],
+              "values": [
+                45
+              ],
+              "axis_range": [
+                0,
+                50
+              ],
+              "show_gridlines": true,
+              "description": "Vertical bar graph with scale of 10. Single bar ending at 45, between 40 and 50 tick marks. Ghost gridlines at 5 intervals visible."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_reflection",
+            "params": {
+              "highlight_categories": [
+                "Value"
+              ]
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "This bar shows 45, between the lines. How did you figure that out during the lesson?"
+          },
+          {
+            "type": "prompt",
+            "text": "What strategy helped you find values between the lines?",
+            "tool": {
+              "name": "multiple_choice",
+              "options": [
+                "I picked the line closest to the top of the bar",
+                "I added the two numbers on the lines",
+                "I found halfway. That's always 5 more",
+                "I guessed"
+              ]
+            },
+            "validator": [
+              {
+                "condition": {
+                  "selected": "I found halfway. That's always 5 more"
+                },
+                "description": "Student identified halfway strategy, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "That's the pattern. Half of 10 is 5, so halfway between any two lines is 5 more than the lower line."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "Knowing that pattern means you can read any bar graph with scale of 10, even values between the lines. That's a powerful strategy."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_reflection",
+                          "description": "Vertical bar graph with single bar at 45 highlighted. Ghost gridlines visible showing halfway point.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 10,
+                          "categories": [
+                            "Value"
+                          ],
+                          "values": [
+                            45
+                          ],
+                          "show_gridlines": true
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_reflection",
+                "description": "Vertical bar graph with scale of 10. Single bar highlighted at 45. Ghost gridlines visible.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 10,
+                "categories": [
+                  "Value"
+                ],
+                "values": [
+                  45
+                ],
+                "show_gridlines": true
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_closure",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "You learned to read values at the lines and between the lines. You used half of 10 is 5 to figure out tricky values."
+          },
+          {
+            "type": "dialogue",
+            "text": "That pattern finding will help you when we look at all the scales together next time. You'll be able to pick the best one for any data."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_reflection",
+                "description": "Vertical bar graph with single bar at 45 remains visible.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 10,
+                "categories": [
+                  "Value"
+                ],
+                "values": [
+                  45
+                ],
+                "show_gridlines": true
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "id": "s2_3_predict_rotation_product_confirmation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "arrays_8x5",
+      "tangible_type": "arrays",
+      "params": {
+        "mode": "reading",
+        "rows": 8,
+        "columns": 5,
+        "display_mode": "dots",
+        "description": "8 × 5 dot array appears. 8 rows of 5 dots each. Rows highlighted."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "8 rows of 5. 8 times 5 equals 40. If I turn this array, what will the new row expression be?"
+    },
+    {
+      "type": "prompt",
+      "text": "After rotation, what will the row expression be?",
+      "tool": "multiple_choice",
+      "options": [
+        "8 × 5",
+        "5 × 8",
+        "5 × 40",
+        "8 + 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "5 × 8"
+          },
+          "description": "Student selected 5 × 8, correct, understands rotation swaps factors",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 times 8. Rotation swaps the row and column counts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "arrays_8x5",
+          "description": "8 × 5 dot array in reading mode. Rows highlighted. Student answered row expression prediction.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 8,
+          "columns": 5,
+          "display_mode": "dots"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "And will the product change?"
+    },
+    {
+      "type": "prompt",
+      "text": "After rotation, will the product be the same or different?",
+      "tool": "multiple_choice",
+      "options": [
+        "Same. Still 40",
+        "Different. It lost rows.",
+        "Different. It lost columns.",
+        "Different. The factors changed."
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Same. Still 40"
+          },
+          "description": "Student selected Same, correct, internalized that rotation preserves product",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "arrays_8x5",
+              "params": {
+                "event": "rotate_array",
+                "status": "confirmed",
+                "description": "Array rotates. Now 5 rows of 8 dots. Expression updates to 5 × 8 = 40."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "8 times 5. Still 40. Same dots, just turned."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "arrays_8x5",
+          "description": "5 × 8 dot array after rotation. 5 rows of 8 dots. Expression displayed: 5 × 8 = 40.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 5,
+          "columns": 8,
+          "display_mode": "dots"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T20:35:33.439946+00:00"
+}

@@ -1,0 +1,132 @@
+{
+  "id": "s1_3_student_builds_first_build_mode",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set wrong number of containers on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. How many groups do we need? Listen again: 3 groups of 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set wrong number of containers on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "description": "Number 3 highlights on container count selector."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. 3 groups means 3 bags. Look at the number 3 on the selector."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong number of containers three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "containers_appear",
+                "status": "confirmed",
+                "description": "System sets container count to 3. 3 bags appear in workspace."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. We need 3 groups. That means 3 bags. I set the number to 3, and 3 bags appear. The answer is 3 groups."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set wrong number of items per container on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Almost. How many in each group? We need 3 groups of 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set wrong number of items per container on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "description": "Number 4 highlights on items per container selector."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: 3 groups of 4 means each bag gets 4 items. Find the number 4 on the selector."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong number of items per container three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "items_appear_in_containers",
+                "status": "confirmed",
+                "description": "System sets items per container to 4. 4 items appear in each of the 3 bags."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here, let me walk you through this one. We need 4 in each group. I set the number to 4. Now each bag has 4 items inside. The answer is 4 items in each group."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-14T00:05:51.263915+00:00"
+}

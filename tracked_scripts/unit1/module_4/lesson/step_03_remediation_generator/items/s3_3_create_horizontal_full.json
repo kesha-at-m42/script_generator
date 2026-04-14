@@ -1,0 +1,74 @@
+{
+  "id": "s3_3_create_horizontal_full",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set bars incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look closely. Check each bar against the data table."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set bars incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_miles",
+              "params": {
+                "highlight_categories": [
+                  "Kai",
+                  "Ava",
+                  "Noah",
+                  "Zoe"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Each bar needs to match its number. Some end at lines, some between. Use the ghost gridlines to count by 5s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set bars incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_miles",
+              "params": {
+                "event": "model_bar_creation",
+                "status": "confirmed",
+                "description": "System demonstrates setting all four bars: Kai to 35 (between 30 and 40), Ava to 50 (at the line), Noah to 25 (between 20 and 30), Zoe to 45 (between 40 and 50)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Kai walked 35 miles. I count by 10s to 30, then halfway to 40. That's 35. Ava walked 50, right at the line. Noah walked 25, halfway between 20 and 30. Zoe walked 45, halfway between 40 and 50. Now you see the pattern."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:48:38.263606+00:00"
+}

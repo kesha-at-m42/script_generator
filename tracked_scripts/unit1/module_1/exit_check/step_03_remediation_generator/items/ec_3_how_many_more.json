@@ -1,0 +1,109 @@
+{
+  "id": "ec_3_how_many_more",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — confused Dan's value (3) with the difference between Ava and Dan",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Dan"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Dan's number. But we need the difference—how many more Ava has than Dan. Compare their bar heights."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — confused Ava's value (8) with the difference between Ava and Dan",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Dan"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Ava's number. But the question asks how many more—we need to find the difference between Ava's 8 and Dan's 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 11
+        },
+        "description": "Student selected 11 — added Ava's value and Dan's value (8 + 3) instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Dan"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When we ask 'how many more,' we subtract to find the difference. Look at Ava's bar and Dan's bar—how much taller is Ava's?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "Animation highlights Ava's bar at 8 and Dan's bar at 3, then visually shows the 5-unit difference between them"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Ava read 8 books—her bar reaches to 8. Dan read 3 books—his bar reaches to 3. To find how many more, we subtract: 8 minus 3 equals 5. Ava read 5 more books than Dan."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:10:53.224270+00:00"
+}

@@ -1,0 +1,72 @@
+{
+  "id": "s1_ec2_create_graph",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set incorrect heights on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the table. Each symbol stands for 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set incorrect heights on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Milk",
+                  "Water"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Milk is 15—that's 3 symbols. Water is 30—that's 6 symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set incorrect heights three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "event": "model_correct_heights",
+                "status": "confirmed",
+                "description": "System demonstrates setting Milk to 3 symbols (15÷5=3) and Water to 6 symbols (30÷5=6)"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Milk is 15, so I divide by 5—that's 3 symbols. Water is 30, so I divide by 5—that's 6 symbols. Each symbol represents 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:40:27.669055+00:00"
+}

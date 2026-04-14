@@ -1,0 +1,337 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [DIR] step_01_script_generator
+  [LOAD] Reading: C:\git\script_generator\units\unit1\module1\exitcheck.md
+  [DEBUG] File size: 6374 bytes
+  [DEBUG] Read 6374 chars from 6374 bytes
+  [OK] Loaded 6374 chars
+
+======================================================================
+Building prompt: script_generator
+======================================================================
+  Loading prompt definition: script_generator
+  [OK] Loaded SCRIPT_GENERATOR_PROMPT
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+    Resolving doc: toy_specs.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\toy_specs.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_01_script_generator\prompt.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2092
+  output_tokens: 3165
+  total_tokens: 5257
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 76956
+  cache_savings: 90% (saved 76956 tokens)
+  [JSON] Extracting JSON from output...
+  [SAVE] Saved JSON array with 6 items to: step_01_script_generator\script_generator.json
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 14439 bytes
+  [DEBUG] Read 13945 chars from 14439 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 15553 bytes
+  [DEBUG] Read 15051 chars from 15553 bytes
+  [OK] Loaded 15051 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 6 items from JSON array
+  [SKIP 1/6] ec_transition (not in only_items)
+
+  [BATCH 2/6] ec_1_read_value
+    Variables: {'id': 'ec_1_read_value', 'scene': [], 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_snacks', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'scale': 1, 'categories': ['Popcorn', 'Pretzels', 'Crackers', 'Fruit'], 'values': [5, 3, 7, 4], 'description': 'Vertical picture graph appears. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Key: each symbol = 1 vote.'}}, {'type': 'dialogue', 'text': 'Look at this Popular Snacks picture graph. How many students chose crackers?'}, {'type': 'prompt', 'text': 'How many students chose crackers?', 'tool': 'multiple_choice', 'options': [3, 4, 5, 7], 'validator': [{'condition': {'selected': 7}, 'description': 'Student selected 7 — correct, Crackers value', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '7 students chose crackers.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_snacks', 'description': 'Vertical picture graph. Popular Snacks data. Crackers row shows 7 votes. Correct response acknowledged.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Popcorn', 'Pretzels', 'Crackers', 'Fruit'], 'values': [5, 3, 7, 4]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_snacks', 'description': 'Vertical picture graph in reading mode. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Multiple choice prompt active.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Popcorn', 'Pretzels', 'Crackers', 'Fruit'], 'values': [5, 3, 7, 4]}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 41 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_03_remediation_generator\prompts\ec_1_read_value.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 850
+  output_tokens: 676
+  total_tokens: 1526
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13463
+  cache_savings: 90% (saved 13463 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 41 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/6] ec_2_find_fewest
+    Variables: {'id': 'ec_2_find_fewest', 'scene': [], 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_seasons', 'tangible_type': 'bar_graph', 'params': {'mode': 'reading', 'orientation': 'horizontal', 'scale': 1, 'categories': ['Spring', 'Summer', 'Fall', 'Winter'], 'values': [6, 9, 4, 5], 'axis_range': [0, 10], 'description': 'Horizontal bar graph appears. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis marked 0-10 by 1s.'}}, {'type': 'dialogue', 'text': 'Look at this Favorite Seasons bar graph. Click on which season the fewest students like.'}, {'type': 'prompt', 'text': 'Click on which season the fewest students like.', 'tool': 'click_category', 'target': 'bar_graph_seasons', 'validator': [{'condition': {'selected': 'Fall'}, 'description': 'Student clicked Fall — correct, 4 votes is the fewest', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Fall got the fewest, only 4 votes.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_seasons', 'description': 'Horizontal bar graph. Favorite Seasons data. Fall category highlighted, showing 4 votes as the fewest.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'categories': ['Spring', 'Summer', 'Fall', 'Winter'], 'values': [6, 9, 4, 5]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_seasons', 'description': 'Horizontal bar graph in reading mode. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis 0-10. Click category tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'categories': ['Spring', 'Summer', 'Fall', 'Winter'], 'values': [6, 9, 4, 5]}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 42 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_03_remediation_generator\prompts\ec_2_find_fewest.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 832
+  output_tokens: 445
+  total_tokens: 1277
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13463
+  cache_savings: 90% (saved 13463 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 42 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 4/6] ec_3_how_many_more
+    Variables: {'id': 'ec_3_how_many_more', 'scene': [], 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'bar_graph_books', 'tangible_type': 'bar_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'scale': 1, 'categories': ['Ava', 'Ben', 'Cara', 'Dan'], 'values': [8, 5, 6, 3], 'axis_range': [0, 8], 'description': 'Vertical bar graph appears. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis marked 0-8 by 1s.'}}, {'type': 'dialogue', 'text': 'How many more books did Ava read than Dan?'}, {'type': 'prompt', 'text': 'How many more books did Ava read than Dan?', 'tool': 'multiple_choice', 'options': [3, 5, 8, 11], 'validator': [{'condition': {'selected': 5}, 'description': 'Student selected 5 — correct, 8 minus 3 equals 5', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '5 more books. Ava read 8, Dan read 3. The difference is 5.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph. Books Read This Week data. Ava and Dan bars highlighted, showing the difference of 5.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Ava', 'Ben', 'Cara', 'Dan'], 'values': [8, 5, 6, 3]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis 0-8. Multiple choice prompt active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Ava', 'Ben', 'Cara', 'Dan'], 'values': [8, 5, 6, 3]}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 44 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_03_remediation_generator\prompts\ec_3_how_many_more.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 871
+  output_tokens: 744
+  total_tokens: 1615
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13463
+  cache_savings: 90% (saved 13463 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 44 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 5/6] ec_4_in_all
+    Variables: {'id': 'ec_4_in_all', 'scene': ['bar_graph_books'], 'steps': [[{'type': 'dialogue', 'text': 'Look at this Books Read This Week bar graph. How many books did Ben and Cara read in all?'}, {'type': 'prompt', 'text': 'How many books did Ben and Cara read in all?', 'tool': 'multiple_choice', 'options': [6, 9, 11, 14], 'validator': [{'condition': {'selected': 11}, 'description': 'Student selected 11 — correct, 5 plus 6 equals 11', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': '11 books in all. Ben read 5, Cara read 6. You added to find the total.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': 'Vertical bar graph. Books Read This Week data. Ben and Cara bars highlighted, showing the total of 11.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Ava', 'Ben', 'Cara', 'Dan'], 'values': [8, 5, 6, 3]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_books', 'description': "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Multiple choice prompt active asking about Ben and Cara's combined total.", 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Ava', 'Ben', 'Cara', 'Dan'], 'values': [8, 5, 6, 3]}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 37 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_03_remediation_generator\prompts\ec_4_in_all.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 684
+  output_tokens: 787
+  total_tokens: 1471
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13463
+  cache_savings: 90% (saved 13463 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 37 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 6/6] ec_closure (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 6/6
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 6 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 14379 bytes
+  [DEBUG] Read 13872 chars from 14379 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [DIR] step_05_push
+  [AUTO-CHAIN] Using previous step output: step_04_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_04_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 28368 bytes
+  [DEBUG] Read 27456 chars from 28368 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_module_1\v1\step_05_push\push.json
+  [EXEC] Passing input to parameter 'data'
+
+  [NOTION] Pushed → https://notion.so/31b5917eac5281e3822be96bb8adad21
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 131.8s
+Output: outputs/exitcheck_generator_module_1/latest/
+======================================================================

@@ -1,0 +1,154 @@
+{
+  "id": "s1_2_orientation_transfer",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Blue"
+        },
+        "description": "Student selected Blue, which shows 20 in both graphs, not 35",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "highlight_categories": [
+                  "Blue",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "highlight_categories": [
+                  "Blue",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Blue shows 20. We need the bar that reaches 35 on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Yellow"
+        },
+        "description": "Student selected Yellow, which shows 50 in both graphs, not 35",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: Yellow reaches 50 on the axis. Look for the bar that stops at 35 instead."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Green"
+        },
+        "description": "Student selected Green, which shows 30 in both graphs, not 35",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "highlight_categories": [
+                  "Green",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "highlight_categories": [
+                  "Green",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Green reaches 30. Count the lines carefully to find which bar goes to 35."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "event": "highlight_value",
+                "status": "confirmed",
+                "description": "Red bar in vertical graph highlights, showing it reaches the 35 line on the axis",
+                "category": "Red"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "event": "highlight_value",
+                "status": "confirmed",
+                "description": "Red bar in horizontal graph highlights, showing it reaches the 35 line on the axis",
+                "category": "Red"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. In the vertical graph, the Red bar goes up to the line marked 35. In the horizontal graph, the Red bar goes across to that same 35 mark. Red shows 35 in both."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:39.522051+00:00"
+}

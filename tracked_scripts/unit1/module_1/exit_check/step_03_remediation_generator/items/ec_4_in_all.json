@@ -1,0 +1,109 @@
+{
+  "id": "ec_4_in_all",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — only counted Cara's books, did not add Ben's",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ben",
+                  "Cara"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Cara's 6 books. The question asks for Ben and Cara in all—we need to add both amounts together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9 — likely added Ben (5) and Dan (3) instead of Ben and Cara, or miscounted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ben",
+                  "Cara"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's look at the right people. We need Ben and Cara—check which bars those are, then add the two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 — likely added Ava (8) and Cara (6) instead of Ben and Cara",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Ben",
+                  "Cara"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the names carefully. The question asks about Ben and Cara—find their bars, read the numbers, then add."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_and_label_sum",
+                "status": "confirmed",
+                "description": "Ben and Cara bars highlight. Ben's bar labeled 5, Cara's bar labeled 6. Addition equation 5 + 6 = 11 appears."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, find Ben's bar—it shows 5 books. Then find Cara's bar—it shows 6 books. To find how many in all, we add: 5 plus 6 equals 11 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:11:06.090224+00:00"
+}

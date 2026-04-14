@@ -1,0 +1,144 @@
+{
+  "id": "s1_2_student_tries_row_column_expressions",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect values on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the rows going across. How many rows are there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect values on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "arrays_5x4",
+              "params": {
+                "emphasis": "rows",
+                "description": "Rows pulse to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. I see 5 rows going across. Each row has 4 dots. That's 5 times 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect values three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_rows",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places 5, 4, and 20 into the three slots.",
+                "tiles": [
+                  5,
+                  4,
+                  20
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here, let me show you. I count 5 rows going across. Each row has 4 dots. So the equation is 5 times 4 equals 20. That's how we write what the array shows."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect values on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Almost. Count the columns going down. How many columns do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect values on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "arrays_5x4",
+              "params": {
+                "emphasis": "columns",
+                "description": "Columns pulse to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. I see 4 columns going down. Each column has 5 dots. That makes 4 times 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect values three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_columns",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places 4, 5, and 20 into the three slots.",
+                "tiles": [
+                  4,
+                  5,
+                  20
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this one. I count 4 columns going down. Each column has 5 dots. The equation is 4 times 5 equals 20. The product stays the same as before."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T20:37:30.114648+00:00"
+}

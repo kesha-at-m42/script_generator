@@ -1,0 +1,106 @@
+{
+  "id": "s2_5_reading_completed_graph",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — counted symbols instead of using scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pasta"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're thinking about this a bit more. The key tells us each symbol equals 5 students. So 5 symbols means 5 groups of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20 — miscounted by fives",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pasta"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: count by 5s carefully. Each symbol represents 5 students. Start at 5 and count up to 25."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25 — confused the value with the number of symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pasta"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. 25 is the total number of students. But each symbol stands for 5 students, so we need fewer symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_lunch",
+              "params": {
+                "event": "highlight_symbols_counting",
+                "status": "confirmed",
+                "description": "System highlights Pasta symbols one by one while counting by 5s: 5, 10, 15, 20, 25. Shows 5 total symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each symbol equals 5 students. Watch as I count: 5, 10, 15, 20, 25. That's 5 symbols to show 25 students. The answer is 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:48:53.774187+00:00"
+}

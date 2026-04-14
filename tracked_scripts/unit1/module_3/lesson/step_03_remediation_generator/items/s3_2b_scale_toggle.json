@@ -1,0 +1,81 @@
+{
+  "id": "s3_2b_scale_toggle",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 1"
+        },
+        "description": "Student selected Scale of 1 — uses the most symbols, not the fewest",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. With scale of 1, Olivia had 40 symbols. That's a lot. Which scale had fewer?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected Scale of 2 — uses fewer than scale of 1 but more than scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Scale of 2 used 20 symbols for Olivia. But scale of 5 used even fewer — just 8."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "highlight_scale_comparison",
+                "status": "confirmed",
+                "description": "Graph highlights key: Each star = 5. Olivia's row pulses showing 8 symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Scale of 1 used 40 symbols for Olivia. Scale of 2 used 20. Scale of 5 used just 8 — the fewest. The bigger the scale number, the fewer symbols you need. Click Scale of 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:49:48.685492+00:00"
+}

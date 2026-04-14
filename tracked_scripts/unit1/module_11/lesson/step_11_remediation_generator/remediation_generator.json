@@ -1,0 +1,205 @@
+[
+  {
+    "id": "s3_2_build_array_rows_first",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student added wrong number of rows on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count how many rows you need."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student added wrong number of rows on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "row_builder",
+                "params": {
+                  "description": "Row button pulses to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're working on it. The problem says 4 rows. Keep pressing the Row + button until you see 4 empty rows."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student added wrong number of rows three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_build",
+                "params": {
+                  "event": "add_rows",
+                  "status": "confirmed",
+                  "description": "System adds rows one at a time until 4 empty row placeholders are visible.",
+                  "target_rows": 4
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. I press the Row + button 4 times. That gives me 4 empty rows. The answer is 4 rows."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student added wrong number of items per row on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Almost. How many dots should go in each row?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student added wrong number of items per row on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "row_builder",
+                "params": {
+                  "description": "Items per Row button pulses to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The problem says 4 rows of 6. That means 6 dots in every row. Keep pressing Items per Row + until each row has 6 dots."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student added wrong number of items per row three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_build",
+                "params": {
+                  "event": "add_items_per_row",
+                  "status": "confirmed",
+                  "description": "System adds dots one at a time to each row until every row has 6 dots. 24 dots total visible.",
+                  "target_items_per_row": 6
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here, let me walk you through this one. I press Items per Row + 6 times. Now every row has 6 dots. The answer is 6 items per row."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed wrong numbers in equation on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let's try again. Look at the array you built."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed wrong numbers in equation on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_build",
+                "params": {
+                  "description": "Array pulses. Rows and items per row highlight briefly.",
+                  "highlight_structure": true
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: count the rows going down. That's your first number. Count the dots across one row. That's your second number. Multiply to find how many dots total."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed wrong numbers in equation three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "event": "place_tiles",
+                  "status": "confirmed",
+                  "description": "System places tiles: 4 in first blank, 6 in second blank, 24 in third blank. Equation reads 4 x 6 = 24.",
+                  "placed": {
+                    "groups": 4,
+                    "items": 6,
+                    "total": 24
+                  }
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. The array has 4 rows. That's the first number. Each row has 6 dots. That's the second number. 4 times 6 equals 24. The equation is 4 x 6 = 24."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-10T18:13:29.357120+00:00"
+  }
+]

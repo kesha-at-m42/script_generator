@@ -1,0 +1,992 @@
+[
+  {
+    "id": "s1_transition_to_exit_check",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made bar graphs with scale of 10. You read values at the lines and between the lines. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_ec1_read_at_line",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_books",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Nonfiction",
+              "Fiction",
+              "Comics",
+              "Poetry"
+            ],
+            "values": [
+              30,
+              40,
+              50,
+              20
+            ],
+            "description": "Vertical bar graph appears. Books Checked Out. Nonfiction=30, Fiction=40, Comics=50, Poetry=20. Scale of 10, axis 0 to 60. All bars end at axis lines."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at the Fiction bar. What value does the Fiction bar show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What value does the Fiction bar show?",
+          "tool": "multiple_choice",
+          "options": [
+            4,
+            35,
+            40,
+            45
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student selected 40, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "40. The bar ends right at the 40 line on the axis."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_books",
+                        "description": "Vertical bar graph. Books Checked Out. Fiction bar at 40.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "axis_range": [
+                          0,
+                          60
+                        ],
+                        "categories": [
+                          "Nonfiction",
+                          "Fiction",
+                          "Comics",
+                          "Poetry"
+                        ],
+                        "values": [
+                          30,
+                          40,
+                          50,
+                          20
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 4
+              },
+              "description": "Student selected 4: counted bars instead of reading the axis value",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "highlight_axis_line",
+                      "status": "proposed",
+                      "description": "The 40 line on the axis pulses to draw attention",
+                      "value": 40
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. We don't count the bars. We look at where the Fiction bar ends on the axis."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35: estimated between axis lines instead of reading the exact value",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "highlight_axis_line",
+                      "status": "proposed",
+                      "description": "The 40 line pulses, showing Fiction bar ends exactly at it",
+                      "value": 40
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the Fiction bar ends exactly at an axis line. Look at which number that line shows."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 45
+              },
+              "description": "Student selected 45: read the wrong axis line or estimated incorrectly",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "highlight_bar_top",
+                      "status": "proposed",
+                      "description": "Top of Fiction bar highlights, then line traces to axis",
+                      "category": "Fiction"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. Follow the top of the Fiction bar across to the axis. Which line does it touch?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_books",
+                    "params": {
+                      "event": "trace_bar_to_axis",
+                      "status": "confirmed",
+                      "description": "Line draws from top of Fiction bar horizontally to the 40 line on axis, which highlights",
+                      "category": "Fiction",
+                      "value": 40
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. I look at where the top of the Fiction bar is. Then I trace across to the axis. The bar ends right at the line marked 40. So Fiction shows 40."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph. Books Checked Out. Nonfiction=30, Fiction=40, Comics=50, Poetry=20. Scale of 10, axis 0 to 60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Nonfiction",
+                "Fiction",
+                "Comics",
+                "Poetry"
+              ],
+              "values": [
+                30,
+                40,
+                50,
+                20
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_ec2_read_between_lines",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_points",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Team A",
+              "Team B",
+              "Team C",
+              "Team D"
+            ],
+            "values": [
+              35,
+              50,
+              25,
+              40
+            ],
+            "ghost_gridlines": true,
+            "description": "Vertical bar graph appears. Points Earned. Team A=35, Team B=50, Team C=25, Team D=40. Scale of 10, axis 0 to 60. Ghost gridlines at 5s visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at Team A's bar. It ends between the lines. The bar is between 30 and 40. What value does this show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What is the value represented for Team A?",
+          "tool": "multiple_choice",
+          "options": [
+            30,
+            34,
+            35,
+            40
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 35
+              },
+              "description": "Student selected 35, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "35. It's halfway between 30 and 40. Half of 10 is 5."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_points",
+                        "description": "Vertical bar graph. Points Earned. Team A=35, between 30 and 40 lines. Ghost gridlines visible.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "axis_range": [
+                          0,
+                          60
+                        ],
+                        "categories": [
+                          "Team A",
+                          "Team B",
+                          "Team C",
+                          "Team D"
+                        ],
+                        "values": [
+                          35,
+                          50,
+                          25,
+                          40
+                        ],
+                        "ghost_gridlines": true
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 30
+              },
+              "description": "Student selected 30: read the lower gridline instead of finding the bar's endpoint",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "highlight_categories": [
+                        "Team A"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. The bar doesn't stop at 30. It goes higher. Look at where the top of the bar ends."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 34
+              },
+              "description": "Student selected 34: attempted to estimate but missed that the bar is exactly halfway",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "highlight_categories": [
+                        "Team A"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The bar is exactly halfway between 30 and 40. What number is halfway between them?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student selected 40: read the upper gridline instead of finding the bar's endpoint",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "highlight_categories": [
+                        "Team A"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the bar doesn't reach 40. It stops between the two lines. Where does the top of the bar end?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_points",
+                    "params": {
+                      "event": "highlight_between_lines",
+                      "status": "confirmed",
+                      "description": "Ghost gridlines at 30 and 40 pulse. Bar endpoint highlighted at exact midpoint. Value 35 appears."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. The bar is between 30 and 40. It's exactly in the middle. Halfway between 30 and 40 is 35. The bar shows 35 points."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_points",
+              "description": "Vertical bar graph. Points Earned. Team A=35, Team B=50, Team C=25, Team D=40. Scale of 10, axis 0 to 60. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Team A",
+                "Team B",
+                "Team C",
+                "Team D"
+              ],
+              "values": [
+                35,
+                50,
+                25,
+                40
+              ],
+              "ghost_gridlines": true
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_ec3_create_mixed_values",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_supplies",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "orientation": "horizontal",
+            "categories": [
+              "Markers",
+              "Crayons",
+              "Paintbrushes",
+              "Glue Sticks"
+            ],
+            "values": [
+              30,
+              45,
+              20,
+              55
+            ],
+            "description": "Horizontal data table appears. Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_supplies",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Markers",
+              "Crayons",
+              "Paintbrushes",
+              "Glue Sticks"
+            ],
+            "bar_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "ghost_gridlines": true,
+            "snap_to_valid_values": true,
+            "snap_increment": 5,
+            "description": "Vertical bar graph appears in creating mode. Art Supplies Collected. Scale of 10, axis 0 to 60. No bars filled. Ghost gridlines at 5s visible. Click-to-set active."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Create the bar graph. Some values are at the lines, some are between."
+        },
+        {
+          "type": "prompt",
+          "text": "Complete the graph.",
+          "tool": "click_to_set_bars",
+          "target": "bar_graph_supplies",
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "bar": "Markers",
+                    "height": 30
+                  },
+                  {
+                    "bar": "Crayons",
+                    "height": 45
+                  },
+                  {
+                    "bar": "Paintbrushes",
+                    "height": 20
+                  },
+                  {
+                    "bar": "Glue Sticks",
+                    "height": 55
+                  }
+                ]
+              },
+              "description": "Student set all four bars correctly",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "bar_heights": [
+                        30,
+                        45,
+                        20,
+                        55
+                      ],
+                      "mode": "confirmed"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Markers and Paintbrushes at the lines. Crayons and Glue Sticks between the lines. You placed all four correctly."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_supplies",
+                        "description": "Horizontal data table. Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric",
+                        "orientation": "horizontal",
+                        "categories": [
+                          "Markers",
+                          "Crayons",
+                          "Paintbrushes",
+                          "Glue Sticks"
+                        ],
+                        "values": [
+                          30,
+                          45,
+                          20,
+                          55
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_supplies",
+                        "description": "Vertical bar graph. Art Supplies Collected. All bars set. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+                        "tangible_type": "bar_graph",
+                        "mode": "confirmed",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "axis_range": [
+                          0,
+                          60
+                        ],
+                        "categories": [
+                          "Markers",
+                          "Crayons",
+                          "Paintbrushes",
+                          "Glue Sticks"
+                        ],
+                        "bar_heights": [
+                          30,
+                          45,
+                          20,
+                          55
+                        ],
+                        "ghost_gridlines": true
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set at least one bar incorrectly on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Check the data table. Some values land on the lines, others fall between."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set at least one bar incorrectly on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_supplies",
+                    "params": {
+                      "highlight_categories": [
+                        "Markers",
+                        "Crayons",
+                        "Paintbrushes",
+                        "Glue Sticks"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: Markers is 30, right at the third line. Crayons is 45, halfway between 40 and 50."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set at least one bar incorrectly three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "event": "set_all_bars",
+                      "status": "confirmed",
+                      "description": "All bars fill to correct heights: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55",
+                      "bar_heights": [
+                        30,
+                        45,
+                        20,
+                        55
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Markers is 30, at the line. Crayons is 45, between 40 and 50. Paintbrushes is 20, at the line. Glue Sticks is 55, between 50 and 60."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_supplies",
+              "description": "Horizontal data table. Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric",
+              "orientation": "horizontal",
+              "categories": [
+                "Markers",
+                "Crayons",
+                "Paintbrushes",
+                "Glue Sticks"
+              ],
+              "values": [
+                30,
+                45,
+                20,
+                55
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_supplies",
+              "description": "Vertical bar graph in creating mode. Art Supplies Collected. Scale of 10, axis 0 to 60. No bars filled yet. Ghost gridlines at 5s visible.",
+              "tangible_type": "bar_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 10,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Markers",
+                "Crayons",
+                "Paintbrushes",
+                "Glue Sticks"
+              ],
+              "bar_heights": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "ghost_gridlines": true,
+              "snap_to_valid_values": true
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_ec4_comparison_problem",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_supplies"
+        },
+        {
+          "type": "dialogue",
+          "text": "Use the graph you made. How many more art supplies does Glue Sticks have than Markers?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many MORE art supplies does Glue Sticks have than Markers?",
+          "tool": "multiple_choice",
+          "options": [
+            15,
+            25,
+            55,
+            85
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 25
+              },
+              "description": "Student selected 25, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "25 more. Glue Sticks has 55, Markers has 30. The difference is 25."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_supplies",
+                        "description": "Vertical bar graph. Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+                        "tangible_type": "bar_graph",
+                        "mode": "confirmed",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "axis_range": [
+                          0,
+                          60
+                        ],
+                        "categories": [
+                          "Markers",
+                          "Crayons",
+                          "Paintbrushes",
+                          "Glue Sticks"
+                        ],
+                        "bar_heights": [
+                          30,
+                          45,
+                          20,
+                          55
+                        ],
+                        "ghost_gridlines": true
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 15
+              },
+              "description": "Student selected 15: confused the difference between Crayons (45) and Markers (30) instead of Glue Sticks and Markers",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "highlight_categories": [
+                        "Glue Sticks",
+                        "Markers"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Look at the Glue Sticks bar and the Markers bar. We need to find the difference between those two, not other categories."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 55
+              },
+              "description": "Student selected 55: chose the height of Glue Sticks instead of finding the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "highlight_categories": [
+                        "Glue Sticks",
+                        "Markers"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You found how many Glue Sticks there are. The question asks how many more, so we need to find the difference between the two bars."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 85
+              },
+              "description": "Student selected 85: added Glue Sticks (55) and Markers (30) instead of finding the difference",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "highlight_categories": [
+                        "Glue Sticks",
+                        "Markers"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the word more tells us to compare. We need to subtract to find how many more, not add the two amounts together."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_supplies",
+                    "params": {
+                      "event": "show_difference",
+                      "status": "confirmed",
+                      "description": "Visual shows Glue Sticks bar at 55, Markers bar at 30, with bracket or arrow showing the gap of 25 between them",
+                      "categories": [
+                        "Glue Sticks",
+                        "Markers"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Glue Sticks reaches 55. Markers reaches 30. The difference between 55 and 30 is 25. The answer is 25."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_supplies",
+              "description": "Vertical bar graph. Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55. Data table hidden.",
+              "tangible_type": "bar_graph",
+              "mode": "confirmed",
+              "orientation": "vertical",
+              "scale": 10,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Markers",
+                "Crayons",
+                "Paintbrushes",
+                "Glue Sticks"
+              ],
+              "bar_heights": [
+                30,
+                45,
+                20,
+                55
+              ],
+              "ghost_gridlines": true
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_exit_check_closure",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "bar_graph_supplies"
+        },
+        {
+          "type": "dialogue",
+          "text": "You can read bar graphs with scale of 10, even values between the lines. You're ready to practice."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  }
+]

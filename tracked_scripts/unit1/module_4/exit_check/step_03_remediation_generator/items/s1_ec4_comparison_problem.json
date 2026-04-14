@@ -1,0 +1,113 @@
+{
+  "id": "s1_ec4_comparison_problem",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15: confused the difference between Crayons (45) and Markers (30) instead of Glue Sticks and Markers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the Glue Sticks bar and the Markers bar. We need to find the difference between those two, not other categories."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 55
+        },
+        "description": "Student selected 55: chose the height of Glue Sticks instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found how many Glue Sticks there are. The question asks how many more, so we need to find the difference between the two bars."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 85
+        },
+        "description": "Student selected 85: added Glue Sticks (55) and Markers (30) instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the word more tells us to compare. We need to subtract to find how many more, not add the two amounts together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "Visual shows Glue Sticks bar at 55, Markers bar at 30, with bracket or arrow showing the gap of 25 between them",
+                "categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Glue Sticks reaches 55. Markers reaches 30. The difference between 55 and 30 is 25. The answer is 25."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:48.458306+00:00"
+}

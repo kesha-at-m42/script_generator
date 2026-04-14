@@ -1,0 +1,109 @@
+{
+  "id": "s3_2_horizontal_between_park",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50: read the gridline the bar starts from instead of where it ends",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar highlighted with emphasis on endpoint, not starting line."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The bar starts at zero and ends between 50 and 60. Where does the end of the bar point?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 58
+        },
+        "description": "Student selected 58: estimated too high, closer to 60 than to 50",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar highlighted showing position exactly halfway between 50 and 60."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The bar ends exactly halfway between 50 and 60. Halfway between those numbers is 55, not closer to 60."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60: read the next gridline up instead of estimating the bar's actual endpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar highlighted showing it stops before the 60 line."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the bar doesn't reach all the way to 60. It stops halfway between 50 and 60. What number is in the middle?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "event": "highlight_midpoint",
+                "status": "confirmed",
+                "description": "Animation shows 50 line, 60 line, then marks the exact midpoint at 55 where Park bar ends."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The bar ends between 50 and 60. When something is exactly halfway between two numbers, we find the middle. 50 plus 10 is 60, so halfway is 50 plus 5, which is 55. The Park bar represents 55."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:48:27.921161+00:00"
+}

@@ -1,0 +1,188 @@
+{
+  "id": "s1_1_pattern_discovery",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Question 2"
+        },
+        "description": "Student selected Question 2, which requires two steps",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "question_display",
+              "params": {
+                "event": "highlight_question",
+                "status": "proposed",
+                "description": "Question 2 highlights temporarily",
+                "question_number": 2
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Question 2 says 'cats and birds combined.' That means you need to add those two first, then compare. Which question doesn't say 'combined'?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Question 3"
+        },
+        "description": "Student selected Question 3, which requires two steps",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "question_display",
+              "params": {
+                "event": "highlight_question",
+                "status": "proposed",
+                "description": "Question 3 highlights temporarily",
+                "question_number": 3
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Question 3 says 'red or blue altogether.' That means you add red and blue first, then you have your answer. Which question just compares two categories directly?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "question_display",
+              "params": {
+                "event": "highlight_question",
+                "status": "confirmed",
+                "description": "Question 1 highlights to show the correct answer",
+                "question_number": 1
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to think about this. Question 1 asks how many more dogs than cats. That's one comparison. Questions 2 and 3 both have words like 'combined' or 'altogether,' so they need adding first. The answer is Question 1."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "The word 'more'"
+        },
+        "description": "Student selected 'more', which appears in both one-step and two-step problems",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "question_display",
+              "params": {
+                "highlight_categories": [
+                  "Question 1",
+                  "Question 2"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The word 'more' appears in both Question 1 and Question 2. One needs just one step, the other needs two. What word appears only in the two-step problems?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Big numbers"
+        },
+        "description": "Student selected 'big numbers', which is not a reliable clue",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "question_display",
+              "params": {
+                "highlight_categories": [
+                  "Question 2",
+                  "Question 3"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: the size of the numbers doesn't tell you how many steps you need. Look at the words in Questions 2 and 3. What do they both say that Question 1 doesn't?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Two categories are used"
+        },
+        "description": "Student selected 'two categories', which appears in all three questions",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "question_display",
+              "params": {
+                "highlight_categories": [
+                  "Question 1",
+                  "Question 2",
+                  "Question 3"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "All three questions use two categories. Question 1 uses dogs and cats. Questions 2 and 3 use more than two. The key is what the question asks you to do with those categories. What word tells you to add first?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "question_display",
+              "params": {
+                "event": "highlight_trigger_words",
+                "status": "confirmed",
+                "description": "Words 'combined' and 'altogether' highlight in Questions 2 and 3"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this one. Look at Questions 2 and 3. Question 2 says 'cats and birds combined.' Question 3 says 'red or blue altogether.' Those words tell you to add first, then compare or find the total. The answer is words like 'combined' or 'altogether.'"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:22.702753+00:00"
+}

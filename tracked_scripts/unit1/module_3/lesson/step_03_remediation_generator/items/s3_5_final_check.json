@@ -1,0 +1,123 @@
+{
+  "id": "s3_5_final_check",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "They both use symbols"
+        },
+        "description": "Student selected 'They both use symbols' — incorrect because bar graphs use bars, not symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screentime",
+              "params": {
+                "highlight_categories": [
+                  "Liam",
+                  "Emma",
+                  "Noah",
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: picture graphs use symbols, but bar graphs use bars instead. Look at what both graphs show on the side."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They look the same"
+        },
+        "description": "Student selected 'They look the same' — incorrect because the graphs have different visual formats",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Liam",
+                  "Emma"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. These graphs look different—one uses symbols, one uses bars. But check the numbers on the side of each graph."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They both have 5 categories"
+        },
+        "description": "Student selected 'They both have 5 categories' — incorrect because each graph has 4 categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screentime",
+              "params": {
+                "highlight_categories": [
+                  "Liam",
+                  "Emma",
+                  "Noah",
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Count the categories—both graphs have 4, not 5. The number 5 appears somewhere else on both graphs."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "highlight_scale",
+                "status": "confirmed",
+                "description": "Scale marker pulses on picture graph showing each symbol = 5"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_screentime",
+              "params": {
+                "event": "highlight_scale",
+                "status": "confirmed",
+                "description": "Scale numbers pulse on bar graph axis showing 0, 5, 10, 15, 20, 25, 30, 35, 40"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Look at the picture graph—each symbol equals 5. Now look at the bar graph—the numbers go up by 5. Both graphs use the same scale of 5, just in different ways."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:50:35.299024+00:00"
+}

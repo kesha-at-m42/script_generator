@@ -1,0 +1,163 @@
+{
+  "id": "s2_1_transfer_to_circles",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "container_type": "circle",
+        "num_groups": 4,
+        "items_per_group": 2,
+        "description": "4 circles appear, each containing 2 dots inside."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "No bags now. Just circles. But the thinking is the same."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each with 2 dots inside.",
+          "tangible_type": "equal_groups",
+          "container_type": "circle",
+          "num_groups": 4,
+          "items_per_group": 2
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Count the groups."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student answered 4, correct number of groups",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 circles. Those are your groups."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each with 2 dots inside. Student just counted groups.",
+          "tangible_type": "equal_groups",
+          "container_type": "circle",
+          "num_groups": 4,
+          "items_per_group": 2
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now look inside ONE circle. How many dots?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many in each group?",
+      "tool": "multiple_choice",
+      "options": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student answered 2, correct items per group",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 dots in each. So you have..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each with 2 dots inside. Student just counted items per group.",
+          "tangible_type": "equal_groups",
+          "container_type": "circle",
+          "num_groups": 4,
+          "items_per_group": 2
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "text": "Say it.",
+      "tool": "multiple_choice",
+      "options": [
+        "2 groups of 4",
+        "4 groups of 2",
+        "4 groups of 4",
+        "2 groups of 2"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 groups of 2"
+          },
+          "description": "Student stated 4 groups of 2, correct synthesis",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 groups of 2. Circles instead of bags, same structure."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each with 2 dots inside. Student has completed the two-step routine.",
+          "tangible_type": "equal_groups",
+          "container_type": "circle",
+          "num_groups": 4,
+          "items_per_group": 2
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-14T00:04:02.708004+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "id": "s1_1_data_collection",
+  "type": "transition",
+  "steps": [
+    [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "minis_counting_scene",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "style": "Mario Party-style counting game",
+          "categories": 3,
+          "values_range": "3-7 per category",
+          "duration": "60 seconds",
+          "interaction": "up_down_counter",
+          "description": "Minis characters appear in animated counting scenario. Scene shows items to count in three categories."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are here. Let's count what we see. Use the counter to track each category."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "minis_counting_scene",
+            "description": "Minis counting game displayed. Three categories of items visible. Up/down counter interface ready.",
+            "tangible_type": "data_collection_game",
+            "style": "Mario Party-style counting game",
+            "categories": 3
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "minis_counting_scene",
+        "params": {
+          "event": "count_reveal",
+          "status": "confirmed",
+          "description": "Guide counts visually. Animation highlights and counts each category in sequence, revealing correct totals."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's see if you counted them all. There were [X] [category A] and [Y] [category B] and [Z] [category C]. Now we have our data."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "minis_counting_scene",
+            "description": "Minis counting scene. All three categories counted and confirmed. Correct totals displayed.",
+            "tangible_type": "data_collection_game",
+            "style": "Mario Party-style counting game",
+            "categories": 3
+          }
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-02T19:26:58.667515+00:00"
+}

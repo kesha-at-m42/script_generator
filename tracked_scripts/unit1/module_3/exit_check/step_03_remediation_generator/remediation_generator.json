@@ -1,0 +1,327 @@
+[
+  {
+    "id": "s1_transition_to_exit_check",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_ec1_symbol_count",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4 — may have miscounted or used wrong scale",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "highlight_categories": [
+                    "Juice"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The key shows each symbol stands for 5. Count by 5s to reach 25: 5, 10, 15, 20, 25. How many 5s is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25 — confused symbol count with total votes",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "highlight_categories": [
+                    "Juice"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're working on it. Here's what helps: each symbol represents 5 votes, not 1. So you don't need 25 symbols—you need fewer. How many groups of 5 are in 25?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30 — may have looked at Water's value instead of Juice",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Juice"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: look at the Juice row in the table—it shows 25 votes, not 30. With each symbol worth 5, how many symbols make 25?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "event": "show_counting_sequence",
+                  "status": "confirmed",
+                  "description": "System demonstrates counting by 5s: 5, 10, 15, 20, 25. Five symbols appear one at a time in Juice column as each multiple is counted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Each symbol equals 5 votes. To show 25, I count by 5s: 5, 10, 15, 20, 25. That's 5 symbols total. See how that works?"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-09T17:40:19.028257+00:00"
+  },
+  {
+    "id": "s1_ec2_create_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set incorrect heights on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Check the table. Each symbol stands for 5."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set incorrect heights on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Milk",
+                    "Water"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Milk is 15—that's 3 symbols. Water is 30—that's 6 symbols."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set incorrect heights three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "event": "model_correct_heights",
+                  "status": "confirmed",
+                  "description": "System demonstrates setting Milk to 3 symbols (15÷5=3) and Water to 6 symbols (30÷5=6)"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Milk is 15, so I divide by 5—that's 3 symbols. Water is 30, so I divide by 5—that's 6 symbols. Each symbol represents 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-09T17:40:27.669055+00:00"
+  },
+  {
+    "id": "s1_ec3_read_value",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — counted symbols instead of using the scale",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "highlight_categories": [
+                    "Water"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the symbols. Check the key—each symbol stands for 5 students, not 1."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25 — multiplied symbols by scale but miscounted (5 symbols instead of 6)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "highlight_categories": [
+                    "Water"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count the Water symbols carefully—there are 6, not 5."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 35
+          },
+          "description": "Student selected 35 — multiplied symbols by scale but miscounted (7 symbols instead of 6)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "highlight_categories": [
+                    "Water"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: count the Water symbols one more time. How many symbols do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "event": "count_scaled_symbols",
+                  "status": "confirmed",
+                  "description": "Each Water symbol pulses sequentially while counting by 5s: 5, 10, 15, 20, 25, 30"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Water has 6 symbols. Each symbol equals 5 students. Count by 5s: 5, 10, 15, 20, 25, 30. The answer is 30."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-09T17:40:38.750140+00:00"
+  },
+  {
+    "id": "s1_exit_check_closure",
+    "type": "transition",
+    "scene": [
+      "picture_graph_drinks"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You understand scale of 5. Let's connect what you learned."
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_drinks"
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  }
+]

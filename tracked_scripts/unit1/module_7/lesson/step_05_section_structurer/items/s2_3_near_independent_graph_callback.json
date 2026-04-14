@@ -1,0 +1,108 @@
+{
+  "id": "s2_3_near_independent_graph_callback",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "groups": 4,
+        "items_per_group": 5,
+        "container_type": "circle",
+        "item_type": "dot",
+        "description": "4 circles appear, each containing 5 dots. Same structure as warmup graph: 4 groups of 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You know this already. You did something like this in the graph."
+    },
+    {
+      "type": "dialogue",
+      "text": "What do you see?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, 5 dots in each circle. Same structure as warmup graph: 4 groups of 5.",
+          "tangible_type": "equal_groups",
+          "groups": 4,
+          "items_per_group": 5,
+          "container_type": "circle",
+          "item_type": "dot"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "4 groups of 5. Just like the graph. 4 symbols, each worth 5. Here, 4 circles, 5 dots each."
+    },
+    {
+      "type": "dialogue",
+      "text": "That's multiplication."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression matches?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 5",
+        "5 × 4",
+        "4 + 5",
+        "5 + 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 5"
+          },
+          "description": "Student selected 4 × 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 × 5. Four circles, five dots each. Same as the graph scale: 4 groups of 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, 5 dots in each circle. Multiple choice answered.",
+          "tangible_type": "equal_groups",
+          "groups": 4,
+          "items_per_group": 5,
+          "container_type": "circle",
+          "item_type": "dot"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You've described equal groups as 'X groups of Y.' You've matched them to the × expression. Now, can you pick the expression when you just see the picture?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, 5 dots in each circle. Transitional dialogue complete.",
+          "tangible_type": "equal_groups",
+          "groups": 4,
+          "items_per_group": 5,
+          "container_type": "circle",
+          "item_type": "dot"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-14T00:04:20.670957+00:00"
+}

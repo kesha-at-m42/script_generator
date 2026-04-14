@@ -1,0 +1,73 @@
+{
+  "id": "s2_3_create_with_half_symbols",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed wrong number of symbols on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. We need 3 full symbols and 1 half-symbol for 7 sightings."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed wrong number of symbols on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_animals_symbol",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Each symbol stands for 2 sightings. So 3 full symbols give us 6, then we need 1 more—that's the half-symbol."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed wrong number of symbols three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "event": "place_symbols",
+                "status": "confirmed",
+                "description": "System places 3 full symbols plus 1 half-symbol in Birds row",
+                "category": "Birds",
+                "symbol_count": 3.5
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I'll place 3 full symbols—that's 6 sightings. Then I add 1 half-symbol for the last sighting. Three and a half symbols shows 7 total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:08:55.242111+00:00"
+}

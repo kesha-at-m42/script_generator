@@ -1,0 +1,93 @@
+{
+  "id": "s3_3_student_places_category_c",
+  "steps": [
+    [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_class_data",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "creating",
+          "orientation": "horizontal",
+          "categories": [
+            "Red",
+            "Blue",
+            "Yellow"
+          ],
+          "description": "Horizontal picture graph in creating mode. Red and Blue rows complete with symbols placed. Yellow row empty, ready for student input. Key visible showing each symbol equals 1."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now show your Yellow. You counted 8. Click to add 8 stars."
+      },
+      {
+        "type": "prompt",
+        "text": "Click to place 8 stars for Yellow.",
+        "tool": "click_to_place",
+        "target": "picture_graph_class_data",
+        "validator": [
+          {
+            "condition": {
+              "symbols_placed": 8
+            },
+            "description": "Student placed 8 symbols in Yellow row, correct",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_class_data",
+                  "params": {
+                    "description": "Yellow row now shows 8 symbols placed, completing the graph."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 8 stars. You made a picture graph!"
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_class_data",
+                      "description": "Horizontal picture graph complete. Red, Blue, and Yellow rows all showing placed symbols. Key visible.",
+                      "tangible_type": "picture_graph",
+                      "mode": "creating",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Red",
+                        "Blue",
+                        "Yellow"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_class_data",
+            "description": "Horizontal picture graph in creating mode. Red and Blue rows complete. Yellow row empty, click_to_place tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "creating",
+            "orientation": "horizontal",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ]
+          }
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-02T19:27:34.182667+00:00"
+}

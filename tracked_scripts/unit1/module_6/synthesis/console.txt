@@ -1,0 +1,337 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [DIR] step_01_script_generator
+  [LOAD] Reading: C:\git\script_generator\units\unit1\module6\synthesis.md
+  [DEBUG] File size: 10651 bytes
+  [DEBUG] Read 10426 chars from 10651 bytes
+  [OK] Loaded 10426 chars
+
+======================================================================
+Building prompt: script_generator
+======================================================================
+  Loading prompt definition: script_generator
+  [OK] Loaded SCRIPT_GENERATOR_PROMPT
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+    Resolving doc: toy_specs.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\toy_specs.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_01_script_generator\prompt.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2819
+  output_tokens: 4701
+  total_tokens: 7520
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 77325
+  cache_savings: 90% (saved 77325 tokens)
+  [JSON] Extracting JSON from output...
+  [SAVE] Saved JSON array with 6 items to: step_01_script_generator\script_generator.json
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 20661 bytes
+  [DEBUG] Read 20067 chars from 20661 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 21988 bytes
+  [DEBUG] Read 21386 chars from 21988 bytes
+  [OK] Loaded 21386 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 6 items from JSON array
+  [SKIP 1/6] s1_opening_frame (not in only_items)
+
+  [BATCH 2/6] s1_1_pattern_discovery
+    Variables: {'id': 's1_1_pattern_discovery', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'strategy_statement'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'question_display', 'tangible_type': 'text_display', 'params': {'description': "Three problem questions appear:\n1. 'How many more dogs are there than cats?'\n2. 'How many more dogs are there than cats and birds combined?'\n3. 'How many students chose red or blue altogether?'"}}, {'type': 'dialogue', 'text': 'Look at these three questions. Two of them need two steps. One needs just one step.'}, {'type': 'prompt', 'text': 'Which question needs just ONE step?', 'tool': 'multiple_choice', 'options': ['Question 1', 'Question 2', 'Question 3'], 'validator': [{'condition': {'selected': 'Question 1'}, 'description': 'Student selected Question 1, correct', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'animate', 'tangible_id': 'question_display', 'params': {'event': 'highlight_question', 'status': 'confirmed', 'description': 'Question 1 highlights to confirm selection', 'question_number': 1}}, {'type': 'dialogue', 'text': 'Question 1. It just compares dogs to cats—no combining first.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'question_display', 'description': 'Three questions displayed. Question 1 highlighted.', 'tangible_type': 'text_display'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'question_display', 'description': "Three problem questions displayed:\n1. 'How many more dogs are there than cats?'\n2. 'How many more dogs are there than cats and birds combined?'\n3. 'How many students chose red or blue altogether?'", 'tangible_type': 'text_display'}]}], [{'type': 'dialogue', 'text': "What's the clue that tells you a problem needs two steps?"}, {'type': 'prompt', 'text': "What's the clue that tells you a problem needs two steps?", 'tool': 'multiple_choice', 'options': ["The word 'more'", "Words like 'combined' or 'altogether'", 'Big numbers', 'Two categories are used'], 'validator': [{'condition': {'selected': "Words like 'combined' or 'altogether'"}, 'description': 'Student selected correct trigger words', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'animate', 'tangible_id': 'question_display', 'params': {'event': 'highlight_trigger_words', 'status': 'confirmed', 'description': "Words 'combined' and 'altogether' highlight in Questions 2 and 3"}}, {'type': 'dialogue', 'text': "Words like 'combined,' 'together,' and 'altogether' are your signal. When you see them, you know: find that total FIRST, then compare."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'question_display', 'description': "Three questions displayed. Trigger words 'combined' and 'altogether' highlighted in Questions 2 and 3.", 'tangible_type': 'text_display'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'question_display', 'description': 'Three problem questions displayed with Question 1 previously highlighted.', 'tangible_type': 'text_display'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_03_remediation_generator\prompts\s1_1_pattern_discovery.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1264
+  output_tokens: 1469
+  total_tokens: 2733
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/6] s1_2_problem_sorting
+    Variables: {'id': 's1_2_problem_sorting', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'question_display'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'sorting_workspace', 'tangible_type': 'sorting_area', 'params': {'description': "Sorting workspace appears. LEFT side: three problem questions. RIGHT side: two drop zones labeled 'JUST COMPARE' and 'COMBINE FIRST, THEN COMPARE'.\n\nQuestions:\n1. 'How many more chose pizza than tacos?'\n2. 'How many more chose pizza and tacos combined than salad?'\n3. 'How many fewer chose burgers and hot dogs together than pizza?'"}}, {'type': 'dialogue', 'text': "Here's what you've been doing. You look at a problem and decide: Do I just compare? Or do I combine first, then compare? Sort these questions."}, {'type': 'prompt', 'text': 'Match each question to the right group.', 'tool': 'drag_to_sort', 'target': 'sorting_workspace', 'validator': [{'condition': {'and': [{'zone': 'JUST COMPARE', 'contains': ['Question 1']}, {'zone': 'COMBINE FIRST, THEN COMPARE', 'contains': ['Question 2', 'Question 3']}]}, 'description': 'Student sorted all questions correctly', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'animate', 'tangible_id': 'sorting_workspace', 'params': {'event': 'confirm_sorting', 'status': 'confirmed', 'description': 'All questions snap into place in their correct zones. Drop zones highlight briefly to confirm.'}}, {'type': 'dialogue', 'text': "You sorted them all. Words like 'combined' and 'together' tell you to find a total first."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'sorting_workspace', 'description': 'Sorting workspace with all questions correctly placed. JUST COMPARE zone contains Question 1. COMBINE FIRST, THEN COMPARE zone contains Questions 2 and 3.', 'tangible_type': 'sorting_area'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'sorting_workspace', 'description': 'Sorting workspace with three questions on left and two drop zones on right. Questions not yet sorted.', 'tangible_type': 'sorting_area'}]}], [{'type': 'dialogue', 'text': 'What question do you ask yourself to decide?'}, {'type': 'prompt', 'text': 'Select the key question.', 'tool': 'multiple_choice', 'options': ["What's the biggest number?", "Does it say 'combined' or 'together'?", 'How many categories are there?', 'Should I add or subtract?'], 'validator': [{'condition': {'selected': "Does it say 'combined' or 'together'?"}, 'description': 'Student selected the key planning question', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "That's the key question. The answer tells you whether it's one step or two. This is strategic thinking. You're not just doing math—you're PLANNING your approach based on what the problem says."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'sorting_workspace', 'description': 'Sorting workspace with all questions correctly placed in their zones.', 'tangible_type': 'sorting_area'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'sorting_workspace', 'description': 'Sorting workspace with all questions correctly placed in their zones.', 'tangible_type': 'sorting_area'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 46 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_03_remediation_generator\prompts\s1_2_problem_sorting.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1281
+  output_tokens: 1302
+  total_tokens: 2583
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 46 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 4/6] s1_3_real_world_bridge
+    Variables: {'id': 's1_3_real_world_bridge', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'sorting_workspace'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'scenario_display', 'tangible_type': 'text_display', 'params': {'description': "Three real-world scenarios appear:\n1. 'Who has more stickers—just Maya, or Ben and Carlos put together?'\n2. 'Which team scored more—the Red team alone, or the Blue and Green teams combined?'\n3. 'Did I spend more on only snacks, or on drinks and dessert altogether?'"}}, {'type': 'dialogue', 'text': 'This kind of thinking shows up all the time—not just in math problems. What would you need to DO to answer all of these?'}, {'type': 'prompt', 'text': 'What would you need to DO to answer all of these?', 'tool': 'multiple_choice', 'options': ['Count everything', 'Combine some things first, then compare', 'Find the biggest number', 'Subtract twice'], 'validator': [{'condition': {'selected': 'Combine some things first, then compare'}, 'description': 'Student identified the pattern in real-world contexts', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Combine first, then compare. That pattern shows up everywhere.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'scenario_display', 'description': 'Three real-world scenarios displayed.', 'tangible_type': 'text_display'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'scenario_display', 'description': "Three real-world scenarios displayed:\n1. 'Who has more stickers—just Maya, or Ben and Carlos put together?'\n2. 'Which team scored more—the Red team alone, or the Blue and Green teams combined?'\n3. 'Did I spend more on only snacks, or on drinks and dessert altogether?'", 'tangible_type': 'text_display'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_03_remediation_generator\prompts\s1_3_real_world_bridge.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 708
+  output_tokens: 672
+  total_tokens: 1380
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 5/6] s1_4_metacognitive_reflection
+    Variables: {'id': 's1_4_metacognitive_reflection', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'scenario_display'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'strategy_statement', 'tangible_type': 'text_display', 'params': {'description': "Strategy statement reappears: 'Find the combined total first, then compare.'"}}, {'type': 'dialogue', 'text': 'What helped you most when figuring out what to do first?'}, {'type': 'prompt', 'text': 'Select what helped most.', 'tool': 'multiple_choice', 'options': ["Looking for words like 'combined' or 'altogether'", 'Reading the question carefully', 'Thinking about what the question is really asking', 'Remembering the strategy'], 'validator': [{'condition': {'selected': "Looking for words like 'combined' or 'altogether'"}, 'description': 'Student selected trigger word recognition', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Spotting those trigger words is huge. They tell you exactly what to do.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'strategy_statement', 'description': "Strategy statement displayed: 'Find the combined total first, then compare.'", 'tangible_type': 'text_display'}]}]]}, {'condition': {'selected': 'Reading the question carefully'}, 'description': 'Student selected careful reading', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Careful reading pays off. The question tells you what it needs.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'strategy_statement', 'description': "Strategy statement displayed: 'Find the combined total first, then compare.'", 'tangible_type': 'text_display'}]}]]}, {'condition': {'selected': 'Thinking about what the question is really asking'}, 'description': 'Student selected metacognitive thinking', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "Thinking about what the question REALLY asks—that's mathematical reasoning."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'strategy_statement', 'description': "Strategy statement displayed: 'Find the combined total first, then compare.'", 'tangible_type': 'text_display'}]}]]}, {'condition': {'selected': 'Remembering the strategy'}, 'description': 'Student selected strategy recall', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "Having a strategy ready helps. 'Find combined total first, then compare' works every time."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'strategy_statement', 'description': "Strategy statement displayed: 'Find the combined total first, then compare.'", 'tangible_type': 'text_display'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'strategy_statement', 'description': "Strategy statement displayed: 'Find the combined total first, then compare.'", 'tangible_type': 'text_display'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 55 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_03_remediation_generator\prompts\s1_4_metacognitive_reflection.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1160
+  output_tokens: 4
+  total_tokens: 1164
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 55 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 6/6] s1_5_identity_closure (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 6/6
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 6 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 18589 bytes
+  [DEBUG] Read 18059 chars from 18589 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [DIR] step_05_push
+  [AUTO-CHAIN] Using previous step output: step_04_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_04_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 38500 bytes
+  [DEBUG] Read 37473 chars from 38500 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=6
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_module_6\v0\step_05_push\push.json
+  [EXEC] Passing input to parameter 'data'
+
+  [NOTION] Pushed -> https://notion.so/3215917eac52813f8986d9507e8a5110
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v0
+Status: draft
+Duration: 124.7s
+Output: outputs/synthesis_generator_module_6/latest/
+======================================================================

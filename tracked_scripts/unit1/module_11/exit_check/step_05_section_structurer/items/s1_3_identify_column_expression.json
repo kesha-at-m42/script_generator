@@ -1,0 +1,74 @@
+{
+  "id": "s1_3_identify_column_expression",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "array_5x4",
+      "tangible_type": "arrays",
+      "params": {
+        "mode": "reading",
+        "rows": 5,
+        "columns": 4,
+        "item_type": "dot",
+        "description": "5×4 dot array appears. 5 rows of 4 dots each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "array_5x4",
+      "params": {
+        "event": "highlight_rows",
+        "status": "confirmed",
+        "description": "System highlights rows briefly, one at a time."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This array is described as 5 rows of 4. But there's another way to describe this array, by columns. Which expression matches the column description?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression describes this array by columns?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 5",
+        "5 × 4",
+        "4 × 4",
+        "5 × 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 5"
+          },
+          "description": "Student selected 4 × 5, correct. 4 columns of 5.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 times 5. 4 columns of 5. Same array, different description, different expression."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "array_5x4",
+          "description": "5×4 dot array. 5 rows of 4 dots each. Multiple choice tool active.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 5,
+          "columns": 4,
+          "item_type": "dot"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T16:50:08.944022+00:00"
+}

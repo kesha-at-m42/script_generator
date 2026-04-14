@@ -1,0 +1,77 @@
+{
+  "id": "s2_1_two_ways_scale5",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "In the symbols"
+        },
+        "description": "Student selected 'In the symbols' — confusing picture graph symbols with bar graph axis",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_playground",
+              "params": {
+                "highlight_axis": true
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Bar graphs don't use symbols. Look at the numbers written along the side — that's where the 5s are."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "In the title"
+        },
+        "description": "Student selected 'In the title' — looking in wrong location for scale information",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_playground",
+              "params": {
+                "highlight_axis": true
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: The title tells us what the graph is about, not how to count. Look at the numbers along the side of the graph."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_playground",
+              "params": {
+                "event": "highlight_axis_numbers",
+                "status": "confirmed",
+                "description": "Axis numbers pulse in sequence: 5, 10, 15, 20, 25, 30"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The axis is the side of the graph where the numbers are written: 5, 10, 15, 20, 25, 30. That's where you see the 5s — counting by 5s right up the side."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:47:58.631679+00:00"
+}

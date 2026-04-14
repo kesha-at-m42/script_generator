@@ -1,0 +1,106 @@
+{
+  "id": "s1_ec2_read_between_lines",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30: read the lower gridline instead of finding the bar's endpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "highlight_categories": [
+                  "Team A"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The bar doesn't stop at 30. It goes higher. Look at where the top of the bar ends."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 34
+        },
+        "description": "Student selected 34: attempted to estimate but missed that the bar is exactly halfway",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "highlight_categories": [
+                  "Team A"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The bar is exactly halfway between 30 and 40. What number is halfway between them?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40: read the upper gridline instead of finding the bar's endpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "highlight_categories": [
+                  "Team A"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the bar doesn't reach 40. It stops between the two lines. Where does the top of the bar end?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "event": "highlight_between_lines",
+                "status": "confirmed",
+                "description": "Ghost gridlines at 30 and 40 pulse. Bar endpoint highlighted at exact midpoint. Value 35 appears."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The bar is between 30 and 40. It's exactly in the middle. Halfway between 30 and 40 is 35. The bar shows 35 points."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:20.107149+00:00"
+}

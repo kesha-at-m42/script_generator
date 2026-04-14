@@ -1,0 +1,141 @@
+{
+  "id": "s1_1_real_world_bridge",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "Hand"
+                },
+                {
+                  "selected": "Tally marks"
+                },
+                {
+                  "selected": "Nickels"
+                },
+                {
+                  "selected": "Clock"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "Hand"
+                  },
+                  {
+                    "selected": "Tally marks"
+                  },
+                  {
+                    "selected": "Nickels"
+                  },
+                  {
+                    "selected": "Clock"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "none"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected some correct answers but not all four",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "real_world_images",
+              "params": {
+                "highlight_categories": [
+                  "Hand",
+                  "Tally marks",
+                  "Nickels",
+                  "Clock"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're on the right track. Those choices do use groups of 5. Look at each image again. Are there others that also group by 5s?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "or": [
+              {
+                "selected": "Hand"
+              },
+              {
+                "selected": "Tally marks"
+              },
+              {
+                "selected": "Nickels"
+              },
+              {
+                "selected": "Clock"
+              }
+            ]
+          }
+        },
+        "description": "Branch 3: Student selected no correct answers (or submitted empty)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "real_world_images",
+              "params": {
+                "highlight_categories": []
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about what grouping by 5s means. Look for things that come in sets of 5 or count by 5s. Which images show that pattern?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "real_world_images",
+              "params": {
+                "event": "highlight_all_correct",
+                "status": "confirmed",
+                "description": "System highlights all four images in sequence: hand (5 fingers), tally marks (grouped by 5s), nickels (5 cents each), clock (5-minute intervals)"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. A hand has 5 fingers. Tally marks group by 5s. Each nickel is worth 5 cents. A clock marks every 5 minutes. All four use groups of 5. Select all four."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-23T19:07:10.022697+00:00"
+}

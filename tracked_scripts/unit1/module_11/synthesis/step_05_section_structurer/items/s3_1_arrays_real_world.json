@@ -1,0 +1,140 @@
+{
+  "id": "s3_1_arrays_real_world",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_a",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image A: Egg carton with 2 rows and 6 columns of eggs."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_b",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_c",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image C: Scattered marbles on a table, no alignment."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_d",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image D: Window pane with 2 rows and 3 columns of glass panes."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Arrays are not just in math. Look at these four pictures. Which ones are arrays?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which pictures show arrays? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "B"
+              },
+              {
+                "selected": "D"
+              },
+              {
+                "not_selected": "C"
+              }
+            ]
+          },
+          "description": "Student selected A, B, D and did not select C",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Egg carton, parking lot, window pane. Arrays are everywhere. Same rows and columns structure you have been working with."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "image_a",
+          "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_b",
+          "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_c",
+          "description": "Image C: Scattered marbles on a table, no alignment.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_d",
+          "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+          "tangible_type": "image"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Once you see arrays, you notice them everywhere. Same math, rows times columns, whether it is eggs, cars, or windows."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "image_a",
+          "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_b",
+          "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_c",
+          "description": "Image C: Scattered marbles on a table, no alignment.",
+          "tangible_type": "image"
+        },
+        {
+          "tangible_id": "image_d",
+          "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+          "tangible_type": "image"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T16:50:56.905382+00:00"
+}

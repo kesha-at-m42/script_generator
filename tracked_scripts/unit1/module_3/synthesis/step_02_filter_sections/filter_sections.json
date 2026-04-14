@@ -1,0 +1,225 @@
+{
+  "batch_only_items": [
+    "s1_1_real_world_bridge"
+  ],
+  "data": [
+    {
+      "id": "s1_opening_frame",
+      "type": "transition",
+      "scene": [],
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "You made graphs with scale of 5. Let's connect what you learned to the world around you."
+          },
+          {
+            "type": "current_scene",
+            "elements": []
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_1_real_world_bridge",
+      "scene": [],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "real_world_images",
+            "tangible_type": "image",
+            "params": {
+              "description": "Four real-world images displayed in a grid: hand showing 5 fingers, tally marks grouped by 5s, nickels (worth 5 cents each), and clock face showing 5-minute intervals."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You've been grouping by 5s all lesson. But 5s show up everywhere in real life. Which of these uses groups of 5?"
+          },
+          {
+            "type": "prompt",
+            "text": "Which of these uses groups of 5? Select all that apply.",
+            "tool": "multi_select",
+            "options": [
+              "Hand",
+              "Tally marks",
+              "Nickels",
+              "Clock"
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "and": [
+                    {
+                      "selected": "Hand"
+                    },
+                    {
+                      "selected": "Tally marks"
+                    },
+                    {
+                      "selected": "Nickels"
+                    },
+                    {
+                      "selected": "Clock"
+                    }
+                  ]
+                },
+                "description": "Student selected all four — correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere — and now you use it for graphs too."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "Scale of 5 isn't just for math class. People group by 5s all the time because it's easy to count."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "real_world_images",
+                          "description": "Four real-world images displayed. All four highlighted as correct selections showing groups of 5.",
+                          "tangible_type": "image"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "real_world_images",
+                "description": "Four real-world images displayed: hand with 5 fingers, tally marks in groups of 5, nickels worth 5 cents, clock face with 5-minute marks. Multi-select tool active.",
+                "tangible_type": "image"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_metacognitive_reflection",
+      "scene": [],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "scale_comparison_display",
+            "tangible_type": "image",
+            "params": {
+              "description": "Simple display showing two scales side by side. Scale of 2: Each symbol = 2. Scale of 5: Each symbol = 5."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You now know TWO scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?"
+          },
+          {
+            "type": "prompt",
+            "text": "If you had to show 30 items on a graph, which scale would need fewer symbols?",
+            "tool": "multiple_choice",
+            "options": [
+              "Scale of 2",
+              "Scale of 5",
+              "They'd need the same"
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": "Scale of 5"
+                },
+                "description": "Student selected Scale of 5 — correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "Scale of 5. You'd need 6 symbols instead of 15. Bigger scale, fewer symbols."
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "You're building a toolkit. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "scale_comparison_display",
+                          "description": "Display showing Scale of 2 and Scale of 5 side by side. Scale of 5 highlighted as the answer requiring fewer symbols for 30 items.",
+                          "tangible_type": "image"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "scale_comparison_display",
+                "description": "Display showing two scales: Scale of 2 (each symbol = 2) and Scale of 5 (each symbol = 5). Multiple choice tool active.",
+                "tangible_type": "image"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_identity_closure",
+      "scene": [],
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "representative_graphs",
+            "tangible_type": "image",
+            "params": {
+              "description": "Representative graphs from the lesson displayed side by side: a picture graph with scale of 5 and a bar graph with scale of 5, both showing the same data."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You started this unit knowing scale of 2. Now you can make graphs with scale of 5 too."
+          },
+          {
+            "type": "dialogue",
+            "text": "And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data."
+          },
+          {
+            "type": "dialogue",
+            "text": "Two scales in your toolkit. Two formats you can create. You're ready for more."
+          },
+          {
+            "type": "dialogue",
+            "text": "You started with scale of 1, then 2, now 5. Next time, we'll add scale of 10 to your toolkit."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "representative_graphs",
+                "description": "Representative graphs displayed: picture graph with scale of 5 and bar graph with scale of 5, side by side showing the same data.",
+                "tangible_type": "image"
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ]
+}

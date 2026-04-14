@@ -1,0 +1,108 @@
+{
+  "id": "s2_6_comparison_odd_values",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 — may have miscounted or confused scale value with difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Squirrels"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count all the symbols in each row. Squirrels has 10, Birds has 7. How many fewer is 7 than 10?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2 — may have miscounted one or both bars",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Squirrels"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: Count the Squirrels row carefully. Each symbol is worth 2 sightings. How many symbols do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — reported the Birds value instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Squirrels"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. 7 is how many Birds were sighted. But the question asks how many FEWER—that means we subtract: 10 minus 7."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "event": "highlight_comparison",
+                "status": "confirmed",
+                "description": "System highlights Squirrels row (5 symbols × 2 = 10), then Birds row (3.5 symbols × 2 = 7), then shows subtraction 10 - 7 = 3"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Squirrels has 5 symbols—each worth 2, so that's 10 total. Birds has 3 and a half symbols—that's 7 total. To find how many fewer, we subtract: 10 minus 7 equals 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:09:28.216487+00:00"
+}

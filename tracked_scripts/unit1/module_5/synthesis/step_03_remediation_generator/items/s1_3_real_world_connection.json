@@ -1,0 +1,70 @@
+{
+  "id": "s1_3_real_world_connection",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong table on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Check which numbers can't be shown with Scale of 5 or 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong table on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_coins",
+              "params": {
+                "highlight": true,
+                "description": "Coins table highlights to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Look at the coin counts: 7, 12, 19, 23. None of these end in 0 or 5, so you need Scale of 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong table three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table_coins",
+              "params": {
+                "event": "highlight_values",
+                "status": "confirmed",
+                "description": "Each coin value highlights in sequence: 7, 12, 19, 23."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I check each number: 7 doesn't end in 0 or 5. 12 doesn't. 19 doesn't. 23 doesn't. So the coins HAVE to use Scale of 2. Click the coins table."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:57.416310+00:00"
+}

@@ -1,0 +1,106 @@
+{
+  "id": "s1_ec1_symbol_count",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — may have miscounted or used wrong scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The key shows each symbol stands for 5. Count by 5s to reach 25: 5, 10, 15, 20, 25. How many 5s is that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25 — confused symbol count with total votes",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Here's what helps: each symbol represents 5 votes, not 1. So you don't need 25 symbols—you need fewer. How many groups of 5 are in 25?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30 — may have looked at Water's value instead of Juice",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: look at the Juice row in the table—it shows 25 votes, not 30. With each symbol worth 5, how many symbols make 25?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "event": "show_counting_sequence",
+                "status": "confirmed",
+                "description": "System demonstrates counting by 5s: 5, 10, 15, 20, 25. Five symbols appear one at a time in Juice column as each multiple is counted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each symbol equals 5 votes. To show 25, I count by 5s: 5, 10, 15, 20, 25. That's 5 symbols total. See how that works?"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:40:19.028257+00:00"
+}

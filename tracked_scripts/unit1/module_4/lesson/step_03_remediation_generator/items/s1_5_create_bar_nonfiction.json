@@ -1,0 +1,73 @@
+{
+  "id": "s1_5_create_bar_nonfiction",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Nonfiction bar to wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Check the table: how many Nonfiction books?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Nonfiction bar to wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The table shows 60 Nonfiction books. Find the line marked 60 on the graph."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set Nonfiction bar to wrong height three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "set_bar_height",
+                "status": "confirmed",
+                "description": "System sets Nonfiction bar to height 60, aligning with the 60 gridline.",
+                "category": "Nonfiction",
+                "height": 60
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I look at the table: Nonfiction has 60 books. Then I find 60 on the axis. I set the bar to that line. There we go."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:46:45.929797+00:00"
+}

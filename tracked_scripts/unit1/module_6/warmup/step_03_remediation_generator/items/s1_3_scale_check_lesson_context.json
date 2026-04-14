@@ -1,0 +1,107 @@
+{
+  "id": "s1_3_scale_check_lesson_context",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9: counted marks instead of multiplying by scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the marks. Each mark is worth 5 students, not 1. How many marks are there, and what's 5 times that number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25: miscounted marks or miscalculated scale multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. The Pizza bar reaches 9 marks up the axis. The scale is 5, so each mark equals 5 students. What's 9 times 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50: read the top axis value instead of the Pizza bar height",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the highest number on the axis. Look at where the Pizza bar stops. Count the marks from 0 to the top of the Pizza bar, then multiply by the scale of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "count_scale_marks",
+                "status": "confirmed",
+                "description": "System highlights each mark on Pizza bar sequentially, counting 1, 2, 3, 4, 5, 6, 7, 8, 9, then shows multiplication: 9 × 5 = 45",
+                "category": "Pizza"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I count the marks on the Pizza bar: 9 marks. The scale is 5, so each mark means 5 students. 9 times 5 equals 45. The answer is 45 students."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:15.663526+00:00"
+}

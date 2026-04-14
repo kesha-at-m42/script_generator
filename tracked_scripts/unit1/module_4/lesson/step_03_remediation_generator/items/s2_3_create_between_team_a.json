@@ -1,0 +1,74 @@
+{
+  "id": "s2_3_create_between_team_a",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Team A bar to wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. Team A scored 45 points."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Team A bar to wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "highlight_categories": [
+                  "Team A"
+                ],
+                "description": "Team A column highlighted. Ghost gridlines pulse at 40 and 50."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. 45 is halfway between 40 and 50. Use the gridlines to find the middle."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set Team A bar to wrong height three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_points",
+              "params": {
+                "event": "set_bar_height",
+                "status": "confirmed",
+                "description": "System sets Team A bar to 45, halfway between gridlines at 40 and 50.",
+                "category": "Team A",
+                "height": 45
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I look at the data table: Team A scored 45. Now I find 40 and 50 on the axis. 45 is right in the middle, halfway between those two lines. I set the bar there."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:47:26.172483+00:00"
+}

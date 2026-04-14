@@ -1,0 +1,223 @@
+{
+  "id": "s3_5_two_step_chained",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected only Maya's books (9), missing Sofia's contribution",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Maya's books. The question asks for Maya and Sofia together—count both rows."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected James's count (12) instead of Maya and Sofia together",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's James's total. We need Maya's books plus Sofia's books—add those two rows."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 19
+        },
+        "description": "Student added all three people (Maya 9 + Sofia 7 + James 12 = 28, or miscalculated to 19)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. We only need Maya and Sofia—count Maya's 9 books, then add Sofia's 7."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly—system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "count_and_sum_categories",
+                "status": "confirmed",
+                "description": "System counts Maya's row (9 books), then Sofia's row (7 books), displays addition 9 + 7 = 16",
+                "categories": [
+                  "Maya",
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Maya read 9 books—count her row. Sofia read 7 books—count her row. Now add them: 9 plus 7 equals 16 books together."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "James read 4 more"
+        },
+        "description": "Student reversed the comparison—calculated correctly but identified wrong person as having more",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia",
+                  "James"
+                ],
+                "display_step1_result": "16 vs 12"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Compare the numbers: 16 is bigger than 12, so Maya and Sofia read more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "James read 28 more"
+        },
+        "description": "Student added 16 and 12 instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia",
+                  "James"
+                ],
+                "display_step1_result": "16 vs 12"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: we need to compare, not add together. Find how far apart 16 and 12 are."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They read the same"
+        },
+        "description": "Student incorrectly concluded 16 and 12 are equal",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Sofia",
+                  "James"
+                ],
+                "display_step1_result": "16 ≠ 12"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's look closely—16 and 12 are different numbers. Which is bigger, and by how much?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly—system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "show_subtraction",
+                "status": "confirmed",
+                "description": "System displays 16 - 12 = 4, highlights that Maya and Sofia's total (16) is greater",
+                "comparison": "16 > 12"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This can be tricky, so let's do it together. Maya and Sofia read 16 books. James read 12 books. 16 is more than 12. To find how many more, subtract: 16 minus 12 equals 4. Maya and Sofia read 4 more books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:10:42.526925+00:00"
+}

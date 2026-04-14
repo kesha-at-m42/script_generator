@@ -1,0 +1,1233 @@
+{
+  "batch_only_items": [
+    "s1_ec1_single_step",
+    "s2_ec2_two_step_step1",
+    "s3_ec3_two_step_step1",
+    "s4_ec4_transfer_scale2"
+  ],
+  "data": [
+    {
+      "id": "s1_transition_into_exit_check",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_lesson",
+            "params": {
+              "description": "Previous lesson graph clears from screen."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You learned to solve problems that need two steps. You know to find the combined total first, then compare. Let's see what you know."
+          },
+          {
+            "type": "current_scene",
+            "elements": []
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_ec1_single_step",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_supplies",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "axis_range": [
+                0,
+                50
+              ],
+              "categories": [
+                "Pencils",
+                "Erasers",
+                "Notebooks",
+                "Markers"
+              ],
+              "values": [
+                40,
+                25,
+                35,
+                20
+              ],
+              "description": "Vertical bar graph appears. School Supplies Sold. Scale of 5, axis 0-50. Pencils=40, Erasers=25, Notebooks=35, Markers=20."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "How many more pencils were sold than markers?"
+          },
+          {
+            "type": "prompt",
+            "text": "How many more pencils were sold than markers?",
+            "tool": "multiple_choice",
+            "options": [
+              60,
+              40,
+              20,
+              15
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 20
+                },
+                "description": "Student selected 20, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "20 more pencils sold. This one asked about only two categories and was just one step. No 'combined,' so straight to comparing."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_supplies",
+                          "description": "Vertical bar graph. School Supplies Sold. Scale of 5, axis 0-50. Pencils=40, Erasers=25, Notebooks=35, Markers=20.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "axis_range": [
+                            0,
+                            50
+                          ],
+                          "categories": [
+                            "Pencils",
+                            "Erasers",
+                            "Notebooks",
+                            "Markers"
+                          ],
+                          "values": [
+                            40,
+                            25,
+                            35,
+                            20
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_supplies",
+                "description": "Vertical bar graph in reading mode. School Supplies Sold. Scale of 5, axis 0-50. Pencils=40, Erasers=25, Notebooks=35, Markers=20. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "axis_range": [
+                  0,
+                  50
+                ],
+                "categories": [
+                  "Pencils",
+                  "Erasers",
+                  "Notebooks",
+                  "Markers"
+                ],
+                "values": [
+                  40,
+                  25,
+                  35,
+                  20
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s2_ec2_two_step_step1",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_supplies",
+            "params": {
+              "description": "Previous graph clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_books",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 10,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Fiction",
+                "Nonfiction",
+                "Comics",
+                "Poetry"
+              ],
+              "values": [
+                50,
+                30,
+                40,
+                20
+              ],
+              "description": "Horizontal bar graph appears. Books Read This Month. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "How many more fiction books were read than nonfiction and poetry combined?"
+          },
+          {
+            "type": "prompt",
+            "text": "What should we find first?",
+            "tool": "multiple_choice",
+            "options": [
+              "Add nonfiction and poetry",
+              "Compare fiction to nonfiction",
+              "Add all four categories",
+              "Subtract poetry from nonfiction"
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": "Add nonfiction and poetry"
+                },
+                "description": "Student selected add nonfiction and poetry, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "Combine nonfiction and poetry first."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_books",
+                          "description": "Horizontal bar graph. Books Read This Month. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 10,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Fiction",
+                            "Nonfiction",
+                            "Comics",
+                            "Poetry"
+                          ],
+                          "values": [
+                            50,
+                            30,
+                            40,
+                            20
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_books",
+                "description": "Horizontal bar graph in reading mode. Books Read This Month. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Fiction",
+                  "Nonfiction",
+                  "Comics",
+                  "Poetry"
+                ],
+                "values": [
+                  50,
+                  30,
+                  40,
+                  20
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_books",
+            "params": {
+              "highlight_categories": [
+                "Nonfiction",
+                "Poetry"
+              ],
+              "description": "Nonfiction bar (30) and Poetry bar (20) highlight."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "What's the combined total of nonfiction and poetry?"
+          },
+          {
+            "type": "prompt",
+            "text": "How many nonfiction and poetry books combined?",
+            "tool": "multiple_choice",
+            "options": [
+              10,
+              40,
+              50,
+              60
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 50
+                },
+                "description": "Student selected 50, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "50 combined."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_books",
+                          "description": "Horizontal bar graph. Books Read This Month. Scale of 10, axis 0-60. Nonfiction and Poetry bars highlighted. Fiction=50, Nonfiction=30, Comics=40, Poetry=20.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 10,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Fiction",
+                            "Nonfiction",
+                            "Comics",
+                            "Poetry"
+                          ],
+                          "values": [
+                            50,
+                            30,
+                            40,
+                            20
+                          ],
+                          "highlight_categories": [
+                            "Nonfiction",
+                            "Poetry"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_books",
+                "description": "Horizontal bar graph. Books Read This Month. Nonfiction and Poetry bars highlighted. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Fiction",
+                  "Nonfiction",
+                  "Comics",
+                  "Poetry"
+                ],
+                "values": [
+                  50,
+                  30,
+                  40,
+                  20
+                ],
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_books",
+            "params": {
+              "highlight_categories": [
+                "Fiction"
+              ],
+              "description": "Fiction bar (50) highlights."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "combined_total_display",
+            "tangible_type": "text_overlay",
+            "params": {
+              "text": "Nonfiction + Poetry = 50",
+              "description": "Combined value (50) displayed on screen."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Nonfiction and poetry combined is 50. How many fiction books were read? Find how many more."
+          },
+          {
+            "type": "prompt",
+            "text": "How many more fiction books than nonfiction and poetry combined?",
+            "tool": "multiple_choice",
+            "options": [
+              100,
+              50,
+              10,
+              0
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 0
+                },
+                "description": "Student selected 0, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "Zero! Fiction is 50, combined is 50. Same amount. No difference."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_books",
+                          "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 10,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Fiction",
+                            "Nonfiction",
+                            "Comics",
+                            "Poetry"
+                          ],
+                          "values": [
+                            50,
+                            30,
+                            40,
+                            20
+                          ],
+                          "highlight_categories": [
+                            "Fiction"
+                          ]
+                        },
+                        {
+                          "tangible_id": "combined_total_display",
+                          "description": "Text overlay showing 'Nonfiction + Poetry = 50'.",
+                          "tangible_type": "text_overlay",
+                          "text": "Nonfiction + Poetry = 50"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_books",
+                "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale of 10, axis 0-60. Fiction=50, Nonfiction=30, Comics=40, Poetry=20. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Fiction",
+                  "Nonfiction",
+                  "Comics",
+                  "Poetry"
+                ],
+                "values": [
+                  50,
+                  30,
+                  40,
+                  20
+                ],
+                "highlight_categories": [
+                  "Fiction"
+                ]
+              },
+              {
+                "tangible_id": "combined_total_display",
+                "description": "Text overlay showing 'Nonfiction + Poetry = 50'.",
+                "tangible_type": "text_overlay",
+                "text": "Nonfiction + Poetry = 50"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s3_ec3_two_step_step1",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_books",
+            "params": {
+              "description": "Previous graph clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "combined_total_display",
+            "params": {
+              "description": "Combined total display clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_fieldtrip",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "axis_range": [
+                0,
+                60
+              ],
+              "categories": [
+                "Aquarium",
+                "Museum",
+                "Zoo",
+                "Park",
+                "Farm"
+              ],
+              "values": [
+                35,
+                25,
+                45,
+                30,
+                15
+              ],
+              "description": "Vertical bar graph appears. Votes for Field Trip. Scale of 5, axis 0-60. Five categories: Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "How many fewer votes did the museum and farm combined get than the zoo?"
+          },
+          {
+            "type": "prompt",
+            "text": "What should we find first?",
+            "tool": "multiple_choice",
+            "options": [
+              "Add museum and farm",
+              "Compare zoo to museum",
+              "Add all five places",
+              "Subtract farm from museum"
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": "Add museum and farm"
+                },
+                "description": "Student selected add museum and farm, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "Combine museum and farm first."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_fieldtrip",
+                          "description": "Vertical bar graph. Votes for Field Trip. Scale of 5, axis 0-60. Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Aquarium",
+                            "Museum",
+                            "Zoo",
+                            "Park",
+                            "Farm"
+                          ],
+                          "values": [
+                            35,
+                            25,
+                            45,
+                            30,
+                            15
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_fieldtrip",
+                "description": "Vertical bar graph in reading mode. Votes for Field Trip. Scale of 5, axis 0-60. Five categories: Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Aquarium",
+                  "Museum",
+                  "Zoo",
+                  "Park",
+                  "Farm"
+                ],
+                "values": [
+                  35,
+                  25,
+                  45,
+                  30,
+                  15
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_fieldtrip",
+            "params": {
+              "highlight_categories": [
+                "Museum",
+                "Farm"
+              ],
+              "description": "Museum bar (25) and Farm bar (15) highlight."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "What's the combined total of votes for the museum and farm?"
+          },
+          {
+            "type": "prompt",
+            "text": "How many votes did museum and farm get combined?",
+            "tool": "multiple_choice",
+            "options": [
+              10,
+              30,
+              40,
+              45
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 40
+                },
+                "description": "Student selected 40, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "40 combined."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_fieldtrip",
+                          "description": "Vertical bar graph. Votes for Field Trip. Museum and Farm bars highlighted. Scale of 5, axis 0-60. Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Aquarium",
+                            "Museum",
+                            "Zoo",
+                            "Park",
+                            "Farm"
+                          ],
+                          "values": [
+                            35,
+                            25,
+                            45,
+                            30,
+                            15
+                          ],
+                          "highlight_categories": [
+                            "Museum",
+                            "Farm"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_fieldtrip",
+                "description": "Vertical bar graph. Votes for Field Trip. Museum and Farm bars highlighted. Scale of 5, axis 0-60. Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Aquarium",
+                  "Museum",
+                  "Zoo",
+                  "Park",
+                  "Farm"
+                ],
+                "values": [
+                  35,
+                  25,
+                  45,
+                  30,
+                  15
+                ],
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_fieldtrip",
+            "params": {
+              "highlight_categories": [
+                "Zoo"
+              ],
+              "description": "Zoo bar (45) highlights."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "combined_total_display",
+            "tangible_type": "text_overlay",
+            "params": {
+              "text": "Museum + Farm = 40",
+              "description": "Combined value (40) displayed on screen."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Museum and farm combined is 40. Now find how many fewer votes they got than the zoo."
+          },
+          {
+            "type": "prompt",
+            "text": "How many fewer votes did the museum and farm combined get than the zoo?",
+            "tool": "multiple_choice",
+            "options": [
+              85,
+              45,
+              40,
+              5
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 5
+                },
+                "description": "Student selected 5, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_fieldtrip",
+                          "description": "Vertical bar graph. Votes for Field Trip. Zoo bar highlighted. Scale of 5, axis 0-60. Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "axis_range": [
+                            0,
+                            60
+                          ],
+                          "categories": [
+                            "Aquarium",
+                            "Museum",
+                            "Zoo",
+                            "Park",
+                            "Farm"
+                          ],
+                          "values": [
+                            35,
+                            25,
+                            45,
+                            30,
+                            15
+                          ],
+                          "highlight_categories": [
+                            "Zoo"
+                          ]
+                        },
+                        {
+                          "tangible_id": "combined_total_display",
+                          "description": "Text overlay showing 'Museum + Farm = 40'.",
+                          "tangible_type": "text_overlay",
+                          "text": "Museum + Farm = 40"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_fieldtrip",
+                "description": "Vertical bar graph. Votes for Field Trip. Zoo bar highlighted. Scale of 5, axis 0-60. Aquarium=35, Museum=25, Zoo=45, Park=30, Farm=15. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "axis_range": [
+                  0,
+                  60
+                ],
+                "categories": [
+                  "Aquarium",
+                  "Museum",
+                  "Zoo",
+                  "Park",
+                  "Farm"
+                ],
+                "values": [
+                  35,
+                  25,
+                  45,
+                  30,
+                  15
+                ],
+                "highlight_categories": [
+                  "Zoo"
+                ]
+              },
+              {
+                "tangible_id": "combined_total_display",
+                "description": "Text overlay showing 'Museum + Farm = 40'.",
+                "tangible_type": "text_overlay",
+                "text": "Museum + Farm = 40"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s4_ec4_transfer_scale2",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_fieldtrip",
+            "params": {
+              "description": "Previous graph clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "combined_total_display",
+            "params": {
+              "description": "Combined total display clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_booksweek",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "axis_range": [
+                0,
+                16
+              ],
+              "categories": [
+                "Maya",
+                "Ben",
+                "Carla",
+                "David"
+              ],
+              "values": [
+                14,
+                9,
+                11,
+                6
+              ],
+              "description": "Vertical bar graph appears. Books Read This Week. Scale of 2, axis 0-16. Four categories: Maya=14, Ben=9, Carla=11, David=6."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Different graph, different scale. Use what you know."
+          },
+          {
+            "type": "prompt",
+            "text": "How many books did Maya and Ben read together?",
+            "tool": "multiple_choice",
+            "options": [
+              23,
+              5,
+              14,
+              22
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 23
+                },
+                "description": "Student selected 23, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "23 books together."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_booksweek",
+                          "description": "Vertical bar graph. Books Read This Week. Scale of 2, axis 0-16. Maya=14, Ben=9, Carla=11, David=6.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 2,
+                          "axis_range": [
+                            0,
+                            16
+                          ],
+                          "categories": [
+                            "Maya",
+                            "Ben",
+                            "Carla",
+                            "David"
+                          ],
+                          "values": [
+                            14,
+                            9,
+                            11,
+                            6
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_booksweek",
+                "description": "Vertical bar graph in reading mode. Books Read This Week. Scale of 2, axis 0-16. Maya=14, Ben=9, Carla=11, David=6. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 2,
+                "axis_range": [
+                  0,
+                  16
+                ],
+                "categories": [
+                  "Maya",
+                  "Ben",
+                  "Carla",
+                  "David"
+                ],
+                "values": [
+                  14,
+                  9,
+                  11,
+                  6
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "update",
+            "tangible_id": "bar_graph_booksweek",
+            "params": {
+              "highlight_categories": [
+                "Carla"
+              ],
+              "description": "Carla bar (11) highlights."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "combined_total_display",
+            "tangible_type": "text_overlay",
+            "params": {
+              "text": "Maya + Ben = 23",
+              "description": "Combined value (23) displayed on screen."
+            }
+          },
+          {
+            "type": "prompt",
+            "text": "How many MORE books did Maya and Ben read together than Carla?",
+            "tool": "multiple_choice",
+            "options": [
+              34,
+              12,
+              23,
+              17
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 12
+                },
+                "description": "Student selected 12, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "12 more. You found the combined total first, then compared."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_booksweek",
+                          "description": "Vertical bar graph. Books Read This Week. Carla bar highlighted. Scale of 2, axis 0-16. Maya=14, Ben=9, Carla=11, David=6.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 2,
+                          "axis_range": [
+                            0,
+                            16
+                          ],
+                          "categories": [
+                            "Maya",
+                            "Ben",
+                            "Carla",
+                            "David"
+                          ],
+                          "values": [
+                            14,
+                            9,
+                            11,
+                            6
+                          ],
+                          "highlight_categories": [
+                            "Carla"
+                          ]
+                        },
+                        {
+                          "tangible_id": "combined_total_display",
+                          "description": "Text overlay showing 'Maya + Ben = 23'.",
+                          "tangible_type": "text_overlay",
+                          "text": "Maya + Ben = 23"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_booksweek",
+                "description": "Vertical bar graph. Books Read This Week. Carla bar highlighted. Scale of 2, axis 0-16. Maya=14, Ben=9, Carla=11, David=6. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 2,
+                "axis_range": [
+                  0,
+                  16
+                ],
+                "categories": [
+                  "Maya",
+                  "Ben",
+                  "Carla",
+                  "David"
+                ],
+                "values": [
+                  14,
+                  9,
+                  11,
+                  6
+                ],
+                "highlight_categories": [
+                  "Carla"
+                ]
+              },
+              {
+                "tangible_id": "combined_total_display",
+                "description": "Text overlay showing 'Maya + Ben = 23'.",
+                "tangible_type": "text_overlay",
+                "text": "Maya + Ben = 23"
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s5_exit_check_closure",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_booksweek",
+            "params": {
+              "description": "Final graph clears."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "combined_total_display",
+            "params": {
+              "description": "Combined total display clears."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You're ready to practice."
+          },
+          {
+            "type": "current_scene",
+            "elements": []
+          }
+        ]
+      ]
+    }
+  ]
+}

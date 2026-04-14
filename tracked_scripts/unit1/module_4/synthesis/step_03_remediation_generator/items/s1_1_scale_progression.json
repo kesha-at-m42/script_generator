@@ -1,0 +1,71 @@
+{
+  "id": "s1_1_scale_progression",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong graph on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the lines on each graph's axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong graph on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "highlight_categories": [
+                  "Amount"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The scale of 1 has 20 lines. The scale of 10 has only 2 lines."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong graph three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "event": "highlight_graph",
+                "status": "confirmed",
+                "description": "Scale of 10 graph highlights. Tick marks at 0, 10, 20 pulse to show only 2 lines needed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The scale of 10 uses the fewest lines. Count them: 0, 10, 20. That's just 2 tick marks to show 20. The other graphs need more lines because their scales are smaller."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:23.308156+00:00"
+}

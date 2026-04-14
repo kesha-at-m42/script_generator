@@ -1,0 +1,106 @@
+{
+  "id": "s1_3_identify_column_expression",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "5 × 4"
+        },
+        "description": "Student selected 5 × 4. This describes the array by rows, not columns.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_5x4",
+              "params": {
+                "event": "highlight_columns",
+                "status": "proposed",
+                "description": "System highlights columns, one at a time."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the rows way. Look at columns now. How many columns are there? Each column has how many dots?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 × 4"
+        },
+        "description": "Student selected 4 × 4. This matches the number of columns but not the number in each column.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_5x4",
+              "params": {
+                "event": "highlight_columns",
+                "status": "proposed",
+                "description": "System highlights one column."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're right that there are 4 columns. But count how many dots are in each column. Is it 4 or 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 × 5"
+        },
+        "description": "Student selected 5 × 5. This matches the number in each column but not the number of columns.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_5x4",
+              "params": {
+                "event": "highlight_columns",
+                "status": "proposed",
+                "description": "System highlights all columns."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're right that each column has 5 dots. But count the columns. Are there 5 columns or 4 columns?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_5x4",
+              "params": {
+                "event": "highlight_columns",
+                "status": "confirmed",
+                "description": "System highlights columns one at a time, then shows 4 × 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to think about this. I count the columns: 1, 2, 3, 4. Four columns. Each column has 5 dots. So by columns, it's 4 times 5. The answer is 4 × 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T16:51:09.326709+00:00"
+}

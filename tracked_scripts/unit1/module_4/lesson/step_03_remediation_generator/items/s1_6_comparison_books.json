@@ -1,0 +1,112 @@
+{
+  "id": "s1_6_comparison_books",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20: likely read the Comics value instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars remain highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. We need the difference between the two categories, not just one value. Find how much more Nonfiction has than Comics."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60: likely read the Nonfiction value instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars remain highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. That's the Nonfiction total. We need to find how many more Nonfiction books there are than Comics books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 80
+        },
+        "description": "Student selected 80: likely added the two values instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars remain highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: we're looking for the difference, not the total. Nonfiction is 60, Comics is 20. How much bigger is 60 than 20?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "Visual shows the gap between Nonfiction bar (60) and Comics bar (20), highlighting the 40-unit difference."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Nonfiction has 60 books. Comics has 20 books. To find how many more, we subtract: 60 minus 20 equals 40. The answer is 40."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:46:58.289879+00:00"
+}

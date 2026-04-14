@@ -1,0 +1,487 @@
+[
+  {
+    "id": "ec_transition",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You read picture graphs and bar graphs. You solved comparison problems and found totals. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_1_read_value",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_snacks",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 1,
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Crackers",
+              "Fruit"
+            ],
+            "values": [
+              5,
+              3,
+              7,
+              4
+            ],
+            "description": "Vertical picture graph appears. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Key: each symbol = 1 vote."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at this Popular Snacks picture graph. How many students chose crackers?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many students chose crackers?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            4,
+            5,
+            7
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 7
+              },
+              "description": "Student selected 7 — correct, Crackers value",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "7 students chose crackers."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph. Popular Snacks data. Crackers row shows 7 votes. Correct response acknowledged.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Crackers",
+                          "Fruit"
+                        ],
+                        "values": [
+                          5,
+                          3,
+                          7,
+                          4
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph in reading mode. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Crackers",
+                "Fruit"
+              ],
+              "values": [
+                5,
+                3,
+                7,
+                4
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_2_find_fewest",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_seasons",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 1,
+            "categories": [
+              "Spring",
+              "Summer",
+              "Fall",
+              "Winter"
+            ],
+            "values": [
+              6,
+              9,
+              4,
+              5
+            ],
+            "axis_range": [
+              0,
+              10
+            ],
+            "description": "Horizontal bar graph appears. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis marked 0-10 by 1s."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at this Favorite Seasons bar graph. Click on which season the fewest students like."
+        },
+        {
+          "type": "prompt",
+          "text": "Click on which season the fewest students like.",
+          "tool": "click_category",
+          "target": "bar_graph_seasons",
+          "validator": [
+            {
+              "condition": {
+                "selected": "Fall"
+              },
+              "description": "Student clicked Fall — correct, 4 votes is the fewest",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Fall got the fewest, only 4 votes."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_seasons",
+                        "description": "Horizontal bar graph. Favorite Seasons data. Fall category highlighted, showing 4 votes as the fewest.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "categories": [
+                          "Spring",
+                          "Summer",
+                          "Fall",
+                          "Winter"
+                        ],
+                        "values": [
+                          6,
+                          9,
+                          4,
+                          5
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_seasons",
+              "description": "Horizontal bar graph in reading mode. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis 0-10. Click category tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "categories": [
+                "Spring",
+                "Summer",
+                "Fall",
+                "Winter"
+              ],
+              "values": [
+                6,
+                9,
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_3_how_many_more",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_books",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 1,
+            "categories": [
+              "Ava",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              8,
+              5,
+              6,
+              3
+            ],
+            "axis_range": [
+              0,
+              8
+            ],
+            "description": "Vertical bar graph appears. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis marked 0-8 by 1s."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many more books did Ava read than Dan?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many more books did Ava read than Dan?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            5,
+            8,
+            11
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 5
+              },
+              "description": "Student selected 5 — correct, 8 minus 3 equals 5",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "5 more books. Ava read 8, Dan read 3. The difference is 5."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_books",
+                        "description": "Vertical bar graph. Books Read This Week data. Ava and Dan bars highlighted, showing the difference of 5.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "categories": [
+                          "Ava",
+                          "Ben",
+                          "Cara",
+                          "Dan"
+                        ],
+                        "values": [
+                          8,
+                          5,
+                          6,
+                          3
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis 0-8. Multiple choice prompt active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Ava",
+                "Ben",
+                "Cara",
+                "Dan"
+              ],
+              "values": [
+                8,
+                5,
+                6,
+                3
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_4_in_all",
+    "scene": [
+      "bar_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Look at this Books Read This Week bar graph. How many books did Ben and Cara read in all?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many books did Ben and Cara read in all?",
+          "tool": "multiple_choice",
+          "options": [
+            6,
+            9,
+            11,
+            14
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 11
+              },
+              "description": "Student selected 11 — correct, 5 plus 6 equals 11",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "11 books in all. Ben read 5, Cara read 6. You added to find the total."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_books",
+                        "description": "Vertical bar graph. Books Read This Week data. Ben and Cara bars highlighted, showing the total of 11.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "categories": [
+                          "Ava",
+                          "Ben",
+                          "Cara",
+                          "Dan"
+                        ],
+                        "values": [
+                          8,
+                          5,
+                          6,
+                          3
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Multiple choice prompt active asking about Ben and Cara's combined total.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Ava",
+                "Ben",
+                "Cara",
+                "Dan"
+              ],
+              "values": [
+                8,
+                5,
+                6,
+                3
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_closure",
+    "type": "transition",
+    "scene": [
+      "bar_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You're ready to practice."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_books",
+              "description": "Vertical bar graph remains visible during closure. Books Read This Week data.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Ava",
+                "Ben",
+                "Cara",
+                "Dan"
+              ],
+              "values": [
+                8,
+                5,
+                6,
+                3
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

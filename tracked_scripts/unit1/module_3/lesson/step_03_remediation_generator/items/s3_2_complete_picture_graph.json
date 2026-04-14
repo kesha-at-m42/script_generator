@@ -1,0 +1,73 @@
+{
+  "id": "s3_2_complete_picture_graph",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set at least one row incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look closely—check the data table for each person's number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set at least one row incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_books",
+              "params": {
+                "highlight_categories": [
+                  "Emma",
+                  "Noah",
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Emma read 20 books. Each symbol shows 5, so count by 5s: 5, 10, 15, 20—that's 4 symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set at least one row incorrectly three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "set_all_rows",
+                "status": "confirmed",
+                "description": "System places correct number of symbols: Emma 4, Noah 5, Olivia 8"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Emma: 20 books, skip-count by 5s—that's 4 symbols. Noah: 25 books—that's 5 symbols. Olivia: 40 books—that's 8 symbols. Each symbol represents 5 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:49:25.767819+00:00"
+}

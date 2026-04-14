@@ -1,0 +1,973 @@
+[
+  {
+    "id": "s1_opening",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Now let's connect what you discovered."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_1_decision_checklist",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_points",
+          "tangible_type": "data_table",
+          "params": {
+            "description": "Data table appears showing Points Scored. Ana: 20, Ben: 35, Cara: 55, Dan: 80."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "scale_preview_points",
+          "tangible_type": "scale_preview_system",
+          "params": {
+            "selected_scale": 5,
+            "validation_state": "error",
+            "description": "Scale Preview System appears with Scale of 5 selected. Red X indicator shows 80 doesn't fit."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the first question you learned: Does the biggest number fit?"
+        },
+        {
+          "type": "dialogue",
+          "text": "Dan scored 80. That's too big for Scale of 5. You'd need a bigger scale."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_points",
+              "description": "Data table showing Points Scored. Ana: 20, Ben: 35, Cara: 55, Dan: 80.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "scale_preview_points",
+              "description": "Scale Preview System with Scale of 5 selected, showing error state because 80 doesn't fit.",
+              "tangible_type": "scale_preview_system",
+              "selected_scale": 5,
+              "validation_state": "error"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table_points"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "scale_preview_points"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_stickers",
+          "tangible_type": "data_table",
+          "params": {
+            "description": "Data table appears showing Stickers Collected. Eli: 7, Fay: 12, Gus: 19, Hal: 23."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "scale_preview_stickers",
+          "tangible_type": "scale_preview_system",
+          "params": {
+            "selected_scale": 5,
+            "validation_state": "warning",
+            "description": "Scale Preview System with Scale of 5 selected. Warning indicator shows can't be shown exactly."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the second question: Do all the numbers end in 0 or 5?"
+        },
+        {
+          "type": "dialogue",
+          "text": "7, 12, 19, 23. None of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check FIRST?"
+        },
+        {
+          "type": "prompt",
+          "text": "Which question should you check FIRST?",
+          "tool": "multiple_choice",
+          "options": [
+            "Does the biggest number fit?",
+            "Do the numbers end in 0 or 5?"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Does the biggest number fit?"
+              },
+              "description": "Student selected checking fit first, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Right. Check if it fits first. That tells you which scales are even possible. Then check the digits."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_stickers",
+                        "description": "Data table showing Stickers Collected. Eli: 7, Fay: 12, Gus: 19, Hal: 23.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "scale_preview_stickers",
+                        "description": "Scale Preview System with Scale of 5 selected, showing warning state.",
+                        "tangible_type": "scale_preview_system",
+                        "selected_scale": 5,
+                        "validation_state": "warning"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Do the numbers end in 0 or 5?"
+              },
+              "description": "Student selected checking digits first instead of checking if biggest number fits",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_stickers",
+                    "params": {
+                      "highlight_categories": [
+                        "Hal"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. If the biggest number doesn't fit, the scale won't work at all. Check that first."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "scale_preview_stickers",
+                    "params": {
+                      "event": "highlight_max_value_check",
+                      "status": "confirmed",
+                      "description": "Scale Preview System highlights the maximum value check, showing 23 fits on Scale of 5"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. First, check if the biggest number fits. Here, 23 fits on Scale of 5. If it didn't fit, that scale wouldn't work at all. After you know it fits, then you check if the numbers end in 0 or 5."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_stickers",
+              "description": "Data table showing Stickers Collected. Eli: 7, Fay: 12, Gus: 19, Hal: 23.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "scale_preview_stickers",
+              "description": "Scale Preview System with Scale of 5 selected, showing warning state. Multiple choice prompt active.",
+              "tangible_type": "scale_preview_system",
+              "selected_scale": 5,
+              "validation_state": "warning"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_scale_strengths",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table_stickers"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "scale_preview_stickers"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale1",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 1,
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "values": [
+              20,
+              40,
+              60
+            ],
+            "description": "Vertical bar graph with Scale of 1. Shows Apples: 20, Bananas: 40, Cherries: 60. Many tick marks visible."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale2",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "values": [
+              20,
+              40,
+              60
+            ],
+            "description": "Vertical bar graph with Scale of 2. Shows Apples: 20, Bananas: 40, Cherries: 60. Many tick marks visible."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale5",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "values": [
+              20,
+              40,
+              60
+            ],
+            "description": "Vertical bar graph with Scale of 5. Shows Apples: 20, Bananas: 40, Cherries: 60. Medium number of tick marks."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale10",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "values": [
+              20,
+              40,
+              60
+            ],
+            "description": "Vertical bar graph with Scale of 10. Shows Apples: 20, Bananas: 40, Cherries: 60. Fewest tick marks, cleanest appearance."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the same data shown four different ways. Look at the differences."
+        },
+        {
+          "type": "dialogue",
+          "text": "Scale of 1 has the most lines. Scale of 10 has the fewest. All four show the same information. Which graph is easiest to read?"
+        },
+        {
+          "type": "prompt",
+          "text": "Which graph is easiest to read?",
+          "tool": "click_tangible",
+          "target": [
+            "bar_graph_scale1",
+            "bar_graph_scale2",
+            "bar_graph_scale5",
+            "bar_graph_scale10"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "bar_graph_scale10"
+              },
+              "description": "Student clicked Scale of 10 graph, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_scale10",
+                    "params": {
+                      "highlight": true,
+                      "description": "Scale of 10 graph highlights to confirm selection."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 10 is easiest to read here. Fewer lines makes it quicker to read. When all your numbers end in 0 or 5, the bigger scale is usually cleaner."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 1 and 2 are for smaller data. They show every number exactly. Scale of 5 and 10 are for bigger data. They're cleaner and easier to read."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "bar_graph_scale1",
+                        "description": "Vertical bar graph with Scale of 1. Apples: 20, Bananas: 40, Cherries: 60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 1,
+                        "categories": [
+                          "Apples",
+                          "Bananas",
+                          "Cherries"
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_scale2",
+                        "description": "Vertical bar graph with Scale of 2. Apples: 20, Bananas: 40, Cherries: 60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Apples",
+                          "Bananas",
+                          "Cherries"
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_scale5",
+                        "description": "Vertical bar graph with Scale of 5. Apples: 20, Bananas: 40, Cherries: 60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 5,
+                        "categories": [
+                          "Apples",
+                          "Bananas",
+                          "Cherries"
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_scale10",
+                        "description": "Vertical bar graph with Scale of 10. Apples: 20, Bananas: 40, Cherries: 60. Highlighted as selected.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Apples",
+                          "Bananas",
+                          "Cherries"
+                        ],
+                        "highlight": true
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student clicked a wrong scale on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Look closely. Which graph has the fewest lines on the side?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student clicked a wrong scale on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "bar_graph_scale10",
+                    "params": {
+                      "highlight": true,
+                      "description": "Scale of 10 graph highlights to show fewer tick marks."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Count the lines on each graph. The one with the fewest lines is cleaner and easier to read quickly."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student clicked a wrong scale three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_scale10",
+                    "params": {
+                      "event": "highlight_selection",
+                      "status": "confirmed",
+                      "description": "Scale of 10 graph animates to show it is the correct answer."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Scale of 10 has the fewest lines. That makes it easiest to read. When your data uses big numbers like 20, 40, 60, a bigger scale keeps the graph clean. Click Scale of 10."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_scale1",
+              "description": "Vertical bar graph with Scale of 1. Apples: 20, Bananas: 40, Cherries: 60. Click target active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 1,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_scale2",
+              "description": "Vertical bar graph with Scale of 2. Apples: 20, Bananas: 40, Cherries: 60. Click target active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_scale5",
+              "description": "Vertical bar graph with Scale of 5. Apples: 20, Bananas: 40, Cherries: 60. Click target active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_scale10",
+              "description": "Vertical bar graph with Scale of 10. Apples: 20, Bananas: 40, Cherries: 60. Click target active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_real_world_connection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "bar_graph_scale1"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "bar_graph_scale2"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "bar_graph_scale5"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "bar_graph_scale10"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_steps",
+          "tangible_type": "data_table",
+          "params": {
+            "description": "Data table showing Daily Steps. Mon: 4500, Tue: 3200, Wed: 5100, Thu: 2800."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_coins",
+          "tangible_type": "data_table",
+          "params": {
+            "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_books",
+          "tangible_type": "data_table",
+          "params": {
+            "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "People collect data about all kinds of things. Look at these three tables. Which data would HAVE to use Scale of 2?"
+        },
+        {
+          "type": "prompt",
+          "text": "Which data would HAVE to use Scale of 2?",
+          "tool": "click_tangible",
+          "target": [
+            "data_table_steps",
+            "data_table_coins",
+            "data_table_books"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "data_table_coins"
+              },
+              "description": "Student clicked Coins table, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_coins",
+                    "params": {
+                      "highlight": true,
+                      "description": "Coins table highlights to confirm selection."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "The coin counts. 7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Remember this quick check: Do all the numbers end in 0 or 5? If yes, you have options. If no and the numbers are small, Scale of 2 is your go-to."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_steps",
+                        "description": "Data table showing Daily Steps. Mon: 4500, Tue: 3200, Wed: 5100, Thu: 2800.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "data_table_coins",
+                        "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Highlighted as selected.",
+                        "tangible_type": "data_table",
+                        "highlight": true
+                      },
+                      {
+                        "tangible_id": "data_table_books",
+                        "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+                        "tangible_type": "data_table"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student clicked a wrong table on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Not quite. Check which numbers can't be shown with Scale of 5 or 10."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student clicked a wrong table on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "data_table_coins",
+                    "params": {
+                      "highlight": true,
+                      "description": "Coins table highlights to draw attention."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Look at the coin counts: 7, 12, 19, 23. None of these end in 0 or 5, so you need Scale of 2."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student clicked a wrong table three or more times. System models the answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "data_table_coins",
+                    "params": {
+                      "event": "highlight_values",
+                      "status": "confirmed",
+                      "description": "Each coin value highlights in sequence: 7, 12, 19, 23."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. I check each number: 7 doesn't end in 0 or 5. 12 doesn't. 19 doesn't. 23 doesn't. So the coins HAVE to use Scale of 2. Click the coins table."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_steps",
+              "description": "Data table showing Daily Steps. Mon: 4500, Tue: 3200, Wed: 5100, Thu: 2800. Click target active.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "data_table_coins",
+              "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Click target active.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "data_table_books",
+              "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40. Click target active.",
+              "tangible_type": "data_table"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_4_metacognitive_reflection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table_steps"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table_coins"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table_books"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "scale_preview_reflection",
+          "tangible_type": "scale_preview_system",
+          "params": {
+            "description": "Scale Preview System appears with all four scale buttons visible: 1, 2, 5, 10."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "What helped you most when deciding which scale to use?"
+        },
+        {
+          "type": "prompt",
+          "text": "What helped you most when deciding which scale to use?",
+          "tool": "multiple_choice",
+          "options": [
+            "Checking the biggest number first",
+            "Looking at the last digits",
+            "Trying the preview to see what happens",
+            "Thinking about which graph would be easiest to read"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Checking the biggest number first"
+              },
+              "description": "Student selected checking biggest number, validated and coached",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "That's one of the two key questions. Checking the biggest number tells you right away which scales can even work."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "scale_preview_reflection",
+                        "description": "Scale Preview System with all four scale buttons visible: 1, 2, 5, 10.",
+                        "tangible_type": "scale_preview_system"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Looking at the last digits"
+              },
+              "description": "Student selected last digits, validated and coached",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "That's one of the key checks. Spotting those last digits tells you whether you have multiples of 5 or need a smaller scale like 1 or 2."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "scale_preview_reflection",
+                        "description": "Scale Preview System with all four scale buttons visible: 1, 2, 5, 10.",
+                        "tangible_type": "scale_preview_system"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Trying the preview to see what happens"
+              },
+              "description": "Student selected preview, validated and coached toward key questions",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "The preview is helpful! And here's a shortcut: ask yourself the two key questions first. Does the biggest number fit without too many lines? Are the numbers multiples of 5? Those two checks guide you every time."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "scale_preview_reflection",
+                        "description": "Scale Preview System with all four scale buttons visible: 1, 2, 5, 10.",
+                        "tangible_type": "scale_preview_system"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Thinking about which graph would be easiest to read"
+              },
+              "description": "Student selected easiest to read, validated and coached toward key questions",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "That matters once you know your options. Start with the two key questions: Does the biggest number fit? Are the numbers multiples of 5? Then pick what's easiest to read without too many lines."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "scale_preview_reflection",
+                        "description": "Scale Preview System with all four scale buttons visible: 1, 2, 5, 10.",
+                        "tangible_type": "scale_preview_system"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "scale_preview_reflection",
+              "description": "Scale Preview System with all four scale buttons visible: 1, 2, 5, 10. Multiple choice prompt active.",
+              "tangible_type": "scale_preview_system"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_closure",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "scale_preview_reflection"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_final",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ],
+            "values": [
+              20,
+              50,
+              70
+            ],
+            "description": "Vertical bar graph with Scale of 10 appears briefly. Shows completed graph."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You learned to CHOOSE scales, not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines."
+        },
+        {
+          "type": "dialogue",
+          "text": "That's strategic thinking. You're not just following rules. You're making decisions."
+        },
+        {
+          "type": "dialogue",
+          "text": "Next time, you'll use your graphs to solve problems and answer questions. The scale you choose will help you find answers faster."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_final",
+              "description": "Vertical bar graph with Scale of 10. Shows completed graph with three categories.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Category A",
+                "Category B",
+                "Category C"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

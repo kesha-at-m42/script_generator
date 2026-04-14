@@ -1,0 +1,2415 @@
+[
+  {
+    "id": "s1_1_your_scaled_graph",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_warmup",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Oranges"
+            ],
+            "values": [
+              8,
+              6,
+              10
+            ],
+            "description": "Horizontal picture graph appears. Completed Warmup graph showing 3 categories with even values. Key visible: Each star = 2. Apples=4 symbols, Bananas=3 symbols, Oranges=5 symbols."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Oranges"
+            ],
+            "values": [
+              8,
+              6,
+              10
+            ],
+            "description": "Data table appears alongside graph showing same data in numeric format."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You already read this graph. You counted symbols. Each symbol shows 2 items. This is called a SCALED picture graph."
+        },
+        {
+          "type": "dialogue",
+          "text": "But HOW do you know each symbol shows 2? Let's find out."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_warmup",
+              "description": "Horizontal scaled picture graph in reading mode. 3 categories with even values. Key shows scale of 2.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Oranges"
+              ]
+            },
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing same data in numeric format.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_key_and_scale",
+    "scene": [
+      "picture_graph_warmup",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_warmup",
+          "params": {
+            "highlight_component": "key",
+            "description": "Key area highlighted showing 'Each star = 2'."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Every graph has a KEY. The key is like a decoder. It tells you what each symbol MEANS."
+        },
+        {
+          "type": "dialogue",
+          "text": "This key says: each star equals 2. That 2 is called the SCALE."
+        },
+        {
+          "type": "dialogue",
+          "text": "Scale of 1 means each symbol represents 1 item. So what does scale of 2 mean?"
+        },
+        {
+          "type": "prompt",
+          "text": "This graph has a scale of 2. What does that mean?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              "There are 2 symbols",
+              "Each symbol shows 2 items",
+              "There are 2 categories",
+              "Add 2 to each number"
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "Each symbol shows 2 items"
+              },
+              "description": "Student selected correct definition of scale of 2",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 2 means each symbol represents 2 items. The KEY tells you the scale. Always check the key first."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_warmup",
+                        "description": "Horizontal scaled picture graph. Key highlighted showing scale of 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Apples",
+                          "Bananas",
+                          "Oranges"
+                        ]
+                      },
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table visible alongside graph.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_warmup",
+              "description": "Horizontal picture graph with key highlighted. Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Oranges"
+              ]
+            },
+            {
+              "tangible_id": "data_table",
+              "description": "Data table visible.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_using_key_to_read",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_playground",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Swings",
+              "Slide",
+              "Monkey Bars",
+              "Sandbox"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Vertical picture graph appears. Favorite Playground Equipment with 4 categories. Key highlighted: Each star = 2 votes. Swings=4 symbols, Slide=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_playground",
+          "params": {
+            "highlight_component": "key"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "New graph. First step: check the key. What is the scale of this graph?"
+        },
+        {
+          "type": "prompt",
+          "text": "What is the scale of this graph?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              1,
+              2,
+              4,
+              5
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 2
+              },
+              "description": "Student correctly identified scale of 2",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 2. Each symbol equals 2 votes. Now you can read the graph."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_playground",
+                        "description": "Vertical picture graph. Key showing scale of 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Swings",
+                          "Slide",
+                          "Monkey Bars",
+                          "Sandbox"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_playground",
+              "description": "Vertical picture graph with key highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Swings",
+                "Slide",
+                "Monkey Bars",
+                "Sandbox"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_playground",
+          "params": {
+            "highlight_categories": [
+              "Monkey Bars"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Monkey Bars has 5 symbols. Each symbol equals 2. So how many voted for Monkey Bars?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many students chose Monkey Bars?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              5,
+              7,
+              10,
+              12
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 10
+              },
+              "description": "Student correctly calculated 5 symbols times scale of 2 equals 10",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "10 students. 5 symbols, scale of 2. Count by 2s: 2, 4, 6, 8, 10."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_playground",
+                        "description": "Vertical picture graph. Monkey Bars highlighted showing 5 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Swings",
+                          "Slide",
+                          "Monkey Bars",
+                          "Sandbox"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_playground",
+              "description": "Vertical picture graph. Monkey Bars category highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Swings",
+                "Slide",
+                "Monkey Bars",
+                "Sandbox"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_4_create_guided_popcorn",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_snacks",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "orientation": "vertical",
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Fruit",
+              "Crackers",
+              "Chips"
+            ],
+            "values": [
+              8,
+              10,
+              12,
+              14,
+              10
+            ],
+            "description": "Vertical data table appears showing Favorite Snacks data. Popcorn=8, Pretzels=10, Fruit=12, Crackers=14, Chips=10."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_snacks",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Fruit",
+              "Crackers",
+              "Chips"
+            ],
+            "prefilled_categories": [
+              "Pretzels",
+              "Fruit",
+              "Crackers"
+            ],
+            "prefilled_values": [
+              10,
+              12,
+              14
+            ],
+            "description": "Empty vertical picture graph template appears with scale of 2. Pretzels=5 symbols, Fruit=6 symbols, Crackers=7 symbols already filled. Popcorn and Chips columns empty."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you create. The table shows 8 students chose Popcorn."
+        },
+        {
+          "type": "dialogue",
+          "text": "8 is an EVEN number. It groups perfectly into 2s. 8 splits into 4 groups of 2. Place 4 symbols for Popcorn."
+        },
+        {
+          "type": "prompt",
+          "text": "Place 4 symbols for Popcorn.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_snacks",
+            "category": "Popcorn",
+            "expected_count": 4
+          },
+          "validator": [
+            {
+              "condition": {
+                "symbols_placed": 4,
+                "category": "Popcorn"
+              },
+              "description": "Student correctly placed 4 symbols for Popcorn (8 votes)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "4 symbols. Each shows 2 votes. 4 groups of 2 is 8."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_snacks",
+                        "description": "Data table showing Favorite Snacks values.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      },
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph. Popcorn now shows 4 symbols (student-placed). Pretzels, Fruit, Crackers pre-filled. Chips still empty.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Fruit",
+                          "Crackers",
+                          "Chips"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_snacks",
+              "description": "Data table visible showing Favorite Snacks data.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            },
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph in creating mode. Popcorn column ready for symbol placement. Pretzels, Fruit, Crackers pre-filled.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Fruit",
+                "Crackers",
+                "Chips"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_5_create_chips",
+    "scene": [
+      "data_table_snacks",
+      "picture_graph_snacks"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Good work on Popcorn. Now try Chips. The table shows 10 students chose Chips."
+        },
+        {
+          "type": "dialogue",
+          "text": "10 is also an EVEN number. It groups into 2s perfectly. Place symbols for Chips."
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for Chips.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_snacks",
+            "category": "Chips",
+            "expected_count": 5
+          },
+          "validator": [
+            {
+              "condition": {
+                "symbols_placed": 5,
+                "category": "Chips"
+              },
+              "description": "Student correctly placed 5 symbols for Chips (10 votes)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "5 symbols for 10 votes. You're getting this. Group by 2s, and even numbers give us whole symbols."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_snacks",
+                        "description": "Data table showing Favorite Snacks values.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      },
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph now complete. All 5 categories filled with symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Fruit",
+                          "Crackers",
+                          "Chips"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_snacks",
+              "description": "Data table visible.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            },
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph. Popcorn filled with 4 symbols. Pretzels, Fruit, Crackers pre-filled. Chips column ready for placement.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Fruit",
+                "Crackers",
+                "Chips"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_6_checking_graph_two_step",
+    "scene": [
+      "picture_graph_snacks"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_snacks"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_snacks",
+          "params": {
+            "mode": "reading"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You made a scaled graph. Let's check: which snack got the most votes?"
+        },
+        {
+          "type": "prompt",
+          "text": "Click on the category with the most votes.",
+          "tool": {
+            "name": "click_category",
+            "target": "picture_graph_snacks"
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "Crackers"
+              },
+              "description": "Student clicked Crackers (7 symbols, 14 votes)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Crackers has the most symbols."
+                  },
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_snacks",
+                    "params": {
+                      "highlight_categories": [
+                        "Crackers"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph. Crackers category highlighted showing 7 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Fruit",
+                          "Crackers",
+                          "Chips"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph in reading mode. Completed Favorite Snacks graph. Key visible. Data table hidden.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Fruit",
+                "Crackers",
+                "Chips"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "How many votes did Crackers get?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many votes did Crackers get?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              7,
+              9,
+              14,
+              16
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 14
+              },
+              "description": "Student correctly calculated 7 symbols times 2 equals 14 votes",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "14 votes. You counted 7 symbols, and each symbol equals 2. 7 groups of 2 is 14."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph. Crackers highlighted showing 7 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Fruit",
+                          "Crackers",
+                          "Chips"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph. Crackers highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Fruit",
+                "Crackers",
+                "Chips"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_7_how_many_more",
+    "scene": [
+      "picture_graph_snacks"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_snacks",
+          "params": {
+            "highlight_categories": [
+              "Crackers",
+              "Popcorn"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many MORE students chose Crackers than Popcorn?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many MORE students chose Crackers than Popcorn?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              3,
+              6,
+              14,
+              22
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 6
+              },
+              "description": "Student correctly calculated 14 minus 8 equals 6",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "6 more students. Crackers has 14, Popcorn has 8. The difference is 6."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_snacks",
+                        "description": "Vertical picture graph. Crackers and Popcorn highlighted for comparison.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Popcorn",
+                          "Pretzels",
+                          "Fruit",
+                          "Crackers",
+                          "Chips"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_snacks",
+              "description": "Vertical picture graph. Crackers and Popcorn categories highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Popcorn",
+                "Pretzels",
+                "Fruit",
+                "Crackers",
+                "Chips"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_transition",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made graphs with numbers like 8, 10, 12, 14. Those are EVEN numbers. They group into 2s perfectly. But what happens with ODD numbers?"
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_1_problem_with_7",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_animals",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "orientation": "horizontal",
+            "categories": [
+              "Birds",
+              "Squirrels",
+              "Rabbits",
+              "Deer"
+            ],
+            "values": [
+              7,
+              10,
+              8,
+              6
+            ],
+            "description": "Horizontal data table appears showing Animals We Saw data. Birds=7, Squirrels=10, Rabbits=8, Deer=6."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "The Key shows Each star equals 2 so we need to group into 2s to make the graph. Look at Birds: 7 sightings. Let's try to group 7 into 2s."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "data_table_animals",
+          "params": {
+            "event": "grouping_animation_odd",
+            "status": "proposed",
+            "description": "Animation begins showing 7 items attempting to group into 2s. Groups form: 2, 2, 2... 1 left over."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "7 items... 3 groups of 2... and 1 left over."
+        },
+        {
+          "type": "dialogue",
+          "text": "We have 6 put into groups of 2, but 1 more. What do we do with that 1?"
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "data_table_animals",
+          "params": {
+            "event": "grouping_animation_odd",
+            "status": "confirmed",
+            "description": "Animation completes showing 3 full groups and 1 item remaining ungrouped."
+          }
+        },
+        {
+          "type": "prompt",
+          "text": "7 makes 3 full groups of 2, with 1 left over. How do we show 1 with our symbols?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              "Ignore the leftover",
+              "Use a half-symbol for 1",
+              "Round up to 8"
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "Use a half-symbol for 1"
+              },
+              "description": "Student identified half-symbol as solution for odd remainder",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "A half-symbol shows 1 item. Let's see how that works."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_animals",
+                        "description": "Horizontal data table showing Animals We Saw data. Grouping animation complete showing 3 groups plus 1 leftover.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_animals",
+              "description": "Horizontal data table with grouping animation showing the problem with 7. Multiple choice active.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_2_half_symbol_teaching",
+    "scene": [
+      "data_table_animals"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_animals",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Birds",
+              "Squirrels",
+              "Rabbits",
+              "Deer"
+            ],
+            "values": [
+              7,
+              10,
+              8,
+              6
+            ],
+            "description": "Horizontal picture graph appears showing half-symbol solution. Birds row shows 3 full symbols plus 1 half-symbol."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_animals",
+          "params": {
+            "event": "half_symbol_demonstration",
+            "status": "proposed",
+            "description": "Animation begins. Key highlighted showing Each star = 2. 3 full symbols appear for 6 items."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_animals",
+          "params": {
+            "event": "half_symbol_demonstration",
+            "status": "confirmed",
+            "description": "Half-symbol appears for the remaining 1 item. Animation completes showing 3 full plus 1 half symbol equals 7."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Half of 2 is 1. This half-symbol shows 1 item."
+        },
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_animals"
+        },
+        {
+          "type": "dialogue",
+          "text": "How many sightings does 3 and a half symbols show?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many sightings does 3 and a half symbols show?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              3,
+              6,
+              7,
+              8
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 7
+              },
+              "description": "Student correctly calculated 3 full symbols plus half-symbol equals 7",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "7 sightings. 3 full symbols show 6, plus the half-symbol shows 1 more. 6 plus 1 is 7."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_animals",
+                        "description": "Horizontal picture graph. Birds row showing 3.5 symbols representing 7 sightings.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Birds",
+                          "Squirrels",
+                          "Rabbits",
+                          "Deer"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_animals",
+              "description": "Horizontal picture graph showing Birds with 3.5 symbols. Half-symbol demonstration complete. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Birds",
+                "Squirrels",
+                "Rabbits",
+                "Deer"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_3_create_with_half_symbols",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_animals_symbol",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "symbol",
+            "orientation": "horizontal",
+            "categories": [
+              "Birds",
+              "Squirrels",
+              "Rabbits",
+              "Deer"
+            ],
+            "values": [
+              7,
+              10,
+              8,
+              6
+            ],
+            "scale": 2,
+            "description": "Horizontal data table appears in symbol display mode showing Animals We Saw data with grouped symbols."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_animals_create",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Birds",
+              "Squirrels",
+              "Rabbits",
+              "Deer"
+            ],
+            "prefilled_categories": [
+              "Squirrels",
+              "Deer"
+            ],
+            "prefilled_values": [
+              10,
+              6
+            ],
+            "description": "Horizontal picture graph template appears. Squirrels=5 symbols and Deer=3 symbols pre-filled. Birds and Rabbits rows empty."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you place the symbols to show 7 Bird sightings. Place symbols for Birds. Remember: 7 needs 3 full symbols and 1 half-symbol."
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for Birds.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_animals_create",
+            "category": "Birds",
+            "expected_count": 3.5
+          },
+          "validator": [
+            {
+              "condition": {
+                "symbols_placed": 3.5,
+                "category": "Birds"
+              },
+              "description": "Student correctly placed 3 full symbols plus 1 half-symbol for Birds (7 sightings)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "3 and a half symbols for 7. Each full symbol is 2 sightings, the half is 1 sighting. 6 plus 1 is 7."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_animals_symbol",
+                        "description": "Horizontal data table in symbol display mode.",
+                        "tangible_type": "data_table",
+                        "display_mode": "symbol"
+                      },
+                      {
+                        "tangible_id": "picture_graph_animals_create",
+                        "description": "Horizontal picture graph. Birds now shows 3.5 symbols (student-placed). Squirrels and Deer pre-filled. Rabbits still empty.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Birds",
+                          "Squirrels",
+                          "Rabbits",
+                          "Deer"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_animals_symbol",
+              "description": "Horizontal data table in symbol display mode showing Animals We Saw data.",
+              "tangible_type": "data_table",
+              "display_mode": "symbol"
+            },
+            {
+              "tangible_id": "picture_graph_animals_create",
+              "description": "Horizontal picture graph in creating mode. Birds row ready for symbol placement. Squirrels and Deer pre-filled.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Birds",
+                "Squirrels",
+                "Rabbits",
+                "Deer"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_4_complete_graph_rabbits",
+    "scene": [
+      "data_table_animals_symbol",
+      "picture_graph_animals_create"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Rabbits have 8 sightings. Does 8 need a half-symbol? Fill in the picture graph for rabbits."
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for Rabbits.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_animals_create",
+            "category": "Rabbits",
+            "expected_count": 4
+          },
+          "validator": [
+            {
+              "condition": {
+                "symbols_placed": 4,
+                "category": "Rabbits"
+              },
+              "description": "Student correctly placed 4 full symbols for Rabbits (8 sightings, no half-symbol)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "4 symbols for 8. 8 is even. It groups perfectly into 2s. No half-symbol needed."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_animals_symbol",
+                        "description": "Horizontal data table in symbol display mode.",
+                        "tangible_type": "data_table",
+                        "display_mode": "symbol"
+                      },
+                      {
+                        "tangible_id": "picture_graph_animals_create",
+                        "description": "Horizontal picture graph now complete. All 4 categories filled. Birds=3.5 symbols, Squirrels=5 symbols, Rabbits=4 symbols, Deer=3 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Birds",
+                          "Squirrels",
+                          "Rabbits",
+                          "Deer"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_animals_symbol",
+              "description": "Horizontal data table in symbol display mode.",
+              "tangible_type": "data_table",
+              "display_mode": "symbol"
+            },
+            {
+              "tangible_id": "picture_graph_animals_create",
+              "description": "Horizontal picture graph. Birds=3.5 symbols (student-placed), Squirrels=5 symbols (pre-filled), Rabbits row ready for placement, Deer=3 symbols (pre-filled).",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Birds",
+                "Squirrels",
+                "Rabbits",
+                "Deer"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_5_how_many_in_all",
+    "scene": [
+      "picture_graph_animals_create"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_animals_symbol"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_animals_create",
+          "params": {
+            "mode": "reading",
+            "highlight_categories": [
+              "Birds",
+              "Deer"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many animals sighted were Birds and Deer IN ALL?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many animals sighted were Birds and Deer IN ALL?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              6,
+              7,
+              13,
+              16
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 13
+              },
+              "description": "Student correctly calculated 7 plus 6 equals 13",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "13 birds and deer in all. 7 Birds were sighted, 6 Deer were sighted. 7 plus 6 is 13."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_animals_create",
+                        "description": "Horizontal picture graph in reading mode. Birds and Deer highlighted for combination.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Birds",
+                          "Squirrels",
+                          "Rabbits",
+                          "Deer"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_animals_create",
+              "description": "Horizontal picture graph in reading mode. Birds and Deer highlighted. Key visible. Data table hidden. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Birds",
+                "Squirrels",
+                "Rabbits",
+                "Deer"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_6_comparison_odd_values",
+    "scene": [
+      "picture_graph_animals_create"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_animals_create",
+          "params": {
+            "highlight_categories": [
+              "Birds",
+              "Squirrels"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many FEWER Birds were sighted than Squirrels?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many FEWER Birds were sighted than Squirrels?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              1,
+              2,
+              3,
+              7
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 3
+              },
+              "description": "Student correctly calculated 10 minus 7 equals 3",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "3 fewer. 10 Squirrels were sighted, 7 Birds were sighted. The difference is 3."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_animals_create",
+                        "description": "Horizontal picture graph. Birds and Squirrels highlighted for comparison.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Birds",
+                          "Squirrels",
+                          "Rabbits",
+                          "Deer"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_animals_create",
+              "description": "Horizontal picture graph. Birds (3.5 symbols) and Squirrels (5 symbols) highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Birds",
+                "Squirrels",
+                "Rabbits",
+                "Deer"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_transition",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_books",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "orientation": "horizontal",
+            "categories": [
+              "Maya",
+              "James",
+              "Sofia",
+              "Aiden"
+            ],
+            "values": [
+              9,
+              12,
+              7,
+              11
+            ],
+            "description": "Horizontal data table appears in numeric display mode showing Books Read This Week data. Maya=9, James=12, Sofia=7, Aiden=11."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You created scaled picture graphs with EVEN numbers. Those grouped perfectly into 2s. You added HALF-SYMBOLS for ODD numbers because there's always 1 left over. Now let's see if you can handle BOTH together, a mix of even and odd, all on your own."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_books",
+              "description": "Horizontal data table in numeric display mode showing Books Read This Week data.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_1_create_maya_mixed",
+    "scene": [
+      "data_table_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_books",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Maya",
+              "James",
+              "Sofia",
+              "Aiden"
+            ],
+            "description": "Vertical picture graph template appears with scale of 2. All columns empty. Key visible: Each star = 2 books."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Build Maya's row first. Notice the key. Each star equals 2 books. She read 9 books. Think: is 9 even or odd? Will you need a half-symbol?"
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for Maya's 9 books read.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_books",
+            "category": "Maya",
+            "expected_count": 4.5
+          },
+          "validator": [
+            {
+              "condition": {
+                "symbols_placed": 4.5,
+                "category": "Maya"
+              },
+              "description": "Student correctly placed 4.5 symbols for Maya (9 books)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "4 and a half symbols. 9 is odd. 8 needs 4 full symbols, plus that leftover 1 needs a half-symbol."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_books",
+                        "description": "Horizontal data table showing Books Read This Week data.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      },
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph. Maya now shows 4.5 symbols (student-placed). James, Sofia, Aiden still empty.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_books",
+              "description": "Horizontal data table showing Books Read This Week data.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            },
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph in creating mode. Maya column ready for symbol placement. All columns empty.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_2_create_full_graph",
+    "scene": [
+      "data_table_books",
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "Build the whole picture graph. Use the key and the table to figure out how many symbols each person needs. Place symbols for all remaining categories."
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for all remaining categories.",
+          "tool": {
+            "name": "click_place_symbols",
+            "target": "picture_graph_books",
+            "categories": [
+              "James",
+              "Sofia",
+              "Aiden"
+            ],
+            "expected_values": {
+              "James": 6,
+              "Sofia": 3.5,
+              "Aiden": 5.5
+            }
+          },
+          "validator": [
+            {
+              "condition": {
+                "all_correct": true
+              },
+              "description": "Student correctly filled all remaining columns: James=6 symbols, Sofia=3.5 symbols, Aiden=5.5 symbols",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "You built the whole graph. You figured out which numbers needed half-symbols."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table_books",
+                        "description": "Horizontal data table showing Books Read This Week data.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric"
+                      },
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph now complete. Maya=4.5 symbols, James=6 symbols, Sofia=3.5 symbols, Aiden=5.5 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_books",
+              "description": "Horizontal data table visible.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            },
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph. Maya=4.5 symbols (student-placed). James, Sofia, Aiden columns ready for placement.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_2b_scale_reflection",
+    "scene": [
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table_books"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_books_scale1",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 1,
+            "categories": [
+              "Maya",
+              "James",
+              "Sofia",
+              "Aiden"
+            ],
+            "values": [
+              9,
+              12,
+              7,
+              11
+            ],
+            "description": "System-generated vertical picture graph appears on RIGHT showing same Books Read data at scale of 1. Maya=9 symbols, James=12 symbols, Sofia=7 symbols, Aiden=11 symbols. Key: Each star = 1."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_books",
+          "params": {
+            "position": "left"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the same data, but with scale of 1. Every book gets its OWN symbol."
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at James. Your graph shows 6 symbols. The scale-of-1 graph shows 12 symbols. Same number of books."
+        },
+        {
+          "type": "prompt",
+          "text": "Which graph uses fewer symbols to show the same data?",
+          "tool": {
+            "name": "click_tangible",
+            "target": [
+              "picture_graph_books",
+              "picture_graph_books_scale1"
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "picture_graph_books"
+              },
+              "description": "Student selected the scale-of-2 graph as using fewer symbols",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 2. Just 6 symbols instead of 12 for James. Same data, fewer symbols. That's why we use scales."
+                  },
+                  {
+                    "type": "scene",
+                    "method": "hide",
+                    "tangible_id": "picture_graph_books_scale1"
+                  },
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_books",
+                    "params": {
+                      "position": "center"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Now let's use YOUR graph to answer some questions."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph at scale of 2, now centered. Scale-of-1 comparison graph removed.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Student's completed vertical picture graph at scale of 2, positioned on left. Key visible.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_books_scale1",
+              "description": "System-generated vertical picture graph at scale of 1, positioned on right. Same data. Key visible.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 1,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_3_who_read_most",
+    "scene": [
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_books",
+          "params": {
+            "mode": "reading"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Use your graph to answer: Who read the most books?"
+        },
+        {
+          "type": "prompt",
+          "text": "Click on the category with the most books.",
+          "tool": {
+            "name": "click_category",
+            "target": "picture_graph_books"
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "James"
+              },
+              "description": "Student clicked James (12 books, 6 symbols)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "James read the most. 12 books. 6 symbols, each worth 2."
+                  },
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_books",
+                    "params": {
+                      "highlight_categories": [
+                        "James"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph. James column highlighted showing 6 symbols.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph in reading mode. All columns visible. Click category tool active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_4_how_many_in_all_books",
+    "scene": [
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_books",
+          "params": {
+            "highlight_categories": [
+              "James",
+              "Aiden"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "How many books did James and Aiden read IN ALL?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many books did James and Aiden read IN ALL?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              11,
+              17,
+              23,
+              28
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 23
+              },
+              "description": "Student correctly calculated 12 plus 11 equals 23",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "23 books in all. James read 12, Aiden read 11. 12 plus 11 is 23."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph. James and Aiden highlighted for combination.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph. James (6 symbols) and Aiden (5.5 symbols) highlighted. Multiple choice active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_5_two_step_chained",
+    "scene": [
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_books",
+          "params": {
+            "highlight_categories": []
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's a two-step problem. How many MORE books did Maya and Sofia read together than James?"
+        },
+        {
+          "type": "dialogue",
+          "text": "Step 1: How many books did Maya and Sofia read together?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many books did Maya and Sofia read in all?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              9,
+              12,
+              16,
+              19
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": 16
+              },
+              "description": "Student correctly calculated 9 plus 7 equals 16",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "16 books together."
+                  },
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_books",
+                    "params": {
+                      "highlight_categories": [
+                        "Maya",
+                        "Sofia",
+                        "James"
+                      ],
+                      "display_step1_result": "Maya + Sofia = 16"
+                    }
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph. Maya, Sofia, and James highlighted. Step 1 result displayed: Maya + Sofia = 16.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph. No categories highlighted yet. Multiple choice active for Step 1.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Step 2: Compare James to that total."
+        },
+        {
+          "type": "prompt",
+          "text": "James read 12. Maya and Sofia read 16. Who read more, and by how many?",
+          "tool": {
+            "name": "multiple_choice",
+            "options": [
+              "James read 4 more",
+              "Maya and Sofia read 4 more",
+              "James read 28 more",
+              "They read the same"
+            ]
+          },
+          "validator": [
+            {
+              "condition": {
+                "selected": "Maya and Sofia read 4 more"
+              },
+              "description": "Student correctly identified Maya and Sofia read 4 more books (16 minus 12)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Maya and Sofia read 4 more books together than James. 16 minus 12 is 4."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_books",
+                        "description": "Vertical picture graph. Maya, Sofia, and James highlighted with step results displayed.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Maya",
+                          "James",
+                          "Sofia",
+                          "Aiden"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph. Maya, Sofia, and James highlighted. Step 1 result visible: 16. Multiple choice active for Step 2.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_bridge_to_exit",
+    "type": "transition",
+    "scene": [
+      "picture_graph_books"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made scaled picture graphs. You know each symbol equals 2. You know half-symbols show 1. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_books",
+              "description": "Vertical picture graph remains briefly visible.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Maya",
+                "James",
+                "Sofia",
+                "Aiden"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

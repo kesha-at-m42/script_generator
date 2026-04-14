@@ -1,0 +1,82 @@
+{
+  "id": "s2_4b_complete_bar_graph",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set at least one bar incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the table. What number is next to Salad? What number is next to Pasta?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set at least one bar incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Salad",
+                  "Pasta"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The table shows Salad: 15 and Pasta: 25. Each bar needs to reach exactly that height."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set at least one bar incorrectly three or more times — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "set_bar_heights",
+                "status": "confirmed",
+                "description": "System sets Salad bar to 15 and Pasta bar to 25",
+                "bars": [
+                  {
+                    "category": "Salad",
+                    "height": 15
+                  },
+                  {
+                    "category": "Pasta",
+                    "height": 25
+                  }
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Salad has 15 votes, so I set its bar to 15. Pasta has 25 votes, so I set its bar to 25. Each bar matches the number from the table."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:48:41.988712+00:00"
+}

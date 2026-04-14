@@ -1,0 +1,111 @@
+{
+  "id": "s1_ec1_read_at_line",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4: counted bars instead of reading the axis value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_axis_line",
+                "status": "proposed",
+                "description": "The 40 line on the axis pulses to draw attention",
+                "value": 40
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. We don't count the bars. We look at where the Fiction bar ends on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35: estimated between axis lines instead of reading the exact value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_axis_line",
+                "status": "proposed",
+                "description": "The 40 line pulses, showing Fiction bar ends exactly at it",
+                "value": 40
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the Fiction bar ends exactly at an axis line. Look at which number that line shows."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45: read the wrong axis line or estimated incorrectly",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_bar_top",
+                "status": "proposed",
+                "description": "Top of Fiction bar highlights, then line traces to axis",
+                "category": "Fiction"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Follow the top of the Fiction bar across to the axis. Which line does it touch?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "trace_bar_to_axis",
+                "status": "confirmed",
+                "description": "Line draws from top of Fiction bar horizontally to the 40 line on axis, which highlights",
+                "category": "Fiction",
+                "value": 40
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I look at where the top of the Fiction bar is. Then I trace across to the axis. The bar ends right at the line marked 40. So Fiction shows 40."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:03.965575+00:00"
+}

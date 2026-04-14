@@ -1,0 +1,173 @@
+{
+  "id": "s1_2_problem_sorting",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student sorted questions incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look at this problem again. Look for words like 'combined' and 'together'."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student sorted questions incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "highlight_items": [
+                  "Question 2",
+                  "Question 3"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Questions 2 and 3 say 'combined' and 'together.' Those need combining first. Question 1 just compares two things."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student sorted questions incorrectly three or more times. System models the correct sorting.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "event": "demonstrate_sorting",
+                "status": "confirmed",
+                "description": "System demonstrates correct sorting. Question 1 moves to JUST COMPARE zone. Questions 2 and 3 move to COMBINE FIRST, THEN COMPARE zone."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Question 1 asks 'how many more chose pizza than tacos?' That's just comparing two things. Questions 2 and 3 both say 'combined' and 'together,' so those need combining first."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "What's the biggest number?"
+        },
+        "description": "Student selected 'What's the biggest number?': not relevant to planning approach",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "highlight_items": [
+                  "Question 2"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the biggest number doesn't tell you whether to combine. Look at Question 2. The word 'combined' is your clue."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "How many categories are there?"
+        },
+        "description": "Student selected 'How many categories are there?': not the key planning question",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "highlight_items": [
+                  "Question 3"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The number of categories doesn't tell you to combine. Look for words like 'together' in Question 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Should I add or subtract?"
+        },
+        "description": "Student selected 'Should I add or subtract?': too late in the planning process",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "highlight_items": [
+                  "Question 2",
+                  "Question 3"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this a bit more. You decide add or subtract after you know the strategy. First question: does the problem say 'combined' or 'together'?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "sorting_workspace",
+              "params": {
+                "event": "highlight_key_words",
+                "status": "confirmed",
+                "description": "System highlights the words 'combined' and 'together' in Questions 2 and 3. Correct answer pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here, let me walk you through this one. Before you do anything else, ask: Does it say 'combined' or 'together'? If yes, you combine first. If no, you just compare. That's your planning question."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:44.477228+00:00"
+}

@@ -1,0 +1,73 @@
+{
+  "id": "s1_4_create_guided_popcorn",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed wrong number of symbols on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look at this again. The table shows 8 votes for Popcorn."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed wrong number of symbols on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Popcorn"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. 8 splits into groups of 2. Count: 2, 4, 6, 8—that's 4 groups."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed wrong number of symbols three or more times—system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "event": "place_symbols",
+                "status": "confirmed",
+                "description": "System places 4 symbols in Popcorn column, one at a time",
+                "category": "Popcorn",
+                "count": 4
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Popcorn got 8 votes. The scale is 2, so each symbol stands for 2 votes. I place 4 symbols: 2, 4, 6, 8. That's 4 symbols for 8 votes."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:07:46.119635+00:00"
+}

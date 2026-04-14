@@ -1,0 +1,231 @@
+{
+  "id": "s4_1_representation_transfer",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              }
+            },
+            {
+              "not_selected": "They look exactly the same"
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only correct answers, but not all three. Under-selecting.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're getting there. Everything you picked is true. Look at both graphs again. Are there other things that are the same?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only incorrect answers. All-wrong.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "event": "pulse_title",
+                "status": "proposed",
+                "description": "Picture graph title pulses briefly"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "event": "pulse_title",
+                "status": "proposed",
+                "description": "Bar graph title pulses briefly"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about what makes these graphs show the same information. Look at the titles, the categories, and what the data tells you. What stays the same when we change the format?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "They look exactly the same"
+            },
+            {
+              "or": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of correct and incorrect. Over-selecting with 'look exactly the same'.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found some things that are the same. The information matches. But look closely at how each graph shows the data. Do they look exactly the same, or is the format different?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "event": "highlight_title_and_categories",
+                "status": "confirmed",
+                "description": "Picture graph title and category labels highlight in sequence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "event": "highlight_title_and_categories",
+                "status": "confirmed",
+                "description": "Bar graph title and category labels highlight in sequence, matching picture graph timing"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Both graphs have the same title: Favorite Sports. Both show the same four sports. And Soccer has the most votes in both. The data is the same. Only the format is different."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-23T19:06:44.212496+00:00"
+}

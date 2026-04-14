@@ -1,0 +1,134 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v1
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [SKIP] Outside execution range (2-4)
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using base version: v0/step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v0\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 78356 bytes
+  [DEBUG] Read 76258 chars from 78356 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v1\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 82558 bytes
+  [DEBUG] Read 80455 chars from 82558 bytes
+  [OK] Loaded 80455 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 16 items from JSON array
+  [SKIP 1/16] s1_1_transition_from_warmup (not in only_items)
+  [SKIP 2/16] s1_2_too_many_tick_marks (not in only_items)
+  [SKIP 3/16] s1_3_trying_bigger_scale (not in only_items)
+  [SKIP 4/16] s1_4_range_check_efficiency (not in only_items)
+  [SKIP 5/16] s1_to_s2_transition (not in only_items)
+  [SKIP 6/16] s2_1_all_scales_fit (not in only_items)
+  [SKIP 7/16] s2_2_efficiency_vs_precision_setup (not in only_items)
+  [SKIP 8/16] s2_3_scale_of_2_precision (not in only_items)
+  [SKIP 9/16] s2_4_digit_pattern_recognition (not in only_items)
+  [SKIP 10/16] s2_5_practice_non_multiples (not in only_items)
+  [SKIP 11/16] s2_6_very_small_data_scale_1 (not in only_items)
+  [SKIP 12/16] s2_to_s3_transition (not in only_items)
+
+  [BATCH 13/16] s3_1_independent_multiples_of_5
+    Variables: {'id': 's3_1_independent_multiples_of_5', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_fruits', 'tangible_type': 'data_table', 'params': {'description': 'Vertical data table appears showing Favorite Fruits: Dates 60, Cherries 45, Bananas 30, Apples 15.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'scale_preview_system_fruits', 'tangible_type': 'scale_preview_system', 'params': {'orientation': 'horizontal', 'available_scales': [2, 5, 10], 'description': 'Scale Preview System available showing horizontal bar graph format. Scales 2, 5, and 10 available.'}}, {'type': 'dialogue', 'text': "Here's data about students' favorite fruits. The most votes went to Dates with 60. Scale of 1 doesn't make sense here because it would take 60 lines on the axis—that's too much!"}, {'type': 'dialogue', 'text': 'Your job: pick the right scale. Which scale will you use?'}, {'type': 'prompt', 'text': 'Which scale will you use?', 'tool': 'multiple_choice', 'options': ['Scale of 2', 'Scale of 5', 'Scale of 10'], 'validator': [{'condition': {'selected': 'Scale of 10'}, 'description': 'Student selected Scale of 10, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Good choice.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_fruits', 'description': 'Data table showing Favorite Fruits: Dates 60, Cherries 45, Bananas 30, Apples 15.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_system_fruits', 'description': 'Scale Preview System showing horizontal bar graph format with Scales 2, 5, and 10 available.', 'tangible_type': 'scale_preview_system', 'orientation': 'horizontal', 'available_scales': [2, 5, 10]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_fruits', 'description': 'Data table showing Favorite Fruits: Dates 60, Cherries 45, Bananas 30, Apples 15.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_system_fruits', 'description': 'Scale Preview System available. Horizontal bar graph format. Scales 2, 5, and 10 selectable.', 'tangible_type': 'scale_preview_system', 'orientation': 'horizontal', 'available_scales': [2, 5, 10]}]}], [{'type': 'prompt', 'text': 'Why is Scale of 10 a good choice? Choose all of the reasons.', 'tool': 'multi_select', 'options': ['All values end in 0 or 5 so they can be graphed precisely.', 'The graph is easy to read.', 'The biggest number is 60 so the bars fit on the graph.', 'Scale of 2 takes too many marks to reach the biggest number.'], 'validator': [{'condition': {'and': [{'selected': 'All values end in 0 or 5 so they can be graphed precisely.'}, {'selected': 'The graph is easy to read.'}, {'selected': 'The biggest number is 60 so the bars fit on the graph.'}, {'selected': 'Scale of 2 takes too many marks to reach the biggest number.'}]}, 'description': 'Student selected all correct reasons', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Exactly. All values are multiples of 5, so scales of 5 and 10 both work to read the graph clearly. For data going up to 60, Scale of 10 gives you a cleaner graph.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_fruits', 'description': 'Data table showing Favorite Fruits: Dates 60, Cherries 45, Bananas 30, Apples 15.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_system_fruits', 'description': 'Scale Preview System showing horizontal bar graph format with Scales 2, 5, and 10 available.', 'tangible_type': 'scale_preview_system', 'orientation': 'horizontal', 'available_scales': [2, 5, 10]}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_fruits', 'description': 'Data table showing Favorite Fruits: Dates 60, Cherries 45, Bananas 30, Apples 15.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_system_fruits', 'description': 'Scale Preview System showing horizontal bar graph format with Scales 2, 5, and 10 available.', 'tangible_type': 'scale_preview_system', 'orientation': 'horizontal', 'available_scales': [2, 5, 10]}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v1\step_03_remediation_generator\prompts\s3_1_independent_multiples_of_5.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1759
+  output_tokens: 1997
+  total_tokens: 3756
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 16845
+  cache_savings: 90% (saved 16845 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 14/16] s3_2_selection_creation_non_multiples (not in only_items)
+  [SKIP 15/16] s3_3_final_application (not in only_items)
+  [SKIP 16/16] lesson_bridge_to_exit (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 16/16
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 16 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v1\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 80981 bytes
+  [DEBUG] Read 78798 chars from 80981 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_module_5\v1\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [SKIP] Outside execution range (2-4)
+
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 26.8s
+Output: outputs/lesson_generator_module_5/latest/
+======================================================================

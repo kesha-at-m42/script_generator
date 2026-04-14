@@ -1,0 +1,536 @@
+[
+  {
+    "id": "s1_w1_data_collection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "minis_counting_scene",
+          "tangible_type": "animation",
+          "params": {
+            "description": "Animated scene appears showing Minis characters in three color groups (Red, Blue, Yellow) moving around actively. Visual is playful and energetic."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "The Minis are having a busy day! Help count what they're up to."
+        },
+        {
+          "type": "prompt",
+          "text": "Count the Red Minis. How many do you see?",
+          "tool": "multiple_choice",
+          "options": [
+            10,
+            15,
+            20,
+            25,
+            30
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 20
+              },
+              "description": "Student counted 20 Red Minis, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Red Minis highlight as counted. Count of 20 appears.",
+                      "category": "Red"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "20 Red Minis. Nice counting."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene. Red Minis marked as counted (20). Blue and Yellow Minis still active.",
+                        "tangible_type": "animation"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Animated Minis scene showing Red, Blue, and Yellow Minis. Red Minis ready to count.",
+              "tangible_type": "animation"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Now the Blue Minis."
+        },
+        {
+          "type": "prompt",
+          "text": "Count the Blue Minis. How many?",
+          "tool": "multiple_choice",
+          "options": [
+            10,
+            15,
+            25,
+            30
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 25
+              },
+              "description": "Student counted 25 Blue Minis, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Blue Minis highlight as counted. Count of 25 appears.",
+                      "category": "Blue"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "25 Blue Minis. You're keeping track."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene. Red Minis counted (20), Blue Minis counted (25). Yellow Minis still active.",
+                        "tangible_type": "animation"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Minis counting scene. Red counted (20). Blue Minis ready to count.",
+              "tangible_type": "animation"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Last group. The Yellow Minis."
+        },
+        {
+          "type": "prompt",
+          "text": "Count the Yellow Minis. How many?",
+          "tool": "multiple_choice",
+          "options": [
+            10,
+            15,
+            20,
+            30
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 15
+              },
+              "description": "Student counted 15 Yellow Minis, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Yellow Minis highlight as counted. Count of 15 appears.",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "15 Yellow Minis. All counted. You tracked 20 Red, 25 Blue, and 15 Yellow."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene. All three groups counted. Red: 20, Blue: 25, Yellow: 15.",
+                        "tangible_type": "animation"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Minis counting scene. Red counted (20), Blue counted (25). Yellow Minis ready to count.",
+              "tangible_type": "animation"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_w2_scale_comparison",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "minis_counting_scene"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_scale2",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              20,
+              25,
+              15
+            ],
+            "description": "Vertical picture graph appears on the left side of screen. Shows Minis data with scale of 2. Key visible: Each ⭐ = 2. Red has 10 symbols (including half), Blue has 12.5 symbols (including half), Yellow has 7.5 symbols (including half)."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's your data with scale of 2. Each symbol shows 2 items."
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_scale5",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              20,
+              25,
+              15
+            ],
+            "description": "Vertical picture graph appears on the right side of screen. Shows same Minis data with scale of 5. Key visible: Each ⭐ = 5. Red has 4 symbols, Blue has 5 symbols, Yellow has 3 symbols. Noticeably fewer symbols than the left graph."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "And here's the SAME data with scale of 5. Each symbol shows 5 items. Same data. Same totals. But look at the graphs."
+        },
+        {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student identified fewer symbols on scale-of-5 graph, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_scale2",
+                        "description": "Vertical picture graph on left. Scale of 2. Red=20 (10 symbols), Blue=25 (12.5 symbols), Yellow=15 (7.5 symbols). Key: Each ⭐ = 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      },
+                      {
+                        "tangible_id": "picture_graph_scale5",
+                        "description": "Vertical picture graph on right. Scale of 5. Red=20 (4 symbols), Blue=25 (5 symbols), Yellow=15 (3 symbols). Key: Each ⭐ = 5.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 5,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale2",
+              "description": "Vertical picture graph on left. Scale of 2. Red, Blue, Yellow categories. Key: Each ⭐ = 2.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_scale5",
+              "description": "Vertical picture graph on right. Scale of 5. Red, Blue, Yellow categories. Key: Each ⭐ = 5.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_w3_efficiency_discovery",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_scale2",
+          "params": {
+            "highlight_categories": [
+              "Blue"
+            ]
+          }
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_scale5",
+          "params": {
+            "highlight_categories": [
+              "Blue"
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at Blue. It has 25 items. With scale of 2, that's 12 and a half symbols. With scale of 5, that's only 5 symbols."
+        },
+        {
+          "type": "prompt",
+          "text": "Which scale is more efficient for showing 25 items?",
+          "tool": "multiple_choice",
+          "options": [
+            "Scale of 2",
+            "Scale of 5"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Scale of 5"
+              },
+              "description": "Student selected scale of 5 as more efficient, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 5. When numbers get bigger, scale of 5 saves space. Fewer symbols, same information."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_scale2",
+                        "description": "Vertical picture graph on left. Scale of 2. Blue category highlighted showing 12.5 symbols for 25 items.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      },
+                      {
+                        "tangible_id": "picture_graph_scale5",
+                        "description": "Vertical picture graph on right. Scale of 5. Blue category highlighted showing 5 symbols for 25 items.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 5,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale2",
+              "description": "Vertical picture graph on left. Scale of 2. Blue category highlighted.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_scale5",
+              "description": "Vertical picture graph on right. Scale of 5. Blue category highlighted.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_w4_bridge_to_lesson",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "picture_graph_scale2"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_scale5",
+          "params": {
+            "highlight_categories": []
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You discovered something important: Scale of 5 uses fewer symbols for the same data."
+        },
+        {
+          "type": "dialogue",
+          "text": "But HOW do you know how many symbols to use? There's a skill that helps. Do you remember how to count by 5s?"
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's learn how skip-counting and scale of 5 work together."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale5",
+              "description": "Vertical picture graph showing Minis data with scale of 5. Red, Blue, Yellow categories visible. Key: Each ⭐ = 5.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

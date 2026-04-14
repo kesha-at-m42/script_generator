@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "s1_opening_frame",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "strategy_statement",
+          "tangible_type": "text_display",
+          "params": {
+            "description": "Strategy statement appears on clean screen: 'Find the combined total first, then compare.'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You've solved problems that needed one step AND problems that needed two steps. Now let's think about HOW you knew what to do."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "strategy_statement",
+              "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_1_pattern_discovery",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "strategy_statement"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "question_display",
+          "tangible_type": "text_display",
+          "params": {
+            "description": "Three problem questions appear:\n1. 'How many more dogs are there than cats?'\n2. 'How many more dogs are there than cats and birds combined?'\n3. 'How many students chose red or blue altogether?'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at these three questions. Two of them need two steps. One needs just one step."
+        },
+        {
+          "type": "prompt",
+          "text": "Which question needs just ONE step?",
+          "tool": "multiple_choice",
+          "options": [
+            "Question 1",
+            "Question 2",
+            "Question 3"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Question 1"
+              },
+              "description": "Student selected Question 1, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_question",
+                      "status": "confirmed",
+                      "description": "Question 1 highlights to confirm selection",
+                      "question_number": 1
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Question 1. It just compares dogs to cats—no combining first."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "question_display",
+                        "description": "Three questions displayed. Question 1 highlighted.",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Question 2"
+              },
+              "description": "Student selected Question 2, which requires two steps",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_question",
+                      "status": "proposed",
+                      "description": "Question 2 highlights temporarily",
+                      "question_number": 2
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Question 2 says 'cats and birds combined.' That means you need to add those two first, then compare. Which question doesn't say 'combined'?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Question 3"
+              },
+              "description": "Student selected Question 3, which requires two steps",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_question",
+                      "status": "proposed",
+                      "description": "Question 3 highlights temporarily",
+                      "question_number": 3
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Question 3 says 'red or blue altogether.' That means you add red and blue first, then you have your answer. Which question just compares two categories directly?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_question",
+                      "status": "confirmed",
+                      "description": "Question 1 highlights to show the correct answer",
+                      "question_number": 1
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how to think about this. Question 1 asks how many more dogs than cats. That's one comparison. Questions 2 and 3 both have words like 'combined' or 'altogether,' so they need adding first. The answer is Question 1."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "question_display",
+              "description": "Three problem questions displayed:\n1. 'How many more dogs are there than cats?'\n2. 'How many more dogs are there than cats and birds combined?'\n3. 'How many students chose red or blue altogether?'",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "What's the clue that tells you a problem needs two steps?"
+        },
+        {
+          "type": "prompt",
+          "text": "What's the clue that tells you a problem needs two steps?",
+          "tool": "multiple_choice",
+          "options": [
+            "The word 'more'",
+            "Words like 'combined' or 'altogether'",
+            "Big numbers",
+            "Two categories are used"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Words like 'combined' or 'altogether'"
+              },
+              "description": "Student selected correct trigger words",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_trigger_words",
+                      "status": "confirmed",
+                      "description": "Words 'combined' and 'altogether' highlight in Questions 2 and 3"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Words like 'combined,' 'together,' and 'altogether' are your signal. When you see them, you know: find that total FIRST, then compare."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "question_display",
+                        "description": "Three questions displayed. Trigger words 'combined' and 'altogether' highlighted in Questions 2 and 3.",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "The word 'more'"
+              },
+              "description": "Student selected 'more', which appears in both one-step and two-step problems",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "highlight_categories": [
+                        "Question 1",
+                        "Question 2"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "The word 'more' appears in both Question 1 and Question 2. One needs just one step, the other needs two. What word appears only in the two-step problems?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Big numbers"
+              },
+              "description": "Student selected 'big numbers', which is not a reliable clue",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "highlight_categories": [
+                        "Question 2",
+                        "Question 3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's what helps: the size of the numbers doesn't tell you how many steps you need. Look at the words in Questions 2 and 3. What do they both say that Question 1 doesn't?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Two categories are used"
+              },
+              "description": "Student selected 'two categories', which appears in all three questions",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "highlight_categories": [
+                        "Question 1",
+                        "Question 2",
+                        "Question 3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "All three questions use two categories. Question 1 uses dogs and cats. Questions 2 and 3 use more than two. The key is what the question asks you to do with those categories. What word tells you to add first?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "question_display",
+                    "params": {
+                      "event": "highlight_trigger_words",
+                      "status": "confirmed",
+                      "description": "Words 'combined' and 'altogether' highlight in Questions 2 and 3"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me walk you through this one. Look at Questions 2 and 3. Question 2 says 'cats and birds combined.' Question 3 says 'red or blue altogether.' Those words tell you to add first, then compare or find the total. The answer is words like 'combined' or 'altogether.'"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "question_display",
+              "description": "Three problem questions displayed with Question 1 previously highlighted.",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_problem_sorting",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "question_display"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "sorting_workspace",
+          "tangible_type": "sorting_area",
+          "params": {
+            "description": "Sorting workspace appears. LEFT side: three problem questions. RIGHT side: two drop zones labeled 'JUST COMPARE' and 'COMBINE FIRST, THEN COMPARE'.\n\nQuestions:\n1. 'How many more chose pizza than tacos?'\n2. 'How many more chose pizza and tacos combined than salad?'\n3. 'How many fewer chose burgers and hot dogs together than pizza?'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's what you've been doing. You look at a problem and decide: Do I just compare? Or do I combine first, then compare? Sort these questions."
+        },
+        {
+          "type": "prompt",
+          "text": "Match each question to the right group.",
+          "tool": "drag_to_sort",
+          "target": "sorting_workspace",
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "zone": "JUST COMPARE",
+                    "contains": [
+                      "Question 1"
+                    ]
+                  },
+                  {
+                    "zone": "COMBINE FIRST, THEN COMPARE",
+                    "contains": [
+                      "Question 2",
+                      "Question 3"
+                    ]
+                  }
+                ]
+              },
+              "description": "Student sorted all questions correctly",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "event": "confirm_sorting",
+                      "status": "confirmed",
+                      "description": "All questions snap into place in their correct zones. Drop zones highlight briefly to confirm."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You sorted them all. Words like 'combined' and 'together' tell you to find a total first."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "sorting_workspace",
+                        "description": "Sorting workspace with all questions correctly placed. JUST COMPARE zone contains Question 1. COMBINE FIRST, THEN COMPARE zone contains Questions 2 and 3.",
+                        "tangible_type": "sorting_area"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student sorted questions incorrectly on first attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Let's look at this problem again. Look for words like 'combined' and 'together'."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student sorted questions incorrectly on second attempt",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "highlight_items": [
+                        "Question 2",
+                        "Question 3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this together. Questions 2 and 3 say 'combined' and 'together.' Those need combining first. Question 1 just compares two things."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student sorted questions incorrectly three or more times. System models the correct sorting.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "event": "demonstrate_sorting",
+                      "status": "confirmed",
+                      "description": "System demonstrates correct sorting. Question 1 moves to JUST COMPARE zone. Questions 2 and 3 move to COMBINE FIRST, THEN COMPARE zone."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you how this works. Question 1 asks 'how many more chose pizza than tacos?' That's just comparing two things. Questions 2 and 3 both say 'combined' and 'together,' so those need combining first."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "sorting_workspace",
+              "description": "Sorting workspace with three questions on left and two drop zones on right. Questions not yet sorted.",
+              "tangible_type": "sorting_area"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "What question do you ask yourself to decide?"
+        },
+        {
+          "type": "prompt",
+          "text": "Select the key question.",
+          "tool": "multiple_choice",
+          "options": [
+            "What's the biggest number?",
+            "Does it say 'combined' or 'together'?",
+            "How many categories are there?",
+            "Should I add or subtract?"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Does it say 'combined' or 'together'?"
+              },
+              "description": "Student selected the key planning question",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "That's the key question. The answer tells you whether it's one step or two. This is strategic thinking. You're not just doing math—you're PLANNING your approach based on what the problem says."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "sorting_workspace",
+                        "description": "Sorting workspace with all questions correctly placed in their zones.",
+                        "tangible_type": "sorting_area"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "What's the biggest number?"
+              },
+              "description": "Student selected 'What's the biggest number?': not relevant to planning approach",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "highlight_items": [
+                        "Question 2"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's a hint: the biggest number doesn't tell you whether to combine. Look at Question 2. The word 'combined' is your clue."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "How many categories are there?"
+              },
+              "description": "Student selected 'How many categories are there?': not the key planning question",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "highlight_items": [
+                        "Question 3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. The number of categories doesn't tell you to combine. Look for words like 'together' in Question 3."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Should I add or subtract?"
+              },
+              "description": "Student selected 'Should I add or subtract?': too late in the planning process",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "highlight_items": [
+                        "Question 2",
+                        "Question 3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's think about this a bit more. You decide add or subtract after you know the strategy. First question: does the problem say 'combined' or 'together'?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "sorting_workspace",
+                    "params": {
+                      "event": "highlight_key_words",
+                      "status": "confirmed",
+                      "description": "System highlights the words 'combined' and 'together' in Questions 2 and 3. Correct answer pulses."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here, let me walk you through this one. Before you do anything else, ask: Does it say 'combined' or 'together'? If yes, you combine first. If no, you just compare. That's your planning question."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "sorting_workspace",
+              "description": "Sorting workspace with all questions correctly placed in their zones.",
+              "tangible_type": "sorting_area"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_real_world_bridge",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "sorting_workspace"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "scenario_display",
+          "tangible_type": "text_display",
+          "params": {
+            "description": "Three real-world scenarios appear:\n1. 'Who has more stickers—just Maya, or Ben and Carlos put together?'\n2. 'Which team scored more—the Red team alone, or the Blue and Green teams combined?'\n3. 'Did I spend more on only snacks, or on drinks and dessert altogether?'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "This kind of thinking shows up all the time—not just in math problems. What would you need to DO to answer all of these?"
+        },
+        {
+          "type": "prompt",
+          "text": "What would you need to DO to answer all of these?",
+          "tool": "multiple_choice",
+          "options": [
+            "Count everything",
+            "Combine some things first, then compare",
+            "Find the biggest number",
+            "Subtract twice"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Combine some things first, then compare"
+              },
+              "description": "Student identified the pattern in real-world contexts",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Combine first, then compare. That pattern shows up everywhere."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "scenario_display",
+                        "description": "Three real-world scenarios displayed.",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Count everything"
+              },
+              "description": "Student selected 'Count everything': doesn't recognize the need to combine before comparing",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "scenario_display",
+                    "params": {
+                      "highlight_text": "Ben and Carlos put together"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Counting is part of it, but notice the phrase 'put together.' What does that tell you to do first?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Find the biggest number"
+              },
+              "description": "Student selected 'Find the biggest number': focusing on magnitude without recognizing the comparison structure",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "scenario_display",
+                    "params": {
+                      "highlight_text": "combined"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here's what helps: these aren't asking for the biggest single number. Look at the words 'combined' and 'put together.' What do those tell you?"
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Subtract twice"
+              },
+              "description": "Student selected 'Subtract twice': misidentifying the operation needed",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "scenario_display",
+                    "params": {
+                      "highlight_text": "Blue and Green teams combined"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're working on it. Words like 'combined' and 'altogether' tell us to add things together first. Then we can compare the totals."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "scenario_display",
+                    "params": {
+                      "event": "highlight_pattern",
+                      "status": "confirmed",
+                      "description": "Each scenario highlights the 'combine' phrase, then shows the comparison structure"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Here, let me walk you through this one. In every scenario, two things get combined first. Ben and Carlos together. Blue and Green teams combined. Drinks and dessert altogether. Then we compare that total to one other thing. The pattern is: combine some things first, then compare."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "scenario_display",
+              "description": "Three real-world scenarios displayed:\n1. 'Who has more stickers—just Maya, or Ben and Carlos put together?'\n2. 'Which team scored more—the Red team alone, or the Blue and Green teams combined?'\n3. 'Did I spend more on only snacks, or on drinks and dessert altogether?'",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_4_metacognitive_reflection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "scenario_display"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "strategy_statement",
+          "tangible_type": "text_display",
+          "params": {
+            "description": "Strategy statement reappears: 'Find the combined total first, then compare.'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "What helped you most when figuring out what to do first?"
+        },
+        {
+          "type": "prompt",
+          "text": "Select what helped most.",
+          "tool": "multiple_choice",
+          "options": [
+            "Looking for words like 'combined' or 'altogether'",
+            "Reading the question carefully",
+            "Thinking about what the question is really asking",
+            "Remembering the strategy"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Looking for words like 'combined' or 'altogether'"
+              },
+              "description": "Student selected trigger word recognition",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Spotting those trigger words is huge. They tell you exactly what to do."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "strategy_statement",
+                        "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Reading the question carefully"
+              },
+              "description": "Student selected careful reading",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Careful reading pays off. The question tells you what it needs."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "strategy_statement",
+                        "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Thinking about what the question is really asking"
+              },
+              "description": "Student selected metacognitive thinking",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Thinking about what the question REALLY asks—that's mathematical reasoning."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "strategy_statement",
+                        "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": "Remembering the strategy"
+              },
+              "description": "Student selected strategy recall",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Having a strategy ready helps. 'Find combined total first, then compare' works every time."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "strategy_statement",
+                        "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+                        "tangible_type": "text_display"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "strategy_statement",
+              "description": "Strategy statement displayed: 'Find the combined total first, then compare.'",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_5_identity_closure",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "strategy_statement",
+          "params": {
+            "event": "fade_out",
+            "status": "confirmed",
+            "description": "Strategy statement fades out smoothly"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You learned something important today. You learned to LOOK at a problem before jumping in. You ask: 'What should I find first?'"
+        },
+        {
+          "type": "dialogue",
+          "text": "That's not just math—that's strategic thinking. You're becoming someone who plans before solving."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  }
+]

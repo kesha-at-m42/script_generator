@@ -1,0 +1,114 @@
+{
+  "id": "s1_1_building_on_scale",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2 — confused scale with the left graph's scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "highlight_categories": []
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_key",
+                "status": "proposed",
+                "description": "Key on right graph pulses to draw attention"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Look at the key on the right graph. What number does it show?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10 — confused scale with a data value from the graph",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_key",
+                "status": "proposed",
+                "description": "Key on right graph pulses"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The scale isn't the total votes—it's what ONE symbol represents. Check the key."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 — confused scale with counting individual symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_key",
+                "status": "proposed",
+                "description": "Key on right graph highlights"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: The scale tells us the VALUE of each symbol, not how many symbols there are. Look at what the key says."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_key_with_explanation",
+                "status": "confirmed",
+                "description": "Key on right graph highlights and animates to show 1 symbol = 5 items"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The key says 'Each fruit symbol = 5 votes.' That means every single symbol stands for 5 items. So the scale is 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:46:54.715704+00:00"
+}

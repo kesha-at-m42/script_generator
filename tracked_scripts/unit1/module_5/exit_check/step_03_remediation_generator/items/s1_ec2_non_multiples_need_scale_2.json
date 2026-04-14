@@ -1,0 +1,87 @@
+{
+  "id": "s1_ec2_non_multiples_need_scale_2",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 5"
+        },
+        "description": "Student selected Scale of 5: assumes all numbers fit in range, missing that exact values require checking ones place digits",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_ec2",
+              "params": {
+                "highlight_categories": [
+                  "Gus",
+                  "Hal",
+                  "Eli",
+                  "Fay"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Check the ones place digits: 3, 1, 9, 6. Are these multiples of 5? Only multiples of 5 end in 0 or 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 10"
+        },
+        "description": "Student selected Scale of 10: assumes larger scale always works, missing that exact values require checking ones place digits",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_ec2",
+              "params": {
+                "highlight_categories": [
+                  "Gus",
+                  "Hal",
+                  "Eli",
+                  "Fay"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: look at the ones place of each value. 23, 31, 9, 16. To show these exactly, your scale must count by a number that gets you to 3, 1, 9, and 6."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table_ec2",
+              "params": {
+                "event": "highlight_ones_digits",
+                "status": "confirmed",
+                "description": "Ones place digits (3, 1, 9, 6) pulse to show they are not multiples of 5 or 10"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The values are 23, 31, 9, 16. Look at the ones place: 3, 1, 9, 6. None end in 0 or 5, so they aren't multiples of 5 or 10. Scale of 2 counts by 2 and can show all these values exactly."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:02.045796+00:00"
+}

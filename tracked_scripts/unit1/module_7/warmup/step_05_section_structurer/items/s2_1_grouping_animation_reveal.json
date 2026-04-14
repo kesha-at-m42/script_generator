@@ -1,0 +1,76 @@
+{
+  "id": "s2_1_grouping_animation_reveal",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_warmup",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 5,
+        "description": "4 equal groups appear, each containing 5 items in a bag/container. Transformed from the 4 symbols shown in previous section."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Wait. Look at what those symbols were hiding."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_warmup",
+      "params": {
+        "event": "reveal_groups_from_symbols",
+        "status": "confirmed",
+        "description": "4 symbols transform into 4 bags, each revealing 5 items inside. Animation shows smooth visual continuation."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "4 symbols. Each symbol held 5 items. That's 4 groups of 5. Look familiar? This is called MULTIPLICATION. You've been doing multiplication this whole time."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups do you see?",
+      "tool": "multiple_choice",
+      "options": [
+        4,
+        5,
+        8,
+        20
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student answered 4, correct number of groups",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 × 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_warmup",
+          "description": "4 equal groups visible, each containing 5 items. Reading mode. Represents 4 groups of 5.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-14T16:06:05.032228+00:00"
+}

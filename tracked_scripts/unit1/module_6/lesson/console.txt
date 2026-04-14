@@ -1,0 +1,131 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v1
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [SKIP] Outside execution range (2-4)
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using base version: v0/step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v0\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 54838 bytes
+  [DEBUG] Read 53188 chars from 54838 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v1\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 58217 bytes
+  [DEBUG] Read 56562 chars from 58217 bytes
+  [OK] Loaded 56562 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 13 items from JSON array
+  [SKIP 1/13] s1_1_transition_warmup (not in only_items)
+  [SKIP 2/13] s1_2_single_step_activation (not in only_items)
+  [SKIP 3/13] s2_transition (not in only_items)
+
+  [BATCH 4/13] s2_1_identify_categories
+    Variables: {'id': 's2_1_identify_categories', 'steps': [[{'type': 'dialogue', 'text': "Remember this question from Warmup? You noticed it needed more than one step. Now let's figure out how to solve it."}, {'type': 'dialogue', 'text': "First, let's find the categories we need. Which categories does the question ask about?"}, {'type': 'prompt', 'text': 'Which categories do we need? Select all of the needed categories.', 'tool': 'multi_select', 'options': ['Pizza', 'Tacos', 'Salad', 'Burgers'], 'validator': [{'condition': {'and': [{'selected': 'Pizza'}, {'selected': 'Tacos'}, {'selected': 'Salad'}]}, 'description': 'Student selected Pizza, Tacos, and Salad. Correct.', 'is_correct': True, 'steps': [[{'type': 'scene', 'method': 'update', 'tangible_id': 'bar_graph_lunch', 'params': {'highlight_categories': ['Pizza', 'Tacos', 'Salad']}}, {'type': 'dialogue', 'text': "Those three. Notice we don't need burgers. The question doesn't ask about burgers."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_lunch', 'description': 'Horizontal bar graph. Pizza, Tacos, and Salad bars highlighted. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 5, 'categories': ['Pizza', 'Tacos', 'Salad', 'Burgers']}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'bar_graph_lunch', 'description': 'Horizontal bar graph in reading mode. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15. Multi-select tool active.', 'tangible_type': 'bar_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 5, 'categories': ['Pizza', 'Tacos', 'Salad', 'Burgers']}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v1\step_03_remediation_generator\prompts\s2_1_identify_categories.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 847
+  output_tokens: 1037
+  total_tokens: 1884
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 16845
+  cache_savings: 90% (saved 16845 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 5/13] s2_2_worked_example (not in only_items)
+  [SKIP 6/13] s2_3_strategy_naming (not in only_items)
+  [SKIP 7/13] s2_4_guided_practice (not in only_items)
+  [SKIP 8/13] s3_transition (not in only_items)
+  [SKIP 9/13] s3_1_reduced_scaffolding (not in only_items)
+  [SKIP 10/13] s3_2_minimal_scaffolding (not in only_items)
+  [SKIP 11/13] s3_3_single_step_check (not in only_items)
+  [SKIP 12/13] s3_4_final_two_step (not in only_items)
+  [SKIP 13/13] s4_bridge_exit_check (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 13/13
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 13 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v1\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 56670 bytes
+  [DEBUG] Read 54947 chars from 56670 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_module_6\v1\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [SKIP] Outside execution range (2-4)
+
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 13.8s
+Output: outputs/lesson_generator_module_6/latest/
+======================================================================

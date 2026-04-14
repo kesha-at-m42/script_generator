@@ -1,0 +1,100 @@
+{
+  "id": "s1_3_real_world_bridge",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Count everything"
+        },
+        "description": "Student selected 'Count everything': doesn't recognize the need to combine before comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_display",
+              "params": {
+                "highlight_text": "Ben and Carlos put together"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Counting is part of it, but notice the phrase 'put together.' What does that tell you to do first?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Find the biggest number"
+        },
+        "description": "Student selected 'Find the biggest number': focusing on magnitude without recognizing the comparison structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_display",
+              "params": {
+                "highlight_text": "combined"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: these aren't asking for the biggest single number. Look at the words 'combined' and 'put together.' What do those tell you?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Subtract twice"
+        },
+        "description": "Student selected 'Subtract twice': misidentifying the operation needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_display",
+              "params": {
+                "highlight_text": "Blue and Green teams combined"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Words like 'combined' and 'altogether' tell us to add things together first. Then we can compare the totals."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "scenario_display",
+              "params": {
+                "event": "highlight_pattern",
+                "status": "confirmed",
+                "description": "Each scenario highlights the 'combine' phrase, then shows the comparison structure"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here, let me walk you through this one. In every scenario, two things get combined first. Ben and Carlos together. Blue and Green teams combined. Drinks and dessert altogether. Then we compare that total to one other thing. The pattern is: combine some things first, then compare."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:59.935770+00:00"
+}

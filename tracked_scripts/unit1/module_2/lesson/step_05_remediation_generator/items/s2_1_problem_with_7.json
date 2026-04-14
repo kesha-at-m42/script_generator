@@ -1,0 +1,81 @@
+{
+  "id": "s2_1_problem_with_7",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Ignore the leftover"
+        },
+        "description": "Student selected 'Ignore the leftover' — believes incomplete groups should be dropped",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_animals",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. That leftover bird matters—it was really seen. We need to show all 7 birds, not just 6."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Round up to 8"
+        },
+        "description": "Student selected 'Round up to 8' — believes odd values should be rounded to nearest even number",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_animals",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: we can't change the data from 7 to 8—that would show we saw more birds than we actually did. We need a symbol that shows exactly 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table_animals",
+              "params": {
+                "event": "demonstrate_half_symbol",
+                "status": "confirmed",
+                "description": "Animation shows half-star appearing to represent the single remaining bird. Three full stars plus one half-star displayed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. We have 7 birds total. That's 3 groups of 2—shown with 3 full stars—plus 1 left over. For that 1, we use half a star. Half of 2 equals 1. So 7 becomes 3 and a half stars."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:08:35.224355+00:00"
+}

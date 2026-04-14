@@ -1,0 +1,449 @@
+{
+  "batch_only_items": [
+    "s3_2_student_places_category_b",
+    "s3_3_student_places_category_c"
+  ],
+  "data": [
+    {
+      "id": "s1_1_data_collection",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "minis_counting_scene",
+            "tangible_type": "data_collection_game",
+            "params": {
+              "style": "Mario Party-style counting game",
+              "categories": 3,
+              "values_range": "3-7 per category",
+              "duration": "60 seconds",
+              "interaction": "up_down_counter",
+              "description": "Minis characters appear in animated counting scenario. Scene shows items to count in three categories."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "The Minis are here. Let's count what we see. Use the counter to keep track of each group."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "minis_counting_scene",
+                "description": "Minis counting game displayed. Three categories of items visible. Up/down counter interface ready.",
+                "tangible_type": "data_collection_game",
+                "style": "Mario Party-style counting game",
+                "categories": 3
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "scene",
+            "method": "animate",
+            "tangible_id": "minis_counting_scene",
+            "params": {
+              "event": "count_reveal",
+              "status": "confirmed",
+              "description": "Guide counts visually. Animation highlights and counts each category in sequence, revealing correct totals."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Let's check your counts. There were [X] [category A], [Y] [category B], and [Z] [category C]. Now we've got our data."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "minis_counting_scene",
+                "description": "Minis counting scene. All three categories counted and confirmed. Correct totals displayed.",
+                "tangible_type": "data_collection_game",
+                "style": "Mario Party-style counting game",
+                "categories": 3
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:26:58.667515+00:00"
+    },
+    {
+      "id": "s2_1_symbol_introduction",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "data_table",
+            "tangible_type": "data_table",
+            "params": {
+              "description": "Data table appears showing warmup counting results: Red items, Blue items, Yellow items with their counts."
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "picture_graph_warmup",
+            "tangible_type": "picture_graph",
+            "params": {
+              "mode": "creating",
+              "orientation": "horizontal",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "symbol": "star",
+              "description": "Empty horizontal picture graph template appears with 3 category rows. Star symbol visible in key area. Key shows each star = 1 item."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Let's make a picture graph with your data. We're using stars this time. See how each star stands for 1 item."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "data_table",
+                "description": "Data table showing warmup counting results.",
+                "tangible_type": "data_table"
+              },
+              {
+                "tangible_id": "picture_graph_warmup",
+                "description": "Empty horizontal picture graph template with Red, Blue, Yellow rows. Star symbol in key. Each star = 1 item.",
+                "tangible_type": "picture_graph",
+                "mode": "creating",
+                "orientation": "horizontal",
+                "categories": [
+                  "Red",
+                  "Blue",
+                  "Yellow"
+                ],
+                "symbol": "star"
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:27:05.844642+00:00"
+    },
+    {
+      "id": "s3_1_model_first_category",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "picture_graph_class_data",
+            "tangible_type": "picture_graph",
+            "params": {
+              "mode": "creating",
+              "orientation": "horizontal",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "symbol_selected": true,
+              "description": "Empty horizontal picture graph appears in creating mode. Categories Red, Blue, Yellow visible. Symbol selected and ready to place. Key reads 'Each symbol = 1 item.'"
+            }
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "data_table",
+            "tangible_type": "data_table",
+            "params": {
+              "visible": false,
+              "description": "Data table exists but not visible. Contains class data from counting activity."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Watch how I show Red on the graph. You counted 5 Red. So I'm adding 5 symbols. One... two... three... four... five. There. 5 symbols for Red. Each symbol stands for 1 item."
+          },
+          {
+            "type": "scene",
+            "method": "animate",
+            "tangible_id": "picture_graph_class_data",
+            "params": {
+              "event": "place_symbols_with_count",
+              "status": "confirmed",
+              "category": "Red",
+              "count": 5,
+              "description": "System places symbols one at a time in Red row. Each placement accompanied by count narration. Final state shows 5 symbols in Red row."
+            }
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "picture_graph_class_data",
+                "description": "Horizontal picture graph in creating mode. Red row shows 5 symbols placed. Blue and Yellow rows empty. Key reads 'Each symbol = 1 item.'",
+                "tangible_type": "picture_graph",
+                "mode": "creating",
+                "orientation": "horizontal",
+                "categories": [
+                  "Red",
+                  "Blue",
+                  "Yellow"
+                ]
+              },
+              {
+                "tangible_id": "data_table",
+                "description": "Data table not visible.",
+                "tangible_type": "data_table",
+                "visible": false
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:27:14.820834+00:00"
+    },
+    {
+      "id": "s3_2_student_places_category_b",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "picture_graph_pets",
+            "tangible_type": "picture_graph",
+            "params": {
+              "mode": "creating",
+              "orientation": "horizontal",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish"
+              ],
+              "description": "Horizontal picture graph in creating mode. Dogs row complete with 8 symbols. Cats and Fish rows empty. Key visible showing each symbol equals 1 student."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Your turn. You counted 5 Cats. Add 5 cat symbols -- one for each Cat you counted."
+          },
+          {
+            "type": "prompt",
+            "text": "Click to place 5 cat symbols.",
+            "tool": "click_to_place",
+            "target": "picture_graph_pets",
+            "validator": [
+              {
+                "condition": {
+                  "category": "Cats",
+                  "symbols_placed": 5
+                },
+                "description": "Student placed 5 cat symbols in Cats row, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "scene",
+                      "method": "animate",
+                      "tangible_id": "picture_graph_pets",
+                      "params": {
+                        "event": "symbols_placed",
+                        "status": "confirmed",
+                        "category": "Cats",
+                        "count": 5,
+                        "description": "5 cat symbols appear in Cats row, completing the category"
+                      }
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "5 cat symbols. One for each Cat."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "picture_graph_pets",
+                          "description": "Horizontal picture graph in creating mode. Dogs row complete with 8 symbols. Cats row complete with 5 symbols. Fish row empty. Key visible.",
+                          "tangible_type": "picture_graph",
+                          "mode": "creating",
+                          "orientation": "horizontal",
+                          "categories": [
+                            "Dogs",
+                            "Cats",
+                            "Fish"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "picture_graph_pets",
+                "description": "Horizontal picture graph in creating mode. Dogs row complete with 8 symbols. Cats and Fish rows empty. Key visible. click_to_place tool active for Cats row.",
+                "tangible_type": "picture_graph",
+                "mode": "creating",
+                "orientation": "horizontal",
+                "categories": [
+                  "Dogs",
+                  "Cats",
+                  "Fish"
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:27:24.324741+00:00"
+    },
+    {
+      "id": "s3_3_student_places_category_c",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "picture_graph_class_data",
+            "tangible_type": "picture_graph",
+            "params": {
+              "mode": "creating",
+              "orientation": "horizontal",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "description": "Horizontal picture graph in creating mode. Red and Blue rows complete with symbols placed. Yellow row empty, ready for student input. Key visible showing each symbol equals 1."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Now Yellow. You counted 8. Click to add 8 stars."
+          },
+          {
+            "type": "prompt",
+            "text": "Click to place 8 stars for Yellow.",
+            "tool": "click_to_place",
+            "target": "picture_graph_class_data",
+            "validator": [
+              {
+                "condition": {
+                  "symbols_placed": 8
+                },
+                "description": "Student placed 8 symbols in Yellow row, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "scene",
+                      "method": "update",
+                      "tangible_id": "picture_graph_class_data",
+                      "params": {
+                        "description": "Yellow row now shows 8 symbols placed, completing the graph."
+                      }
+                    },
+                    {
+                      "type": "dialogue",
+                      "text": "That's 8 stars. You made a picture graph."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "picture_graph_class_data",
+                          "description": "Horizontal picture graph complete. Red, Blue, and Yellow rows all showing placed symbols. Key visible.",
+                          "tangible_type": "picture_graph",
+                          "mode": "creating",
+                          "orientation": "horizontal",
+                          "categories": [
+                            "Red",
+                            "Blue",
+                            "Yellow"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "picture_graph_class_data",
+                "description": "Horizontal picture graph in creating mode. Red and Blue rows complete. Yellow row empty, click_to_place tool active.",
+                "tangible_type": "picture_graph",
+                "mode": "creating",
+                "orientation": "horizontal",
+                "categories": [
+                  "Red",
+                  "Blue",
+                  "Yellow"
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:27:34.182667+00:00"
+    },
+    {
+      "id": "s4_1_bridge_to_lesson",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "picture_graph_student",
+            "tangible_type": "picture_graph",
+            "params": {
+              "mode": "creating",
+              "orientation": "horizontal",
+              "categories": [
+                "Category A",
+                "Category B",
+                "Category C"
+              ],
+              "description": "Horizontal picture graph appears in creating mode. Student's completed graph with 3 categories. Key visible showing each symbol equals 1."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You made a picture graph with your data. Graphs can show all kinds of information. Ready to see what else we can learn from them?"
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "picture_graph_student",
+                "description": "Horizontal picture graph in creating mode. Student's completed graph with 3 categories. Key visible.",
+                "tangible_type": "picture_graph",
+                "mode": "creating",
+                "orientation": "horizontal",
+                "categories": [
+                  "Category A",
+                  "Category B",
+                  "Category C"
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "_generated_at": "2026-04-02T19:27:39.213177+00:00"
+    }
+  ]
+}

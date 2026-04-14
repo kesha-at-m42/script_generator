@@ -1,0 +1,109 @@
+{
+  "id": "s3_4_how_many_in_all_books",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 11
+        },
+        "description": "Student selected 11 — only counted Aiden's books, not the total",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted Aiden's books. We need both James AND Aiden — count James's books too."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 17
+        },
+        "description": "Student selected 17 — likely miscounted one or both categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count carefully. James has 12 book symbols. Aiden has 11 book symbols. Add those two numbers together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 28
+        },
+        "description": "Student selected 28 — added all four categories instead of just James and Aiden",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: we only need James and Aiden, not everyone. Count James's symbols, then Aiden's symbols, then add just those two."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "highlight_and_count",
+                "status": "confirmed",
+                "description": "System counts James's row showing 12, then Aiden's row showing 11, then combines to show 23"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count James's books — that's 12 symbols. Then count Aiden's books — that's 11 symbols. Now add them: 12 plus 11 equals 23 books in all. The answer is 23."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:10:19.868515+00:00"
+}

@@ -1,0 +1,109 @@
+{
+  "id": "s2_2_reading_leo_between",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30: reading the line below instead of between the lines",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_stickers",
+              "params": {
+                "highlight_categories": [
+                  "Leo"
+                ],
+                "description": "Leo's bar highlighted. 30 line pulses, then bar top pulses above it."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The bar goes above the 30 line. It stops between 30 and 40."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 34
+        },
+        "description": "Student selected 34: close but not halfway between 30 and 40",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_stickers",
+              "params": {
+                "highlight_categories": [
+                  "Leo"
+                ],
+                "description": "Leo's bar highlighted. Midpoint between 30 and 40 pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Look at where the bar ends. It's exactly halfway between 30 and 40."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40: reading the line above instead of between the lines",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_stickers",
+              "params": {
+                "highlight_categories": [
+                  "Leo"
+                ],
+                "description": "Leo's bar highlighted. 40 line pulses, then bar top pulses below it."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the bar doesn't reach the 40 line. It stops between the 30 and 40 lines."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_stickers",
+              "params": {
+                "event": "highlight_midpoint",
+                "status": "confirmed",
+                "description": "Leo's bar highlighted. Midpoint between 30 and 40 glows. Value 35 appears."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The bar ends halfway between 30 and 40. Half of 10 is 5. So 30 plus 5 equals 35. The answer is 35."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:47:15.522555+00:00"
+}

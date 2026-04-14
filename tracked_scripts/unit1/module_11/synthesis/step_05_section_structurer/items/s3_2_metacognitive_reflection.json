@@ -1,0 +1,69 @@
+{
+  "id": "s3_2_metacognitive_reflection",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "If you remember one thing from today, what would it be?"
+    },
+    {
+      "type": "prompt",
+      "text": "What's the most important thing you learned?",
+      "tool": "multiple_choice",
+      "options": [
+        "An array has rows AND columns",
+        "Your description determines your expression",
+        "The same array can give you two different expressions"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_a",
+          "condition": {
+            "selected": "An array has rows AND columns"
+          },
+          "description": "Student selected option A",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Rows and columns. That's what makes an array different from just a bunch of groups. You'll keep using that."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_b",
+          "condition": {
+            "selected": "Your description determines your expression"
+          },
+          "description": "Student selected option B",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That's the rule. What you SAY determines what you WRITE. Precise language, precise math."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_c",
+          "condition": {
+            "selected": "The same array can give you two different expressions"
+          },
+          "description": "Student selected option C",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Two descriptions, two expressions, one array. That's something we'll come back to next time."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-10T16:51:03.927367+00:00"
+}

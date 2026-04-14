@@ -1,0 +1,280 @@
+[
+  {
+    "id": "s1_1_graph_reading_quick_success",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 16
+          },
+          "description": "Student selected 16, likely counted symbols instead of scaling by 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_key": true,
+                  "description": "Key highlights to show each symbol = 5 books"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the key. Each symbol stands for 5 books, not 1. Skip-count by 5s: 5, 10, 15, 20."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "highlight_symbols_sequentially",
+                  "status": "confirmed",
+                  "description": "Symbols highlight one by one as guide counts: 5, 10, 15, 20"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the symbols: 1, 2, 3, 4. Each symbol means 5 books. So I skip-count: 5, 10, 15, 20. The answer is 20 books. That is how scaling works on a picture graph."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-14T16:06:31.288919+00:00"
+  },
+  {
+    "id": "s2_1_grouping_animation_reveal",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5: counted items per group instead of number of groups",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_warmup",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 4 containers/bags highlight to draw attention to the groups themselves."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted what's inside each group. The question asks how many groups there are. Count the bags themselves."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 8
+          },
+          "description": "Student selected 8: possibly counted containers and some items, or doubled the group count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_warmup",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 4 containers/bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: we're counting the containers themselves, not what's inside. How many bags do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20: counted total items instead of number of groups",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_warmup",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 4 containers/bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted all the items. That's the total. The question asks how many groups. Count the bags, not what's inside them."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_warmup",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "System counts each container one by one: 1, 2, 3, 4. Each bag pulses as it's counted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. I count the bags themselves: 1, 2, 3, 4. The answer is 4 groups. We're counting how many groups we have, not what's inside each one."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-14T16:06:42.929562+00:00"
+  },
+  {
+    "id": "s3_1_transfer_to_bags_groups_beyond_graphs",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student selected 2: undercounted the bags",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "All bags highlight to show each separate container."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at each bag. Count them one at a time. How many bags do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4: counted items per bag instead of number of bags",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "Bags highlight, not the items inside."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "4 is how many are in each bag. The question asks how many groups. Each bag is one group."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6: attempted to combine bags and items instead of counting groups",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "Bags highlight to emphasize the containers, not the total count."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "We're counting groups. Each bag is one group. Count just the bags. How many bags are there?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "System highlights each bag one at a time, counting 1, 2, 3."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count each bag. First bag, second bag, third bag. That's 3 groups. Each bag is a group of 4."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-14T16:06:53.616119+00:00"
+  },
+  {
+    "id": "s4_1_bridge_to_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You found equal groups in graphs. You found them in bags. There's a whole lot more hiding. Let's find them.",
+        "id": "s4_1_bridge_to_lesson_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s4_1_bridge_to_lesson_b1"
+      }
+    ],
+    "_generated_at": "2026-04-14T16:06:13.751349+00:00"
+  }
+]

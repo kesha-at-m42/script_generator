@@ -1,0 +1,624 @@
+[
+  {
+    "id": "s4_opening",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You read picture graphs and bar graphs and used them to answer questions about the data. Now let's connect some ideas."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s4_1_representation_transfer",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "They have the same title"
+                    },
+                    {
+                      "selected": "They show the same categories"
+                    },
+                    {
+                      "selected": "Soccer has the most in both"
+                    }
+                  ]
+                }
+              },
+              {
+                "not_selected": "They look exactly the same"
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only correct answers, but not all three. Under-selecting.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're getting there. Everything you picked is true. Look at both graphs again. Are there other things that are the same?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "They have the same title"
+                    },
+                    {
+                      "selected": "They show the same categories"
+                    },
+                    {
+                      "selected": "Soccer has the most in both"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 3: Student selected only incorrect answers. All-wrong.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "event": "pulse_title",
+                  "status": "proposed",
+                  "description": "Picture graph title pulses briefly"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "event": "pulse_title",
+                  "status": "proposed",
+                  "description": "Bar graph title pulses briefly"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about what makes these graphs show the same information. Look at the titles, the categories, and what the data tells you. What stays the same when we change the format?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "They look exactly the same"
+              },
+              {
+                "or": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected mix of correct and incorrect. Over-selecting with 'look exactly the same'.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found some things that are the same. The information matches. But look closely at how each graph shows the data. Do they look exactly the same, or is the format different?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "event": "highlight_title_and_categories",
+                  "status": "confirmed",
+                  "description": "Picture graph title and category labels highlight in sequence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "event": "highlight_title_and_categories",
+                  "status": "confirmed",
+                  "description": "Bar graph title and category labels highlight in sequence, matching picture graph timing"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Both graphs have the same title: Favorite Sports. Both show the same four sports. And Soccer has the most votes in both. The data is the same. Only the format is different."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-23T19:06:44.212496+00:00"
+  },
+  {
+    "id": "s4_2_pattern_discovery",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 1,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "values": [
+              5,
+              4,
+              3,
+              6
+            ],
+            "title": "Favorite Pets",
+            "key_visible": true,
+            "component_labels": {
+              "A": "title",
+              "B": "key",
+              "C": "category_labels"
+            },
+            "description": "Horizontal picture graph appears. Favorite Pets data. Dogs=5, Cats=4, Fish=3, Birds=6. Three components labeled by system overlay: A=Title 'Favorite Pets', B=Key 'Each ★ = 1 vote', C=Category labels (Dogs, Cats, Fish, Birds). Labels are clickable."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Every part of a graph has a job. This picture graph has three parts labeled A, B, and C. Click on the part that shows what each symbol means."
+        },
+        {
+          "type": "prompt",
+          "text": "Which part tells you what each symbol means?",
+          "tool": "click_component",
+          "target": "picture_graph_pets.component",
+          "validator": [
+            {
+              "condition": {
+                "selected": "B"
+              },
+              "description": "Student clicked component B — the key — correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_pets",
+                    "params": {
+                      "event": "highlight_component",
+                      "component": "B",
+                      "status": "confirmed",
+                      "description": "Component B (the key) highlights with glow effect"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "The key tells you what each symbol means. Here, each star equals 1 vote. Title tells what the graph is about. Labels name the categories. Key shows the scale. Every part has a job."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_pets",
+                        "description": "Horizontal picture graph. Favorite Pets data. Component B (key) highlighted showing 'Each ★ = 1 vote'.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "categories": [
+                          "Dogs",
+                          "Cats",
+                          "Fish",
+                          "Birds"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Horizontal picture graph. Favorite Pets data. Three labeled components visible: A=Title, B=Key, C=Category labels. click_component tool active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s4_3_real_world_bridge",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "Your class votes on a field trip destination"
+                  },
+                  {
+                    "selected": "Library tracks which book genre students check out most"
+                  },
+                  {
+                    "selected": "Cafeteria tracks which lunch is most popular"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "Your class votes on a field trip destination"
+                    },
+                    {
+                      "selected": "Library tracks which book genre students check out most"
+                    },
+                    {
+                      "selected": "Cafeteria tracks which lunch is most popular"
+                    }
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "Invalid_Option_1"
+                    },
+                    {
+                      "selected": "Invalid_Option_2"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected at least one correct scenario but not all three",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "You're on the right track. The ones you picked do work with bar graphs. Think about the others. Do they also count and compare categories?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "not": {
+              "or": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
+              ]
+            }
+          },
+          "description": "Branch 3: Student selected no correct scenarios",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let's think about what bar graphs show. They compare categories. In each of these scenarios, you're counting something and comparing the results. Can you see that pattern?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "Invalid_Option_1"
+                  },
+                  {
+                    "selected": "Invalid_Option_2"
+                  }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "selected": "Your class votes on a field trip destination"
+                  },
+                  {
+                    "selected": "Library tracks which book genre students check out most"
+                  },
+                  {
+                    "selected": "Cafeteria tracks which lunch is most popular"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected a mix of correct and incorrect scenarios",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "You found some good ones. But check your choices again. All three scenarios involve counting and comparing categories, which is exactly what bar graphs do well."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. Each scenario counts something and compares the results. Field trips: you count votes for each destination. Library: you count checkouts for each genre. Cafeteria: you count choices for each lunch. All three compare categories, so all three work with bar graphs."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-23T19:06:57.334070+00:00"
+  },
+  {
+    "id": "s4_4_metacognitive_reflection",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You saw two kinds of comparison questions today. To answer both questions, what do you need to do?"
+        },
+        {
+          "type": "prompt",
+          "text": "To answer both questions, what do you need to do?",
+          "tool": "multiple_choice",
+          "options": [
+            "Add the categories",
+            "Subtract the categories",
+            "Find each value"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Subtract the categories"
+              },
+              "description": "Student answered subtract — correct, both 'how many more' and 'how many fewer' require subtraction",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "'How many more' and 'how many fewer' — both mean subtract. You find the difference to compare."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": []
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s4_closure",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_warmup_review",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 1,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ],
+            "description": "Student's Warmup graph reappears on left — horizontal picture graph with 3 categories they created earlier"
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_lesson_review",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 1,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "description": "A Lesson graph from earlier sections appears on right — horizontal picture graph showing data they read during the lesson"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You made your own graph. You read other people's graphs. You answered comparison questions and found totals. You know how to collect and represent data."
+        },
+        {
+          "type": "dialogue",
+          "text": "Next time, you'll see graphs where each symbol means more than one. Get ready for a new challenge."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_warmup_review",
+              "description": "Student's Warmup graph displayed on left side — horizontal picture graph with 3 categories they created",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal"
+            },
+            {
+              "tangible_id": "picture_graph_lesson_review",
+              "description": "Lesson graph displayed on right side — horizontal picture graph from earlier sections",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal"
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "id": "s1_ec3_create_mixed_values",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set at least one bar incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. Some values land on the lines, others fall between."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set at least one bar incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Markers",
+                  "Crayons",
+                  "Paintbrushes",
+                  "Glue Sticks"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: Markers is 30, right at the third line. Crayons is 45, halfway between 40 and 50."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set at least one bar incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "event": "set_all_bars",
+                "status": "confirmed",
+                "description": "All bars fill to correct heights: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55",
+                "bar_heights": [
+                  30,
+                  45,
+                  20,
+                  55
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Markers is 30, at the line. Crayons is 45, between 40 and 50. Paintbrushes is 20, at the line. Glue Sticks is 55, between 50 and 60."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:32.465839+00:00"
+}

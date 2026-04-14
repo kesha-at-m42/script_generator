@@ -1,0 +1,116 @@
+{
+  "id": "s2_6_reading_total_monday_tuesday",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35: only counted Tuesday, missed Monday",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "highlight_categories": [
+                  "Monday",
+                  "Tuesday"
+                ],
+                "description": "Both Monday and Tuesday bars pulse to emphasize both are needed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. We need both days. What do Monday and Tuesday add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40: only counted Monday, missed Tuesday",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "highlight_categories": [
+                  "Monday",
+                  "Tuesday"
+                ],
+                "description": "Both Monday and Tuesday bars pulse to emphasize both are needed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the question asks for total minutes. You need to add Monday and Tuesday together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 85
+        },
+        "description": "Student selected 85: likely added all four days or miscalculated",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "highlight_categories": [
+                  "Monday",
+                  "Tuesday"
+                ],
+                "description": "Only Monday and Tuesday bars highlighted, other bars dim."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The key is to use only Monday and Tuesday, not all the days."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "event": "highlight_value",
+                "status": "confirmed",
+                "description": "Monday bar shows 40, then Tuesday bar shows 35, then both values combine to show 75.",
+                "categories": [
+                  "Monday",
+                  "Tuesday"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Monday is 40 minutes. Tuesday is 35 minutes. When we add them, 40 plus 35 equals 75 minutes total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:47:58.037452+00:00"
+}

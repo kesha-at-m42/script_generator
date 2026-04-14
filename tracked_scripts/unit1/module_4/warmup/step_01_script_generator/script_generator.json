@@ -1,0 +1,644 @@
+[
+  {
+    "id": "w1_data_collection",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "minis_counting_scene",
+          "tangible_type": "counting_game",
+          "params": {
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "target_values": [
+              40,
+              20,
+              60
+            ],
+            "description": "Animated Minis scene appears. Three groups of items visible: Red items (40), Blue items (20), Yellow items (60). Minis characters animated collecting items in each category."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "The Minis are collecting items! Help count what they found."
+        },
+        {
+          "type": "prompt",
+          "text": "How many RED items did the Minis collect?",
+          "tool": "multiple_choice",
+          "options": [
+            30,
+            40,
+            50,
+            60
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 40
+              },
+              "description": "Student counted 40 red items, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Red items highlight as counted, count of 40 appears",
+                      "category": "Red"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "That's right, 40."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene. Red items highlighted as counted (40), Blue and Yellow items visible.",
+                        "tangible_type": "counting_game",
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ],
+                        "counted": [
+                          "Red"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Minis counting scene. Red, Blue, Yellow items visible. Prompt active for counting Red items.",
+              "tangible_type": "counting_game",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "target_values": [
+                40,
+                20,
+                60
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Now the Blue ones."
+        },
+        {
+          "type": "prompt",
+          "text": "How many BLUE items?",
+          "tool": "multiple_choice",
+          "options": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 20
+              },
+              "description": "Student counted 20 blue items, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Blue items highlight as counted, count of 20 appears",
+                      "category": "Blue"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "20. Good."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene. Red items counted (40), Blue items highlighted as counted (20), Yellow items visible.",
+                        "tangible_type": "counting_game",
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ],
+                        "counted": [
+                          "Red",
+                          "Blue"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Minis counting scene. Red counted (40), Blue and Yellow items visible. Prompt active for counting Blue items.",
+              "tangible_type": "counting_game",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "counted": [
+                "Red"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Last category."
+        },
+        {
+          "type": "prompt",
+          "text": "How many YELLOW items?",
+          "tool": "multiple_choice",
+          "options": [
+            40,
+            50,
+            60,
+            70
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 60
+              },
+              "description": "Student counted 60 yellow items, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "minis_counting_scene",
+                    "params": {
+                      "event": "mark_counted",
+                      "status": "confirmed",
+                      "description": "Yellow items highlight as counted, count of 60 appears",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You counted 40 red, 20 blue, and 60 yellow. That's a lot! Let's see how to show this data."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_scene",
+                        "description": "Minis counting scene complete. All three categories counted and displayed: Red (40), Blue (20), Yellow (60).",
+                        "tangible_type": "counting_game",
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ],
+                        "counted": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_scene",
+              "description": "Minis counting scene. Red counted (40), Blue counted (20), Yellow items visible. Prompt active for counting Yellow items.",
+              "tangible_type": "counting_game",
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ],
+              "counted": [
+                "Red",
+                "Blue"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w2_scale_comparison",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_scale5",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              20,
+              60
+            ],
+            "description": "Vertical picture graph appears on left. Scale of 5. Red shows 8 symbols (40÷5), Blue shows 4 symbols (20÷5), Yellow shows 12 symbols (60÷5). Key visible: Each ⭐ = 5."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_scale10",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              20,
+              60
+            ],
+            "description": "Vertical picture graph appears on right. Scale of 10. Red shows 4 symbols (40÷10), Blue shows 2 symbols (20÷10), Yellow shows 6 symbols (60÷10). Key visible: Each ⭐ = 10."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's your data two ways. Look at both graphs."
+        },
+        {
+          "type": "prompt",
+          "text": "Which graph uses FEWER symbols to show the same data?",
+          "tool": "click_tangible",
+          "target": [
+            "picture_graph_scale5",
+            "picture_graph_scale10"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "picture_graph_scale10"
+              },
+              "description": "Student selected the scale of 10 graph, correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_scale10",
+                    "params": {
+                      "event": "highlight_selection",
+                      "status": "confirmed",
+                      "description": "Scale of 10 graph highlights to confirm selection"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 10 uses fewer symbols! Each symbol shows more, so you need fewer of them."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "With scale of 10, each symbol shows more than scale of 5. That's why you need fewer symbols for the same data!"
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_scale5",
+                        "description": "Vertical picture graph. Scale of 5. Red (8 symbols), Blue (4 symbols), Yellow (12 symbols). Key: Each ⭐ = 5.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 5,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      },
+                      {
+                        "tangible_id": "picture_graph_scale10",
+                        "description": "Vertical picture graph highlighted as selected. Scale of 10. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale5",
+              "description": "Vertical picture graph on left. Scale of 5. Red (8 symbols), Blue (4 symbols), Yellow (12 symbols). Key: Each ⭐ = 5.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_scale10",
+              "description": "Vertical picture graph on right. Scale of 10. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w3_picture_to_bar_bridge",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "picture_graph_scale5",
+          "params": {
+            "description": "Scale of 5 picture graph removed from display"
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale10",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              20,
+              60
+            ],
+            "axis_range": [
+              0,
+              10,
+              20,
+              30,
+              40,
+              50,
+              60
+            ],
+            "description": "Vertical bar graph appears on right. Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. Red bar reaches 40, Blue bar reaches 20, Yellow bar reaches 60."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now watch this. Here's the SAME data as a bar graph."
+        },
+        {
+          "type": "dialogue",
+          "text": "Red has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 60 for Yellow. Can you find where?"
+        },
+        {
+          "type": "prompt",
+          "text": "Both graphs show 60 for Yellow. Click on where you see 60.",
+          "tool": "click_component",
+          "target": [
+            "picture_graph_scale10.Yellow",
+            "bar_graph_scale10.Yellow"
+          ],
+          "validator": [
+            {
+              "condition": {},
+              "description": "Student clicked either Yellow symbols or Yellow bar, both correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_scale10",
+                    "params": {
+                      "event": "highlight_category",
+                      "status": "confirmed",
+                      "description": "Yellow symbols highlight on picture graph",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_scale10",
+                    "params": {
+                      "event": "highlight_category",
+                      "status": "confirmed",
+                      "description": "Yellow bar highlights on bar graph",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 60."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_scale10",
+                        "description": "Vertical picture graph. Scale of 10. Yellow category highlighted. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_scale10",
+                        "description": "Vertical bar graph. Scale of 10. Yellow bar highlighted. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale10",
+              "description": "Vertical picture graph on left. Scale of 10. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_scale10",
+              "description": "Vertical bar graph on right. Scale of 10. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w4_lesson_bridge",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "picture_graph_scale10",
+          "params": {
+            "description": "Picture graph removed, bar graph remains"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data."
+        },
+        {
+          "type": "dialogue",
+          "text": "Bar graphs are powerful. You can read exact amounts from the numbers on the side."
+        },
+        {
+          "type": "dialogue",
+          "text": "Ready to learn how to CREATE bar graphs with scale of 10? Let's go!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_scale10",
+              "description": "Vertical bar graph. Scale of 10. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

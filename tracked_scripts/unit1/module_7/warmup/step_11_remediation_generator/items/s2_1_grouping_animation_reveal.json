@@ -1,0 +1,103 @@
+{
+  "id": "s2_1_grouping_animation_reveal",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5: counted items per group instead of number of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_warmup",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 4 containers/bags highlight to draw attention to the groups themselves."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted what's inside each group. The question asks how many groups there are. Count the bags themselves."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8: possibly counted containers and some items, or doubled the group count",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_warmup",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 4 containers/bags highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: we're counting the containers themselves, not what's inside. How many bags do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20: counted total items instead of number of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_warmup",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 4 containers/bags highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted all the items. That's the total. The question asks how many groups. Count the bags, not what's inside them."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_warmup",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "System counts each container one by one: 1, 2, 3, 4. Each bag pulses as it's counted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to think about this. I count the bags themselves: 1, 2, 3, 4. The answer is 4 groups. We're counting how many groups we have, not what's inside each one."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-14T16:06:42.929562+00:00"
+}

@@ -1,0 +1,132 @@
+{
+  "id": "s2_6_comparison_bars",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10 — misread scale or counted intervals incorrectly",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "proposed",
+                "description": "Guidelines draw from top of Tacos and Salad bars to axis",
+                "category": "Tacos"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "proposed",
+                "description": "Guidelines draw from top of Tacos and Salad bars to axis",
+                "category": "Salad"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Tacos reaches 30 and Salad reaches 15. The difference between those numbers is how many MORE."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30 — read Tacos bar height instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "proposed",
+                "description": "Guideline draws from top of Tacos bar to axis",
+                "category": "Tacos"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: 30 is how many chose Tacos total. But the question asks how many MORE than Salad—that means find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45 — added Tacos and Salad instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Tacos",
+                  "Salad"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The word MORE means we're comparing, not adding. How many more means subtract: Tacos minus Salad."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guidelines draw from both bars showing 30 for Tacos, 15 for Salad, difference highlighted",
+                "category": "Tacos"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guidelines draw from both bars showing 30 for Tacos, 15 for Salad, difference highlighted",
+                "category": "Salad"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Tacos has 30 students. Salad has 15 students. To find how many MORE, we subtract: 30 minus 15 equals 15. The answer is 15."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:49:07.550255+00:00"
+}

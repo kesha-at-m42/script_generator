@@ -1,0 +1,71 @@
+{
+  "id": "ec_2_find_fewest",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look for the shortest bar."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_seasons",
+              "params": {
+                "highlight_categories": [
+                  "Fall"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The fewest means the smallest number. Fall's bar only goes to 4—shorter than all the others."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_seasons",
+              "params": {
+                "event": "highlight_shortest_bar",
+                "status": "confirmed",
+                "description": "Fall bar pulses and highlights, showing it as the shortest at 4 votes"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. To find the fewest, we look for the shortest bar. Spring goes to 6, Summer to 9, Fall to 4, and Winter to 5. Fall has the shortest bar at 4 votes—that's the fewest. Click Fall."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:10:41.196707+00:00"
+}

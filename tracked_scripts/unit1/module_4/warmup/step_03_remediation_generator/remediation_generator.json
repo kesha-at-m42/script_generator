@@ -1,0 +1,617 @@
+[
+  {
+    "id": "w1_data_collection",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30: undercounted Red items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Red items pulse to draw attention to full count",
+                  "category": "Red"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count all the red items the Minis collected. Make sure you count every one."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 50
+          },
+          "description": "Student selected 50: overcounted Red items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Red items pulse to draw attention to accurate count",
+                  "category": "Red"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: count just the red items carefully. There are fewer than you thought."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 60
+          },
+          "description": "Student selected 60: confused Red count with Yellow count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Red items highlight separately from Yellow items",
+                  "category": "Red"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're working on it. That's the yellow count. Look only at the red items and count those."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "count_demonstration",
+                  "status": "confirmed",
+                  "description": "System counts Red items one by one, showing total of 40",
+                  "category": "Red"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. I count each red item the Minis collected. One, two, three, all the way to 40. The answer is 40."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10: undercounted Blue items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Blue items pulse to show full count",
+                  "category": "Blue"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this a bit more. Count all the blue items. There are more than that."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30: overcounted Blue items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Blue items pulse to show accurate count",
+                  "category": "Blue"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're getting there. The key is counting only the blue items. There are fewer than 30."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40: confused Blue count with Red count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Blue items highlight separately from Red items",
+                  "category": "Blue"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what helps: that's the red count. Focus on the blue items only and count those."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "count_demonstration",
+                  "status": "confirmed",
+                  "description": "System counts Blue items one by one, showing total of 20",
+                  "category": "Blue"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here, let me walk you through this one. I count just the blue items. One, two, three, up to 20. The answer is 20."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40: confused Yellow count with Red count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Yellow items highlight separately from Red items",
+                  "category": "Yellow"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. That's how many red items there are. Count only the yellow items."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 50
+          },
+          "description": "Student selected 50: undercounted Yellow items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Yellow items pulse to show complete count",
+                  "category": "Yellow"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're working on it. Count all the yellow items carefully. There are more than 50."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 70
+          },
+          "description": "Student selected 70: overcounted Yellow items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "proposed",
+                  "description": "Yellow items pulse to show accurate count",
+                  "category": "Yellow"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: count just the yellow items. There are fewer than you counted."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "minis_counting_scene",
+                "params": {
+                  "event": "count_demonstration",
+                  "status": "confirmed",
+                  "description": "System counts Yellow items one by one, showing total of 60",
+                  "category": "Yellow"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This one takes a bit of thought, so let's work through it together. I count each yellow item. One, two, three, all the way to 60. That's the answer: 60."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-12T03:32:21.948584+00:00"
+  },
+  {
+    "id": "w2_scale_comparison",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked the scale of 5 graph on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the symbols in each graph."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked the scale of 5 graph on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale5",
+                "params": {
+                  "highlight_categories": [
+                    "Red",
+                    "Blue",
+                    "Yellow"
+                  ]
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale10",
+                "params": {
+                  "highlight_categories": [
+                    "Red",
+                    "Blue",
+                    "Yellow"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The left graph has 24 symbols total. The right graph has 12 symbols total. Which uses fewer?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked the scale of 5 graph three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale10",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "Scale of 10 graph highlights to show it uses fewer symbols"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. The right graph uses scale of 10. Each symbol stands for more votes, so you need fewer symbols. Count them: Red has 4, Blue has 2, Yellow has 6. That's only 12 symbols total. The left graph needs 24 symbols for the same data."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-12T03:32:32.846925+00:00"
+  },
+  {
+    "id": "w3_picture_to_bar_bridge",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "picture_graph_scale5",
+          "params": {
+            "description": "Scale of 5 picture graph removed from display"
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_scale10",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              20,
+              60
+            ],
+            "axis_range": [
+              0,
+              10,
+              20,
+              30,
+              40,
+              50,
+              60
+            ],
+            "description": "Vertical bar graph appears on right. Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. Red bar reaches 40, Blue bar reaches 20, Yellow bar reaches 60."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Now watch this. Here's the SAME data as a bar graph."
+        },
+        {
+          "type": "dialogue",
+          "text": "Red has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 60 for Yellow. Can you find where?"
+        },
+        {
+          "type": "prompt",
+          "text": "Both graphs show 60 for Yellow. Click on where you see 60.",
+          "tool": "click_component",
+          "target": [
+            "picture_graph_scale10.Yellow",
+            "bar_graph_scale10.Yellow"
+          ],
+          "validator": [
+            {
+              "condition": {},
+              "description": "Student clicked either Yellow symbols or Yellow bar, both correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_scale10",
+                    "params": {
+                      "event": "highlight_category",
+                      "status": "confirmed",
+                      "description": "Yellow symbols highlight on picture graph",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "bar_graph_scale10",
+                    "params": {
+                      "event": "highlight_category",
+                      "status": "confirmed",
+                      "description": "Yellow bar highlights on bar graph",
+                      "category": "Yellow"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 60."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_scale10",
+                        "description": "Vertical picture graph. Scale of 10. Yellow category highlighted. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      },
+                      {
+                        "tangible_id": "bar_graph_scale10",
+                        "description": "Vertical bar graph. Scale of 10. Yellow bar highlighted. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+                        "tangible_type": "bar_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 10,
+                        "categories": [
+                          "Red",
+                          "Blue",
+                          "Yellow"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_scale10",
+              "description": "Vertical picture graph on left. Scale of 10. Red (4 symbols), Blue (2 symbols), Yellow (6 symbols). Key: Each ⭐ = 10.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            },
+            {
+              "tangible_id": "bar_graph_scale10",
+              "description": "Vertical bar graph on right. Scale of 10. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w4_lesson_bridge",
+    "type": "transition",
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "picture_graph_scale10",
+          "params": {
+            "description": "Picture graph removed, bar graph remains"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data."
+        },
+        {
+          "type": "dialogue",
+          "text": "Bar graphs are powerful. You can read exact amounts from the numbers on the side."
+        },
+        {
+          "type": "dialogue",
+          "text": "Ready to learn how to CREATE bar graphs with scale of 10? Let's go!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_scale10",
+              "description": "Vertical bar graph. Scale of 10. Red bar at 40, Blue bar at 20, Yellow bar at 60. Axis: 0, 10, 20, 30, 40, 50, 60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10,
+              "categories": [
+                "Red",
+                "Blue",
+                "Yellow"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

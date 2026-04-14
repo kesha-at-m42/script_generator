@@ -1,0 +1,280 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [DIR] step_01_script_generator
+  [LOAD] Reading: C:\git\script_generator\units\unit1\module5\exitcheck.md
+  [DEBUG] File size: 6308 bytes
+  [DEBUG] Read 6137 chars from 6308 bytes
+  [OK] Loaded 6137 chars
+
+======================================================================
+Building prompt: script_generator
+======================================================================
+  Loading prompt definition: script_generator
+  [OK] Loaded SCRIPT_GENERATOR_PROMPT
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+    Resolving doc: toy_specs.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\toy_specs.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_01_script_generator\prompt.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1905
+  output_tokens: 2642
+  total_tokens: 4547
+  requests: 1
+  cache_creation_tokens: 77325
+  cache_read_tokens: 0
+  cache_savings: 0%
+  [JSON] Extracting JSON from output...
+  [SAVE] Saved JSON array with 5 items to: step_01_script_generator\script_generator.json
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [DIR] step_02_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_01_script_generator\script_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_01_script_generator\script_generator.json
+  [DEBUG] File size: 9907 bytes
+  [DEBUG] Read 9592 chars from 9907 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 10680 bytes
+  [DEBUG] Read 10358 chars from 10680 bytes
+  [OK] Loaded 10358 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 5 items from JSON array
+  [SKIP 1/5] s1_transition_exit_check (not in only_items)
+
+  [BATCH 2/5] s1_ec1_scale_too_small
+    Variables: {'id': 's1_ec1_scale_too_small', 'steps': [[{'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_ec1', 'tangible_type': 'data_table', 'params': {'description': 'Vertical data table appears. Toys Collected: Amy 45, Ben 70, Cora 15, Dan 30.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'scale_preview_ec1', 'tangible_type': 'scale_preview', 'params': {'description': "Four scale options displayed. Scale of 1: red X, '70 doesn't fit'. Scale of 2: red X, '70 doesn't fit'. Scale of 5: red X, '70 doesn't fit'. Scale of 10: green checkmark.", 'scales': [1, 2, 5, 10], 'max_value': 70, 'feedback': {'1': "doesn't fit", '2': "doesn't fit", '5': "doesn't fit", '10': 'fits'}}}, {'type': 'dialogue', 'text': 'Four friends collected toys for a donation drive. Ben collected the most with 70 toys. Which scale works best for this data?'}, {'type': 'prompt', 'text': 'Which scale works best for this data?', 'tool': 'multiple_choice', 'options': ['Scale of 1', 'Scale of 2', 'Scale of 5', 'Scale of 10'], 'validator': [{'condition': {'selected': 'Scale of 10'}, 'description': 'Student selected Scale of 10, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8. Much easier to read.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec1', 'description': 'Vertical data table. Toys Collected: Amy 45, Ben 70, Cora 15, Dan 30.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_ec1', 'description': 'Scale preview showing Scale of 10 as the working choice.', 'tangible_type': 'scale_preview'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec1', 'description': 'Vertical data table. Toys Collected: Amy 45, Ben 70, Cora 15, Dan 30.', 'tangible_type': 'data_table'}, {'tangible_id': 'scale_preview_ec1', 'description': 'Four scale options displayed with fit indicators for max value 70.', 'tangible_type': 'scale_preview'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_03_remediation_generator\prompts\s1_ec1_scale_too_small.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 956
+  output_tokens: 794
+  total_tokens: 1750
+  requests: 1
+  cache_creation_tokens: 13756
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 48 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/5] s1_ec2_non_multiples_need_scale_2
+    Variables: {'id': 's1_ec2_non_multiples_need_scale_2', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'data_table_ec1', 'params': {'description': 'Previous data table clears.'}}, {'type': 'scene', 'method': 'remove', 'tangible_id': 'scale_preview_ec1', 'params': {'description': 'Previous scale preview clears.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_ec2', 'tangible_type': 'data_table', 'params': {'description': 'Horizontal data table appears. Minutes Reading: Gus 23, Hal 31, Eli 9, Fay 16.'}}, {'type': 'dialogue', 'text': 'These students tracked how many minutes they read this week. Check the numbers: 23, 31, 9, 16. Which scale will show ALL these values exactly?'}, {'type': 'prompt', 'text': 'Which scale will show ALL these values exactly?', 'tool': 'multiple_choice', 'options': ['Scale of 2', 'Scale of 5', 'Scale of 10'], 'validator': [{'condition': {'selected': 'Scale of 2'}, 'description': 'Student selected Scale of 2, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec2', 'description': 'Horizontal data table. Minutes Reading: Gus 23, Hal 31, Eli 9, Fay 16.', 'tangible_type': 'data_table'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec2', 'description': 'Horizontal data table. Minutes Reading: Gus 23, Hal 31, Eli 9, Fay 16.', 'tangible_type': 'data_table'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 59 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_03_remediation_generator\prompts\s1_ec2_non_multiples_need_scale_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 805
+  output_tokens: 714
+  total_tokens: 1519
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 59 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 4/5] s1_ec3_select_appropriate_scale
+    Variables: {'id': 's1_ec3_select_appropriate_scale', 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'data_table_ec2', 'params': {'description': 'Previous data table clears.'}}, {'type': 'scene', 'method': 'add', 'tangible_id': 'data_table_ec3', 'tangible_type': 'data_table', 'params': {'description': 'Vertical data table appears. Steps Walked: Ana 30, Ben 70, Cara 90, Dan 50.'}}, {'type': 'dialogue', 'text': 'All these numbers end in 0. Think about the biggest number.'}, {'type': 'prompt', 'text': 'Which scale is the best choice for this data?', 'tool': 'multiple_choice', 'options': ["Scale of 10 — it's easiest to read.", 'Scale of 5 — it shows more detail.', 'Scale of 2 — it works for any numbers.'], 'validator': [{'condition': {'selected': "Scale of 10 — it's easiest to read."}, 'description': 'Student selected Scale of 10, correct', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': 'Scale of 10. For data up to 90, Scale of 10 gives you a clean graph with only 10 lines on the axis.'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec3', 'description': 'Vertical data table. Steps Walked: Ana 30, Ben 70, Cara 90, Dan 50.', 'tangible_type': 'data_table'}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'data_table_ec3', 'description': 'Vertical data table. Steps Walked: Ana 30, Ben 70, Cara 90, Dan 50.', 'tangible_type': 'data_table'}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_03_remediation_generator\prompts\s1_ec3_select_appropriate_scale.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 680
+  output_tokens: 619
+  total_tokens: 1299
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 13756
+  cache_savings: 90% (saved 13756 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+     --> Skipping 'visual_constraints' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 5/5] s1_exit_check_closure (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 5/5
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 5 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 10671 bytes
+  [DEBUG] Read 10341 chars from 10671 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [DIR] step_05_push
+  [AUTO-CHAIN] Using previous step output: step_04_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_04_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 19963 bytes
+  [DEBUG] Read 19391 chars from 19963 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=5
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_module_5\v2\step_05_push\push.json
+  [EXEC] Passing input to parameter 'data'
+
+  [NOTION] Pushed -> https://notion.so/3215917eac5281ba9cdbc3da1055f474
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v2
+Status: draft
+Duration: 149.9s
+Output: outputs/exitcheck_generator_module_5/latest/
+======================================================================

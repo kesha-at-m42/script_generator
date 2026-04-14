@@ -1,0 +1,110 @@
+{
+  "id": "s1_2_reading_blue_bar",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3: likely counting symbols from picture graph instead of reading bar height",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_warmup_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ],
+                "description": "Blue bar remains highlighted, 30 axis line pulses"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. On a bar graph, look where the bar ends. The Blue bar reaches the 30 line."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20: misread the axis line below the bar's actual height",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_warmup_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ],
+                "description": "Blue bar highlighted, 20 and 30 axis lines both visible, 30 line pulses"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the bar goes higher than 20. Follow the Blue bar to its top. Which line does it reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35: estimated above the actual line or misread axis",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_warmup_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ],
+                "description": "Blue bar highlighted, 30 and 40 axis lines visible, 30 line pulses"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The bar's top lines up exactly with a number. It stops at 30, not between lines."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_warmup_colors",
+              "params": {
+                "event": "trace_bar_to_axis",
+                "status": "confirmed",
+                "description": "Animation traces from top of Blue bar horizontally to axis, highlighting 30 line",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Start at the top of the Blue bar. Follow it to the left. It meets the axis at 30. That's the value."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:46:15.859593+00:00"
+}

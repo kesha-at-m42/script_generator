@@ -1,0 +1,357 @@
+{
+  "batch_only_items": [
+    "s1_1_graph_reading_scale_2",
+    "s1_2_comparison_single_step",
+    "s1_3_scale_check_lesson_context"
+  ],
+  "data": [
+    {
+      "id": "s1_1_graph_reading_scale_2",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_activities",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Soccer",
+                "Basketball",
+                "Tennis",
+                "Swimming"
+              ],
+              "values": [
+                12,
+                7,
+                6,
+                11
+              ],
+              "axis_range": [
+                0,
+                14
+              ],
+              "title": "After-School Activities",
+              "description": "Horizontal bar graph appears. After-School Activities data. Scale of 2. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Axis shows 0, 2, 4, 6, 8, 10, 12, 14."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale first."
+          },
+          {
+            "type": "prompt",
+            "text": "How many students chose soccer?",
+            "tool": "multiple_choice",
+            "options": [
+              6,
+              10,
+              12,
+              24
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 12
+                },
+                "description": "Student selected 12, correct",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "12 students. Scale of 2—each mark on the axis shows 2 students."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_activities",
+                          "description": "Horizontal bar graph. After-School Activities. Scale of 2. Soccer=12, Basketball=7, Tennis=6, Swimming=11.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 2,
+                          "categories": [
+                            "Soccer",
+                            "Basketball",
+                            "Tennis",
+                            "Swimming"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_activities",
+                "description": "Horizontal bar graph in reading mode. After-School Activities data. Scale of 2. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 2,
+                "categories": [
+                  "Soccer",
+                  "Basketball",
+                  "Tennis",
+                  "Swimming"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_2_comparison_single_step",
+      "steps": [
+        [
+          {
+            "type": "dialogue",
+            "text": "Now a question about this data."
+          },
+          {
+            "type": "prompt",
+            "text": "How many more students chose soccer than tennis?",
+            "tool": "multiple_choice",
+            "options": [
+              18,
+              12,
+              6,
+              3
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 6
+                },
+                "description": "Student selected 6, correct (12 minus 6)",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "6 more. 'How many more' means compare—we subtract. Soccer is 12, tennis is 6, difference is 6."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_activities",
+                          "description": "Horizontal bar graph. After-School Activities. Scale of 2. Soccer=12, Basketball=7, Tennis=6, Swimming=11.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "horizontal",
+                          "scale": 2,
+                          "categories": [
+                            "Soccer",
+                            "Basketball",
+                            "Tennis",
+                            "Swimming"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_activities",
+                "description": "Horizontal bar graph. After-School Activities data. Scale of 2. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "horizontal",
+                "scale": 2,
+                "categories": [
+                  "Soccer",
+                  "Basketball",
+                  "Tennis",
+                  "Swimming"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_3_scale_check_lesson_context",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "remove",
+            "tangible_id": "bar_graph_activities"
+          },
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "bar_graph_lunch",
+            "tangible_type": "bar_graph",
+            "params": {
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Pizza",
+                "Tacos",
+                "Salad",
+                "Burgers"
+              ],
+              "values": [
+                45,
+                25,
+                10,
+                15
+              ],
+              "axis_range": [
+                0,
+                50
+              ],
+              "title": "Favorite Lunch",
+              "description": "Vertical bar graph appears. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Axis shows 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50."
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "Different graph, different scale. Quick check."
+          },
+          {
+            "type": "prompt",
+            "text": "How many students chose pizza?",
+            "tool": "multiple_choice",
+            "options": [
+              9,
+              25,
+              45,
+              50
+            ],
+            "validator": [
+              {
+                "condition": {
+                  "selected": 45
+                },
+                "description": "Student selected 45, correct (9 marks times 5)",
+                "is_correct": true,
+                "steps": [
+                  [
+                    {
+                      "type": "dialogue",
+                      "text": "45 students. Scale of 5—you've got it."
+                    },
+                    {
+                      "type": "current_scene",
+                      "elements": [
+                        {
+                          "tangible_id": "bar_graph_lunch",
+                          "description": "Vertical bar graph. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+                          "tangible_type": "bar_graph",
+                          "mode": "reading",
+                          "orientation": "vertical",
+                          "scale": 5,
+                          "categories": [
+                            "Pizza",
+                            "Tacos",
+                            "Salad",
+                            "Burgers"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_lunch",
+                "description": "Vertical bar graph in reading mode. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Multiple choice tool active.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "categories": [
+                  "Pizza",
+                  "Tacos",
+                  "Salad",
+                  "Burgers"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "id": "s1_4_bridge",
+      "type": "transition",
+      "steps": [
+        [
+          {
+            "type": "scene",
+            "method": "add",
+            "tangible_id": "question_overlay",
+            "tangible_type": "text_overlay",
+            "params": {
+              "text": "How many more students chose pizza than tacos and salad together?",
+              "description": "Question appears on screen: 'How many more students chose pizza than tacos and salad together?'"
+            }
+          },
+          {
+            "type": "dialogue",
+            "text": "You've got graph reading down. You've got comparison down. But look at THIS question."
+          },
+          {
+            "type": "dialogue",
+            "text": "How many more students chose pizza than tacos and salad together?"
+          },
+          {
+            "type": "dialogue",
+            "text": "See that word 'together'? This question needs more than one step. We'll come back to THIS question in the lesson—and you'll be able to answer it."
+          },
+          {
+            "type": "current_scene",
+            "elements": [
+              {
+                "tangible_id": "bar_graph_lunch",
+                "description": "Vertical bar graph. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+                "tangible_type": "bar_graph",
+                "mode": "reading",
+                "orientation": "vertical",
+                "scale": 5,
+                "categories": [
+                  "Pizza",
+                  "Tacos",
+                  "Salad",
+                  "Burgers"
+                ]
+              },
+              {
+                "tangible_id": "question_overlay",
+                "description": "Question text overlay visible: 'How many more students chose pizza than tacos and salad together?'",
+                "tangible_type": "text_overlay"
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ]
+}

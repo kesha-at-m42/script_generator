@@ -1,0 +1,56 @@
+{
+  "id": "s1_1_decision_checklist",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Do the numbers end in 0 or 5?"
+        },
+        "description": "Student selected checking digits first instead of checking if biggest number fits",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_stickers",
+              "params": {
+                "highlight_categories": [
+                  "Hal"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. If the biggest number doesn't fit, the scale won't work at all. Check that first."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "scale_preview_stickers",
+              "params": {
+                "event": "highlight_max_value_check",
+                "status": "confirmed",
+                "description": "Scale Preview System highlights the maximum value check, showing 23 fits on Scale of 5"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, check if the biggest number fits. Here, 23 fits on Scale of 5. If it didn't fit, that scale wouldn't work at all. After you know it fits, then you check if the numbers end in 0 or 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-12T03:32:34.185929+00:00"
+}

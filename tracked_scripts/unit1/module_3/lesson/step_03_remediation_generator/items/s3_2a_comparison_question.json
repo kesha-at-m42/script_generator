@@ -1,0 +1,108 @@
+{
+  "id": "s3_2a_comparison_question",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40 — reported Olivia's total instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Emma"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Olivia's total. The question asks how many FEWER Emma read—that means the difference between the two amounts."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60 — added the two amounts instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Emma",
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. FEWER means we subtract, not add. Count Emma's books, then Olivia's books, then find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15 — miscounted or used incorrect values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Emma",
+                  "Olivia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: Emma has 20 books. Olivia has 40 books. To find how many FEWER, subtract Emma's amount from Olivia's amount."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "count_category",
+                "status": "confirmed",
+                "description": "System counts Emma's row showing 20 books, then counts Olivia's row showing 40 books, then demonstrates subtraction: 40 - 20 = 20"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, I count Emma's books—that's 20. Then I count Olivia's books—that's 40. To find how many FEWER Emma read, I subtract: 40 minus 20 equals 20. Emma read 20 fewer books than Olivia."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-09T17:49:38.187310+00:00"
+}

@@ -1,0 +1,243 @@
+{
+  "id": "s3_4a_which_categories",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "or": [
+            {
+              "and": [
+                {
+                  "selected": "Dogs"
+                },
+                {
+                  "not": {
+                    "selected": "Fish"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Cats"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Birds"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Lizards"
+                  }
+                }
+              ]
+            },
+            {
+              "and": [
+                {
+                  "selected": "Fish"
+                },
+                {
+                  "not": {
+                    "selected": "Dogs"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Cats"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Birds"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Lizards"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only Dogs or only Fish (correct answers only, but incomplete)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Fish"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You picked a category that matters. The question asks about comparing two groups. Look for one more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "selected": "Dogs"
+              }
+            },
+            {
+              "not": {
+                "selected": "Fish"
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only incorrect categories (Cats, Birds, or Lizards)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Fish"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The question asks how many fewer students have fish than dogs. Which two categories does that name?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "or": [
+            {
+              "and": [
+                {
+                  "selected": "Dogs"
+                },
+                {
+                  "selected": "Fish"
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "Cats"
+                    },
+                    {
+                      "selected": "Birds"
+                    },
+                    {
+                      "selected": "Lizards"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "and": [
+                {
+                  "selected": "Dogs"
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "Cats"
+                    },
+                    {
+                      "selected": "Birds"
+                    },
+                    {
+                      "selected": "Lizards"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "and": [
+                {
+                  "selected": "Fish"
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "Cats"
+                    },
+                    {
+                      "selected": "Birds"
+                    },
+                    {
+                      "selected": "Lizards"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected at least one correct category (Dogs or Fish) plus at least one incorrect category",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Fish"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: you picked at least one category that fits. The question only compares fish and dogs, so you don't need the others."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "highlight_categories",
+                "status": "confirmed",
+                "description": "Dogs and Fish columns pulse to highlight them as the two categories needed",
+                "categories": [
+                  "Dogs",
+                  "Fish"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The question asks how many fewer students have fish than dogs. That tells you exactly which two categories to look at: Dogs and Fish. The others don't matter for this question."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-23T19:05:43.568810+00:00"
+}
