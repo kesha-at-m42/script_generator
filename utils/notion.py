@@ -2018,6 +2018,44 @@ def _write_push_log(
 # ---------------------------------------------------------------------------
 
 
+def _confirm_page_update(
+    client: Client,
+    existing_page_id: str,
+    title: str,
+    update_title: bool,
+    n_sections: int,
+) -> str | None:
+    """Confirm an existing-page push with the user. Returns page_id, or None on 404.
+
+    Prints the page URL, optionally updates the page title, and asks the user
+    for confirmation unless NOTION_YES is set. Raises SystemExit if aborted.
+    """
+    url = get_page_url(existing_page_id)
+    print(f"Updating existing page: {url}")
+    if not os.getenv("NOTION_YES"):
+        try:
+            confirm = input(f"Push {n_sections} section(s)? [y/N] ").strip().lower()
+            if confirm != "y":
+                print("Aborted.")
+                raise SystemExit(0)
+        except EOFError:
+            pass  # non-interactive (pipeline) — proceed
+    try:
+        if update_title:
+            client.pages.update(
+                existing_page_id,
+                properties={"title": {"title": [{"text": {"content": title}}]}},
+            )
+        return existing_page_id
+    except Exception as e:
+        status = getattr(e, "status", None) or getattr(
+            getattr(e, "response", None), "status_code", None
+        )
+        if status == 404:
+            return None  # page was deleted; caller should create a new one
+        raise
+
+
 def push_lesson(
     data: Any,
     title: str,
@@ -2059,89 +2097,53 @@ def push_lesson(
         target_ids = set(sections)
         target_sections = [s for s in all_sections if s.get("id") in target_ids]
     elif existing_page_id:
-        # Check what's actually on the page; push sections that are absent or have changed beats
-        page_blocks = _all_blocks(client, existing_page_id)
-        blocks_by_id = {b["id"]: b for b in page_blocks}
-        sec_blocks_map = _section_blocks_map(page_blocks)
-        page_section_ids: set[str] = set()
-        for block in page_blocks:
-            if block.get("type") != "heading_2":
-                continue
-            rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
-            m = re.search(r"\[([^\]]+)\]\s*$", rt)
-            if m:
-                page_section_ids.add(m.group(1))
-        target_sections = [
-            s for s in all_sections
-            if _section_needs_push(s, blocks_by_id, page_section_ids, sec_blocks_map)
-        ]
+        # Full push — wipe and re-render everything; no need to inspect page state
+        target_sections = list(all_sections)
     else:
         # No existing page yet: all sections are new
         target_sections = list(all_sections)
 
     if existing_page_id:
-        url = get_page_url(existing_page_id)
-        print(f"Updating existing page: {url}")
         if not target_sections:
             print("Nothing to push — all sections are in sync.")
             return existing_page_id
-        # Ask for confirmation only when running interactively
-        if os.getenv("NOTION_YES"):
-            pass  # -y flag set — skip confirmation
-        else:
-            try:
-                confirm = input(f"Push {len(target_sections)} section(s)? [y/N] ").strip().lower()
-                if confirm != "y":
-                    print("Aborted.")
-                    raise SystemExit(0)
-            except EOFError:
-                pass  # non-interactive (pipeline) — proceed
-        try:
-            if sections is None:
-                client.pages.update(
-                    existing_page_id,
-                    properties={"title": {"title": [{"text": {"content": title}}]}},
-                )
-            page_id = existing_page_id
-        except Exception as e:
-            status = getattr(e, "status", None) or getattr(
-                getattr(e, "response", None), "status_code", None
-            )
-            if status == 404:
-                existing_page_id = None
-            else:
-                raise
-
-    if not existing_page_id:
-        # First push: create page with anchor callout, then sections
-        intro_blocks: list[dict] = [_reviewer_guide_callout(reviewer_user_id)]
-        for section in target_sections:
-            intro_blocks.extend(_render_main_section(section))
-        page = client.pages.create(
-            parent={"page_id": parent_page_id},
-            properties={"title": {"title": [{"text": {"content": title}}]}},
-            children=intro_blocks[:100],
+        page_id = _confirm_page_update(
+            client,
+            existing_page_id,
+            title,
+            update_title=(sections is None),
+            n_sections=len(target_sections),
         )
-        page_id = page["id"]
-        for i in range(100, len(intro_blocks), 100):
-            client.blocks.children.append(page_id, children=intro_blocks[i : i + 100])
+        if page_id is None:
+            existing_page_id = None  # page was deleted; fall through to create
+
+    if sections is None:
+        # Full push (new or existing page): clear existing content, then re-render everything.
+        if not existing_page_id:
+            page = client.pages.create(
+                parent={"page_id": parent_page_id},
+                properties={"title": {"title": [{"text": {"content": title}}]}},
+            )
+            page_id = page["id"]
+        else:
+            page_blocks = page_blocks or _all_blocks(client, page_id)
+            for block in page_blocks:
+                client.blocks.update(block["id"], archived=True)
+        fresh_blocks: list[dict] = [_reviewer_guide_callout(reviewer_user_id)]
+        for section in target_sections:
+            fresh_blocks.extend(_render_main_section(section))
+        for i in range(0, len(fresh_blocks), 100):
+            client.blocks.children.append(page_id, children=fresh_blocks[i : i + 100])
         if file_path is not None:
             _write_push_log(file_path, page_id, all_sections, target_sections)
             set_registry_entry(file_path, page_id, title)
         return page_id
 
-    # Existing page: push each target section individually
-    # page_blocks may already be fetched above (default sync path); only fetch
-    # here when an explicit sections allowlist was used.
-    page_blocks = page_blocks or _all_blocks(client, page_id)
-
-    # Archive stale sections from the page.
-    # Full push: archive everything not in current data.
-    # Surgical push: only archive sections at the same sort position as the
-    # target sections (i.e. old versions of the sections being pushed).
+    # Surgical push (explicit sections allowlist): archive stale section versions
+    # at the same sort positions, then sync each target section individually.
+    page_blocks = _all_blocks(client, page_id)
     current_ids = {s.get("id") for s in all_sections if isinstance(s, dict)}
-    if sections is not None:
-        target_sort_keys = {_section_sort_key(sid) for sid in sections}
+    target_sort_keys = {_section_sort_key(sid) for sid in sections}
     for i, block in enumerate(page_blocks):
         if block.get("type") != "heading_2":
             continue
@@ -2152,7 +2154,7 @@ def push_lesson(
         sid = m.group(1)
         if sid in current_ids:
             continue
-        if sections is not None and _section_sort_key(sid) not in target_sort_keys:
+        if _section_sort_key(sid) not in target_sort_keys:
             continue
         # Archive this stale H2 and its sibling beats
         stale_beats = []
