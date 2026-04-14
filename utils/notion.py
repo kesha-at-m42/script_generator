@@ -181,19 +181,6 @@ def _heading(level: int, text: str, color: str = "default") -> dict:
     return block
 
 
-def _toggle_heading(level: int, text: str, children: list[dict]) -> dict:
-    t = f"heading_{level}"
-    return {
-        "object": "block",
-        "type": t,
-        t: {
-            "rich_text": _rt(text),
-            "is_toggleable": True,
-            "children": children or [_paragraph("—")],
-        },
-    }
-
-
 def _paragraph(text: str) -> dict:
     return {
         "object": "block",
@@ -313,90 +300,6 @@ def _code_blocks(text: str) -> list[dict]:
         for i in range(0, len(text), _RT_LIMIT)
     ]
 
-
-_LABEL_HINTS = (
-    "name",
-    "title",
-    "misconception",
-    "label",
-    "phase_name",
-    "problem_instance_id",
-    "id",
-)
-
-
-def _item_label(item: dict, index: int) -> str:
-    for hint in _LABEL_HINTS:
-        val = item.get(hint)
-        if val is not None and str(val).strip():
-            return f"{index + 1}. {val}"
-    return f"Item {index + 1}"
-
-
-def _value_blocks(value: Any, depth: int = 0) -> list[dict]:
-    """Recursively convert a JSON value to Notion blocks."""
-    if value is None:
-        return [_paragraph("—")]
-    if isinstance(value, bool):
-        return [_paragraph("Yes" if value else "No")]
-    if isinstance(value, (int, float)):
-        return [_paragraph(str(value))]
-    if isinstance(value, str):
-        return [_paragraph(value) if value.strip() else _paragraph("—")]
-
-    if isinstance(value, list):
-        if not value:
-            return [_paragraph("(empty)")]
-        if all(isinstance(v, (str, int, float, bool)) or v is None for v in value):
-            return [_bullet(str(v)) for v in value]
-        if all(isinstance(v, dict) for v in value):
-            return [
-                _toggle(_item_label(item, i), _dict_blocks(item, depth + 1))
-                for i, item in enumerate(value)
-            ]
-        return [_paragraph(json.dumps(value))]
-
-    if isinstance(value, dict):
-        return _dict_blocks(value, depth)
-
-    return [_paragraph(str(value))]
-
-
-def _dict_blocks(data: dict, depth: int = 0) -> list[dict]:
-    blocks: list[dict] = []
-    for key, value in data.items():
-        label = key.replace("_", " ").capitalize()
-        blocks.append(_heading(2 if depth == 0 else 3, label))
-        blocks.extend(_value_blocks(value, depth + 1))
-    return blocks
-
-
-def json_to_blocks(data: Any) -> list[dict]:
-    """
-    Convert JSON to Notion blocks:
-      - Human-readable formatted section (for reading and commenting)
-      - Divider
-      - "Raw JSON" heading + code block(s) (used by pull_from_notion)
-    """
-    blocks: list[dict] = []
-
-    if isinstance(data, dict):
-        blocks.extend(_dict_blocks(data, depth=0))
-    elif isinstance(data, list):
-        for i, item in enumerate(data):
-            if isinstance(item, dict):
-                blocks.append(_heading(2, _item_label(item, i)))
-                blocks.extend(_dict_blocks(item, depth=1))
-            else:
-                blocks.append(_bullet(str(item)))
-    else:
-        blocks.append(_paragraph(str(data)))
-
-    blocks.append(_divider())
-    blocks.append(_heading(3, "Raw JSON — do not edit"))
-    blocks.extend(_code_blocks(json.dumps(data, indent=2, ensure_ascii=False)))
-
-    return blocks
 
 
 # ---------------------------------------------------------------------------
@@ -1110,8 +1013,7 @@ def push_to_notion(
       updated in-place (old blocks archived, new blocks appended).
     - Otherwise a new child page is created under NOTION_PARENT_PAGE_ID.
     - The page ID is saved to the registry if file_path is provided.
-    - blocks_fn: optional callable(data) -> list[dict] to override the default
-      json_to_blocks renderer (e.g. lesson_to_blocks for lesson.json files).
+    - blocks_fn: optional callable(data) -> list[dict]; defaults to lesson_to_blocks.
     """
     client = get_notion_client()
     parent_page_id = os.environ["NOTION_PARENT_PAGE_ID"]
@@ -1130,7 +1032,7 @@ def push_to_notion(
                 print("Aborted.")
                 raise SystemExit(0)
 
-    blocks = blocks_fn(data) if blocks_fn is not None else json_to_blocks(data)
+    blocks = (blocks_fn or lesson_to_blocks)(data)
 
     if existing_page_id:
         try:
