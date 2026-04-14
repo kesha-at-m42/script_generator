@@ -708,6 +708,10 @@ Examples:
         print(f"Note: {args.note}")
     print(f"{'=' * 70}\n")
 
+    if args.yes:
+        import os as _os
+        _os.environ["NOTION_YES"] = "1"
+
     if not args.yes:
         response = input("Proceed with rerun? (y/n): ").strip().lower()
         if response != "y":

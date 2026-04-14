@@ -20,8 +20,8 @@ These are the only valid `tangible_type` values. Do not invent new types.
 
 | `tangible_type` | Description | Spec status |
 |---|---|---|
-| `picture_graph` | Horizontal or vertical graph using symbols to represent data. Supports reading and creating modes. | Fully specced |
-| `bar_graph` | Horizontal or vertical bar graph. Supports reading and creating modes. | Fully specced |
+| `picture_graph` | Horizontal or vertical graph using symbols to represent data. Supports reading and building modes. | Fully specced |
+| `bar_graph` | Horizontal or vertical bar graph. Supports reading and building modes. | Fully specced |
 | `data_table` | Table showing category names and their values alongside a graph. | Fully specced |
 | `equation_builder` | Interactive equation construction tool — student fills in blanks using `place_tile`. Described as an array of strings: `__` for a blank, `x` for multiplication symbol, plain words for labels. Variants: equation style and word style — both use the same string array format. Always uses `place_tile` tool. | Fully specced — not yet used in M1–M6 |
 | `equation` | Static, read-only equation displayed on screen. Same string array format as `equation_builder` but not interactive — no tool. | UX Done |
@@ -31,8 +31,8 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | `word_problem_area` | Container that composes a text stem, optional visual support, and a hosted response mechanism into a problem-solving interaction. Hosts other toys (bar graphs, arrays, equal groups) and response components (multiple choice, dropdown_fillin, equation builder). | Initial Spec Draft |
 | `dropdown_fillin` | Sentence-frame response widget with one or more inline fill blanks, each linked to an option palette via a shared icon indicator. | Initial Spec Draft |
 | `image` | Static image displayed for real-world connection or context. | Needs spec |
-| `equal_groups` | Visual representation of multiplication through equal groups — clusters of pictures or dots with optional containers. Supports highlighting, counting animations, and connection lines. | UX in Process |
-| `arrays` | Rectangular grid of objects or dots organized in rows and columns. Covers both read and build modes — mode is determined by which toys are present on screen. Read mode: displayed alone or alongside `multiple_choice_options` or `equation_builder`. Build mode: always paired with `row_builder` or `column_builder`. See `toy_specs/arrays.md`. | UX Done |
+| `equal_groups` | Visual representation of multiplication through equal groups — clusters of pictures or dots with optional containers. Supports highlighting, counting animations, and connection lines. Modes: `"reading"` (pre-built groups, student identifies structure) and `"building"` (student sets container count and items per container). | UX in Process |
+| `arrays` | Rectangular grid of objects or dots organized in rows and columns. Covers both read and build modes — mode is determined by which toys are present on screen. Modes: `"reading"` (displayed alone or alongside `multiple_choice_options` or `equation_builder`) and `"building"` (always paired with `row_builder` or `column_builder`). See `toy_specs/arrays.md`. | UX Done |
 | `row_builder` | Bottom panel for building by rows. Contains two button pairs: Row +/− and Items per Row +/−. Mutually exclusive with `column_builder`. | UX Done |
 | `column_builder` | Bottom panel for building by columns. Contains two button pairs: Column +/− and Items per Column +/−. Mutually exclusive with `row_builder`. | UX Done |
 
@@ -87,8 +87,8 @@ These are the only valid `tool` values in a `prompt` beat.
 
 | Tool | What it does | Applies to | Validator shape |
 |---|---|---|---|
-| `click_to_place` | Student clicks to place symbols one at a time on a picture graph | `picture_graph` (mode: creating) | `{ "symbols_placed": 3 }` |
-| `click_to_set_height` | Student clicks or drags to set a bar to a specific height | `bar_graph` (mode: creating) | `{ "bar_height": 30 }` |
+| `click_to_place` | Student clicks to place symbols one at a time on a picture graph | `picture_graph` (mode: building) | `{ "symbols_placed": 3 }` |
+| `click_to_set_height` | Student clicks or drags to set a bar to a specific height | `bar_graph` (mode: building) | `{ "bar_height": 30 }` |
 | `add_row` | Student presses Row + button to append a row | `row_builder` | `{ "rows": 3 }` |
 | `add_item_per_row` | Student presses Items per Row + button to add an item to each row | `row_builder` | `{ "items_per_row": 4 }` |
 | `add_row_and_item_per_row` | Both Row + and Items per Row + are active; student may tap either | `row_builder` | `{ "rows": 3, "items_per_row": 4 }` |
@@ -96,6 +96,15 @@ These are the only valid `tool` values in a `prompt` beat.
 | `add_item_per_column` | Student presses Items per Column + button to add an item to each column | `column_builder` | `{ "items_per_column": 3 }` |
 | `add_column_and_item_per_column` | Both Column + and Items per Column + are active; student may tap either | `column_builder` | `{ "columns": 2, "items_per_column": 3 }` |
 
+
+### Equal Groups Building Tools
+
+| Tool | What it does | Applies to | Validator shape |
+|---|---|---|---|
+| `set_container_count` | Student sets the number of groups (containers) | `equal_groups` (mode: building) | `{ "container_count": 3 }` |
+| `set_items_per_container` | Student sets the number of items in each group | `equal_groups` (mode: building) | `{ "items_per_container": 4 }` |
+
+These two tools are always used in sequence within a building section: `set_container_count` first (How many groups?), then `set_items_per_container` (How many in each?).
 
 ### Drag Tools
 
@@ -121,6 +130,32 @@ These are the only valid `tool` values in a `prompt` beat.
 | `drag_tile` | `place_tile` |
 | `equation builder methods c/d` | `place_tile` |
 | `methods c/d` | `place_tile` |
+
+---
+
+## Canonical Toy Modes
+
+The `mode` field on a toy must use one of these exact string values. Do not invent synonyms.
+
+| Toy | Mode value | Meaning |
+|---|---|---|
+| `picture_graph` | `"reading"` | Pre-built graph; student reads/identifies |
+| `picture_graph` | `"building"` | Student places symbols to build the graph |
+| `bar_graph` | `"reading"` | Pre-built graph; student reads/identifies |
+| `bar_graph` | `"building"` | Student adjusts bar heights |
+| `arrays` | `"reading"` | Pre-built array; student reads/identifies (alone, with `multiple_choice_options`, or with `equation_builder`) |
+| `arrays` | `"building"` | Student constructs the array (always paired with `row_builder` or `column_builder`) |
+| `equal_groups` | `"reading"` | Pre-built groups; student identifies structure |
+| `equal_groups` | `"building"` | Student sets container count and items per container |
+
+**Non-canonical mode values to avoid:**
+
+| Seen in outputs | Use instead |
+|---|---|
+| `"build"` | `"building"` |
+| `"read"` | `"reading"` |
+| `"create"` | `"building"` |
+| `"creating"` | `"building"` |
 
 ---
 

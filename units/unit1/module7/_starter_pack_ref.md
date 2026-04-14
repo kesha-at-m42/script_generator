@@ -2,21 +2,21 @@
 # BACKBONE
 ---
 ## 1.0 THE ONE THING
-Students must understand that **equal groupsâ€”the same number of items in each groupâ€”IS the structure of multiplication, and that the scales they've been using on graphs were equal groups all along.** M7 does not teach computation. It teaches students to SEE equal groups in the world and DESCRIBE them using "X groups of Y" language. Students recognize the Ã— symbol when the Guide shows it and can select the correct expression in multiple choice, but they do not produce notation themselves.
-**Critical Misconception:** Groups vs. Size Confusion (#10) â€” Students can't distinguish the number of groups from the number of items per group. When shown 3 bags with 5 items each, they confuse whether it's "3 groups of 5" or "5 groups of 3."
+Students must understand that **equal groups—the same number of items in each group—IS the structure of multiplication, and that the scales they've been using on graphs were equal groups all along.** M7 does not teach computation. It teaches students to SEE equal groups in the world and DESCRIBE them using "X groups of Y" language. Students recognize the × symbol when the Guide shows it and can select the correct expression in multiple choice, but they do not produce notation themselves.
+**Critical Misconception:** Groups vs. Size Confusion (#10) — Students can't distinguish the number of groups from the number of items per group. When shown 3 bags with 5 items each, they confuse whether it's "3 groups of 5" or "5 groups of 3."
 **Success Indicator:** Given a visual showing 4 bags with 3 items each, student:
 1. Identifies "4 groups"
 2. Identifies "3 items in each group"
 3. States "4 groups of 3"
-4. Recognizes that 4 Ã— 3 represents this situation (when shown options)
-**Biggest Risk:** Students who don't pause to distinguish groups FROM items-per-group will reverse the structureâ€”saying "3 groups of 4" for 4 bags with 3 items each. The language "X groups of Y" must be explicitly modeled with consistent emphasis: FIRST number = how many groups, SECOND number = how many in each group.
+4. Recognizes that 4 × 3 represents this situation (when shown options)
+**Biggest Risk:** Students who don't pause to distinguish groups FROM items-per-group will reverse the structure—saying "3 groups of 4" for 4 bags with 3 items each. The language "X groups of Y" must be explicitly modeled with consistent emphasis: FIRST number = how many groups, SECOND number = how many in each group.
 ---
 ## 1.1 LEARNING GOALS
-*Verbatim from OUR Curriculum â€” Script Must Achieve These*
+*Verbatim from OUR Curriculum — Script Must Achieve These*
 **L9:** "Build an understanding of multiplication as equal groups. Represent a situation involving equal groups in a way that makes sense."
 **L10:** "Interpret a situation involving equal groups and represent it with a diagram. Make sense of tape diagrams that represent equal groups situations."
-**Scope Note on L10:** The tape diagram component of L10 is excluded from M7. Tape diagrams require more instructional overhead than the concepts they teach at this stageâ€”students are better served by context visualizations (bags, boxes, circles) that make grouping structure immediately visible without requiring students to learn a new representational tool during an already high-stakes conceptual bridge. The "interpret a situation involving equal groups" portion of L10 is fully addressed through the abstraction progression (concrete â†’ semi-abstract contexts).
-**Module Goal (Student-Facing):** "You've been reading graphs with scalesâ€”where each symbol represents 2, or 5, or 10. Today you'll discover that you've been doing something called MULTIPLICATION this whole time. You'll learn to see equal groups everywhere."
+**Scope Note on L10:** The tape diagram component of L10 is excluded from M7. Tape diagrams require more instructional overhead than the concepts they teach at this stage—students are better served by context visualizations (bags, boxes, circles) that make grouping structure immediately visible without requiring students to learn a new representational tool during an already high-stakes conceptual bridge. The "interpret a situation involving equal groups" portion of L10 is fully addressed through the abstraction progression (concrete → semi-abstract contexts).
+**Module Goal (Student-Facing):** "You've been reading graphs with scales—where each symbol represents 2, or 5, or 10. Today you'll discover that you've been doing something called MULTIPLICATION this whole time. You'll learn to see equal groups everywhere."
 **Exit Check Tests:**
 - Can student identify the number of groups in a visual?
 - Can student identify the number of items per group?
@@ -38,11 +38,11 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Addressing**</td>
-<td>3.OA.A.1: Interpret products of whole numbers, e.g., interpret 5 Ã— 7 as the total number of objects in 5 groups of 7 objects each.</td>
+<td>3.OA.A.1: Interpret products of whole numbers, e.g., interpret 5 × 7 as the total number of objects in 5 groups of 7 objects each.</td>
 </tr>
 <tr>
 <td>**Building Toward**</td>
-<td>3.OA.A.1: (continued in M8â€”students produce expressions)</td>
+<td>3.OA.A.1: (continued in M8—students produce expressions)</td>
 </tr>
 <tr>
 <td></td>
@@ -50,13 +50,13 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 </table>
 ### 1.1.2 Module Bridges
-**From Modules 1-6:** Students have deep fluency with scaled graphs. They understand that "each symbol represents \[X\] items" and can skip-count by 2s, 5s, and 10s to find totals. They've been DOING multiplication (interpreting scales as groups) without NAMING it. M6 Synthesis ended on problem-solving consolidation with NO multiplication previewâ€”the revelation is preserved for M7 Warmup.
+**From Modules 1-6:** Students have deep fluency with scaled graphs. They understand that "each symbol represents \[X\] items" and can skip-count by 2s, 5s, and 10s to find totals. They've been DOING multiplication (interpreting scales as groups) without NAMING it. M6 Synthesis ended on problem-solving consolidation with NO multiplication preview—the revelation is preserved for M7 Warmup.
 **This Module:** Students discover that scale reading WAS multiplication: "4 symbols, each representing 5" IS "4 groups of 5." This bridge moment launches the equal groups concept. Students then recognize equal groups structure across concrete contexts (bags, boxes), semi-abstract contexts (circles with dots), and identify expressions through multiple choice recognition. Key learning:
 - Equal groups = same number of items in EVERY group
 - Language: "X groups of Y" (first number = groups, second number = items per group)
-- Ã— symbol SHOWN by Guide, RECOGNIZED by student (not produced)
-- Structure recognition across abstraction levels (concrete â†’ semi-abstract â†’ mixed)
-**To Module 8:** M7 established what equal groups ARE and how to describe them. M8 moves from recognition to production: students build multiplication expressions using the Equation Builder (Method A: multiple choice â†’ Method B: structured builder). M7's "4 groups of 3" becomes M8's "4 Ã— 3." The recognition tasks in M7's late lesson (selecting the correct expression from options) serve as the bridge to M8's expression building.
+- × symbol SHOWN by Guide, RECOGNIZED by student (not produced)
+- Structure recognition across abstraction levels (concrete → semi-abstract → mixed)
+**To Module 8:** M7 established what equal groups ARE and how to describe them. M8 moves from recognition to production: students build multiplication expressions using the Equation Builder (Method A: multiple choice → Method B: structured builder). M7's "4 groups of 3" becomes M8's "4 × 3." The recognition tasks in M7's late lesson (selecting the correct expression from options) serve as the bridge to M8's expression building.
 ### 1.1.3 OUR Lesson Sources
 <table header-row="true">
 <tr>
@@ -81,19 +81,19 @@ Students must understand that **equal groupsâ€”the same number of items in 
 **The Bridge (Warmup):**
 - Explicit connection: "Each symbol = 5 items" IS "groups of 5" IS multiplication
 - Students see their scale work REFRAMED as equal groups
-- Ã— symbol and equation SHOWN (4 Ã— 5 = 20) â€” Guide reveals, students observe
+- × symbol and equation SHOWN (4 × 5 = 20) — Guide reveals, students observe
 **Equal Groups Structure (Lesson):**
 - Equal groups = every group has the SAME number of items
 - Identifying number of groups vs. items per group
-- Language: "X groups of Y" â€” explicitly modeled, practiced, applied
-- Abstraction progression: bags/boxes â†’ circles with dots â†’ mixed
-- "X groups of Y" can be written as "X Ã— Y" â€” Guide shows notation throughout
+- Language: "X groups of Y" — explicitly modeled, practiced, applied
+- Abstraction progression: bags/boxes → circles with dots → mixed
+- "X groups of Y" can be written as "X × Y" — Guide shows notation throughout
 - Late lesson: MC recognition tasks ("Which expression shows this?")
 **Vocabulary to Teach:**
 - multiplication (the name for equal groups combined)
 - equal groups (same number in each group)
-- times / multiply ("3 times 4" or "3 multiply by 4" â€” ways to say Ã—)
-- product (answer to a multiplication problem â€” light introduction, reinforced M8-M9)
+- times / multiply ("3 times 4" or "3 multiply by 4" — ways to say ×)
+- product (answer to a multiplication problem — light introduction, reinforced M8-M9)
 - Reinforce: total, groups
 ### â?Œ Must Not Include
 <table header-row="true">
@@ -109,12 +109,12 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>Student-produced expressions</td>
-<td>Students see Ã— but don't write/build it</td>
+<td>Students see × but don't write/build it</td>
 <td>M8 (Equation Builder)</td>
 </tr>
 <tr>
 <td>Equation Builder toy</td>
-<td>Not neededâ€”recognition only</td>
+<td>Not needed—recognition only</td>
 <td>M8</td>
 </tr>
 <tr>
@@ -130,7 +130,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 <tr>
 <td>Repeated addition as primary model</td>
 <td>Can create #11 misconception; equal groups is primary</td>
-<td>May arise naturallyâ€”don't suppress, but don't teach as method</td>
+<td>May arise naturally—don't suppress, but don't teach as method</td>
 </tr>
 <tr>
 <td>Computation/fluency</td>
@@ -138,16 +138,16 @@ Students must understand that **equal groupsâ€”the same number of items in 
 <td>M9 (factor fluency)</td>
 </tr>
 <tr>
-<td>Commutativity (3 Ã— 4 = 4 Ã— 3)</td>
+<td>Commutativity (3 × 4 = 4 × 3)</td>
 <td>Confuses group/size distinction being established</td>
 <td>M12</td>
 </tr>
 </table>
 ### âš ï¸? Scope Warnings
-> âš ï¸? **Scope Warning:** RECOGNITION â‰  PRODUCTION: Students see Ã— notation throughout M7 (Guide shows it) and do 2-3 MC recognition tasks late in the lesson. But they do not BUILD, WRITE, or CONSTRUCT expressions. That's M8. The boundary is clear: M7 = see and select. M8 = build and produce.
-> âš ï¸? **Scope Warning:** "PRODUCT" IS LIGHT TOUCH: 3.OA.A.1 literally says "Interpret products of whole numbers," so "product" IS standards vocabulary. But M7 students aren't computing productsâ€”they're recognizing structure. Guide names it once when showing notation ("The answer to a multiplication problem is called the product. 4 Ã— 5 = 20. 20 is the product."). Heavy reinforcement deferred to M8-M9 when students actually produce products.
-> âš ï¸? **Scope Warning:** REPEATED ADDITION â€” HANDLE WITH CARE: If a student naturally says "5 + 5 + 5 + 5 = 20" when seeing 4 groups of 5, this is VALID and should be acknowledged ("Yes! And multiplication gives us a shorter way to write that: 4 Ã— 5"). But repeated addition is NOT the instructional modelâ€”equal groups is. Teaching multiplication AS repeated addition risks Misconception #11 (multiplication = just faster addition).
-> âš ï¸? **Scope Warning:** NO COMMUTATIVITY: M7 explicitly teaches that the first number = groups, second number = items per group. "3 Ã— 4" means "3 groups of 4" â€” NOT interchangeable with "4 groups of 3" at this stage. Commutativity is M12. Introducing it in M7 would undermine the structural understanding being built.
+> âš ï¸? **Scope Warning:** RECOGNITION â‰  PRODUCTION: Students see × notation throughout M7 (Guide shows it) and do 2-3 MC recognition tasks late in the lesson. But they do not BUILD, WRITE, or CONSTRUCT expressions. That's M8. The boundary is clear: M7 = see and select. M8 = build and produce.
+> âš ï¸? **Scope Warning:** "PRODUCT" IS LIGHT TOUCH: 3.OA.A.1 literally says "Interpret products of whole numbers," so "product" IS standards vocabulary. But M7 students aren't computing products—they're recognizing structure. Guide names it once when showing notation ("The answer to a multiplication problem is called the product. 4 × 5 = 20. 20 is the product."). Heavy reinforcement deferred to M8-M9 when students actually produce products.
+> âš ï¸? **Scope Warning:** REPEATED ADDITION — HANDLE WITH CARE: If a student naturally says "5 + 5 + 5 + 5 = 20" when seeing 4 groups of 5, this is VALID and should be acknowledged ("Yes! And multiplication gives us a shorter way to write that: 4 × 5"). But repeated addition is NOT the instructional model—equal groups is. Teaching multiplication AS repeated addition risks Misconception #11 (multiplication = just faster addition).
+> âš ï¸? **Scope Warning:** NO COMMUTATIVITY: M7 explicitly teaches that the first number = groups, second number = items per group. "3 × 4" means "3 groups of 4" — NOT interchangeable with "4 groups of 3" at this stage. Commutativity is M12. Introducing it in M7 would undermine the structural understanding being built.
 ---
 ## 1.3 VOCABULARY ARCHITECTURE
 **Assessment Vocabulary (appears on STAAR):** multiplication, equal groups, product, multiply/times
@@ -156,7 +156,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 - "How many groups?"
 - "How many in each group?"
 - "X groups of Y"
-- "We can write this as X Ã— Y"
+- "We can write this as X × Y"
 ### Vocabulary Staging by Phase
 <table header-row="true">
 <colgroup>
@@ -177,12 +177,12 @@ Students must understand that **equal groupsâ€”the same number of items in 
 <tr>
 <td>**Lesson Section 1**</td>
 <td>"equal groups," "groups of," "in each group"</td>
-<td>Formalize through concrete context: "3 bags. Each bag has 4 items. That's 3 groups of 4. These are EQUAL GROUPSâ€”same number in every group."</td>
+<td>Formalize through concrete context: "3 bags. Each bag has 4 items. That's 3 groups of 4. These are EQUAL GROUPS—same number in every group."</td>
 </tr>
 <tr>
 <td>**Lesson Section 1 (Late)**</td>
-<td>"times," "multiply," Ã— symbol</td>
-<td>Guide shows notation after students articulate structure: "3 groups of 4. We can write this as 3 Ã— 4. The Ã— means 'groups of' or 'times.'"</td>
+<td>"times," "multiply," × symbol</td>
+<td>Guide shows notation after students articulate structure: "3 groups of 4. We can write this as 3 × 4. The × means 'groups of' or 'times.'"</td>
 </tr>
 <tr>
 <td>**Lesson Section 2**</td>
@@ -192,7 +192,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 <tr>
 <td>**Lesson Section 2 (Late)**</td>
 <td>"product"</td>
-<td>Light introduction: "The answer to a multiplication problem is called the product. 3 Ã— 4 = 12. 12 is the product."</td>
+<td>Light introduction: "The answer to a multiplication problem is called the product. 3 × 4 = 12. 12 is the product."</td>
 </tr>
 <tr>
 <td>**Lesson Section 3**</td>
@@ -214,12 +214,12 @@ Students must understand that **equal groupsâ€”the same number of items in 
 - "factor" (M9)
 - "array," "row," "column" as multiplication structures (M11)
 - "commutative" or any suggestion that order doesn't matter (M12)
-- "equation" as formal term (M10 â€” students see equations but don't name them)
-- "expression" as formal term (M8 â€” Guide uses it, students don't need to)
+- "equation" as formal term (M10 — students see equations but don't name them)
+- "expression" as formal term (M8 — Guide uses it, students don't need to)
 ---
 ## 1.4 MISCONCEPTIONS
 ### 1.4.1 #10: Groups vs. Size Confusion (PRIMARY)
-**Trigger Behavior:** Cannot explain whether 5 Ã— 3 means "5 groups of 3" or "3 groups of 5." When shown 4 bags with 3 items each, may say "3 groups of 4" â€” reversing the structure. Student identifies the items-per-group as the first number instead of the number of groups.
+**Trigger Behavior:** Cannot explain whether 5 × 3 means "5 groups of 3" or "3 groups of 5." When shown 4 bags with 3 items each, may say "3 groups of 4" — reversing the structure. Student identifies the items-per-group as the first number instead of the number of groups.
 **Why It Happens:**
 - Both numbers are visible in the visual; student guesses which is which
 - English phrasing can be ambiguous ("3 and 4" vs. "3 groups of 4")
@@ -228,13 +228,13 @@ Students must understand that **equal groupsâ€”the same number of items in 
 **Prevention Strategy:**
 1. **Consistent questioning sequence:** ALWAYS ask "How many groups?" FIRST, then "How many in each group?" SECOND. This two-question routine builds automatic structure recognition.
 2. **Physical anchoring:** Groups are CONTAINERS (bags, boxes, circles). Items are INSIDE containers. "Count the bags first. Now look inside ONE bag."
-3. **Language consistency:** "X groups of Y" â€” first number is always groups. Guide models this dozens of times before student attempts.
+3. **Language consistency:** "X groups of Y" — first number is always groups. Guide models this dozens of times before student attempts.
 4. **Visual highlighting:** When Guide names groups, containers highlight. When Guide names items, items inside highlight. Two-step visual separation.
 **Remediation Approach:**
 - **Light:** "Count the bags. That's your groups. Now look inside ONE bag. That's how many in each group."
 ---
 ### 1.4.2 #11: Multiplication Only Adds (SECONDARY)
-**Trigger Behavior:** Says 3 Ã— 4 means 3 + 3 + 3 + 3 (repeated addition) but cannot explain it as "3 groups of 4." Student treats multiplication as a faster way to add, losing the structural meaning of equal groups. May even resist the Ã— symbol, preferring addition.
+**Trigger Behavior:** Says 3 × 4 means 3 + 3 + 3 + 3 (repeated addition) but cannot explain it as "3 groups of 4." Student treats multiplication as a faster way to add, losing the structural meaning of equal groups. May even resist the × symbol, preferring addition.
 **Why It Happens:**
 - Addition is the dominant operation from Grades 1-2
 - "Groups of" is conceptually harder than "add these up"
@@ -242,7 +242,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 - Repeated addition "works" computationally, masking conceptual gap
 **Prevention Strategy:**
 1. **Emphasize "groups of" throughout.** Every script instance mentions "groups of" or "in each group," not "add these." Guide explicitly prevents the repeated-addition frame.
-2. **Honor natural repeated addition, but name the underlying structure:** "Yes! And that patternâ€”4 groups of 5â€”is what multiplication IS. The Ã— symbol is our short way to write it: 4 Ã— 5."
+2. **Honor natural repeated addition, but name the underlying structure:** "Yes! And that pattern—4 groups of 5—is what multiplication IS. The × symbol is our short way to write it: 4 × 5."
 3. **Use concrete visuals of containers as anchors.** Repeated addition is abstract. Bags, boxes, and circles (concrete containers) make the GROUP structure visible, reducing the attraction to "just add."
 **Remediation Approach:**
 - **Light:** "4 groups of 5. That means you have 4 containers with 5 in each one, not separate additions."
@@ -261,9 +261,9 @@ Students must understand that **equal groupsâ€”the same number of items in 
 - **Light:** "Each group has the same count. Skip-count to find the total: 5, 10, 15, 20. That's 4 groups of 5."
 ---
 ## 1.5 TOY SPECIFICATIONS
-### 1.5.1 Context Visualizations (Equal Groups) â€” PRIMARY TOY
-**Notion Spec:** \[Link â€” confirm with Notion\]
-**Changes from M6:** New domain â€” first appearance in multiplication sequence. M6 used Picture Graphs exclusively. M7 introduces Context Visualizations as the primary structure-revealing toy, with Picture Graphs retained for Warmup only.
+### 1.5.1 Context Visualizations (Equal Groups) — PRIMARY TOY
+**Notion Spec:** \[Link — confirm with Notion\]
+**Changes from M6:** New domain — first appearance in multiplication sequence. M6 used Picture Graphs exclusively. M7 introduces Context Visualizations as the primary structure-revealing toy, with Picture Graphs retained for Warmup only.
 ### Module Configuration (M7)
 <table header-row="true">
 <colgroup>
@@ -284,7 +284,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Mode A: Highlight Mode**</td>
-<td>Click a container â†’ container border highlights; items inside illuminate in sequence or en masse. Visual confirms "one group has these items." Used in Lesson (Interactions 1.1 worked example). Limited useâ€”preview only, not student interaction.</td>
+<td>Click a container → container border highlights; items inside illuminate in sequence or en masse. Visual confirms "one group has these items." Used in Lesson (Interactions 1.1 worked example). Limited use—preview only, not student interaction.</td>
 </tr>
 <tr>
 <td>**Mode B: Build Mode**</td>
@@ -366,11 +366,11 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Remediation applies per step**</td>
-<td>Light only. If student enters reversed number (groupsâ†”items), redirect to meaning, not procedure: "6 is items per group. Groups are containersâ€”you wanted 2 bags."</td>
+<td>Light only. If student enters reversed number (groupsâ†”items), redirect to meaning, not procedure: "6 is items per group. Groups are containers—you wanted 2 bags."</td>
 </tr>
 </table>
-### 1.5.2 Picture Graphs (Reading Mode) â€” WARMUP ONLY
-**Notion Spec:** \[Link â€” confirm with Notion\]
+### 1.5.2 Picture Graphs (Reading Mode) — WARMUP ONLY
+**Notion Spec:** \[Link — confirm with Notion\]
 **Changes from M6:** M6 used Picture Graphs for scale-reading practice (multiple scales: 2, 5, 10). M7 retains Picture Graphs ONLY in Warmup for the bridge revelation. No Picture Graph practice in Lesson or later phases. This preserves the graph-to-multiplication connection as a Synthesis-level insight.
 ### Module Configuration (Warmup Only)
 <table header-row="true">
@@ -396,7 +396,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Callback timing**</td>
-<td>Warmup Interaction W.1 briefly re-engages M6 graph skill (quick success). Warmup Interaction W.2 immediately reframes it: "Those symbols holding groupsâ€”that's multiplication."</td>
+<td>Warmup Interaction W.1 briefly re-engages M6 graph skill (quick success). Warmup Interaction W.2 immediately reframes it: "Those symbols holding groups—that's multiplication."</td>
 </tr>
 </table>
 ---
@@ -416,7 +416,7 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Factor variety**</td>
-<td>Groups: 2, 3, 4, 5 (varies). Items per group: 2, 3, 4, 5, 6 (varies). No sequential or repeated patterns (avoids pattern-matching instead of structure recognition). Example: Lesson 1.2 (3 groups of 4 = 12), Lesson 1.3 (2 groups of 5 = 10), Lesson 1.4 (4 groups of 3 = 12), Lesson 1.5 (5 groups of 2 = 10). Different factors for same product (e.g., 3 Ã— 4 and 4 Ã— 3 appear in DIFFERENT sections/phases, not same interaction).</td>
+<td>Groups: 2, 3, 4, 5 (varies). Items per group: 2, 3, 4, 5, 6 (varies). No sequential or repeated patterns (avoids pattern-matching instead of structure recognition). Example: Lesson 1.2 (3 groups of 4 = 12), Lesson 1.3 (2 groups of 5 = 10), Lesson 1.4 (4 groups of 3 = 12), Lesson 1.5 (5 groups of 2 = 10). Different factors for same product (e.g., 3 × 4 and 4 × 3 appear in DIFFERENT sections/phases, not same interaction).</td>
 </tr>
 <tr>
 <td>**Exact repeats across Lesson sections**</td>
@@ -424,11 +424,11 @@ Students must understand that **equal groupsâ€”the same number of items in 
 </tr>
 <tr>
 <td>**Values NOT repeated across Lesson and Exit Check**</td>
-<td>EC.1 uses boxes with markers (5, 3, 8, 15 as answers) â€” different from Lesson concrete values. EC.2 uses bags (2 Ã— 3) â€” not repeated from Lesson as same task type. EC.3 uses circles (4 Ã— 2) â€” not repeated from Lesson.</td>
+<td>EC.1 uses boxes with markers (5, 3, 8, 15 as answers) — different from Lesson concrete values. EC.2 uses bags (2 × 3) — not repeated from Lesson as same task type. EC.3 uses circles (4 × 2) — not repeated from Lesson.</td>
 </tr>
 <tr>
 <td>**Warmup and Synthesis totals**</td>
-<td>Warmup uses scale-of-5 graph (Warmup W.1: 4 symbols = 4 Ã— 5 = 20). Warmup W.2 and W.3 use bags/boxes (2, 3, 4 groups). Synthesis S.2 shows 3 Ã— 5 = 15 across three formats. All values are within 30.</td>
+<td>Warmup uses scale-of-5 graph (Warmup W.1: 4 symbols = 4 × 5 = 20). Warmup W.2 and W.3 use bags/boxes (2, 3, 4 groups). Synthesis S.2 shows 3 × 5 = 15 across three formats. All values are within 30.</td>
 </tr>
 </table>
 ---
@@ -454,7 +454,7 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 </tr>
 <tr>
 <td>**Toy**</td>
-<td>Picture Graphs (scale-of-5 reading) â†’ Context Visualizations (bags, boxes) progression</td>
+<td>Picture Graphs (scale-of-5 reading) → Context Visualizations (bags, boxes) progression</td>
 </tr>
 <tr>
 <td>**Scaffolding**</td>
@@ -484,8 +484,8 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 <td>Teach groups/multiplication formally (Lesson does this)</td>
 </tr>
 <tr>
-<td>Show Ã— symbol ONCE in final bridge</td>
-<td>Use Ã— in earlier interactions</td>
+<td>Show × symbol ONCE in final bridge</td>
+<td>Use × in earlier interactions</td>
 </tr>
 <tr>
 <td>Transition from familiar (graphs) to novel (bags)</td>
@@ -497,18 +497,18 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 </tr>
 </table>
 ### Warmup Interactions
-### Interaction W.1: Graph Reading â€” Quick Success
+### Interaction W.1: Graph Reading — Quick Success
 - **Purpose:** Establish confidence with familiar M6 skill before revealing new meaning.
 - **Visual: Picture Graph (Reading Mode).** Horizontal bar. Scale of 5. Category: "Books Read This Week." 4 symbols displayed.
 - **Guide:** "You know how to read these. Look. 4 symbols. Each one means 5 books. How many books altogether?"
 - **Prompt:** "How many books? You can skip-count."
 - **Student Action:** Skip-count or state total (MC: 16, 20, or error options).
-- **Correct Answer:** 20 books (4 symbols Ã— 5 per symbol = 20).
+- **Correct Answer:** 20 books (4 symbols × 5 per symbol = 20).
 - **On Correct:** "20 books. You skip-counted by 5s. 5, 10, 15, 20. You've been doing this all unit."
 - **Remediation:** Pipeline
 > **Design Note:** Quick success. No struggle. This is confidence-building before the reframe. Familiar context (graph reading, scale of 5) ensures student can focus cognitively on the next interaction's revelation.
 ---
-### Interaction W.2: Grouping Animation â€” The Reveal
+### Interaction W.2: Grouping Animation — The Reveal
 - **Purpose:** Reframe graph reading as equal groups. The "aha" moment. Guide names the structure students just used.
 - **Visual: Grouping Animation (Version 2).** Transforms the 4 symbols from W.1 into 4 bags, each containing 5 items. Animation is smooth, visual continuation ("Those symbols were hiding groups inside").
 - **Guide:** "Wait. Look at what those symbols were hiding."
@@ -516,19 +516,19 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 - **Prompt:** "How many groups do you see?"
 - **Student Action:** Count and state 4 (or MC: 4, 5, 8, 20).
 - **Correct Answer:** 4 groups.
-- **On Correct:** "4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 Ã— 5."
+- **On Correct:** "4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 × 5."
 - **On Incorrect:** "Count the containers. That's the groups."
 - **Remediation:** Pipeline
-> **Voice Note:** This is the emotional/conceptual high point of Warmup. Tone is warm discovery, not lecturing. "Wait. Look..." creates anticipation. "You've been doing multiplication this whole time" is the affirming realization â€” NOT "You didn't know it, but..." (which sounds condescending).
+> **Voice Note:** This is the emotional/conceptual high point of Warmup. Tone is warm discovery, not lecturing. "Wait. Look..." creates anticipation. "You've been doing multiplication this whole time" is the affirming realization — NOT "You didn't know it, but..." (which sounds condescending).
 ---
-### Interaction W.3: Transfer to Bags â€” Groups Beyond Graphs
+### Interaction W.3: Transfer to Bags — Groups Beyond Graphs
 - **Purpose:** Test whether the reframe sticks. Move from animation to concrete visual. Confirm students can identify groups in a new (non-graph) context.
 - **Visual: Context Visualizations.** 3 bags with 4 items in each. Plain visual, no animation.
 - **Guide:** "Here's a different picture. No graph. Just bags."
 - **Prompt:** "How many groups?"
 - **Student Action:** Count and state 3 (MC: 2, 3, 4, 6).
 - **Correct Answer:** 3 groups.
-- **On Correct:** "3 bags. That's 3 groups of 4. Same ideaâ€”bags instead of graph symbols."
+- **On Correct:** "3 bags. That's 3 groups of 4. Same idea—bags instead of graph symbols."
 - **On Incorrect:** "Count the bags. Each bag is a group."
 - **Remediation:** Pipeline
 > **Design Note:** No scaffolding ("How many in each?"). Student must transfer the two-step thinking independently. If they succeed, the reframe is working. If they struggle, Lesson Section 1 spends significant time on the two-step routine.
@@ -537,7 +537,7 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 - **Purpose:** Signal transition. Create anticipation for Lesson without teaching.
 - **Visual:** Simple text screen. Reference to the three contexts just experienced.
 - **Guide:** "You found equal groups in graphs. You found them in bags. There's a whole lot more hiding. Let's find them."
-> **Design Note:** The bridge promises two things the Lesson delivers: (1) "equal groups" as formal vocabulary (Interaction 1.1), and (2) Ã— notation (Interaction 1.4). It creates genuine anticipation â€” "a way to write it" is intriguing without revealing the Ã— symbol. Avoids weak bridge patterns ("Good job! Time to learn about multiplication!") in favor of building forward from what the student just discovered.
+> **Design Note:** The bridge promises two things the Lesson delivers: (1) "equal groups" as formal vocabulary (Interaction 1.1), and (2) × notation (Interaction 1.4). It creates genuine anticipation — "a way to write it" is intriguing without revealing the × symbol. Avoids weak bridge patterns ("Good job! Time to learn about multiplication!") in favor of building forward from what the student just discovered.
 ---
 ### Verification Checklist
 **Structure:**
@@ -549,9 +549,9 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 - [ ] Total time 3-4 minutes
 **Content:**
 - [ ] W.1 uses scale-of-5 graph (matching M6 closure)
-- [ ] W.2 shows graph â†’ bags animation
+- [ ] W.2 shows graph → bags animation
 - [ ] W.3 uses concrete context (bags, non-graph)
-- [ ] Ã— symbol shown ONLY in W.2 feedback, not prompted
+- [ ] × symbol shown ONLY in W.2 feedback, not prompted
 - [ ] "Equal groups" and "multiplication" named in Guide, not pre-taught
 **Misconception Prevention:**
 - [ ] W.1-W.3 consistently ask "How many groups?" before "How many in each?" (prevents #10)
@@ -561,7 +561,7 @@ Bridge M6's success with scaled graphs into M7's equal groups revelation. Studen
 ## 1.7 LESSON (\~12 minutes)
 **Detail Level:** Structure + parameters (AI writes dialogue; full scripts for Worked Examples provided)
 ### Core Purpose
-Formalize equal groups recognition across three progressive abstraction levels. Section 1 establishes the two-step structure ("How many groups?" "How many in each?") with concrete containers (bags, boxes). Section 2 transfers that structure to a new visual level (circles) with lighter scaffolding. Section 3 introduces MC expression recognition (students select the correct Ã— expression from options). Throughout, Ã— notation appears whenever the Guide names structure; late Lesson includes 2-3 MC recognition tasks. Students do not produce notation themselves.
+Formalize equal groups recognition across three progressive abstraction levels. Section 1 establishes the two-step structure ("How many groups?" "How many in each?") with concrete containers (bags, boxes). Section 2 transfers that structure to a new visual level (circles) with lighter scaffolding. Section 3 introduces MC expression recognition (students select the correct × expression from options). Throughout, × notation appears whenever the Guide names structure; late Lesson includes 2-3 MC recognition tasks. Students do not produce notation themselves.
 ### Pedagogical Flow
 <table header-row="true">
 <tr>
@@ -570,7 +570,7 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 <td>Cognitive Demand</td>
 </tr>
 <tr>
-<td>**Warmup â†’ Lesson Bridge**</td>
+<td>**Warmup → Lesson Bridge**</td>
 <td>Transition from discovery ("Multiply what?") to application ("Show me equal groups in pictures")</td>
 <td>High emotion, low cognitive demand</td>
 </tr>
@@ -580,7 +580,7 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 <td>Concrete visual + two-step routine = structure recognition</td>
 </tr>
 <tr>
-<td>**Section 1 â†’ Section 2 Bridge**</td>
+<td>**Section 1 → Section 2 Bridge**</td>
 <td>"Circles instead of bags. Same thinking. How many groups? How many in each?"</td>
 <td>Transfer of routine to new context</td>
 </tr>
@@ -590,8 +590,8 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 <td>Same cognitive structure, fading support</td>
 </tr>
 <tr>
-<td>**Section 2 â†’ Section 3 Bridge**</td>
-<td>"You described them as '3 groups of 4.' That can be written as 3 Ã— 4. Look at the expression. Does it match the picture?"</td>
+<td>**Section 2 → Section 3 Bridge**</td>
+<td>"You described them as '3 groups of 4.' That can be written as 3 × 4. Look at the expression. Does it match the picture?"</td>
 <td>Introduction of notation recognition</td>
 </tr>
 <tr>
@@ -610,13 +610,13 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 </tr>
 <tr>
 <td>Section 1</td>
-<td>Concrete (Bags/Boxes) â€” Structure & Language</td>
+<td>Concrete (Bags/Boxes) — Structure & Language</td>
 <td>5 interactions</td>
 <td>Two-step routine (groups, items), language "X groups of Y"</td>
 </tr>
 <tr>
 <td>Section 2</td>
-<td>Semi-Abstract (Circles) â€” Transfer & Fading</td>
+<td>Semi-Abstract (Circles) — Transfer & Fading</td>
 <td>3 interactions</td>
 <td>Same routine, reduced scaffolding; "product" intro; graph callback</td>
 </tr>
@@ -628,23 +628,23 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 </tr>
 </table>
 ---
-### 1.7.1 LESSON SECTION 1: Bags/Boxes â€” Equal Groups Structure
-**Purpose:** Introduce "equal groups" formally. Model the two-step identification routine ("How many groups?" "How many in each?"). Build consistent language and visual patterns. Introduce Ã— notation with Guide explicitly showing it after students articulate structure.
+### 1.7.1 LESSON SECTION 1: Bags/Boxes — Equal Groups Structure
+**Purpose:** Introduce "equal groups" formally. Model the two-step identification routine ("How many groups?" "How many in each?"). Build consistent language and visual patterns. Introduce × notation with Guide explicitly showing it after students articulate structure.
 ### Interaction 1.1: Transition from Warmup + Worked Example \[WORKED EXAMPLE\]
 - **Purpose:** Bridge Warmup's graph revelation into concrete equal groups. Guide models the entire two-step routine with a concrete visual before asking students to attempt independently.
 - **Visual: Context Visualizations.** 3 bags, 4 items in each bag
-- **Guide:** "In our Warmup, you saw that graph scales are equal groups. But equal groups show up everywhere â€” not just in graphs. Today you're going to learn the name for these groups, see them in all kinds of pictures, and discover a new math symbol that makes them easy to write down. Check this out."
+- **Guide:** "In our Warmup, you saw that graph scales are equal groups. But equal groups show up everywhere — not just in graphs. Today you're going to learn the name for these groups, see them in all kinds of pictures, and discover a new math symbol that makes them easy to write down. Check this out."
 - **Guide:** "Let me show you how I figure out the groups here. First, I count the BAGS..."<br>\[worked example continues\]
 - **Guide:** "First, count the groups. How many bags? 1, 2, 3. Three bags. These are my GROUPS."
 - **Guide:** "Next, look inside ONE bag. How many? 1, 2, 3, 4. Four items in each bag. That's how many are IN EACH GROUP."
 - **Guide:** "So I have three groups of four. Say it with me: three groups of four."
-- **Guide:** "We can write three groups of four like this: 3 Ã— 4."
+- **Guide:** "We can write three groups of four like this: 3 × 4."
 - **On Correct (understanding demonstrated):** "Three groups of four. The same structure you found in graphs, now in bags."
 - **Remediation:** Pipeline
-> **Design Note:** This is fully scripted in the source, with every line provided. The worked example shows the routine in real-time: count groups, open one group, count items, name the structure. No student action required hereâ€”this is a preview before Interaction 1.2 asks students to apply it.
+> **Design Note:** This is fully scripted in the source, with every line provided. The worked example shows the routine in real-time: count groups, open one group, count items, name the structure. No student action required here—this is a preview before Interaction 1.2 asks students to apply it.
 > **Voice Note:** Slow, deliberate pacing. "First... Next..." creates a clear routine. Inviting students to "say it with me" creates involvement without requiring independent action yet.
 ---
-### Interaction 1.2: Student Identifies â€” Example-Problem Pair
+### Interaction 1.2: Student Identifies — Example-Problem Pair
 - **Purpose:** Student applies the two-step routine from the worked example to a new visual (same cognitive type, different context).
 - **Visual: Context Visualizations.** 2 boxes, 5 items in each box (different from the worked example's 3 bags with 4).
 - **Guide:** "Now you try. Count the groups first."
@@ -660,12 +660,12 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **Prompt:** "Say it: ___ groups of ___."
 - **Student Action:** State "2 groups of 5."
 - **Correct Answer:** 2 groups of 5.
-- **On Correct:** "Two groups of five. These are equal groupsâ€”same number in each one."
+- **On Correct:** "Two groups of five. These are equal groups—same number in each one."
 - **Remediation:** Pipeline
-> **Remediation Note:** If student reverses groups and items, redirect to the two-step structure: "Count the containers first â€” that's the groups. Then count inside ONE container â€” that's how many in each."
-> **Design Note:** Two separate questions (groups first, items second) match the worked example's routine. This is intentionalâ€”it anchors the "groups first" precedence, preventing Misconception #10 (reversal). The final synthesis question ("Say it") pulls it together. If student reverses numbers, the two-step break makes the error obvious and correctable.
+> **Remediation Note:** If student reverses groups and items, redirect to the two-step structure: "Count the containers first — that's the groups. Then count inside ONE container — that's how many in each."
+> **Design Note:** Two separate questions (groups first, items second) match the worked example's routine. This is intentional—it anchors the "groups first" precedence, preventing Misconception #10 (reversal). The final synthesis question ("Say it") pulls it together. If student reverses numbers, the two-step break makes the error obvious and correctable.
 ---
-### Interaction 1.3: Student Builds â€” First Build Mode
+### Interaction 1.3: Student Builds — First Build Mode
 - **Purpose:** Shift from visual identification to active construction. Student uses Build Mode to create equal groups from a verbal prompt. First time using Build Mode; steps are explicit.
 - **Visual: Build Mode Interface.** Empty workspace.
 - **Guide:** "Now you're going to build. Listen carefully. Build 3 groups of 4."
@@ -681,12 +681,12 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **On Correct:** "4 in each. 3 groups of 4."
 - **Remediation:** Pipeline
 > **Remediation Note:** If student reverses (enters 3 instead of 4), redirect: "3 was your GROUP COUNT. This step sets ITEMS IN EACH. Each bag holds 4 items inside."
-> **Design Note:** Build Mode enforces the two-step structure. Student cannot create a representation until both steps are completed. The UI makes the sequence unambiguous: groups first, then items. Reversal attempts are caught immediately (step feedback prevents student from proceeding to step 2 with wrong group count). This interaction is NOT asking for independent identificationâ€”it's practicing the routine with the UI scaffolding the structure.
+> **Design Note:** Build Mode enforces the two-step structure. Student cannot create a representation until both steps are completed. The UI makes the sequence unambiguous: groups first, then items. Reversal attempts are caught immediately (step feedback prevents student from proceeding to step 2 with wrong group count). This interaction is NOT asking for independent identification—it's practicing the routine with the UI scaffolding the structure.
 ---
 ### Interaction 1.4: Student Builds + Notation Shown \[BUILD + NOTATION\]
-- **Purpose:** Repeat Build Mode with notation introduced. Guide shows the Ã— expression AFTER the student constructs the groups. This links construction to notation without asking students to produce it.
+- **Purpose:** Repeat Build Mode with notation introduced. Guide shows the × expression AFTER the student constructs the groups. This links construction to notation without asking students to produce it.
 - **Visual: Build Mode Interface.** Empty workspace initially.
-- **Guide:** "Build one more. This time, I'll show you how to write it with the Ã— symbol."
+- **Guide:** "Build one more. This time, I'll show you how to write it with the × symbol."
 - **Prompt Step 1:** "How many groups?"
 - **Student Action:** Set container count to 4 (student chooses this value or is given it).
 - **Correct Answer:** 4 containers appear.
@@ -695,13 +695,13 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **Prompt Step 2:** "How many in each?"
 - **Student Action:** Set items per container to 3.
 - **Correct Answer:** 3 items appear in each.
-- **On Correct:** "4 groups of 3. You just showed me 4 Ã— 3."
-- **Guide:** "Look. Here's how we write it: 4 Ã— 3. The 4 is the groups. The 3 is how many in each. When we multiply, we're counting equal groups."
+- **On Correct:** "4 groups of 3. You just showed me 4 × 3."
+- **Guide:** "Look. Here's how we write it: 4 × 3. The 4 is the groups. The 3 is how many in each. When we multiply, we're counting equal groups."
 - **Remediation:** Pipeline
-> **Design Note:** Notation is shown after construction, not during. This keeps the cognitive focus on structure first (what are groups?), notation second (how do we write it?). Students are NOT reading the Ã— symbol to buildâ€”they're building and THEN seeing the notation. This prevents premature symbol-chasing and keeps the equal groups structure central.
+> **Design Note:** Notation is shown after construction, not during. This keeps the cognitive focus on structure first (what are groups?), notation second (how do we write it?). Students are NOT reading the × symbol to build—they're building and THEN seeing the notation. This prevents premature symbol-chasing and keeps the equal groups structure central.
 ---
 ### Interaction 1.5: Identify with Notation
-- **Purpose:** Identify equal groups from visual AND select the correct Ã— expression from options. This bridges pure identification (Interaction 1.2) and pure MC recognition (Lesson Section 3). Same visual as Interaction 1.2's structure (2 groups of 5 in boxes), but now students see the notation and select.
+- **Purpose:** Identify equal groups from visual AND select the correct × expression from options. This bridges pure identification (Interaction 1.2) and pure MC recognition (Lesson Section 3). Same visual as Interaction 1.2's structure (2 groups of 5 in boxes), but now students see the notation and select.
 - **Visual: Context Visualizations.** 2 boxes with 5 items in each.
 - **Guide:** "You've seen this one. Tell me what you see."
 - **Prompt:** "How many groups? How many in each?"
@@ -710,11 +710,11 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **On Correct:** "2 groups of 5."
 - **Guide:** "Look at these expressions. Which one shows what you see?"
 - **Prompt:** "Which shows 2 groups of 5?"
-- **Student Action:** Select: A) 2 Ã— 5, B) 5 Ã— 2, C) 2 + 5, D) 5 + 2.
-- **Correct Answer:** A (2 Ã— 5).
-- **On Correct (A):** "2 Ã— 5. The 2 is the groups. The 5 is in each group."
+- **Student Action:** Select: A) 2 × 5, B) 5 × 2, C) 2 + 5, D) 5 + 2.
+- **Correct Answer:** A (2 × 5).
+- **On Correct (A):** "2 × 5. The 2 is the groups. The 5 is in each group."
 - **Remediation:** Pipeline
-> **Remediation Note:** Distractor B (5 Ã— 2) targets reversal of groups and items. Distractor C/D (addition) targets the misconception that equal groups are added rather than multiplied. For either error, redirect to the structure: "How many groups? (2) How many in each? (5) Groups first: 2 Ã— 5."
+> **Remediation Note:** Distractor B (5 × 2) targets reversal of groups and items. Distractor C/D (addition) targets the misconception that equal groups are added rather than multiplied. For either error, redirect to the structure: "How many groups? (2) How many in each? (5) Groups first: 2 × 5."
 > **Design Note:** This interaction combines Identify + Expression Selection, preparing students for Section 3's MC recognition tasks. The visual and language are familiar (same context as 1.2); the novelty is selecting from four options that include reversal and addition distractors. If students have internalized "groups first," they should succeed here.
 ---
 ### \[SECTION TRANSITION\]
@@ -722,7 +722,7 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **Guide:** "You found equal groups in bags and boxes. Now let's see if the same thinking works in circles."
 **Voice Note:** Brief, welcoming. No overpraising the Section 1 work. Transition suggests Section 2 will be similar ("same thinking") but with a new look ("circles").
 ---
-## 1.7.2 LESSON SECTION 2: Circles â€” Transfer + Fading
+## 1.7.2 LESSON SECTION 2: Circles — Transfer + Fading
 **Purpose:** Transfer the two-step routine to a new abstraction level (circles instead of concrete containers). Reduce Guide scaffolding (students are more independent now). Introduce "product" vocabulary lightly. Include one callback to graphs to connect this to Warmup's revelation.
 ### Interaction 2.1: Transfer to Circles
 - **Purpose:** Apply the two-step routine to a new visual context (circles, semi-abstract level). Same structure, new look. Scaffolding remains high initially.
@@ -743,7 +743,7 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **Correct Answer:** 4 groups of 2.
 - **On Correct:** "4 groups of 2. Circles instead of bags, same structure."
 - **Remediation:** Pipeline
-> **Design Note:** The two-step routine is identical to Section 1, but the container type is new (circles). If students have internalized the routine, they'll transfer successfully. Scaffolding is still present ("Count the groups," "Look inside ONE circle") â€” Section 2 is "practice with new context," not full independence yet.
+> **Design Note:** The two-step routine is identical to Section 1, but the container type is new (circles). If students have internalized the routine, they'll transfer successfully. Scaffolding is still present ("Count the groups," "Look inside ONE circle") — Section 2 is "practice with new context," not full independence yet.
 ---
 ### Interaction 2.2: Reduced Scaffolding + "Product" Introduction
 - **Purpose:** Repeat structure with less Guide language. Guide introduces "product" when naming the result. Student becomes more independent.
@@ -752,14 +752,14 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **Prompt:** "How many groups? How many in each?"
 - **Student Action:** Identify independently: 3 groups of 3 (or with light support).
 - **Correct Answer:** 3 groups, 3 in each.
-- **On Correct:** "3 groups of 3. That's 3 Ã— 3. And here's something new: the answer to a multiplication problem is called the product. 3 Ã— 3 = 9. 9 is the product. You have 9 dots altogether."
+- **On Correct:** "3 groups of 3. That's 3 × 3. And here's something new: the answer to a multiplication problem is called the product. 3 × 3 = 9. 9 is the product. You have 9 dots altogether."
 - **Remediation:** Pipeline
 > **Remediation Note:** If student struggles to identify groups, redirect to the two-step routine: "How many circles? (That's groups.) Look in ONE circle: how many dots? (That's items in each.)"
-> **Design Note:** "Product" is introduced once, lightly, when showing the full equation. It's not the focus of this interaction; it's vocabulary in context. Students aren't computing productsâ€”the Guide calculates and names it. Heavy reinforcement of "product" is deferred to M8-M9 when students actually produce products.
+> **Design Note:** "Product" is introduced once, lightly, when showing the full equation. It's not the focus of this interaction; it's vocabulary in context. Students aren't computing products—the Guide calculates and names it. Heavy reinforcement of "product" is deferred to M8-M9 when students actually produce products.
 ---
 ### Interaction 2.3: Near-Independent + Graph Callback \[IDENTIFY + NOTATION\]
-- **Purpose:** Students identify structure and select expression with minimal Guide support. Include a callback to graphs (Warmup W.1) to make the M6 â†’ M7 connection explicit.
-- **Visual: Context Visualizations.** 4 circles, 5 dots in each circle (same structure as Warmup graph: 4 Ã— 5 = 20).
+- **Purpose:** Students identify structure and select expression with minimal Guide support. Include a callback to graphs (Warmup W.1) to make the M6 → M7 connection explicit.
+- **Visual: Context Visualizations.** 4 circles, 5 dots in each circle (same structure as Warmup graph: 4 × 5 = 20).
 - **Guide:** "You know this already. You did something like this in the graph."
 - **Prompt:** "What do you see?"
 - **Student Action:** Identify: 4 groups of 5 (with minimal or no Guide support).
@@ -767,74 +767,74 @@ Formalize equal groups recognition across three progressive abstraction levels. 
 - **On Correct:** "4 groups of 5. Just like the graph. 4 symbols, each worth 5. Here, 4 circles, 5 dots each."
 - **Guide:** "That's multiplication."
 - **Prompt:** "Which expression matches?"
-- **Student Action:** Select: A) 4 Ã— 5, B) 5 Ã— 4, C) 4 + 5, D) 5 + 4.
-- **Correct Answer:** A (4 Ã— 5).
-- **On Correct:** "4 Ã— 5. Four circles, five dots each. Same as the graph scale: 4 groups of 5."
+- **Student Action:** Select: A) 4 × 5, B) 5 × 4, C) 4 + 5, D) 5 + 4.
+- **Correct Answer:** A (4 × 5).
+- **On Correct:** "4 × 5. Four circles, five dots each. Same as the graph scale: 4 groups of 5."
 - **Remediation:** Pipeline
-> **Remediation Note:** Distractor B (5 Ã— 4) targets reversal of group count and items-per-group. Distractor C/D (addition) targets the misconception that equal groups use addition. For either error, redirect: "How many containers? (4) How many inside ONE? (5) That's 4 groups of 5, which is 4 Ã— 5."
+> **Remediation Note:** Distractor B (5 × 4) targets reversal of group count and items-per-group. Distractor C/D (addition) targets the misconception that equal groups use addition. For either error, redirect: "How many containers? (4) How many inside ONE? (5) That's 4 groups of 5, which is 4 × 5."
 > **Voice Note:** The graph callback is celebratory but matter-of-fact. "You know this already" affirms prior success. "Just like the graph" makes the connection explicit without over-explaining. This is M7's signature insight: multiplication is the same structure that has been hiding inside graphs all along.
 ---
 ### \[SECTION TRANSITION\]
 - **Visual:** Section divider.
-- **Guide:** "You've described equal groups as 'X groups of Y.' You've matched them to the Ã— expression. Now, can you pick the expression when you just see the picture?"
+- **Guide:** "You've described equal groups as 'X groups of Y.' You've matched them to the × expression. Now, can you pick the expression when you just see the picture?"
 **Voice Note:** Signals the shift from descriptive ("3 groups of 4") to symbolic ("Which expression?"). Section 3 demands independent selection without the routine's two-step framing.
 ---
 ## 1.7.3 LESSON SECTION 3: Expression Recognition
-**Purpose:** Students select the correct Ã— expression from MC options based purely on the visual. No scaffolding ("How many groups?"). No Guide model. Section 3 tests transfer of the entire routine to independent symbolic recognition. This is the skill that bridges to M8 (where students build expressions).
-### Interaction 3.1: First Expression Recognition \[MC RECOGNITION â€” CONCRETE\]
+**Purpose:** Students select the correct × expression from MC options based purely on the visual. No scaffolding ("How many groups?"). No Guide model. Section 3 tests transfer of the entire routine to independent symbolic recognition. This is the skill that bridges to M8 (where students build expressions).
+### Interaction 3.1: First Expression Recognition \[MC RECOGNITION — CONCRETE\]
 - **Purpose:** Move from descriptive identification to symbolic selection. Concrete context (bags) for lower cognitive load.
 - **Visual: Context Visualizations.** 3 bags, 2 items in each bag.
 - **Guide:** "Figure out the groups. Then pick the expression."
 - **Prompt:** "Which expression shows this?"
-- **Student Action:** Select: A) 3 Ã— 2, B) 2 Ã— 3, C) 3 + 2, D) 2 + 3.
-- **Correct Answer:** A (3 Ã— 2).
+- **Student Action:** Select: A) 3 × 2, B) 2 × 3, C) 3 + 2, D) 2 + 3.
+- **Correct Answer:** A (3 × 2).
 - **Answer Rationale:**
-	- A) 3 Ã— 2 = Correct (3 bags, 2 in each)
-	- B) 2 Ã— 3 = Error: Reversed groups and items (#10)
+	- A) 3 × 2 = Correct (3 bags, 2 in each)
+	- B) 2 × 3 = Error: Reversed groups and items (#10)
 	- C) 3 + 2 = Error: Used addition instead of multiplication (#11)
 	- D) 2 + 3 = Error: Addition AND reversed (#10 + #11)
-- **On Correct:** "3 Ã— 2. Three bags, two in each."
+- **On Correct:** "3 × 2. Three bags, two in each."
 - **Remediation:** Pipeline
-> **Remediation Note:** Distractor B (2 Ã— 3) targets reversal of group count and items-per-group. Distractor C/D (addition) targets the misconception that equal groups use addition, not multiplication. For reversal errors, emphasize: "Count the containers first â€” that's 3 groups." For addition errors: "3 + 2 is 5, but 3 groups of 2 is 6 items total. Multiplication."
-> **Design Note:** All four distractors represent common errors (#10 reversal, #11 addition). The concrete context (bags) is familiar from Section 1, keeping visual load low so cognitive resources focus on expression selection. No two-step routine is modeledâ€”student must independently apply it.
+> **Remediation Note:** Distractor B (2 × 3) targets reversal of group count and items-per-group. Distractor C/D (addition) targets the misconception that equal groups use addition, not multiplication. For reversal errors, emphasize: "Count the containers first — that's 3 groups." For addition errors: "3 + 2 is 5, but 3 groups of 2 is 6 items total. Multiplication."
+> **Design Note:** All four distractors represent common errors (#10 reversal, #11 addition). The concrete context (bags) is familiar from Section 1, keeping visual load low so cognitive resources focus on expression selection. No two-step routine is modeled—student must independently apply it.
 ---
-### Interaction 3.2: Expression Recognition â€” Semi-Abstract
+### Interaction 3.2: Expression Recognition — Semi-Abstract
 - **Purpose:** Same task (MC expression selection), new context (circles, semi-abstract). Confirms transfer from concrete to semi-abstract.
 - **Visual: Context Visualizations.** 5 circles, 3 dots in each.
 - **Guide:** "Circles now. Same thinking."
 - **Prompt:** "Which expression shows this?"
-- **Student Action:** Select: A) 5 Ã— 3, B) 3 Ã— 5, C) 5 + 3, D) 3 + 5.
-- **Correct Answer:** A (5 Ã— 3).
+- **Student Action:** Select: A) 5 × 3, B) 3 × 5, C) 5 + 3, D) 3 + 5.
+- **Correct Answer:** A (5 × 3).
 - **Answer Rationale:**
-	- A) 5 Ã— 3 = Correct (5 circles, 3 dots each)
-	- B) 3 Ã— 5 = Error: Reversed (#10)
+	- A) 5 × 3 = Correct (5 circles, 3 dots each)
+	- B) 3 × 5 = Error: Reversed (#10)
 	- C) 5 + 3 = Error: Addition (#11)
 	- D) 3 + 5 = Error: Addition + reversed (#10 + #11)
-- **On Correct:** "5 Ã— 3. Five circles, three dots each."
+- **On Correct:** "5 × 3. Five circles, three dots each."
 - **Remediation:** Pipeline
-> **Remediation Note:** If student selects B (3 Ã— 5), they've reversed groups and items. If they select C/D (addition), they've misconceived equal groups as additive. For either error, redirect to the structure: "How many containers? (5) How many inside ONE? (3) Groups first: 5 Ã— 3."
-> **Design Note:** Briefer Guide dialogue. Student is more independent now. Same distractors, new numbers (5 Ã— 3 instead of 3 Ã— 2), confirming the pattern is transferable.
+> **Remediation Note:** If student selects B (3 × 5), they've reversed groups and items. If they select C/D (addition), they've misconceived equal groups as additive. For either error, redirect to the structure: "How many containers? (5) How many inside ONE? (3) Groups first: 5 × 3."
+> **Design Note:** Briefer Guide dialogue. Student is more independent now. Same distractors, new numbers (5 × 3 instead of 3 × 2), confirming the pattern is transferable.
 ---
-### Interaction 3.3: Expression Recognition â€” Mixed with Reduced Support
+### Interaction 3.3: Expression Recognition — Mixed with Reduced Support
 - **Purpose:** MC expression selection with mixed contexts and minimal Guide support. Maximum independence before Exit Check.
 - **Visual: Context Visualizations.** 2 boxes, 4 items in each (back to boxes after circles).
 - **Guide:** "Figure it out."
 - **Prompt:** "Which expression shows this?"
-- **Student Action:** Select: A) 2 Ã— 4, B) 4 Ã— 2, C) 2 + 4, D) 4 + 2.
-- **Correct Answer:** A (2 Ã— 4).
+- **Student Action:** Select: A) 2 × 4, B) 4 × 2, C) 2 + 4, D) 4 + 2.
+- **Correct Answer:** A (2 × 4).
 - **Answer Rationale:**
-	- A) 2 Ã— 4 = Correct (2 boxes, 4 in each)
-	- B) 4 Ã— 2 = Error: Reversed (#10)
+	- A) 2 × 4 = Correct (2 boxes, 4 in each)
+	- B) 4 × 2 = Error: Reversed (#10)
 	- C) 2 + 4 = Error: Addition (#11)
 	- D) 4 + 2 = Error: Addition + reversed (#10 + #11)
-- **On Correct:** "2 Ã— 4. Two boxes, four in each."
+- **On Correct:** "2 × 4. Two boxes, four in each."
 - **Remediation:** Pipeline
-> **Remediation Note:** Distractor B (4 Ã— 2) targets reversal of containers and items-per-container. Distractor C/D (addition) targets the misconception that equal groups are added. For either error, redirect to the structure: "How many boxes? (2) How many in each? (4) That's 2 Ã— 4."
+> **Remediation Note:** Distractor B (4 × 2) targets reversal of containers and items-per-container. Distractor C/D (addition) targets the misconception that equal groups are added. For either error, redirect to the structure: "How many boxes? (2) How many in each? (4) That's 2 × 4."
 > **Design Note:** Minimal Guide presence. Student is expected to apply the routine fully independently. Error feedback redirects to the two-step thinking if needed.
 ---
 ### \[LESSON TRANSITION TO EXIT CHECK\]
 - **Visual:** Transition screen.
-- **Guide:** "You've found equal groups in graphs, bags, boxes, and circles. You've matched them to the Ã— expression. Let's check what you know."
+- **Guide:** "You've found equal groups in graphs, bags, boxes, and circles. You've matched them to the × expression. Let's check what you know."
 **Voice Note:** Affirms the full journey (multiple contexts, multiple toy types). "Check what you know" frames Exit Check as assessment, not continuation of teaching. Tone is confident ("Let's check") not anxious ("Is this hard?").
 ---
 ### 1.7.4 Required Phrases (Must Appear in Script)
@@ -842,14 +842,14 @@ Ensure these critical phrases appear in the Lesson dialogue and scripts:
 - "How many groups?" (ALWAYS asked first)
 - "How many in each group?" (ALWAYS asked second)
 - "X groups of Y" (students state this; Guide reinforces)
-- "equal groups â€” same number in every group" or similar (definition from Â§1.0)
-- "Ã— symbol" or "times" when introducing notation (Interaction 1.4 onward)
+- "equal groups — same number in every group" or similar (definition from Â§1.0)
+- "× symbol" or "times" when introducing notation (Interaction 1.4 onward)
 - "Groups go first" or similar (explicitly prevents #10 reversal; used in error feedback)
 - "Look inside ONE group" (scaffolds the two-step routine; used in Interact 1.1, 1.2, 2.1)
 ### 1.7.5 Forbidden Phrases (Create Misconceptions)
 DO NOT use these phrases in the Lesson script:
 - "3 times 4 equals 12, which is just 4 + 4 + 4" (promotes #11: multiplication only adds)
-- "Either order works" or "3 Ã— 4 is the same as 4 Ã— 3" (promotes commutativity before M12)
+- "Either order works" or "3 × 4 is the same as 4 × 3" (promotes commutativity before M12)
 - "Let me factor this" or similar factor language (saves "factor" for M9)
 - "Let's make an array" (saves arrays for M11)
 - "The product of..." as formal terminology without light introduction (Interaction 2.2 introduces "product" lightly; don't overuse)
@@ -883,9 +883,9 @@ By the end of Lesson, student demonstrates:
 - [ ] Identifies number of groups from a concrete visual (bags, boxes) without Guide prompting ("How many groups?")
 - [ ] Identifies number of items per group by examining ONE group
 - [ ] States the structure as "X groups of Y" with accurate numbers
-- [ ] Selects the correct Ã— expression from MC options including reversal, addition, and addition-reversed distractors
-- [ ] Applies the routine transfer from concrete (bags) â†’ semi-abstract (circles) â†’ mixed contexts
-- [ ] Understands "product" as the answer to a multiplication problem (light touch â€” can state what "product" means in context)
+- [ ] Selects the correct × expression from MC options including reversal, addition, and addition-reversed distractors
+- [ ] Applies the routine transfer from concrete (bags) → semi-abstract (circles) → mixed contexts
+- [ ] Understands "product" as the answer to a multiplication problem (light touch — can state what "product" means in context)
 ---
 ## 1.8 EXIT CHECK
 **Detail Level:** Structure + full scripts (every word provided)
@@ -926,7 +926,7 @@ Assess whether students have internalized the learning from Warmup and Lesson. T
 </tr>
 <tr>
 <td>Test identifying groups/items from visual</td>
-<td>Ask students to produce Ã— expressions</td>
+<td>Ask students to produce × expressions</td>
 </tr>
 <tr>
 <td>Test Build Mode construction</td>
@@ -969,7 +969,7 @@ Assess whether students have internalized the learning from Warmup and Lesson. T
 <tr>
 <td>EC.3</td>
 <td>IDENTIFY</td>
-<td>Select correct Ã— expression from MC options</td>
+<td>Select correct × expression from MC options</td>
 <td>Section 3: Interactions 3.1-3.3</td>
 </tr>
 </table>
@@ -999,38 +999,38 @@ Assess whether students have internalized the learning from Warmup and Lesson. T
 - **Student Action:** Student sets container count to 2.
 - **Correct Answer:** 2 bags appear.
 - **On Correct:** "2 groups."
-- **On Incorrect (3 â€” reversed):** "That's how many go inside. 2 GROUPS means 2 bags."
+- **On Incorrect (3 — reversed):** "That's how many go inside. 2 GROUPS means 2 bags."
 - **On Incorrect (other):** "The first number is the groups. Set 2 bags."
 - **Remediation:** Pipeline
 - **Prompt Step 2:** "How many in each group? Add the items."
 - **Student Action:** Student sets items-per-container to 3.
 - **Correct Answer:** 3 items appear in each bag.
 - **On Correct:** "2 bags, 3 in each. 2 groups of 3."
-- **On Incorrect (2 â€” reversed):** "That's the number of bags. Each bag needs 3 inside."
+- **On Incorrect (2 — reversed):** "That's the number of bags. Each bag needs 3 inside."
 - **On Incorrect (other):** "'2 groups of 3.' The 3 goes inside each bag."
 - **Remediation:** Pipeline
-**Alignment:** Tests same skill as Lesson 1.3 and 1.4 (construct equal groups via Build Mode with two-step decomposition). Different values (2 Ã— 3, not used as a Build Mode task in Lesson).
+**Alignment:** Tests same skill as Lesson 1.3 and 1.4 (construct equal groups via Build Mode with two-step decomposition). Different values (2 × 3, not used as a Build Mode task in Lesson).
 ---
 **Problem EC.3: Select Expression (IDENTIFY)**
 - **Visual:** Context Visualization: 4 circles, each containing 2 dots. Semi-abstract level.
 - **Guide:** "Alright, circles. Figure out the groups, then pick the expression that matches."
 - **Prompt:** "Which expression shows this?"
-- **Student Action:** Select: A) 4 Ã— 2, B) 2 Ã— 4, C) 4 + 2, D) 2 + 4.
-- **Correct Answer:** A (4 Ã— 2).
+- **Student Action:** Select: A) 4 × 2, B) 2 × 4, C) 4 + 2, D) 2 + 4.
+- **Correct Answer:** A (4 × 2).
 - **Answer Rationale:**
-	- A) 4 Ã— 2 = Correct (4 groups of 2)
-	- B) 2 Ã— 4 = Error: Reversed groups and items (#10)
+	- A) 4 × 2 = Correct (4 groups of 2)
+	- B) 2 × 4 = Error: Reversed groups and items (#10)
 	- C) 4 + 2 = Error: Used addition instead of multiplication (#11)
 	- D) 2 + 4 = Error: Addition AND reversed (#10 + #11)
-- **On Correct:** "4 Ã— 2. Four circles, two dots each."
-- **On Incorrect (B â€” reversed, #10):** "Count the circles first â€” that's 4. Groups go first: 4 Ã— 2."
-- **On Incorrect (C or D â€” addition, #11):** "4 + 2 is 6. But 4 groups of 2 is 8 items. Equal groups means multiplication: 4 Ã— 2."
+- **On Correct:** "4 × 2. Four circles, two dots each."
+- **On Incorrect (B — reversed, #10):** "Count the circles first — that's 4. Groups go first: 4 × 2."
+- **On Incorrect (C or D — addition, #11):** "4 + 2 is 6. But 4 groups of 2 is 8 items. Equal groups means multiplication: 4 × 2."
 - **Remediation:** Pipeline
-**Alignment:** Tests same skill as Lesson 3.1-3.3 (select correct Ã— expression from MC options with reversal and addition distractors). Uses circles (Lesson Section 2-3 context) with a value combination not used in any Lesson MC task (4 Ã— 2).
+**Alignment:** Tests same skill as Lesson 3.1-3.3 (select correct × expression from MC options with reversal and addition distractors). Uses circles (Lesson Section 2-3 context) with a value combination not used in any Lesson MC task (4 × 2).
 ---
 ### 1.8.3 Exit Check Closure
 - **Guide:** "You're ready. Let's practice."
-**Voice Note:** Brief. No overpraising. Matches playbook transition formula (Exit Check â†’ Practice).
+**Voice Note:** Brief. No overpraising. Matches playbook transition formula (Exit Check → Practice).
 ---
 ### 1.8.4 Verification Checklist
 **Structure:**
@@ -1044,7 +1044,7 @@ Assess whether students have internalized the learning from Warmup and Lesson. T
 - [ ] EC.3 tests expression recognition from MC (Lesson Section 3: Interactions 3.1-3.3)
 **Constraints:**
 - [ ] Uses Context Visualizations (same toy as Lesson)
-- [ ] Uses both concrete (boxes â€” EC.1, bags â€” EC.2) and semi-abstract (circles â€” EC.3)
+- [ ] Uses both concrete (boxes — EC.1, bags — EC.2) and semi-abstract (circles — EC.3)
 - [ ] Uses two-step prompting for Identify (EC.1) and Build (EC.2)
 - [ ] Uses MC expression format with reversal + addition distractors (EC.3)
 - [ ] IDENTIFY and CREATE only (COMPARE not taught in Lesson)
@@ -1058,7 +1058,7 @@ Students who exit the main Lesson with mastery move to Practice Phase, which is 
 ## 1.9 SYNTHESIS
 **Detail Level:** Structure + parameters (AI writes dialogue; full scripts for tasks provided)
 ### Purpose
-Consolidate understanding that equal groups is the STRUCTURE underneath multiple representations â€” bags, circles, and graph scales. Surface the definitional insight ("equal" means same number in every group). Connect equal groups to real-world contexts beyond math class. Reflect on the graph-to-multiplication connection that spans the entire unit. This is NOT more practice â€” it's connection-making and consolidation.
+Consolidate understanding that equal groups is the STRUCTURE underneath multiple representations — bags, circles, and graph scales. Surface the definitional insight ("equal" means same number in every group). Connect equal groups to real-world contexts beyond math class. Reflect on the graph-to-multiplication connection that spans the entire unit. This is NOT more practice — it's connection-making and consolidation.
 ### Parameters
 <table header-row="true">
 <tr>
@@ -1071,11 +1071,11 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 </tr>
 <tr>
 <td>**Task Types**</td>
-<td>Type A (Pattern Discovery), Type D (Representation Transfer), Type C (Real-World Bridge â€” ACTIVE: Build Mode)</td>
+<td>Type A (Pattern Discovery), Type D (Representation Transfer), Type C (Real-World Bridge — ACTIVE: Build Mode)</td>
 </tr>
 <tr>
 <td>**Remediation**</td>
-<td>Light only â€” mastery assumed</td>
+<td>Light only — mastery assumed</td>
 </tr>
 <tr>
 <td>**Tone**</td>
@@ -1105,7 +1105,7 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 <td>Introduce new visual models or contexts</td>
 </tr>
 <tr>
-<td>Use "equal groups," "groups of," Ã— notation</td>
+<td>Use "equal groups," "groups of," × notation</td>
 <td>Introduce "factor," "array," "row," "column" (later modules)</td>
 </tr>
 <tr>
@@ -1139,25 +1139,25 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 - **Visual:** Clean transition screen.
 - **Guide:** "You've practiced finding equal groups and matching them to expressions. Now let's step back and see what connects everything you've done today."
 ---
-### Synthesis Task S.1: Pattern Discovery â€” What Makes Groups "Equal"?
+### Synthesis Task S.1: Pattern Discovery — What Makes Groups "Equal"?
 - **Purpose:** Surface the definitional insight that "equal" means the same number in EVERY group. Students apply the definition across four visuals simultaneously, distinguishing genuine equal groups from a look-alike. This tests conceptual understanding, not counting procedure.
-- **Visual:** Four Context Visualizations displayed in a 2Ã—2 grid:
-	- A) 3 bags, 4 items in each \[equal groups â€” 3 Ã— 4\]
-	- B) 4 circles, 2 dots in each \[equal groups â€” 4 Ã— 2\]
-	- C) 2 boxes: one has 3 items, the other has 5 items \[NOT equal groups â€” different amounts\]
-	- D) 5 bags, 3 items in each \[equal groups â€” 5 Ã— 3\]
+- **Visual:** Four Context Visualizations displayed in a 2×2 grid:
+	- A) 3 bags, 4 items in each \[equal groups — 3 × 4\]
+	- B) 4 circles, 2 dots in each \[equal groups — 4 × 2\]
+	- C) 2 boxes: one has 3 items, the other has 5 items \[NOT equal groups — different amounts\]
+	- D) 5 bags, 3 items in each \[equal groups — 5 × 3\]
 - **Guide:** "Here are four pictures. Three of them show equal groups. One does NOT. Which one is NOT equal groups?"
 - **Prompt:** "Which one is NOT equal groups?"
 - **Student Action:** Select: A / B / C / D
 - **Correct Answer:** C
-- **On Correct:** "Those two boxes have different amounts â€” 3 in one, 5 in the other. That's not equal."
-- **Connection (Guide states):** "For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group â€” that's what makes them equal groups."
+- **On Correct:** "Those two boxes have different amounts — 3 in one, 5 in the other. That's not equal."
+- **Connection (Guide states):** "For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group — that's what makes them equal groups."
 - **On Incorrect:** "Check what's inside each container in that picture. Does every group have the same number? Look for the one where the amounts don't match."
 - **Remediation:** Pipeline
 ---
-### Synthesis Task S.2: Representation Transfer â€” Same Multiplication, Three Looks
+### Synthesis Task S.2: Representation Transfer — Same Multiplication, Three Looks
 - **Purpose:** Reveal that the same equal groups structure appears identically across bags, circles, and graph symbols. This is M7's signature synthesis insight: multiplication describes a structure that transcends specific representations. Students have seen these representations separately throughout the Lesson; now they see them side-by-side for the first time.
-- **Visual:** Multi-Format Display showing 3 Ã— 5 = 15 three ways, simultaneously:
+- **Visual:** Multi-Format Display showing 3 × 5 = 15 three ways, simultaneously:
 	- Left: 3 bags, each containing 5 items. Label: "Bags"
 	- Center: 3 circles, each containing 5 dots. Label: "Circles"
 	- Right: Picture graph with 3 symbols at scale of 5 (labeled: "Each symbol = 5"). Label: "Graph"
@@ -1170,13 +1170,13 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 	- B) 5 groups of 3 = Error: Reversed groups and items (#10)
 	- C) 3 + 5 = Error: Defaulted to addition (#11)
 	- D) 15 things with no groups = Error: Sees only the total, not the structure
-- **On Correct:** "All three show 3 groups of 5. Bags, circles, graph symbols â€” different containers, same structure inside."
-- **Connection (Guide states):** "That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 Ã— 5 â€” whether it's bags on a shelf, dots in circles, or symbols on a graph."
-- **On Incorrect (B â€” reversed):** "Count the containers first. Three bags, three circles, three symbols. That's 3 groups. And 5 inside each. 3 groups of 5."
+- **On Correct:** "All three show 3 groups of 5. Bags, circles, graph symbols — different containers, same structure inside."
+- **Connection (Guide states):** "That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5 — whether it's bags on a shelf, dots in circles, or symbols on a graph."
+- **On Incorrect (B — reversed):** "Count the containers first. Three bags, three circles, three symbols. That's 3 groups. And 5 inside each. 3 groups of 5."
 - **On Incorrect (C or D):** "Look for the groups. Each picture has containers with items inside. How many containers? How many in each?"
 - **Remediation:** Pipeline
 ---
-### Synthesis Task S.3: Real-World Bridge â€” Equal Groups at the Store (ACTIVE: Build Mode)
+### Synthesis Task S.3: Real-World Bridge — Equal Groups at the Store (ACTIVE: Build Mode)
 - **Purpose:** Transfer equal groups recognition to a real-world context outside of math class. Student builds equal groups from a verbal real-world scenario using Build Mode, proving that the identification routine transfers to everyday situations. This is the active task (Build Mode creation), satisfying the Playbook's active task requirement.
 - **Visual:** Text scenario appears: "A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes."
 - **Guide:** "Equal groups aren't just in math problems. Here's a real situation."
@@ -1185,38 +1185,38 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 - **Student Action:** Student sets container count to 4
 - **Correct Answer:** 4 containers appear
 - **On Correct:** "4 packs."
-- **On Incorrect (6 â€” items per group):** "6 is how many are inside each pack. Count the packs â€” that's the groups."
+- **On Incorrect (6 — items per group):** "6 is how many are inside each pack. Count the packs — that's the groups."
 - **On Incorrect (other):** "The shelf has 4 packs. Set 4."
 - **Remediation:** Pipeline
 - **Prompt Step 2:** "How many in each pack? Add the juice boxes."
 - **Student Action:** Student sets items-per-container to 6
 - **Correct Answer:** 6 items appear in each container
-- **On Correct:** "4 packs, 6 in each. Equal groups â€” right there on a store shelf."
-- **On Incorrect (4 â€” groups count):** "4 is the packs. Each pack holds 6 juice boxes inside."
+- **On Correct:** "4 packs, 6 in each. Equal groups — right there on a store shelf."
+- **On Incorrect (4 — groups count):** "4 is the packs. Each pack holds 6 juice boxes inside."
 - **On Incorrect (other):** "Each pack has 6 juice boxes. Set 6."
 - **Remediation:** Pipeline
-- **Connection (Guide states):** "4 groups of 6. That's 4 Ã— 6. Any time you see the same number in each container â€” packs, bags, boxes, cartons â€” that's equal groups. It's multiplication, even outside math class."
-> **Design Note:** Build Mode is the active task required by Playbook ("at least one task requires placement, matching, or creation"). Build Mode was used in Lesson (1.3, 1.4) and Exit Check (EC.2) â€” the tool is familiar. The novelty here is the SOURCE: a real-world text scenario rather than a math instruction. Student must translate from "store shelf" language to Build Mode â€” this is transfer. Values 4 Ã— 6 = 24 are within Lesson range (products within 30) and haven't appeared as a Build Mode task in the Lesson or Exit Check. Brief two-step build (two clicks total) keeps cognitive load light.
+- **Connection (Guide states):** "4 groups of 6. That's 4 × 6. Any time you see the same number in each container — packs, bags, boxes, cartons — that's equal groups. It's multiplication, even outside math class."
+> **Design Note:** Build Mode is the active task required by Playbook ("at least one task requires placement, matching, or creation"). Build Mode was used in Lesson (1.3, 1.4) and Exit Check (EC.2) — the tool is familiar. The novelty here is the SOURCE: a real-world text scenario rather than a math instruction. Student must translate from "store shelf" language to Build Mode — this is transfer. Values 4 × 6 = 24 are within Lesson range (products within 30) and haven't appeared as a Build Mode task in the Lesson or Exit Check. Brief two-step build (two clicks total) keeps cognitive load light.
 ---
 ### Synthesis Task S.4: Metacognitive Reflection (Type 2: Connection Recognition)
 - **Purpose:** Help students articulate the graph-to-multiplication connection that M7 revealed. This is M7's biggest conceptual contribution: the realization that everything students did in M1-M6 (scaled graphs) was multiplication in disguise. Type 2 (Connection Recognition) is appropriate at M7 per Playbook: "Introduce Types 2 and 4 for Modules 7-12."
-- **Visual:** Simple split display â€” left side shows a picture graph (scale of 5, briefly), right side shows bags (equal groups). Both are small, iconic â€” not interactive.
+- **Visual:** Simple split display — left side shows a picture graph (scale of 5, briefly), right side shows bags (equal groups). Both are small, iconic — not interactive.
 - **Guide:** "Here's something to think about. Today's work connects to something you've been doing for a while. Did you notice a connection?"
 - **Options:**
-	- A) Yes â€” reading graph scales was like finding equal groups
-	- B) Kind of â€” some parts felt similar
-	- C) Not really â€” this felt brand new
+	- A) Yes — reading graph scales was like finding equal groups
+	- B) Kind of — some parts felt similar
+	- C) Not really — this felt brand new
 - **On Selection A:** "You spotted it. Every time you read a scale-of-5 graph, you were counting groups of 5. Graph scales were equal groups the whole time."
-- **On Selection B:** "Good noticing. The counting-by-5s and counting-by-2s from graphs â€” that was groups all along. The connection gets clearer over time."
-- **On Selection C:** "That makes sense â€” the Ã— symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going."
-> **Design Note:** All three responses are validated equally â€” no wrong answers in reflection. Each response gets a connection-specific reply that gently reinforces the graph-to-multiplication bridge, regardless of what the student selected. The visual serves as a quiet reminder of both worlds (graphs and groups) without requiring interaction.
+- **On Selection B:** "Good noticing. The counting-by-5s and counting-by-2s from graphs — that was groups all along. The connection gets clearer over time."
+- **On Selection C:** "That makes sense — the × symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going."
+> **Design Note:** All three responses are validated equally — no wrong answers in reflection. Each response gets a connection-specific reply that gently reinforces the graph-to-multiplication bridge, regardless of what the student selected. The visual serves as a quiet reminder of both worlds (graphs and groups) without requiring interaction.
 ---
 ### 1.9.2 Identity-Building Closure
 - **Purpose:** Specific, growth-oriented affirmation connecting to future learning. Bridge to M8.
-- **Visual:** Clean screen. Brief display of a Ã— symbol.
-- **Guide:** "You found equal groups in bags, circles, and graphs. You described them â€” like '3 groups of 5' or '4 groups of 2.' You matched them to the Ã— symbol."
-- **Guide:** "Next time, you'll write your own multiplication expressions. You're ready because you know what the numbers MEAN â€” groups and items in each group."
-> **Voice Note:** Specific to M7 growth â€” names three observable accomplishments (found groups, described them, matched to Ã—). Does not over-claim ("You're a multiplication expert!"). Future preview names M8's core activity (writing expressions) and connects readiness to M7's conceptual foundation (knowing what numbers mean). This ensures M8's opening callback lands: "Yesterday you matched expressions. Today you'll build them."
+- **Visual:** Clean screen. Brief display of a × symbol.
+- **Guide:** "You found equal groups in bags, circles, and graphs. You described them — like '3 groups of 5' or '4 groups of 2.' You matched them to the × symbol."
+- **Guide:** "Next time, you'll write your own multiplication expressions. You're ready because you know what the numbers MEAN — groups and items in each group."
+> **Voice Note:** Specific to M7 growth — names three observable accomplishments (found groups, described them, matched to ×). Does not over-claim ("You're a multiplication expert!"). Future preview names M8's core activity (writing expressions) and connects readiness to M7's conceptual foundation (knowing what numbers mean). This ensures M8's opening callback lands: "Yesterday you matched expressions. Today you'll build them."
 ---
 ### 1.9.3 Verification Checklist
 **Structure:**
@@ -1225,10 +1225,10 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 - [ ] Identity-building closure previews M8
 - [ ] Total time 6-7 minutes (per Playbook guidance 6-8 min)
 **Task Coverage:**
-- [ ] Type A (Pattern Discovery): S.1 â€” Equal vs. unequal groups (definitional insight)
-- [ ] Type D (Representation Transfer): S.2 â€” Same fact across bags, circles, graph (Multi-Format Display)
-- [ ] Type C (Real-World Bridge): S.3 â€” Store shelf scenario (BUILD MODE â€” ACTIVE TASK)
-- [ ] Metacognitive Reflection (Type 2): S.4 â€” Graph-to-multiplication connection recognition
+- [ ] Type A (Pattern Discovery): S.1 — Equal vs. unequal groups (definitional insight)
+- [ ] Type D (Representation Transfer): S.2 — Same fact across bags, circles, graph (Multi-Format Display)
+- [ ] Type C (Real-World Bridge): S.3 — Store shelf scenario (BUILD MODE — ACTIVE TASK)
+- [ ] Metacognitive Reflection (Type 2): S.4 — Graph-to-multiplication connection recognition
 - [ ] **Active Task Check:** S.3 uses Build Mode (not all MC per Playbook)
 - [ ] **Minimum 2 different task types:** âœ“ (Types A, D, C)
 - [ ] **At least one pattern/transfer task:** âœ“ (S.1 pattern, S.2 transfer)
@@ -1236,15 +1236,15 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 - [ ] S.1 reinforces "equal" definition from Lesson 1.1 worked example (Guide checks that groups have same number)
 - [ ] S.2 connects all three representation types: concrete (Section 1), semi-abstract (Section 2), graph (Warmup/Lesson 2.3)
 - [ ] S.3 extends Build Mode (Lesson 1.3-1.4) to real-world transfer context
-- [ ] S.4 consolidates the Warmupâ†’Lesson arc (scales = groups = multiplication)
+- [ ] S.4 consolidates the Warmup→Lesson arc (scales = groups = multiplication)
 - [ ] Closure names three Lesson accomplishments and previews M8
 **Constraints:**
 - [ ] Light remediation only (mastery assumed)
 - [ ] No new procedures introduced
 - [ ] No new visual models (uses Context Visualizations + Picture Graph from Lesson/Warmup)
-- [ ] Uses only vocabulary from Lesson ("equal groups," "groups of," Ã— notation, "times," "product")
+- [ ] Uses only vocabulary from Lesson ("equal groups," "groups of," × notation, "times," "product")
 - [ ] NO "factor," "array," "row," "column" (later module vocabulary)
-- [ ] NO "X times Y is the same as Y times X" (commutativity â€” M12)
+- [ ] NO "X times Y is the same as Y times X" (commutativity — M12)
 - [ ] Connections emerge from student's module experience
 - [ ] Values within Lesson range (products within 30); no exact Lesson repeats at same cognitive demand
 ---
@@ -1252,9 +1252,9 @@ Consolidate understanding that equal groups is the STRUCTURE underneath multiple
 ### KDD 1: Tape Diagrams Excluded
 Instructional overhead exceeds value. Context visualizations (bags, circles) make grouping structure immediately visible without requiring students to learn a new representational tool during an already high-stakes conceptual bridge.
 ### KDD 2: Bridge in Warmup, New Context in Lesson
-Warmup handles the emotional/conceptual "aha!" (graph â†’ animation â†’ multiplication reveal). Lesson Section 1 opens with bags/boxes as the first non-graph equal groups context. Each phase has one clear purpose.
-### KDD 3: Ã— Notation Throughout with Late Recognition Tasks
-Guide shows Ã— whenever naming structure ("3 groups of 4. We write this as 3 Ã— 4."). Late lesson includes 2-3 MC recognition tasks ("Which expression shows this?"). Students don't produce notation until M8.
+Warmup handles the emotional/conceptual "aha!" (graph → animation → multiplication reveal). Lesson Section 1 opens with bags/boxes as the first non-graph equal groups context. Each phase has one clear purpose.
+### KDD 3: × Notation Throughout with Late Recognition Tasks
+Guide shows × whenever naming structure ("3 groups of 4. We write this as 3 × 4."). Late lesson includes 2-3 MC recognition tasks ("Which expression shows this?"). Students don't produce notation until M8.
 ### KDD 4: "Product" Light Touch
 Standards-required vocabulary (3.OA.A.1 says "Interpret products"). Introduced once in Section 2 when Guide shows full equation. Heavy reinforcement deferred to M8-M9.
 ### KDD 5: Clean Abstraction Splits
@@ -1266,15 +1266,15 @@ M7 explicitly teaches first number = groups, second = items per group. This MUST
 ### KDD 8: Build Mode is Two-Step Only
 Students always set groups first, then items per group. Single-step building forbidden. Reinforces the structural decomposition that IS the learning goal.
 ### KDD 9: No Graph Contexts in Practice
-Intentional gap. Practice uses bags/boxes (concrete) and circles (semi-abstract) only. Graph contexts belong to Warmup and Synthesis callbacks, preserving the graphâ†’multiplication connection as a Synthesis-level insight.
+Intentional gap. Practice uses bags/boxes (concrete) and circles (semi-abstract) only. Graph contexts belong to Warmup and Synthesis callbacks, preserving the graph→multiplication connection as a Synthesis-level insight.
 ### KDD 10: Mystery Reveal Warmup
 Warmup uses graph-reading success as the on-ramp to the multiplication reveal, rather than a Data Collection Game. This respects M7's bridge function: students need to see THEIR prior work reframed, not collect new data.
 ### KDD 11: MC Distractor Pattern
-Every MC expression recognition includes all four options: correct (X Ã— Y), reversed (Y Ã— X targeting #10), addition (X + Y targeting #11), and addition-reversed (Y + X targeting both). Consistent across Lesson, Exit Check, and Practice.
+Every MC expression recognition includes all four options: correct (X × Y), reversed (Y × X targeting #10), addition (X + Y targeting #11), and addition-reversed (Y + X targeting both). Consistent across Lesson, Exit Check, and Practice.
 ### KDD 12: Helper Feedback Language
 At least 30% of Practice success dialogue must include "equal groups" or "same number in each" to support Synthesis S.1's discrimination task. Prevents Practice from mechanically reinforcing "X groups of Y" without the definitional criterion.
 ### KDD 13: Lean Synthesis (4 tasks)
-Appropriate for a concept-introduction module. S.1 tests the "equal" definition, S.2 shows cross-representation invariance, S.3 uses Build Mode for real-world transfer, S.4 is metacognitive reflection on the graphâ†’multiplication connection. No M6-style redundancy.
+Appropriate for a concept-introduction module. S.1 tests the "equal" definition, S.2 shows cross-representation invariance, S.3 uses Build Mode for real-world transfer, S.4 is metacognitive reflection on the graph→multiplication connection. No M6-style redundancy.
 ---
 # END OF MODULE 7 STARTER PACK
 ---

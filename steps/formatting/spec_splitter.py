@@ -50,15 +50,15 @@ _HEADER_RE = re.compile(
     r'|'
     r'#{2,3}\s+W\.\d+[a-z][^\n]*'                      # ### W.3a: ...
     r'|'
-    r'\*\*\[SECTION\s+\d+\s+TRANSITION\]\*\*[^\n]*'    # **[SECTION N TRANSITION]**
+    r'\*\*\\?\[SECTION(?:\s+\d+)?\s+TRANSITION\\?\]\*\*[^\n]*'  # **[SECTION N TRANSITION]** or **\[SECTION TRANSITION\]** (escaped brackets)
     r'|'
     r'(?:#{2,3}\s+\*{0,2})?Bridge to \w[^\n]*'         # Bridge to Lesson / Bridge to Exit Check (plain or ### **Bridge to)
     r'|'
-    r'#{2,3}\s+\*{0,2}Problem\s+EC\.\d+:[^\n]*'          # ### Problem EC.1: ... (exitcheck), bold variant allowed
+    r'(?:#{2,3}\s+\*{0,2})?\*{0,2}Problem\s+EC\.\d+:[^\n]*'   # ### Problem EC.1: / **Problem EC.1: (exitcheck, with or without heading)
     r'|'
     r'#{2,3}\s+\*{0,2}Interaction\s+S\.\d+[^\n]*'      # ### Interaction S.N: ... (synthesis), bold variant allowed
     r'|'
-    r'Task\s+S\.\d+:[^\n]*'                             # Task S.1: ... (synthesis — legacy format)
+    r'(?:#{2,3}\s+)?(?:Synthesis\s+)?Task\s+S\.\d+:[^\n]*'  # Task S.1: / ### Synthesis Task S.1: (synthesis)
     r'|'
     r'#{2,3}\s+\*{0,2}Transition\s+into\s+Exit\s+Check[^\n]*'  # ### Transition into Exit Check, bold variant allowed
     r'|'
@@ -69,6 +69,8 @@ _HEADER_RE = re.compile(
     r'#{2,3}\s+Metacognitive\s+Reflection[^\n]*'        # ### Metacognitive Reflection (synthesis)
     r'|'
     r'#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*'  # ### Identity-Building Closure (synthesis), bold variant allowed
+    r'|'
+    r'\*\*Section\s+\d+\.\d+[a-z]?(?::[^\n]*)?\*\*'           # **Section X.Y: title** or **Section X.Ya** (bold, no ###)
     r')',
     re.MULTILINE,
 )
@@ -102,6 +104,10 @@ def _extract_major(header: str, last_major: int) -> int:
         return int(m.group(1))
     # [SECTION N TRANSITION] → N
     m = re.search(r'SECTION\s+(\d+)\s+TRANSITION', header, re.IGNORECASE)
+    if m:
+        return int(m.group(1))
+    # **Section N.X: title** (bold, no ###) → N
+    m = re.search(r'\*\*Section\s+(\d+)\.', header)
     if m:
         return int(m.group(1))
     # Bridge / exitcheck / synthesis named sections → inherit last major

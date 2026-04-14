@@ -97,6 +97,10 @@ Examples:
 
     args = parser.parse_args()
 
+    if args.yes:
+        import os as _os
+        _os.environ["NOTION_YES"] = "1"
+
     print("Pipeline Runner")
     print("=" * 70)
 
