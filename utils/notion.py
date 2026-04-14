@@ -1397,19 +1397,23 @@ _CURRENT_SCENE_TOGGLE_LABEL = "⏭️ Student presses Next — toggle open to se
 _LEGACY_STEP_BREAK_PREFIXES = ("📋 Current scene state",)
 
 
-def _render_current_scene(beat: dict, nested: bool = False) -> list[dict]:
-    """Render current_scene as a ⏭️ 'Student presses Next' toggle.
+def _render_current_scene(beat: dict, nested: bool = False, after_prompt: bool = False) -> list[dict]:
+    """Render current_scene as a ⏭️ step separator.
 
+    After a prompt the scene state is branch-dependent, so the toggle would be
+    empty and misleading — render a plain paragraph instead.
     Nested current_scene beats (inside validator branches) are suppressed.
     Trailing current_scene beats (last beat of a section) are stripped before
     this is called — see _render_section_children.
     """
     if nested:
         return []
+    if after_prompt:
+        return [_paragraph("⏭️")]
     return [_toggle(_CURRENT_SCENE_TOGGLE_LABEL, [_paragraph("—")])]
 
 
-def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict]:
+def _render_beat(beat: dict, section_id: str, nested: bool = False, after_prompt: bool = False) -> list[dict]:
     t = beat.get("type", "")
     if t == "dialogue":
         return _render_dialogue(beat)
@@ -1418,7 +1422,7 @@ def _render_beat(beat: dict, section_id: str, nested: bool = False) -> list[dict
     elif t == "current_scene":
         if nested:
             return []
-        return _render_current_scene(beat)
+        return _render_current_scene(beat, after_prompt=after_prompt)
     elif t == "prompt":
         return _render_prompt(beat, section_id)
     elif t in ("empty", "unparsed"):
@@ -1444,8 +1448,10 @@ def _step_sep_block() -> dict:
 def _render_beat_group(beats: list[dict], section_id: str) -> list[dict]:
     """Render a contiguous group of beats. The ⏭️ current_scene toggle marks step boundaries."""
     blocks: list[dict] = []
+    prev_type: str = ""
     for beat in beats:
-        blocks.extend(_render_beat(beat, section_id))
+        blocks.extend(_render_beat(beat, section_id, after_prompt=(prev_type == "prompt")))
+        prev_type = beat.get("type", "")
     return blocks
 
 
@@ -1671,10 +1677,18 @@ def _parse_new_beat(emoji: str, text: str) -> dict:
 
 
 def _is_step_break(block: dict) -> bool:
-    """Return True if this block represents a step boundary (· · · paragraph or ⏭️ toggle)."""
+    """Return True if this block represents a step boundary.
+
+    Recognised forms:
+    - ⏭️ paragraph  (after-prompt step break, current push format)
+    - ⏭️ … toggle   (between-dialogue step break, current push format)
+    - · · · paragraph  (legacy)
+    - legacy toggle prefixes
+    """
     btype = block.get("type")
     if btype == "paragraph":
-        return _extract_rt(block.get("paragraph", {}).get("rich_text", [])).strip() == "· · ·"
+        text = _extract_rt(block.get("paragraph", {}).get("rich_text", [])).strip()
+        return text == "⏭️" or text == "· · ·"
     if btype == "toggle":
         toggle_text = _extract_rt(block.get("toggle", {}).get("rich_text", []))
         return toggle_text.startswith(_CURRENT_SCENE_TOGGLE_PREFIX) or any(
