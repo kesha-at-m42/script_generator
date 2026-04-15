@@ -303,6 +303,16 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
         print(f"Creating new version: {next_ver}")
     elif not in_versioned_pipeline:
         out_path = _pull_out_path(file_path)
+        # Reverse-stamp: create a copy of the pipeline source (file_path) with
+        # _notion_block_id stamped on every matched beat, without overwriting the original.
+        if out_path != file_path:
+            pipeline_original = json.loads(file_path.read_text(encoding="utf-8"))
+            pipeline_stamped, _ = blocks_to_lesson(blocks, pipeline_original)
+            stamped_path = file_path.parent / (file_path.stem + "_notion_stamped.json")
+            stamped_path.write_text(
+                json.dumps(pipeline_stamped, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
+            print(f"[OK] Reverse-stamped source saved to {stamped_path.relative_to(project_root)}")
     else:
         out_path = default_out_path
 
