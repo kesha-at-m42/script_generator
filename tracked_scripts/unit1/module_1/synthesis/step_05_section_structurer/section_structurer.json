@@ -1,6 +1,6 @@
 [
   {
-    "id": "s4_opening",
+    "id": "s1_1_opening_frame",
     "type": "transition",
     "scene": [],
     "steps": [
@@ -17,178 +17,122 @@
     ]
   },
   {
-    "id": "s4_1_representation_transfer",
-    "scene": [],
-    "steps": [
-      [
-        {
-          "type": "scene",
-          "method": "add",
-          "tangible_id": "picture_graph_sports",
-          "tangible_type": "picture_graph",
-          "params": {
-            "mode": "reading",
-            "orientation": "horizontal",
-            "scale": 1,
-            "categories": [
-              "Soccer",
-              "Basketball",
-              "Baseball",
-              "Tennis"
-            ],
-            "values": [
-              7,
-              5,
-              4,
-              6
-            ],
-            "title": "Favorite Sports",
-            "key_visible": true,
-            "description": "Horizontal picture graph appears on left side of screen. Favorite Sports data. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Key shows each symbol = 1 vote."
-          }
-        },
-        {
-          "type": "scene",
-          "method": "add",
-          "tangible_id": "bar_graph_sports",
-          "tangible_type": "bar_graph",
-          "params": {
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale": 1,
-            "categories": [
-              "Soccer",
-              "Basketball",
-              "Baseball",
-              "Tennis"
-            ],
-            "values": [
-              7,
-              5,
-              4,
-              6
-            ],
-            "title": "Favorite Sports",
-            "axis_range": [
-              0,
-              8
-            ],
-            "axis_labels_visible": true,
-            "description": "Vertical bar graph appears on right side of screen. Same Favorite Sports data as picture graph. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Axis shows 0-8."
-          }
-        },
-        {
-          "type": "dialogue",
-          "text": "Look at these two graphs. They show the same data. What's the same about both graphs?"
-        },
-        {
-          "type": "prompt",
-          "text": "What's the same about both graphs? Select all that apply.",
-          "tool": "multi_select",
-          "options": [
-            "They have the same title",
-            "They show the same categories",
-            "Soccer has the most in both",
-            "They look exactly the same"
+    "id": "s1_2_representation_transfer",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_sports",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
           ],
-          "validator": [
-            {
-              "condition": {
-                "and": [
-                  {
-                    "selected": "They have the same title"
-                  },
-                  {
-                    "selected": "They show the same categories"
-                  },
-                  {
-                    "selected": "Soccer has the most in both"
-                  },
-                  {
-                    "not_selected": "They look exactly the same"
-                  }
-                ]
-              },
-              "description": "Student selected first three options correctly — same title, same categories, same data. Did not select 'look exactly the same'",
-              "is_correct": true,
-              "steps": [
-                [
-                  {
-                    "type": "dialogue",
-                    "text": "The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data — you can read either one."
-                  },
-                  {
-                    "type": "current_scene",
-                    "elements": [
-                      {
-                        "tangible_id": "picture_graph_sports",
-                        "description": "Horizontal picture graph on left. Favorite Sports data. Soccer=7 highlighted as highest.",
-                        "tangible_type": "picture_graph",
-                        "mode": "reading",
-                        "orientation": "horizontal",
-                        "categories": [
-                          "Soccer",
-                          "Basketball",
-                          "Baseball",
-                          "Tennis"
-                        ]
-                      },
-                      {
-                        "tangible_id": "bar_graph_sports",
-                        "description": "Vertical bar graph on right. Same Favorite Sports data. Soccer bar highlighted as tallest.",
-                        "tangible_type": "bar_graph",
-                        "mode": "reading",
-                        "orientation": "vertical",
-                        "categories": [
-                          "Soccer",
-                          "Basketball",
-                          "Baseball",
-                          "Tennis"
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              ]
-            }
-          ]
-        },
-        {
-          "type": "current_scene",
-          "elements": [
-            {
-              "tangible_id": "picture_graph_sports",
-              "description": "Horizontal picture graph on left side. Favorite Sports data. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Key visible. multi_select tool active.",
-              "tangible_type": "picture_graph",
-              "mode": "reading",
-              "orientation": "horizontal",
-              "categories": [
-                "Soccer",
-                "Basketball",
-                "Baseball",
-                "Tennis"
+          "description": "Horizontal picture graph appears on left. Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Key: each symbol = 1 vote."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_sports",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ],
+          "description": "Horizontal bar graph appears on right. Same Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Vertical axis labeled 0-7."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these two graphs. They show the SAME data."
+      },
+      {
+        "type": "prompt",
+        "text": "What's the same about both graphs? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "They have the same title",
+          "They show the same categories",
+          "Soccer has the most in both",
+          "They look exactly the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                },
+                {
+                  "not_selected": "They look exactly the same"
+                }
               ]
             },
-            {
-              "tangible_id": "bar_graph_sports",
-              "description": "Vertical bar graph on right side. Same Favorite Sports data as picture graph. Axis 0-8 visible. multi_select tool active.",
-              "tangible_type": "bar_graph",
-              "mode": "reading",
-              "orientation": "vertical",
-              "categories": [
-                "Soccer",
-                "Basketball",
-                "Baseball",
-                "Tennis"
-              ]
-            }
-          ]
-        }
-      ]
-    ]
+            "description": "Student selected first three, not fourth",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data. You can read either one."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_sports",
+            "description": "Horizontal picture graph on left. Favorite Sports data. multi_select tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_sports",
+            "description": "Horizontal bar graph on right. Same Favorite Sports data.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:46.769376+00:00"
   },
   {
-    "id": "s4_2_pattern_discovery",
+    "id": "s2_1_pattern_discovery_type_a",
     "scene": [],
     "steps": [
       [
@@ -301,64 +245,65 @@
     ]
   },
   {
-    "id": "s4_3_real_world_bridge",
-    "scene": [],
-    "steps": [
-      [
-        {
-          "type": "dialogue",
-          "text": "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data?"
-        },
-        {
-          "type": "prompt",
-          "text": "Which of these could use a bar graph to show the data? Select all that apply.",
-          "tool": "multi_select",
-          "options": [
-            "Your class votes on a field trip destination",
-            "Library tracks which book genre students check out most",
-            "Cafeteria tracks which lunch is most popular"
-          ],
-          "validator": [
-            {
-              "condition": {
-                "and": [
-                  {
-                    "selected": "Your class votes on a field trip destination"
-                  },
-                  {
-                    "selected": "Library tracks which book genre students check out most"
-                  },
-                  {
-                    "selected": "Cafeteria tracks which lunch is most popular"
-                  }
-                ]
-              },
-              "description": "Student selected all three scenarios — all are categorical data that could use bar graphs",
-              "is_correct": true,
-              "steps": [
-                [
-                  {
-                    "type": "dialogue",
-                    "text": "All of them! Any time you're counting and comparing categories, a graph can help. Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news — everywhere."
-                  },
-                  {
-                    "type": "current_scene",
-                    "elements": []
-                  }
-                ]
+    "id": "s3_1_real_world_bridge",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply."
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these could use a bar graph to show the data? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "Your class votes on a field trip destination",
+          "Library tracks which book genre students check out most",
+          "Cafeteria tracks which lunch is most popular"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
               ]
-            }
-          ]
-        },
-        {
-          "type": "current_scene",
-          "elements": []
-        }
-      ]
-    ]
+            },
+            "description": "Student selected all three scenarios, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "All of them! Any time you're counting and comparing categories, a graph can help."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      },
+      {
+        "type": "dialogue",
+        "text": "Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news—everywhere."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:52.378452+00:00"
   },
   {
-    "id": "s4_4_metacognitive_reflection",
+    "id": "s3_2_metacognitive_comparison_questions",
     "scene": [],
     "steps": [
       [
@@ -405,7 +350,7 @@
     ]
   },
   {
-    "id": "s4_closure",
+    "id": "s3_3_identity_building_closure",
     "type": "transition",
     "scene": [],
     "steps": [

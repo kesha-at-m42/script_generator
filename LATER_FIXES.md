@@ -86,3 +86,74 @@ Each section renders as `[divider][heading]`. Inserting s1_2b between s1_2 and s
 14. **Section ID schema: numeric IDs starting from 100 with separate name field** — Section IDs currently embed both identity and a slug (e.g. `s1_1_most_votes`). Plan: switch to numeric IDs starting at 100 (e.g. `s1_100`, `s1_101`) and add a separate `name` field for the human-readable slug. This decouples identity from naming, making IDs stable when names change. Touches: section structurer output, all downstream pipeline steps, Notion push/pull, `_section_sort_key`, and any regex parsing of section IDs. *(schema-wide change)*
 
 15. **Step design style guide and better examples for section_structurer** — The flat `beats` array with ⏭️ step-break toggles is the right schema (explicit step nesting is ruled out due to Notion nesting constraints). What's missing: a proper style guide for how a step should be designed — what belongs in one step vs. split across two, cognitive load guidelines, worked examples of good and bad step pacing, branching step patterns, transition vs. instructional step differences. Add this as a dedicated reference doc and tighten the examples in `section_structurer.py`. *(steps/prompts/section_structurer.py, docs/)*
+
+---
+
+## `--skip-batch-ids` with base-version merging
+
+**Files:** `core/pipeline.py`, `core/batch_processor.py`, `cli/rerun.py`, `cli/run_pipeline.py`
+
+**Problem:** There's no way to run a partial batch rerun (some items) while automatically
+preserving other items' outputs from a prior version. Three root causes:
+
+1. `base_step_dir` in `pipeline.py` is only set when `rerun_items` is non-None (~line 793).
+   A pure step-range rerun (`--start-from N` with no item IDs) gets no base merging at all.
+
+2. `BatchProcessor.should_skip_item()` silently drops `batch_skip_items` entries — it never
+   tries to load them from `base_version_dir`, unlike the `batch_only_items` path which does.
+
+3. `--skip-batch-ids` in `run_pipeline.py` is dead code — parsed but never forwarded to
+   `run_pipeline_from_config`.
+
+4. `rerun.py` has no `--skip-batch-ids` flag at all.
+
+**Fix:**
+
+Add `global_batch_skip_items: List[str] = None` to `run_pipeline()`. When set:
+
+- Extend the condition that populates `base_step_dir`:
+  ```python
+  # pipeline.py ~line 793
+  if base_version and (rerun_items or global_batch_skip_items):
+      base_step_dir = get_step_directory(...)
+  ```
+
+- Merge into batch skip list when building `BatchProcessor`:
+  ```python
+  _batch_skip = list(step.batch_skip_items or [])
+  if global_batch_skip_items:
+      _batch_skip = list(set(_batch_skip + global_batch_skip_items))
+  BatchProcessor(..., batch_skip_items=_batch_skip, ...)
+  ```
+
+- In `batch_processor.py` `should_skip_item()`, load from base when skipping:
+  ```python
+  if self.batch_skip_items:
+      is_skipped = item_id in self.batch_skip_items or base_id in self.batch_skip_items
+      if is_skipped:
+          if self.base_version_dir:
+              copied = self._load_from_base(item, item_id, base_id)
+              if copied:
+                  self.add_result(copied, preserve_id=True)
+                  return True, "copied from base (skip)"
+          return True, "in skip_items"
+  ```
+
+- Add `--skip-batch-ids` to `rerun.py`, pass as `global_batch_skip_items` to `run_pipeline`.
+
+- Fix dead code in `run_pipeline.py`: pass `batch_skip_items` as `global_batch_skip_items`
+  to `run_pipeline_from_config`.
+
+**Resulting workflow** (e.g. dialogue_pass module 1 where only s3_5/s3_6/s3_7 have been run):
+```
+python cli/rerun.py lesson_generator_dialogue_pass --module 1 \
+  --start-from 5 --base v10 \
+  --skip-batch-ids s3_5_what_information_needed,s3_6_solving_with_selected_data,s3_7_two_step_sequential
+```
+Runs the 17 missing sections through all batch AI steps; loads the 3 already-done sections
+from v10's collated outputs at each batch step.
+
+**One-off workaround (no code changes needed):** Use `fixes/stitch_pipeline_outputs.py` to
+create a composite stub version pre-seeded with existing batch outputs, then use `--batch-ids`
+(not `--skip-batch-ids`) with the list of missing IDs. The existing `batch_only_items` +
+`base_version_dir` merge path handles it correctly.

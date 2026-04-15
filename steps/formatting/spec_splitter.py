@@ -13,11 +13,11 @@ Detected header patterns:
   **[SECTION N TRANSITION]**             (in-lesson transition blocks)
   Bridge to <word>                       (closing bridge — lesson, warmup)
   Problem EC.N: <title>                  (exitcheck problems)
-  Task S.N: <title>                      (synthesis tasks — legacy format)
+  **Task S.N: <title>                    (synthesis tasks — bold variant; ### prefix optional)
   ### Transition into Exit Check         (exitcheck opener)
   ### Exit Check Closure                 (exitcheck closer)
   ### Opening Frame                      (synthesis opener — bold variant allowed)
-  ### Metacognitive Reflection           (synthesis reflection)
+  ### Metacognitive Reflection           (synthesis reflection — #### and bold variants allowed)
   ### Identity-Building Closure          (synthesis closer — bold variant allowed)
 
 Preamble (content before the first header) and trailing metadata are excluded.
@@ -58,7 +58,7 @@ _HEADER_RE = re.compile(
     r'|'
     r'#{2,3}\s+\*{0,2}Interaction\s+S\.\d+[^\n]*'      # ### Interaction S.N: ... (synthesis), bold variant allowed
     r'|'
-    r'(?:#{2,3}\s+)?(?:Synthesis\s+)?Task\s+S\.\d+:[^\n]*'  # Task S.1: / ### Synthesis Task S.1: (synthesis)
+    r'(?:#{2,3}\s+)?\*{0,2}(?:Synthesis\s+)?Task\s+S\.\d+:[^\n]*'  # **Task S.1: / ### Task S.1: / ### Synthesis Task S.1: (synthesis)
     r'|'
     r'#{2,3}\s+\*{0,2}Transition\s+into\s+Exit\s+Check[^\n]*'  # ### Transition into Exit Check, bold variant allowed
     r'|'
@@ -66,7 +66,7 @@ _HEADER_RE = re.compile(
     r'|'
     r'#{2,3}\s+\*{0,2}Opening\s+Frame[^\n]*'            # ### Opening Frame (synthesis), bold variant allowed
     r'|'
-    r'#{2,3}\s+Metacognitive\s+Reflection[^\n]*'        # ### Metacognitive Reflection (synthesis)
+    r'#{2,4}\s+\*{0,2}Metacognitive\s+Reflection[^\n]*'  # ### / #### Metacognitive Reflection (synthesis), bold variant allowed
     r'|'
     r'#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*'  # ### Identity-Building Closure (synthesis), bold variant allowed
     r'|'

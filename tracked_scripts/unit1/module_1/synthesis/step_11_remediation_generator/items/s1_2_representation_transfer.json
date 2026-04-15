@@ -1,0 +1,167 @@
+{
+  "id": "s1_2_representation_transfer",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "selected": "They look exactly the same"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only correct answers, but not all three",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "description": "Picture graph and bar graph both pulse gently to draw attention"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found some important things that match. Look at both graphs again. What else is the same between them?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "They have the same title"
+                  },
+                  {
+                    "selected": "They show the same categories"
+                  },
+                  {
+                    "selected": "Soccer has the most in both"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only incorrect answers or nothing correct",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "description": "Title highlights on both graphs"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about what data means. These graphs show the same information, just in different formats. Look at the title, the categories, and which one has the most."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "They look exactly the same"
+            },
+            {
+              "or": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of correct and incorrect answers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "description": "Picture graph uses symbols, bar graph uses bars. Visual difference highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found what's the same about the data. But look closely at how each graph shows it. One uses symbols, one uses bars. They don't look exactly the same."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_sports",
+              "params": {
+                "event": "highlight_matching_elements",
+                "status": "confirmed",
+                "description": "Title highlights on both graphs, then categories list highlights, then Soccer row/bar highlights on both"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you what's the same. Both graphs have the title Favorite Sports. Both show Soccer, Basketball, Baseball, and Tennis. And in both, Soccer has the most with 6. The correct answers are: they have the same title, they show the same categories, and Soccer has the most in both."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-15T19:24:14.622737+00:00"
+}

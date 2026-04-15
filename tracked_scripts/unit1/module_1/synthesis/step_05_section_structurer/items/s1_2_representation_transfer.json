@@ -1,0 +1,115 @@
+{
+  "id": "s1_2_representation_transfer",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_sports",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Baseball",
+          "Tennis"
+        ],
+        "description": "Horizontal picture graph appears on left. Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Key: each symbol = 1 vote."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_sports",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Baseball",
+          "Tennis"
+        ],
+        "description": "Horizontal bar graph appears on right. Same Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Vertical axis labeled 0-7."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at these two graphs. They show the SAME data."
+    },
+    {
+      "type": "prompt",
+      "text": "What's the same about both graphs? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "They have the same title",
+        "They show the same categories",
+        "Soccer has the most in both",
+        "They look exactly the same"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "They have the same title"
+              },
+              {
+                "selected": "They show the same categories"
+              },
+              {
+                "selected": "Soccer has the most in both"
+              },
+              {
+                "not_selected": "They look exactly the same"
+              }
+            ]
+          },
+          "description": "Student selected first three, not fourth",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data. You can read either one."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_sports",
+          "description": "Horizontal picture graph on left. Favorite Sports data. multi_select tool active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_sports",
+          "description": "Horizontal bar graph on right. Same Favorite Sports data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-15T19:23:46.769376+00:00"
+}

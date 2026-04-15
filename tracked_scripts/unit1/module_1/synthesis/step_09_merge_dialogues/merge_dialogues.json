@@ -1,0 +1,187 @@
+[
+  {
+    "id": "s1_2_representation_transfer",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_sports",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ],
+          "description": "Horizontal picture graph appears on left. Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Key: each symbol = 1 vote."
+        },
+        "id": "s1_2_representation_transfer_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_sports",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ],
+          "description": "Horizontal bar graph appears on right. Same Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Vertical axis labeled 0-7."
+        },
+        "id": "s1_2_representation_transfer_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these two graphs. They show the SAME data.",
+        "id": "s1_2_representation_transfer_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "What's the same about both graphs? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "They have the same title",
+          "They show the same categories",
+          "Soccer has the most in both",
+          "They look exactly the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "They have the same title"
+                },
+                {
+                  "selected": "They show the same categories"
+                },
+                {
+                  "selected": "Soccer has the most in both"
+                },
+                {
+                  "not_selected": "They look exactly the same"
+                }
+              ]
+            },
+            "description": "Student selected first three, not fourth",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data. You can read either one.",
+                "id": "s1_2_representation_transfer_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_representation_transfer_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_sports",
+            "description": "Horizontal picture graph on left. Favorite Sports data. multi_select tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_sports",
+            "description": "Horizontal bar graph on right. Same Favorite Sports data.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ]
+          }
+        ],
+        "id": "s1_2_representation_transfer_b4"
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:46.769376+00:00"
+  },
+  {
+    "id": "s3_1_real_world_bridge",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply.",
+        "id": "s3_1_real_world_bridge_b0"
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these could use a bar graph to show the data? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "Your class votes on a field trip destination",
+          "Library tracks which book genre students check out most",
+          "Cafeteria tracks which lunch is most popular"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
+              ]
+            },
+            "description": "Student selected all three scenarios, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly. All of them! Any time you're counting and comparing categories, a graph can help.",
+                "id": "s3_1_real_world_bridge_b1_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_real_world_bridge_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_1_real_world_bridge_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news, everywhere.",
+        "id": "s3_1_real_world_bridge_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_1_real_world_bridge_b4"
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:52.378452+00:00"
+  }
+]

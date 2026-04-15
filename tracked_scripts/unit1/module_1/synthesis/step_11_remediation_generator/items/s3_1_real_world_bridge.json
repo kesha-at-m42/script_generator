@@ -1,5 +1,5 @@
 {
-  "id": "s4_3_real_world_bridge",
+  "id": "s3_1_real_world_bridge",
   "incorrects": [
     [
       {
@@ -37,23 +37,23 @@
               "not": {
                 "or": [
                   {
-                    "selected": "Invalid_Option_1"
+                    "selected": "invalid_option_1"
                   },
                   {
-                    "selected": "Invalid_Option_2"
+                    "selected": "invalid_option_2"
                   }
                 ]
               }
             }
           ]
         },
-        "description": "Branch 2: Student selected at least one correct scenario but not all three",
+        "description": "Branch 2: Student selected only correct answers but not all three",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "You're on the right track. The ones you picked do work with bar graphs. Think about the others. Do they also count and compare categories?"
+              "text": "You're on the right track. Each one you picked could use a bar graph. Look at the scenarios again. Are there any others that count and compare categories?"
             }
           ]
         ]
@@ -74,13 +74,13 @@
             ]
           }
         },
-        "description": "Branch 3: Student selected no correct scenarios",
+        "description": "Branch 3: Student selected no correct answers",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Let's think about what bar graphs show. They compare categories. In each of these scenarios, you're counting something and comparing the results. Can you see that pattern?"
+              "text": "Let's think about what bar graphs show. They count things in different categories so you can compare them. Which scenarios count and compare?"
             }
           ]
         ]
@@ -88,16 +88,6 @@
       {
         "condition": {
           "and": [
-            {
-              "or": [
-                {
-                  "selected": "Invalid_Option_1"
-                },
-                {
-                  "selected": "Invalid_Option_2"
-                }
-              ]
-            },
             {
               "or": [
                 {
@@ -110,16 +100,26 @@
                   "selected": "Cafeteria tracks which lunch is most popular"
                 }
               ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "invalid_option_1"
+                },
+                {
+                  "selected": "invalid_option_2"
+                }
+              ]
             }
           ]
         },
-        "description": "Branch 4: Student selected a mix of correct and incorrect scenarios",
+        "description": "Branch 4: Student selected mix of correct and incorrect answers",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "You found some good ones. But check your choices again. All three scenarios involve counting and comparing categories, which is exactly what bar graphs do well."
+              "text": "Some of your picks are right. Those scenarios do count and compare categories. Check your other selections. Do they count things in categories?"
             }
           ]
         ]
@@ -132,12 +132,12 @@
           [
             {
               "type": "dialogue",
-              "text": "Let me show you how to think about this. Each scenario counts something and compares the results. Field trips: you count votes for each destination. Library: you count checkouts for each genre. Cafeteria: you count choices for each lunch. All three compare categories, so all three work with bar graphs."
+              "text": "Let me show you how this works. Bar graphs count things in different categories. Field trips: you count votes for each destination. Library books: you count checkouts for each genre. Cafeteria: you count how many students chose each lunch. All three count and compare, so all three could use a bar graph. The answer is all of them."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-03-23T19:06:57.334070+00:00"
+  "_generated_at": "2026-04-15T19:24:28.387166+00:00"
 }

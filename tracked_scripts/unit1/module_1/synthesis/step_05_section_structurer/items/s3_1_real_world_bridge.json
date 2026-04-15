@@ -1,0 +1,58 @@
+{
+  "id": "s3_1_real_world_bridge",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply."
+    },
+    {
+      "type": "prompt",
+      "text": "Which of these could use a bar graph to show the data? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "Your class votes on a field trip destination",
+        "Library tracks which book genre students check out most",
+        "Cafeteria tracks which lunch is most popular"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "Your class votes on a field trip destination"
+              },
+              {
+                "selected": "Library tracks which book genre students check out most"
+              },
+              {
+                "selected": "Cafeteria tracks which lunch is most popular"
+              }
+            ]
+          },
+          "description": "Student selected all three scenarios, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "All of them! Any time you're counting and comparing categories, a graph can help."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    },
+    {
+      "type": "dialogue",
+      "text": "Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news—everywhere."
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-15T19:23:52.378452+00:00"
+}

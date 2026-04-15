@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-03-23T14:06:25.500752
+# Generated: 2026-04-15T14:23:58.668602
 ======================================================================
 
 ## API Parameters
@@ -29,8 +29,8 @@ Cacheable: Yes
 <remediation_design_ref>
 # REMEDIATION DESIGN REFERENCE v3
 
-**Version:** 3.1
-**Last Updated:** March 2026
+**Version:** 3.2
+**Last Updated:** April 2026
 **Purpose:** Authoritative guide for all remediation across learning modules
 
 ---
@@ -62,7 +62,8 @@ Cacheable: Yes
 
 | Question Type | Remediation Approach | Rationale |
 | :---- | :---- | :---- |
-| **Non-MC** (create, shade, place, etc.) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
+| **Non-MC with ambiguous errors** (create, shade, place, etc. — no specific wrong answers identified) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
+| **Non-MC with specific errors** (same interaction types, but spec identifies one or more known wrong answers) | One Medium per specific condition + generic L-M-H for other answers | Spec identifies a known error (e.g. "reversed numbers") worth targeted feedback; see Section 2.5 |
 | **Single-Select MC** (one correct answer) | Per-distractor branching | We know exactly which wrong answer; targeted feedback valuable |
 | **Multiselect MC** ("select all that apply") | Per-branch Medium + single Heavy | Selection pattern reveals cognitive state; generic language stays scalable |
 
@@ -77,8 +78,10 @@ Cacheable: Yes
 
 ```
 IMMEDIATE FEEDBACK (This Document)
-├── Non-MC: Generic L-M-H
+├── Non-MC (ambiguous errors): Generic L-M-H
 │   └── Validators tag probable error type (for tracking only)
+├── Non-MC (specific errors): One Medium per spec-defined condition + generic L-M-H for other answers
+│   └── Spec identifies one or more known wrong-answer conditions; see Section 2.5
 ├── Single-Select MC: Per-distractor Medium + Heavy
 │   └── Targeted feedback based on which wrong answer chosen
 └── Multiselect MC: Per-branch Medium + Heavy
@@ -108,13 +111,13 @@ PATTERN DETECTION (Background)
 
 ---
 
-## SECTION 2: Non-MC Remediation (Generic L-M-H)
+## SECTION 2: Non-MC Remediation
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, etc.), use **Generic remediation only**.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
 
-**The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback regardless of detected error.
+When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
 ### 2.2 Why Generic Works
 
@@ -143,9 +146,27 @@ System moves forward
 [Background: Validator logs probable error type for tracking]
 ```
 
-### 2.4 Non-MC Structure
+### 2.4 Generic Non-MC Structure
 
 **Light (10-20 words):** Brief redirect, no visual **Medium (20-30 words):** Conceptual reminder \+ visual scaffold **Heavy (30-60 words):** Full modeling with \[Modeling\] tag, reveals answer
+
+### 2.5 Specific Conditions (special case)
+
+Some Non-MC prompts have specific wrong-answer conditions identified in the spec (e.g. "student reverses the two numbers"). There may be one or more such conditions.
+
+**One Medium per identified condition.** Each condition gets one state, written at Medium level (visual scaffold + 20–30 words of dialogue). It fires on either the first or second attempt when that specific wrong answer is given. The generic L-M-H remains — it covers all other wrong answers, and covers the specific conditions on attempt 3+.
+
+**State order when specific conditions are present:**
+
+1. One Medium per specific condition — fires on attempt 1 or 2 when that specific wrong answer is given
+2. Generic Light — attempt 1, wrong answer that did not match a specific condition
+3. Generic Medium — attempt 2, wrong answer that did not match a specific condition
+4. Generic Heavy — system models the correct answer. Always last. Also fires for specific conditions on attempt 3+.
+
+**Rules:**
+- Each specific condition is ONE state covering attempt 1 or 2. Do not write separate states per attempt.
+- Generic L-M-H states are always required even when specific conditions are present.
+- Specific condition states are Non-MC only. Single-Select MC and Multiselect MC use per-distractor/per-branch logic instead.
 
 ---
 
@@ -401,6 +422,7 @@ For Single-Select MC, Medium is targeted to the specific distractor chosen:
 **Tone:** Full support, complete demonstration
 **Visual:** REQUIRED (full modeling demonstration)
 **Tag:** \[Modeling\] REQUIRED
+**Closure:** REQUIRED — dialogue ends with a statement that names the correct answer and the concept the question was testing (see Section 7)
 **Applies to:** Non-MC, Single-Select MC, and Multiselect MC
 
 ### 6.1 Approved Opening Language
@@ -416,9 +438,8 @@ For Single-Select MC, Medium is targeted to the specific distractor chosen:
 ### 6.2 Heavy Structure (Non-MC)
 
 ```
-[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words with complete step-by-step demonstration]"
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words with complete step-by-step demonstration, ending with closure: name the correct answer and the concept it demonstrates]"
 [Visual: System demonstrates complete solution]
-Guide: "[Post-modeling acknowledgment]"
 ```
 
 ### 6.3 Heavy Structure (Single-Select MC)
@@ -426,9 +447,8 @@ Guide: "[Post-modeling acknowledgment]"
 For Single-Select MC, Heavy explains why the correct answer is right:
 
 ```
-[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct answer and demonstrating the thinking]"
+[Heavy_Remediation] [Meta_Remediation] [Modeling]: "[30-60 words explaining the correct answer and demonstrating the thinking, ending with closure: name the correct answer and the concept it demonstrates]"
 [Visual: Correct answer highlighted with supporting scaffold]
-Guide: "[Post-modeling acknowledgment]"
 ```
 
 ### 6.4 Heavy Examples
@@ -439,37 +459,48 @@ Guide: "[Post-modeling acknowledgment]"
 
 ---
 
-## SECTION 7: Post-Modeling Language
+## SECTION 7: Post-Modeling Closure
 
-After Heavy remediation with \[Modeling\], use **only** language that acknowledges assisted success:
+Heavy is the final state for a question. There is no student call-to-action after Heavy — the system moves the student forward automatically. The closing line of the Heavy dialogue must provide **closure**: a statement that names the correct answer and the concept the question was testing.
 
-### 7.1 Approved Post-Modeling Phrases
+This is the same function that on_correct feedback serves when a student answers correctly. After being shown the answer, the student should leave knowing what the answer was and why it is correct.
 
-- "There we go."
-- "See how that works?"
-- "It's okay if this takes a moment."
-- "You're getting it now."
-- "Now you understand."
-- "That makes sense now, right?"
-- "That's it. Now you've got it."
-- "Good. You understand now."
-- "Now you see the pattern."
+### 7.1 Closure Structure
 
-### 7.2 NEVER Use After Modeling
+The Heavy dialogue ends with a closure sentence that:
 
+- Names the correct answer explicitly in the context of the question
+- States the underlying concept briefly (the "so what")
+- Does not ask the student to do anything
+
+**Pattern:** `[Modeling narration ends.] [Correct answer stated in context.] [Brief concept restatement.]`
+
+### 7.2 Closure Examples
+
+**Non-MC (fraction shading):** "...I count the total parts. That is my denominator: 4. I count the shaded parts. That is my numerator: 3. The fraction shown is 3/4."
+
+**Single-Select MC:** "...The denominator is 4, the numerator is 3. The answer is 3/4, not 4/3. The numerator counts the shaded parts, not the total."
+
+**Multiselect MC:** "...Both A and C show equal parts of a whole. Those are the fractions. That is what makes something a fraction — equal parts with a count."
+
+### 7.3 NEVER Use as the Closing Line
+
+- ❌ "See how that works?" — does not name the answer
+- ❌ "There we go." — does not name the answer
+- ❌ "Now you understand." — does not name the answer
 - ❌ "Perfect\!" (they didn't do it alone)
 - ❌ "You figured it out\!" (guide showed them)
 - ❌ "Great job\!" (too independent)
 - ❌ "Excellent work\!" (overpraises assisted work)
 
-### 7.3 Post-Modeling Transitions
+### 7.4 Forward Move (Optional)
 
-After Heavy remediation, move forward assuming understanding:
+A brief forward phrase may follow the closure line but is not required:
 
-- "Let's try another one."
 - "Now let's continue."
-- "Ready for the next?"
 - "Let's keep going."
+
+Do not use "Let's try another one." — it implies an immediate retry of the same problem, which does not reflect system behavior after Heavy.
 
 ---
 
@@ -637,13 +668,22 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ### 12.1 Non-MC Remediation Checklist
 
+**Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
 - [ ] Light: 10-20 words, no visual
 - [ ] Medium: 20-30 words, visual REQUIRED
 - [ ] Heavy: 30-60 words, \[Modeling\] tag REQUIRED, visual REQUIRED
+- [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 - [ ] Different language at each level
-- [ ] Post-modeling language acknowledges assistance (not independent success)
+- [ ] No independent-success praise after modeling
 - [ ] Validator tags probable error type (noted in script or separate)
+
+**Track B (specific errors — spec defines known wrong answers):**
+- [ ] One state per specific condition using `and`/`or` condition: `{ "and": [{ condition }, { "or": [{"incorrect_count":1},{"incorrect_count":2}] }] }`, Medium level, visual REQUIRED
+- [ ] Generic Light (`incorrect_count: 1`) after all specific-condition states
+- [ ] Generic Medium (`incorrect_count: 2`), visual REQUIRED
+- [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
+- [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
 ### 12.2 Single-Select MC Remediation Checklist
 
@@ -901,7 +941,7 @@ Key choices that serve this goal:
 - **No logic embedded in text**: conditions and branching live exclusively in `validator`; dialogue strings carry no conditional content
 - **Flat, predictable field shapes**: each beat type has a fixed, documented field set; the only open-ended field is `params`, which is scoped to a specific `method` and documented
 - **Validator as a declarative state machine**: validator states are a portable condition/goto structure with no runtime-specific implementation details, making them translatable to any branching execution model
-- **IDs as the only coupling between sections**: sections reference each other only via `goto` section IDs; the schema makes no assumptions about execution order beyond what those references specify
+- **IDs as the only coupling between sections**: sections are independent units; the schema makes no assumptions about execution order
 
 These two goals can create tension: fully specified structured data tends toward verbosity, while readability pushes toward concision. The schema resolves this by separating concerns. Structural and logic fields are fully specified for translation fidelity, while human-facing fields (`text`, `description`, ID slugs) carry the readability load.
 
@@ -947,7 +987,7 @@ u3_m4_exitcheck
 {
   "id": "s1_1_most_votes",
   "type": "remediation",
-  "steps": [ [...], [...] ]
+  "beats": [ ... ]
 }
 ```
 
@@ -955,9 +995,31 @@ u3_m4_exitcheck
 |---|---|---|---|
 | `id` | string | yes | Unique section ID. See [Naming Conventions](#section-id-naming-conventions). |
 | `type` | string | no | `"transition"` or `"remediation"`. Omit for normal sections. |
-| `steps` | array[] | yes | Array of steps; each step is an array of beats |
+| `beats` | array | yes | Flat array of all beats in this section |
 
-Every section begins with an empty screen. There is no carry-over from the previous section. Everything visible must be explicitly put on screen by `scene` beats in the first step.
+Every section begins with an empty screen. There is no carry-over from the previous section. Everything visible must be explicitly put on screen by `scene` beats before it appears.
+
+### Step Groups
+
+Beats are flat, but are logically grouped into **step groups** — a group of beats that play together before the lesson pauses for student interaction. Step groups are delimited by `current_scene` beats: a new step group begins after each `current_scene`.
+
+Beat order within a step group:
+
+1. **`scene`** — things appear or change on screen
+2. **`dialogue`** — the guide speaks
+3. **`prompt`** — student interacts (at most one per step group)
+4. **`current_scene`** — snapshot of the screen after all beats have played (always last in a step group)
+
+```json
+"beats": [
+  { "type": "scene", "method": "show", "tangible_id": "pg_fruits" },
+  { "type": "dialogue", "text": "You made a graph with your Minis' votes." },
+  { "type": "prompt", "text": "Which fruit got the most votes? Click it.", "tool": "click_category", "target": "pg_fruits", "validator": [...] },
+  { "type": "current_scene", "elements": [...] },
+  { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
+  { "type": "current_scene", "elements": [...] }
+]
+```
 
 ### Section ID Naming Conventions
 
@@ -976,36 +1038,9 @@ s{group}_transition                →  s2_transition
 | `{slug}` | Human-readable label for the problem |
 
 **Key rules:**
-- Section IDs are **unit/module specific**: they belong to a content area, not a phase
-- The same section can appear in multiple phases (lesson, warmup, synthesis, practice, exitcheck)
+- Section IDs are **sequential**: `{group}` and `{seq}` reflect the order sections appear in the phase
 - Some sections are **misconception specific**: written to address a known error pattern
   rather than advancing the main concept sequence
-- Some sections are **validator-state dependent child sections**: they only execute
-  when a specific validator state is triggered. Remediation sections (`_light`, `_medium`,
-  `_heavy`) are the current example of this pattern, but other branching types will exist
-  (e.g. sections addressing a specific wrong answer, or sections unlocked by a correct
-  answer to a prerequisite prompt). These are always referenced via `child_section` in a
-  validator state, never appear in the main sequence directly.
-
----
-
-## Steps
-
-`steps` is an **array of arrays**. Each inner array is one step, a group of beats that play together before the lesson pauses for student interaction.
-
-```json
-"steps": [
-  [beat, beat, beat],   // step 1: scene setup + dialogue + prompt
-  [beat, beat]          // step 2: follow-up after correct answer
-]
-```
-
-Beats within a step follow this order:
-
-1. **`scene`** — things appear or change on screen
-2. **`dialogue`** — the guide speaks
-3. **`prompt`** — student interacts (at most one per step)
-4. **`current_scene`** — snapshot of the screen after all beats have played (always last)
 
 ---
 
@@ -1015,7 +1050,7 @@ Beats within a step follow this order:
 
 **Scene beats are the only way to change screen state.** If anything needs to appear, disappear, animate, or update — a tangible, a parameter, any visual state at all — it must come from a `scene` beat.
 
-Display-only in Notion (method emoji callout). Basic scene changes use 🎬; elaborate animation events use 🎞️.
+Display-only in Notion (🎬 callout for all methods).
 
 Three targeting levels. Omit fields to broaden scope:
 
@@ -1033,8 +1068,8 @@ Interactivity is **implicit**. A tangible becomes interactive when a prompt's `t
 |---|---|---|---|
 | `show` | 🎬 | — | Make tangible visible |
 | `hide` | 🎬 | — | Remove tangible from view |
-| `animate` | 🎞️ | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
-| `update` | 🎬 | `highlight_categories: string[]` | Highlight specific categories |
+| `animate` | 🎬 | `event`, `status`, `description`, ...tangible-specific | Trigger a named animation |
+| `update` | 🎬 | `description: string` (required), ...tangible-specific | Change toy state (highlighting, mode switch, template change, etc.) |
 | `add` | 🎬 | tangible-specific config (optional) | Add a new instance to the scene |
 | `remove` | 🎬 | — | Remove a tangible instance from the scene |
 | `lock` | 🎬 | — | Prevent student interaction regardless of active prompt |
@@ -1081,9 +1116,14 @@ Interactivity is **implicit**. A tangible becomes interactive when a prompt's `t
   "type": "scene",
   "method": "update",
   "tangible_id": "bg_colors",
-  "params": { "highlight_categories": ["Blue", "Yellow"] }
+  "params": {
+    "highlight_categories": ["Blue", "Yellow"],
+    "description": "Blue and Yellow bars highlight."
+  }
 }
 ```
+
+`params.description` is required on every `update` beat — plain English of what visually changes. Include any additional toy-specific state fields alongside it.
 
 **add**
 ```json
@@ -1140,7 +1180,7 @@ Narration or teacher speech. Editable in Notion (💬 callout).
 
 ### Prompt
 
-Student interaction point. Text is editable in Notion (❓ callout).
+Student interaction point. Text is editable in Notion (❔ callout).
 
 **Workspace tool: single tangible**
 ```json
@@ -1229,7 +1269,7 @@ Student interaction point. Text is editable in Notion (❓ callout).
 
 ### current_scene
 
-Always the last beat in every step, and the last beat in every validator state's inner step. It is a pure derived snapshot: it reflects only what `scene` beats have established. Within a section, tangibles carry forward step to step — a tangible stays on screen until a `scene` beat removes or hides it. `current_scene` never introduces new tangibles or state that no `scene` beat has declared.
+Always the last beat in every step group. It is a pure derived snapshot: it reflects only what `scene` beats have established. Within a section, tangibles carry forward step to step — a tangible stays on screen until a `scene` beat removes or hides it. `current_scene` never introduces new tangibles or state that no `scene` beat has declared.
 
 ```json
 {
@@ -1251,9 +1291,21 @@ If the screen is empty, write `"elements": []`.
 
 ---
 
+### empty
+
+Used in validator state `beats` arrays to signal that no feedback is needed for this state. Preferred over an empty array (`[]`) because it makes the intent explicit — this state is intentionally silent, not accidentally incomplete.
+
+```json
+{ "type": "empty" }
+```
+
+Only valid inside validator state `beats`. Not used in outer section beats.
+
+---
+
 ## Validator
 
-A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `steps`, beats that play when the state matches.
+A flat array of states evaluated **in order**; the first match wins. The final state is always an empty condition (`{}`) catch-all. Each state contains inline `beats`, which play when the state matches.
 
 Every state must include `is_correct: true` or `is_correct: false`. `incorrect_count` is the one system parameter; all other condition keys are tangible-specific fields.
 
@@ -1263,47 +1315,43 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
     "condition": { "selected": "Apples" },
     "description": "Student selected Apples",
     "is_correct": true,
-    "steps": [
-      [
-        { "type": "scene", "method": "animate", "tangible_id": "pg_fruits",
-          "params": { "event": "highlight_category", "status": "confirmed",
-                      "description": "Apples row highlights to confirm selection", "category": "Apples" } },
-        { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." }
-      ]
+    "beats": [
+      { "type": "scene", "method": "animate", "tangible_id": "pg_fruits",
+        "params": { "event": "highlight_category", "status": "confirmed",
+                    "description": "Apples row highlights to confirm selection", "category": "Apples" } },
+      { "type": "dialogue", "text": "Apples got 6 votes, the most of any fruit." },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": { "incorrect_count": 1 },
     "description": "Student selected any wrong answer on first attempt",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" }
-      ]
+    "beats": [
+      { "type": "dialogue", "text": "Look at the numbers next to each row. Which one is biggest?" },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Picture graph unchanged.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": { "incorrect_count": 2 },
     "description": "Student selected any wrong answer on second attempt",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" }
-      ]
+    "beats": [
+      { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+        "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+      { "type": "dialogue", "text": "Count the Apples row: 6 symbols. Count the others: Bananas 4, Oranges 5, Grapes 3. Which row has the most?" },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   },
   {
     "condition": {},
     "description": "Catch-all: any remaining state",
     "is_correct": false,
-    "steps": [
-      [
-        { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
-          "params": { "highlight_categories": ["Apples"] } },
-        { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." }
-      ]
+    "beats": [
+      { "type": "scene", "method": "update", "tangible_id": "pg_fruits",
+        "params": { "highlight_categories": ["Apples"], "description": "Apples row highlights." } },
+      { "type": "dialogue", "text": "Apples has 6 symbols, more than any other row. Click Apples." },
+      { "type": "current_scene", "elements": [ { "tangible_id": "pg_fruits", "description": "Apples row highlighted.", "tangible_type": "picture_graph" } ] }
     ]
   }
 ]
@@ -1314,7 +1362,7 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 | `condition` | object | Matching condition. Multiple keys implicitly ANDed. Use `or`/`and` arrays for explicit logic. |
 | `description` | string | Precise plain-English description of exactly what student state this condition captures. |
 | `is_correct` | boolean | **Required.** `true` if this state represents a correct student response, `false` otherwise. |
-| `steps` | array[] | Inline beats to play when this state matches. Same structure as section `steps`. |
+| `beats` | array | Flat array of beats to play when this state matches. Same structure as section `beats`. |
 
 ### Condition Parameters
 
@@ -1354,6 +1402,11 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 { "condition": { "or": [{ "selected": "Oranges" }, { "selected": "Grapes" }] } }
 ```
 
+**Negation:**
+```json
+{ "condition": { "not": { "selected": "Apples" } } }
+```
+
 **Fallback: empty object; always matches:**
 ```json
 {}
@@ -1371,20 +1424,13 @@ Remediation is inline. Feedback beats live directly in validator states, not in 
 | `incorrect_count: 2` | Medium: partial reveal, show the key data, let the student conclude |
 | catch-all `{}` | Heavy: full scaffold, state the answer explicitly, prompt to confirm |
 
-Each state's `steps` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
+Each state's `beats` contains the beats for that hint level. See the [Validator](#validator) section for a full example.
 
 ---
 
 ## Tangible ID Conventions
 
-Tangibles are defined outside `lesson.json` but referenced by ID throughout. Observed prefixes:
-
-| Prefix | Type | Examples |
-|---|---|---|
-| `picture_graph_` | Picture graph | `picture_graph_fruits`, `picture_graph_animals`, `picture_graph_pets` |
-| `bar_graph_` | Bar graph | `bar_graph_animals`, `bar_graph_books`, `bar_graph_colors` |
-| `data_table` | Data table UI component | `data_table` |
-| `choice_input` | Answer input widget | `choice_input` |
+Tangible ID prefixes and naming patterns are defined in the toy spec files (`toy_specs/`). Consult the relevant toy spec for the canonical prefix and any instance-naming rules for that toy type.
 
 ---
 
@@ -1392,10 +1438,11 @@ Tangibles are defined outside `lesson.json` but referenced by ID throughout. Obs
 
 | Type | Notion format | Editable | Fields |
 |---|---|---|---|
-| `scene` | method-emoji callout | no | `method`, `tangible_id`, `params?` |
+| `scene` | 🎬 callout | no | `method`, `tangible_id`, `params?` |
 | `dialogue` | 💬 callout | yes: `text` | `text`, `tags?` |
-| `prompt` | ❓ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
-| `current_scene` | — | no | `elements` |
+| `prompt` | ❔ callout | yes: `text` | `text`, `tool`, `options?`, `validator` |
+| `current_scene` | 📋 toggle | no | `elements` |
+| `empty` | plain text suffix | no | — (validator beats only) |
 
 </lesson_script_schema_guide>
 
@@ -1410,7 +1457,7 @@ Cacheable: Yes
 
 ## TASK
 
-The section to process is in `<input>`. Walk its `steps` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
+The section to process is in `<input>`. Walk its `beats` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
@@ -1443,19 +1490,26 @@ Each state follows the validator state schema:
 
 ## STEP 1: DETECT QUESTION TYPE
 
-For each qualifying prompt, check `tool.name`:
+For each qualifying prompt, check the `tool` field:
 
-| `tool.name` | Track |
+| `tool` | Track |
 |---|---|
-| `click_category`, `click_tangible`, or any workspace tool | **Non-MC** → Generic L-M-H |
+| `click_category`, `click_tangible`, `click_component`, or any workspace tool | **Non-MC** → Generic L-M-H |
 | `multiple_choice` | **Single-Select MC** → Per-distractor Medium + Heavy |
 | `multi_select` | **Multiselect MC** → Per-branch Medium + Heavy |
 
 ---
 
-## STEP 2A: NON-MC: THREE STATES
+## STEP 2A: NON-MC: STATES
 
-Emit in this order. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
+Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
+
+**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
+- `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
+- `description`: a plain-English label for what wrong answer this represents
+- `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
+
+For each specific condition, emit one state using the `and`/`or` condition shape from the STATE ORDER section below. Write or rewrite the dialogue and scene beats to Medium standard — do not just copy the placeholder beats verbatim.
 
 **Light** (`incorrect_count: 1`): dialogue only.
 ```json
@@ -1484,7 +1538,7 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 }
 ```
 
-**Heavy** (`condition: {}`): `scene animate` beat required (system demonstrates the answer).
+**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer).
 ```json
 {
   "condition": {},
@@ -1583,9 +1637,10 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 ## STATE ORDER
 
 **Non-MC inner array:**
-1. Light (`incorrect_count: 1`)
-2. Medium (`incorrect_count: 2`)
-3. Heavy (`condition: {}`): always last
+1. One Medium per specific condition (if any) — `{ "and": [{ specific_condition }, { "or": [{"incorrect_count": 1}, {"incorrect_count": 2}] }] }`
+2. Generic Light — `{ "and": [{"incorrect_count": 1}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
+3. Generic Medium — `{ "and": [{"incorrect_count": 2}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
+4. Generic Heavy (`condition: {}`): always last
 
 **Single-Select MC inner array:**
 1. One Medium per distractor (any order among themselves)
@@ -1603,17 +1658,19 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 
 Follow all language patterns, word counts, visual requirements, and prohibited constructs from `<remediation_design_ref>` Sections 4–8 and 12.4.
 
-**Light:** Draw openers from `<remediation_design_ref>` Sections 4.1–4.2. Cycle through the full lists. Do not reuse the same phrase within a section.
+**Light:** Use openers from Sections 4.1–4.2. Cycle — do not reuse the same phrase within a section.
 
-**Medium:** Open with a starter from `<remediation_design_ref>` Section 5.1. Cycle through the full list. Do not reuse the same starter within a section. For MC: address specifically why the chosen distractor is wrong.
+**Medium:** Use a starter from Section 5.1. Cycle — do not reuse within a section.
 
-**Heavy:** Open with a phrase from `<remediation_design_ref>` Section 6.1. Cycle through the full list. Do not reuse the same opener within a section. States the correct answer explicitly with step-by-step demonstration. Follow post-modeling language from `<remediation_design_ref>` Section 7.
+**Heavy:** Use an opener from Section 6.1. Cycle — do not reuse within a section. End with closure per Section 7.
 
 ---
 
 ## SCOPE CONSTRAINTS
 
 Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+
+For prompts with `"variable_answer": true`: do not assume the student's specific attempt in Light or Medium dialogue. For Heavy, model one specific valid example but frame it as one way, not the only answer.
 
 ---
 
@@ -1662,175 +1719,125 @@ Cacheable: Yes
 
 <input>
 {
-  "id": "s4_1_representation_transfer",
-  "scene": [],
-  "steps": [
-    [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_sports",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "scale": 1,
-          "categories": [
-            "Soccer",
-            "Basketball",
-            "Baseball",
-            "Tennis"
-          ],
-          "values": [
-            7,
-            5,
-            4,
-            6
-          ],
-          "title": "Favorite Sports",
-          "key_visible": true,
-          "description": "Horizontal picture graph appears on left side of screen. Favorite Sports data. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Key shows each symbol = 1 vote."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_sports",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 1,
-          "categories": [
-            "Soccer",
-            "Basketball",
-            "Baseball",
-            "Tennis"
-          ],
-          "values": [
-            7,
-            5,
-            4,
-            6
-          ],
-          "title": "Favorite Sports",
-          "axis_range": [
-            0,
-            8
-          ],
-          "axis_labels_visible": true,
-          "description": "Vertical bar graph appears on right side of screen. Same Favorite Sports data as picture graph. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Axis shows 0-8."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Look at these two graphs. They show the same data. What's the same about both graphs?"
-      },
-      {
-        "type": "prompt",
-        "text": "What's the same about both graphs? Select all that apply.",
-        "tool": "multi_select",
-        "options": [
-          "They have the same title",
-          "They show the same categories",
-          "Soccer has the most in both",
-          "They look exactly the same"
+  "id": "s1_2_representation_transfer",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_sports",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Baseball",
+          "Tennis"
         ],
-        "validator": [
-          {
-            "condition": {
-              "and": [
-                {
-                  "selected": "They have the same title"
-                },
-                {
-                  "selected": "They show the same categories"
-                },
-                {
-                  "selected": "Soccer has the most in both"
-                },
-                {
-                  "not_selected": "They look exactly the same"
-                }
-              ]
-            },
-            "description": "Student selected first three options correctly — same title, same categories, same data. Did not select 'look exactly the same'",
-            "is_correct": true,
-            "steps": [
-              [
-                {
-                  "type": "dialogue",
-                  "text": "The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data — you can read either one."
-                },
-                {
-                  "type": "current_scene",
-                  "elements": [
-                    {
-                      "tangible_id": "picture_graph_sports",
-                      "description": "Horizontal picture graph on left. Favorite Sports data. Soccer=7 highlighted as highest.",
-                      "tangible_type": "picture_graph",
-                      "mode": "reading",
-                      "orientation": "horizontal",
-                      "categories": [
-                        "Soccer",
-                        "Basketball",
-                        "Baseball",
-                        "Tennis"
-                      ]
-                    },
-                    {
-                      "tangible_id": "bar_graph_sports",
-                      "description": "Vertical bar graph on right. Same Favorite Sports data. Soccer bar highlighted as tallest.",
-                      "tangible_type": "bar_graph",
-                      "mode": "reading",
-                      "orientation": "vertical",
-                      "categories": [
-                        "Soccer",
-                        "Basketball",
-                        "Baseball",
-                        "Tennis"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            ]
-          }
-        ]
+        "description": "Horizontal picture graph appears on left. Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Key: each symbol = 1 vote."
       },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_sports",
-            "description": "Horizontal picture graph on left side. Favorite Sports data. Soccer=7, Basketball=5, Baseball=4, Tennis=6. Key visible. multi_select tool active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Soccer",
-              "Basketball",
-              "Baseball",
-              "Tennis"
+      "id": "s1_2_representation_transfer_b0"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_sports",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Baseball",
+          "Tennis"
+        ],
+        "description": "Horizontal bar graph appears on right. Same Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Vertical axis labeled 0-7."
+      },
+      "id": "s1_2_representation_transfer_b1"
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at these two graphs. They show the SAME data.",
+      "id": "s1_2_representation_transfer_b2"
+    },
+    {
+      "type": "prompt",
+      "text": "What's the same about both graphs? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "They have the same title",
+        "They show the same categories",
+        "Soccer has the most in both",
+        "They look exactly the same"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "They have the same title"
+              },
+              {
+                "selected": "They show the same categories"
+              },
+              {
+                "selected": "Soccer has the most in both"
+              },
+              {
+                "not_selected": "They look exactly the same"
+              }
             ]
           },
-          {
-            "tangible_id": "bar_graph_sports",
-            "description": "Vertical bar graph on right side. Same Favorite Sports data as picture graph. Axis 0-8 visible. multi_select tool active.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Soccer",
-              "Basketball",
-              "Baseball",
-              "Tennis"
-            ]
-          }
-        ]
-      }
-    ]
-  ]
+          "description": "Student selected first three, not fourth",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Right. The information is the same. The format is different. Picture graphs use symbols. Bar graphs use bars. Both show the same data. You can read either one.",
+              "id": "s1_2_representation_transfer_b3_v0_b0"
+            }
+          ]
+        }
+      ],
+      "id": "s1_2_representation_transfer_b3"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_sports",
+          "description": "Horizontal picture graph on left. Favorite Sports data. multi_select tool active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_sports",
+          "description": "Horizontal bar graph on right. Same Favorite Sports data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Baseball",
+            "Tennis"
+          ]
+        }
+      ],
+      "id": "s1_2_representation_transfer_b4"
+    }
+  ],
+  "_generated_at": "2026-04-15T19:23:46.769376+00:00"
 }
 </input>
 
@@ -1838,5 +1845,5 @@ Cacheable: Yes
 
 ## Prefill
 
-{"id": "s4_1_representation_transfer", "incorrects": [
+{"id": "s1_2_representation_transfer", "incorrects": [
 

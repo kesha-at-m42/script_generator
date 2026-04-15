@@ -111,7 +111,7 @@ For canonical toy names, tool names, and aliases see `units/unit1/glossary.md`.
 > **Visual:** A list of options; student selects all that apply
 > **Guide:** "Which two categories does the question compare?"
 > **Prompt:** Student selects multiple items and submits
-
+ 
 **Correct condition:** `{ and: [ { selected: "Dogs" }, { selected: "Fish" }, { not: { selected: "Cats" } }, ... ] }`
 **Wrong branches:** classified by selection pattern — `and`/`or`/`not` combinators:
 - Under-selecting: picked some correct, not all
