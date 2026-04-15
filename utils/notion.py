@@ -1559,33 +1559,49 @@ def _scene_rendered_text(beat: dict) -> str:
     return action_map.get(method, f"{method.upper()} {tid}")
 
 
+_DIALOGUE_MATCH_RATIO = 0.5  # minimum word-sequence match ratio (SequenceMatcher on word lists)
+_LEGACY_MATCH_WINDOW = 3    # only look this many positions ahead in the pool
+
+
 def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
     """Scan a LEGACY positional pool for the best content match for a Notion callout.
 
-    Returns the pool index of the match, or None if no match found.
+    Only examines the next _LEGACY_MATCH_WINDOW entries so a misaligned beat
+    far ahead in the pool cannot steal a match from a closer one.
+    Returns the pool index of the match, or None (→ treat callout as new beat).
+
     Content keys by type:
-    - scene (🎬):    "{method} {tangible_id}" must equal the first line of callout text
-    - dialogue (💬): stripped text must match exactly
+    - scene (🎬):    "{method} {tangible_id}" prefix match on first callout line
+    - dialogue (💬): word-sequence ratio ≥ _DIALOGUE_MATCH_RATIO; picks highest ratio
     - prompt (❔):   tool type must appear in callout text
-    If no content match is found, falls back to the first pool entry so
-    reviewer-added descriptions on previously-empty scenes are still captured.
     """
     first_line = text.split("\n")[0].strip()
-    for i, candidate in enumerate(pool):
+    best_dialogue: tuple[float, int] | None = None  # (ratio, index)
+
+    for i, candidate in enumerate(pool[: _LEGACY_MATCH_WINDOW + 1]):
         c_type = candidate.get("type", "")
         if emoji == "🎬" and c_type == "scene":
             key = f"{candidate.get('method', '')} {candidate.get('tangible_id', '')}".strip().lower()
             if first_line.lower().startswith(key):
                 return i
         elif emoji == "💬" and c_type == "dialogue":
-            if _strip_dialogue_text(text) == candidate.get("text", "").strip():
-                return i
+            wa = [re.sub(r"[^\w]", "", w) for w in _strip_dialogue_text(text).lower().split()]
+            wb = [re.sub(r"[^\w]", "", w) for w in (candidate.get("text") or "").lower().split()]
+            wa = [w for w in wa if w]
+            wb = [w for w in wb if w]
+            ratio = difflib.SequenceMatcher(None, wa, wb).ratio()
+            if ratio >= _DIALOGUE_MATCH_RATIO:
+                if best_dialogue is None or ratio > best_dialogue[0]:
+                    best_dialogue = (ratio, i)
         elif emoji == "❔" and c_type == "prompt":
             tool = candidate.get("tool", "")
             if tool and f"tool: {tool}" in first_line:
                 return i
-    # No structural match — fall back to first entry so reviewer edits aren't lost
-    return 0 if pool else None
+
+    if best_dialogue is not None:
+        return best_dialogue[1]
+
+    return None
 
 
 def _parse_new_beat(emoji: str, text: str) -> dict:
@@ -1708,7 +1724,8 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
 
     Beats are emitted in Notion page order — reordering and deletions are reflected.
     """
-    json_beats = section.get("beats", [])
+    from steps.formatting.id_stamper import flatten_beats
+    json_beats = flatten_beats(section)
 
     id_to_beat: dict[str, dict] = {
         b["_notion_block_id"]: b
@@ -1814,6 +1831,8 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
         result.pop()
 
     section["beats"] = result
+    section.pop("steps", None)
+    section.pop("scene", None)
 
 
 def _collect_scene_flags(sections: list) -> list[dict]:
@@ -1864,18 +1883,14 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
     Returns a tuple of:
     - Deep copy of *original* with Notion edits applied.
     - List of flag dicts for scenes/prompts that need follow-up.
-    """
-    from steps.formatting.id_stamper import stamp_ids
 
+    Does NOT stamp beat IDs — that is the pipeline id_stamper step's responsibility.
+    Old-format sections (steps arrays) are flattened to beats in place during patching.
+    """
     patched = copy.deepcopy(original)
     section_map = _section_blocks_map(blocks)
 
-    if isinstance(patched, list):
-        patched = stamp_ids(patched)
-        sections = patched
-    else:
-        patched["sections"] = stamp_ids(patched.get("sections", []))
-        sections = patched["sections"]
+    sections = patched if isinstance(patched, list) else patched.get("sections", [])
 
     for section in sections:
         sid = section["id"]
