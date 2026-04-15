@@ -1281,7 +1281,7 @@ def _render_prompt(beat: dict, section_id: str) -> list[dict]:
         else:
             parts.append(f"target: {target}")
     if options:
-        parts.append("options: " + json.dumps(options))
+        parts.append("options: " + json.dumps(options, ensure_ascii=False))
 
     callout_lines = ["  ".join(parts), f'"{text}"']
     blocks.append(_callout("\n".join(callout_lines), "❔"))
@@ -1650,48 +1650,62 @@ def _is_step_break(block: dict) -> bool:
 
 
 def _patch_validator_state(state: dict, toggle_block: dict) -> None:
-    """Patch dialogue text in a validator state from its Notion toggle.
+    """Rebuild a validator state's beats from its Notion toggle (Notion is source of truth).
 
-    Layer 1 — ID match: each 💬 callout is matched to a dialogue beat by _notion_block_id.
-    Layer 2 — LEGACY content match: dialogue beats without _notion_block_id are matched by
-    word coverage (same logic as section-level LEGACY matching).
+    Processes all 💬/🎬/❔ callouts in the toggle in Notion page order:
+      Layer 1 — ID match (_notion_block_id)
+      Layer 2 — LEGACY content match (coverage for dialogue, key prefix for scene)
+      Layer 3 — positional fallback (safe: pool is scoped to this one state)
+      Layer 4 — new beat (reviewer added it in Notion)
 
-    Normalizes state to flat `beats` format and removes `steps` on exit.
+    Beats removed from the toggle are dropped. state["beats"] reflects exactly
+    what is in Notion. Normalizes to flat beats format and removes `steps` on exit.
     """
     from steps.formatting.id_stamper import _flatten_validator_beats
 
     toggle_children = toggle_block.get("toggle", {}).get("children", [])
-    # _flatten_validator_beats handles both `beats` and `steps` formats
     state_beats = _flatten_validator_beats(state)
 
-    id_to_state_beat: dict[str, dict] = {
+    id_to_beat: dict[str, dict] = {
         sb["_notion_block_id"]: sb
         for sb in state_beats
-        if sb.get("type") == "dialogue" and "_notion_block_id" in sb
+        if "_notion_block_id" in sb and sb.get("type") in _EDITABLE_BEAT_TYPES
     }
-    # LEGACY: content-based pool for dialogue beats that were never ID-tagged
-    positional_pool = [
-        sb for sb in state_beats
-        if sb.get("type") == "dialogue" and "_notion_block_id" not in sb
-    ]
+    positional_pools: dict[str, list] = {
+        beat_type: [b for b in state_beats if b.get("type") == beat_type and "_notion_block_id" not in b]
+        for beat_type in _EDITABLE_BEAT_TYPES
+    }
 
+    new_beats: list[dict] = []
     for child in toggle_children:
-        if child.get("type") != "callout" or _callout_emoji(child) != "💬":
+        if child.get("type") != "callout":
+            continue
+        emoji = _callout_emoji(child)
+        if emoji not in _EDITABLE_CALLOUT_EMOJIS:
             continue
         child_id = child["id"]
         text = _extract_rt(child.get("callout", {}).get("rich_text", []))
         text = _NEW_BEAT_TAG.sub("", text).strip()
-        if child_id in id_to_state_beat:
-            id_to_state_beat[child_id]["text"] = _strip_dialogue_text(text)
-        elif positional_pool:  # LEGACY: content-based match
-            idx = _legacy_pool_match(positional_pool, "💬", text)
-            if idx is not None:
-                positional_pool[idx]["text"] = _strip_dialogue_text(text)
-                positional_pool[idx]["_notion_block_id"] = child_id  # back-fill
-                positional_pool.pop(idx)
 
-    # Normalize to flat beats format so downstream sees a consistent structure
-    state["beats"] = state_beats
+        if child_id in id_to_beat:
+            beat = id_to_beat[child_id]
+            _apply_callout_text(beat, text)
+            new_beats.append(beat)
+        else:
+            beat_type = _EMOJI_TO_BEAT_TYPE.get(emoji)
+            pool = positional_pools.get(beat_type, []) if beat_type else []
+            idx = _legacy_pool_match(pool, emoji, text)
+            if idx is None and pool:
+                idx = 0  # positional fallback: pool is scoped to this state
+            if idx is not None:
+                beat = pool.pop(idx)
+                _apply_callout_text(beat, text)
+                beat["_notion_block_id"] = child_id  # back-fill
+                new_beats.append(beat)
+            else:
+                new_beats.append(_parse_new_beat(emoji, text))
+
+    state["beats"] = new_beats
     state.pop("steps", None)
 
 
