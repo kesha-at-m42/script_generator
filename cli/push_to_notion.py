@@ -166,21 +166,30 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
 def _pull_out_path(file_path: Path) -> Path:
     """Derive the pull output path for any pipeline step file.
 
-    Saves to step_{max+1}_pull/pull.json, where max is the highest existing
-    step number in the parent directory. This ensures the pull step always
-    comes after all existing steps even if the source file is not the last one.
+    If a step_*_pull directory already exists, reuses the last one (overwrites).
+    Otherwise creates step_{max+1}_pull/pull.json after the highest existing step.
     """
     version_dir = file_path.parent.parent
     if not re.match(r"step_(\d+)_", file_path.parent.name):
         return file_path  # not in a numbered step dir — fall back to same file
-    existing_nums = [
-        int(m.group(1))
-        for d in version_dir.iterdir()
-        if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
-    ]
-    next_num = max(existing_nums) + 1 if existing_nums else 1
-    out_step_dir = version_dir / f"step_{next_num:02d}_pull"
-    out_step_dir.mkdir(parents=True, exist_ok=True)
+    existing_pull_dirs = sorted(
+        [
+            (int(m.group(1)), d)
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_pull$", d.name))
+        ]
+    )
+    if existing_pull_dirs:
+        out_step_dir = existing_pull_dirs[-1][1]
+    else:
+        existing_nums = [
+            int(m.group(1))
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
+        ]
+        next_num = max(existing_nums) + 1 if existing_nums else 1
+        out_step_dir = version_dir / f"step_{next_num:02d}_pull"
+        out_step_dir.mkdir(parents=True, exist_ok=True)
     return out_step_dir / "pull.json"
 
 
