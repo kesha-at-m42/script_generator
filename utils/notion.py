@@ -1869,11 +1869,13 @@ def _collect_scene_flags(sections: list) -> list[dict]:
     Flag types:
     - "scene_description_updated": 🎬 description was edited in Notion; needs manual config update.
     - "options_parse_failed": ❔ options could not be parsed; re-push to upgrade to JSON format.
+
+    Recurses into validator state beats so edits inside validator toggles are captured.
     """
     flags = []
-    for section in sections:
-        sid = section["id"]
-        for beat in section.get("beats", []):
+
+    def _scan_beats(beats: list[dict], sid: str) -> None:
+        for beat in beats:
             flag = beat.get("notion_flag")
             if beat.get("type") == "scene" and flag == "updated":
                 original_desc = beat.pop("_original_description", "")
@@ -1901,6 +1903,14 @@ def _collect_scene_flags(sections: list) -> list[dict]:
                         "message": "Options could not be parsed from legacy comma format — re-push to enable editing.",
                     }
                 )
+            # Recurse into validator state beats
+            if beat.get("type") == "prompt":
+                for state in beat.get("validator") or []:
+                    _scan_beats(state.get("beats") or [], sid)
+
+    for section in sections:
+        _scan_beats(section.get("beats", []), section["id"])
+
     return flags
 
 
