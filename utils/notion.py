@@ -1559,8 +1559,8 @@ def _scene_rendered_text(beat: dict) -> str:
     return action_map.get(method, f"{method.upper()} {tid}")
 
 
-_DIALOGUE_MATCH_RATIO = 0.5  # minimum word-sequence match ratio (SequenceMatcher on word lists)
-_LEGACY_MATCH_WINDOW = 3    # only look this many positions ahead in the pool
+_DIALOGUE_MATCH_COVERAGE = 0.6  # minimum fraction of Notion words found in the JSON beat
+_LEGACY_MATCH_WINDOW = 3        # only look this many positions ahead in the pool
 
 
 def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
@@ -1572,11 +1572,11 @@ def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
 
     Content keys by type:
     - scene (🎬):    "{method} {tangible_id}" prefix match on first callout line
-    - dialogue (💬): word-sequence ratio ≥ _DIALOGUE_MATCH_RATIO; picks highest ratio
+    - dialogue (💬): coverage (Notion words found in JSON beat) ≥ _DIALOGUE_MATCH_COVERAGE
     - prompt (❔):   tool type must appear in callout text
     """
     first_line = text.split("\n")[0].strip()
-    best_dialogue: tuple[float, int] | None = None  # (ratio, index)
+    best_dialogue: tuple[float, int] | None = None  # (coverage, index)
 
     for i, candidate in enumerate(pool[: _LEGACY_MATCH_WINDOW + 1]):
         c_type = candidate.get("type", "")
@@ -1589,10 +1589,14 @@ def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
             wb = [re.sub(r"[^\w]", "", w) for w in (candidate.get("text") or "").lower().split()]
             wa = [w for w in wa if w]
             wb = [w for w in wb if w]
-            ratio = difflib.SequenceMatcher(None, wa, wb).ratio()
-            if ratio >= _DIALOGUE_MATCH_RATIO:
-                if best_dialogue is None or ratio > best_dialogue[0]:
-                    best_dialogue = (ratio, i)
+            if not wa:
+                continue
+            sm = difflib.SequenceMatcher(None, wa, wb)
+            matched = sum(block.size for block in sm.get_matching_blocks())
+            coverage = matched / len(wa)
+            if coverage >= _DIALOGUE_MATCH_COVERAGE:
+                if best_dialogue is None or coverage > best_dialogue[0]:
+                    best_dialogue = (coverage, i)
         elif emoji == "❔" and c_type == "prompt":
             tool = candidate.get("tool", "")
             if tool and f"tool: {tool}" in first_line:
