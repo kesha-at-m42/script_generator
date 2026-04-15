@@ -40,7 +40,7 @@ REMEDIATION_GENERATOR_PROMPT = Prompt(
     instructions="""
 ## TASK
 
-The section to process is in `<input>`. Walk its `steps` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
+The section to process is in `<input>`. Walk its `beats` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
@@ -73,19 +73,26 @@ Each state follows the validator state schema:
 
 ## STEP 1: DETECT QUESTION TYPE
 
-For each qualifying prompt, check `tool.name`:
+For each qualifying prompt, check the `tool` field:
 
-| `tool.name` | Track |
+| `tool` | Track |
 |---|---|
-| `click_category`, `click_tangible`, or any workspace tool | **Non-MC** → Generic L-M-H |
+| `click_category`, `click_tangible`, `click_component`, or any workspace tool | **Non-MC** → Generic L-M-H |
 | `multiple_choice` | **Single-Select MC** → Per-distractor Medium + Heavy |
 | `multi_select` | **Multiselect MC** → Per-branch Medium + Heavy |
 
 ---
 
-## STEP 2A: NON-MC: THREE STATES
+## STEP 2A: NON-MC: STATES
 
-Emit in this order. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
+Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
+
+**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
+- `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
+- `description`: a plain-English label for what wrong answer this represents
+- `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
+
+For each specific condition, emit one state using the `and`/`or` condition shape from the STATE ORDER section below. Write or rewrite the dialogue and scene beats to Medium standard — do not just copy the placeholder beats verbatim.
 
 **Light** (`incorrect_count: 1`): dialogue only.
 ```json
@@ -114,7 +121,7 @@ Emit in this order. Follow length, visual, and language rules from `<remediation
 }
 ```
 
-**Heavy** (`condition: {}`): `scene animate` beat required (system demonstrates the answer).
+**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer).
 ```json
 {
   "condition": {},
@@ -213,9 +220,10 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 ## STATE ORDER
 
 **Non-MC inner array:**
-1. Light (`incorrect_count: 1`)
-2. Medium (`incorrect_count: 2`)
-3. Heavy (`condition: {}`): always last
+1. One Medium per specific condition (if any) — `{ "and": [{ specific_condition }, { "or": [{"incorrect_count": 1}, {"incorrect_count": 2}] }] }`
+2. Generic Light — `{ "and": [{"incorrect_count": 1}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
+3. Generic Medium — `{ "and": [{"incorrect_count": 2}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
+4. Generic Heavy (`condition: {}`): always last
 
 **Single-Select MC inner array:**
 1. One Medium per distractor (any order among themselves)

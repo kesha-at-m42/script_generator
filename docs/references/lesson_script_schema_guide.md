@@ -492,6 +492,11 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 { "condition": { "or": [{ "selected": "Oranges" }, { "selected": "Grapes" }] } }
 ```
 
+**Negation:**
+```json
+{ "condition": { "not": { "selected": "Apples" } } }
+```
+
 **Fallback: empty object; always matches:**
 ```json
 {}

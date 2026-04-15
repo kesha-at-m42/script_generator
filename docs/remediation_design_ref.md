@@ -1,7 +1,7 @@
 # REMEDIATION DESIGN REFERENCE v3
 
-**Version:** 3.1
-**Last Updated:** March 2026
+**Version:** 3.2
+**Last Updated:** April 2026
 **Purpose:** Authoritative guide for all remediation across learning modules
 
 ---
@@ -33,7 +33,8 @@
 
 | Question Type | Remediation Approach | Rationale |
 | :---- | :---- | :---- |
-| **Non-MC** (create, shade, place, etc.) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
+| **Non-MC with ambiguous errors** (create, shade, place, etc. — no specific wrong answers identified) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
+| **Non-MC with specific errors** (same interaction types, but spec identifies one or more known wrong answers) | One Medium per specific condition + generic L-M-H for other answers | Spec identifies a known error (e.g. "reversed numbers") worth targeted feedback; see Section 2.5 |
 | **Single-Select MC** (one correct answer) | Per-distractor branching | We know exactly which wrong answer; targeted feedback valuable |
 | **Multiselect MC** ("select all that apply") | Per-branch Medium + single Heavy | Selection pattern reveals cognitive state; generic language stays scalable |
 
@@ -48,8 +49,10 @@
 
 ```
 IMMEDIATE FEEDBACK (This Document)
-├── Non-MC: Generic L-M-H
+├── Non-MC (ambiguous errors): Generic L-M-H
 │   └── Validators tag probable error type (for tracking only)
+├── Non-MC (specific errors): One Medium per spec-defined condition + generic L-M-H for other answers
+│   └── Spec identifies one or more known wrong-answer conditions; see Section 2.5
 ├── Single-Select MC: Per-distractor Medium + Heavy
 │   └── Targeted feedback based on which wrong answer chosen
 └── Multiselect MC: Per-branch Medium + Heavy
@@ -79,13 +82,13 @@ PATTERN DETECTION (Background)
 
 ---
 
-## SECTION 2: Non-MC Remediation (Generic L-M-H)
+## SECTION 2: Non-MC Remediation
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, etc.), use **Generic remediation only**.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
 
-**The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback regardless of detected error.
+When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
 ### 2.2 Why Generic Works
 
@@ -114,9 +117,27 @@ System moves forward
 [Background: Validator logs probable error type for tracking]
 ```
 
-### 2.4 Non-MC Structure
+### 2.4 Generic Non-MC Structure
 
 **Light (10-20 words):** Brief redirect, no visual **Medium (20-30 words):** Conceptual reminder \+ visual scaffold **Heavy (30-60 words):** Full modeling with \[Modeling\] tag, reveals answer
+
+### 2.5 Specific Conditions (special case)
+
+Some Non-MC prompts have specific wrong-answer conditions identified in the spec (e.g. "student reverses the two numbers"). There may be one or more such conditions.
+
+**One Medium per identified condition.** Each condition gets one state, written at Medium level (visual scaffold + 20–30 words of dialogue). It fires on either the first or second attempt when that specific wrong answer is given. The generic L-M-H remains — it covers all other wrong answers, and covers the specific conditions on attempt 3+.
+
+**State order when specific conditions are present:**
+
+1. One Medium per specific condition — fires on attempt 1 or 2 when that specific wrong answer is given
+2. Generic Light — attempt 1, wrong answer that did not match a specific condition
+3. Generic Medium — attempt 2, wrong answer that did not match a specific condition
+4. Generic Heavy — system models the correct answer. Always last. Also fires for specific conditions on attempt 3+.
+
+**Rules:**
+- Each specific condition is ONE state covering attempt 1 or 2. Do not write separate states per attempt.
+- Generic L-M-H states are always required even when specific conditions are present.
+- Specific condition states are Non-MC only. Single-Select MC and Multiselect MC use per-distractor/per-branch logic instead.
 
 ---
 
@@ -618,6 +639,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ### 12.1 Non-MC Remediation Checklist
 
+**Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
 - [ ] Light: 10-20 words, no visual
 - [ ] Medium: 20-30 words, visual REQUIRED
@@ -626,6 +648,13 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Different language at each level
 - [ ] No independent-success praise after modeling
 - [ ] Validator tags probable error type (noted in script or separate)
+
+**Track B (specific errors — spec defines known wrong answers):**
+- [ ] One state per specific condition using `and`/`or` condition: `{ "and": [{ condition }, { "or": [{"incorrect_count":1},{"incorrect_count":2}] }] }`, Medium level, visual REQUIRED
+- [ ] Generic Light (`incorrect_count: 1`) after all specific-condition states
+- [ ] Generic Medium (`incorrect_count: 2`), visual REQUIRED
+- [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
+- [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
 ### 12.2 Single-Select MC Remediation Checklist
 

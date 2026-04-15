@@ -47,6 +47,7 @@ def _merge_incorrects_into_section(section, incorrects):
                 queue.pop(0)
             continue
         if queue:
+            beat["validator"] = [s for s in beat["validator"] if s.get("is_correct", False)]
             beat["validator"].extend(queue.pop(0))
 
     return section

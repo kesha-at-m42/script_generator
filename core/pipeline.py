@@ -803,11 +803,17 @@ def run_pipeline(
             # If step has explicit batch_only_items set, use that (takes priority)
             # Otherwise, use rerun_items if available
             # This allows step 1 (problem_generator) to use template IDs while other steps use problem instance IDs
-            batch_filter = (
-                batch_config_overrides.get("batch_only_items")
-                or step.batch_only_items
-                or rerun_items
-            )
+            _override_only = batch_config_overrides.get("batch_only_items")
+            _step_only = step.batch_only_items
+            if _step_only:
+                batch_filter = _step_only
+            elif _override_only and rerun_items:
+                # Intersect: honour both the filter from the previous step and the
+                # user-specified item IDs — don't let the pipeline filter override
+                # an explicit --batch-ids selection.
+                batch_filter = [i for i in _override_only if i in rerun_items]
+            else:
+                batch_filter = _override_only or rerun_items
 
             # Initialize batch processor
             batch_proc = BatchProcessor(
