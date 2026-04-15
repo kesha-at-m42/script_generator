@@ -1,0 +1,106 @@
+{
+  "id": "s2_2_sofia_books",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — Maya's value instead of Sofia's",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Maya's value. Look at Sofia's bar — follow it across to see where it ends on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — Aiden's value instead of Sofia's",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's Aiden's value. We need Sofia's bar. Find Sofia and see where her bar stops on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — James's value instead of Sofia's",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Sofia"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found James's value. Look for Sofia's name on the graph — her bar shows a different number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Horizontal line draws from top of Sofia's bar perpendicular to vertical axis. Value 5 highlights on axis."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, I find Sofia's name at the bottom. Then I follow her bar up and across to the axis. Her bar stops at 5, so Sofia read 5 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:00:57.438425+00:00"
+}

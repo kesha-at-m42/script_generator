@@ -1,0 +1,3890 @@
+[
+  {
+    "id": "s1_1_reading_graph_most_votes",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Graph from warmup is present."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "A graph isn’t just a picture, every part gives us information to read.”",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Graph from warm-up fades away and a new graph appears on screen"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal picture graph appears showing Favorite Fruits data. Apples=6, Bananas=4, Oranges=5, Grapes=3. Key visible: each fruit symbol = 1 vote."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let’s look at a new graph. A class of kids voted on their Favorite Fruits. Click on the fruit category that got the most votes.”",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on the category that got the MOST votes.",
+        "tool": "click_category",
+        "target": "picture_graph_fruits",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Apples"
+            },
+            "description": "Student clicked Apples — correct, 6 votes is the highest value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Apples got the most. 6 people chose it. You read that from the graph."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_fruits",
+                      "description": "Horizontal picture graph showing Favorite Fruits. Apples row highlighted as the category with most votes.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Apples",
+                        "Bananas",
+                        "Oranges",
+                        "Grapes"
+                      ],
+                      "values": [
+                        6,
+                        4,
+                        5,
+                        3
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Favorite Fruits values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Look at the numbers next to each row—which one is biggest?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_fruits",
+                  "params": {
+                    "highlight_categories": [
+                      "Apples"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. Count the symbols in each row. Apples has 6—more than Bananas, Oranges, or Grapes."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_fruits",
+                  "params": {
+                    "event": "highlight_category_with_count",
+                    "status": "confirmed",
+                    "description": "System highlights Apples row and counts each symbol aloud: 1, 2, 3, 4, 5, 6",
+                    "category": "Apples"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. I'll count the Apples row: 1, 2, 3, 4, 5, 6. Now Bananas: 1, 2, 3, 4. Oranges: 1, 2, 3, 4, 5. Grapes: 1, 2, 3. Apples has 6—the most. Click Apples."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81e8-8b3e-fd03d7eb506d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_fruits",
+            "description": "Horizontal picture graph in reading mode. Favorite Fruits data. Apples=6, Bananas=4, Oranges=5, Grapes=3. click_category tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Oranges",
+              "Grapes"
+            ],
+            "values": [
+              6,
+              4,
+              5,
+              3
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Fruits values alongside the graph.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81eb-814f-ee25dd09a17d"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8129-8424-c542f7a4e98f",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_2_finding_least",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You found the most. Now find the opposite. Which fruit got the LEAST votes?",
+        "_notion_block_id": "31b5917e-ac52-81d3-a92a-eb0b6031c3c5"
+      },
+      {
+        "type": "prompt",
+        "text": "Which fruit got the LEAST votes?",
+        "tool": "click_category",
+        "target": "picture_graph_fruits",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Grapes"
+            },
+            "description": "Student clicked Grapes — correct, 3 votes is the lowest value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Grapes got the least with only 3 votes. You can compare categories by reading each row."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_fruits",
+                      "description": "Horizontal picture graph showing Favorite Fruits. Grapes row highlighted as the category with least votes.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Apples",
+                        "Bananas",
+                        "Oranges",
+                        "Grapes"
+                      ],
+                      "values": [
+                        6,
+                        4,
+                        5,
+                        3
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Favorite Fruits values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Which row has the smallest number of symbols?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_fruits",
+                  "params": {
+                    "highlight_categories": [
+                      "Grapes"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. Count each row: Apples 6, Bananas 4, Oranges 5, Grapes 3. Which number is smallest?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_fruits",
+                  "params": {
+                    "event": "highlight_category_with_count",
+                    "status": "confirmed",
+                    "description": "System highlights Grapes row and displays count of 3",
+                    "category": "Grapes"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. I'll count each row. Apples has 6, Bananas has 4, Oranges has 5, and Grapes has 3. Three is the smallest number, so Grapes got the least votes."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8185-b735-dc798f1cf934"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_fruits",
+            "description": "Horizontal picture graph in reading mode. Favorite Fruits data. click_category tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Oranges",
+              "Grapes"
+            ],
+            "values": [
+              6,
+              4,
+              5,
+              3
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Fruits values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81da-a7e0-c89d69ad7158"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8121-ac41-e3e647c122ec",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_3_graph_components_have_jobs",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_fruits",
+        "_notion_block_id": "31b5917e-ac52-8189-a573-e56b2bdb6fff"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical picture graph appears showing Animals at the Zoo data. Lions=5, Monkeys=7, Elephants=3, Penguins=6. Key visible: each animal icon = 1 animal."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table appears alongside the graph, showing the same Animals at the Zoo values."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Every part of a graph has a job. Watch.",
+        "_notion_block_id": "31b5917e-ac52-8110-b7ea-e63260cd39d3"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Title highlights on the graph."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "The {title} tells us what the data is about: Animals at the Zoo.",
+        "_notion_block_id": "31b5917e-ac52-8154-ba52-dc050fd01e97"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Category labels highlight on the graph."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "The {labels} tell us what each category shows.",
+        "_notion_block_id": "31b5917e-ac52-817a-b0fd-deec47c5f5f8"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Key highlights on the graph."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Table highlights and symbols in the graph highlight."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "The {key} shows the {scale}. Here, each animal picture equals 1 animal. That's a scale of 1.",
+        "_notion_block_id": "31b5917e-ac52-8160-bf49-e9e37b9b67d1"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "The {table} shows the exact information we put in our picture graph"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you try. Click on the part that tells us what each symbol means.",
+        "_notion_block_id": "31b5917e-ac52-81cd-ba7c-e9a639e3c0c2"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on the part that tells us what each symbol means.",
+        "tool": "click_component",
+        "target": "picture_graph_animals.key",
+        "validator": [
+          {
+            "condition": {
+              "selected": "key"
+            },
+            "description": "Student clicked the key — correct component",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "That's the key. It shows the scale. Each symbol equals 1 animal."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_animals",
+                      "description": "Vertical picture graph showing Animals at the Zoo. Key highlighted as the component that shows the scale.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Lions",
+                        "Monkeys",
+                        "Elephants",
+                        "Penguins"
+                      ],
+                      "values": [
+                        5,
+                        7,
+                        3,
+                        6
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Animals at the Zoo values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked wrong component on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Look for the part that shows what each picture means."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked wrong component on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "event": "highlight_key",
+                    "status": "proposed",
+                    "description": "Key pulses to draw attention."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Here's a hint: the key tells us the scale. It shows that each animal picture equals 1 animal."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked wrong component three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "event": "highlight_key",
+                    "status": "confirmed",
+                    "description": "Key highlights with confirmation animation."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you. The key is this box that says each animal picture equals 1 animal. That's the scale — it tells us what each symbol means. Click the key."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81ca-8c27-dc6846fbc4af"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_animals",
+            "description": "Vertical picture graph in reading mode. Animals at the Zoo data. Lions=5, Monkeys=7, Elephants=3, Penguins=6. click_component tool active targeting key.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Lions",
+              "Monkeys",
+              "Elephants",
+              "Penguins"
+            ],
+            "values": [
+              5,
+              7,
+              3,
+              6
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Animals at the Zoo values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-811e-9dc4-c97217a4fd41"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8118-9491-e2b40e65fc51",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_4_new_graph_vertical_orientation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Remove data_table"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "This picture graph is different than the Favorite Fruits graph you saw before. This one goes up and down. We call that {vertical}. Same idea. Use the key to read it. How many monkeys are at the zoo?",
+        "_notion_block_id": "31b5917e-ac52-81e5-9971-eae0eb4cfe50"
+      },
+      {
+        "type": "prompt",
+        "text": "How many monkeys are at the zoo?",
+        "tool": "multiple_choice",
+        "options": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — correct, Monkeys value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "7 monkeys. Each symbol equals 1, so you count 7 symbols."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_animals",
+                      "description": "Vertical picture graph showing Animals at the Zoo. Monkeys column showing 7 symbols.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Lions",
+                        "Monkeys",
+                        "Elephants",
+                        "Penguins"
+                      ],
+                      "values": [
+                        5,
+                        7,
+                        3,
+                        6
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Animals at the Zoo values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — counted Lions column instead of Monkeys",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "highlight_categories": [
+                      "Monkeys"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's the Lions value. We need the Monkeys column — find it on the graph and count those symbols."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — counted Penguins column instead of Monkeys",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "highlight_categories": [
+                      "Monkeys"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's the Penguins value. Look for the Monkeys label at the bottom and count up the symbols in that column."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — miscounted or added incorrectly",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "highlight_categories": [
+                      "Monkeys"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's count the Monkeys column carefully. Each symbol equals 1 animal. Count them one at a time."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "event": "count_category_symbols",
+                    "status": "confirmed",
+                    "description": "System counts Monkeys symbols one by one from bottom to top: 1, 2, 3, 4, 5, 6, 7",
+                    "category": "Monkeys"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Find the Monkeys label at the bottom. Now count up: 1, 2, 3, 4, 5, 6, 7. The answer is 7 monkeys. See how that works?"
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81ed-9eaf-fc0dcee5c027"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_animals",
+            "description": "Vertical picture graph in reading mode. Animals at the Zoo data. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Lions",
+              "Monkeys",
+              "Elephants",
+              "Penguins"
+            ],
+            "values": [
+              5,
+              7,
+              3,
+              6
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Animals at the Zoo values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81b8-9382-e7fd8be262e4"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8148-bf81-f298b049341b",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_5_practice_reading_values",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Let's read one more value from this graph. Which animal has FEWER than 4 at the zoo?",
+        "_notion_block_id": "31b5917e-ac52-818c-87b8-d9f9d2b5028a"
+      },
+      {
+        "type": "prompt",
+        "text": "Which animal has FEWER than 4 at the zoo? Click on it.",
+        "tool": "click_category",
+        "target": "picture_graph_animals",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Elephants"
+            },
+            "description": "Student clicked Elephants — correct, 3 is fewer than 4",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Elephants. There are only 3, which is fewer than 4."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_animals",
+                      "description": "Vertical picture graph showing Animals at the Zoo. Elephants column highlighted showing 3 symbols.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Lions",
+                        "Monkeys",
+                        "Elephants",
+                        "Penguins"
+                      ],
+                      "values": [
+                        5,
+                        7,
+                        3,
+                        6
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Animals at the Zoo values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Count the symbols in each column and look for the one with fewer than 4."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "highlight_categories": [
+                      "Elephants"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. Fewer than 4 means 3, 2, 1, or 0. Count each column's symbols. Which one has 3?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_animals",
+                  "params": {
+                    "event": "count_symbols_in_category",
+                    "status": "confirmed",
+                    "description": "System counts symbols in each column, highlighting Elephants with 3 symbols",
+                    "category": "Elephants"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Fewer than 4 means less than 4. Lions has 5 — that's more. Monkeys has 7 — more. Elephants has 3 — that's fewer than 4. Penguins has 6 — more. The answer is Elephants."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-811c-8675-ca479abad344"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_animals",
+            "description": "Vertical picture graph in reading mode. Animals at the Zoo data. click_category tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Lions",
+              "Monkeys",
+              "Elephants",
+              "Penguins"
+            ],
+            "values": [
+              5,
+              7,
+              3,
+              6
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Animals at the Zoo values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8155-83ff-ed7ed9170f97"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-818a-8a73-ce4c0a84afa0",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_6_picture_to_bar_graph_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You’re getting the hang of reading picture graphs. Now let's see another way to show data: bar graphs.",
+        "_notion_block_id": "31b5917e-ac52-8189-9f5b-ffd37b601f79"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Picture graph transforms into a vertical bar graph with axis 0 to 8, same Animals at the Zoo data. Bars replace symbol columns."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same information, different format. Instead of counting symbols, we read where the bar ends.",
+        "_notion_block_id": "31b5917e-ac52-813a-ba3b-c2b215cffcc2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_animals",
+            "description": "Vertical bar graph showing Animals at the Zoo data. Axis 0 to 8 by 1s. Lions=5, Monkeys=7, Elephants=3, Penguins=6.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Lions",
+              "Monkeys",
+              "Elephants",
+              "Penguins"
+            ],
+            "values": [
+              5,
+              7,
+              3,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 8
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Animals at the Zoo values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81cb-bf2a-d1a48a8d13a9"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8151-a200-c075533b5529",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_1_connecting_bars_to_symbols",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "In a bar graph, the {height} of the bar tells us the amount. Look at the Monkeys bar. Click on it and find how tall the bar is. That tells us how many monkeys there are.",
+        "_notion_block_id": "31b5917e-ac52-8108-b829-e43ad850f35b"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on the bar for Monkeys and find where the bar ends.",
+        "tool": "click_category",
+        "target": "bar_graph_animals",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Monkeys"
+            },
+            "description": "Student clicked Monkeys bar — correct",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_animals",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Horizontal line draws from top of Monkeys bar perpendicular to vertical axis. Value 7 highlights on axis."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "7 monkeys. Same as the picture graph. The bar goes up to 7."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_animals",
+                      "description": "Vertical bar graph showing Animals at the Zoo. Monkeys bar highlighted with guideline to axis showing value 7.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Lions",
+                        "Monkeys",
+                        "Elephants",
+                        "Penguins"
+                      ],
+                      "values": [
+                        5,
+                        7,
+                        3,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 8
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Animals at the Zoo values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Look at where the top of the Monkeys bar ends."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_animals",
+                  "params": {
+                    "highlight_categories": [
+                      "Monkeys"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. Find the Monkeys bar. The HEIGHT of that bar shows how many monkeys there are."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_animals",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Horizontal line draws from top of Monkeys bar perpendicular to vertical axis. Value 7 highlights on axis."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. The Monkeys bar goes up to 7 on the axis. The HEIGHT of the bar tells us there are 7 monkeys. Click the Monkeys bar."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8160-a7cc-d7383063f3d0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_animals",
+            "description": "Vertical bar graph in reading mode. Animals at the Zoo data. click_category tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Lions",
+              "Monkeys",
+              "Elephants",
+              "Penguins"
+            ],
+            "values": [
+              5,
+              7,
+              3,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 8
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Animals at the Zoo values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8115-bafa-cb3c8cada954"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-815a-9f48-ffb23f280f82",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_2_reading_bar_graphs_independently",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "bar_graph_animals",
+        "_notion_block_id": "31b5917e-ac52-81ea-afde-d7bdd6a00812"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical bar graph appears showing Books Read This Week data. Axis 0 to 8 by 1s. Maya=4, Aiden=6, Sofia=5, James=7."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a new bar graph comparing the books read this week by 4 students. The scale is 1. Each mark on the side shows 1 book. How many books did Sofia read? ",
+        "_notion_block_id": "31b5917e-ac52-818c-bc37-c1fc71e5a5a2"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books did Sofia read?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — correct, Sofia's value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Horizontal line draws from top of Sofia's bar perpendicular to vertical axis. Value 5 highlights on axis."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Sofia read 5 books. You read that from where her bar ends."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_books",
+                      "description": "Vertical bar graph showing Books Read This Week. Sofia's bar highlighted with guideline to axis showing value 5.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Maya",
+                        "Aiden",
+                        "Sofia",
+                        "James"
+                      ],
+                      "values": [
+                        4,
+                        6,
+                        5,
+                        7
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 8
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Books Read This Week values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — Maya's value instead of Sofia's",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "highlight_categories": [
+                      "Sofia"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found Maya's value. Look at Sofia's bar — follow it across to see where it ends on the axis."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — Aiden's value instead of Sofia's",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "highlight_categories": [
+                      "Sofia"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's Aiden's value. We need Sofia's bar. Find Sofia and see where her bar stops on the axis."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — James's value instead of Sofia's",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "highlight_categories": [
+                      "Sofia"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found James's value. Look for Sofia's name on the graph — her bar shows a different number."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Horizontal line draws from top of Sofia's bar perpendicular to vertical axis. Value 5 highlights on axis."
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. First, I find Sofia's name at the bottom. Then I follow her bar up and across to the axis. Her bar stops at 5, so Sofia read 5 books."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81d5-bd61-df81610feeee"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Maya",
+              "Aiden",
+              "Sofia",
+              "James"
+            ],
+            "values": [
+              4,
+              6,
+              5,
+              7
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 8
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Week values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81de-a558-dfdea2fe009b"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81f3-bf0b-d4cd86ff43ca",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_3_reading_fewest_books",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Graphs make comparing easy. You can see which is most and least at a glance by the height of the bars. Who read the FEWEST books this week? Click the category.",
+        "_notion_block_id": "31b5917e-ac52-8130-9b12-ce31cdb60d31"
+      },
+      {
+        "type": "prompt",
+        "text": "Who read the FEWEST books this week?",
+        "tool": "click_category",
+        "target": "bar_graph_books",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Maya"
+            },
+            "description": "Student clicked Maya — correct, 4 books is the lowest value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Maya read the fewest books: 4 books. It's the shortest bar."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_books",
+                      "description": "Vertical bar graph showing Books Read This Week. Maya's bar highlighted as the shortest.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Maya",
+                        "Aiden",
+                        "Sofia",
+                        "James"
+                      ],
+                      "values": [
+                        4,
+                        6,
+                        5,
+                        7
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 8
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Books Read This Week values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Look at the height of each bar. Which one is the shortest?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "highlight_categories": [
+                      "Maya"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. Fewest means the smallest number. Maya's bar is the shortest—she read 4 books."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_books",
+                  "params": {
+                    "event": "highlight_shortest_bar",
+                    "status": "confirmed",
+                    "description": "Maya's bar pulses and is highlighted as the shortest bar on the graph"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. Fewest means the smallest number. Look at all the bars: James is tallest at 7, then Aiden at 6, Sofia at 5, and Maya is shortest at 4. The shortest bar shows the fewest books—that's Maya."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8187-86c6-d5eecfe2a001"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. click_category tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Maya",
+              "Aiden",
+              "Sofia",
+              "James"
+            ],
+            "values": [
+              4,
+              6,
+              5,
+              7
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 8
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Week values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-813e-b2aa-d1c076f8626a"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81b5-bcc9-fb5cd3384a45",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_4_horizontal_bar_graph",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "bar_graph_books",
+        "_notion_block_id": "31b5917e-ac52-8185-a2e5-f28cdf9d0e98"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal bar graph appears showing Favorite Colors data. Axis 0 to 10 by 1s labeled Number of Votes. Blue=8, Red=5, Green=4, Yellow=6."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "This bar graph goes sideways. We call that {horizontal}. The {length} of the bar tells us the amount. Which color on this graph is the most popular? Click on the longest bar.",
+        "_notion_block_id": "31b5917e-ac52-81f6-8dd3-c9a5adfc4164"
+      },
+      {
+        "type": "prompt",
+        "text": "Which color is the most popular? Click on the longest bar.",
+        "tool": "click_category",
+        "target": "bar_graph_colors",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Blue"
+            },
+            "description": "Student clicked Blue — correct, 8 votes is the highest value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Blue is the most popular. 8 students chose it. It has the longest bar."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Blue bar highlighted as the longest.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Favorite Colors values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Which bar reaches farthest across?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Blue"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. The longest bar shows the most votes. Blue's bar reaches all the way to 8."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Guideline draws from end of Blue bar to axis, showing it reaches 8",
+                    "category": "Blue"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. Blue's bar goes all the way to 8. That's longer than any other bar. Red goes to 5, Green to 4, Yellow to 6. The longest bar shows the most votes, so Blue is most popular."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8167-8f2e-ff38339c9fd7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. click_category tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Colors values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8159-8ae5-ebd9b4977e46"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-811c-829c-e80a50bd690c",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_5_comparing_bar_graphs",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Same graph, different question. Which color got the LEAST votes? Click on the bar.",
+        "_notion_block_id": "31b5917e-ac52-8160-b9ae-c15e8a235719"
+      },
+      {
+        "type": "prompt",
+        "text": "Which color got the LEAST votes?",
+        "tool": "click_category",
+        "target": "bar_graph_colors",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Green"
+            },
+            "description": "Student clicked Green — correct, 4 votes is the lowest value",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Green got the least. Only 4 votes. It's the shortest bar."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Green bar highlighted as the shortest.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    },
+                    {
+                      "tangible_id": "data_table",
+                      "description": "Data table showing Favorite Colors values.",
+                      "tangible_type": "data_table"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Which bar is the shortest?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Green"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let's think about this together. The shortest bar shows the least votes. Green is the shortest bar—it only reaches 4."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "draw_bar_guideline",
+                    "status": "confirmed",
+                    "description": "Guideline draws from end of Green bar to axis, highlighting it reaches only 4",
+                    "category": "Green"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. We're looking for the LEAST votes—the smallest number. Green's bar is the shortest. It only reaches 4 on the axis. That's less than Blue's 8, Red's 5, and Yellow's 6. Click Green."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81b2-8872-c208e82ad31d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. click_category tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          },
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Colors values.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-818f-933b-c2b611c28eaf"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-818e-aac0-fab8b72ae842",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s2_6_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "data_table",
+        "_notion_block_id": "31b5917e-ac52-81f8-9851-c1a0176ab4d2"
+      },
+      {
+        "type": "dialogue",
+        "text": "You found the most and the fewest. Now let's answer some different kinds of questions.",
+        "_notion_block_id": "31b5917e-ac52-81cd-9aae-cadd4e75ae9f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph showing Favorite Colors. Data table no longer visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81c2-9ef7-eea08ec2612d"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8198-8750-c3d92cf27a70",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_1_how_many_more_subtract",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Highlight Blue, Yellow on bar_graph_colors"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more students chose blue than yellow?",
+        "_notion_block_id": "31b5917e-ac52-8136-96b8-ff4d6e9aa978"
+      },
+      {
+        "type": "dialogue",
+        "text": "“How many more” means we {compare} two amounts. We find the DIFFERENCE by subtracting.",
+        "_notion_block_id": "31b5917e-ac52-818a-8e98-ee4dba3191f6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Blue has 8 votes. Yellow has 6 votes. Since more students like blue, subtract Blue minus Yellow. How many more students chose blue than yellow?",
+        "_notion_block_id": "31b5917e-ac52-81eb-9622-ceaf0f94da53"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more students chose blue than yellow?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          8,
+          14,
+          3
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student selected 2 — correct, 8 minus 6 equals 2",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "2 more students. You found the difference: 8 minus 6 equals 2."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Blue and Yellow bars highlighted showing the comparison.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — the value of Blue instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Blue",
+                      "Yellow"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "8 is how many chose Blue. But the question asks how many MORE chose Blue than Yellow. We need to find the difference by subtracting."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student selected 14 — added Blue and Yellow instead of subtracting",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Blue",
+                      "Yellow"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "How many MORE means we compare by subtracting, not adding. Blue has 8, Yellow has 6. We subtract to find the difference."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — counting error or misread the values",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Blue",
+                      "Yellow"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Check the scale carefully. Blue reaches 8, and Yellow reaches 6. Subtract to find how many more: 8 minus 6."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "show_difference",
+                    "status": "confirmed",
+                    "description": "Animation shows Blue bar at 8 and Yellow bar at 6, then visually demonstrates the difference of 2 units between them"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Blue has 8 students. Yellow has 6 students. To find how many MORE chose Blue, we subtract: 8 minus 6 equals 2. The answer is 2."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8194-8e32-ebbdcf27f748"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. Blue and Yellow bars highlighted. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8164-9c45-ec5f228de4c9"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8121-b205-c3159ce3d4fc",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_2_how_many_fewer_subtract",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Highlight Red, Blue on bar_graph_colors"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "New question: How many fewer students chose red than blue?",
+        "_notion_block_id": "31b5917e-ac52-81d5-83d2-ee1e1ee65739"
+      },
+      {
+        "type": "dialogue",
+        "text": "”How many fewer” tells us to {compare}. We still find the difference.",
+        "_notion_block_id": "31b5917e-ac52-81d7-915e-d8703881338d"
+      },
+      {
+        "type": "prompt",
+        "text": "How many fewer students chose red than blue?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          5,
+          8,
+          13
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — correct, 8 minus 5 equals 3",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "3 fewer students. Blue has 8, Red has 5. The difference is 3."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Red and Blue bars highlighted showing the comparison.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — chose the value of Red instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Red",
+                      "Blue"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found how many chose Red. But the question asks how many FEWER—that means find the difference between the two numbers."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — chose the value of Blue instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Red",
+                      "Blue"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found how many chose Blue. But how many fewer asks for the difference—subtract Red from Blue to compare them."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 13
+            },
+            "description": "Student selected 13 — added the values instead of finding the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Red",
+                      "Blue"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You added the two numbers together. How many fewer means find the difference—subtract the smaller number from the bigger number."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "show_difference",
+                    "status": "confirmed",
+                    "description": "Visual shows Blue bar at 8, Red bar at 5, with difference of 3 highlighted between them"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Blue has 8 students, Red has 5 students. To find how many fewer, we subtract: 8 minus 5 equals 3. Red has 3 fewer students than Blue."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-816a-ab86-dd140faed05b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. Red and Blue bars highlighted. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81cd-98ca-e17b930b7464"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81d2-ba11-c8b8bd8f1775",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_3_in_all_add_for_total",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Highlight Yellow, Red on bar_graph_colors"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a different kind of question: How many students chose yellow or red IN ALL?",
+        "_notion_block_id": "31b5917e-ac52-814e-81e6-f23ef5d6e6ac"
+      },
+      {
+        "type": "dialogue",
+        "text": "When a question asks about things IN ALL or TOGETHER, we {combine} them. We put the parts together to find the total. We ADD to {combine}.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students chose yellow or red IN ALL?",
+        "tool": "multiple_choice",
+        "options": [
+          1,
+          6,
+          11,
+          23
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — correct, 6 plus 5 equals 11",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "11 students in all. Yellow has 6, Red has 5. 6 plus 5 equals 11."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Yellow and Red bars highlighted showing the addition.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 1
+            },
+            "description": "Student selected 1 — likely confused about what 'in all' means or miscounted",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "In all means we want the total. Count how many students chose Yellow, then how many chose Red. Add those two numbers together."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — only counted Yellow, forgot to add Red",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found Yellow's value, but the question asks for Yellow OR Red in all. That means add both bars together."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 23
+            },
+            "description": "Student selected 23 — added all categories instead of just Yellow and Red",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "The question asks only for Yellow OR Red, not all the colors. Find Yellow's value and Red's value, then add just those two."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "show_addition",
+                    "status": "confirmed",
+                    "description": "Yellow bar shows 6, Red bar shows 5, visual addition 6+5=11 appears"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. We want Yellow OR Red in all. Yellow has 6 students. Red has 5 students. 6 plus 5 equals 11 students in all."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81e2-8cca-fd12d3f48b59"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. Yellow and Red bars highlighted. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8164-bc2e-f501be0bcc17"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81cf-8372-c1b7d989f707",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_4_two_step_introduction_sequential",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Highlight Yellow, Red on bar_graph_colors"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Sometimes you need TWO steps to answer a question. Let's try one together.",
+        "_notion_block_id": "31b5917e-ac52-819a-9417-d15168b9c786"
+      },
+      {
+        "type": "dialogue",
+        "text": "Question: How many more students chose Yellow or Red together compared to Green?",
+        "_notion_block_id": "31b5917e-ac52-8178-824a-ed440b35aaed"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's break this question into two parts. First, we once again combine Yellow and Red. Then we compare that number to Green.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Step 1: Determine how many chose yellow or red together.",
+        "_notion_block_id": "33a5917e-ac52-80e1-a5db-c6623e2ed86f"
+      },
+      {
+        "type": "prompt",
+        "text": "How many chose yellow or red together?",
+        "tool": "multiple_choice",
+        "options": [
+          5,
+          6,
+          11,
+          14
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — correct, 6 plus 5 equals 11",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11."
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Green"
+                    ]
+                  }
+                },
+                {
+                  "type": "scene",
+                  "method": "add",
+                  "tangible_id": "result_display",
+                  "tangible_type": "text_display",
+                  "params": {
+                    "description": "Result from step 1 displayed: Yellow + Red = 11"
+                  }
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Green bar now highlighted for comparison.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    },
+                    {
+                      "tangible_id": "result_display",
+                      "description": "Result from step 1: Yellow + Red = 11",
+                      "tangible_type": "text_display"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — only counted Red, not both categories",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found Red's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — only counted Yellow, not both categories",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found Yellow's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student selected 14 — added Yellow, Red, and Green instead of just Yellow and Red",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Yellow",
+                      "Red"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You added too many categories. Only add Yellow and Red. Green comes in the next step when we compare."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "highlight_addition",
+                    "status": "confirmed",
+                    "description": "Yellow bar (6) and Red bar (5) pulse in sequence, then total 11 appears"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Yellow has 6 students. Red has 5 students. When we add them together, 6 plus 5 equals 11. That's how many chose Yellow or Red in all."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-812b-a3f7-ff92b4a51dbe"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. Yellow and Red bars highlighted. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8157-9487-cde88c8f2403"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Horizontal bar graph in reading mode. Favorite Colors data. Green bar highlighted. Result from step 1 displayed. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Blue",
+              "Red",
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              8,
+              5,
+              4,
+              6
+            ],
+            "scale": 1,
+            "axis_min": 0,
+            "axis_max": 10
+          },
+          {
+            "tangible_id": "result_display",
+            "description": "Result from step 1: Yellow + Red = 11",
+            "tangible_type": "text_display"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8148-8adf-f8a388823a7b"
+      },
+      {
+        "type": "dialogue",
+        "text": "Step 2: Now compare that total to Green. How many more is 11 than the votes for Green?",
+        "_notion_block_id": "31b5917e-ac52-81a3-ba19-edb1d7c01201"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more is 11 than the votes for Green?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          7,
+          11,
+          15
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — correct, 11 minus 4 equals 7",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "7 more students like red or yellow compared to green. You used TWO steps: first you added to find a total, then you subtracted to compare."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "bar_graph_colors",
+                      "description": "Horizontal bar graph showing Favorite Colors. Green bar highlighted.",
+                      "tangible_type": "bar_graph",
+                      "mode": "reading",
+                      "orientation": "horizontal",
+                      "categories": [
+                        "Blue",
+                        "Red",
+                        "Green",
+                        "Yellow"
+                      ],
+                      "values": [
+                        8,
+                        5,
+                        4,
+                        6
+                      ],
+                      "scale": 1,
+                      "axis_min": 0,
+                      "axis_max": 10
+                    },
+                    {
+                      "tangible_id": "result_display",
+                      "description": "Result from step 1: Yellow + Red = 11",
+                      "tangible_type": "text_display"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — gave Green's value instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Green"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found Green's value. The question asks how many MORE 11 is than 4. Subtract to find the difference."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — gave the total from step 1 instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Green"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's the total from step 1. Now compare it to Green's 4. How many more is 11 than 4? Subtract to find the difference."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 15
+            },
+            "description": "Student selected 15 — added 11 and 4 instead of subtracting",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "highlight_categories": [
+                      "Green"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "The question asks how many MORE, not how many in all. When you compare two amounts, subtract the smaller from the larger."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_colors",
+                  "params": {
+                    "event": "show_comparison",
+                    "status": "confirmed",
+                    "description": "Green bar (4) extends to match against the total 11, showing difference of 7"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. We have 11 from step 1. Green has 4. To find how many more 11 is than 4, we subtract: 11 minus 4 equals 7. That's the difference."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-810c-b1d6-cf6d0232e1fc"
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81c6-a61e-c89c8c537e2e",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_5_what_information_needed",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Key: each X = 1 pet."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "notion_flag": "suggested",
+        "tool": "multi_select",
+        "options": [
+          "Dogs",
+          "Cats",
+          "Fish",
+          "Birds",
+          "Lizards"
+        ],
+        "text": "Which categories do you need? Select all that apply."
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-815d-84cb-e9922d63792d",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-14T16:47:39.622576+00:00",
+    "_notion_block_id": "3425917e-ac52-815a-8161-d04eeb59b790"
+  },
+  {
+    "id": "s3_6_solving_with_selected_data",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Highlight Dogs, Fish on picture_graph_pets"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now solve it. Remember: “how many fewer” means compare or find the difference. How many fewer students have fish than dogs?",
+        "_notion_block_id": "31b5917e-ac52-8158-93f8-f3a485126d68"
+      },
+      {
+        "type": "prompt",
+        "text": "How many fewer students have fish than dogs?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          4,
+          7,
+          11
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — correct, 7 minus 4 equals 3",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "3 fewer students. 7 students have dogs and 4 students have Fish. The difference is 3."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_pets",
+                      "description": "Vertical picture graph showing Pets We Have. Dogs and Fish columns highlighted showing the comparison. Cats, Birds, Lizards dimmed.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Dogs",
+                        "Cats",
+                        "Fish",
+                        "Birds",
+                        "Lizards"
+                      ],
+                      "values": [
+                        7,
+                        9,
+                        4,
+                        6,
+                        1
+                      ],
+                      "scale": 1
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — the value for Fish instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "show_comparison",
+                    "status": "proposed",
+                    "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You counted the fish. The question asks how many fewer fish than dogs—that means find the difference between the two numbers."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — the value for Dogs instead of the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "show_comparison",
+                    "status": "proposed",
+                    "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You counted the dogs. How many fewer means compare—subtract the smaller number from the larger number to find the difference."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — added 7 and 4 instead of subtracting",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "show_comparison",
+                    "status": "proposed",
+                    "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Here's a hint: how many fewer means find the difference. That means subtract, not add. Take the smaller number away from the larger number."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "demonstrate_subtraction",
+                    "status": "confirmed",
+                    "description": "System demonstrates subtracting 4 from 7 to show difference of 3"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. Dogs have 7 symbols and Fish have 4 symbols. How many fewer means compare or find the difference—so we subtract: 7 minus 4 equals 3. The answer is 3."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81df-997e-d9bbc54cb472"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Vertical picture graph in reading mode. Pets We Have data. Dogs and Fish highlighted, others dimmed. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "values": [
+              7,
+              9,
+              4,
+              6,
+              1
+            ],
+            "scale": 1
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-819a-b4d3-f8d0d10354e8"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8105-b60f-eedfa6f9caa6",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_7_two_step_sequential",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "picture_graph_pets",
+        "params": {
+          "highlight_categories": [],
+          "dim_categories": [],
+          "description": "Update picture_graph_pets"
+        },
+        "_notion_block_id": "31b5917e-ac52-81a6-a1d7-d9ef65e9ce09",
+        "notion_flag": "updated"
+      },
+      {
+        "type": "dialogue",
+        "text": "Question: How many more students have cats than fish and lizards combined?",
+        "_notion_block_id": "31b5917e-ac52-8134-a99a-f6214f17c027"
+      },
+      {
+        "type": "dialogue",
+        "text": "First, combine Fish and Lizards. How many students have fish or lizards at home?",
+        "_notion_block_id": "31b5917e-ac52-8186-881f-ea7480f5baa5"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students have fish or lizards combined?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          4,
+          5,
+          6,
+          13
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — correct, 4 plus 1 equals 5",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "5 in all. 4 have Fish. 1 has Lizards. 4 plus 1 equals 5."
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Cats"
+                    ]
+                  }
+                },
+                {
+                  "type": "scene",
+                  "method": "add",
+                  "tangible_id": "result_display",
+                  "tangible_type": "text_display",
+                  "params": {
+                    "description": "Result from step 1 displayed: Fish + Lizards = 5"
+                  }
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_pets",
+                      "description": "Vertical picture graph showing Pets We Have. Cats column now highlighted for comparison.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Dogs",
+                        "Cats",
+                        "Fish",
+                        "Birds",
+                        "Lizards"
+                      ],
+                      "values": [
+                        7,
+                        9,
+                        4,
+                        6,
+                        1
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "result_display",
+                      "description": "Result from step 1: Fish + Lizards = 5",
+                      "tangible_type": "text_display"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — counted only Fish, ignoring Lizards",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Fish",
+                      "Lizards"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You counted Fish but missed Lizards. We need both categories combined. Count Fish symbols: 4. Count Lizards symbols: 1. Add them together."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — counted only Fish column",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Fish",
+                      "Lizards"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's just Fish. The question asks for Fish OR Lizards combined. Count both categories together: 4 Fish plus 1 Lizard."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — likely counted Birds instead of the correct categories",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Fish",
+                      "Lizards"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Look at which categories the question asks about. We need Fish and Lizards combined, not Birds. Count Fish: 4. Count Lizards: 1. Add those two together."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 13
+            },
+            "description": "Student selected 13 — added all categories instead of just Fish and Lizards",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Fish",
+                      "Lizards"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You added all the categories. The question only asks for Fish OR Lizards. Count just those two: 4 Fish and 1 Lizard."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "highlight_and_count",
+                    "status": "confirmed",
+                    "description": "System highlights Fish and Lizards columns, counts symbols in each: 4 Fish, 1 Lizard, shows 4 + 1 = 5"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you how this works. The question asks for Fish OR Lizards combined. First I count Fish: 4 symbols. Then I count Lizards: 1 symbol. Now I add them: 4 plus 1 equals 5. The answer is 5."
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-815a-a6a9-eaae7ccab3e1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Vertical picture graph in reading mode. Pets We Have data. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "values": [
+              7,
+              9,
+              4,
+              6,
+              1
+            ],
+            "scale": 1
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8137-84bc-f1f99edc5ecc"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Vertical picture graph in reading mode. Pets We Have data. Cats highlighted. Result from step 1 displayed. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "values": [
+              7,
+              9,
+              4,
+              6,
+              1
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "result_display",
+            "description": "Result from step 1: Fish + Lizards = 5",
+            "tangible_type": "text_display"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8195-9756-eda45e2392b6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next, how many more students have cats compared to fish and lizards together?",
+        "_notion_block_id": "31b5917e-ac52-8183-8442-c18e0a33247c"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more have Cats than the total of Fish and Lizards?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          5,
+          9,
+          14
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — correct, 9 minus 5 equals 4",
+            "is_correct": true,
+            "steps": [
+              [
+                {
+                  "type": "dialogue",
+                  "text": "4 more students have cats than fish or lizards at home. You used TWO steps to answer questions about the pets students have at home."
+                },
+                {
+                  "type": "current_scene",
+                  "elements": [
+                    {
+                      "tangible_id": "picture_graph_pets",
+                      "description": "Vertical picture graph showing Pets We Have. Cats column highlighted.",
+                      "tangible_type": "picture_graph",
+                      "mode": "reading",
+                      "orientation": "vertical",
+                      "categories": [
+                        "Dogs",
+                        "Cats",
+                        "Fish",
+                        "Birds",
+                        "Lizards"
+                      ],
+                      "values": [
+                        7,
+                        9,
+                        4,
+                        6,
+                        1
+                      ],
+                      "scale": 1
+                    },
+                    {
+                      "tangible_id": "result_display",
+                      "description": "Result from step 1: Fish + Lizards = 5",
+                      "tangible_type": "text_display"
+                    }
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — gave the sum from step 1 instead of finding the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Cats"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's the total from step 1. Now we need how many MORE Cats than that total. Cats is 9. Fish and Lizards together is 5. Find the difference."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 9
+            },
+            "description": "Student selected 9 — gave the Cats total instead of finding how many more",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Cats"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's how many have Cats total. The question asks how many MORE have Cats than Fish and Lizards combined. You need to subtract: 9 Cats minus 5 for Fish and Lizards."
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student selected 14 — added 9 and 5 instead of finding the difference",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "highlight_categories": [
+                      "Cats"
+                    ]
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You added the numbers. The word MORE tells us to compare — that means subtract. We have 9 Cats and 5 for Fish and Lizards. How many more is 9 than 5?"
+                }
+              ]
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "steps": [
+              [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_pets",
+                  "params": {
+                    "event": "compare_difference",
+                    "status": "confirmed",
+                    "description": "System shows Cats column (9) and step 1 result (5), then demonstrates subtraction: 9 - 5 = 4"
+                  }
+                },
+                {
+                  "type": "dialogue",
+                  "text": "This is tricky, so let me show you. We found that 5 students have Fish or Lizards. Now we need how many MORE have Cats. Cats is 9. The difference is 9 minus 5, which equals 4. 4 more students have Cats. See how that works?"
+                }
+              ]
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81df-a0a2-d93117e9a0dd"
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81e9-b8c5-f9339e574176",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_8_bridge_to_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You can read picture graphs and bar graphs. You know \"how many more\" and \"how many fewer\" mean to {compare}, subtract to find the difference. You know \"in all\" means {combine}, add to find the total. Let's see what you know.",
+        "_notion_block_id": "31b5917e-ac52-8169-a8e7-fa9e1ff5fcfc"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Vertical picture graph showing Pets We Have data.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "values": [
+              7,
+              9,
+              4,
+              6,
+              1
+            ],
+            "scale": 1
+          },
+          {
+            "tangible_id": "result_display",
+            "description": "Result from step 1: Fish + Lizards = 5",
+            "tangible_type": "text_display"
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-812b-98cf-c2df8f242989"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "32c5917e-ac52-803d-bef7-d845666dfba3",
+        "notion_type": "paragraph"
+      }
+    ]
+  }
+]

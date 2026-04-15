@@ -1,0 +1,209 @@
+{
+  "id": "s3_3b_two_step",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — only counted Red, not both categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Red's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — only counted Yellow, not both categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Yellow's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 — added Yellow, Red, and Green instead of just Yellow and Red",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added too many categories. Only add Yellow and Red. Green comes in the next step when we compare."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "highlight_addition",
+                "status": "confirmed",
+                "description": "Yellow bar (6) and Red bar (5) pulse in sequence, then total 11 appears"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Yellow has 6 students. Red has 5 students. When we add them together, 6 plus 5 equals 11. That's how many chose Yellow or Red in all."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — gave Green's value instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Green's value. The question asks how many MORE 11 is than 4. Subtract to find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 11
+        },
+        "description": "Student selected 11 — gave the total from step 1 instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the total from step 1. Now compare it to Green's 4. How many more is 11 than 4? Subtract to find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15 — added 11 and 4 instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks how many MORE, not how many in all. When you compare two amounts, subtract the smaller from the larger."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "show_comparison",
+                "status": "confirmed",
+                "description": "Green bar (4) extends to match against the total 11, showing difference of 7"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. We have 11 from step 1. Green has 4. To find how many more 11 is than 4, we subtract: 11 minus 4 equals 7. That's the difference."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:02:13.411859+00:00"
+}

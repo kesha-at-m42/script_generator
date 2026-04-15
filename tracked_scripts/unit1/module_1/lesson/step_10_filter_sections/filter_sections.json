@@ -1,0 +1,339 @@
+{
+  "batch_only_items": [
+    "s3_5_what_information_needed",
+    "s3_6_solving_with_selected_data",
+    "s3_7_two_step_sequential"
+  ],
+  "data": [
+    {
+      "id": "s3_5_what_information_needed",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "description": "Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Key: each X = 1 pet."
+          },
+          "id": "s3_5_what_information_needed_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?",
+          "id": "s3_5_what_information_needed_b1"
+        },
+        {
+          "type": "prompt",
+          "text": "Which categories do you need? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "Dogs",
+            "Cats",
+            "Fish",
+            "Birds",
+            "Lizards"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "selected": "Dogs"
+                  },
+                  {
+                    "selected": "Fish"
+                  }
+                ]
+              },
+              "description": "Student selected Dogs and Fish only, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Just Dogs and Fish. The other categories don't matter for this question.",
+                  "id": "s3_5_what_information_needed_b2_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_5_what_information_needed_b2"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Vertical picture graph. Pets We Have data. Dogs and Fish categories highlighted after selection.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds",
+                "Lizards"
+              ]
+            }
+          ],
+          "id": "s3_5_what_information_needed_b3"
+        }
+      ],
+      "_generated_at": "2026-04-14T16:47:39.622576+00:00"
+    },
+    {
+      "id": "s3_6_solving_with_selected_data",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "description": "Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=6, Fish=4, Birds=5, Lizards=3. Dogs and Fish columns highlighted. Cats, Birds, Lizards dimmed."
+          },
+          "id": "s3_6_solving_with_selected_data_b0"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_pets",
+          "params": {
+            "highlight_categories": [
+              "Dogs",
+              "Fish"
+            ],
+            "description": "Dogs and Fish columns highlighted. Cats, Birds, Lizards dimmed."
+          },
+          "id": "s3_6_solving_with_selected_data_b1"
+        },
+        {
+          "type": "dialogue",
+          "text": "Now solve it. Remember: 'how many fewer' means compare or find the difference. How many fewer students have fish than dogs?",
+          "id": "s3_6_solving_with_selected_data_b2"
+        },
+        {
+          "type": "prompt",
+          "text": "How many fewer students have fish than dogs?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            4,
+            7,
+            11
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 3
+              },
+              "description": "Student answered 3, correct (7 - 4 = 3)",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. 3 fewer students. 7 students have dogs and 4 students have fish. The difference is 3.",
+                  "id": "s3_6_solving_with_selected_data_b3_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_6_solving_with_selected_data_b3"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Vertical picture graph. Pets We Have data. Dogs and Fish columns highlighted. Multiple choice tool active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds",
+                "Lizards"
+              ]
+            }
+          ],
+          "id": "s3_6_solving_with_selected_data_b4"
+        }
+      ],
+      "_generated_at": "2026-04-14T16:47:46.675930+00:00"
+    },
+    {
+      "id": "s3_7_two_step_sequential",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "description": "Vertical picture graph appears. Pets We Have data. Dogs=10, Cats=9, Fish=4, Birds=3, Lizards=1. All categories at default state."
+          },
+          "id": "s3_7_two_step_sequential_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Question: How many MORE students have Cats than Fish and Lizards combined?",
+          "id": "s3_7_two_step_sequential_b1"
+        },
+        {
+          "type": "dialogue",
+          "text": "First, find how many students have Fish OR Lizards at home.",
+          "id": "s3_7_two_step_sequential_b2"
+        },
+        {
+          "type": "prompt",
+          "text": "How many have Fish or Lizards combined?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            4,
+            5,
+            6,
+            13
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 5
+              },
+              "description": "Student answered 5, correct, Fish 4 plus Lizards 1 equals 5",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "That's right. 5 in all. 4 have Fish. 1 has Lizards. 4 plus 1 equals 5.",
+                  "id": "s3_7_two_step_sequential_b3_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_7_two_step_sequential_b3"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Vertical picture graph in reading mode. Pets We Have data. Multiple choice tool active for step 1.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds",
+                "Lizards"
+              ]
+            }
+          ],
+          "id": "s3_7_two_step_sequential_b4"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "picture_graph_pets",
+          "params": {
+            "highlight_categories": [
+              "Cats"
+            ],
+            "description": "Cats column highlights for comparison. Fish and Lizards total (5) displayed on screen."
+          },
+          "id": "s3_7_two_step_sequential_b5"
+        },
+        {
+          "type": "dialogue",
+          "text": "Next, how many MORE students have Cats compared to Fish and Lizards together?",
+          "id": "s3_7_two_step_sequential_b6"
+        },
+        {
+          "type": "prompt",
+          "text": "How many MORE have Cats than the total of Fish and Lizards?",
+          "tool": "multiple_choice",
+          "options": [
+            4,
+            5,
+            9,
+            14
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 4
+              },
+              "description": "Student answered 4, correct, 9 minus 5 equals 4",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Correct. 4 more students have cats than fish or lizards at home. You used TWO steps to answer questions about the pets students have at home.",
+                  "id": "s3_7_two_step_sequential_b7_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_7_two_step_sequential_b7"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Vertical picture graph in reading mode. Pets We Have data. Cats column highlighted. Fish and Lizards total (5) displayed. Multiple choice tool active for step 2.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds",
+                "Lizards"
+              ]
+            }
+          ],
+          "id": "s3_7_two_step_sequential_b8"
+        }
+      ],
+      "_generated_at": "2026-04-14T16:47:57.192941+00:00"
+    }
+  ]
+}

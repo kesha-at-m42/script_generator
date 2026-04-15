@@ -1,0 +1,109 @@
+{
+  "id": "s3_2_how_many_fewer",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — chose the value of Red instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red",
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found how many chose Red. But the question asks how many FEWER—that means find the difference between the two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — chose the value of Blue instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red",
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found how many chose Blue. But how many fewer asks for the difference—subtract Red from Blue to compare them."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 13
+        },
+        "description": "Student selected 13 — added the values instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red",
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added the two numbers together. How many fewer means find the difference—subtract the smaller number from the bigger number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "Visual shows Blue bar at 8, Red bar at 5, with difference of 3 highlighted between them"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Blue has 8 students, Red has 5 students. To find how many fewer, we subtract: 8 minus 5 equals 3. Red has 3 fewer students than Blue."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:43.940921+00:00"
+}

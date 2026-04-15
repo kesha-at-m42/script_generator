@@ -1,0 +1,235 @@
+{
+  "id": "s3_4c_two_step_pets",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — counted only Fish, ignoring Lizards",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Fish",
+                  "Lizards"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted Fish but missed Lizards. We need both categories combined. Count Fish symbols: 4. Count Lizards symbols: 1. Add them together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — counted only Fish column",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Fish",
+                  "Lizards"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's just Fish. The question asks for Fish OR Lizards combined. Count both categories together: 4 Fish plus 1 Lizard."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — likely counted Birds instead of the correct categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Fish",
+                  "Lizards"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at which categories the question asks about. We need Fish and Lizards combined, not Birds. Count Fish: 4. Count Lizards: 1. Add those two together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 13
+        },
+        "description": "Student selected 13 — added all categories instead of just Fish and Lizards",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Fish",
+                  "Lizards"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added all the categories. The question only asks for Fish OR Lizards. Count just those two: 4 Fish and 1 Lizard."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "highlight_and_count",
+                "status": "confirmed",
+                "description": "System highlights Fish and Lizards columns, counts symbols in each: 4 Fish, 1 Lizard, shows 4 + 1 = 5"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The question asks for Fish OR Lizards combined. First I count Fish: 4 symbols. Then I count Lizards: 1 symbol. Now I add them: 4 plus 1 equals 5. The answer is 5."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — gave the sum from step 1 instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Cats"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the total from step 1. Now we need how many MORE Cats than that total. Cats is 9. Fish and Lizards together is 5. Find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9 — gave the Cats total instead of finding how many more",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Cats"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's how many have Cats total. The question asks how many MORE have Cats than Fish and Lizards combined. You need to subtract: 9 Cats minus 5 for Fish and Lizards."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 — added 9 and 5 instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Cats"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added the numbers. The word MORE tells us to compare — that means subtract. We have 9 Cats and 5 for Fish and Lizards. How many more is 9 than 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "compare_difference",
+                "status": "confirmed",
+                "description": "System shows Cats column (9) and step 1 result (5), then demonstrates subtraction: 9 - 5 = 4"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. We found that 5 students have Fish or Lizards. Now we need how many MORE have Cats. Cats is 9. The difference is 9 minus 5, which equals 4. 4 more students have Cats. See how that works?"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:03:06.177158+00:00"
+}

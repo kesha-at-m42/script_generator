@@ -1,0 +1,72 @@
+{
+  "id": "s2_3_horizontal_colors",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Which bar reaches farthest across?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The longest bar shows the most votes. Blue's bar reaches all the way to 8."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guideline draws from end of Blue bar to axis, showing it reaches 8",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. Blue's bar goes all the way to 8. That's longer than any other bar. Red goes to 5, Green to 4, Yellow to 6. The longest bar shows the most votes, so Blue is most popular."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:13.693173+00:00"
+}

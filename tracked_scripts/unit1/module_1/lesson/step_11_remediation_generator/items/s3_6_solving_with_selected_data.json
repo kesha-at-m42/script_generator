@@ -1,0 +1,106 @@
+{
+  "id": "s3_4b_solve_with_selected",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — the value for Fish instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "show_comparison",
+                "status": "proposed",
+                "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the fish. The question asks how many fewer fish than dogs—that means find the difference between the two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — the value for Dogs instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "show_comparison",
+                "status": "proposed",
+                "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the dogs. How many fewer means compare—subtract the smaller number from the larger number to find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 11
+        },
+        "description": "Student selected 11 — added 7 and 4 instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "show_comparison",
+                "status": "proposed",
+                "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: how many fewer means find the difference. That means subtract, not add. Take the smaller number away from the larger number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_pets",
+              "params": {
+                "event": "demonstrate_subtraction",
+                "status": "confirmed",
+                "description": "System demonstrates subtracting 4 from 7 to show difference of 3"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Dogs have 7 symbols and Fish have 4 symbols. How many fewer means compare or find the difference—so we subtract: 7 minus 4 equals 3. The answer is 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:02:41.687863+00:00"
+}

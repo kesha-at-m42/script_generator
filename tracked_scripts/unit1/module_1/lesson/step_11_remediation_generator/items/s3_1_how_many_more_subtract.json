@@ -1,0 +1,109 @@
+{
+  "id": "s3_1_how_many_more",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — the value of Blue instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue",
+                  "Yellow"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "8 is how many chose Blue. But the question asks how many MORE chose Blue than Yellow. We need to find the difference by subtracting."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 — added Blue and Yellow instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue",
+                  "Yellow"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "How many MORE means we compare by subtracting, not adding. Blue has 8, Yellow has 6. We subtract to find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — counting error or misread the values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue",
+                  "Yellow"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the scale carefully. Blue reaches 8, and Yellow reaches 6. Subtract to find how many more: 8 minus 6."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "Animation shows Blue bar at 8 and Yellow bar at 6, then visually demonstrates the difference of 2 units between them"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Blue has 8 students. Yellow has 6 students. To find how many MORE chose Blue, we subtract: 8 minus 6 equals 2. The answer is 2."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:33.886976+00:00"
+}

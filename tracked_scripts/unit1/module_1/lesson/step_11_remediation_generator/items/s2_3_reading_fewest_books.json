@@ -1,0 +1,71 @@
+{
+  "id": "s2_2a_fewest_books",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the height of each bar. Which one is the shortest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Fewest means the smallest number. Maya's bar is the shortest—she read 4 books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_shortest_bar",
+                "status": "confirmed",
+                "description": "Maya's bar pulses and is highlighted as the shortest bar on the graph"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. Fewest means the smallest number. Look at all the bars: James is tallest at 7, then Aiden at 6, Sofia at 5, and Maya is shortest at 4. The shortest bar shows the fewest books—that's Maya."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:05.619005+00:00"
+}

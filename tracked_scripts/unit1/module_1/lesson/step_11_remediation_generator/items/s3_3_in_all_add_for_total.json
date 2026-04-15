@@ -1,0 +1,109 @@
+{
+  "id": "s3_3_in_all",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 — likely confused about what 'in all' means or miscounted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "In all means we want the total. Count how many students chose Yellow, then how many chose Red. Add those two numbers together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — only counted Yellow, forgot to add Red",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Yellow's value, but the question asks for Yellow OR Red in all. That means add both bars together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 23
+        },
+        "description": "Student selected 23 — added all categories instead of just Yellow and Red",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow",
+                  "Red"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks only for Yellow OR Red, not all the colors. Find Yellow's value and Red's value, then add just those two."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "show_addition",
+                "status": "confirmed",
+                "description": "Yellow bar shows 6, Red bar shows 5, visual addition 6+5=11 appears"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. We want Yellow OR Red in all. Yellow has 6 students. Red has 5 students. 6 plus 5 equals 11 students in all."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:53.834947+00:00"
+}

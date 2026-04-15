@@ -1,0 +1,72 @@
+{
+  "id": "s1_1_most_votes",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look at the numbers next to each row—which one is biggest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_fruits",
+              "params": {
+                "highlight_categories": [
+                  "Apples"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count the symbols in each row. Apples has 6—more than Bananas, Oranges, or Grapes."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_fruits",
+              "params": {
+                "event": "highlight_category_with_count",
+                "status": "confirmed",
+                "description": "System highlights Apples row and counts each symbol aloud: 1, 2, 3, 4, 5, 6",
+                "category": "Apples"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. I'll count the Apples row: 1, 2, 3, 4, 5, 6. Now Bananas: 1, 2, 3, 4. Oranges: 1, 2, 3, 4, 5. Grapes: 1, 2, 3. Apples has 6—the most. Click Apples."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:00:05.400479+00:00"
+}

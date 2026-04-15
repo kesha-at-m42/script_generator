@@ -1,0 +1,82 @@
+{
+  "id": "s3_5_what_information_needed",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_pets",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Dogs",
+          "Cats",
+          "Fish",
+          "Birds",
+          "Lizards"
+        ],
+        "description": "Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Key: each X = 1 pet."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which categories do you need? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "Dogs",
+        "Cats",
+        "Fish",
+        "Birds",
+        "Lizards"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "Dogs"
+              },
+              {
+                "selected": "Fish"
+              }
+            ]
+          },
+          "description": "Student selected Dogs and Fish only, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You found exactly what you need: just Dogs and Fish. The other categories don't matter for this question."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_pets",
+          "description": "Vertical picture graph. Pets We Have data. Dogs and Fish categories highlighted after selection.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Fish",
+            "Birds",
+            "Lizards"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-14T16:47:39.622576+00:00"
+}

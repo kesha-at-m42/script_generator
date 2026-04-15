@@ -41,7 +41,7 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 
-def _flatten_beats(section: dict) -> list[dict]:
+def flatten_beats(section: dict) -> list[dict]:
     """Return a flat list of beats from any legacy or current section format."""
     if "beats" in section:
         return list(section["beats"])
@@ -53,6 +53,10 @@ def _flatten_beats(section: dict) -> list[dict]:
         elif isinstance(step, list):
             beats.extend(step)
     return beats
+
+
+# Keep private alias for internal use
+_flatten_beats = flatten_beats
 
 
 def _flatten_validator_beats(state: dict) -> list[dict]:

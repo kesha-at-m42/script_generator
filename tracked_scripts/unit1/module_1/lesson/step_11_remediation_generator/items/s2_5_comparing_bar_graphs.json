@@ -1,0 +1,72 @@
+{
+  "id": "s2_4_least_color",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Which bar is the shortest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The shortest bar shows the least votes. Green is the shortest bar—it only reaches 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guideline draws from end of Green bar to axis, highlighting it reaches only 4",
+                "category": "Green"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. We're looking for the LEAST votes—the smallest number. Green's bar is the shortest. It only reaches 4 on the axis. That's less than Blue's 8, Red's 5, and Yellow's 6. Click Green."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:01:22.834006+00:00"
+}

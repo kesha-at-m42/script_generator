@@ -1,0 +1,72 @@
+{
+  "id": "s1_2_least_votes",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Which row has the smallest number of symbols?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_fruits",
+              "params": {
+                "highlight_categories": [
+                  "Grapes"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count each row: Apples 6, Bananas 4, Oranges 5, Grapes 3. Which number is smallest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_fruits",
+              "params": {
+                "event": "highlight_category_with_count",
+                "status": "confirmed",
+                "description": "System highlights Grapes row and displays count of 3",
+                "category": "Grapes"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. I'll count each row. Apples has 6, Bananas has 4, Oranges has 5, and Grapes has 3. Three is the smallest number, so Grapes got the least votes."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:00:14.203107+00:00"
+}

@@ -1,0 +1,434 @@
+[
+  {
+    "id": "s1_1_reading_graph_most_votes",
+    "visual": "Picture Graphs (Mode 1: Reading). Horizontal orientation. Context: \"Favorite Fruits,\" 4 categories. Key: \"Each fruit symbol = 1 vote.\" Values: Apples=6, Bananas=4, Oranges=5, Grapes=3. Data Table visible alongside showing same values.",
+    "guide": "You made a graph with YOUR Minis. Now let's read some other graphs. A graph isn't just a picture to look at. Every part gives us information to READ. Look at this Favorite Fruits graph. Click on the category that got the MOST votes.",
+    "prompt": "Click on the category that got the MOST votes.",
+    "correct_answer": "Apples (6 votes)",
+    "on_correct": "Apples got the most. 6 people chose it. You read that from the graph.",
+    "_generated_at": "2026-04-14T16:43:56.281013+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "click_category"
+      ]
+    }
+  },
+  {
+    "id": "s1_2_finding_least",
+    "visual": "Picture Graphs (Mode 1: Reading). Same \"Favorite Fruits\" graph (horizontal, 4 categories). Data Table visible.",
+    "guide": "You found the most. Now find the opposite. Which fruit got the LEAST votes?",
+    "prompt": "Which fruit got the LEAST votes?.",
+    "correct_answer": "Grapes (3 votes)",
+    "on_correct": "Grapes got the least with only 3 votes. You can compare categories by reading each row.",
+    "_generated_at": "2026-04-14T16:43:59.090395+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s1_3_graph_components_have_jobs",
+    "visual": "Picture Graphs (Mode 1: Reading). NEW graph. Vertical orientation. Context: \"Animals at the Zoo,\" 4 categories. Key: \"Each animal icon = 1 animal.\" Values: Lions=5, Monkeys=7, Elephants=3, Penguins=6. Data Table visible alongside showing same values.",
+    "guide": "\"Every part of a graph has a job. Watch.\"\n  * [Highlight title] \"The TITLE tells us what the data is about: Favorite Fruits.\"\n  * [Highlight category labels] \"The LABELS tell us what each row shows.\"\n  * [Highlight key] \"The KEY shows the SCALE. Here, each fruit picture equals 1 vote. That's a scale of 1.\"\n  * \"Now you try. Click on the part that tells us what each symbol means.\"",
+    "prompt": "\"Click on the part that tells us what each symbol means.\"",
+    "correct_answer": "Student clicks the key",
+    "on_correct": "\"That's the key. It shows the scale. Each symbol equals 1 vote.\"",
+    "vocabulary_introduced": "title, label, key, scale (casual use—\"scale of 1\" as foundation for M2)",
+    "_generated_at": "2026-04-14T16:44:03.313073+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "click_component",
+        "click_category"
+      ]
+    }
+  },
+  {
+    "id": "s1_4_new_graph_vertical_orientation",
+    "visual": "NEW picture graph (vertical orientation). Context: \"Animals at the Zoo\" with 4 categories. Each animal icon = 1 animal. Values: Lions=5, Monkeys=7, Elephants=3, Penguins=6.",
+    "guide": "Here's a different picture graph. This one goes up and down—we call that VERTICAL. Same idea—use the key to read it.",
+    "prompt": "How many monkeys are at the zoo?",
+    "student_action": "[Multiple choice: 5, 6, 7, 8]",
+    "correct_answer": "7",
+    "answer_rationale": "7 = Correct (Monkeys value)\n5 = Misread (Lions value—first category)\n6 = Misread (Penguins value)\n8 = Counting error",
+    "on_correct": "7 monkeys. Each symbol equals 1, so you count 7 symbols.",
+    "vocabulary_introduced": "vertical",
+    "_generated_at": "2026-04-14T16:44:07.559661+00:00",
+    "workspace_specs": {
+      "toys": [
+        "picture_graph"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s1_5_practice_reading_values",
+    "visual": "Picture Graphs (Mode 1: Reading). Same \"Animals at the Zoo\" graph (vertical, 4 categories). Data Table visible.",
+    "guide": "Let's read one more value from this graph. Which animal has FEWER than 4 at the zoo?",
+    "prompt": "Which animal has FEWER than 4 at the zoo? Click on it.",
+    "correct_answer": "Elephants (3)",
+    "on_correct": "(Elephants) \"Elephants—there are only 3, which is fewer than 4.\"",
+    "_generated_at": "2026-04-14T16:44:10.371477+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "click_category"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s1_6_picture_to_bar_graph_transition",
+    "visual": "Picture Graphs (Mode 1: Reading). Same \"Animals at the Zoo\" graph (vertical, 4 categories). Data Table visible.",
+    "guide": "You're reading picture graphs like a pro. Now let's see another way to show data: bar graphs.",
+    "visual_transition": "Picture graph transforms/animates into bar graph with vertical axis and tick marks at 0 to 8 showing same data. Animation either transforms the picture graph to a bar graph OR (a) bar graph appears alongside picture graph",
+    "guide_2": "Same information, different format. Instead of counting symbols, we read where the bar ends.",
+    "implementation_note": "Visual transition can be side-by-side display OR transformation animation—either achieves the pedagogical goal of connecting the two formats.",
+    "_generated_at": "2026-04-14T16:44:13.685438+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s2_1_connecting_bars_to_symbols",
+    "visual": "Bar Graphs (Mode 1: Reading). \"Animals at the Zoo\" data. Vertical orientation. Axis 0–8 by 1s, tick marks at each whole number. 4 categories. Data Table visible.",
+    "guide": "In a bar graph, the HEIGHT of the bar tells us the amount. Look at the Monkeys bar. How many monkeys does the bar show? Click on the Monkeys bar and find where the bar ends.",
+    "prompt": "Click on the bar for Monkeys and find where the bar ends.",
+    "student_action": "Click on Monkeys bar.",
+    "system_animation_on_correct": "Helping line draws from top of Monkeys bar perpendicular to vertical axis. Value \"7\" highlights on axis. System-triggered, not student-initiated.",
+    "correct_answer": "Clicks on Monkeys bar.",
+    "on_correct": "Animation shows line drawn from the top of Monkeys bar perpendicular to vertical axis. 7 highlights on axis. \"7 monkeys. Same as the picture graph. The bar goes up to 7.\"",
+    "_generated_at": "2026-04-14T16:44:18.109166+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "click_category"
+      ]
+    }
+  },
+  {
+    "id": "s2_2_reading_bar_graphs_independently",
+    "visual": "Bar Graphs (Mode 1: Reading). NEW graph. Vertical orientation. Context: \"Books Read This Week,\" 4 categories. Axis 0–8 by 1s. Values: Maya=4, Aiden=6, Sofia=5, James=7. Data Table visible.",
+    "guide": "Here's a new bar graph. The scale is 1. Each mark on the side means 1 book. How many books did Sofia read? Select your answer.",
+    "prompt": "How many books did Sofia read?",
+    "student_action": "[Multiple choice: 4, 5, 6, 7]",
+    "correct_answer": "5",
+    "answer_rationale": "5 = Correct (Sofia's value)\n4 = Misread (Maya's value)\n6 = Misread (Aiden's value)\n7 = Misread (James's value)",
+    "on_correct": "Animation shows horizontal line from top of Sofia's bar vertical axis at 5. \"Sofia read 5 books. You read that from where her bar ends.\"",
+    "vocabulary_reinforced": "scale (casual—\"the scale is 1\")",
+    "_generated_at": "2026-04-14T16:44:22.638472+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_3_reading_fewest_books",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Books Read This Week\" graph (vertical, 4 categories). Data Table visible.",
+    "guide": "Graphs make comparing easy. You can see which is most and least at a glance by the height of the bars. Who read the FEWEST books this week?.",
+    "prompt": "Who read the FEWEST books this week?",
+    "correct_answer": "Maya (4)",
+    "on_correct": "Maya read the fewest books: 4 books. It's the shortest bar.",
+    "vocabulary_reinforced": "fewest (pairs with \"least\" from Section 1)",
+    "_generated_at": "2026-04-14T16:44:25.802291+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s2_4_horizontal_bar_graph",
+    "visual": "Bar Graphs (Mode 1: Reading). NEW graph. Horizontal orientation. Context: \"Favorite Colors,\" 4 categories. Axis 0–10 by 1s, labeled \"Number of Votes.\" Values: Blue=8, Red=5, Green=4, Yellow=6. Data Table visible.",
+    "guide": "This bar graph goes sideways. We call that HORIZONTAL. The LENGTH of the bar tells us the amount.",
+    "prompt": "Which color is the most popular? Click on the longest bar.",
+    "correct_answer": "Blue (8)",
+    "on_correct": "Blue is the most popular. 8 students chose it. It has the longest bar.",
+    "vocabulary_introduced": "horizontal",
+    "_generated_at": "2026-04-14T16:44:28.789081+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "click_category"
+      ],
+      "unresolved": [
+        "NEW graph",
+        "Favorite Colors",
+        "Number of Votes"
+      ]
+    }
+  },
+  {
+    "id": "s2_5_comparing_bar_graphs",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal, 4 categories). Data Table visible.",
+    "guide": "Same graph, different question. Which color got the LEAST votes?",
+    "prompt": "Which color got the LEAST votes?",
+    "correct_answer": "Green (4)",
+    "on_correct": "Green got the least. Only 4 votes. It's the shortest bar.",
+    "vocabulary_reinforced": "fewest (pairs with \"least\" from Section 1)",
+    "_generated_at": "2026-04-14T16:44:31.482597+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s2_6_section_transition",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal, 4 categories) remains. Data Table not visible.",
+    "guide": "You found the most and the fewest. Now let's answer some different kinds of questions.",
+    "_generated_at": "2026-04-14T16:44:34.014177+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_1_how_many_more_subtract",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal). Data Table not visible. System highlights Blue (8) and Yellow (6) bars as Guide speaks.",
+    "guide": "\"Here's the question: How many MORE students chose Blue than Yellow?\"",
+    "guide_2": "\"This is a COMPARISON question. 'How many more' means we COMPARE two amounts. We find the DIFFERENCE by subtracting.\"",
+    "guide_3": "\"Blue has 8. Yellow has 6. Since more students like Blue, subtract Blue minus Yellow. How many more students chose Blue than Yellow?\"",
+    "prompt": "\"How many more students chose Blue than Yellow?\"",
+    "student_action": "[Multiple choice: 2, 8, 14, 3]",
+    "correct_answer": "2",
+    "answer_rationale": "2 = Correct (8 - 6 = 2, the difference)\n8 = Error: Used Blue's value only\n14 = Error: Added instead of subtracted (8 + 6)\n3 = Error: Subtraction mistake or misread",
+    "on_correct": "\"2 more students. You found the difference: 8 minus 6 equals 2.\"",
+    "critical_teaching": "This is the KEY instructional moment. Explicit modeling of \"How many more\" means to compare which means to subtract.",
+    "vocabulary_introduced": "compare, difference (explicit teaching)",
+    "remediation": "Light: \"Remember: 'how many more' means subtract. Blue has 8, Yellow has 6. What's 8 minus 6?\"",
+    "_generated_at": "2026-04-14T16:44:38.891191+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "unresolved": [
+        "Guide speaks"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_2_how_many_fewer_subtract",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal). Data Table not visible. System highlights Red (5) and Blue (8) bars.",
+    "guide": "\"New question: How many FEWER students chose Red than Blue?\"",
+    "guide_2": "\"'How many fewer' is ALSO a comparison. We still find the difference. \"",
+    "prompt": "\"How many fewer students chose Red than Blue?\"",
+    "student_action": "[Multiple choice: 3, 5, 8, 13]",
+    "correct_answer": "3",
+    "answer_rationale": "3 = Correct (8 - 5 = 3, the difference)\n5 = Error: Used Red's value only\n8 = Error: Used Blue's value only\n13 = Error: Added instead of subtracted (8 + 5)",
+    "on_correct": "\"3 fewer students. Blue has 8, Red has 5. The difference is 3.\"",
+    "vocabulary_reinforced": "fewer, difference, comparison",
+    "_generated_at": "2026-04-14T16:44:42.656091+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_3_in_all_add_for_total",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal). Data Table not visible. System highlights Yellow (6) and Red (5) bars.",
+    "guide": "\"Here's a different kind of question: How many students chose Yellow OR Red IN ALL?\"",
+    "guide_2": "\"'In all' means we want the TOTAL. We ADD to find totals.\"",
+    "prompt": "\"How many students chose Yellow or Red in all?\"",
+    "student_action": "[Multiple choice: 1, 6, 11, 14]",
+    "correct_answer": "11",
+    "answer_rationale": "11 = Correct (6 + 5 = 11, the total)\n1 = Error: Subtracted (6 - 5)\n6 = Error: Used Yellow's value only\n23 = Error: Adds all data values",
+    "on_correct": "\"11 students in all. Yellow has 6, Red has 5. ~~You added to find the total:~~ 6 plus 5 equals 11.\"",
+    "vocabulary_introduced": "total, in all (explicit teaching)",
+    "_generated_at": "2026-04-14T16:44:47.877330+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_4_two_step_introduction_sequential",
+    "visual": "Bar Graphs (Mode 1: Reading). Same \"Favorite Colors\" graph (horizontal). Data Table not visible. Yellow (6) and Red (5) bars highlighted from 3.3.",
+    "guide": "\"Sometimes you need TWO steps to answer a question. Let's try one together.\"",
+    "guide_2": "\"Question: How many MORE students chose Yellow or Red together compared to Green?\"",
+    "guide_3": "\"Step 1: Find how many chose Yellow or Red IN ALL. How many liked Yellow or Red in all?\"",
+    "prompt": "\"How many liked Yellow or Red in all?\"",
+    "student_action": "[Multiple choice: 5, 6, 11, 14]",
+    "correct_answer": "11",
+    "on_correct": "\"11 in all. Yellow has 6, Red has 5. 6 plus 5 equals 11.\"",
+    "visual_update": "Yellow+Red total (11) displayed on screen. Green (4) bar highlights alongside. System shows both values for comparison.",
+    "guide_4": "\"Step 2: Now compare that total to Green.\"",
+    "prompt_2": "\"How many MORE is 11 than Green's 4?\"",
+    "student_action_2": "[Multiple choice: 4, 7, 11, 15]",
+    "correct_answer_2": "7",
+    "answer_rationale": "7 = Correct (11 - 4 = 7)\n4 = Error: Used Green's value only\n11 = Error: Used total only\n15 = Error: Added instead of subtracted",
+    "on_correct_2": "\"7 more students like red or yellow compared to green. You used TWO steps: first you added to find a total, then you subtracted to compare.\"",
+    "purpose": "Introduces two-step problems as sequential single submissions. Explicit step labeling scaffolds the process.",
+    "practice_note": "Practice phase may experiment with combined two-step problems (both operations in single submission). This Lesson interaction establishes the sequential foundation.",
+    "_generated_at": "2026-04-14T16:44:54.149766+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_5_what_information_needed",
+    "visual": "Picture Graphs (Mode 1: Reading). NEW graph. Vertical orientation. Context: \"Pets We Have,\" 5 categories. Key: \"Each X = 1 pet.\" Values: Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Data Table not visible.",
+    "guide": "\"Look at this graph. It shows how many pets each student in a class owns. The next question will ask: 'How many fewer students have fish than dogs?' Before we solve it, which categories do you need?\"",
+    "prompt": "\"Which categories do you need? Select all that apply.\"",
+    "student_action": "[Multi-select checkboxes: ☐ Dogs ☐ Cats ☐ Fish ☐ Birds ☐ Lizards]",
+    "correct_answer": "Dogs AND Fish selected (only)",
+    "on_correct": "\"You found exactly what you need: just Dogs and Fish. The other categories don't matter for this question.\"",
+    "purpose": "Active metacognitive prompt (Error Prediction type). Prevents Misconception #17 (All Data Must Be Used) by making selective data use explicit.",
+    "_generated_at": "2026-04-14T16:44:58.896766+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "multi_select"
+      ],
+      "unresolved": [
+        "Data Table not"
+      ]
+    }
+  },
+  {
+    "id": "s3_6_solving_with_selected_data",
+    "visual": "Picture Graphs (Mode 1: Reading). Same \"Pets We Have\" graph (vertical). System highlights Dogs (7) and Fish (4) only. Cats, Birds, Lizards dimmed/unhighlighted. Data Table not visible.",
+    "guide": "\"Now solve it. Remember: 'how many fewer' means compare or find the difference. How many fewer students have fish than dogs?\"",
+    "prompt": "\"How many fewer students have fish than dogs?\"",
+    "student_action": "[Multiple choice: 3, 4, 7, 11]",
+    "correct_answer": "3",
+    "answer_rationale": "3 = Correct (7 - 4 = 3)\n4 = Error: Used Fish value only\n7 = Error: Used Dogs value only\n11 = Error: Added instead of subtracted (7 + 4)",
+    "on_correct": "\"3 fewer students. 7 Students have dogs and 4 students have Fish. The difference is 3.\"",
+    "divider": "Remediation (for this interaction specifically):",
+    "light": "\"You need Dogs and Fish. Dogs has 7, Fish has 4. Subtract to find how many fewer.\"",
+    "_generated_at": "2026-04-14T16:45:03.514222+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "unresolved": [
+        "Cats",
+        "Birds",
+        "Lizards dimmed/unhighlighted"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_7_two_step_sequential",
+    "visual": "Picture Graphs (Mode 1: Reading). Same \"Pets We Have\" graph (vertical). All categories at default state (no highlighting). Data Table not visible.",
+    "guide": "\"Question: How many MORE students have Cats than Fish and Lizards combined?",
+    "guide_2": "\"First, find how many students have Fish OR Lizards at home.\"",
+    "prompt": "\"How many have Fish or Lizards combined?\"",
+    "student_action": "[Multiple choice: 3, 4, 5, 6,13]",
+    "correct_answer": "5",
+    "on_correct": "\"5 in all. 4 have Fish. 1 has Lizards. 4 plus 1 equals 5.\"",
+    "visual_update": "Fish+Lizards total (5) displayed on screen. Cats (9) bar highlights for comparison.",
+    "remediation_for_this_step_specifically": "**Light:** \"You need Fish and Lizards. 4 students have Fish, 1 student has Lizards. Add to find how many combined.\"",
+    "guide_3": "\"Next, how many MORE students have Cats compared to Fish and Lizards together?\"",
+    "prompt_2": "\"How many MORE have Cats than the total of Fish and Lizards?\"",
+    "student_action_2": "[Multiple choice: 4, 5, 9, 14]",
+    "correct_answer_2": "4",
+    "answer_rationale": "4 = Correct (9 - 5 = 4)\n  * 9 = Error: Used Cats value only\n  * 5 = Error: Calculation error or subtracted only Cats and Fish\n  * 14 = Error: Added instead of subtracted",
+    "on_correct_2": "\"4 more students have cats than fish or lizards at home. You used TWO steps to answer questions about the pets students have at home.\"",
+    "divider": "→ SECTION 3 COMPLETE. LESSON COMPLETE.",
+    "_generated_at": "2026-04-14T16:45:10.020675+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table",
+        "picture_graph"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s3_8_bridge_to_exit_check",
+    "visual": "Final graph remains on screen.",
+    "guide": "\"You can read picture graphs and bar graphs. You know 'how many more' and 'how many fewer' mean subtract to find the difference. And 'in all' means add to find the total. Let's see how you can apply what you learned.\"",
+    "_generated_at": "2026-04-14T16:45:12.265014+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph"
+      ],
+      "tools": [],
+      "workspace_carry_over": true
+    }
+  }
+]

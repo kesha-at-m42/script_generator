@@ -1,0 +1,107 @@
+{
+  "id": "s1_4_vertical_monkeys",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — counted Lions column instead of Monkeys",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Monkeys"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the Lions value. We need the Monkeys column — find it on the graph and count those symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — counted Penguins column instead of Monkeys",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Monkeys"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the Penguins value. Look for the Monkeys label at the bottom and count up the symbols in that column."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — miscounted or added incorrectly",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "highlight_categories": [
+                  "Monkeys"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count the Monkeys column carefully. Each symbol equals 1 animal. Count them one at a time."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "count_category_symbols",
+                "status": "confirmed",
+                "description": "System counts Monkeys symbols one by one from bottom to top: 1, 2, 3, 4, 5, 6, 7",
+                "category": "Monkeys"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Find the Monkeys label at the bottom. Now count up: 1, 2, 3, 4, 5, 6, 7. The answer is 7 monkeys. See how that works?"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:00:32.647440+00:00"
+}

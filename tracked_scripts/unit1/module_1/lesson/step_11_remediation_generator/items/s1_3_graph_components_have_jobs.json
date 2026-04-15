@@ -1,0 +1,71 @@
+{
+  "id": "s1_3_components_key",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked wrong component on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look for the part that shows what each picture means."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked wrong component on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "highlight_key",
+                "status": "proposed",
+                "description": "Key pulses to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the key tells us the scale. It shows that each animal picture equals 1 animal."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked wrong component three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "highlight_key",
+                "status": "confirmed",
+                "description": "Key highlights with confirmation animation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The key is this box that says each animal picture equals 1 animal. That's the scale — it tells us what each symbol means. Click the key."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T00:00:22.030833+00:00"
+}

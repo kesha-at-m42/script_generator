@@ -38,6 +38,7 @@ from utils.notion import (  # noqa: E402
     is_configured,
     pull_lesson,
     push_lesson,
+    set_registry_entry,
 )
 
 
@@ -64,6 +65,10 @@ def main():
         metavar="SECTION_ID",
         help="Push only these section IDs (surgical update using their _notion_block_id)",
     )
+    parser.add_argument(
+        "--page-id",
+        help="Notion page ID to pull from (overrides registry lookup, useful for tracked_scripts)",
+    )
     args = parser.parse_args()
 
     if not is_configured():
@@ -76,7 +81,7 @@ def main():
         sys.exit(1)
 
     if args.pull:
-        _pull(file_path, new_version=args.new_version)
+        _pull(file_path, new_version=args.new_version, page_id_override=args.page_id)
     else:
         _push(file_path, args.title, test_push=args.test_push, sections=args.sections)
 
@@ -147,7 +152,13 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
         return None
 
     original_path = json_files[0]
-    out_step_dir = version_dir / f"step_{push_step_num + 1:02d}_pull"
+    existing_nums = [
+        int(m.group(1))
+        for d in version_dir.iterdir()
+        if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
+    ]
+    next_num = max(existing_nums) + 1 if existing_nums else push_step_num + 1
+    out_step_dir = version_dir / f"step_{next_num:02d}_pull"
     out_step_dir.mkdir(parents=True, exist_ok=True)
     return original_path, out_step_dir / "pull.json"
 
@@ -155,16 +166,20 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
 def _pull_out_path(file_path: Path) -> Path:
     """Derive the pull output path for any pipeline step file.
 
-    Always saves to step_{N+1}_pull/pull.json next to the source step,
-    rather than overwriting the source file.
+    Saves to step_{max+1}_pull/pull.json, where max is the highest existing
+    step number in the parent directory. This ensures the pull step always
+    comes after all existing steps even if the source file is not the last one.
     """
-    step_dir = file_path.parent
-    version_dir = step_dir.parent
-    m = re.match(r"step_(\d+)_", step_dir.name)
-    if not m:
+    version_dir = file_path.parent.parent
+    if not re.match(r"step_(\d+)_", file_path.parent.name):
         return file_path  # not in a numbered step dir — fall back to same file
-    step_num = int(m.group(1))
-    out_step_dir = version_dir / f"step_{step_num + 1:02d}_pull"
+    existing_nums = [
+        int(m.group(1))
+        for d in version_dir.iterdir()
+        if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
+    ]
+    next_num = max(existing_nums) + 1 if existing_nums else 1
+    out_step_dir = version_dir / f"step_{next_num:02d}_pull"
     out_step_dir.mkdir(parents=True, exist_ok=True)
     return out_step_dir / "pull.json"
 
@@ -227,13 +242,19 @@ def _copy_and_stamp_version(
                 shutil.copy2(f, dst_step / f.name)
 
 
-def _pull(file_path: Path, new_version: bool = False) -> None:
-    entry = get_registry_entry(file_path)
-    if not entry:
-        print("[ERROR] No Notion page found for this file. Push it first.")
-        sys.exit(1)
+def _pull(file_path: Path, new_version: bool = False, page_id_override: str | None = None) -> None:
+    if page_id_override:
+        page_id = page_id_override.replace("-", "")
+        # Normalise to dashed UUID format if needed
+        if len(page_id) == 32:
+            page_id = f"{page_id[:8]}-{page_id[8:12]}-{page_id[12:16]}-{page_id[16:20]}-{page_id[20:]}"
+    else:
+        entry = get_registry_entry(file_path)
+        if not entry:
+            print("[ERROR] No Notion page found for this file. Push it first.")
+            sys.exit(1)
+        page_id = entry["page_id"]
 
-    page_id = entry["page_id"]
     print(f"Pulling from: {get_page_url(page_id)}")
 
     push_source = _resolve_push_source(file_path)
@@ -250,7 +271,11 @@ def _pull(file_path: Path, new_version: bool = False) -> None:
 
     patched, flags, blocks = pull_lesson(page_id, original)
 
-    if _ids_changed(original, patched):
+    # Determine whether this path lives inside a versioned pipeline (outputs/).
+    # tracked_scripts and other non-versioned paths skip version management and save in place.
+    in_versioned_pipeline = re.match(r"^v\d+$", version_dir.name) is not None
+
+    if in_versioned_pipeline and _ids_changed(original, patched):
         next_ver = get_next_version(pipeline_dir)
         print(f"[IDs changed] Creating new version {next_ver} with reverse-stamped block IDs...")
         id_map: dict[str, str] = {}
@@ -261,17 +286,25 @@ def _pull(file_path: Path, new_version: bool = False) -> None:
         out_path = new_version_dir / rel
         out_path.parent.mkdir(parents=True, exist_ok=True)
         print(f"[IDs changed] Reverse-stamped {len(id_map)} block IDs across {next_ver}")
-    elif new_version:
+    elif in_versioned_pipeline and new_version:
         next_ver = get_next_version(pipeline_dir)
         step_dir = pipeline_dir / next_ver / default_out_path.parent.name
         step_dir.mkdir(parents=True, exist_ok=True)
         out_path = step_dir / default_out_path.name
         print(f"Creating new version: {next_ver}")
+    elif not in_versioned_pipeline:
+        out_path = _pull_out_path(file_path)
     else:
         out_path = default_out_path
 
     out_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"[OK] Saved to {out_path.relative_to(project_root)}")
+
+    # Register the page_id so future pulls don't need --page-id
+    if page_id_override:
+        title = file_path.parent.parent.parent.name  # best-effort title from path
+        set_registry_entry(out_path, page_id, title)
+        print(f"[OK] Registered {page_id} in notion_pages.json")
 
     blocks_path = out_path.parent / "notion_blocks.json"
     blocks_path.write_text(json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

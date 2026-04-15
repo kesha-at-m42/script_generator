@@ -1,54 +1,401 @@
 
 ======================================================================
 RUNNING PIPELINE
-Steps: 5
-Output Directory: C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v21
+Steps: 13
+Output Directory: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10
 ======================================================================
 
-[STEP 1/5] [AI] script_generator
-  [SKIP] Outside execution range (2-4)
+[STEP 1/13] [FORMATTING] split_spec
+  [SKIP] Outside execution range (5-13)
 
-[STEP 2/5] [FORMATTING] filter_sections
-  [DIR] step_02_filter_sections
-  [AUTO-CHAIN] Using base version: v20/step_01_script_generator\script_generator.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v20\step_01_script_generator\script_generator.json
-  [DEBUG] File size: 79790 bytes
-  [DEBUG] Read 77247 chars from 79790 bytes
+[STEP 2/13] [AI] starterpack_parser
+  [SKIP] Outside execution range (5-13)
+
+[STEP 3/13] [FORMATTING] load_specs_for_lesson
+  [SKIP] Outside execution range (5-13)
+
+[STEP 4/13] [FORMATTING] check_glossary_drift
+  [SKIP] Outside execution range (5-13)
+
+[STEP 5/13] [AI] section_structurer
+  [DIR] step_05_section_structurer
+  [AUTO-CHAIN] Using base version: v9/step_04_check_glossary_drift\check_glossary_drift.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v9\step_04_check_glossary_drift\check_glossary_drift.json
+  [DEBUG] File size: 22356 bytes
+  [DEBUG] Read 21891 chars from 22356 bytes
+  [OK] Loaded 21891 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 20 items from JSON array
+  [RERUN] Processing only: ['s3_5_what_information_needed', 's3_6_solving_with_selected_data', 's3_7_two_step_sequential']
+  [SKIP 1/20] s1_1_reading_graph_most_votes (not in only_items)
+  [SKIP 2/20] s1_2_finding_least (not in only_items)
+  [SKIP 3/20] s1_3_graph_components_have_jobs (not in only_items)
+  [SKIP 4/20] s1_4_new_graph_vertical_orientation (not in only_items)
+  [SKIP 5/20] s1_5_practice_reading_values (not in only_items)
+  [SKIP 6/20] s1_6_picture_to_bar_graph_transition (not in only_items)
+  [SKIP 7/20] s2_1_connecting_bars_to_symbols (not in only_items)
+  [SKIP 8/20] s2_2_reading_bar_graphs_independently (not in only_items)
+  [SKIP 9/20] s2_3_reading_fewest_books (not in only_items)
+  [SKIP 10/20] s2_4_horizontal_bar_graph (not in only_items)
+  [SKIP 11/20] s2_5_comparing_bar_graphs (not in only_items)
+  [SKIP 12/20] s2_6_section_transition (not in only_items)
+  [SKIP 13/20] s3_1_how_many_more_subtract (not in only_items)
+  [SKIP 14/20] s3_2_how_many_fewer_subtract (not in only_items)
+  [SKIP 15/20] s3_3_in_all_add_for_total (not in only_items)
+  [SKIP 16/20] s3_4_two_step_introduction_sequential (not in only_items)
+
+  [BATCH 17/20] s3_5_what_information_needed
+    Variables: {'id': 's3_5_what_information_needed', 'visual': 'Picture Graphs (Mode 1: Reading). NEW graph. Vertical orientation. Context: "Pets We Have," 5 categories. Key: "Each X = 1 pet." Values: Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Data Table not visible.', 'guide': '"Look at this graph. It shows how many pets each student in a class owns. The next question will ask: \'How many fewer students have fish than dogs?\' Before we solve it, which categories do you need?"'}...
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_05_section_structurer\prompts\s3_5_what_information_needed.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 416
+  output_tokens: 568
+  total_tokens: 984
+  requests: 1
+  cache_creation_tokens: 10375
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 18/20] s3_6_solving_with_selected_data
+    Variables: {'id': 's3_6_solving_with_selected_data', 'visual': 'Picture Graphs (Mode 1: Reading). Same "Pets We Have" graph (vertical). System highlights Dogs (7) and Fish (4) only. Cats, Birds, Lizards dimmed/unhighlighted. Data Table not visible.', 'guide': '"Now solve it. Remember: \'how many fewer\' means compare or find the difference. How many fewer students have fish than dogs?"'}...
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_05_section_structurer\prompts\s3_6_solving_with_selected_data.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 462
+  output_tokens: 626
+  total_tokens: 1088
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 10375
+  cache_savings: 90% (saved 10375 tokens)
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 19/20] s3_7_two_step_sequential
+    Variables: {'id': 's3_7_two_step_sequential', 'visual': 'Picture Graphs (Mode 1: Reading). Same "Pets We Have" graph (vertical). All categories at default state (no highlighting). Data Table not visible.', 'guide': '"Question: How many MORE students have Cats than Fish and Lizards combined?'}...
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_05_section_structurer\prompts\s3_7_two_step_sequential.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 629
+  output_tokens: 1034
+  total_tokens: 1663
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 10375
+  cache_savings: 90% (saved 10375 tokens)
+
+======================================================================
+Building prompt: section_structurer
+======================================================================
+  Loading prompt definition: section_structurer
+  [OK] Loaded SECTION_STRUCTURER_PROMPT
+    Resolving doc: glossary.md
+    [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 20/20] s3_8_bridge_to_exit_check (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 3/20
+    Skipped: 17
+    Errors: 0
+  [SAVE] Saved 3 items to: step_05_section_structurer\section_structurer.json
+
+[STEP 6/13] [FORMATTING] stamp_ids
+  [DIR] step_06_stamp_ids
+  [AUTO-CHAIN] Using previous step output: step_05_section_structurer\section_structurer.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_05_section_structurer\section_structurer.json
+  [DEBUG] File size: 9285 bytes
+  [DEBUG] Read 8976 chars from 9285 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_06_stamp_ids\stamp_ids.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_06_stamp_ids\stamp_ids.json
+
+[STEP 7/13] [FORMATTING] extract_dialogues
+  [DIR] step_07_extract_dialogues
+  [AUTO-CHAIN] Using previous step output: step_06_stamp_ids\stamp_ids.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_06_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 10415 bytes
+  [DEBUG] Read 10084 chars from 10415 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing input to parameter 'data'
   [OK] Formatting complete
-  [SAVE] Saved JSON to: step_02_filter_sections\filter_sections.json
+  [SAVE] Saved JSON to: step_07_extract_dialogues\extract_dialogues.json
 
-[STEP 3/5] [AI] remediation_generator
-  [DIR] step_03_remediation_generator
-  [AUTO-CHAIN] Using previous step output: step_02_filter_sections\filter_sections.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v21\step_02_filter_sections\filter_sections.json
-  [DEBUG] File size: 84877 bytes
-  [DEBUG] Read 82329 chars from 84877 bytes
-  [OK] Loaded 82329 chars
+[STEP 8/13] [AI] dialogue_rewriter
+  [DIR] step_08_dialogue_rewriter
+  [AUTO-CHAIN] Using previous step output: step_07_extract_dialogues\extract_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_07_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 1785 bytes
+  [DEBUG] Read 1733 chars from 1785 bytes
+  [OK] Loaded 1733 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 3 items from JSON array
+  [RERUN] Processing only: ['s3_5_what_information_needed', 's3_6_solving_with_selected_data', 's3_7_two_step_sequential']
+
+  [BATCH 1/3] s3_5_what_information_needed
+    Variables: {'id': 's3_5_what_information_needed', 'dialogues': [{'text': 'Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?', 'context': 'lesson'}, {'text': "You found exactly what you need: just Dogs and Fish. The other categories don't matter for this question.", 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 53 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_08_dialogue_rewriter\prompts\s3_5_what_information_needed.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 172
+  output_tokens: 72
+  total_tokens: 244
+  requests: 1
+  cache_creation_tokens: 9062
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 53 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 2/3] s3_6_solving_with_selected_data
+    Variables: {'id': 's3_6_solving_with_selected_data', 'dialogues': [{'text': "Now solve it. Remember: 'how many fewer' means compare or find the difference. How many fewer students have fish than dogs?", 'context': 'lesson'}, {'text': '3 fewer students. 7 students have dogs and 4 students have fish. The difference is 3.', 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 56 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_08_dialogue_rewriter\prompts\s3_6_solving_with_selected_data.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 164
+  output_tokens: 68
+  total_tokens: 232
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9062
+  cache_savings: 90% (saved 9062 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 56 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/3] s3_7_two_step_sequential
+    Variables: {'id': 's3_7_two_step_sequential', 'dialogues': [{'text': 'Question: How many MORE students have Cats than Fish and Lizards combined?', 'context': 'lesson'}, {'text': 'First, find how many students have Fish OR Lizards at home.', 'context': 'lesson'}, {'text': '5 in all. 4 have Fish. 1 has Lizards. 4 plus 1 equals 5.', 'context': 'on_correct'}, {'text': 'Next, how many MORE students have Cats compared to Fish and Lizards together?', 'context': 'lesson'}, {'text': '4 more students have cats than fish or lizards at home. You used TWO steps to answer questions about the pets students have at home.', 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 49 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_08_dialogue_rewriter\prompts\s3_7_two_step_sequential.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 280
+  output_tokens: 141
+  total_tokens: 421
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9062
+  cache_savings: 90% (saved 9062 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 49 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 3/3
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 3 items to: step_08_dialogue_rewriter\dialogue_rewriter.json
+
+[STEP 9/13] [FORMATTING] merge_dialogues
+  [DIR] step_09_merge_dialogues
+  [AUTO-CHAIN] Using previous step output: step_08_dialogue_rewriter\dialogue_rewriter.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_08_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 1425 bytes
+  [DEBUG] Read 1397 chars from 1425 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_09_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_merge_dialogues\merge_dialogues.json
+
+[STEP 10/13] [FORMATTING] filter_sections
+  [DIR] step_10_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_09_merge_dialogues\merge_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_09_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 10419 bytes
+  [DEBUG] Read 10088 chars from 10419 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_10_filter_sections\filter_sections.json
+
+[STEP 11/13] [AI] remediation_generator
+  [DIR] step_11_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_10_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_10_filter_sections\filter_sections.json
+  [DEBUG] File size: 11237 bytes
+  [DEBUG] Read 10899 chars from 11237 bytes
+  [OK] Loaded 10899 chars
   [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
   [BATCH] Processing items individually...
-  [DEBUG] Parsed 20 items from JSON array
-  [SKIP 1/20] s1_1_most_votes (not in only_items)
-  [SKIP 2/20] s1_2_least_votes (not in only_items)
-  [SKIP 3/20] s1_3_components_key (not in only_items)
-  [SKIP 4/20] s1_4_vertical_monkeys (not in only_items)
-  [SKIP 5/20] s1_5_fewer_than_4 (not in only_items)
-  [SKIP 6/20] s2_transition (not in only_items)
-  [SKIP 7/20] s2_1_monkeys_bar (not in only_items)
-  [SKIP 8/20] s2_2_sofia_books (not in only_items)
-  [SKIP 9/20] s2_2a_fewest_books (not in only_items)
-  [SKIP 10/20] s2_3_horizontal_colors (not in only_items)
-  [SKIP 11/20] s2_4_least_color (not in only_items)
-  [SKIP 12/20] s3_transition (not in only_items)
-  [SKIP 13/20] s3_1_how_many_more (not in only_items)
-  [SKIP 14/20] s3_2_how_many_fewer (not in only_items)
-  [SKIP 15/20] s3_3_in_all (not in only_items)
-  [SKIP 16/20] s3_3b_two_step (not in only_items)
+  [DEBUG] Parsed 3 items from JSON array
+  [RERUN] Processing only: ['s3_5_what_information_needed', 's3_6_solving_with_selected_data', 's3_7_two_step_sequential']
 
-  [BATCH 17/20] s3_4a_which_categories
-    Variables: {'id': 's3_4a_which_categories', 'scene': ['bar_graph_colors', 'result_display'], 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'bar_graph_colors'}, {'type': 'scene', 'method': 'remove', 'tangible_id': 'result_display'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_pets', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'values': [7, 9, 4, 6, 1], 'scale': 1, 'description': 'Vertical picture graph appears showing Pets We Have data. Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Key visible: each X = 1 pet.'}}, {'type': 'dialogue', 'text': 'Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?'}, {'type': 'prompt', 'text': 'Which categories do you need? Select all that apply.', 'tool': 'multi_select', 'options': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'validator': [{'condition': {'and': [{'selected': 'Dogs'}, {'selected': 'Fish'}]}, 'description': 'Student selected Dogs AND Fish only — correct categories needed', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "You found exactly what you need: just Dogs and Fish. The other categories don't matter for this question."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph showing Pets We Have. Dogs and Fish columns selected as the relevant categories.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'values': [7, 9, 4, 6, 1], 'scale': 1}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph in reading mode. Pets We Have data. multi_select tool active.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'values': [7, 9, 4, 6, 1], 'scale': 1}]}]]}...
+  [BATCH 1/3] s3_5_what_information_needed
+    Variables: {'id': 's3_5_what_information_needed', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_pets', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'description': 'Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=9, Fish=4, Birds=6, Lizards=1. Key: each X = 1 pet.'}, 'id': 's3_5_what_information_needed_b0'}, {'type': 'dialogue', 'text': 'Look at this graph. It shows how many pets each student in a class owns. The next question will ask: How many fewer students have fish than dogs? Before we solve it, which categories do you need?', 'id': 's3_5_what_information_needed_b1'}, {'type': 'prompt', 'text': 'Which categories do you need? Select all that apply.', 'tool': 'multi_select', 'options': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'validator': [{'condition_id': 'correct', 'condition': {'and': [{'selected': 'Dogs'}, {'selected': 'Fish'}]}, 'description': 'Student selected Dogs and Fish only, correct', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "Right. Just Dogs and Fish. The other categories don't matter for this question.", 'id': 's3_5_what_information_needed_b2_v0_b0'}]}], 'id': 's3_5_what_information_needed_b2'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph. Pets We Have data. Dogs and Fish categories highlighted after selection.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards']}], 'id': 's3_5_what_information_needed_b3'}], '_generated_at': '2026-04-14T16:47:39.622576+00:00'}...
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
 
@@ -57,82 +404,205 @@ Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
      [OK] Fetched 'misconceptions'
      [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
      [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
      [OK] Fetched 'vocabulary'
      [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
-     [OK] Fetched 'visual_constraints' from 'available_visuals.constraints'
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
   [OK] Built prompt with 5 system blocks
-  [OK] Prefill: 48 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v21\step_03_remediation_generator\prompts\s3_4a_which_categories.md
+  [OK] Prefill: 54 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_11_remediation_generator\prompts\s3_5_what_information_needed.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 1024
-  output_tokens: 1404
-  total_tokens: 2428
+  input_tokens: 780
+  output_tokens: 1042
+  total_tokens: 1822
   requests: 1
-  cache_creation_tokens: 0
-  cache_read_tokens: 16845
-  cache_savings: 90% (saved 16845 tokens)
+  cache_creation_tokens: 17385
+  cache_read_tokens: 0
+  cache_savings: 0%
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing', 'visual_constraints']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
      --> Skipping 'misconceptions' (already provided)
      --> Skipping 'forbidden_phrases' (already provided)
      --> Skipping 'required_phrases' (already provided)
      --> Skipping 'vocabulary' (already provided)
      --> Skipping 'the_one_thing' (already provided)
-     --> Skipping 'visual_constraints' (already provided)
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
   [OK] Built prompt with 5 system blocks
-  [OK] Prefill: 48 chars
+  [OK] Prefill: 54 chars
     [SKIP] No validation prompt defined
     [OK] Completed
-  [SKIP 18/20] s3_4b_solve_with_selected (not in only_items)
-  [SKIP 19/20] s3_4c_two_step_pets (not in only_items)
-  [SKIP 20/20] s3_bridge_to_exit (not in only_items)
+
+  [BATCH 2/3] s3_6_solving_with_selected_data
+    Variables: {'id': 's3_6_solving_with_selected_data', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_pets', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'description': 'Vertical picture graph appears. Pets We Have data. Dogs=7, Cats=6, Fish=4, Birds=5, Lizards=3. Dogs and Fish columns highlighted. Cats, Birds, Lizards dimmed.'}, 'id': 's3_6_solving_with_selected_data_b0'}, {'type': 'scene', 'method': 'update', 'tangible_id': 'picture_graph_pets', 'params': {'highlight_categories': ['Dogs', 'Fish'], 'description': 'Dogs and Fish columns highlighted. Cats, Birds, Lizards dimmed.'}, 'id': 's3_6_solving_with_selected_data_b1'}, {'type': 'dialogue', 'text': "Now solve it. Remember: 'how many fewer' means compare or find the difference. How many fewer students have fish than dogs?", 'id': 's3_6_solving_with_selected_data_b2'}, {'type': 'prompt', 'text': 'How many fewer students have fish than dogs?', 'tool': 'multiple_choice', 'options': [3, 4, 7, 11], 'validator': [{'condition_id': 'correct', 'condition': {'selected': 3}, 'description': 'Student answered 3, correct (7 - 4 = 3)', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': 'Right. 3 fewer students. 7 students have dogs and 4 students have fish. The difference is 3.', 'id': 's3_6_solving_with_selected_data_b3_v0_b0'}]}], 'id': 's3_6_solving_with_selected_data_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph. Pets We Have data. Dogs and Fish columns highlighted. Multiple choice tool active.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards']}], 'id': 's3_6_solving_with_selected_data_b4'}], '_generated_at': '2026-04-14T16:47:46.675930+00:00'}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_11_remediation_generator\prompts\s3_6_solving_with_selected_data.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 876
+  output_tokens: 694
+  total_tokens: 1570
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 17385
+  cache_savings: 90% (saved 17385 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 57 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/3] s3_7_two_step_sequential
+    Variables: {'id': 's3_7_two_step_sequential', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_pets', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards'], 'description': 'Vertical picture graph appears. Pets We Have data. Dogs=10, Cats=9, Fish=4, Birds=3, Lizards=1. All categories at default state.'}, 'id': 's3_7_two_step_sequential_b0'}, {'type': 'dialogue', 'text': 'Question: How many MORE students have Cats than Fish and Lizards combined?', 'id': 's3_7_two_step_sequential_b1'}, {'type': 'dialogue', 'text': 'First, find how many students have Fish OR Lizards at home.', 'id': 's3_7_two_step_sequential_b2'}, {'type': 'prompt', 'text': 'How many have Fish or Lizards combined?', 'tool': 'multiple_choice', 'options': [3, 4, 5, 6, 13], 'validator': [{'condition_id': 'correct', 'condition': {'selected': 5}, 'description': 'Student answered 5, correct, Fish 4 plus Lizards 1 equals 5', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "That's right. 5 in all. 4 have Fish. 1 has Lizards. 4 plus 1 equals 5.", 'id': 's3_7_two_step_sequential_b3_v0_b0'}]}], 'id': 's3_7_two_step_sequential_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph in reading mode. Pets We Have data. Multiple choice tool active for step 1.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards']}], 'id': 's3_7_two_step_sequential_b4'}, {'type': 'scene', 'method': 'update', 'tangible_id': 'picture_graph_pets', 'params': {'highlight_categories': ['Cats'], 'description': 'Cats column highlights for comparison. Fish and Lizards total (5) displayed on screen.'}, 'id': 's3_7_two_step_sequential_b5'}, {'type': 'dialogue', 'text': 'Next, how many MORE students have Cats compared to Fish and Lizards together?', 'id': 's3_7_two_step_sequential_b6'}, {'type': 'prompt', 'text': 'How many MORE have Cats than the total of Fish and Lizards?', 'tool': 'multiple_choice', 'options': [4, 5, 9, 14], 'validator': [{'condition_id': 'correct', 'condition': {'selected': 4}, 'description': 'Student answered 4, correct, 9 minus 5 equals 4', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': 'Correct. 4 more students have cats than fish or lizards at home. You used TWO steps to answer questions about the pets students have at home.', 'id': 's3_7_two_step_sequential_b7_v0_b0'}]}], 'id': 's3_7_two_step_sequential_b7'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_pets', 'description': 'Vertical picture graph in reading mode. Pets We Have data. Cats column highlighted. Fish and Lizards total (5) displayed. Multiple choice tool active for step 2.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'vertical', 'categories': ['Dogs', 'Cats', 'Fish', 'Birds', 'Lizards']}], 'id': 's3_7_two_step_sequential_b8'}], '_generated_at': '2026-04-14T16:47:57.192941+00:00'}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_11_remediation_generator\prompts\s3_7_two_step_sequential.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1400
+  output_tokens: 1621
+  total_tokens: 3021
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 17385
+  cache_savings: 90% (saved 17385 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
 
   [BATCH COMPLETE]
-    Processed: 20/20
+    Processed: 3/3
     Skipped: 0
     Errors: 0
-  [SAVE] Saved 20 items to: step_03_remediation_generator\remediation_generator.json
+  [SAVE] Saved 3 items to: step_11_remediation_generator\remediation_generator.json
 
-[STEP 4/5] [FORMATTING] merge_remediation
-  [DIR] step_04_merge_remediation
-  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v21\step_03_remediation_generator\remediation_generator.json
-  [DEBUG] File size: 82667 bytes
-  [DEBUG] Read 80024 chars from 82667 bytes
+[STEP 12/13] [FORMATTING] merge_remediation
+  [DIR] step_12_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_11_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_11_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 18433 bytes
+  [DEBUG] Read 17878 chars from 18433 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_module_1\v21\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_12_merge_remediation\merge_remediation.json
   [EXEC] Passing input to parameter 'data'
   [OK] Formatting complete
-  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+  [SAVE] Saved JSON to: step_12_merge_remediation\merge_remediation.json
 
-[STEP 5/5] [FORMATTING] push
-  [SKIP] Outside execution range (2-4)
+[STEP 13/13] [FORMATTING] push
+  [DIR] step_13_push
+  [AUTO-CHAIN] Using previous step output: step_12_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_12_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 30419 bytes
+  [DEBUG] Read 29560 chars from 30419 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_1\v10\step_13_push\push.json
+  [EXEC] Passing rerun_items=['s3_5_what_information_needed', 's3_6_solving_with_selected_data', 's3_7_two_step_sequential']
+  [EXEC] Passing input to parameter 'data'
+  [NOTION] Rerun mode — pushing only: ['s3_5_what_information_needed', 's3_6_solving_with_selected_data', 's3_7_two_step_sequential']
+
+  [NOTION] Pushed -> https://notion.so/3425917eac52819792e0e49bef5ec9bc
+  [NOTION] Tagged 3 sections + 14 beats → merge_remediation.json
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_13_push\push.json
 
 ======================================================================
 PIPELINE COMPLETE
-Version: v21
+Version: v10
 Status: draft
-Duration: 18.6s
-Output: outputs/lesson_generator_module_1/latest/
+Duration: 91.3s
+Output: outputs/lesson_generator_dialogue_pass_module_1/latest/
 ======================================================================

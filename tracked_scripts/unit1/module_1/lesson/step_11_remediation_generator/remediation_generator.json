@@ -1,0 +1,2011 @@
+[
+  {
+    "id": "s1_1_reading_graph_most_votes",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look at the numbers next to each row—which one is biggest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_fruits",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count the symbols in each row. Apples has 6—more than Bananas, Oranges, or Grapes."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_fruits",
+                "params": {
+                  "event": "highlight_category_with_count",
+                  "status": "confirmed",
+                  "description": "System highlights Apples row and counts each symbol aloud: 1, 2, 3, 4, 5, 6",
+                  "category": "Apples"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. I'll count the Apples row: 1, 2, 3, 4, 5, 6. Now Bananas: 1, 2, 3, 4. Oranges: 1, 2, 3, 4, 5. Grapes: 1, 2, 3. Apples has 6—the most. Click Apples."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:05.400479+00:00"
+  },
+  {
+    "id": "s1_2_finding_least",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Which row has the smallest number of symbols?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_fruits",
+                "params": {
+                  "highlight_categories": [
+                    "Grapes"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count each row: Apples 6, Bananas 4, Oranges 5, Grapes 3. Which number is smallest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_fruits",
+                "params": {
+                  "event": "highlight_category_with_count",
+                  "status": "confirmed",
+                  "description": "System highlights Grapes row and displays count of 3",
+                  "category": "Grapes"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. I'll count each row. Apples has 6, Bananas has 4, Oranges has 5, and Grapes has 3. Three is the smallest number, so Grapes got the least votes."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:14.203107+00:00"
+  },
+  {
+    "id": "s1_3_graph_components_have_jobs",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked wrong component on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look for the part that shows what each picture means."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked wrong component on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "highlight_key",
+                  "status": "proposed",
+                  "description": "Key pulses to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: the key tells us the scale. It shows that each animal picture equals 1 animal."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked wrong component three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "highlight_key",
+                  "status": "confirmed",
+                  "description": "Key highlights with confirmation animation."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The key is this box that says each animal picture equals 1 animal. That's the scale — it tells us what each symbol means. Click the key."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:22.030833+00:00"
+  },
+  {
+    "id": "s1_4_new_graph_vertical_orientation",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5 — counted Lions column instead of Monkeys",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "highlight_categories": [
+                    "Monkeys"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the Lions value. We need the Monkeys column — find it on the graph and count those symbols."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — counted Penguins column instead of Monkeys",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "highlight_categories": [
+                    "Monkeys"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the Penguins value. Look for the Monkeys label at the bottom and count up the symbols in that column."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 8
+          },
+          "description": "Student selected 8 — miscounted or added incorrectly",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "highlight_categories": [
+                    "Monkeys"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's count the Monkeys column carefully. Each symbol equals 1 animal. Count them one at a time."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "count_category_symbols",
+                  "status": "confirmed",
+                  "description": "System counts Monkeys symbols one by one from bottom to top: 1, 2, 3, 4, 5, 6, 7",
+                  "category": "Monkeys"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Find the Monkeys label at the bottom. Now count up: 1, 2, 3, 4, 5, 6, 7. The answer is 7 monkeys. See how that works?"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:32.647440+00:00"
+  },
+  {
+    "id": "s1_5_practice_reading_values",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the symbols in each column and look for the one with fewer than 4."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "highlight_categories": [
+                    "Elephants"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Fewer than 4 means 3, 2, 1, or 0. Count each column's symbols. Which one has 3?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "count_symbols_in_category",
+                  "status": "confirmed",
+                  "description": "System counts symbols in each column, highlighting Elephants with 3 symbols",
+                  "category": "Elephants"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Fewer than 4 means less than 4. Lions has 5 — that's more. Monkeys has 7 — more. Elephants has 3 — that's fewer than 4. Penguins has 6 — more. The answer is Elephants."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:40.659042+00:00"
+  },
+  {
+    "id": "s1_6_picture_to_bar_graph_transition",
+    "type": "transition",
+    "scene": [
+      "picture_graph_animals",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You're reading picture graphs like a pro. Now let's see another way to show data: bar graphs."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_animals",
+          "params": {
+            "event": "transform_to_bar_graph",
+            "status": "confirmed",
+            "description": "Picture graph transforms into a vertical bar graph with axis 0 to 8, same Animals at the Zoo data. Bars replace symbol columns."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Same information, different format. Instead of counting symbols, we read where the bar ends."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_animals",
+              "description": "Vertical bar graph showing Animals at the Zoo data. Axis 0 to 8 by 1s. Lions=5, Monkeys=7, Elephants=3, Penguins=6.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Lions",
+                "Monkeys",
+                "Elephants",
+                "Penguins"
+              ],
+              "values": [
+                5,
+                7,
+                3,
+                6
+              ],
+              "scale": 1,
+              "axis_min": 0,
+              "axis_max": 8
+            },
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Animals at the Zoo values.",
+              "tangible_type": "data_table"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s2_1_connecting_bars_to_symbols",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at where the top of the Monkeys bar ends."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_animals",
+                "params": {
+                  "highlight_categories": [
+                    "Monkeys"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Find the Monkeys bar. The HEIGHT of that bar shows how many monkeys there are."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_animals",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Horizontal line draws from top of Monkeys bar perpendicular to vertical axis. Value 7 highlights on axis."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. The Monkeys bar goes up to 7 on the axis. The HEIGHT of the bar tells us there are 7 monkeys. Click the Monkeys bar."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:47.732522+00:00"
+  },
+  {
+    "id": "s2_2_reading_bar_graphs_independently",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4 — Maya's value instead of Sofia's",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Sofia"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Maya's value. Look at Sofia's bar — follow it across to see where it ends on the axis."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — Aiden's value instead of Sofia's",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Sofia"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's Aiden's value. We need Sofia's bar. Find Sofia and see where her bar stops on the axis."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 7
+          },
+          "description": "Student selected 7 — James's value instead of Sofia's",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Sofia"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found James's value. Look for Sofia's name on the graph — her bar shows a different number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Horizontal line draws from top of Sofia's bar perpendicular to vertical axis. Value 5 highlights on axis."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. First, I find Sofia's name at the bottom. Then I follow her bar up and across to the axis. Her bar stops at 5, so Sofia read 5 books."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:00:57.438425+00:00"
+  },
+  {
+    "id": "s2_3_reading_fewest_books",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at the height of each bar. Which one is the shortest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Fewest means the smallest number. Maya's bar is the shortest—she read 4 books."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "highlight_shortest_bar",
+                  "status": "confirmed",
+                  "description": "Maya's bar pulses and is highlighted as the shortest bar on the graph"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. Fewest means the smallest number. Look at all the bars: James is tallest at 7, then Aiden at 6, Sofia at 5, and Maya is shortest at 4. The shortest bar shows the fewest books—that's Maya."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:05.619005+00:00"
+  },
+  {
+    "id": "s2_4_horizontal_bar_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Which bar reaches farthest across?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Blue"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The longest bar shows the most votes. Blue's bar reaches all the way to 8."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Guideline draws from end of Blue bar to axis, showing it reaches 8",
+                  "category": "Blue"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. Blue's bar goes all the way to 8. That's longer than any other bar. Red goes to 5, Green to 4, Yellow to 6. The longest bar shows the most votes, so Blue is most popular."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:13.693173+00:00"
+  },
+  {
+    "id": "s2_5_comparing_bar_graphs",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Which bar is the shortest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The shortest bar shows the least votes. Green is the shortest bar—it only reaches 4."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times — system models the answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Guideline draws from end of Green bar to axis, highlighting it reaches only 4",
+                  "category": "Green"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. We're looking for the LEAST votes—the smallest number. Green's bar is the shortest. It only reaches 4 on the axis. That's less than Blue's 8, Red's 5, and Yellow's 6. Click Green."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:22.834006+00:00"
+  },
+  {
+    "id": "s2_6_section_transition",
+    "type": "transition",
+    "scene": [
+      "bar_graph_colors",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "data_table"
+        },
+        {
+          "type": "dialogue",
+          "text": "You found the most and the fewest. Now let's answer some different kinds of questions."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_colors",
+              "description": "Horizontal bar graph showing Favorite Colors. Data table no longer visible.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "categories": [
+                "Blue",
+                "Red",
+                "Green",
+                "Yellow"
+              ],
+              "values": [
+                8,
+                5,
+                4,
+                6
+              ],
+              "scale": 1,
+              "axis_min": 0,
+              "axis_max": 10
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s3_1_how_many_more_subtract",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 8
+          },
+          "description": "Student selected 8 — the value of Blue instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Blue",
+                    "Yellow"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "8 is how many chose Blue. But the question asks how many MORE chose Blue than Yellow. We need to find the difference by subtracting."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 14
+          },
+          "description": "Student selected 14 — added Blue and Yellow instead of subtracting",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Blue",
+                    "Yellow"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "How many MORE means we compare by subtracting, not adding. Blue has 8, Yellow has 6. We subtract to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3 — counting error or misread the values",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Blue",
+                    "Yellow"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the scale carefully. Blue reaches 8, and Yellow reaches 6. Subtract to find how many more: 8 minus 6."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "Animation shows Blue bar at 8 and Yellow bar at 6, then visually demonstrates the difference of 2 units between them"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Blue has 8 students. Yellow has 6 students. To find how many MORE chose Blue, we subtract: 8 minus 6 equals 2. The answer is 2."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:33.886976+00:00"
+  },
+  {
+    "id": "s3_2_how_many_fewer_subtract",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5 — chose the value of Red instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red",
+                    "Blue"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found how many chose Red. But the question asks how many FEWER—that means find the difference between the two numbers."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 8
+          },
+          "description": "Student selected 8 — chose the value of Blue instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red",
+                    "Blue"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found how many chose Blue. But how many fewer asks for the difference—subtract Red from Blue to compare them."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 13
+          },
+          "description": "Student selected 13 — added the values instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red",
+                    "Blue"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added the two numbers together. How many fewer means find the difference—subtract the smaller number from the bigger number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "Visual shows Blue bar at 8, Red bar at 5, with difference of 3 highlighted between them"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Blue has 8 students, Red has 5 students. To find how many fewer, we subtract: 8 minus 5 equals 3. Red has 3 fewer students than Blue."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:43.940921+00:00"
+  },
+  {
+    "id": "s3_3_in_all_add_for_total",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 1
+          },
+          "description": "Student selected 1 — likely confused about what 'in all' means or miscounted",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "In all means we want the total. Count how many students chose Yellow, then how many chose Red. Add those two numbers together."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — only counted Yellow, forgot to add Red",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Yellow's value, but the question asks for Yellow OR Red in all. That means add both bars together."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 23
+          },
+          "description": "Student selected 23 — added all categories instead of just Yellow and Red",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks only for Yellow OR Red, not all the colors. Find Yellow's value and Red's value, then add just those two."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_addition",
+                  "status": "confirmed",
+                  "description": "Yellow bar shows 6, Red bar shows 5, visual addition 6+5=11 appears"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. We want Yellow OR Red in all. Yellow has 6 students. Red has 5 students. 6 plus 5 equals 11 students in all."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:01:53.834947+00:00"
+  },
+  {
+    "id": "s3_4_two_step_introduction_sequential",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5 — only counted Red, not both categories",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Red's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — only counted Yellow, not both categories",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Yellow's value. The question asks for Yellow OR Red together. Add both bars to find how many in all."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 14
+          },
+          "description": "Student selected 14 — added Yellow, Red, and Green instead of just Yellow and Red",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow",
+                    "Red"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added too many categories. Only add Yellow and Red. Green comes in the next step when we compare."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "highlight_addition",
+                  "status": "confirmed",
+                  "description": "Yellow bar (6) and Red bar (5) pulse in sequence, then total 11 appears"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Yellow has 6 students. Red has 5 students. When we add them together, 6 plus 5 equals 11. That's how many chose Yellow or Red in all."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4 — gave Green's value instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Green's value. The question asks how many MORE 11 is than 4. Subtract to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 11
+          },
+          "description": "Student selected 11 — gave the total from step 1 instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the total from step 1. Now compare it to Green's 4. How many more is 11 than 4? Subtract to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 15
+          },
+          "description": "Student selected 15 — added 11 and 4 instead of subtracting",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks how many MORE, not how many in all. When you compare two amounts, subtract the smaller from the larger."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "confirmed",
+                  "description": "Green bar (4) extends to match against the total 11, showing difference of 7"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. We have 11 from step 1. Green has 4. To find how many more 11 is than 4, we subtract: 11 minus 4 equals 7. That's the difference."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:02:13.411859+00:00"
+  },
+  {
+    "id": "s3_5_what_information_needed",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "Dogs"
+                  },
+                  {
+                    "selected": "Fish"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "Dogs"
+                    },
+                    {
+                      "selected": "Fish"
+                    }
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "Cats"
+                    },
+                    {
+                      "selected": "Birds"
+                    },
+                    {
+                      "selected": "Lizards"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only Dogs or only Fish, but not both. Correct selections so far, incomplete.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Fish"
+                  ],
+                  "description": "Dogs and Fish categories pulse to indicate both are needed."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're on the right track. The question compares two categories. Look for both of them."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "Dogs"
+                    },
+                    {
+                      "selected": "Fish"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 3: Student selected only incorrect categories. No correct answers identified.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [],
+                  "description": "All categories dim except the graph title."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about what the question asks. It compares students who have fish to students who have dogs. Which categories would you need to answer that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "Cats"
+                  },
+                  {
+                    "selected": "Birds"
+                  },
+                  {
+                    "selected": "Lizards"
+                  }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "selected": "Dogs"
+                  },
+                  {
+                    "selected": "Fish"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected at least one correct category and at least one incorrect category.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Fish"
+                  ],
+                  "description": "Dogs and Fish categories highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the right categories, but you included some extras. The question only asks about fish and dogs, so we only need those two."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "description": "Dogs and Fish categories highlight one after the other, then both stay highlighted.",
+                  "category": [
+                    "Dogs",
+                    "Fish"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This one needs a closer look, so let's do it together. The question asks how many fewer students have fish than dogs. That tells us we need the Fish category and the Dogs category. The answer is Dogs and Fish. Those are the two we compare."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-14T16:48:21.056182+00:00"
+  },
+  {
+    "id": "s3_6_solving_with_selected_data",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4 — the value for Fish instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "proposed",
+                  "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the fish. The question asks how many fewer fish than dogs—that means find the difference between the two numbers."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 7
+          },
+          "description": "Student selected 7 — the value for Dogs instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "proposed",
+                  "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the dogs. How many fewer means compare—subtract the smaller number from the larger number to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 11
+          },
+          "description": "Student selected 11 — added 7 and 4 instead of subtracting",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "proposed",
+                  "description": "Visual comparison showing Dogs (7) and Fish (4) with difference highlighted"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: how many fewer means find the difference. That means subtract, not add. Take the smaller number away from the larger number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "demonstrate_subtraction",
+                  "status": "confirmed",
+                  "description": "System demonstrates subtracting 4 from 7 to show difference of 3"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Dogs have 7 symbols and Fish have 4 symbols. How many fewer means compare or find the difference—so we subtract: 7 minus 4 equals 3. The answer is 3."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:02:41.687863+00:00"
+  },
+  {
+    "id": "s3_7_two_step_sequential",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3 — counted only Fish, ignoring Lizards",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Lizards"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted Fish but missed Lizards. We need both categories combined. Count Fish symbols: 4. Count Lizards symbols: 1. Add them together."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4 — counted only Fish column",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Lizards"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's just Fish. The question asks for Fish OR Lizards combined. Count both categories together: 4 Fish plus 1 Lizard."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6 — likely counted Birds instead of the correct categories",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Lizards"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at which categories the question asks about. We need Fish and Lizards combined, not Birds. Count Fish: 4. Count Lizards: 1. Add those two together."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 13
+          },
+          "description": "Student selected 13 — added all categories instead of just Fish and Lizards",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Lizards"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added all the categories. The question only asks for Fish OR Lizards. Count just those two: 4 Fish and 1 Lizard."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "highlight_and_count",
+                  "status": "confirmed",
+                  "description": "System highlights Fish and Lizards columns, counts symbols in each: 4 Fish, 1 Lizard, shows 4 + 1 = 5"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. The question asks for Fish OR Lizards combined. First I count Fish: 4 symbols. Then I count Lizards: 1 symbol. Now I add them: 4 plus 1 equals 5. The answer is 5."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5 — gave the sum from step 1 instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Cats"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the total from step 1. Now we need how many MORE Cats than that total. Cats is 9. Fish and Lizards together is 5. Find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 9
+          },
+          "description": "Student selected 9 — gave the Cats total instead of finding how many more",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Cats"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's how many have Cats total. The question asks how many MORE have Cats than Fish and Lizards combined. You need to subtract: 9 Cats minus 5 for Fish and Lizards."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 14
+          },
+          "description": "Student selected 14 — added 9 and 5 instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Cats"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added the numbers. The word MORE tells us to compare — that means subtract. We have 9 Cats and 5 for Fish and Lizards. How many more is 9 than 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "compare_difference",
+                  "status": "confirmed",
+                  "description": "System shows Cats column (9) and step 1 result (5), then demonstrates subtraction: 9 - 5 = 4"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is tricky, so let me show you. We found that 5 students have Fish or Lizards. Now we need how many MORE have Cats. Cats is 9. The difference is 9 minus 5, which equals 4. 4 more students have Cats. See how that works?"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T00:03:06.177158+00:00"
+  },
+  {
+    "id": "s3_8_bridge_to_exit_check",
+    "type": "transition",
+    "scene": [
+      "picture_graph_pets",
+      "result_display"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You can read picture graphs and bar graphs. You know how many more and how many fewer mean subtract to find the difference. And in all means add to find the total. Let's see how you can apply what you learned."
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Vertical picture graph showing Pets We Have data.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Dogs",
+                "Cats",
+                "Fish",
+                "Birds",
+                "Lizards"
+              ],
+              "values": [
+                7,
+                9,
+                4,
+                6,
+                1
+              ],
+              "scale": 1
+            },
+            {
+              "tangible_id": "result_display",
+              "description": "Result from step 1: Fish + Lizards = 5",
+              "tangible_type": "text_display"
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]
