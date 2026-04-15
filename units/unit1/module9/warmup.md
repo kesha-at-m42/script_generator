@@ -49,10 +49,7 @@ Activate expression knowledge from M8 and prime the skip-counting-as-accumulatio
 | 3 circles | `3 × 2 = 6` | "6..." |
 | 4 circles | `4 × 2 = 8` | "8..." |
 | 5 circles | `5 × 2 = 10` | "10." |
-- **Visual (Phase 2):** Circles remain. A Products Strip appears below:
-```plain text
-[ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ]
-```
+- **Visual (Phase 2):** Circles remain. A Products Strip appears below: [ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ]
 - **Guide:** "5 groups of 2 gave us these products: 2, 4, 6, 8, 10."
 - **Student Action:** None (observation — system-driven animation)
 > **Design Note:** Full narration on circles 1-2 establishes the mechanism (groups accumulating, equation updating, skip-count building). Circles 3-5 let the visual carry — Guide just voices the running total. This prevents W.2 from feeling like instruction while clearly demonstrating the accumulation process. Products Strip appears but Guide does NOT name any pattern (no "all even," no "multiples"). The Equation Builder shows the = sign and product here, which is new relative to W.1's expression-only format — but no attention is drawn to it. Students see it; the Lesson will name it.

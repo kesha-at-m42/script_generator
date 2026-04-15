@@ -153,6 +153,7 @@ def split_spec(input_data, **kwargs):
             meta = _META_HEADER_RE.search(text, body_start)
             body_end = meta.start() if meta else len(text)
         body = text[body_start:body_end].strip()
+        body = re.sub(r"```[^\n]*\n(.*?)\n```", r"\1", body, flags=re.DOTALL)
 
         sections.append({
             "index": i,
