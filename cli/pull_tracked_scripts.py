@@ -33,7 +33,7 @@ from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
-from utils.notion import is_configured, load_registry, pull_lesson  # noqa: E402
+from utils.notion import is_configured, load_registry, pull_lesson, blocks_to_lesson  # noqa: E402
 
 TRACKED_DIR = project_root / "tracked_scripts"
 
@@ -83,13 +83,19 @@ def _latest_version_dir(key: str, entry: dict) -> Path | None:
     return version_dirs[-1] if version_dirs else None
 
 
-def _find_last_step_json(version_dir: Path) -> Path | None:
-    """Find the main JSON output in the last step of a version directory."""
+def _find_last_step_json(version_dir: Path, skip_pull: bool = False) -> Path | None:
+    """Find the main JSON output in the last step of a version directory.
+
+    If skip_pull is True, ignores step_*_pull directories (returns the last
+    non-pull pipeline step instead).
+    """
     step_dirs = sorted(
         [d for d in version_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_", d.name)],
         key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
     )
     for step_dir in reversed(step_dirs):
+        if skip_pull and re.match(r"^step_\d+_pull$", step_dir.name):
+            continue
         json_files = [f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name]
         if json_files:
             return json_files[0]
@@ -97,14 +103,29 @@ def _find_last_step_json(version_dir: Path) -> Path | None:
 
 
 def _notion_pull(version_dir: Path, page_id: str) -> str | None:
-    """Pull from Notion into the last step of version_dir. Returns error string or None."""
+    """Pull from Notion into the last step of version_dir. Returns error string or None.
+
+    Also writes a reverse-stamped copy of the pipeline source file (last non-pull step)
+    so that future pulls can use ID-based matching instead of LEGACY content matching.
+    """
     source = _find_last_step_json(version_dir)
     if not source:
         return "no source JSON found"
     try:
         original = json.loads(source.read_text(encoding="utf-8"))
-        patched, _flags, _blocks = pull_lesson(page_id, original)
+        patched, _flags, raw_blocks = pull_lesson(page_id, original)
         source.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+        # Reverse-stamp: apply the same Notion blocks to the pipeline source (e.g. step_12)
+        # so it gains _notion_block_id on every matched beat without a re-push.
+        pipeline_source = _find_last_step_json(version_dir, skip_pull=True)
+        if pipeline_source and pipeline_source != source:
+            pipeline_original = json.loads(pipeline_source.read_text(encoding="utf-8"))
+            pipeline_stamped, _ = blocks_to_lesson(raw_blocks, pipeline_original)
+            stamped_path = pipeline_source.parent / (pipeline_source.stem + "_notion_stamped.json")
+            stamped_path.write_text(
+                json.dumps(pipeline_stamped, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
     except Exception as e:
         return str(e)
     return None
