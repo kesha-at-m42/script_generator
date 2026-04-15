@@ -1430,6 +1430,7 @@ def lesson_to_blocks(lesson: dict | list, reviewer_user_id: str | None = None) -
 _HEADING2_ID_RE = re.compile(r"\[([^\]]+)\]\s*$")
 _EDITABLE_BEAT_TYPES = {"dialogue", "scene", "prompt"}
 _EDITABLE_CALLOUT_EMOJIS = {"💬", "🎬", "❔"}
+_EMOJI_TO_BEAT_TYPE = {"💬": "dialogue", "🎬": "scene", "❔": "prompt"}
 
 
 def _callout_emoji(block: dict) -> str | None:
@@ -1556,6 +1557,35 @@ def _scene_rendered_text(beat: dict) -> str:
         "animate": f"Animate {tid}", "add": f"Add {tid}",
     }
     return action_map.get(method, f"{method.upper()} {tid}")
+
+
+def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
+    """Scan a LEGACY positional pool for the best content match for a Notion callout.
+
+    Returns the pool index of the match, or None if no match found.
+    Content keys by type:
+    - scene (🎬):    "{method} {tangible_id}" must equal the first line of callout text
+    - dialogue (💬): stripped text must match exactly
+    - prompt (❔):   tool type must appear in callout text
+    If no content match is found, falls back to the first pool entry so
+    reviewer-added descriptions on previously-empty scenes are still captured.
+    """
+    first_line = text.split("\n")[0].strip()
+    for i, candidate in enumerate(pool):
+        c_type = candidate.get("type", "")
+        if emoji == "🎬" and c_type == "scene":
+            key = f"{candidate.get('method', '')} {candidate.get('tangible_id', '')}".strip().lower()
+            if first_line.lower().startswith(key):
+                return i
+        elif emoji == "💬" and c_type == "dialogue":
+            if _strip_dialogue_text(text) == candidate.get("text", "").strip():
+                return i
+        elif emoji == "❔" and c_type == "prompt":
+            tool = candidate.get("tool", "")
+            if tool and f"tool: {tool}" in first_line:
+                return i
+    # No structural match — fall back to first entry so reviewer edits aren't lost
+    return 0 if pool else None
 
 
 def _parse_new_beat(emoji: str, text: str) -> dict:
@@ -1690,16 +1720,21 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
         for b in json_beats
         if "_notion_block_id" in b and b.get("type") == "current_scene"
     }
-    # LEGACY: positional pools for beats that were never ID-tagged
-    positional_pool = [
-        b for b in json_beats
-        if b.get("type") in _EDITABLE_BEAT_TYPES and "_notion_block_id" not in b
-    ]
+    # LEGACY: positional pools for beats that were never ID-tagged.
+    # Split by beat type so that a 💬 callout only matches dialogue beats,
+    # 🎬 only matches scene beats, ❔ only matches prompt beats.
+    positional_pools: dict[str, list] = {
+        beat_type: [
+            b for b in json_beats
+            if b.get("type") == beat_type and "_notion_block_id" not in b
+        ]
+        for beat_type in _EDITABLE_BEAT_TYPES
+    }
+
     cs_positional_pool = [
         b for b in json_beats
         if b.get("type") == "current_scene" and "_notion_block_id" not in b
     ]
-    positional_ptr = 0
     cs_positional_ptr = 0
 
     result: list[dict] = []
@@ -1746,13 +1781,16 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
 
             if block_id in id_to_beat:
                 beat = id_to_beat[block_id]
-            elif positional_ptr < len(positional_pool):  # LEGACY
-                beat = positional_pool[positional_ptr]
-                beat["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
-                positional_ptr += 1
-            else:
-                result.append(_parse_new_beat(emoji, text))
-                continue
+            else:  # LEGACY: content-match scan (for files pushed before ID-tagging)
+                beat_type = _EMOJI_TO_BEAT_TYPE.get(emoji)
+                pool = positional_pools.get(beat_type, []) if beat_type else []
+                idx = _legacy_pool_match(pool, emoji, text)
+                if idx is not None:
+                    beat = pool.pop(idx)
+                    beat["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
+                else:
+                    result.append(_parse_new_beat(emoji, text))
+                    continue
 
             is_prompt = _apply_callout_text(beat, text)
             if is_prompt:
