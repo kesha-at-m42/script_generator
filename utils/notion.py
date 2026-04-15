@@ -1653,23 +1653,27 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
     """Patch dialogue text in a validator state from its Notion toggle.
 
     Layer 1 — ID match: each 💬 callout is matched to a dialogue beat by _notion_block_id.
-    Layer 2 — positional fallback (LEGACY): dialogue beats without _notion_block_id are
-    matched in order to remaining callouts. Strip once all files have been re-pushed with IDs.
+    Layer 2 — LEGACY content match: dialogue beats without _notion_block_id are matched by
+    word coverage (same logic as section-level LEGACY matching).
+
+    Normalizes state to flat `beats` format and removes `steps` on exit.
     """
+    from steps.formatting.id_stamper import _flatten_validator_beats
+
     toggle_children = toggle_block.get("toggle", {}).get("children", [])
-    state_beats = state.get("beats", [])
+    # _flatten_validator_beats handles both `beats` and `steps` formats
+    state_beats = _flatten_validator_beats(state)
 
     id_to_state_beat: dict[str, dict] = {
         sb["_notion_block_id"]: sb
         for sb in state_beats
         if sb.get("type") == "dialogue" and "_notion_block_id" in sb
     }
-    # LEGACY: positional pool for dialogue beats that were never ID-tagged
+    # LEGACY: content-based pool for dialogue beats that were never ID-tagged
     positional_pool = [
         sb for sb in state_beats
         if sb.get("type") == "dialogue" and "_notion_block_id" not in sb
     ]
-    positional_ptr = 0
 
     for child in toggle_children:
         if child.get("type") != "callout" or _callout_emoji(child) != "💬":
@@ -1679,10 +1683,16 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
         text = _NEW_BEAT_TAG.sub("", text).strip()
         if child_id in id_to_state_beat:
             id_to_state_beat[child_id]["text"] = _strip_dialogue_text(text)
-        elif positional_ptr < len(positional_pool):  # LEGACY
-            positional_pool[positional_ptr]["text"] = _strip_dialogue_text(text)
-            positional_pool[positional_ptr]["_notion_block_id"] = child_id  # back-fill
-            positional_ptr += 1
+        elif positional_pool:  # LEGACY: content-based match
+            idx = _legacy_pool_match(positional_pool, "💬", text)
+            if idx is not None:
+                positional_pool[idx]["text"] = _strip_dialogue_text(text)
+                positional_pool[idx]["_notion_block_id"] = child_id  # back-fill
+                positional_pool.pop(idx)
+
+    # Normalize to flat beats format so downstream sees a consistent structure
+    state["beats"] = state_beats
+    state.pop("steps", None)
 
 
 def _apply_callout_text(beat: dict, text: str) -> bool:
