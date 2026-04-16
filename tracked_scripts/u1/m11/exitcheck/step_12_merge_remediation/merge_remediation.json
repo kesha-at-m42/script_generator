@@ -1,0 +1,613 @@
+[
+  {
+    "id": "s1_1_transition_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've been working with arrays -- describing them by rows or columns, writing expressions for what you see, finding products. Let's see how it's going.",
+        "id": "s1_1_transition_exit_check_b0",
+        "_notion_block_id": "33e5917e-ac52-8160-a0ae-e593f14b7509"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_transition_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:49:49.825104+00:00",
+    "_notion_block_id": "33e5917e-ac52-81fe-a50c-c8036770fb25"
+  },
+  {
+    "id": "s1_2_build_row_expression",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_dots",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "read",
+          "item_type": "dots",
+          "rows": 2,
+          "items_per_row": 7,
+          "description": "2×7 dot array appears in read mode. 2 rows of 7 dots each."
+        },
+        "id": "s1_2_build_row_expression_b0",
+        "_notion_block_id": "33e5917e-ac52-81c4-a213-d20f53045b28"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": "expression",
+          "expression": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            9,
+            14
+          ],
+          "description": "Equation builder appears in expression mode with two blank slots and a multiplication symbol. Tile palette shows numbers 2, 3, 4, 5, 6, 7, 9, 14."
+        },
+        "id": "s1_2_build_row_expression_b1",
+        "_notion_block_id": "33e5917e-ac52-8115-8811-e5490971ae64"
+      },
+      {
+        "type": "dialogue",
+        "text": "Check out this array. Let's describe what we see by looking at the rows, then build the expression that matches.",
+        "id": "s1_2_build_row_expression_b2",
+        "_notion_block_id": "33e5917e-ac52-8133-96b9-ea11d66786f9"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the expression based on rows for this array.",
+        "tool": "place_tile",
+        "target": "equation_builder",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 2,
+                "items": 7
+              }
+            },
+            "description": "Student placed 2 in first slot and 7 in second slot, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 2 rows of 7. So that's 2 times 7.",
+                "id": "s1_2_build_row_expression_b3_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed incorrect values on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's look closely. Count the rows first, then how many dots are in each row.",
+                "id": "s1_2_build_row_expression_b3_v1_b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed incorrect values on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "highlight_rows": [
+                    0,
+                    1
+                  ],
+                  "description": "Both rows of the array highlight to emphasize the row structure."
+                },
+                "id": "s1_2_build_row_expression_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: there are 2 rows. Each row has 7 dots. The first number tells us how many rows.",
+                "id": "s1_2_build_row_expression_b3_v2_b1"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed incorrect values three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "event": "count_rows",
+                  "status": "confirmed",
+                  "description": "System counts the rows: 1, 2. Then counts dots in one row: 1, 2, 3, 4, 5, 6, 7."
+                },
+                "id": "s1_2_build_row_expression_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. First, I count the rows: 1, 2. That's 2 rows. Then I count the dots in one row: 7 dots. So the expression is 2 times 7.",
+                "id": "s1_2_build_row_expression_b3_v3_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_build_row_expression_b3",
+        "_notion_block_id": "33e5917e-ac52-8194-a856-cea254a41b7d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_dots",
+            "description": "2×7 dot array in read mode. 2 rows of 7 dots each.",
+            "tangible_type": "arrays",
+            "mode": "read",
+            "item_type": "dots",
+            "rows": 2,
+            "items_per_row": 7
+          },
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation builder in expression mode with 2 × 7 placed in the slots.",
+            "tangible_type": "equation_builder",
+            "template": "expression",
+            "expression": [
+              "2",
+              "×",
+              "7"
+            ]
+          }
+        ],
+        "id": "s1_2_build_row_expression_b4"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:00.722396+00:00",
+    "_notion_block_id": "33e5917e-ac52-8107-8280-f3dbb4958086"
+  },
+  {
+    "id": "s1_3_identify_column_expression",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_5x4",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 5,
+          "columns": 4,
+          "item_type": "dot",
+          "description": "5×4 dot array appears. 5 rows of 4 dots each."
+        },
+        "id": "s1_3_identify_column_expression_b0",
+        "_notion_block_id": "33e5917e-ac52-8163-9284-c13dd995b0b3"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "array_5x4",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "System highlights rows briefly, one at a time."
+        },
+        "id": "s1_3_identify_column_expression_b1",
+        "_notion_block_id": "33e5917e-ac52-8177-a326-dd07b1f7bbcf"
+      },
+      {
+        "type": "dialogue",
+        "text": "This array is 5 rows of 4. But here's the thing -- you can describe the same array by looking at columns instead. Which expression matches if we describe it by columns?",
+        "id": "s1_3_identify_column_expression_b2",
+        "_notion_block_id": "33e5917e-ac52-81ca-b7f0-cca2ade65c13"
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression describes this array by columns?",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 5",
+          "5 × 4",
+          "4 × 4",
+          "5 × 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 × 5"
+            },
+            "description": "Student selected 4 × 5, correct. 4 columns of 5.",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 times 5. Four columns of 5. Same array, just described a different way. Different expression.",
+                "id": "s1_3_identify_column_expression_b3_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "5 × 4"
+            },
+            "description": "Student selected 5 × 4. This describes the array by rows, not columns.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights columns, one at a time."
+                },
+                "id": "s1_3_identify_column_expression_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the rows way. Look at columns now. How many columns are there? Each column has how many dots?",
+                "id": "s1_3_identify_column_expression_b3_v1_b1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "4 × 4"
+            },
+            "description": "Student selected 4 × 4. This matches the number of columns but not the number in each column.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights one column."
+                },
+                "id": "s1_3_identify_column_expression_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You're right that there are 4 columns. But count how many dots are in each column. Is it 4 or 5?",
+                "id": "s1_3_identify_column_expression_b3_v2_b1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "5 × 5"
+            },
+            "description": "Student selected 5 × 5. This matches the number in each column but not the number of columns.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights all columns."
+                },
+                "id": "s1_3_identify_column_expression_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You're right that each column has 5 dots. But count the columns. Are there 5 columns or 4 columns?",
+                "id": "s1_3_identify_column_expression_b3_v3_b1"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "confirmed",
+                  "description": "System highlights columns one at a time, then shows 4 × 5."
+                },
+                "id": "s1_3_identify_column_expression_b3_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. I count the columns: 1, 2, 3, 4. Four columns. Each column has 5 dots. So by columns, it's 4 times 5. The answer is 4 × 5.",
+                "id": "s1_3_identify_column_expression_b3_v4_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_identify_column_expression_b3",
+        "_notion_block_id": "33e5917e-ac52-815d-9877-fe90f8474afe"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_5x4",
+            "description": "5×4 dot array. 5 rows of 4 dots each. Multiple choice tool active.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 5,
+            "columns": 4,
+            "item_type": "dot"
+          }
+        ],
+        "id": "s1_3_identify_column_expression_b4"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:08.944022+00:00",
+    "_notion_block_id": "33e5917e-ac52-81ae-b959-ced96826c0bd"
+  },
+  {
+    "id": "s1_4_build_equation_from_array",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_dots_6x3",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "dot",
+          "rows": 6,
+          "columns": 3,
+          "description": "6×3 dot array appears. 6 rows of 3 dots each."
+        },
+        "id": "s1_4_build_equation_from_array_b0",
+        "_notion_block_id": "33e5917e-ac52-8141-b16b-e48e41b2e6eb"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_array",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": "equation",
+          "slots": [
+            "groups",
+            "items",
+            "total"
+          ],
+          "palette": [
+            3,
+            4,
+            6,
+            7,
+            9,
+            15,
+            16,
+            18,
+            21
+          ],
+          "description": "Equation builder appears in equation mode: [___] × [___] = [___]. Tile palette shows: 3, 4, 6, 7, 9, 15, 16, 18, 21."
+        },
+        "id": "s1_4_build_equation_from_array_b1",
+        "_notion_block_id": "33e5917e-ac52-812e-ab2d-ced79c5ef1a1"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can describe this array by rows or by columns. Your pick. Build the equation that matches what you see.",
+        "id": "s1_4_build_equation_from_array_b2",
+        "_notion_block_id": "33e5917e-ac52-8182-9375-e5f550bd5f12"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for this array.",
+        "tool": "place_tile",
+        "target": "equation_builder_array",
+        "variable_answer": true,
+        "validator": [
+          {
+            "condition_id": "rows_6x3",
+            "condition": {
+              "placed": {
+                "groups": 6,
+                "items": 3,
+                "total": 18
+              }
+            },
+            "description": "Student placed 6 × 3 = 18 (row description)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 6 times 3 equals 18. You counted 6 rows with 3 in each row.",
+                "id": "s1_4_build_equation_from_array_b3_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "columns_3x6",
+            "condition": {
+              "placed": {
+                "groups": 3,
+                "items": 6,
+                "total": 18
+              }
+            },
+            "description": "Student placed 3 × 6 = 18 (column description)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly. 3 times 6 equals 18. You saw 3 columns with 6 in each column.",
+                "id": "s1_4_build_equation_from_array_b3_v1_b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed an incorrect equation on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's look closely. Count the rows, then count how many dots are in each row.",
+                "id": "s1_4_build_equation_from_array_b3_v2_b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed an incorrect equation on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots_6x3",
+                "params": {
+                  "highlight_structure": "rows",
+                  "description": "Array highlights row structure. 6 horizontal rows visible."
+                },
+                "id": "s1_4_build_equation_from_array_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: there are 6 rows. Each row has 3 dots. That gives you the first two numbers in the equation.",
+                "id": "s1_4_build_equation_from_array_b3_v3_b1"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed an incorrect equation three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots_6x3",
+                "params": {
+                  "event": "count_by_rows",
+                  "status": "confirmed",
+                  "description": "System counts rows: highlights each of the 6 rows in sequence, showing 3 dots per row."
+                },
+                "id": "s1_4_build_equation_from_array_b3_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_array",
+                "params": {
+                  "event": "place_tiles",
+                  "status": "confirmed",
+                  "description": "System places tiles: 6 in groups slot, 3 in items slot, 18 in total slot.",
+                  "placed": {
+                    "groups": 6,
+                    "items": 3,
+                    "total": 18
+                  }
+                },
+                "id": "s1_4_build_equation_from_array_b3_v4_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. I count the rows. There are 6 rows. I count the dots in one row. There are 3 dots. 6 times 3 equals 18. The equation is 6 times 3 equals 18.",
+                "id": "s1_4_build_equation_from_array_b3_v4_b2"
+              }
+            ]
+          }
+        ],
+        "id": "s1_4_build_equation_from_array_b3",
+        "_notion_block_id": "33e5917e-ac52-810f-8a7d-f37fe30bc063"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_dots_6x3",
+            "description": "6×3 dot array. 6 rows of 3 dots each.",
+            "tangible_type": "arrays",
+            "mode": "dot",
+            "rows": 6,
+            "columns": 3
+          },
+          {
+            "tangible_id": "equation_builder_array",
+            "description": "Equation builder in equation mode. Student has placed tiles to form the equation describing the array.",
+            "tangible_type": "equation_builder",
+            "template": "equation",
+            "slots": [
+              "groups",
+              "items",
+              "total"
+            ],
+            "palette": [
+              3,
+              4,
+              6,
+              7,
+              9,
+              15,
+              16,
+              18,
+              21
+            ]
+          }
+        ],
+        "id": "s1_4_build_equation_from_array_b4"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:21.641485+00:00",
+    "_notion_block_id": "33e5917e-ac52-813f-afda-df8239729875"
+  },
+  {
+    "id": "s1_5_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready. Let's practice.",
+        "id": "s1_5_exit_check_closure_b0",
+        "_notion_block_id": "33e5917e-ac52-81f6-b264-cc8cf4375418"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_5_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:24.632680+00:00",
+    "_notion_block_id": "33e5917e-ac52-8125-9dd1-ca7de5aa12ac"
+  }
+]

@@ -1,0 +1,1136 @@
+[
+  {
+    "id": "s1_1_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've been describing arrays and building expressions and equations. Let's connect what you've been working on.",
+        "id": "s1_1_opening_frame_b0",
+        "_notion_block_id": "33e5917e-ac52-8194-ae3f-f9c35d2695c8"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "33e5917e-ac52-814b-a50f-fa46b7ba2a81",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:17.516729+00:00",
+    "_notion_block_id": "33e5917e-ac52-81c3-9ddd-fd13e0a9a2a4",
+    "_toml_key": "section_100_opening_frame"
+  },
+  {
+    "id": "s1_2_real_world_array_to_dot",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_muffin_tin",
+        "tangible_type": "image",
+        "params": {
+          "description": "Photo/illustration of a muffin tin appears on left side of screen. 2 rows, 4 columns — 2×4 arrangement."
+        },
+        "id": "s1_2_real_world_array_to_dot_b0",
+        "_notion_block_id": "33e5917e-ac52-8118-b3fc-c647017b8a7a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_dots",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 2,
+          "columns": 4,
+          "description": "Dot array appears on right side of screen. 2 rows, 4 columns — same 2×4 dimensions as muffin tin."
+        },
+        "id": "s1_2_real_world_array_to_dot_b1",
+        "_notion_block_id": "33e5917e-ac52-818a-9e7d-d5ad5be4c576"
+      },
+      {
+        "type": "dialogue",
+        "text": "Check out these two pictures. A muffin tin and a dot array. What expression describes them both by rows?",
+        "id": "s1_2_real_world_array_to_dot_b2",
+        "_notion_block_id": "33e5917e-ac52-812e-a54c-fd934b057030"
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression describes both by rows?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 × 4",
+          "4 × 2",
+          "2 + 4",
+          "8"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 × 4"
+            },
+            "description": "Student selected 2 × 4, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 2 times 4. Whether it's muffins or dots, 2 rows of 4 is 2 times 4. The arrangement is what matters, not what's in the spots.",
+                "id": "s1_2_real_world_array_to_dot_b3_v0_b0",
+                "_notion_block_id": "33e5917e-ac52-81ba-900c-e1ddf7f8a6c7"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "4 × 2"
+            },
+            "description": "Student selected 4 × 2: reversed row and column order",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "highlight_rows": true,
+                  "description": "Rows highlight on the dot array."
+                },
+                "id": "s1_2_real_world_array_to_dot_b3_v1_b0",
+                "_notion_block_id": "33e5917e-ac52-8190-bc0a-fb14790815a6"
+              },
+              {
+                "type": "dialogue",
+                "text": "You're thinking about the arrangement, but focus on rows first. Count the rows. That's the first number when we describe by rows.",
+                "id": "s1_2_real_world_array_to_dot_b3_v1_b1",
+                "_notion_block_id": "33e5917e-ac52-8150-881a-f396b1bd3888"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "2 + 4"
+            },
+            "description": "Student selected 2 + 4: used addition instead of multiplication",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "highlight_rows": true,
+                  "description": "Rows highlight on the dot array."
+                },
+                "id": "s1_2_real_world_array_to_dot_b3_v2_b0",
+                "_notion_block_id": "33e5917e-ac52-81e2-bef3-c0e24ee22d1e"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: arrays use multiplication, not addition. 2 plus 4 is 6 and there are more than 6 objects. We want the number of rows times the items per row.",
+                "id": "s1_2_real_world_array_to_dot_b3_v2_b1",
+                "_notion_block_id": "33e5917e-ac52-8130-94cd-f56b8bcdc8f2"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "8"
+            },
+            "description": "Student selected 8: gave the total instead of the expression",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "highlight_rows": true,
+                  "description": "Rows highlight on the dot array."
+                },
+                "id": "s1_2_real_world_array_to_dot_b3_v3_b0",
+                "_notion_block_id": "33e5917e-ac52-8134-845f-f2541d201aa4"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the total, but we need the expression based on the rows. Count the rows, then how many in each row. Write this as a multiplication expression.",
+                "id": "s1_2_real_world_array_to_dot_b3_v3_b1",
+                "_notion_block_id": "33e5917e-ac52-81a4-a30c-c5d074b14421"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "event": "highlight_row_structure",
+                  "status": "confirmed",
+                  "description": "First row highlights, then second row. Then both rows highlight together showing 2 rows of 4."
+                },
+                "id": "s1_2_real_world_array_to_dot_b3_v4_b0",
+                "_notion_block_id": "33e5917e-ac52-81c3-bbac-da4964cee336"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. First, we count the rows. There are 2 rows. Next, we count how many in each row. There are 4 in each row. So the expression is 2 times 4. Whether it's muffins or dots, both pictures show the same arrangement, so both are 2 times 4. The arrangement is what matters, not what's in the spots.",
+                "id": "s1_2_real_world_array_to_dot_b3_v4_b1",
+                "_notion_block_id": "33e5917e-ac52-8132-813f-e7d936caca96"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_real_world_array_to_dot_b3",
+        "_notion_block_id": "33e5917e-ac52-811d-b5b7-d3bba202400d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_muffin_tin",
+            "description": "Photo/illustration of muffin tin on left. 2 rows, 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "arrays_dots",
+            "description": "Dot array on right. 2 rows, 4 columns. Multiple choice tool active.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 2,
+            "columns": 4
+          }
+        ],
+        "id": "s1_2_real_world_array_to_dot_b4",
+        "_notion_block_id": "33e5917e-ac52-8178-b01c-f9a8fcae75ab",
+        "_toml_key": "step_101_real_world_array_to_dot"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "33e5917e-ac52-81e9-8e5b-daa671ea2142",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:27.755464+00:00",
+    "_notion_block_id": "33e5917e-ac52-8161-bb65-e131f5cc8921",
+    "_toml_key": "section_101_real_world_array_to_dot"
+  },
+  {
+    "id": "s2_1_same_array_two_products",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_3x5",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 dot array appears at center of screen."
+        },
+        "id": "s2_1_same_array_two_products_b0",
+        "_notion_block_id": "33e5917e-ac52-81e1-80d6-cdb465efa59c"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_rows",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "×",
+            "5",
+            "=",
+            "15"
+          ],
+          "label": "rows: 3 rows of 5",
+          "position": "left",
+          "description": "Equation 3 × 5 = 15 appears below array on the left, labeled 'rows: 3 rows of 5'."
+        },
+        "id": "s2_1_same_array_two_products_b1",
+        "_notion_block_id": "33e5917e-ac52-8107-86f0-d881d251227b"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_columns",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "5",
+            "×",
+            "3",
+            "=",
+            "15"
+          ],
+          "label": "columns: 5 columns of 3",
+          "position": "right",
+          "description": "Equation 5 × 3 = 15 appears below array on the right, labeled 'columns: 5 columns of 3'."
+        },
+        "id": "s2_1_same_array_two_products_b2",
+        "_notion_block_id": "33e5917e-ac52-81d1-bf95-e0b7b0376cf5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's an array you've worked with before. If we look at the rows, it's 3 times 5 equals 15. If we look at the columns, it's 5 times 3 equals 15. Take a look at both equations. What do you notice about the products?",
+        "id": "s2_1_same_array_two_products_b3",
+        "_notion_block_id": "33e5917e-ac52-81ef-ba3f-c438723fd5b6"
+      },
+      {
+        "type": "prompt",
+        "text": "What's true for these two equations?",
+        "tool": "multiple_choice",
+        "options": [
+          "The products are both 15",
+          "The expressions are the same",
+          "They have different arrays",
+          "The factors are different"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "The products are both 15"
+            },
+            "description": "Student selected A: The products are both 15, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You got it. Same array, two different descriptions, but the product stays the same. Interesting, right? We'll explore why that works next time.",
+                "id": "s2_1_same_array_two_products_b4_v0_b0",
+                "_notion_block_id": "33e5917e-ac52-812a-a749-c93571293b34"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The expressions are the same"
+            },
+            "description": "Student selected B: The expressions are the same. This is incorrect because 3 × 5 and 5 × 3 have different factors in different order.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_rows",
+                "params": {
+                  "highlight_terms": [
+                    "3",
+                    "5"
+                  ],
+                  "description": "The factors 3 and 5 highlight in the first equation."
+                },
+                "id": "s2_1_same_array_two_products_b4_v1_b0",
+                "_notion_block_id": "33e5917e-ac52-8159-bd3d-c4d57d5084fd"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_columns",
+                "params": {
+                  "highlight_terms": [
+                    "5",
+                    "3"
+                  ],
+                  "description": "The factors 5 and 3 highlight in the second equation."
+                },
+                "id": "s2_1_same_array_two_products_b4_v1_b1",
+                "_notion_block_id": "33e5917e-ac52-81d1-8fc2-fc6a1ab65269"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this. The expressions are actually different. One is 3 times 5, the other is 5 times 3. What stays the same?",
+                "id": "s2_1_same_array_two_products_b4_v1_b2",
+                "_notion_block_id": "33e5917e-ac52-813f-a631-c64218ab6031"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They have different arrays"
+            },
+            "description": "Student selected C: They have different arrays. This is incorrect because both equations describe the same 3×5 array.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "array_3x5",
+                "params": {
+                  "highlight_all": true,
+                  "description": "The entire array pulses to show it is the same array for both equations."
+                },
+                "id": "s2_1_same_array_two_products_b4_v2_b0",
+                "_notion_block_id": "33e5917e-ac52-815c-84ac-c7cb481eca26"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at this: both equations are describing this same array. We're just counting it in two different ways. But what do both equations equal?",
+                "id": "s2_1_same_array_two_products_b4_v2_b1",
+                "_notion_block_id": "33e5917e-ac52-81e4-bb9a-ecd0383548e3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The factors are different"
+            },
+            "description": "Student selected D: The factors are different. While true, this is not what the question asks about the products.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_rows",
+                "params": {
+                  "highlight_terms": [
+                    "15"
+                  ],
+                  "description": "The factors 3 and 5 highlight in the first equation."
+                },
+                "id": "s2_1_same_array_two_products_b4_v3_b0",
+                "notion_flag": "updated",
+                "_notion_block_id": "33e5917e-ac52-8182-9ec3-cd4cdb8b2002"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_columns",
+                "params": {
+                  "highlight_terms": [
+                    "15"
+                  ],
+                  "description": "The factors 3 and 5 highlight in the second equation."
+                },
+                "id": "s2_1_same_array_two_products_b4_v3_b1",
+                "notion_flag": "updated",
+                "_notion_block_id": "33e5917e-ac52-8101-b14c-f5726712c9cc"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. The factors are in a different order, but they are the same numbers, 3 and 5. Look at the products in both equations. What do you notice?",
+                "id": "s2_1_same_array_two_products_b4_v3_b2",
+                "_notion_block_id": "33e5917e-ac52-8150-9781-c89e18fa16a9"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_rows",
+                "params": {
+                  "event": "highlight_product",
+                  "status": "confirmed",
+                  "description": "The product 15 in the first equation highlights and pulses."
+                },
+                "id": "s2_1_same_array_two_products_b4_v4_b0",
+                "_notion_block_id": "33e5917e-ac52-81b4-9b34-ca98470ca151"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_columns",
+                "params": {
+                  "event": "highlight_product",
+                  "status": "confirmed",
+                  "description": "The product 15 in the second equation highlights and pulses."
+                },
+                "id": "s2_1_same_array_two_products_b4_v4_b1",
+                "_notion_block_id": "33e5917e-ac52-816a-acfe-ec91f50321c8"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look together. Both equations describe the same array. 3 times 5 equals 15. 5 times 3 equals 15. Two different equations. The factors are in different order, but they are the same numbers, 3 and 5. What is the same? Both  products are 15, the same total number of dots.",
+                "id": "s2_1_same_array_two_products_b4_v4_b2",
+                "_notion_block_id": "33e5917e-ac52-8136-b5d3-cfda88f84ea6"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_same_array_two_products_b4",
+        "_notion_block_id": "33e5917e-ac52-8110-b1ef-c3537a7b68d8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_3x5",
+            "description": "3×5 dot array displayed at center.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 3,
+            "columns": 5
+          },
+          {
+            "tangible_id": "equation_rows",
+            "description": "Equation 3 × 5 = 15 shown on left, labeled 'rows: 3 rows of 5'.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "×",
+              "5",
+              "=",
+              "15"
+            ],
+            "label": "rows: 3 rows of 5",
+            "position": "left"
+          },
+          {
+            "tangible_id": "equation_columns",
+            "description": "Equation 5 × 3 = 15 shown on right, labeled 'columns: 5 columns of 3'.",
+            "tangible_type": "equation",
+            "expression": [
+              "5",
+              "×",
+              "3",
+              "=",
+              "15"
+            ],
+            "label": "columns: 5 columns of 3",
+            "position": "right"
+          }
+        ],
+        "id": "s2_1_same_array_two_products_b5",
+        "_notion_block_id": "33e5917e-ac52-8163-ac0c-fbd138ed284f",
+        "_toml_key": "step_102_same_array_two_products"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same array, two different descriptions, but the product stays the same. Interesting, right? We'll explore why that works next time",
+        "notion_flag": "suggested",
+        "_notion_block_id": "3415917e-ac52-8047-b159-db35b9433586"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "33e5917e-ac52-81ed-a850-c775ad2b331f",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:43.724077+00:00",
+    "_notion_block_id": "33e5917e-ac52-81fb-b7d7-e73ffd21498d",
+    "_toml_key": "section_102_same_array_two_products"
+  },
+  {
+    "id": "s3_1_arrays_real_world",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_a",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image A: Egg carton with 2 rows and 6 columns of eggs."
+        },
+        "id": "s3_1_arrays_real_world_b0",
+        "_notion_block_id": "33e5917e-ac52-8111-9a24-c59fabc4606a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_b",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns."
+        },
+        "id": "s3_1_arrays_real_world_b1",
+        "_notion_block_id": "33e5917e-ac52-813a-adf0-d84b093f4e26"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_c",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image C: Scattered marbles on a table, no alignment."
+        },
+        "id": "s3_1_arrays_real_world_b2",
+        "_notion_block_id": "33e5917e-ac52-8117-b40c-f159d4e69541"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_d",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image D: Window pane with 2 rows and 3 columns of glass panes."
+        },
+        "id": "s3_1_arrays_real_world_b3",
+        "_notion_block_id": "33e5917e-ac52-81e3-9f01-ff14f5cbdd31"
+      },
+      {
+        "type": "dialogue",
+        "text": "Arrays aren't just something we do in math. Take a look at these four pictures. Which ones show arrays?",
+        "id": "s3_1_arrays_real_world_b4",
+        "_notion_block_id": "33e5917e-ac52-81f8-b608-ca1fe9ef0d38"
+      },
+      {
+        "type": "prompt",
+        "text": "Which pictures show arrays? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                },
+                {
+                  "not_selected": "C"
+                }
+              ]
+            },
+            "description": "Student selected A, B, D and did not select C",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes. The egg carton, the parking lot, the window pane. Arrays are all around us. Same rows and columns structure you've been using.",
+                "id": "s3_1_arrays_real_world_b5_v0_b0",
+                "_notion_block_id": "33e5917e-ac52-8113-85b2-e2b5fcce39b9"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "A"
+                    },
+                    {
+                      "selected": "B"
+                    },
+                    {
+                      "selected": "D"
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "selected": "A"
+                      },
+                      {
+                        "selected": "B"
+                      },
+                      {
+                        "selected": "D"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not_selected": "C"
+                }
+              ]
+            },
+            "description": "Branch 2: Student selected only correct answers (A, B, or D) but not all of them",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_a",
+                "params": {
+                  "description": "Image A highlighted if selected"
+                },
+                "id": "s3_1_arrays_real_world_b5_v1_b0",
+                "_notion_block_id": "33e5917e-ac52-81bc-8a7a-dc88bcba3bfd"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_b",
+                "params": {
+                  "description": "Image B highlighted if selected"
+                },
+                "id": "s3_1_arrays_real_world_b5_v1_b1",
+                "_notion_block_id": "33e5917e-ac52-81ee-a22d-f6a89cbfd989"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_d",
+                "params": {
+                  "description": "Image D highlighted if selected"
+                },
+                "id": "s3_1_arrays_real_world_b5_v1_b2",
+                "_notion_block_id": "33e5917e-ac52-8119-aa70-ceb0d3a67ec8"
+              },
+              {
+                "type": "dialogue",
+                "text": "You've got some of them. Look again at the pictures you haven't picked yet. Do any of those show objects in equal rows and equal columns?",
+                "id": "s3_1_arrays_real_world_b5_v1_b3",
+                "_notion_block_id": "33e5917e-ac52-81bb-a8bd-f277a1066984"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "not": {
+                "or": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  }
+                ]
+              }
+            },
+            "description": "Branch 3: Student selected only incorrect answers (C only or no selection)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_a",
+                "params": {
+                  "description": "Image A highlighted to draw attention"
+                },
+                "id": "s3_1_arrays_real_world_b5_v2_b0",
+                "_notion_block_id": "33e5917e-ac52-81bb-8b74-cde91103d9fa"
+              },
+              {
+                "type": "dialogue",
+                "text": "An array has equal rows and equal columns. The objects line up both ways. Look at each picture and check if the objects are arranged that way. Select all that have that structure.",
+                "id": "s3_1_arrays_real_world_b5_v2_b1",
+                "_notion_block_id": "33e5917e-ac52-8196-b01c-d1d515be02ea"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "selected": "C"
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "A"
+                    },
+                    {
+                      "selected": "B"
+                    },
+                    {
+                      "selected": "D"
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Branch 4: Student selected a mix of correct (A, B, or D) and incorrect (C) answers",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_c",
+                "params": {
+                  "description": "Image C highlighted to show it does not fit"
+                },
+                "id": "s3_1_arrays_real_world_b5_v3_b0",
+                "_notion_block_id": "33e5917e-ac52-81ac-909b-cd7478d58721"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found some arrays. But one of your picks doesn't have equal rows and columns. Check each picture: can you count rows going across and columns going up and down? If yes, it's an array. Arrays need everything lined up. Try again.",
+                "id": "s3_1_arrays_real_world_b5_v3_b1",
+                "_notion_block_id": "33e5917e-ac52-81e4-a12f-e0b2918a7834"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_a",
+                "params": {
+                  "event": "highlight_rows_and_columns",
+                  "status": "confirmed",
+                  "description": "Image A highlights with visible row and column lines showing the 2 by 6 structure"
+                },
+                "id": "s3_1_arrays_real_world_b5_v4_b0",
+                "_notion_block_id": "33e5917e-ac52-8147-9249-f6ed38032572"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_b",
+                "params": {
+                  "event": "highlight_rows_and_columns",
+                  "status": "confirmed",
+                  "description": "Image B highlights with visible row and column lines showing the 3 by 4 structure"
+                },
+                "id": "s3_1_arrays_real_world_b5_v4_b1",
+                "_notion_block_id": "33e5917e-ac52-81c5-acbd-e74ac3f54fb8"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_d",
+                "params": {
+                  "event": "highlight_rows_and_columns",
+                  "status": "confirmed",
+                  "description": "Image D highlights with visible row and column lines showing the 2 by 3 structure"
+                },
+                "id": "s3_1_arrays_real_world_b5_v4_b2",
+                "_notion_block_id": "33e5917e-ac52-8194-9cc9-f73c0abe28ed"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to spot arrays. Eggs: 2 rows and 6 columns of eggs. Cars: 3 rows and 4 columns of cars. Windows: 2 rows and 3 columns of window panes. The marbles don't work because they aren't lined up in rows or columns. The egg carton, parking lot and window pane are arrays. These show the same rows and columns structure you've been using.",
+                "id": "s3_1_arrays_real_world_b5_v4_b3",
+                "_notion_block_id": "33e5917e-ac52-812b-91c8-f0c1ea9af54d"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b5",
+        "_notion_block_id": "33e5917e-ac52-8154-ba80-ef7d218c4ca7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_a",
+            "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_b",
+            "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_c",
+            "description": "Image C: Scattered marbles on a table, no alignment.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_d",
+            "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b6",
+        "_notion_block_id": "33e5917e-ac52-8172-9107-d15b1bebf1d4",
+        "_toml_key": "step_104_arrays_real_world"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can spot arrays everywhere. Same math, rows times items per row or columns times items per column, no matter what the objects are.",
+        "id": "s3_1_arrays_real_world_b7",
+        "_notion_block_id": "33e5917e-ac52-8162-a309-f594feaa9571"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_a",
+            "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_b",
+            "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_c",
+            "description": "Image C: Scattered marbles on a table, no alignment.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_d",
+            "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b8",
+        "_notion_block_id": "33e5917e-ac52-816e-9027-efc755260909",
+        "_toml_key": "step_105_arrays_real_world"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "33e5917e-ac52-8127-a217-f30609ddb877",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:56.905382+00:00",
+    "_notion_block_id": "33e5917e-ac52-8125-aa18-d71959ae9faa",
+    "_toml_key": "section_103_arrays_real_world"
+  },
+  {
+    "id": "s3_2_metacognitive_reflection",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "If you had to pick one thing from today to remember, what would it be?",
+        "id": "s3_2_metacognitive_reflection_b0",
+        "_notion_block_id": "33e5917e-ac52-8108-991e-d12753b92175"
+      },
+      {
+        "type": "prompt",
+        "text": "What's the most important thing you learned?",
+        "tool": "multiple_choice",
+        "options": [
+          "An array has rows AND columns",
+          "Your description determines your expression",
+          "The same array can give you two different expressions"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "An array has rows AND columns"
+            },
+            "description": "Student selected option A",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Rows and columns. That's what makes an array an array, not just scattered groups. You'll keep using that structure.",
+                "id": "s3_2_metacognitive_reflection_b1_v0_b0",
+                "_notion_block_id": "33e5917e-ac52-8119-932c-f80101d80181"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "Your description determines your expression"
+            },
+            "description": "Student selected option B",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly. What you say is what you write. When your words are precise, your math is too.",
+                "id": "s3_2_metacognitive_reflection_b1_v1_b0",
+                "_notion_block_id": "33e5917e-ac52-8159-92d4-d659e253f26f"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "The same array can give you two different expressions"
+            },
+            "description": "Student selected option C",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Two ways to describe it, two expressions, same array. We'll build on that next time.",
+                "id": "s3_2_metacognitive_reflection_b1_v2_b0",
+                "_notion_block_id": "33e5917e-ac52-815d-96be-cbaeefcf93c7"
+              }
+            ]
+          }
+        ],
+        "id": "s3_2_metacognitive_reflection_b1",
+        "_notion_block_id": "33e5917e-ac52-81b3-9e05-ce1c3ba15cfa"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "33e5917e-ac52-8179-8066-d4cb3e2427fe",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:51:03.927367+00:00",
+    "_notion_block_id": "33e5917e-ac52-81f0-8ea6-fdb451b14760",
+    "_toml_key": "section_104_metacognitive_reflection"
+  },
+  {
+    "id": "s3_3_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_3x5",
+        "tangible_type": "arrays",
+        "params": {
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 array appears showing 15 dots in 3 rows of 5."
+        },
+        "id": "s3_3_identity_building_closure_b0",
+        "_notion_block_id": "33e5917e-ac52-81d4-b490-cd3e4c90688d"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_3x5",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "x",
+            "5",
+            "=",
+            "15"
+          ],
+          "description": "Equation 3 × 5 = 15 appears beside the array."
+        },
+        "id": "s3_3_identity_building_closure_b1",
+        "_notion_block_id": "33e5917e-ac52-8167-9d8a-cba1a6995558"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_5x3",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "5",
+            "x",
+            "3",
+            "=",
+            "15"
+          ],
+          "description": "Equation 5 × 3 = 15 appears below the first equation."
+        },
+        "id": "s3_3_identity_building_closure_b2",
+        "_notion_block_id": "33e5917e-ac52-815d-b719-c5ea3b828220"
+      },
+      {
+        "type": "dialogue",
+        "text": "You came in knowing about equal groups in bags and boxes. Now you're seeing them lined up as arrays with rows and columns. You can describe the same array two different ways. You can write the expression for each one. And you can find the product.",
+        "id": "s3_3_identity_building_closure_b3",
+        "_notion_block_id": "33e5917e-ac52-816e-920c-faf83434e3ca"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "arrays_3x5",
+        "params": {
+          "description": "3×5 array fades out."
+        },
+        "id": "s3_3_identity_building_closure_b4",
+        "_notion_block_id": "33e5917e-ac52-81bd-a013-d5d42f760c41"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_3x5",
+        "params": {
+          "description": "Equation 3 × 5 = 15 fades out."
+        },
+        "id": "s3_3_identity_building_closure_b5",
+        "_notion_block_id": "33e5917e-ac52-8148-b959-c10f0d6bd13e"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_5x3",
+        "params": {
+          "description": "Equation 5 × 3 = 15 fades out."
+        },
+        "id": "s3_3_identity_building_closure_b6",
+        "_notion_block_id": "33e5917e-ac52-812b-a317-d30bb32b5752"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_4x3",
+        "tangible_type": "arrays",
+        "params": {
+          "rows": 4,
+          "columns": 3,
+          "description": "4×3 array appears showing 12 dots in 4 rows of 3. A question mark appears where equations would be."
+        },
+        "id": "s3_3_identity_building_closure_b7",
+        "_notion_block_id": "33e5917e-ac52-81ec-8708-c9bd44968313"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_4x3",
+            "description": "4×3 array visible with 12 dots. Question mark where equations would appear.",
+            "tangible_type": "arrays",
+            "rows": 4,
+            "columns": 3
+          }
+        ],
+        "id": "s3_3_identity_building_closure_b8",
+        "_notion_block_id": "33e5917e-ac52-8117-bc36-d1d0ddda061d",
+        "_toml_key": "step_107_identity_building_closure"
+      },
+      {
+        "type": "dialogue",
+        "text": "You noticed something about those two products. Next time, we're going to figure out WHY that happens and whether it's always true.",
+        "id": "s3_3_identity_building_closure_b9",
+        "_notion_block_id": "33e5917e-ac52-8112-801a-efb3c45a6663"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "arrays_4x3",
+        "params": {
+          "event": "rotate_90_degrees",
+          "status": "confirmed",
+          "description": "4×3 array rotates 90 degrees, becoming 3×4 array with 3 rows of 4."
+        },
+        "id": "s3_3_identity_building_closure_b10",
+        "_notion_block_id": "33e5917e-ac52-8144-ac99-edc9339d6891"
+      },
+      {
+        "type": "dialogue",
+        "text": "Get ready.",
+        "id": "s3_3_identity_building_closure_b12",
+        "_notion_block_id": "33e5917e-ac52-8193-9f57-d5d38b3b293b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "_toml_key": "step_108_identity_building_closure"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "3445917e-ac52-8036-a8df-c2903fdf74c0",
+        "notion_type": "paragraph"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:51:20.751418+00:00",
+    "_notion_block_id": "33e5917e-ac52-81bd-b511-f63ee0ee4c25",
+    "_toml_key": "section_105_identity_building_closure"
+  }
+]

@@ -33,11 +33,10 @@ STARTERPACK_PARSER_PROMPT = Prompt(
 - `body`: the section's content
 
 Your job:
-1. Generate a `slug` from `header` — a short snake_case phrase capturing the section's purpose (3-5 words)
-2. Extract every field from `body` using the field rules below
-3. Return a single JSON object
+1. Extract every field from `body` using the field rules below
+2. Return a single JSON object
 
-The section ID must be: `s<major>_<minor>_<slug>` using the `major` and `minor` values from the input exactly as given.
+The section ID is pre-computed and already written at the start of your response — do not change it.
 
 ---
 
@@ -101,9 +100,10 @@ If the body contains a table (e.g. Game Specifications), capture it as a nested 
 
 ## EXAMPLE OUTPUT (section 1.1)
 
+The `id` field is pre-filled for you. Continue from it:
+
 ```json
-{
-  "id": "s1_1_transition_introduce_array",
+{"id": "s1_1_transition_from_warmup",
   "visual": "Arrays with Pictures (concrete mode): Sticker sheet showing 3 rows of 4 stickers in a clear rectangular arrangement.",
   "guide": "In the Warmup, you saw equal groups lined up into a rectangle.",
   "guide_2": "See how the stickers are lined up? They go across, and they go up and down.",
@@ -120,10 +120,11 @@ This is an example for section 1.1 only. Other sections will have different fiel
     output_structure="""
 {
   "id": "s<major>_<minor>_<slug>",
+  "visual": "...",
   "guide": "..."
 }
 """,
-    prefill="{",
+    prefill='{"id": "s{major}_{minor}_{slug}",',
     examples=[],
     module_ref={},
     template_ref={},

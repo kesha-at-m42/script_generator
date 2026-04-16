@@ -1,0 +1,300 @@
+[
+  {
+    "id": "s1_1_transition_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've been working with arrays -- describing them by rows or columns, writing expressions for what you see, finding products. Let's see how it's going.",
+        "id": "s1_1_transition_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_transition_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:49:49.825104+00:00"
+  },
+  {
+    "id": "s1_2_build_row_expression",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed incorrect values on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let's look closely. Count the rows first, then how many dots are in each row."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed incorrect values on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "highlight_rows": [
+                    0,
+                    1
+                  ],
+                  "description": "Both rows of the array highlight to emphasize the row structure."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: there are 2 rows. Each row has 7 dots. The first number tells us how many rows."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed incorrect values three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots",
+                "params": {
+                  "event": "count_rows",
+                  "status": "confirmed",
+                  "description": "System counts the rows: 1, 2. Then counts dots in one row: 1, 2, 3, 4, 5, 6, 7."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. First, I count the rows: 1, 2. That's 2 rows. Then I count the dots in one row: 7 dots. So the expression is 2 times 7."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-10T16:50:58.098894+00:00"
+  },
+  {
+    "id": "s1_3_identify_column_expression",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "5 × 4"
+          },
+          "description": "Student selected 5 × 4. This describes the array by rows, not columns.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights columns, one at a time."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the rows way. Look at columns now. How many columns are there? Each column has how many dots?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "4 × 4"
+          },
+          "description": "Student selected 4 × 4. This matches the number of columns but not the number in each column.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights one column."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're right that there are 4 columns. But count how many dots are in each column. Is it 4 or 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "5 × 5"
+          },
+          "description": "Student selected 5 × 5. This matches the number in each column but not the number of columns.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "proposed",
+                  "description": "System highlights all columns."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're right that each column has 5 dots. But count the columns. Are there 5 columns or 4 columns?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_5x4",
+                "params": {
+                  "event": "highlight_columns",
+                  "status": "confirmed",
+                  "description": "System highlights columns one at a time, then shows 4 × 5."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. I count the columns: 1, 2, 3, 4. Four columns. Each column has 5 dots. So by columns, it's 4 times 5. The answer is 4 × 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-10T16:51:09.326709+00:00"
+  },
+  {
+    "id": "s1_4_build_equation_from_array",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed an incorrect equation on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let's look closely. Count the rows, then count how many dots are in each row."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed an incorrect equation on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "arrays_dots_6x3",
+                "params": {
+                  "highlight_structure": "rows",
+                  "description": "Array highlights row structure. 6 horizontal rows visible."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: there are 6 rows. Each row has 3 dots. That gives you the first two numbers in the equation."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed an incorrect equation three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "arrays_dots_6x3",
+                "params": {
+                  "event": "count_by_rows",
+                  "status": "confirmed",
+                  "description": "System counts rows: highlights each of the 6 rows in sequence, showing 3 dots per row."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_array",
+                "params": {
+                  "event": "place_tiles",
+                  "status": "confirmed",
+                  "description": "System places tiles: 6 in groups slot, 3 in items slot, 18 in total slot.",
+                  "placed": {
+                    "groups": 6,
+                    "items": 3,
+                    "total": 18
+                  }
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. I count the rows. There are 6 rows. I count the dots in one row. There are 3 dots. 6 times 3 equals 18. The equation is 6 times 3 equals 18."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-10T16:51:21.180600+00:00"
+  },
+  {
+    "id": "s1_5_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready. Let's practice.",
+        "id": "s1_5_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_5_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:24.632680+00:00"
+  }
+]

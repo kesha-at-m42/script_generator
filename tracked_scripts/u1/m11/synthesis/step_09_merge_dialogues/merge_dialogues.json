@@ -1,0 +1,616 @@
+[
+  {
+    "id": "s1_1_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've been describing arrays and building expressions and equations. Let's connect what you've been working on.",
+        "id": "s1_1_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:17.516729+00:00"
+  },
+  {
+    "id": "s1_2_real_world_array_to_dot",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_muffin_tin",
+        "tangible_type": "image",
+        "params": {
+          "description": "Photo/illustration of a muffin tin appears on left side of screen. 2 rows, 4 columns — 2×4 arrangement."
+        },
+        "id": "s1_2_real_world_array_to_dot_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_dots",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 2,
+          "columns": 4,
+          "description": "Dot array appears on right side of screen. 2 rows, 4 columns — same 2×4 dimensions as muffin tin."
+        },
+        "id": "s1_2_real_world_array_to_dot_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Check out these two pictures. A muffin tin and a dot array. What expression describes them both by rows?",
+        "id": "s1_2_real_world_array_to_dot_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression describes both by rows?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 × 4",
+          "4 × 2",
+          "2 + 4",
+          "8"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 × 4"
+            },
+            "description": "Student selected 2 × 4, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 2 times 4. Whether it's muffins or dots, 2 rows of 4 is 2 times 4. The arrangement is what matters, not what's in the spots.",
+                "id": "s1_2_real_world_array_to_dot_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_real_world_array_to_dot_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_muffin_tin",
+            "description": "Photo/illustration of muffin tin on left. 2 rows, 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "arrays_dots",
+            "description": "Dot array on right. 2 rows, 4 columns. Multiple choice tool active.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 2,
+            "columns": 4
+          }
+        ],
+        "id": "s1_2_real_world_array_to_dot_b4"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:27.755464+00:00"
+  },
+  {
+    "id": "s2_1_same_array_two_products",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_3x5",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 dot array appears at center of screen."
+        },
+        "id": "s2_1_same_array_two_products_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_rows",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "×",
+            "5",
+            "=",
+            "15"
+          ],
+          "label": "rows: 3 rows of 5",
+          "position": "left",
+          "description": "Equation 3 × 5 = 15 appears below array on the left, labeled 'rows: 3 rows of 5'."
+        },
+        "id": "s2_1_same_array_two_products_b1"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_columns",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "5",
+            "×",
+            "3",
+            "=",
+            "15"
+          ],
+          "label": "columns: 5 columns of 3",
+          "position": "right",
+          "description": "Equation 5 × 3 = 15 appears below array on the right, labeled 'columns: 5 columns of 3'."
+        },
+        "id": "s2_1_same_array_two_products_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's an array you've worked with before. If we count by rows, it's 3 times 5 equals 15. If we count by columns, it's 5 times 3 equals 15. Take a look at both equations. What do you notice about the products?",
+        "id": "s2_1_same_array_two_products_b3"
+      },
+      {
+        "type": "prompt",
+        "text": "What's true for these two equations?",
+        "tool": "multiple_choice",
+        "options": [
+          "The products are both 15",
+          "The expressions are the same",
+          "They have different arrays",
+          "The factors are different"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "The products are both 15"
+            },
+            "description": "Student selected A: The products are both 15, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You got it. Same array, two different descriptions, but the product stays the same. Interesting, right? We'll explore why that works next time.",
+                "id": "s2_1_same_array_two_products_b4_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_same_array_two_products_b4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_3x5",
+            "description": "3×5 dot array displayed at center.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 3,
+            "columns": 5
+          },
+          {
+            "tangible_id": "equation_rows",
+            "description": "Equation 3 × 5 = 15 shown on left, labeled 'rows: 3 rows of 5'.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "×",
+              "5",
+              "=",
+              "15"
+            ],
+            "label": "rows: 3 rows of 5",
+            "position": "left"
+          },
+          {
+            "tangible_id": "equation_columns",
+            "description": "Equation 5 × 3 = 15 shown on right, labeled 'columns: 5 columns of 3'.",
+            "tangible_type": "equation",
+            "expression": [
+              "5",
+              "×",
+              "3",
+              "=",
+              "15"
+            ],
+            "label": "columns: 5 columns of 3",
+            "position": "right"
+          }
+        ],
+        "id": "s2_1_same_array_two_products_b5"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:43.724077+00:00"
+  },
+  {
+    "id": "s3_1_arrays_real_world",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_a",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image A: Egg carton with 2 rows and 6 columns of eggs."
+        },
+        "id": "s3_1_arrays_real_world_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_b",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns."
+        },
+        "id": "s3_1_arrays_real_world_b1"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_c",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image C: Scattered marbles on a table, no alignment."
+        },
+        "id": "s3_1_arrays_real_world_b2"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_d",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image D: Window pane with 2 rows and 3 columns of glass panes."
+        },
+        "id": "s3_1_arrays_real_world_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "Arrays aren't just something we do in math class. Take a look at these four pictures. Which ones show arrays?",
+        "id": "s3_1_arrays_real_world_b4"
+      },
+      {
+        "type": "prompt",
+        "text": "Which pictures show arrays? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                },
+                {
+                  "not_selected": "C"
+                }
+              ]
+            },
+            "description": "Student selected A, B, D and did not select C",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yep. The egg carton, the parking lot, the window pane. Arrays are all around us. Same rows-and-columns structure you've been using.",
+                "id": "s3_1_arrays_real_world_b5_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_a",
+            "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_b",
+            "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_c",
+            "description": "Image C: Scattered marbles on a table, no alignment.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_d",
+            "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Once you start seeing arrays, you'll spot them everywhere. Same math -- rows times columns -- whether it's eggs, cars, or windows.",
+        "id": "s3_1_arrays_real_world_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_a",
+            "description": "Image A: Egg carton with 2 rows and 6 columns of eggs.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_b",
+            "description": "Image B: Parking lot with cars arranged in 3 rows and 4 columns.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_c",
+            "description": "Image C: Scattered marbles on a table, no alignment.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_d",
+            "description": "Image D: Window pane with 2 rows and 3 columns of glass panes.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s3_1_arrays_real_world_b8"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:50:56.905382+00:00"
+  },
+  {
+    "id": "s3_2_metacognitive_reflection",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "If you had to pick one thing from today to remember, what would it be?",
+        "id": "s3_2_metacognitive_reflection_b0"
+      },
+      {
+        "type": "prompt",
+        "text": "What's the most important thing you learned?",
+        "tool": "multiple_choice",
+        "options": [
+          "An array has rows AND columns",
+          "Your description determines your expression",
+          "The same array can give you two different expressions"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "An array has rows AND columns"
+            },
+            "description": "Student selected option A",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Rows and columns. That's what makes an array an array, not just scattered groups. You'll see that again.",
+                "id": "s3_2_metacognitive_reflection_b1_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "Your description determines your expression"
+            },
+            "description": "Student selected option B",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly. What you say is what you write. When your words are precise, your math is too.",
+                "id": "s3_2_metacognitive_reflection_b1_v1_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "The same array can give you two different expressions"
+            },
+            "description": "Student selected option C",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Two ways to describe it, two expressions, same array. We'll build on that next time.",
+                "id": "s3_2_metacognitive_reflection_b1_v2_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_2_metacognitive_reflection_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_2_metacognitive_reflection_b2"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:51:03.927367+00:00"
+  },
+  {
+    "id": "s3_3_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_3x5",
+        "tangible_type": "arrays",
+        "params": {
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 array appears showing 15 dots in 3 rows of 5."
+        },
+        "id": "s3_3_identity_building_closure_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_3x5",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "x",
+            "5",
+            "=",
+            "15"
+          ],
+          "description": "Equation 3 × 5 = 15 appears beside the array."
+        },
+        "id": "s3_3_identity_building_closure_b1"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_5x3",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "5",
+            "x",
+            "3",
+            "=",
+            "15"
+          ],
+          "description": "Equation 5 × 3 = 15 appears below the first equation."
+        },
+        "id": "s3_3_identity_building_closure_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "You came in knowing about equal groups in bags and boxes. Now you're seeing them lined up as arrays -- with rows and columns. You can describe the same array two different ways. You can write the expression for each one. And you can find the product.",
+        "id": "s3_3_identity_building_closure_b3"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "arrays_3x5",
+        "params": {
+          "description": "3×5 array fades out."
+        },
+        "id": "s3_3_identity_building_closure_b4"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_3x5",
+        "params": {
+          "description": "Equation 3 × 5 = 15 fades out."
+        },
+        "id": "s3_3_identity_building_closure_b5"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_5x3",
+        "params": {
+          "description": "Equation 5 × 3 = 15 fades out."
+        },
+        "id": "s3_3_identity_building_closure_b6"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_4x3",
+        "tangible_type": "arrays",
+        "params": {
+          "rows": 4,
+          "columns": 3,
+          "description": "4×3 array appears showing 12 dots in 4 rows of 3. A question mark appears where equations would be."
+        },
+        "id": "s3_3_identity_building_closure_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_4x3",
+            "description": "4×3 array visible with 12 dots. Question mark where equations would appear.",
+            "tangible_type": "arrays",
+            "rows": 4,
+            "columns": 3
+          }
+        ],
+        "id": "s3_3_identity_building_closure_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "You noticed something about those two products. Next time, we're going to figure out WHY that happens... and whether it works every time.",
+        "id": "s3_3_identity_building_closure_b9"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "arrays_4x3",
+        "params": {
+          "event": "rotate_90_degrees",
+          "status": "confirmed",
+          "description": "4×3 array rotates 90 degrees, becoming 3×4 array with 3 rows of 4."
+        },
+        "id": "s3_3_identity_building_closure_b10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_4x3",
+            "description": "Array now shows 3 rows of 4 dots after rotation.",
+            "tangible_type": "arrays",
+            "rows": 3,
+            "columns": 4
+          }
+        ],
+        "id": "s3_3_identity_building_closure_b11"
+      },
+      {
+        "type": "dialogue",
+        "text": "Get ready.",
+        "id": "s3_3_identity_building_closure_b12"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_4x3",
+            "description": "3×4 array remains on screen after rotation.",
+            "tangible_type": "arrays",
+            "rows": 3,
+            "columns": 4
+          }
+        ],
+        "id": "s3_3_identity_building_closure_b13"
+      }
+    ],
+    "_generated_at": "2026-04-10T16:51:20.751418+00:00"
+  }
+]

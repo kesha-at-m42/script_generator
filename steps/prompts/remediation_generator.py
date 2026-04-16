@@ -180,9 +180,43 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 
 ## STEP 2C: MULTISELECT MC: PER-BRANCH STATES
 
-Identify **correct answers** from the success/correct validator state condition. All other options are **incorrect answers**.
+Identify **correct answers** from the success/correct validator state condition — these are the values listed under `selected` clauses. **Incorrect answers** are values listed under `not_selected` clauses in that same condition.
 
-See `<remediation_design_ref>` Section 3B for structure, branch definitions, language requirements, and condition patterns (no Light; Branches 2/3/4 Mediums + one Heavy).
+**First, detect the no-wrong-options variant:** Count `not_selected` clauses in the correct validator condition. If there are **none**, all options are correct — no wrong options exist. Follow Section 3B.9 of `<remediation_design_ref>` and emit only Branch 2 + Heavy. Do NOT invent phantom wrong option values.
+
+For the **no-wrong-options variant**, every possible error is an under-selecting error — so use `incorrect_count` conditions (same as Non-MC L/M/H). Do NOT use Branch 2/3/4 conditions.
+
+**Light** (`incorrect_count: 1`) — dialogue only:
+```json
+{
+  "condition": { "incorrect_count": 1 },
+  "description": "Student has not selected all correct answers (first attempt)",
+  "is_correct": false,
+  "steps": [
+    [ { "type": "dialogue", "text": "..." } ]
+  ]
+}
+```
+Use a short nudge (10–20 words) pointing toward completeness — e.g. "Read the scenarios carefully. Did you select ALL?" Adapt to the content.
+
+**Medium** (`incorrect_count: 2`) — scene beat required:
+```json
+{
+  "condition": { "incorrect_count": 2 },
+  "description": "Student has not selected all correct answers (second attempt)",
+  "is_correct": false,
+  "steps": [
+    [
+      { "type": "scene", "method": "update", "tangible_id": "...", "params": { "description": "..." } },
+      { "type": "dialogue", "text": "..." }
+    ]
+  ]
+}
+```
+
+**Heavy** (`condition: {}`) — `scene animate` beat required. Models all correct answers.
+
+For the **standard variant** (has at least one `not_selected` clause = has wrong options), identify all options not listed as `selected` in the correct condition as incorrect answers. See `<remediation_design_ref>` Section 3B for structure, branch definitions, language requirements, and condition patterns (no Light; Branches 2/3/4 Mediums + one Heavy).
 
 One **Medium per branch**: scene beat required.
 ```json
@@ -229,11 +263,16 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 1. One Medium per distractor (any order among themselves)
 2. Heavy (`condition: {}`): always last
 
-**Multiselect MC inner array:**
+**Multiselect MC inner array (standard — has wrong options):**
 1. Branch 2 Medium — under-selecting
 2. Branch 3 Medium — all-wrong
 3. Branch 4 Medium — mixed
 4. Heavy (`condition: {}`): always last
+
+**Multiselect MC inner array (no-wrong-options variant — zero `not_selected` in correct condition):**
+1. Light — `{ "incorrect_count": 1 }` — dialogue only
+2. Medium — `{ "incorrect_count": 2 }` — scene beat required
+3. Heavy — `condition: {}` — always last
 
 ---
 

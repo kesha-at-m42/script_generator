@@ -1,0 +1,197 @@
+{
+  "id": "s3_1_arrays_real_world",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  }
+                ]
+              }
+            },
+            {
+              "not_selected": "C"
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only correct answers (A, B, or D) but not all of them",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_a",
+              "params": {
+                "description": "Image A highlighted if selected"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_b",
+              "params": {
+                "description": "Image B highlighted if selected"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_d",
+              "params": {
+                "description": "Image D highlighted if selected"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You've got some of them. Look again at the pictures you haven't picked yet. Do any of those show objects in equal rows and equal columns?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "or": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "B"
+              },
+              {
+                "selected": "D"
+              }
+            ]
+          }
+        },
+        "description": "Branch 3: Student selected only incorrect answers (C only or no selection)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_a",
+              "params": {
+                "description": "Image A highlighted to draw attention"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "An array has equal rows and equal columns. The objects line up both ways. Look at each picture and check if the objects are arranged that way."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "C"
+            },
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected a mix of correct (A, B, or D) and incorrect (C) answers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_c",
+              "params": {
+                "description": "Image C highlighted to show it does not fit"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found some arrays. But one of your picks doesn't have equal rows and columns. Those marbles are scattered. Arrays need everything lined up."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_a",
+              "params": {
+                "event": "highlight_rows_and_columns",
+                "status": "confirmed",
+                "description": "Image A highlights with visible row and column lines showing the 2 by 6 structure"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_b",
+              "params": {
+                "event": "highlight_rows_and_columns",
+                "status": "confirmed",
+                "description": "Image B highlights with visible row and column lines showing the 3 by 4 structure"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_d",
+              "params": {
+                "event": "highlight_rows_and_columns",
+                "status": "confirmed",
+                "description": "Image D highlights with visible row and column lines showing the 2 by 3 structure"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to spot arrays. Image A: 2 rows and 6 columns of eggs. Image B: 3 rows and 4 columns of cars. Image D: 2 rows and 3 columns of window panes. Image C doesn't work because the marbles aren't lined up in rows or columns. The correct answers are A, B, and D. Those are the arrays."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T16:52:39.811261+00:00"
+}

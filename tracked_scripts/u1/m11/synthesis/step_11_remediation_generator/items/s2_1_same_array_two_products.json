@@ -1,0 +1,141 @@
+{
+  "id": "s2_1_same_array_two_products",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "The expressions are the same"
+        },
+        "description": "Student selected B: The expressions are the same. This is incorrect because 3 × 5 and 5 × 3 have different factors in different order.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_rows",
+              "params": {
+                "highlight_terms": [
+                  "3",
+                  "5"
+                ],
+                "description": "The factors 3 and 5 highlight in the first equation."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_columns",
+              "params": {
+                "highlight_terms": [
+                  "5",
+                  "3"
+                ],
+                "description": "The factors 5 and 3 highlight in the second equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The expressions show different numbers in different order. One is 3 times 5, the other is 5 times 3. What stays the same?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They have different arrays"
+        },
+        "description": "Student selected C: They have different arrays. This is incorrect because both equations describe the same 3×5 array.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_3x5",
+              "params": {
+                "highlight_all": true,
+                "description": "The entire array pulses to show it is the same array for both equations."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: both equations are describing this same array. We're just counting it in two different ways. What do both equations equal?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The factors are different"
+        },
+        "description": "Student selected D: The factors are different. While true, this is not what the question asks about the products.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_rows",
+              "params": {
+                "highlight_terms": [
+                  "15"
+                ],
+                "description": "The product 15 highlights in the first equation."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_columns",
+              "params": {
+                "highlight_terms": [
+                  "15"
+                ],
+                "description": "The product 15 highlights in the second equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The factors are different, yes. But look at what comes after the equals sign in both equations. What do you notice?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_rows",
+              "params": {
+                "event": "highlight_product",
+                "status": "confirmed",
+                "description": "The product 15 in the first equation highlights and pulses."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_columns",
+              "params": {
+                "event": "highlight_product",
+                "status": "confirmed",
+                "description": "The product 15 in the second equation highlights and pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Both equations describe the same array. 3 times 5 equals 15. 5 times 3 equals 15. The factors are in different order, but both products are 15. The answer is 'The products are both 15.'"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T16:52:20.071230+00:00"
+}

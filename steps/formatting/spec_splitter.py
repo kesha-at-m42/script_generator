@@ -16,6 +16,7 @@ Detected header patterns:
   **Task S.N: <title>                    (synthesis tasks — bold variant; ### prefix optional)
   ### Transition into Exit Check         (exitcheck opener)
   ### Exit Check Closure                 (exitcheck closer)
+  ### Opening Hook                        (warmup opener — bold variant allowed)
   ### Opening Frame                      (synthesis opener — bold variant allowed)
   ### Metacognitive Reflection           (synthesis reflection — #### and bold variants allowed)
   ### Identity-Building Closure          (synthesis closer — bold variant allowed)
@@ -66,6 +67,8 @@ _HEADER_RE = re.compile(
     r'|'
     r'#{2,3}\s+\*{0,2}Opening\s+Frame[^\n]*'            # ### Opening Frame (synthesis), bold variant allowed
     r'|'
+    r'#{2,3}\s+\*{0,2}Opening\s+Hook[^\n]*'            # ### Opening Hook (warmup), bold variant allowed
+    r'|'
     r'#{2,4}\s+\*{0,2}Metacognitive\s+Reflection[^\n]*'  # ### / #### Metacognitive Reflection (synthesis), bold variant allowed
     r'|'
     r'#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*'  # ### Identity-Building Closure (synthesis), bold variant allowed
@@ -74,6 +77,38 @@ _HEADER_RE = re.compile(
     r')',
     re.MULTILINE,
 )
+
+
+def _slug_from_header(header: str) -> str:
+    """Derive a deterministic snake_case slug from a section header.
+
+    Takes the descriptive text (after ':', '—', or the full header),
+    strips markdown/punctuation, drops filler words, and joins the first
+    five meaningful words with underscores.
+    """
+    text = header
+    # Take text after the first ':' or '—' separator
+    for sep in (":", "—", " - "):
+        if sep in text:
+            text = text.split(sep, 1)[-1]
+            break
+    # Strip markdown markers and non-alphanumeric characters
+    text = re.sub(r"[#*\[\]()\\_]", " ", text)
+    text = re.sub(r"[^a-z0-9 ]+", " ", text.lower()).strip()
+    _STOP = {"a", "an", "the", "and", "or", "of", "to", "in", "for", "from"}
+    words = [w for w in text.split() if w and w not in _STOP]
+    return "_".join(words[:5]) or "section"
+
+
+_NUMBERED_INTERACTION_RE = re.compile(
+    r'Interaction\s+[\dW]\.|Task\s+S\.|W\.\d+|Problem\s+EC\.',
+    re.IGNORECASE,
+)
+
+
+def _is_numbered_interaction(header: str) -> bool:
+    """True if the header carries an explicit interaction/task number (W.N, X.Y, S.N, EC.N)."""
+    return bool(_NUMBERED_INTERACTION_RE.search(header))
 
 
 def _extract_major(header: str, last_major: int) -> int:
@@ -122,7 +157,7 @@ def split_spec(input_data, **kwargs):
         input_data: Raw markdown string (lesson.md / warmup.md / etc.)
 
     Returns:
-        List of {index, major, minor, header, body} dicts.
+        List of {index, major, minor, slug, header, body} dicts.
     """
     text = input_data if isinstance(input_data, str) else ""
     if not text:
@@ -141,8 +176,14 @@ def split_spec(input_data, **kwargs):
         major = _extract_major(header, last_major)
         last_major = major
 
-        minor_counters[major] += 1
-        minor = minor_counters[major]
+        # Unnamed preamble sections (Opening Hook, Opening Frame, etc.) that
+        # arrive before any numbered interaction in their major group get
+        # minor=0 so they don't displace existing s{major}_1 items on rerun.
+        if not _is_numbered_interaction(header) and minor_counters[major] == 0:
+            minor = 0
+        else:
+            minor_counters[major] += 1
+            minor = minor_counters[major]
 
         body_start = match.end()
         if i + 1 < len(matches):
@@ -155,10 +196,13 @@ def split_spec(input_data, **kwargs):
         body = text[body_start:body_end].strip()
         body = re.sub(r"```[^\n]*\n(.*?)\n```", r"\1", body, flags=re.DOTALL)
 
+        slug = _slug_from_header(header)
         sections.append({
+            "id": f"s{major}_{minor}_{slug}",
             "index": i,
             "major": major,
             "minor": minor,
+            "slug": slug,
             "header": header,
             "body": body,
         })

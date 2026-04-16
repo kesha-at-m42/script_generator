@@ -1,0 +1,211 @@
+{
+  "id": "s2_4_choose_description_write_equation_compute",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect values on first attempt (rows path)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the rows going across. How many rows do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect values on second attempt (rows path)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_dots",
+              "params": {
+                "highlight_rows": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "All three rows highlight in sequence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. There are 3 rows. Each row has 4 items. So we write 3 rows of 4 items, which is 3 times 4 equals 12."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect values three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_words",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 3 in first slot, 4 in second slot.",
+                "tiles": [
+                  {
+                    "slot": 0,
+                    "value": 3
+                  },
+                  {
+                    "slot": 1,
+                    "value": 4
+                  }
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_equation",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 3, 4, 12 in equation slots.",
+                "tiles": [
+                  {
+                    "slot": 0,
+                    "value": 3
+                  },
+                  {
+                    "slot": 1,
+                    "value": 4
+                  },
+                  {
+                    "slot": 2,
+                    "value": 12
+                  }
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to describe this array by rows. I count 3 rows going across. Each row has 4 items. That gives us 3 rows of 4 items. In numbers, that's 3 times 4 equals 12. The answer is 3 rows of 4, or 3 times 4 equals 12."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect values on first attempt (columns path)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the columns going up and down. How many columns are there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect values on second attempt (columns path)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_dots",
+              "params": {
+                "highlight_columns": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "description": "All four columns highlight in sequence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps. There are 4 columns. Each column has 3 items. So it's 4 columns of 3 items, which is 4 times 3 equals 12."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect values three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_words",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 4 in first slot, 3 in second slot.",
+                "tiles": [
+                  {
+                    "slot": 0,
+                    "value": 4
+                  },
+                  {
+                    "slot": 1,
+                    "value": 3
+                  }
+                ]
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_equation",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 4, 3, 12 in equation slots.",
+                "tiles": [
+                  {
+                    "slot": 0,
+                    "value": 4
+                  },
+                  {
+                    "slot": 1,
+                    "value": 3
+                  },
+                  {
+                    "slot": 2,
+                    "value": 12
+                  }
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this one. I count 4 columns going up and down. Each column has 3 items. That means 4 columns of 3 items. In numbers, 4 times 3 equals 12. The answer is 4 columns of 3, or 4 times 3 equals 12."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-09T19:59:47.844258+00:00"
+}

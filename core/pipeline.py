@@ -83,7 +83,15 @@ __all__ = [
     "Step",
     "run_pipeline",
     "run_single_step",
-    "get_latest_version",  # For rerun.py
+    "get_latest_version",
+    # CLI helpers
+    "add_common_pipeline_args",
+    "resolve_pipeline_name",
+    "prompt_for_pipeline",
+    "prompt_for_run_context",
+    "apply_yes_flag",
+    "parse_batch_filter_arg",
+    "parse_step_ref_arg",
 ]
 
 import time  # noqa: E402
@@ -790,7 +798,7 @@ def run_pipeline(
 
             # Calculate base version directory for rerun mode
             base_step_dir = None
-            if base_version and rerun_items:
+            if base_version:
                 pipeline_dir = _outputs_base / metadata["full_pipeline_name"]
                 base_version_dir = pipeline_dir / base_version
                 base_step_dir = get_step_directory(base_version_dir, i, step_name)
@@ -872,6 +880,18 @@ def run_pipeline(
                     item_vars = flatten_dict(item)
                     # Keep both original and flattened versions for prefill compatibility
                     merged_vars = {**step_vars, **item, **item_vars}
+
+                    # Legacy + rerun slug injection: ensure {slug} is available for prefill.
+                    # For legacy items (pre-slug spec_splitter): compute from header.
+                    # For reruns with base version: override with old slug to preserve section ids.
+                    if 'header' in merged_vars and 'slug' not in merged_vars:
+                        merged_vars['slug'] = _derive_section_slug(str(merged_vars['header']))
+                    if base_step_dir is not None and 'major' in merged_vars and 'minor' in merged_vars:
+                        _old_slug = _lookup_base_section_slug(
+                            base_step_dir, step_name, merged_vars['major'], merged_vars['minor']
+                        )
+                        if _old_slug:
+                            merged_vars['slug'] = _old_slug
 
                     if verbose:
                         # Show some key variables
@@ -1557,3 +1577,150 @@ def run_single_step(
         verbose=verbose,
         parse_json_output=parse_json_output,
     )
+
+
+# =============================================================================
+# CLI HELPERS (shared between run_pipeline.py and rerun.py)
+# =============================================================================
+
+
+def add_common_pipeline_args(parser):
+    """Add flags shared by run_pipeline.py and rerun.py to an ArgumentParser."""
+    parser.add_argument("-p", "--pipeline", type=str, help="Pipeline name or number to run")
+    parser.add_argument("-u", "--unit", type=int, help="Unit number (optional)")
+    parser.add_argument("-m", "--module", type=int, help="Module number (optional)")
+    parser.add_argument(
+        "--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c"
+    )
+    parser.add_argument(
+        "-i", "--interactive", action="store_true",
+        help="Enable interactive mode (step-by-step confirmation before each step)",
+    )
+    parser.add_argument(
+        "--start-from", type=str,
+        help="Start from this step, skipping earlier ones (step number or name)",
+    )
+    parser.add_argument(
+        "--end-at", type=str,
+        help="Stop after this step (step number or name)",
+    )
+    parser.add_argument(
+        "-y", "--yes", action="store_true", help="Skip all confirmation prompts"
+    )
+    parser.add_argument("--note", default="", help="Note about this run")
+    parser.add_argument(
+        "--status", type=str, help="Pipeline status label (alpha/beta/rc/final)"
+    )
+
+
+def resolve_pipeline_name(pipeline_arg, pipelines):
+    """Resolve a pipeline name or 1-indexed number string to a pipeline key.
+
+    Returns the resolved name on success; calls sys.exit(1) on failure.
+    """
+    if str(pipeline_arg).isdigit():
+        idx = int(pipeline_arg)
+        names = list(pipelines.keys())
+        if 1 <= idx <= len(names):
+            return names[idx - 1]
+        print(f"Invalid pipeline number: {pipeline_arg} (valid range: 1-{len(names)})")
+        sys.exit(1)
+    if pipeline_arg in pipelines:
+        return pipeline_arg
+    print(f"Unknown pipeline: '{pipeline_arg}'")
+    print("Available pipelines:")
+    for i, name in enumerate(pipelines.keys(), 1):
+        print(f"  {i}. {name}")
+    sys.exit(1)
+
+
+def prompt_for_pipeline(pipelines):
+    """Show the pipeline list and return the interactively selected name."""
+    print("\nAvailable pipelines:")
+    for i, name in enumerate(pipelines.keys(), 1):
+        print(f"  {i}. {name}")
+    choice = input(f"\nSelect pipeline [1-{len(pipelines)}]: ").strip()
+    if choice.isdigit() and 1 <= int(choice) <= len(pipelines):
+        return list(pipelines.keys())[int(choice) - 1]
+    if choice in pipelines:
+        return choice
+    print("Invalid choice")
+    sys.exit(1)
+
+
+def prompt_for_run_context(args):
+    """Prompt interactively for unit, module, path, and interactive mode if not set via flags.
+
+    Modifies *args* in place. Skips prompting when args.yes is True.
+    """
+    if getattr(args, "unit", None) is None:
+        val = input("Unit number (or Enter to skip): ").strip()
+        args.unit = int(val) if val else None
+
+    if getattr(args, "module", None) is None:
+        val = input("Module number (or Enter to skip): ").strip()
+        args.module = int(val) if val else None
+
+    if getattr(args, "path", None) is None and getattr(args, "module", None) and not getattr(args, "yes", False):
+        val = input("Path letter (a/b/c or Enter to skip): ").strip().lower()
+        args.path = val if val in ("a", "b", "c") else None
+
+    if not getattr(args, "interactive", False) and not getattr(args, "yes", False):
+        val = input("Enable interactive mode? (y/n): ").strip().lower()
+        args.interactive = val == "y"
+
+
+def apply_yes_flag(args):
+    """Set NOTION_YES env var if --yes was passed, suppressing downstream confirmation prompts."""
+    import os as _os
+    if getattr(args, "yes", False):
+        _os.environ["NOTION_YES"] = "1"
+
+
+def parse_batch_filter_arg(value):
+    """Parse a comma-separated ID string into a list of strings, or return None if falsy."""
+    if not value:
+        return None
+    return [v.strip() for v in value.split(",")]
+
+
+def parse_step_ref_arg(val):
+    """Return val as int if it looks like a number, otherwise return as-is (string name), or None."""
+    if val is None:
+        return None
+    return int(val) if str(val).isdigit() else val
+
+
+def _derive_section_slug(header: str) -> str:
+    """Compute a deterministic snake_case slug from a section header (fallback for legacy items)."""
+    import re as _re
+    text = header
+    for sep in (':', '—', ' - '):
+        if sep in text:
+            text = text.split(sep, 1)[-1]
+            break
+    text = _re.sub(r'[#*\[\]()\\_]', ' ', text)
+    text = _re.sub(r'[^a-z0-9 ]+', ' ', text.lower()).strip()
+    stop = {'a', 'an', 'the', 'and', 'or', 'of', 'to', 'in', 'for', 'from'}
+    words = [w for w in text.split() if w and w not in stop]
+    return '_'.join(words[:5]) or 'section'
+
+
+def _lookup_base_section_slug(base_step_dir, step_name: str, major, minor) -> str:
+    """Return slug extracted from old id in a base-version collated JSON, or None."""
+    collated_file = Path(base_step_dir) / f"{step_name}.json"
+    if not collated_file.exists():
+        return None
+    try:
+        with open(collated_file, 'r', encoding='utf-8') as f:
+            items = json.load(f)
+        prefix = f"s{major}_{minor}_"
+        for entry in (items if isinstance(items, list) else []):
+            old_id = str(entry.get('id', ''))
+            if old_id.startswith(prefix):
+                parts = old_id.split('_', 2)
+                if len(parts) == 3:
+                    return parts[2]
+    except Exception:
+        pass
+    return None

@@ -1,0 +1,429 @@
+[
+  {
+    "id": "s1_1_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You read picture graphs and bar graphs and used them to answer questions about the data. Now let's connect some ideas.",
+        "_notion_block_id": "31b5917e-ac52-8110-befb-e0f1dfdbbdc7"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-815f-badc-cd653de63ae8",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s1_2_representation_transfer",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal picture graph appears on left. Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Key: each symbol = 1 vote."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal bar graph appears on right. Same Favorite Sports data. Soccer=6, Basketball=4, Baseball=3, Tennis=2. Vertical axis labeled 0-7."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these two graphs. They show the SAME data.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "notion_flag": "suggested",
+        "tool": "multi_select",
+        "options": [
+          "They have the same title",
+          "They show the same categories",
+          "Soccer has the most in both",
+          "They look exactly the same"
+        ],
+        "text": "What's the same about both graphs? Select all that apply."
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-819d-8b57-cecb298b39df",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:46.769376+00:00",
+    "_notion_block_id": "3435917e-ac52-8130-9782-f6756923c2a3"
+  },
+  {
+    "id": "s2_1_pattern_discovery_type_a",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal picture graph appears. Favorite Pets data. Dogs=5, Cats=4, Fish=3, Birds=6. Three components labeled by system overlay: A=Title 'Favorite Pets', B=Key 'Each ★ = 1 vote', C=Category labels (Dogs, Cats, Fish, Birds). Labels are clickable."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Every part of a graph has a job. This picture graph has three parts labeled A, B, and C. Click on the part that shows what each symbol means.",
+        "_notion_block_id": "31b5917e-ac52-8181-880f-f25e766a36a4"
+      },
+      {
+        "type": "prompt",
+        "text": "Which part tells you what each symbol means?",
+        "tool": "click_component",
+        "target": "picture_graph_pets.component",
+        "validator": [
+          {
+            "condition": {
+              "selected": "B"
+            },
+            "description": "Student clicked component B — the key — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "highlight_component",
+                  "component": "B",
+                  "status": "confirmed",
+                  "description": "Component B (the key) highlights with glow effect"
+                },
+                "_notion_block_id": "31b5917e-ac52-81ee-8524-dc002d4f8e7e"
+              },
+              {
+                "type": "dialogue",
+                "text": "The key tells you what each symbol means. Here, each star equals 1 vote. Title tells what the graph is about. Labels name the categories. Key shows the scale. Every part has a job.",
+                "_notion_block_id": "31b5917e-ac52-81fd-839f-c261409a8169"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-819c-afef-de91776475d5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Horizontal picture graph. Favorite Pets data. Three labeled components visible: A=Title, B=Key, C=Category labels. click_component tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81f0-a467-f3cc6e95c0f6"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-8110-8ec3-db770c6001a4",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_1_real_world_bridge",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply.",
+        "id": "s3_1_real_world_bridge_b0",
+        "_notion_block_id": "3435917e-ac52-816d-8f0d-e129ff3dfef5"
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these could use a bar graph to show the data? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "Your class votes on a field trip destination",
+          "Library tracks which book genre students check out most",
+          "Cafeteria tracks which lunch is most popular"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Your class votes on a field trip destination"
+                },
+                {
+                  "selected": "Library tracks which book genre students check out most"
+                },
+                {
+                  "selected": "Cafeteria tracks which lunch is most popular"
+                }
+              ]
+            },
+            "description": "Student selected all three scenarios, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly. All of them! Any time you're counting and comparing categories, a graph can help.",
+                "id": "s3_1_real_world_bridge_b1_v0_b0",
+                "_notion_block_id": "3435917e-ac52-81ea-8134-f89961f695b5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "Your class votes on a field trip destination"
+                    },
+                    {
+                      "selected": "Library tracks which book genre students check out most"
+                    },
+                    {
+                      "selected": "Cafeteria tracks which lunch is most popular"
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "selected": "Your class votes on a field trip destination"
+                      },
+                      {
+                        "selected": "Library tracks which book genre students check out most"
+                      },
+                      {
+                        "selected": "Cafeteria tracks which lunch is most popular"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "or": [
+                      {
+                        "selected": "invalid_option_1"
+                      },
+                      {
+                        "selected": "invalid_option_2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "description": "Branch 2: Student selected only correct answers but not all three",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You're on the right track. Each one you picked could use a bar graph. Look at the scenarios again. Are there any others that count and compare categories?",
+                "id": "s3_1_real_world_bridge_b1_v1_b0",
+                "_notion_block_id": "3435917e-ac52-8175-9836-e902b2f0f9ee"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "not": {
+                "or": [
+                  {
+                    "selected": "Your class votes on a field trip destination"
+                  },
+                  {
+                    "selected": "Library tracks which book genre students check out most"
+                  },
+                  {
+                    "selected": "Cafeteria tracks which lunch is most popular"
+                  }
+                ]
+              }
+            },
+            "description": "Branch 3: Student selected no correct answers",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's think about what bar graphs show. They count things in different categories so you can compare them. Which scenarios count and compare?",
+                "id": "s3_1_real_world_bridge_b1_v2_b0",
+                "_notion_block_id": "3435917e-ac52-81bd-854b-d14bbef837ca"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "Your class votes on a field trip destination"
+                    },
+                    {
+                      "selected": "Library tracks which book genre students check out most"
+                    },
+                    {
+                      "selected": "Cafeteria tracks which lunch is most popular"
+                    }
+                  ]
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "invalid_option_1"
+                    },
+                    {
+                      "selected": "invalid_option_2"
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Branch 4: Student selected mix of correct and incorrect answers",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Some of your picks are right. Those scenarios do count and compare categories. Check your other selections. Do they count things in categories?",
+                "id": "s3_1_real_world_bridge_b1_v3_b0",
+                "_notion_block_id": "3435917e-ac52-81b0-b28a-ed5a26e2e52a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Bar graphs count things in different categories. Field trips: you count votes for each destination. Library books: you count checkouts for each genre. Cafeteria: you count how many students chose each lunch. All three count and compare, so all three could use a bar graph. The answer is all of them.",
+                "id": "s3_1_real_world_bridge_b1_v4_b0",
+                "_notion_block_id": "3435917e-ac52-81ad-a13a-c1db799444a9"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_real_world_bridge_b1",
+        "_notion_block_id": "3435917e-ac52-81f2-8c38-e54ceb1fd8af"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_1_real_world_bridge_b2",
+        "_notion_block_id": "3435917e-ac52-8188-b260-e398eab234e7"
+      },
+      {
+        "type": "dialogue",
+        "text": "Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news, everywhere.",
+        "id": "s3_1_real_world_bridge_b3",
+        "_notion_block_id": "3435917e-ac52-8185-862f-edfc139dee2e"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81f3-b8a9-f964e58ab0ca",
+        "notion_type": "divider"
+      }
+    ],
+    "_generated_at": "2026-04-15T19:23:52.378452+00:00",
+    "_notion_block_id": "3435917e-ac52-81ed-a206-d762dd625a49"
+  },
+  {
+    "id": "s3_2_metacognitive_comparison_questions",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You saw two kinds of comparison questions today. Some asked \"how many more\" and others asked \"how many fewer.\" To answer comparisonquestions, what do you need to do?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "To answer comparison questions like \"how many more\" and \"how many fewer\", what do you need to do?",
+        "tool": "multiple_choice",
+        "options": [
+          "Add the categories",
+          "Subtract the categories",
+          "Find each value"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Subtract the categories"
+            },
+            "description": "Student answered subtract — correct, both 'how many more' and 'how many fewer' require subtraction",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "\"How many more\" and \"how many fewer\" both require subtraction. That's called COMPARING. You find the difference to compare. And remember: \"in all\" means COMBINE, so you add. {Compare} and {combine}, those are your two problem types.",
+                "_notion_block_id": "31b5917e-ac52-81de-9763-d993e86878ac"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8152-8fb5-fbb52d11b831"
+      },
+      {
+        "type": "dialogue",
+        "text": "Also remember: \"in all\" means COMBINE, so you add. {Compare} and {combine}, those are your two problem types.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-81f6-8dd0-c2131657c817",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "s3_3_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Student's Warmup graph reappears on left — horizontal picture graph with 3 categories they created earlier"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "A Lesson graph from earlier sections appears on right — horizontal picture graph showing data they read during the lesson"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "You made your own graph. You read graphs showing other people's data. You answered comparison questions and found totals. You know how to collect and represent data.",
+        "_notion_block_id": "31b5917e-ac52-8171-a56d-f0c3a1a27294"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next time, you'll see graphs where each symbol means more than one. Get ready for a new challenge.",
+        "_notion_block_id": "31b5917e-ac52-8121-94dd-ff54d9a1b65a"
+      }
+    ]
+  }
+]

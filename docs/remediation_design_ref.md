@@ -201,12 +201,20 @@ For "select all that apply" questions, students may select multiple answers simu
 
 ### 3B.2 Multiselect MC Structure
 
-For a typical Multiselect MC question:
+Before generating remediation, identify whether the question has wrong options:
+
+**Signal — check whether the question has any wrong options:**
+- If some options are ones the student should **not** select → **standard variant** (some options are wrong)
+- If every option is a valid correct answer → **no-wrong-options variant** (see Section 3B.9)
+
+**Standard variant** (has wrong options):
 
 - **3 Medium remediations** (one per error branch)
 - **1 Heavy remediation** (explains the full correct selection)
 
-**No Light remediation for Multiselect MC.** Same rationale as Single-Select MC: a generic "check your answer" provides little help when the selection pattern gives specific diagnostic information.
+**No Light remediation for standard Multiselect MC.** Same rationale as Single-Select MC: a generic "check your answer" provides little help when the selection pattern gives specific diagnostic information.
+
+**No-wrong-options variant:** See Section 3B.9.
 
 ### 3B.3 The Four Branches
 
@@ -271,6 +279,41 @@ Each branch must be expressed as a self-sufficient condition — do not rely on 
 **Branch 2 must explicitly exclude incorrect selections.** Without that clause, a student who selects one correct answer plus one incorrect answer will be caught by Branch 2 (under-selecting) instead of Branch 4 (mixed). This is the most common condition bug for multiselect questions.
 
 **Branch 4 must explicitly require at least one correct selection.** Without that clause, the condition overlaps with Branch 3. The overlap is masked by evaluation order but makes the condition's intent ambiguous and fragile.
+
+### 3B.9 No-Wrong-Options Variant
+
+Some Multiselect MC prompts have **no incorrect options** — every option in the list is a valid correct answer.
+
+In this case, Branch 3 (all-wrong) and Branch 4 (mixed correct + incorrect) are **structurally impossible**. The student can only under-select or select all.
+
+**Detection:** If every option in the question is a correct answer, this is the no-wrong-options variant.
+
+#### Why specific remediations still matter here
+
+Even though there are no wrong options, targeted remediations are valuable when the spec or content gives us confidence about which options students commonly miss. A student who recognizes two out of three valid scenarios has made real progress — generic "you missed some" language fails to credit that and misses the chance to point them toward the specific gap.
+
+When the likely missing option is predictable (e.g. a less obvious scenario, a counter-intuitive case), a targeted Medium pointing toward that option gives meaningfully more help than a generic nudge. This follows the same logic as Non-MC specific conditions (Section 2.5): where we can identify the error pattern with confidence, we write for it.
+
+#### Positive reinforcement requirement
+
+Because every option the student selected is correct, remediation language at Light and Medium level **must acknowledge what they got right**. The student has made no errors — they have only stopped short. Tone should be genuinely near-success, not corrective.
+
+- Do not say "Not quite" or "Let's try again" — those signal an error that isn't there
+- Do say "You found some — are there any others?" or "Those are all correct. Did you select ALL?"
+
+#### Structure
+
+**Generic (no predictable missing option):** Use attempt-count conditions — the same L/M/H pattern as Non-MC.
+
+- **Light (first attempt):** Short nudge with positive framing, no scene beat. Example: "Those are correct — did you select ALL of them?"
+- **Medium (second attempt):** Acknowledge correct selections, then guide toward what's missing with a visual scaffold (20–30 words).
+- **Heavy (final attempt):** Models all correct answers. Full modeling demonstration required.
+
+**Specific (commonly missed option known):** Add one targeted Medium per predictable gap before the generic states, following the same order as Non-MC specific conditions (Section 2.5). Generic L/M/H remains — it covers all other under-selecting patterns and covers specific gaps on the final attempt.
+
+**Do not invent phantom wrong options.** If every option is correct, emit L/M/H by attempt count — not Branch 2/3/4.
+
+---
 
 ### 3B.8 Heavy for Multiselect MC
 

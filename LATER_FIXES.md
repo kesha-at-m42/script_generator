@@ -6,6 +6,22 @@ Deferred bugs, improvements, and ideas — understood, not urgent, worth doing w
 
 ## Specific Bugs / Known Issues
 
+### Pull: validator state paragraphs still emit as `unparsed` in some sections
+
+Sections where no `current_scene` separates the prompt from the branch column_list (e.g. `s3_4_open_specification_build_given_total` in lesson m11) still produce two `unparsed` beats for the "✅ 🔀 … — student moves forward" paragraphs. The regex and `last_prompt_beat` logic are correct; the likely cause is that `column_list` children are not embedded in the block object when `_all_blocks` returns a flat list for that section layout. Investigate whether `column_list["column_list"]["children"]` is populated for those sections, and fix the `column_list` handler in `_patch_section_beats` accordingly.
+
+**Location:** `utils/notion.py` — `_patch_section_beats`, `_section_blocks_map`, `_all_blocks`
+
+---
+
+### Pull: adding and removing branches from Notion
+
+Currently the pull only reads branch content from existing `column_list` blocks; it cannot create a new branch or delete an existing one based on Notion edits. Adding a new column in Notion or removing one has no effect on the JSON. Support for branch creation/deletion would require detecting column count changes and mapping them to `branch_name` insertions or removals in the beat list.
+
+**Location:** `utils/notion.py` — `_patch_section_beats` `column_list` handler
+
+---
+
 ### spec_splitter: body overflow + false-positive validation errors
 
 **Status:** WIP

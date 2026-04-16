@@ -152,14 +152,25 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
         return None
 
     original_path = json_files[0]
-    existing_nums = [
-        int(m.group(1))
-        for d in version_dir.iterdir()
-        if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
-    ]
-    next_num = max(existing_nums) + 1 if existing_nums else push_step_num + 1
-    out_step_dir = version_dir / f"step_{next_num:02d}_pull"
-    out_step_dir.mkdir(parents=True, exist_ok=True)
+    # Reuse existing pull dir if present; only create a new one on first pull.
+    existing_pull_dirs = sorted(
+        [
+            (int(m.group(1)), d)
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_pull$", d.name))
+        ]
+    )
+    if existing_pull_dirs:
+        out_step_dir = existing_pull_dirs[-1][1]
+    else:
+        existing_nums = [
+            int(m.group(1))
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
+        ]
+        next_num = max(existing_nums) + 1 if existing_nums else push_step_num + 1
+        out_step_dir = version_dir / f"step_{next_num:02d}_pull"
+        out_step_dir.mkdir(parents=True, exist_ok=True)
     return original_path, out_step_dir / "pull.json"
 
 
@@ -347,6 +358,8 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
                     print(f"    source: {f['original_options']}")
                 if f.get("notion_options_text"):
                     print(f"    notion: {f['notion_options_text']}")
+            elif ftype == "section_not_in_notion":
+                print(f"  [section_not_in_notion] [{f['section_id']}] type={f.get('section_type')} — dropped")
             else:
                 print(f"  {f}")
         print(f"\n  Saved to: {flags_path.relative_to(project_root)}")

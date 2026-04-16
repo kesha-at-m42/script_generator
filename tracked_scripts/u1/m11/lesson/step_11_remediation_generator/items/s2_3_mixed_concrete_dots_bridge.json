@@ -1,0 +1,81 @@
+{
+  "id": "s2_3_mixed_concrete_dots_bridge",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the rows, then count how many are in each row."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_dots",
+              "params": {
+                "event": "highlight_rows",
+                "status": "proposed",
+                "description": "Rows highlight on dot array."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. I see 2 rows. Each row has 6 dots. So the row expression is 2 times 6."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_dots",
+              "params": {
+                "event": "highlight_rows",
+                "status": "confirmed",
+                "description": "Rows highlight on dot array."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_row_expr",
+              "params": {
+                "event": "confirm_placement",
+                "status": "confirmed",
+                "description": "System places tiles 2 and 6. Expression shows 2 × 6."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I count the rows. That's 2. Then I count the dots in one row. That's 6. The row expression is 2 times 6."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-09T19:59:29.974846+00:00"
+}

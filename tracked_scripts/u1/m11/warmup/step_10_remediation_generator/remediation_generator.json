@@ -1,0 +1,328 @@
+[
+  {
+    "id": "s1_1_opening_hook",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "groups": 3,
+          "items_per_group": 5,
+          "container": "bag",
+          "description": "Left side of split screen: 3 bags, each containing 5 items. Clustered arrangement. Total 15 items visible."
+        },
+        "id": "s1_1_opening_hook_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_rect",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "items_per_row": 5,
+          "description": "Right side of split screen: Same 15 items arranged in a 3 by 5 rectangle. No containers. Items lined up in rows and columns."
+        },
+        "id": "s1_1_opening_hook_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same items, two different pictures. What's going on here? Let's start with the one you already know.",
+        "id": "s1_1_opening_hook_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Left side: 3 bags with 5 items each. Clustered equal groups arrangement.",
+            "tangible_type": "equal_groups",
+            "groups": 3,
+            "items_per_group": 5,
+            "container": "bag"
+          },
+          {
+            "tangible_id": "array_rect",
+            "description": "Right side: Same 15 items in 3 by 5 rectangular arrangement. No containers.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 3,
+            "items_per_row": 5
+          }
+        ],
+        "id": "s1_1_opening_hook_b3"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:33.795854+00:00"
+  },
+  {
+    "id": "s1_2_equation_building_callback",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed incorrect numbers on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the bags, then count the items in each bag."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed incorrect numbers on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_groups": true,
+                  "description": "Bags pulse to highlight groups. Items within each bag also highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count the groups first. That's the first number. Then count the items in one group."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed incorrect numbers three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_groups_then_items",
+                  "status": "confirmed",
+                  "description": "System counts bags one by one, showing 3 groups. Then counts items in one bag, showing 5. Finally shows total of 15 items."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_bags",
+                "params": {
+                  "event": "place_tiles_sequentially",
+                  "status": "confirmed",
+                  "description": "System places tiles: 3 in first blank, 5 in second blank, 15 in third blank."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. First, I count the bags. There are 3 bags. Then I count the items in one bag. There are 5 items. 3 times 5 equals 15 total items. So the equation is 3 times 5 equals 15."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-07T18:23:28.315123+00:00"
+  },
+  {
+    "id": "s1_3_equal_groups_vs_rectangular",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "There are more items"
+          },
+          "description": "Student selected 'There are more items': misconception that rectangular arrangement means more items",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_clustered",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All 15 items in the clustered arrangement highlight."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All 15 items in the rectangular arrangement highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count both sides. The left has 15 items and the right has 15 items. Same number, just arranged differently."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The groups are bigger"
+          },
+          "description": "Student selected 'The groups are bigger': misconception that rectangular arrangement has larger groups",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_clustered",
+                "params": {
+                  "highlight_groups": [
+                    0
+                  ],
+                  "description": "First group in clustered arrangement highlights, showing 5 items."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_rows": [
+                    0
+                  ],
+                  "description": "First row in rectangular arrangement highlights, showing 5 items."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: each bag on the left has 5 items. Each row on the right also has 5 items. The groups are the same size."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "They're in bags"
+          },
+          "description": "Student selected 'They're in bags': focused on containers rather than arrangement pattern",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_alignment": true,
+                  "description": "Grid lines appear over rectangular arrangement, emphasizing the rows and columns."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're working on it. The bags are gone, yes. But look closer at how the items themselves are arranged. What's special about their positions?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "event": "trace_alignment",
+                  "status": "confirmed",
+                  "description": "System traces horizontal lines across each row, then vertical lines down each column, showing the perfect alignment."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. On the right, every item lines up perfectly in rows and columns. See how I can draw straight lines through them? That's what makes it different. The answer is Everything is lined up."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-07T18:23:43.323573+00:00"
+  },
+  {
+    "id": "s1_4_bridge_to_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_items",
+        "tangible_type": "equal_groups",
+        "params": {
+          "layout": "grid",
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 grid arrangement of items appears, centered on screen."
+        },
+        "id": "s1_4_bridge_to_lesson_b0"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "Horizontal lines (rows) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_columns",
+          "status": "confirmed",
+          "description": "Vertical lines (columns) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "That lined-up arrangement you just made? It has a name. And there's a lot we can figure out about how it works. Let's dive in.",
+        "id": "s1_4_bridge_to_lesson_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_items",
+            "description": "3×5 grid arrangement of items centered on screen.",
+            "tangible_type": "equal_groups",
+            "layout": "grid",
+            "rows": 3,
+            "columns": 5
+          }
+        ],
+        "id": "s1_4_bridge_to_lesson_b4"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:23:05.382674+00:00"
+  }
+]

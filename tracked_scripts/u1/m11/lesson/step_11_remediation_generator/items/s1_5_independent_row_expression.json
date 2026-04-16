@@ -1,0 +1,84 @@
+{
+  "id": "s1_5_independent_row_expression",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look at the array. How many rows do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "arrays_dots_2x5",
+              "params": {
+                "highlight_mode": "rows",
+                "description": "Each row pulses to highlight the row structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count the rows: 2 rows. Count the dots in one row: 5 dots. So it's 2 times 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "arrays_dots_2x5",
+              "params": {
+                "event": "highlight_rows",
+                "status": "confirmed",
+                "description": "First row highlights, then second row highlights, showing 2 rows total."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_rows",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places 2 in first slot, then 5 in second slot.",
+                "tiles": [
+                  2,
+                  5
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I count the rows: 2 rows. I count how many dots are in each row: 5 dots. So the expression is 2 times 5. That tells us there are 2 rows of 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-09T19:58:51.043164+00:00"
+}

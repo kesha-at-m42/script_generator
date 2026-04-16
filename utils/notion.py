@@ -541,6 +541,17 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
                             after_h2 = h2_block
                     if after_h2 is not None and after_h2["id"] in pre_existing_h2_ids:
                         after_id = after_h2["id"]
+                    elif existing_h2s:
+                        # New section sorts before all existing h2s — insert before
+                        # the first existing h2 by finding the block preceding it.
+                        first_h2_id = existing_h2s[0][0]["id"]
+                        first_h2_pos = next(
+                            (i for i, b in enumerate(existing) if b["id"] == first_h2_id), None
+                        )
+                        if first_h2_pos is not None and first_h2_pos > 0:
+                            after_id = existing[first_h2_pos - 1]["id"]
+                        else:
+                            after_id = anchor_id or last_id
                     else:
                         after_id = anchor_id or last_id
 
@@ -978,6 +989,16 @@ def push_section(
             if block.get("type") in ("heading_2", "divider"):
                 break
             after_id = block["id"]
+
+    # New section sorts before all existing — insert after whatever precedes
+    # the first heading_2/divider (e.g. a reviewer callout), not at page end.
+    if after_id is None:
+        first_section_idx = next(
+            (i for i, b in enumerate(page_blocks) if b.get("type") in ("heading_2", "divider")),
+            None,
+        )
+        if first_section_idx is not None and first_section_idx > 0:
+            after_id = page_blocks[first_section_idx - 1]["id"]
 
     new_h2 = _heading(2, heading_text)
     intro_blocks = [_divider(), new_h2] + new_beats[:98]
@@ -1432,6 +1453,14 @@ _EDITABLE_BEAT_TYPES = {"dialogue", "scene", "prompt"}
 _EDITABLE_CALLOUT_EMOJIS = {"💬", "🎬", "❔"}
 _EMOJI_TO_BEAT_TYPE = {"💬": "dialogue", "🎬": "scene", "❔": "prompt"}
 
+# Matches the paragraph rendered for a validator state with no child beats:
+#   "✅ 🔀 {description} — student moves forward"
+#   "❌ {description} — student moves forward"
+_VALIDATOR_STATE_PARA_RE = re.compile(
+    r"^(?:✅|❌|◻️)\s.*—\s*student moves forward$",
+    re.DOTALL,
+)
+
 
 def _callout_emoji(block: dict) -> str | None:
     """Return the emoji of a callout block, or None if not a callout."""
@@ -1844,6 +1873,90 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
             result.append(beat)
             continue
 
+        if btype == "paragraph" and last_prompt_beat is not None:
+            # A validator state with no child beats is rendered as a paragraph
+            # ("✅ 🔀 description — student moves forward"). Consume it so it
+            # doesn't land as an unparsed beat; advance the validator state index.
+            inner_text = _extract_rt(block.get("paragraph", {}).get("rich_text", []))
+            if _VALIDATOR_STATE_PARA_RE.match(inner_text.strip()):
+                validator_state_idx += 1
+                continue
+
+        if btype == "column_list":
+            # Branch content: each column corresponds to one branch_name group.
+            # The first child of each column is a heading3 "🔀 {branch_name}";
+            # the remaining children are callout beats for that branch.
+            last_prompt_beat = None
+            validator_state_idx = 0
+            for col_block in block.get("column_list", {}).get("children", []):
+                if col_block.get("type") != "column":
+                    continue
+                col_children = col_block.get("column", {}).get("children", [])
+                branch_name: str | None = None
+                content_start = 0
+                if col_children:
+                    first = col_children[0]
+                    ftype = first.get("type", "")
+                    if ftype in ("heading_1", "heading_2", "heading_3"):
+                        h_text = _extract_rt(first.get(ftype, {}).get("rich_text", []))
+                        if h_text.startswith("🔀 "):
+                            branch_name = h_text[len("🔀 "):]
+                            content_start = 1
+
+                # Positional pool scoped to this branch so fallback doesn't
+                # cross into the other branch's beats.
+                branch_pools: dict[str, list] = {
+                    bt: [b for b in positional_pools.get(bt, []) if b.get("branch_name") == branch_name]
+                    for bt in _EDITABLE_BEAT_TYPES
+                }
+
+                for child in col_children[content_start:]:
+                    child_type = child.get("type")
+                    child_id = child.get("id", "")
+
+                    if _is_step_break(child):
+                        if child_id in id_to_current_scene:
+                            cs = id_to_current_scene[child_id]
+                        else:
+                            cs = {"type": "current_scene", "elements": []}
+                        if branch_name:
+                            cs["branch_name"] = branch_name
+                        result.append(cs)
+                        continue
+
+                    if child_type != "callout":
+                        continue
+                    emoji = _callout_emoji(child)
+                    if emoji not in _EDITABLE_CALLOUT_EMOJIS:
+                        continue
+
+                    text = _extract_rt(child.get("callout", {}).get("rich_text", []))
+                    text = _NEW_BEAT_TAG.sub("", text).strip()
+
+                    if child_id in id_to_beat:
+                        beat = id_to_beat[child_id]
+                    else:
+                        bt_key = _EMOJI_TO_BEAT_TYPE.get(emoji)
+                        pool = branch_pools.get(bt_key, []) if bt_key else []
+                        idx = _legacy_pool_match(pool, emoji, text)
+                        if idx is None and pool:
+                            idx = 0  # positional fallback scoped to this branch
+                        if idx is not None:
+                            beat = pool.pop(idx)
+                            # Remove from the shared positional pool too
+                            main_pool = positional_pools.get(bt_key, [])
+                            if beat in main_pool:
+                                main_pool.remove(beat)
+                            beat["_notion_block_id"] = child_id
+                        else:
+                            beat = _parse_new_beat(emoji, text)
+
+                    _apply_callout_text(beat, text)
+                    if branch_name and not beat.get("branch_name"):
+                        beat["branch_name"] = branch_name
+                    result.append(beat)
+            continue
+
         # Everything else: preserve as unparsed so nothing is silently dropped
         inner = block.get(btype, {}) if btype else {}
         text = _extract_rt(inner.get("rich_text", [])) if isinstance(inner, dict) else ""
@@ -1930,12 +2043,26 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
 
     sections = patched if isinstance(patched, list) else patched.get("sections", [])
 
+    kept: list[dict] = []
+    extra_flags: list[dict] = []
     for section in sections:
         sid = section["id"]
         if sid in section_map:
             _patch_section_beats(section, section_map[sid])
+            kept.append(section)
+        else:
+            extra_flags.append({
+                "flag_type": "section_not_in_notion",
+                "section_id": sid,
+                "section_type": section.get("type"),
+            })
 
-    flags = _collect_scene_flags(sections)
+    if isinstance(patched, list):
+        patched[:] = kept
+    else:
+        patched["sections"] = kept
+
+    flags = _collect_scene_flags(kept) + extra_flags
     return patched, flags
 
 

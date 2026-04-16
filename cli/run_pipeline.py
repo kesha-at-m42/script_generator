@@ -6,9 +6,18 @@ Usage:
 
 Options:
     -p, --pipeline <name|number>  Pipeline name or number to run
+    -u, --unit <number>           Unit number (optional)
     -m, --module <number>         Module number (optional)
     --path <letter>               Path letter (a/b/c) (optional)
     -i, --interactive             Enable interactive mode (step-by-step confirmation)
+    --start-from <step>           Start from this step (number or name)
+    --end-at <step>               Stop after this step (number or name)
+    --batch-ids <ids>             Only run these batch IDs (comma-separated)
+    --skip-batch-ids <ids>        Skip these batch IDs (comma-separated)
+    -y, --yes                     Skip all confirmation prompts
+    --note <text>                 Note about this run
+    --status <label>              Pipeline status (alpha/beta/rc/final)
+    --test-push                   Push to a temporary Notion page (registry not updated)
     -h, --help                    Show this help message
 
 Examples:
@@ -16,8 +25,8 @@ Examples:
     python cli/run_pipeline.py --pipeline "GODOT Formatter" --module 3
     python cli/run_pipeline.py -p 2
 
-Note: Pipelines are now centralized in ui/saved_pipelines.json
-      Edit pipelines through the UI or directly in the JSON file
+Note: Pipelines are centralized in ui/saved_pipelines.json.
+      Edit pipelines through the UI or directly in the JSON file.
 """
 
 import argparse
@@ -33,6 +42,15 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "core"))
 
+from core.pipeline import (  # noqa: E402
+    add_common_pipeline_args,
+    apply_yes_flag,
+    parse_batch_filter_arg,
+    parse_step_ref_arg,
+    prompt_for_pipeline,
+    prompt_for_run_context,
+    resolve_pipeline_name,
+)
 from core.pipelines import PIPELINES, run_pipeline_from_config  # noqa: E402
 
 # =============================================================================
@@ -40,7 +58,6 @@ from core.pipelines import PIPELINES, run_pipeline_from_config  # noqa: E402
 # =============================================================================
 
 if __name__ == "__main__":
-    # Set up argument parser
     parser = argparse.ArgumentParser(
         description="Run pipelines with optional parameters",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -52,42 +69,16 @@ Examples:
         """,
     )
 
-    parser.add_argument("-p", "--pipeline", type=str, help="Pipeline name or number to run")
-    parser.add_argument("-u", "--unit", type=int, help="Unit number (optional)")
-    parser.add_argument("-m", "--module", type=int, help="Module number (optional)")
-    parser.add_argument(
-        "--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c (optional)"
-    )
-    parser.add_argument(
-        "-i",
-        "--interactive",
-        action="store_true",
-        help="Enable interactive mode (step-by-step confirmation)",
-    )
-    parser.add_argument(
-        "--start-at",
-        type=str,
-        help="Start from this step, skipping earlier ones (step number or step name, e.g. section_structurer)",
-    )
-    parser.add_argument(
-        "--end-at",
-        type=str,
-        help="Stop after this step (step number or step name, e.g. glossary_drift_checker)",
-    )
+    add_common_pipeline_args(parser)
     parser.add_argument(
         "--batch-ids",
         type=str,
-        help='Only run these batch IDs (comma-separated, e.g., "1,3,5" or "template_001,template_003")',
+        help='Only run these batch IDs (comma-separated, e.g. "1,3,5" or "template_001")',
     )
     parser.add_argument(
         "--skip-batch-ids",
         type=str,
-        help='Skip these batch IDs (comma-separated, e.g., "2,4" or "template_002,template_004")',
-    )
-    parser.add_argument(
-        "-y", "--yes",
-        action="store_true",
-        help="Skip all confirmation prompts (non-interactive run)",
+        help='Skip these batch IDs (comma-separated, e.g. "2,4")',
     )
     parser.add_argument(
         "--test-push",
@@ -97,110 +88,46 @@ Examples:
 
     args = parser.parse_args()
 
-    if args.yes:
-        import os as _os
-        _os.environ["NOTION_YES"] = "1"
+    apply_yes_flag(args)
 
     print("Pipeline Runner")
     print("=" * 70)
 
-    # Determine pipeline name
-    pipeline_name = None
-
+    # Resolve pipeline name
     if args.pipeline:
-        # Check if it's a number
-        if args.pipeline.isdigit():
-            pipeline_num = int(args.pipeline)
-            if 1 <= pipeline_num <= len(PIPELINES):
-                pipeline_name = list(PIPELINES.keys())[pipeline_num - 1]
-            else:
-                print(f"Invalid pipeline number: {args.pipeline}")
-                print(f"Valid range: 1-{len(PIPELINES)}")
-                sys.exit(1)
-        # Check if it's a valid pipeline name
-        elif args.pipeline in PIPELINES:
-            pipeline_name = args.pipeline
-        else:
-            print(f"Invalid pipeline name: {args.pipeline}")
-            print("\nAvailable pipelines:")
-            for i, name in enumerate(PIPELINES.keys(), 1):
-                print(f"  {i}. {name}")
-            sys.exit(1)
+        pipeline_name = resolve_pipeline_name(args.pipeline, PIPELINES)
     else:
-        # No pipeline specified, show options and prompt
-        print("\nAvailable pipelines:")
-        for i, name in enumerate(PIPELINES.keys(), 1):
-            print(f"  {i}. {name}")
+        pipeline_name = prompt_for_pipeline(PIPELINES)
 
-        choice = input(f"\nSelect pipeline [1-{len(PIPELINES)}]: ").strip()
-
-        if choice.isdigit() and 1 <= int(choice) <= len(PIPELINES):
-            pipeline_name = list(PIPELINES.keys())[int(choice) - 1]
-        elif choice in PIPELINES:
-            pipeline_name = choice
-        else:
-            print("Invalid choice")
-            sys.exit(1)
-
-    # Get unit number
-    unit_number = args.unit
-    if unit_number is None:
-        unit_input = input("Unit number (or Enter to skip): ").strip()
-        unit_number = int(unit_input) if unit_input else None
-
-    # Get module number
-    module_number = args.module
-    if module_number is None:
-        module_input = input("Module number (or Enter to skip): ").strip()
-        module_number = int(module_input) if module_input else None
-
-    # Get path letter
-    path_letter = args.path
-    if path_letter is None and module_number and not args.yes:
-        path_input = input("Path letter (a/b/c or Enter to skip): ").strip().lower()
-        path_letter = path_input if path_input in ["a", "b", "c"] else None
-
-    # Get interactive mode preference
-    interactive = args.interactive
-    if not interactive and not args.yes:
-        interactive_input = (
-            input("Enable interactive mode (step-by-step confirmation)? (y/n): ").strip().lower()
-        )
-        interactive = interactive_input == "y"
+    # Fill in unit / module / path / interactive interactively if not provided
+    prompt_for_run_context(args)
 
     # Parse batch ID filters
-    batch_only_items = None
-    if args.batch_ids:
-        batch_only_items = [id.strip() for id in args.batch_ids.split(",")]
-        print(f"  [BATCH FILTER] Only running IDs: {batch_only_items}")
+    batch_only_items = parse_batch_filter_arg(args.batch_ids)
+    batch_skip_items = parse_batch_filter_arg(args.skip_batch_ids)
 
-    batch_skip_items = None
-    if args.skip_batch_ids:
-        batch_skip_items = [id.strip() for id in args.skip_batch_ids.split(",")]
+    if batch_only_items:
+        print(f"  [BATCH FILTER] Only running IDs: {batch_only_items}")
+    if batch_skip_items:
         print(f"  [BATCH FILTER] Skipping IDs: {batch_skip_items}")
 
     # Run pipeline
     try:
         print(f"\nRunning pipeline: {pipeline_name}")
-        if unit_number:
-            print(f"Unit: {unit_number}")
-        if module_number:
-            print(f"Module: {module_number}")
-        if path_letter:
-            print(f"Path: {path_letter}")
+        if args.unit:
+            print(f"Unit: {args.unit}")
+        if args.module:
+            print(f"Module: {args.module}")
+        if args.path:
+            print(f"Path: {args.path}")
         if batch_only_items:
             print(f"Batch filter (only): {', '.join(batch_only_items)}")
         if batch_skip_items:
             print(f"Batch filter (skip): {', '.join(batch_skip_items)}")
-        print(f"Interactive mode: {'enabled' if interactive else 'disabled'}")
+        print(f"Interactive mode: {'enabled' if args.interactive else 'disabled'}")
 
-        start_at = args.start_at
-        if start_at and start_at.isdigit():
-            start_at = int(start_at)
-
-        end_at = args.end_at
-        if end_at and end_at.isdigit():
-            end_at = int(end_at)
+        start_at = parse_step_ref_arg(args.start_from)
+        end_at = parse_step_ref_arg(args.end_at)
 
         steps_config = list(PIPELINES[pipeline_name])
         if args.test_push:
@@ -215,11 +142,11 @@ Examples:
         results = run_pipeline_from_config(
             steps_config=steps_config,
             pipeline_name=pipeline_name,
-            unit_number=unit_number,
-            module_number=module_number,
-            path_letter=path_letter,
+            unit_number=args.unit,
+            module_number=args.module,
+            path_letter=args.path,
             verbose=True,
-            interactive=interactive,
+            interactive=args.interactive,
             rerun_items=batch_only_items,
             start_from_step=start_at,
             end_at_step=end_at,

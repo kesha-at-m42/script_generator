@@ -1,0 +1,168 @@
+# TOML sequence example for import testing
+# Based on module_1 lesson structure (fractions / partitioning)
+
+title = "toml_import_test"
+type = "sequence"
+
+# --- Section: Introduction to partitioning -----------------------------
+
+[section_intro]
+template = "unit5_template"
+
+[step_intro_welcome]
+dialogue = "Welcome back! Today we're going to learn about equal parts and fractions."
+
+[step_intro_whole]
+dialogue = "See this bar? This is our whole. Everything we do next is about splitting this whole into pieces."
+
+[step_intro_explain]
+dialogue = "When we split something into equal parts, we make all the parts the same size. That's important for what we're learning about fractions."
+
+# --- Section: Making halves --------------------------------------------
+
+[section_halves]
+template = "unit5_template"
+
+[step_halves_setup]
+dialogue = "Let's start simple. Can you split this bar into two equal parts?"
+components = ["SceneComponent"]
+
+[step_halves_prompt]
+dialogue = "Click right in the middle to make two equal parts."
+components = ["PromptComponent"]
+
+[step_halves_correct]
+dialogue = "Yes! You made two equal parts: two halves. See how each part is exactly the same size?"
+
+[step_halves_shade_prompt]
+dialogue = "Now click one of those parts to shade it."
+components = ["PromptComponent"]
+
+[step_halves_shade_correct]
+dialogue = "You selected one part out of two equal parts."
+
+[step_halves_name]
+dialogue = "When mathematicians divide something into equal parts like you just did, they call it partitioning. Partition is our special math word for dividing one whole into equal-sized sections."
+
+# --- Section: Making fourths -------------------------------------------
+
+[section_fourths]
+template = "unit5_template"
+
+[step_fourths_intro]
+dialogue = "Let's see where this thinking takes us. Here's a new whole bar."
+components = ["SceneComponent"]
+
+[step_fourths_strategy]
+dialogue = "Here is a strategy to make four equal parts: first split it in half, then split each half in half again. That gives you four equal sections."
+
+[step_fourths_prompt]
+dialogue = "Your turn! Click once in the middle, then click once in each half."
+components = ["PromptComponent"]
+
+[step_fourths_correct]
+dialogue = "Right. Four equal parts."
+
+[step_fourths_shade_prompt]
+dialogue = "Now shade just one part."
+components = ["PromptComponent"]
+
+[step_fourths_shade_correct]
+dialogue = "Good. One out of four equal parts."
+
+[step_fourths_fraction]
+dialogue = "See this symbol: one fourth? The bottom number tells us how many equal parts we made. The top number tells us how many parts we selected."
+components = ["SceneComponent"]
+
+# --- Section: Making thirds --------------------------------------------
+
+[section_thirds]
+template = "unit5_template"
+
+[step_thirds_intro]
+dialogue = "Let's keep exploring. Here's another whole bar. Can you partition this one into three equal parts?"
+components = ["SceneComponent"]
+
+[step_thirds_prompt]
+dialogue = "Click two times to partition this bar into three equal parts."
+components = ["PromptComponent"]
+
+[step_thirds_correct]
+dialogue = "Right. You partitioned the bar into three equal parts."
+
+[step_thirds_shade_prompt]
+dialogue = "Now shade one of them."
+components = ["PromptComponent"]
+
+[step_thirds_shade_correct]
+dialogue = "That's one out of three equal parts. We write it as one third."
+
+[step_thirds_pattern]
+dialogue = "Notice the pattern? The bottom number always shows our total equal parts."
+
+# --- Section: Making sixths --------------------------------------------
+
+[section_sixths]
+template = "unit5_template"
+
+[step_sixths_intro]
+dialogue = "Let's partition this bar into six equal parts."
+components = ["SceneComponent"]
+
+[step_sixths_strategy]
+dialogue = "Here's the strategy: first split the bar in half. Then split each half into three equal parts. That gives you six equal sections."
+
+[step_sixths_prompt]
+dialogue = "Give it a try! Click once in the middle, then click twice in each half to make thirds."
+components = ["PromptComponent"]
+
+[step_sixths_correct]
+dialogue = "Correct! You divided the bar into sixths: six equal parts."
+
+[step_sixths_shade_prompt]
+dialogue = "Now shade just one part."
+components = ["PromptComponent"]
+
+[step_sixths_shade_correct]
+dialogue = "Yes. One out of six equal parts, that's one sixth."
+
+# --- Section: Making eighths -------------------------------------------
+
+[section_eighths]
+template = "unit5_template"
+
+[step_eighths_intro]
+dialogue = "Let's do one more: eight equal parts this time. Remember how we made four parts? We can extend that strategy."
+components = ["SceneComponent"]
+
+[step_eighths_demo]
+dialogue = "First, click once in the middle. Then click in the middle of each half. Then click in the middle of each of those four parts."
+
+[step_eighths_prompt]
+dialogue = "Now you try. Remember the strategy: first divide the bar in half, then make fourths, then eighths."
+components = ["PromptComponent", "SceneComponent"]
+
+[step_eighths_correct]
+dialogue = "Good. Eight equal parts."
+
+[step_eighths_shade_prompt]
+dialogue = "Now shade one of them."
+components = ["PromptComponent"]
+
+[step_eighths_shade_correct]
+dialogue = "One eighth. One out of eight equal parts. You're doing great!"
+
+# --- Section: Wrap-up --------------------------------------------------
+
+[section_wrapup]
+template = "unit5_template"
+
+[step_wrapup_review]
+dialogue = "Look at all the fractions you've made: one half, one fourth, one third, one eighth, and one sixth. Each one shows one part of a whole that's been partitioned into equal parts."
+components = ["SceneComponent"]
+
+[step_wrapup_summary]
+dialogue = "You've learned that fractions are a way to name parts of a whole. The whole bar is always one, and we can partition it into equal parts to make fractions."
+
+[step_wrapup_special_chars]
+dialogue = "Remember: \"equal parts\" means every piece is the same size. That's the key to understanding fractions!"

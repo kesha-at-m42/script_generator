@@ -1,0 +1,479 @@
+[
+  {
+    "id": "s1_1_opening_hook",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "groups": 3,
+          "items_per_group": 5,
+          "container": "bag",
+          "description": "Left side of split screen: 3 bags, each containing 5 items. Clustered arrangement. Total 15 items visible."
+        },
+        "id": "s1_1_opening_hook_b0",
+        "_notion_block_id": "33b5917e-ac52-81a4-934e-e69c92e8a86c"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_rect",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "items_per_row": 5,
+          "description": "Right side of split screen: Same 15 items arranged in a 3 by 5 rectangle. No containers. Items lined up in rows and columns."
+        },
+        "id": "s1_1_opening_hook_b1",
+        "_notion_block_id": "33b5917e-ac52-8105-ba53-cdf63eddfdc5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same items, two different pictures. What's going on here? Let's start with the one you already know.",
+        "id": "s1_1_opening_hook_b2",
+        "_notion_block_id": "33b5917e-ac52-8193-9032-f0ebc7a60035"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:33.795854+00:00",
+    "_toml_key": "section_100_opening_hook"
+  },
+  {
+    "id": "s1_2_equation_building_callback",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "groups": 3,
+          "items_per_group": 5,
+          "visual_style": "pictures",
+          "container_type": "bags",
+          "description": "Equal groups visual appears showing 3 bags with 5 items each."
+        },
+        "id": "s1_2_equation_building_callback_b0",
+        "_notion_block_id": "33b5917e-ac52-81f9-b2b2-dbabb7de975d"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_bags",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "___",
+            "×",
+            "___",
+            "=",
+            "___"
+          ],
+          "palette": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8,
+            12,
+            14,
+            15,
+            16
+          ],
+          "description": "Equation builder appears alongside equal groups. Full equation template with three blanks. Tile palette shows numbers 2, 3, 4, 5, 6, 8, 12, 14, 15, 16."
+        },
+        "id": "s1_2_equation_building_callback_b1",
+        "_notion_block_id": "33b5917e-ac52-81eb-b795-f8173e5e105f"
+      },
+      {
+        "type": "dialogue",
+        "text": "Check out these bags. Build the equation.",
+        "id": "s1_2_equation_building_callback_b2",
+        "_notion_block_id": "33b5917e-ac52-8196-9880-d28c15f0ec50"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation to match this picture.",
+        "tool": "place_tile",
+        "target": "equation_builder_bags",
+        "validator": [
+          {
+            "condition": {
+              "placed": {
+                "groups": 3,
+                "items": 5,
+                "total": 15
+              }
+            },
+            "description": "Student placed 3, 5, and 15 in equation slots, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_bags",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Equation confirms as correct: 3 × 5 = 15."
+                },
+                "id": "s1_2_equation_building_callback_b3_v0_b0",
+                "_notion_block_id": "33b5917e-ac52-819d-b1be-d8c91bf3fb42"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. 3 groups of 5 is 15 items. That's 3 times 5 equals 15.",
+                "id": "s1_2_equation_building_callback_b3_v0_b1",
+                "_notion_block_id": "33b5917e-ac52-810e-a201-c92b12f14be8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed incorrect numbers on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the bags, then count the items in each bag.",
+                "id": "s1_2_equation_building_callback_b3_v1_b0",
+                "_notion_block_id": "33b5917e-ac52-81dc-9125-dac117786726"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed incorrect numbers on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_groups": true,
+                  "description": "Bags pulse to highlight groups. Items within each bag also highlight."
+                },
+                "id": "s1_2_equation_building_callback_b3_v2_b0",
+                "_notion_block_id": "33b5917e-ac52-8128-b991-d576152af958"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's try again. Count the groups first. That's the first factor. Then count the items in one group. That's the second factor. How many total are there? That's the product.",
+                "id": "s1_2_equation_building_callback_b3_v2_b1",
+                "_notion_block_id": "33b5917e-ac52-819f-a611-eb9e60aaae6d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed incorrect numbers three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_groups_then_items",
+                  "status": "confirmed",
+                  "description": "System counts bags one by one, showing 3 groups. Then counts items in one bag, showing 5. Finally shows total of 15 items."
+                },
+                "id": "s1_2_equation_building_callback_b3_v3_b0",
+                "_notion_block_id": "33b5917e-ac52-815c-aa77-ce7b2f5c3b54"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_bags",
+                "params": {
+                  "event": "place_tiles_sequentially",
+                  "status": "confirmed",
+                  "description": "System places tiles: 3 in first blank, 5 in second blank, 15 in third blank."
+                },
+                "id": "s1_2_equation_building_callback_b3_v3_b1",
+                "_notion_block_id": "33b5917e-ac52-812c-be53-f89ad77b9401"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's go through each part of the equation together. First, we count the bags. There are 3 bags. Those are the groups so that's the first factor. Then I count the items in each bag. All of the bags have the same number of items. 5 items in each bag, that's the second factor. 3 groups of 5 is 15 total items. So the equation is 3 times 5 equals 15.",
+                "id": "s1_2_equation_building_callback_b3_v3_b2",
+                "_notion_block_id": "33b5917e-ac52-816a-957b-db8570a79c72"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_equation_building_callback_b3",
+        "_notion_block_id": "33b5917e-ac52-81f1-a443-d85d7e5a6297"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:46.771161+00:00",
+    "_toml_key": "section_101_equation_building_callback"
+  },
+  {
+    "id": "s1_3_equal_groups_vs_rectangular",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_clustered",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "layout": "clustered",
+          "groups": 3,
+          "items_per_group": 5,
+          "show_containers": true,
+          "description": "Left side of split screen. 3 bags appear, each containing 5 items in a clustered arrangement. Same visual from warmup section 1."
+        },
+        "id": "s1_3_equal_groups_vs_rectangular_b0",
+        "_notion_block_id": "33b5917e-ac52-81f8-90a6-e6563cb00d9e"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_rectangular",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "layout": "rectangular",
+          "groups": 3,
+          "items_per_group": 5,
+          "show_containers": false,
+          "description": "Right side of split screen. Same 15 items from opening hook now arranged in a 3 by 5 rectangle. No bags. Items lined up in rows and columns, aligned horizontally and vertically."
+        },
+        "id": "s1_3_equal_groups_vs_rectangular_b1",
+        "_notion_block_id": "33b5917e-ac52-8189-ac05-fb15d7900105",
+        "notion_flag": "updated"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's compare these two pictures now. Both show 15 items: 3 groups of 5. But look at the one on the right. Something's different about how it's set up. What do you notice?",
+        "id": "s1_3_equal_groups_vs_rectangular_b2",
+        "_notion_block_id": "33b5917e-ac52-8167-9e6a-e766d59f1f47"
+      },
+      {
+        "type": "prompt",
+        "text": "What's different about the picture on the right? Select one.",
+        "tool": "multiple_choice",
+        "options": [
+          "Everything is lined up",
+          "There are more items",
+          "The groups are bigger",
+          "They're in bags"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Everything is lined up"
+            },
+            "description": "Student selected A, Everything is lined up, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. Everything's lined up. Same groups, but organized so every item has its own spot.",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v0_b0",
+                "_notion_block_id": "33b5917e-ac52-817c-9a38-d47ff7c1ebf6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "There are more items"
+            },
+            "description": "Student selected 'There are more items': misconception that rectangular arrangement means more items",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_clustered",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All 15 items in the clustered arrangement highlight."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v1_b0",
+                "_notion_block_id": "33b5917e-ac52-8165-8b98-c20fc6e6539a"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All 15 items in the rectangular arrangement highlight."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v1_b1",
+                "_notion_block_id": "33b5917e-ac52-8199-bcbd-d0e48e54ddd9"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's check. Count both sides. The left has 15 items and the right has 15 items. Same number, just arranged differently. Look again for something that is different.",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v1_b2",
+                "_notion_block_id": "33b5917e-ac52-81fd-a54b-c7148a08ae77"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The groups are bigger"
+            },
+            "description": "Student selected 'The groups are bigger': misconception that rectangular arrangement has larger groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_clustered",
+                "params": {
+                  "highlight_groups": [
+                    0
+                  ],
+                  "description": "First group in clustered arrangement highlights, showing 5 items."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v2_b0",
+                "_notion_block_id": "33b5917e-ac52-81e2-8a72-e787f390ee39"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_rows": [
+                    0
+                  ],
+                  "description": "First row in rectangular arrangement highlights, showing 5 items."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v2_b1",
+                "_notion_block_id": "33b5917e-ac52-8135-8158-f36cda7bd42d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check this out: each bag on the left has 5 items. Each line on the right also has 5 items. The groups are the same size. Look for something that is different in the right picture.",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v2_b2",
+                "_notion_block_id": "33b5917e-ac52-81ac-b030-c61eca475cab"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They're in bags"
+            },
+            "description": "Student selected 'They're in bags': focused on containers rather than arrangement pattern",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "highlight_alignment": true,
+                  "description": "Grid lines appear over rectangular arrangement, emphasizing the rows and columns."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v3_b0",
+                "_notion_block_id": "33b5917e-ac52-8164-a92e-f6ca6dfca50e"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's not it. The picture on the left is in bags, but the bags are gone on the right. Look closer at how the items themselves are arranged. What's special about their positions in the right picture?",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v3_b1",
+                "_notion_block_id": "33b5917e-ac52-81ab-98a0-e131980fe022"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_rectangular",
+                "params": {
+                  "event": "trace_alignment",
+                  "status": "confirmed",
+                  "description": "System highlights the rows and then the columns, showing the perfect alignment."
+                },
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v4_b0",
+                "notion_flag": "updated",
+                "_notion_block_id": "33b5917e-ac52-8155-b36c-f6654becb031"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me explain. On the right, every item lines up perfectly. Notice how the items are in straight lines left to right and up to down That's what makes this picture different. Everything is lined up.",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v4_b1",
+                "_notion_block_id": "33b5917e-ac52-81ea-bb10-e7bd6ab7b6b8"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_equal_groups_vs_rectangular_b3",
+        "_notion_block_id": "33b5917e-ac52-8105-a21c-dc2089f90921"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:59.378216+00:00",
+    "_toml_key": "section_102_equal_groups_vs_rectangular"
+  },
+  {
+    "id": "s1_4_bridge_to_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_items",
+        "tangible_type": "equal_groups",
+        "params": {
+          "layout": "grid",
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 grid arrangement of items appears, centered on screen."
+        },
+        "id": "s1_4_bridge_to_lesson_b0",
+        "_notion_block_id": "33b5917e-ac52-8119-869d-f50a86da020e"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "Horizontal lines (rows) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b1",
+        "_notion_block_id": "33b5917e-ac52-81d9-a9df-f4c86c2f5d24"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_columns",
+          "status": "confirmed",
+          "description": "Vertical lines (columns) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b2",
+        "_notion_block_id": "33b5917e-ac52-8180-955d-d954f28bdce8"
+      },
+      {
+        "type": "dialogue",
+        "text": "That lined-up arrangement? It has a name and there's a lot we can figure out about how it works. Let's dive in.",
+        "id": "s1_4_bridge_to_lesson_b3",
+        "_notion_block_id": "33b5917e-ac52-8185-948d-db4b5ee4d5ff"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:23:05.382674+00:00",
+    "_toml_key": "section_103_bridge_to_lesson"
+  }
+]

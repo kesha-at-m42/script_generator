@@ -1,5 +1,9 @@
 # script_generator — Project Guide for Claude
 
+## Commit Style
+
+Do not add `Co-Authored-By` trailers to commit messages.
+
 ## Project Layout
 
 ```

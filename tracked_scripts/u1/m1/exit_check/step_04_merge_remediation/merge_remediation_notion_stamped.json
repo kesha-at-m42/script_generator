@@ -1,0 +1,708 @@
+[
+  {
+    "id": "ec_transition",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You read picture graphs and bar graphs. You solved comparison problems and found totals. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "ec_1_read_value",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical picture graph appears. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Key: each symbol = 1 vote."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this Popular Snacks picture graph showing what students chose as their favorite snack. How many students chose crackers?",
+        "_notion_block_id": "31b5917e-ac52-810d-8c11-de112a8b1693"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students chose crackers?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          4,
+          5,
+          7
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — correct, Crackers value",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "7 students chose crackers. That's what the picture graph shows. Each symbol is 1 vote and there are 7 symbols.",
+                "_notion_block_id": "31b5917e-ac52-8119-b31f-e4ece1e22384"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — confused Crackers with Pretzels value",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Highlight Crackers on picture_graph_snacks"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8111-b873-e8faee81f2c6"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the Pretzels column. Look at the Crackers column, count the symbols labeled Crackers.",
+                "_notion_block_id": "31b5917e-ac52-819e-ab5e-d2a59aeb2546"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — confused Crackers with Fruit value",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Highlight Crackers on picture_graph_snacks"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8161-b821-e67858bbbc28"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the Fruit column. Look at the column labeled Crackers. How many symbols are in that category?",
+                "_notion_block_id": "31b5917e-ac52-81eb-94c1-c16353d39363"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — confused Crackers with Popcorn value",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Highlight Crackers on picture_graph_snacks"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81c0-87bc-eea7dda3d82f"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the Popcorn value. Find the category that says Crackers and count those symbols.",
+                "_notion_block_id": "31b5917e-ac52-8164-91c4-f1ff3f788d39"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "highlight_and_count",
+                  "status": "confirmed",
+                  "description": "Crackers column highlights. Each symbol pulses as counted: 1, 2, 3, 4, 5, 6, 7.",
+                  "category": "Crackers"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81fb-8acf-d360f94bd398"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Find the category labeled Crackers. Then count each symbol: 1, 2, 3, 4, 5, 6, 7. Each symbol represents 1 student so 7 students chose crackers.",
+                "_notion_block_id": "31b5917e-ac52-81d4-9f00-da31d1932812"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81d6-805b-fba8c746c0c8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Vertical picture graph in reading mode. Popular Snacks data. Popcorn=5, Pretzels=3, Crackers=7, Fruit=4. Multiple choice prompt active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Crackers",
+              "Fruit"
+            ],
+            "values": [
+              5,
+              3,
+              7,
+              4
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-819e-a3e6-e070ad057a81"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-810e-8dae-cabd88814293",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "ec_2_find_fewest",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal bar graph appears. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis marked 0-10 by 1s."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this Favorite Seasons bar graph. Click on which season the fewest students like.",
+        "_notion_block_id": "31b5917e-ac52-81ea-8e33-db3efbe22fa6"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on which season the fewest students like.",
+        "tool": "click_category",
+        "target": "bar_graph_seasons",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Fall"
+            },
+            "description": "Student clicked Fall — correct, 4 votes is the fewest",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. Fall shows the fewest, only 4 votes.",
+                "_notion_block_id": "31b5917e-ac52-8127-8246-f1cb1478f721"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's not it. Look for the shortest bar. That will show the fewest votes.",
+                "_notion_block_id": "31b5917e-ac52-819c-8a14-f1d5ce20a0ce"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_seasons",
+                "params": {
+                  "highlight_categories": [
+                    "Fall"
+                  ],
+                  "description": "Highlight Fall on bar_graph_seasons"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81ac-ae00-c583e061402c"
+              },
+              {
+                "type": "dialogue",
+                "text": " Not that one. The fewest means the smallest number. Which bar is shorter than all the others?",
+                "_notion_block_id": "31b5917e-ac52-81e1-bb41-db31bd19e49f"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_seasons",
+                "params": {
+                  "event": "highlight_shortest_bar",
+                  "status": "confirmed",
+                  "description": "Fall bar pulses and highlights, showing it as the shortest at 4 votes"
+                },
+                "_notion_block_id": "31b5917e-ac52-818c-8dce-febf61298540"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look at it together. To find the fewest, we look for the shortest bar. Spring goes to 6, Summer to 9, Fall to 4, and Winter to 5. Fall has the shortest bar at 4 votes, that's the fewest.",
+                "_notion_block_id": "31b5917e-ac52-817d-9c97-f453d752124a"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81fb-80fc-f4e6462a1e65"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_seasons",
+            "description": "Horizontal bar graph in reading mode. Favorite Seasons data. Spring=6, Summer=9, Fall=4, Winter=5. Axis 0-10. Click category tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Spring",
+              "Summer",
+              "Fall",
+              "Winter"
+            ],
+            "values": [
+              6,
+              9,
+              4,
+              5
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8110-abea-ff8c0d4c0f8e"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-818c-b600-dac5ba9b300f",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "ec_3_how_many_more",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical bar graph appears. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis marked 0-8 by 1s."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "This bar graph shows the number of books read by four students this week. How many more books did Ava read than Dan?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more books did Ava read than Dan?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          5,
+          8,
+          11
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — correct, 8 minus 3 equals 5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 more books. Ava read 8, Dan read 3. The difference is 5.",
+                "_notion_block_id": "31b5917e-ac52-81bd-a4fa-dc3e24297b1f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — confused Dan's value (3) with the difference between Ava and Dan",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ava",
+                    "Dan"
+                  ],
+                  "description": "Highlight Ava, Dan on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-819f-b542-fa15102b7e62"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Dan's number of books. But we need the difference, how many more books Ava has read than Dan. Compare their bar heights.",
+                "_notion_block_id": "31b5917e-ac52-81c9-beee-db776aa6bf20"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — confused Ava's value (8) with the difference between Ava and Dan",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ava",
+                    "Dan"
+                  ],
+                  "description": "Highlight Ava, Dan on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81a8-84d0-c4540da382e7"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Ava's number of books. But the question asks how many more. We need to find the difference between Ava's 8 books and Dan's books.",
+                "_notion_block_id": "31b5917e-ac52-8121-b968-cd348e362032"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — added Ava's value and Dan's value (8 + 3) instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ava",
+                    "Dan"
+                  ],
+                  "description": "Highlight Ava, Dan on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-815d-a64c-d17543b9fa16"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, not exactly. When we ask “how many more,” we SUBTRACT to find the difference. Look at Ava's bar and Dan's bar: how much taller is Ava's?",
+                "_notion_block_id": "31b5917e-ac52-81eb-ae89-d8eb378ef9ea"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "Animation highlights Ava's bar at 8 and Dan's bar at 3, then visually shows the 5-unit difference between them"
+                },
+                "_notion_block_id": "31b5917e-ac52-8131-bf6b-c2d851004d5c"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Ava read 8 books because her bar reaches to 8. Dan read 3 books since his bar reaches to 3. To find how many more, we subtract: 8 minus 3 equals 5. Ava read 5 more books than Dan.",
+                "_notion_block_id": "31b5917e-ac52-8167-bd17-c5962a9a4fc7"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8134-baa9-ed3a92c8bead"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis 0-8. Multiple choice prompt active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Ava",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              8,
+              5,
+              6,
+              3
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81cf-938d-c3243eba7088"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-811a-9b95-f9553678d4f8",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "ec_4_in_all",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Look at this Books Read This Week bar graph again. How many books did Ben and Cara read this week in all?",
+        "_notion_block_id": "31b5917e-ac52-816e-815b-e1b217c16cb3"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books did Ben and Cara read this week in all?",
+        "tool": "multiple_choice",
+        "options": [
+          6,
+          9,
+          11,
+          14
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — correct, 5 plus 6 equals 11",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "11 books in all. Ben read 5, Cara read 6. You added to combine and find the total.",
+                "_notion_block_id": "31b5917e-ac52-810c-a955-d7e3b9ce364e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — only counted Cara's books, did not add Ben's",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ben",
+                    "Cara"
+                  ],
+                  "description": "Highlight Ben, Cara on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81a5-8d4d-fa6c464a054f"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Cara's 6 books. The question asks for Ben and Cara in all. We need to add both amounts together.",
+                "_notion_block_id": "31b5917e-ac52-8199-823f-d57da761e703"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 9
+            },
+            "description": "Student selected 9 — likely added Ben (5) and Dan (3) instead of Ben and Cara, or miscounted",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ben",
+                    "Cara"
+                  ],
+                  "description": "Highlight Ben, Cara on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8157-ae83-f903ac92d8cf"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look at the right people. The question asks about Ben and Cara. Check which bars those are, then add the two numbers.",
+                "_notion_block_id": "31b5917e-ac52-8118-9d63-d32ef85c96e3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student selected 14 — likely added Ava (8) and Cara (6) instead of Ben and Cara",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Ben",
+                    "Cara"
+                  ],
+                  "description": "Highlight Ben, Cara on bar_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81b9-a939-cb23976c1006"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the names carefully. The question asks about Ben and Cara. Find their bars, read the numbers, then combine.",
+                "_notion_block_id": "31b5917e-ac52-8189-bfcf-da9151c8fb38"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "highlight_and_label_sum",
+                  "status": "confirmed",
+                  "description": "Ben and Cara bars highlight. Ben's bar labeled 5, Cara's bar labeled 6. Addition equation 5 + 6 = 11 appears."
+                },
+                "_notion_block_id": "31b5917e-ac52-81a3-b043-f6b1311fc914"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here is how we work through this problem. \"In all\" is a COMBINE problem. First, find Ben's bar: it shows 5 books. Then find Cara's bar: it shows 6 books. To combine, we add: 5 plus 6 equals 11. They read 11 books in all this week.",
+                "_notion_block_id": "31b5917e-ac52-81c8-9eef-f8c1bd5e5e46"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81c0-a799-edf0ab63e95b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Multiple choice prompt active asking about Ben and Cara's combined total.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Ava",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              8,
+              5,
+              6,
+              3
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8161-b66d-e45e6b57f0db"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "31b5917e-ac52-814b-ad2c-c0a3399ac4df",
+        "notion_type": "divider"
+      }
+    ]
+  },
+  {
+    "id": "ec_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready to practice.",
+        "_notion_block_id": "31b5917e-ac52-817e-91a6-d7afd687df49"
+      }
+    ]
+  }
+]

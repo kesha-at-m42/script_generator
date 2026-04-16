@@ -38,7 +38,14 @@ import json  # noqa: E402
 import re  # noqa: E402
 
 from core.path_manager import get_project_paths, get_step_directory  # noqa: E402
-from core.pipeline import run_pipeline  # noqa: E402
+from core.pipeline import (  # noqa: E402
+    add_common_pipeline_args,
+    apply_yes_flag,
+    parse_batch_filter_arg,
+    parse_step_ref_arg,
+    resolve_pipeline_name,
+    run_pipeline,
+)
 from core.pipeline_executor import run_formatting_step  # noqa: E402
 from core.pipelines import PIPELINES  # noqa: E402
 from core.version_manager import get_latest_version  # noqa: E402
@@ -398,7 +405,7 @@ Examples:
 
   # Item-level reruns (rerun specific batch items)
   python rerun.py problem_generator 4001 4005 4012
-  python rerun.py problem_generator 4001 --base v2 --note "Fixed prompt"
+  python rerun.py -p problem_generator 4001 --base v2 --note "Fixed prompt"
 
   # Step-level reruns (skip to step N)
   python rerun.py problem_generator --start-from 3 --module 4 --path a
@@ -409,50 +416,40 @@ Examples:
   python rerun.py problem_generator 4001 4005 --start-from 2 --end-at 4
         """,
     )
+
+    # --- Common flags (shared with run_pipeline.py) ---
+    add_common_pipeline_args(parser)
+
+    # --- Rerun-specific positional args ---
     parser.add_argument(
-        "pipeline_name", nargs="?", help="Name of the pipeline (optional if using --from-output)"
+        "pipeline_name", nargs="?",
+        help="Name of the pipeline (optional if using --from-output or -p/--pipeline)",
     )
     parser.add_argument("item_ids", nargs="*", help="Item IDs to rerun (for batch steps)")
 
-    # Rerun from output
+    # --- Rerun-specific flags ---
     parser.add_argument(
         "--from-output",
         help="Point at any output file to rerun it (auto-detects pipeline/module/items)",
     )
-
-    # Rerun options
     parser.add_argument(
         "--base", default=None, help="Base version to rerun from (default: latest or auto-detected)"
     )
-    parser.add_argument("--note", default="", help="Optional note about this rerun")
     parser.add_argument(
         "--templates",
         action="store_true",
         help="Treat item_ids as template IDs (enables template rerun mode)",
     )
-
-    # Step range options
-    parser.add_argument("--start-from", help="Start from step N (int or name)")
-    parser.add_argument("--end-at", help="End at step N (int or name)")
-
-    # Unit/Module/path context (required for step-level reruns)
-    parser.add_argument("--unit", type=int, help="Unit number (optional)")
-    parser.add_argument("--module", type=int, help="Module number")
-    parser.add_argument("--path", choices=["a", "b", "c"], help="Path letter")
-
-    # Exclusion filters
     parser.add_argument(
         "--exclude-template-ids",
         type=str,
-        help="Exclude items with these template IDs from ALL steps (comma-separated, e.g., '7006,7010')",
+        help="Exclude items with these template IDs from ALL steps (comma-separated, e.g. '7006,7010')",
     )
     parser.add_argument(
         "--exclude-item-ids",
         type=str,
-        help="Exclude items with these problem/item IDs from ALL steps (comma-separated, e.g., '73,74,75')",
+        help="Exclude items with these problem/item IDs from ALL steps (comma-separated, e.g. '73,74,75')",
     )
-
-    # Step function_args overrides
     parser.add_argument(
         "--step-args",
         nargs="+",
@@ -464,15 +461,11 @@ Examples:
             "Example: --step-args remediation_filter mode=mc"
         ),
     )
-
-    # Other
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
-    parser.add_argument("--status", help="Pipeline status (alpha/beta/rc/final)")
-    parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
     parser.add_argument(
         "--skip-base-validation",
         action="store_true",
-        help="Skip validation that base version has prerequisite step outputs (use when base uses old pipeline structure)",
+        help="Skip validation that base version has prerequisite step outputs",
     )
 
     args = parser.parse_args()
@@ -500,14 +493,12 @@ Examples:
         step_args_overrides[step_name] = overrides
 
     # Parse exclusion filters
-    exclude_template_ids = None
-    if args.exclude_template_ids:
-        exclude_template_ids = [id.strip() for id in args.exclude_template_ids.split(",")]
+    exclude_template_ids = parse_batch_filter_arg(args.exclude_template_ids)
+    if exclude_template_ids:
         print(f"  [EXCLUDE] Template IDs: {exclude_template_ids}")
 
-    exclude_item_ids = None
-    if args.exclude_item_ids:
-        exclude_item_ids = [id.strip() for id in args.exclude_item_ids.split(",")]
+    exclude_item_ids = parse_batch_filter_arg(args.exclude_item_ids)
+    if exclude_item_ids:
         print(f"  [EXCLUDE] Item/Problem IDs: {exclude_item_ids}")
 
     # Handle --from-output mode
@@ -583,19 +574,14 @@ Examples:
             )
         print()
 
-    # Validate pipeline name is provided
-    if not args.pipeline_name:
-        print("Error: pipeline_name required (or use --from-output)")
+    # Resolve pipeline name from -p/--pipeline flag or positional arg
+    _pipeline_arg = args.pipeline or args.pipeline_name
+    if not _pipeline_arg:
+        print("Error: pipeline name required (use -p/--pipeline, positional arg, or --from-output)")
         parser.print_help()
         sys.exit(1)
 
-    # Validate pipeline exists
-    if args.pipeline_name not in PIPELINES:
-        print(f"Error: Pipeline '{args.pipeline_name}' not found")
-        print("Available pipelines:")
-        for p in PIPELINES.keys():
-            print(f"  - {p}")
-        sys.exit(1)
+    args.pipeline_name = resolve_pipeline_name(_pipeline_arg, PIPELINES)
 
     # Get pipeline steps
     steps = PIPELINES[args.pipeline_name]
@@ -660,25 +646,27 @@ Examples:
         print("Error: Exclude mode cannot be combined with template rerun mode")
         sys.exit(1)
 
-    if has_step_range and not args.module:
-        print("Error: --module required when using --start-from or --end-at")
-        sys.exit(1)
-
     # Template rerun + step range: allowed — acts as a wrapper that maps template IDs
     # to problem instance IDs and runs a standard item-level rerun over the given range.
 
-    if is_template_rerun and not args.module:
-        print("Error: Template rerun mode requires --module")
-        sys.exit(1)
-
     # Convert numeric step references to int
-    start_from = args.start_from
-    if start_from and start_from.isdigit():
-        start_from = int(start_from)
+    start_from = parse_step_ref_arg(args.start_from)
+    end_at = parse_step_ref_arg(args.end_at)
 
-    end_at = args.end_at
-    if end_at and end_at.isdigit():
-        end_at = int(end_at)
+    # Auto-detect start_from for item-level reruns when step 1 is not a batch step.
+    # Non-batch leading steps would otherwise re-execute from scratch, which is wrong —
+    # only batch steps can be meaningfully filtered by item IDs.
+    if has_item_ids and not has_step_range:
+        for step_idx, step in enumerate(steps, 1):
+            if step.batch_mode:
+                if step_idx > 1:
+                    start_from = step_idx
+                    has_step_range = True
+                    print(
+                        f"  [AUTO] First batch step is step {step_idx} — "
+                        f"copying steps 1–{step_idx - 1} from base"
+                    )
+                break
 
     # Show confirmation
     print(f"\n{'=' * 70}")
@@ -708,9 +696,7 @@ Examples:
         print(f"Note: {args.note}")
     print(f"{'=' * 70}\n")
 
-    if args.yes:
-        import os as _os
-        _os.environ["NOTION_YES"] = "1"
+    apply_yes_flag(args)
 
     if not args.yes:
         response = input("Proceed with rerun? (y/n): ").strip().lower()
@@ -746,6 +732,7 @@ Examples:
                 start_from=start_from,
                 end_at=end_at,
                 notes=args.note,
+                interactive=args.interactive,
                 verbose=True,
             )
         else:
@@ -763,6 +750,7 @@ Examples:
                 notes=args.note,
                 pipeline_status=args.status,
                 skip_base_validation=args.skip_base_validation,
+                interactive=args.interactive,
                 verbose=True,
             )
 
@@ -987,6 +975,7 @@ def run_template_rerun_pipeline(
     start_from=None,
     end_at=None,
     notes="",
+    interactive=False,
     verbose=True,
     unit_number=None,
 ):
@@ -1124,6 +1113,7 @@ def run_template_rerun_pipeline(
             start_from_step=start_from,
             end_at_step=end_at,
             notes=note_str,
+            interactive=interactive,
             verbose=verbose,
         )
     else:
@@ -1152,6 +1142,7 @@ def run_template_rerun_pipeline(
             base_version=base_version,
             end_at_step=1,
             notes=note_str,
+            interactive=interactive,
             verbose=verbose,
         )
 
@@ -1220,6 +1211,7 @@ def run_template_rerun_pipeline(
             start_from_step=2,
             end_at_step=end_at,
             notes=note_str,
+            interactive=interactive,
             reuse_version_dir=p1_version_dir,
             verbose=verbose,
         )

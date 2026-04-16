@@ -1,0 +1,402 @@
+[
+  {
+    "id": "s1_1_opening_hook",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "groups": 3,
+          "items_per_group": 5,
+          "container": "bag",
+          "description": "Left side of split screen: 3 bags, each containing 5 items. Clustered arrangement. Total 15 items visible."
+        },
+        "id": "s1_1_opening_hook_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_rect",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "items_per_row": 5,
+          "description": "Right side of split screen: Same 15 items arranged in a 3 by 5 rectangle. No containers. Items lined up in rows and columns."
+        },
+        "id": "s1_1_opening_hook_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same items, two different pictures. What's going on here? Let's start with the one you already know.",
+        "id": "s1_1_opening_hook_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Left side: 3 bags with 5 items each. Clustered equal groups arrangement.",
+            "tangible_type": "equal_groups",
+            "groups": 3,
+            "items_per_group": 5,
+            "container": "bag"
+          },
+          {
+            "tangible_id": "array_rect",
+            "description": "Right side: Same 15 items in 3 by 5 rectangular arrangement. No containers.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 3,
+            "items_per_row": 5
+          }
+        ],
+        "id": "s1_1_opening_hook_b3"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:33.795854+00:00"
+  },
+  {
+    "id": "s1_2_equation_building_callback",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "groups": 3,
+          "items_per_group": 5,
+          "visual_style": "pictures",
+          "container_type": "bags",
+          "description": "Equal groups visual appears showing 3 bags with 5 items each."
+        },
+        "id": "s1_2_equation_building_callback_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_bags",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "___",
+            "×",
+            "___",
+            "=",
+            "___"
+          ],
+          "palette": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8,
+            12,
+            14,
+            15,
+            16
+          ],
+          "description": "Equation builder appears alongside equal groups. Full equation template with three blanks. Tile palette shows numbers 2, 3, 4, 5, 6, 8, 12, 14, 15, 16."
+        },
+        "id": "s1_2_equation_building_callback_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's warm up. Check out these bags. Build the equation.",
+        "id": "s1_2_equation_building_callback_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation to match this picture.",
+        "tool": "place_tile",
+        "target": "equation_builder_bags",
+        "validator": [
+          {
+            "condition": {
+              "placed": {
+                "groups": 3,
+                "items": 5,
+                "total": 15
+              }
+            },
+            "description": "Student placed 3, 5, and 15 in equation slots, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_bags",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Equation confirms as correct: 3 × 5 = 15."
+                },
+                "id": "s1_2_equation_building_callback_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. 3 times 5 equals 15.",
+                "id": "s1_2_equation_building_callback_b3_v0_b1"
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "equal_groups_bags",
+                    "description": "Equal groups visual showing 3 bags with 5 items each.",
+                    "tangible_type": "equal_groups",
+                    "groups": 3,
+                    "items_per_group": 5,
+                    "visual_style": "pictures",
+                    "container_type": "bags"
+                  },
+                  {
+                    "tangible_id": "equation_builder_bags",
+                    "description": "Equation builder showing confirmed equation: 3 × 5 = 15.",
+                    "tangible_type": "equation_builder",
+                    "template": [
+                      "3",
+                      "×",
+                      "5",
+                      "=",
+                      "15"
+                    ]
+                  }
+                ],
+                "id": "s1_2_equation_building_callback_b3_v0_b2"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_equation_building_callback_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual showing 3 bags with 5 items each.",
+            "tangible_type": "equal_groups",
+            "groups": 3,
+            "items_per_group": 5,
+            "visual_style": "pictures",
+            "container_type": "bags"
+          },
+          {
+            "tangible_id": "equation_builder_bags",
+            "description": "Equation builder with three empty blanks. Tile palette active with numbers 2, 3, 4, 5, 6, 8, 12, 14, 15, 16.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "___",
+              "×",
+              "___",
+              "=",
+              "___"
+            ],
+            "palette": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              8,
+              12,
+              14,
+              15,
+              16
+            ]
+          }
+        ],
+        "id": "s1_2_equation_building_callback_b4"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:46.771161+00:00"
+  },
+  {
+    "id": "s1_3_equal_groups_vs_rectangular",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_clustered",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "layout": "clustered",
+          "groups": 3,
+          "items_per_group": 5,
+          "show_containers": true,
+          "description": "Left side of split screen. 3 bags appear, each containing 5 items in a clustered arrangement. Same visual from warmup section 1."
+        },
+        "id": "s1_3_equal_groups_vs_rectangular_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_rectangular",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "layout": "rectangular",
+          "groups": 3,
+          "items_per_group": 5,
+          "show_containers": false,
+          "description": "Right side of split screen. Same 15 items now arranged in a 3 by 5 rectangle. No bags. Items lined up in rows and columns, aligned horizontally and vertically."
+        },
+        "id": "s1_3_equal_groups_vs_rectangular_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Check out these two pictures. Both show 15 items -- 3 groups of 5. But look at the one on the right. Something's different about how it's set up. What do you notice?",
+        "id": "s1_3_equal_groups_vs_rectangular_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "What's different about the picture on the right? Select one.",
+        "tool": "multiple_choice",
+        "options": [
+          "Everything is lined up",
+          "There are more items",
+          "The groups are bigger",
+          "They're in bags"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Everything is lined up"
+            },
+            "description": "Student selected A, Everything is lined up, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Everything's lined up. Same groups, but now every item has its own spot in the arrangement.",
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v0_b0"
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "equal_groups_clustered",
+                    "description": "Left side of split screen. 3 bags, each containing 5 items in a clustered arrangement.",
+                    "tangible_type": "equal_groups",
+                    "mode": "reading",
+                    "layout": "clustered",
+                    "groups": 3,
+                    "items_per_group": 5,
+                    "show_containers": true
+                  },
+                  {
+                    "tangible_id": "equal_groups_rectangular",
+                    "description": "Right side of split screen. Same 15 items arranged in a 3 by 5 rectangle. Items lined up in rows and columns.",
+                    "tangible_type": "equal_groups",
+                    "mode": "reading",
+                    "layout": "rectangular",
+                    "groups": 3,
+                    "items_per_group": 5,
+                    "show_containers": false
+                  }
+                ],
+                "id": "s1_3_equal_groups_vs_rectangular_b3_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_equal_groups_vs_rectangular_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_clustered",
+            "description": "Left side of split screen. 3 bags, each containing 5 items in a clustered arrangement.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "layout": "clustered",
+            "groups": 3,
+            "items_per_group": 5,
+            "show_containers": true
+          },
+          {
+            "tangible_id": "equal_groups_rectangular",
+            "description": "Right side of split screen. Same 15 items arranged in a 3 by 5 rectangle. No bags. Items lined up in rows and columns.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "layout": "rectangular",
+            "groups": 3,
+            "items_per_group": 5,
+            "show_containers": false
+          }
+        ],
+        "id": "s1_3_equal_groups_vs_rectangular_b4"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:22:59.378216+00:00"
+  },
+  {
+    "id": "s1_4_bridge_to_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_items",
+        "tangible_type": "equal_groups",
+        "params": {
+          "layout": "grid",
+          "rows": 3,
+          "columns": 5,
+          "description": "3×5 grid arrangement of items appears, centered on screen."
+        },
+        "id": "s1_4_bridge_to_lesson_b0"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "Horizontal lines (rows) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_items",
+        "params": {
+          "event": "highlight_columns",
+          "status": "confirmed",
+          "description": "Vertical lines (columns) briefly highlight."
+        },
+        "id": "s1_4_bridge_to_lesson_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "That lined-up arrangement you just made? It has a name. And there's a lot we can figure out about how it works. Let's dive in.",
+        "id": "s1_4_bridge_to_lesson_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_items",
+            "description": "3×5 grid arrangement of items centered on screen.",
+            "tangible_type": "equal_groups",
+            "layout": "grid",
+            "rows": 3,
+            "columns": 5
+          }
+        ],
+        "id": "s1_4_bridge_to_lesson_b4"
+      }
+    ],
+    "_generated_at": "2026-04-07T18:23:05.382674+00:00"
+  }
+]
