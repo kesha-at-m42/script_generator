@@ -43,7 +43,7 @@ _PIPELINE_RE = re.compile(
 _SCRIPT_TYPE_LABELS = {
     "lesson": "lesson",
     "warmup": "warmup",
-    "exitcheck": "exit_check",
+    "exitcheck": "exitcheck",
     "synthesis": "synthesis",
 }
 _SKIP_FILES = {"notion_blocks.json", "notion_push_log.json"}
@@ -118,8 +118,11 @@ def _notion_pull(version_dir: Path, page_id: str) -> str | None:
         return "no source JSON found"
     try:
         original = json.loads(source.read_text(encoding="utf-8"))
-        patched, _flags, raw_blocks = pull_lesson(page_id, original)
+        patched, flags, raw_blocks = pull_lesson(page_id, original)
         source.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        if flags:
+            flags_path = source.parent / "notion_flags.json"
+            flags_path.write_text(json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
         # Reverse-stamp: apply the same Notion blocks to the pipeline source (e.g. step_12)
         # so it gains _notion_block_id on every matched beat without a re-push.
@@ -152,7 +155,8 @@ def _sync_entry(key: str, entry: dict, do_pull: bool) -> str:
         if err:
             return f"PULL ERROR  {key}: {err}"
 
-    dest = TRACKED_DIR / unit / f"module_{module_num}" / script_type
+    unit_short = re.sub(r'^unit(\d+)$', r'u\1', unit)
+    dest = TRACKED_DIR / unit_short / f"m{module_num}" / script_type
     if dest.exists():
         shutil.rmtree(dest)
 
