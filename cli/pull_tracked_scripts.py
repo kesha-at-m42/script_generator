@@ -33,7 +33,7 @@ from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
-from utils.notion import is_configured, load_registry, pull_lesson, blocks_to_lesson  # noqa: E402
+from utils.notion import is_configured, load_registry, pull_lesson, pull_out_path, blocks_to_lesson  # noqa: E402
 
 TRACKED_DIR = project_root / "tracked_scripts"
 
@@ -113,27 +113,22 @@ def _notion_pull(version_dir: Path, page_id: str) -> str | None:
     Also writes a reverse-stamped copy of the pipeline source file (last non-pull step)
     so that future pulls can use ID-based matching instead of LEGACY content matching.
     """
-    source = _find_last_step_json(version_dir)
+    source = _find_last_step_json(version_dir, skip_pull=True)
     if not source:
         return "no source JSON found"
     try:
         original = json.loads(source.read_text(encoding="utf-8"))
         patched, flags, raw_blocks = pull_lesson(page_id, original)
-        source.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        if flags:
-            flags_path = source.parent / "notion_flags.json"
-            flags_path.write_text(json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-        # Reverse-stamp: apply the same Notion blocks to the pipeline source (e.g. step_12)
-        # so it gains _notion_block_id on every matched beat without a re-push.
-        pipeline_source = _find_last_step_json(version_dir, skip_pull=True)
-        if pipeline_source and pipeline_source != source:
-            pipeline_original = json.loads(pipeline_source.read_text(encoding="utf-8"))
-            pipeline_stamped, _ = blocks_to_lesson(raw_blocks, pipeline_original)
-            stamped_path = pipeline_source.parent / (pipeline_source.stem + "_notion_stamped.json")
-            stamped_path.write_text(
-                json.dumps(pipeline_stamped, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        out_path = pull_out_path(source)
+        out_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        if flags:
+            (out_path.parent / "notion_flags.json").write_text(
+                json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
             )
+        (out_path.parent / "notion_blocks.json").write_text(
+            json.dumps(raw_blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
     except Exception as e:
         return str(e)
     return None

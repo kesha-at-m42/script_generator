@@ -2353,3 +2353,33 @@ def pull_lesson(
     blocks = _all_blocks(client, page_id, recursive=True)
     patched, flags = blocks_to_lesson(blocks, original)
     return patched, flags, blocks
+
+
+def pull_out_path(source_file: Path) -> Path:
+    """Return the pull output path for a pipeline step file.
+
+    Reuses an existing step_*_pull dir if one is present; otherwise creates
+    step_{max+1}_pull/ after the highest numbered step in the version dir.
+    """
+    version_dir = source_file.parent.parent
+    if not re.match(r"step_(\d+)_", source_file.parent.name):
+        return source_file
+    existing_pull_dirs = sorted(
+        [
+            (int(m.group(1)), d)
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_pull$", d.name))
+        ]
+    )
+    if existing_pull_dirs:
+        out_dir = existing_pull_dirs[-1][1]
+    else:
+        existing_nums = [
+            int(m.group(1))
+            for d in version_dir.iterdir()
+            if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
+        ]
+        next_num = max(existing_nums) + 1 if existing_nums else 1
+        out_dir = version_dir / f"step_{next_num:02d}_pull"
+        out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir / "pull.json"

@@ -37,6 +37,7 @@ from utils.notion import (  # noqa: E402
     get_registry_entry,
     is_configured,
     pull_lesson,
+    pull_out_path,
     push_lesson,
     set_registry_entry,
 )
@@ -174,34 +175,6 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
     return original_path, out_step_dir / "pull.json"
 
 
-def _pull_out_path(file_path: Path) -> Path:
-    """Derive the pull output path for any pipeline step file.
-
-    If a step_*_pull directory already exists, reuses the last one (overwrites).
-    Otherwise creates step_{max+1}_pull/pull.json after the highest existing step.
-    """
-    version_dir = file_path.parent.parent
-    if not re.match(r"step_(\d+)_", file_path.parent.name):
-        return file_path  # not in a numbered step dir — fall back to same file
-    existing_pull_dirs = sorted(
-        [
-            (int(m.group(1)), d)
-            for d in version_dir.iterdir()
-            if d.is_dir() and (m := re.match(r"step_(\d+)_pull$", d.name))
-        ]
-    )
-    if existing_pull_dirs:
-        out_step_dir = existing_pull_dirs[-1][1]
-    else:
-        existing_nums = [
-            int(m.group(1))
-            for d in version_dir.iterdir()
-            if d.is_dir() and (m := re.match(r"step_(\d+)_", d.name))
-        ]
-        next_num = max(existing_nums) + 1 if existing_nums else 1
-        out_step_dir = version_dir / f"step_{next_num:02d}_pull"
-        out_step_dir.mkdir(parents=True, exist_ok=True)
-    return out_step_dir / "pull.json"
 
 
 def _collect_notion_ids(obj: Any, acc: dict[str, str]) -> None:
@@ -313,7 +286,7 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
         out_path = step_dir / default_out_path.name
         print(f"Creating new version: {next_ver}")
     elif not in_versioned_pipeline:
-        out_path = _pull_out_path(file_path)
+        out_path = pull_out_path(file_path)
         # Reverse-stamp: create a copy of the pipeline source (file_path) with
         # _notion_block_id stamped on every matched beat, without overwriting the original.
         if out_path != file_path:
