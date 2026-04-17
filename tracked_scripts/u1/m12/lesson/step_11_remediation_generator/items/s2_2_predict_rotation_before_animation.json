@@ -1,0 +1,123 @@
+{
+  "id": "s2_2_predict_rotation_before_animation",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "5 × 3"
+        },
+        "description": "Student selected 5 × 3: kept the same expression, did not account for rotation swapping rows and columns",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_rotation",
+              "params": {
+                "highlight_rows": true,
+                "description": "Rows remain highlighted to emphasize current structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's what we have now. When the array rotates, the rows and columns switch. What will the new row expression be?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "15 × 1"
+        },
+        "description": "Student selected 15 × 1: focused on total count rather than row structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_rotation",
+              "params": {
+                "highlight_rows": true,
+                "description": "Rows highlighted to redirect attention to row structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "15 is the total, yes. But we need the row expression. Right now it's 5 rows of 3. When the array turns, how many rows will there be?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 + 5"
+        },
+        "description": "Student selected 3 + 5: used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_rotation",
+              "params": {
+                "highlight_rows": true,
+                "description": "Rows highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We use multiplication for arrays, not addition. Right now it's 5 rows of 3, so 5 times 3. After rotation, what will the rows be?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_rotation",
+              "params": {
+                "event": "rotate_90",
+                "status": "confirmed",
+                "description": "Array rotates 90 degrees to become 3×5."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "array_rotation",
+              "params": {
+                "rows": 3,
+                "columns": 5,
+                "description": "Array is now 3 rows of 5 dots."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "array_rotation",
+              "params": {
+                "event": "highlight_rows",
+                "status": "confirmed",
+                "description": "System highlights each of the 3 rows."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When I rotate it, the 5 rows of 3 become 3 rows of 5. Count them. 3 rows. Each row has 5 dots. That's 3 times 5. The answer is 3 × 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T20:38:11.897032+00:00"
+}

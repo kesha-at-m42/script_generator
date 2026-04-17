@@ -1,0 +1,84 @@
+{
+  "id": "s2_1_generalization_always_works",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "Here's one you haven't seen as an array today. 9 times 7 is 63. What's 7 times 9?"
+    },
+    {
+      "type": "prompt",
+      "text": "If 9 × 7 = 63, what's 7 × 9?",
+      "tool": "multiple_choice",
+      "options": [
+        "63",
+        "79",
+        "56",
+        "I'd need to see the array"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "63"
+          },
+          "description": "Student selected 63, correct application of property without visual support",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "63. You didn't need an array. You used the turn-around facts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    },
+    {
+      "type": "dialogue",
+      "text": "Now here's the big question. Will this work for ANY two numbers you multiply, not just the ones we tried?"
+    },
+    {
+      "type": "prompt",
+      "text": "Does 'multiply factors in any order and get the same product' work for ALL numbers?",
+      "tool": "multiple_choice",
+      "options": [
+        "Yes, it always works",
+        "Only for small numbers",
+        "Only when you have an array",
+        "Only when I know the first multiplication fact"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Yes, it always works"
+          },
+          "description": "Student selected always works, correct generalization to universal principle",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Always. Any two numbers. You could build an array for 9 × 7 and rotate it. Same dots, same product. You can imagine an array even when you don't see one. That's why mathematicians call it a property, it's always true."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    },
+    {
+      "type": "dialogue",
+      "text": "And here's something interesting, this isn't true for every operation. 8 minus 3 is NOT the same as 3 minus 8. But with multiplication, you can always switch the factors and get the same product. You already knew addition worked this way: 3 plus 5 equals 5 plus 3. Now you've proven multiplication works the same way."
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-10T21:07:02.402753+00:00"
+}

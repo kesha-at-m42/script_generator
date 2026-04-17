@@ -1,0 +1,262 @@
+[
+  {
+    "id": "s1_1_worked_example_dual_interpretation",
+    "visual": "Arrays with Pictures (dot mode): 3×5 dot array displayed centrally, neutral emphasis.",
+    "guide": "\"Let's figure out whether those two expressions really do always give the same product. Watch how I test this idea.\"",
+    "visual_2": "System applies row emphasis (3 horizontal bands highlighted sequentially).",
+    "guide_2": "\"I see the rows. 3 rows of 5. That's 3 × 5. And 3 times 5 is 15.\"",
+    "visual_3": "Row emphasis clears. System applies column emphasis (5 vertical bands highlighted sequentially).",
+    "guide_3": "\"Now the columns. 5 columns of 3. That's 5 × 3. And 5 times 3 is... 15. Same product! Same array, same dots. I didn't add anything or take anything away. Just read it a different way.\"",
+    "visual_4": "Both expressions displayed below array: 3 × 5 = 15 | 5 × 3 = 15.",
+    "no_student_action": "(worked example — Guide think-aloud).",
+    "_generated_at": "2026-04-10T20:32:19.960056+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": []
+    }
+  },
+  {
+    "id": "s1_2_student_tries_row_column_expressions",
+    "visual": "Arrays with Pictures (dot mode): 5×4 dot array. System applies row emphasis.",
+    "guide": "\"Here's a new array. I highlighted the rows — see them going across? How many rows, and how many in each? Build the expression and find the product.\"",
+    "prompt": "\"Build the equation for the rows.\"",
+    "student_action": "Equation Builder Mode 2 (equation mode — 3 slots: `[___] × [___] = [___]`), Methods C/D. Tiles: 3, 4, 5, 6, 9, 10, 16, 20, 24, 25",
+    "correct_answer": "5 × 4 = 20",
+    "guide_on_correct": "\"5 times 4 equals 20. 5 rows of 4.\"",
+    "remediation": "Pipeline",
+    "divider": "*(Immediately followed by:)*",
+    "visual_2": "Row emphasis clears. System applies column emphasis to same array.",
+    "guide_2": "\"Now I switched to columns. Build the column expression and find the product.\"",
+    "prompt_2": "\"Build the equation for the columns.\"",
+    "student_action_2": "Equation Builder Mode 2 (equation mode), Methods C/D. Tiles: 3, 4, 5, 6, 9, 10, 16, 20, 24, 25",
+    "correct_answer_2": "4 × 5  = 20",
+    "guide_on_correct_2": "\"4 columns of 5. 4 times 5 equals 20. Same product again.\"",
+    "remediation_2": "Pipeline",
+    "_generated_at": "2026-04-10T20:32:26.140783+00:00",
+    "workspace_specs": {
+      "toys": [
+        "arrays"
+      ],
+      "tools": [
+        "place_tile"
+      ]
+    }
+  },
+  {
+    "id": "s1_3_second_array_product_comparison",
+    "visual": "Arrays with Pictures (dot mode): 7 × 3 dot array. System applies row emphasis.",
+    "guide": "\"Another array. Rows are highlighted. Build the row expression and find the product.\"",
+    "prompt": "\"Build the equation for the rows.\"",
+    "student_action": "Equation Builder Mode 2 (equation mode), Methods C/D. Tiles: 3, 4, 6, 7, 8, 10, 18, 20, 21, 24",
+    "correct_answer": "7 × 3 = 21",
+    "guide_on_correct": "\"7 times 3 equals 21.\"",
+    "remediation": "Pipeline",
+    "divider": "*(Immediately followed by:)*",
+    "visual_2": "Column emphasis applied.",
+    "guide_2": "\"Now columns. Build it.\"",
+    "prompt_2": "\"Build the equation for the columns.\"",
+    "student_action_2": "Equation Builder Mode 2, Methods C/D. Tiles: 3, 4, 6, 7, 8, 10, 18, 20, 21, 24",
+    "correct_answer_2": "3 × 7 = 21",
+    "guide_on_correct_2": "\"3 times 7 equals 21. Same product — again.\"",
+    "remediation_2": "Pipeline",
+    "guide_explicit_pattern_stating": "\"That's three arrays now. Every time — two expressions, same product. 15 and 15. 20 and 20. 21 and 21.\"",
+    "_generated_at": "2026-04-10T20:32:31.225068+00:00",
+    "workspace_specs": {
+      "toys": [
+        "arrays"
+      ],
+      "tools": [
+        "place_tile"
+      ]
+    }
+  },
+  {
+    "id": "s1_4_pattern_observation_is_this_always_true",
+    "visual": "All three array results displayed in a summary:\n  * 3 × 5 = 15 | 5 × 3 = 15\n  * 5 × 4 = 20 | 4 × 5 = 20\n  * 7 × 3 = 21 | 3 × 7 = 21",
+    "guide": "\"Same product every time. But here's what we need to figure out: is this a coincidence, or does this ALWAYS happen? And if it always happens... why?\"",
+    "guide_2": "\"That's three arrays now. Every time there were two expressions, same product. 15 and 15. 20 and 20. 21 and 21. Why do you think both expressions give the same product?\"",
+    "prompt": "\"Why do both expressions give the same product?\"",
+    "options_mc": "A) Same dots — you just read them a different way\nB) The numbers are small enough to match\nC) Rows and columns always have the same number\nD) It only works for some arrays",
+    "correct_answer": "Same dots — you just read them a different way",
+    "rationale": "* A = Correct. Articulates the structural proof — same items, different organization.\n  * B = Numerosity misconception. Student thinks equivalence is coincidental or size-dependent. Diagnostically useful — flags students who won't generalize.\n  * C = Structural confusion. Student conflates \"same product\" with \"same count per row and column.\" Only true for square arrays.\n  * D = Skepticism. Student hasn't been convinced by three examples. Diagnostically useful heading into Section 2 where rotation provides the stronger proof.",
+    "guide_on_correct": "\"No dots changed. You just looked at the same dots a different way. Same dots has to mean same total. That's why the products match.\"",
+    "remediation": "Pipeline",
+    "guide_3": "\"But can we prove it even more clearly? Watch this.\"",
+    "divider": "### **1.7.2 LESSON SECTION 2: Rotation Discovery**\n\n**Purpose:** Introduce rotation animation as a visual proof of WHY both expressions give the same product. Highlighting showed \"two ways to read the same array.\" Rotation shows \"the same array physically turns — rows become columns, columns become rows, nothing changes.\" Students predict rotation outcomes before seeing them, building causal understanding rather than passive observation.",
+    "_generated_at": "2026-04-10T20:32:37.811181+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_1_worked_example_rotation",
+    "visual": "Arrays with Pictures (dot mode): 3×6 dot array, neutral emphasis.",
+    "guide": "\"Here's an array showing 3 rows of 6.\"",
+    "visual_2": "System briefly highlights rows. Expression displayed: 3 × 6 = 18.",
+    "guide_2": "\"3 times 6 equals 18. Now watch what happens when I turn this array.\"",
+    "visual_3": "Rotation animation plays. Array physically rotates 90° clockwise. The 3×6 array becomes a 6×3 array. Animation is smooth and visible (~2 seconds).",
+    "guide_3": "\"I turned it. Look, what WERE rows are now columns. What WERE columns are now rows.\"",
+    "visual_4": "System highlights rows of the new orientation. Expression displayed: 6 × 3 = 18.",
+    "guide_4": "\"Now it's 6 rows of 3. 6 times 3 equals 18. Same product.\"",
+    "guide_5": "\"And here's the important part, did any dots disappear when I turned it? Did new dots show up?\"",
+    "guide_6": "\"No. Every single dot is still there. I just turned the array. Same dots, same total. That's why the product can't change.\"",
+    "no_student_action": "(worked example — rotation introduction).",
+    "_generated_at": "2026-04-10T20:32:42.116941+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": []
+    }
+  },
+  {
+    "id": "s2_2_predict_rotation_before_animation",
+    "visual": "Arrays with Pictures (dot mode): 5×3 dot array. System highlights rows.",
+    "guide": "\"5 rows of 3. That's 5 × 3, and 5 times 3 is 15. I'm going to rotate this array. Before I do, let's make a prediction. What expression will describe the rows AFTER I turn it?\"",
+    "prompt": "\"After rotation, what will the row expression be?\"",
+    "options_mc": "A) 3 × 5 | B) 5 × 3 | C) 15 × 1  | D) 3 + 5",
+    "correct_answer": "A) 3 × 5",
+    "visual_2": "Rotation animation plays. Array becomes 3×5. System highlights rows.",
+    "guide_on_correct": "\"3 times 5. The 5 rows of 3 turned into 3 rows of 5. And it has the same total of 15 still. You predicted it.\"",
+    "remediation": "Pipeline",
+    "answer_rationale": "* A) 3 × 5 = Correct. Rotation swaps row and column counts.\n  * B) 5 × 3 = Misconception. Student believes rotation doesn't change the expression. May indicate #13 confusion about what rotation does.\n  * C) 15 × 1 = Misconception. Student conflates product with expression structure.\n  * D) 3 + 5 = Misconception. Student adds factors instead of multiplying.",
+    "_generated_at": "2026-04-10T20:32:46.900524+00:00",
+    "workspace_specs": {
+      "toys": [
+        "arrays"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_3_predict_rotation_product_confirmation",
+    "visual": "Arrays with Pictures (dot mode): 8 × 5 dot array. System highlights rows.",
+    "guide": "\"8 rows of 5. 8 × 5 = 40. If I turn this array, what will the new row expression be?\"",
+    "prompt": "\"After rotation, what will the row expression be?\"",
+    "options_mc": "A) 8 × 5 | B) 5 × 8 | C) 5 × 40 | D) 8 + 5",
+    "correct_answer": "B) 5 × 8",
+    "answer_rationale": "A) 8 × 5 = Misconception. Student believes expression stays unchanged after rotation. May indicate #13 — not connecting physical rotation to expression change.\n  * B) 5 × 8 = Correct. Student understands rotation swaps row and column counts.\n  * C) 5 × 40 = Misconception. Student confuses product (40) with factor count. Conflating total with group size.\n  * D) 8 + 5 = Misconception. Student adds factors instead of multiplying.",
+    "divider": "(Immediately followed by:)",
+    "guide_2": "\"And will the product change?\"",
+    "prompt_2": "\"After rotation, will the product be the same or different?\"",
+    "options_mc_2": "A) Same. Still 40 | B) Different. It lost rows. | C) Different. It lost columns. | D) Different. The factors changed.",
+    "correct_answer_2": "A) Same. Still 40",
+    "visual_2": "Rotation animation plays. Array becomes 8×5. Expression displayed: 8 × 5 = 40.",
+    "guide_on_correct": "\"8 times 5. Still 40. Same dots, just turned.\"",
+    "remediation": "Pipeline",
+    "answer_rationale_2": "A) Same. Still 40 = Correct. Student has internalized the proof from 2.1-2.2.\n  * B, C or D) Different = #13 active. Student believes changing the expression changes the product. Core misconception — Section 2 proof hasn't landed yet. Remediation should return to \"same dots\" anchor.",
+    "_generated_at": "2026-04-10T20:32:54.032238+00:00",
+    "workspace_specs": {
+      "toys": [
+        "arrays"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_4_consolidation_hybrid_understanding",
+    "visual": "3×6 array displayed. Guide demonstrates both proofs in sequence:\n  1. Highlighting: Row emphasis (3 × 6 = 18) → Column emphasis (6 × 3 = 18)\n  1. Rotation: 3×6 rotates to 6×3 (same 18)",
+    "guide": "\"Two different ways to prove the same thing. Highlighting: you read the same array two ways. Rotation: you turn the array and rows become columns. Either way, same dots, same product.\"",
+    "guide_2": "\"This doesn't just work for these arrays. It works for EVERY array. Any array you can build. The two expressions will always give the same product. Always.\"",
+    "prompt": "\"Why do both expressions always give the same product?\"",
+    "options_mc": "A) Same dots, just organized differently | B) The numbers are close together | C) Arrays are always the same size | D) Multiplication always gives the same answer",
+    "correct_answer": "A) Same dots, just organized differently",
+    "guide_on_correct": "\"Same dots. Whether you read them by rows or columns, whether you turn the array, the dots don't change. That's why the product can't change.\"",
+    "remediation": "Pipeline",
+    "answer_rationale": "* A) Same dots, just organized differently = Correct. Student has internalized the structural proof.\n  * B) The numbers are close together = Numerosity misconception. Student notices factor similarity, not structural equivalence. Doesn't connect to the visual proof.\n  * C) Arrays are always the same size = Overgeneralization. Student may think all arrays are equivalent regardless of dimensions. Conflates \"same product\" with \"same array.\"\n  * D) Multiplication always gives the same answer = student is restating the conclusion as the reason — circular reasoning. Knows the property works but can't explain *why*.",
+    "_generated_at": "2026-04-10T20:32:59.392709+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s3_1_property_naming_vocabulary",
+    "visual": "Summary display showing 2-3 of the proven equivalences:\n  * 3 × 5 = 15 | 5 × 3 = 15\n  * 3 × 6 = 18 | 6 × 3 = 18\n  * 5 × 8 = 40 | 8 × 5 = 40",
+    "guide": "\"You proved something important. No matter which array you check, the two expressions always give the same product. This shows us that you can multiply the factors in any order and always get the same answer. These are turn-around facts.\"",
+    "guide_2": "\"Mathematicians have a name for this. They call it the **commutative property** of multiplication. But the idea is simple, you can change the order of the factors and get the same answer.\"",
+    "guide_3": "\"And here's why this is more than just interesting. It's a **strategy,** a plan for solving problems. If you know one fact, you already know its turn-around fact without doing any extra work.\"",
+    "no_student_action": "(naming moment).",
+    "voice_note": "\"You can multiply in any order\" and \"commutative property\" introduced AFTER visual proof is complete. Vocabulary attaches to mental hooks, not the reverse.",
+    "_generated_at": "2026-04-10T20:33:04.448092+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": []
+    }
+  },
+  {
+    "id": "s3_2_worked_example_strategic_use",
+    "visual": "Display: \"If 4 × 6 = 24, what's 6 × 4?\"",
+    "guide": "\"Watch how the strategy works. If I know 4 times 6 is 24, do I need to compute 6 times 4? No, I can multiply in any order. Switch the factors. 6 times 4 is also 24. I didn't compute anything. I used what I already knew.\"",
+    "divider": "*(Immediately followed by student attempt:)*",
+    "visual_2": "Display: \"If 7 × 8 = 56, what's 8 × 7?\"",
+    "guide_2": "\"Your turn. You know 7 times 8 is 56. What's 8 times 7? Use the strategy.\"",
+    "prompt": "\"If 7 × 8 = 56, what's 8 × 7?\"",
+    "options_mc": "A) 56 | B) 15 | C) 78 | D) 54",
+    "correct_answer": "A) 56",
+    "guide_on_correct": "\"56. You didn't need to compute, you used the turn-around facts. You can multiply the factors in any order and get the same product.\"",
+    "remediation": "Pipeline",
+    "answer_rationale": "* A) 56 = Correct. Property applied.\n  * B) 15 = Additive error (7 + 8). Misconception #9 residual.\n  * C) 78 = Concatenation error (5 and 8 combined as digits).\n  * D) 54 = Incorrect multiplication fact (9 × 6) with close product",
+    "_generated_at": "2026-04-10T20:33:09.537215+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s3_3_equivalence_discrimination_rotation",
+    "visual": "Arrays with Pictures: A 3×8 dot array displayed as the reference. Four dot arrays displayed as options: A) 4×6 | B) 8×3 | C) 6×4 | D) 2×12",
+    "guide": "\"Here's an array — 3 rows of 8. That's 24 dots. Now look at these four arrays. They ALL have 24 dots. But which one is the SAME array as 3 × 8, just rotated?\"",
+    "prompt": "\"Which array is the same as 3 × 8, just rotated?\"",
+    "options_mc": "A) 4 × 6 | B) 8 × 3 | C) 6 × 4 | D) 2 × 12",
+    "correct_answer": "B) 8 × 3",
+    "guide_on_correct": "\"8 rows of 3. That's 3 rows of 8, just turned. Same dots, same product. Now look at the others — 4 × 6, 6 × 4, 2 × 12. They all have 24 dots too, but they're different shapes. You can't rotate 3 rows of 8 and get 4 rows of 6. Same product doesn't mean same array.\"",
+    "answer_rationale": "A) 4 × 6 = Different array, same product. Student confuses product equivalence with rotational equivalence.\nB) 8 × 3 = Correct. Rotation swaps 3 rows of 8 into 8 rows of 3.\nC) 6 × 4 = Rotation of 4×6, not of 3×8. Student understands rotation involves swapping but doesn't track which specific dimensions are swapping. Diagnostically distinct from A.\nD) 2 × 12 = Different array, same product. Visually most distinct from reference. If chosen, student is likely attending only to product, not shape.",
+    "remediation": "Pipeline",
+    "design_note": "This interaction directly addresses the equivalence discrimination skill from Exit Check scope (Q5). Students must distinguish \"same product because rotated\" from \"same product, different array.\"",
+    "_generated_at": "2026-04-10T20:33:15.725481+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s3_4_mixed_application_faded_support",
+    "visual": "Display: \"9 × 4 = 36.\"",
+    "guide": "\"Given that 9 times 4 is 36,  what turn-around fact do you know?\"",
+    "prompt": "\"If 9 × 4 = 36, what turn-around fact do you know?\"",
+    "student_action": "Equation Builder Mode 2, Click-Place (D). Tiles: 3, 4, 6, 9, 13, 36, 49, 63. Student builds: `4 × 9 = 36`.",
+    "correct_answer": "4 × 9 = 36",
+    "guide_on_correct": "\"4 × 9 = 36. You can multiply in any order and get the same product.\"",
+    "remediation": "Pipeline",
+    "_generated_at": "2026-04-10T20:33:19.849408+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "place_tile"
+      ]
+    }
+  },
+  {
+    "id": "s3_5_bridge_exit_check",
+    "guide": "\"You proved it: when you change the order of the factors, the product stays the same. You used highlighting, rotation, and the turn-around strategy. Let's see what you know.\"",
+    "no_student_action": "(transition).",
+    "voice_note": "Brief. References what student DID (proved, used highlighting, rotation, strategy), not what they should feel. Matches playbook transition formula.",
+    "_generated_at": "2026-04-10T20:33:22.257616+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": []
+    }
+  }
+]

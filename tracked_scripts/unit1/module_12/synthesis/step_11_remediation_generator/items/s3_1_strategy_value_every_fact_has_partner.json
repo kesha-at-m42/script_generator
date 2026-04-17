@@ -1,0 +1,77 @@
+{
+  "id": "s3_1_strategy_value_every_fact_has_partner",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "If I know 5 × 7, I should still compute 7 × 5 separately to be sure"
+        },
+        "description": "Student selected option B: computing both facts separately",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "fact_display",
+              "params": {
+                "description": "The fact pair 3 × 8 = 24 and 8 × 3 = 24 pulses gently."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. The key is that you don't need to compute both. Look at 3 × 8 and 8 × 3. They give the same product. One fact tells you both answers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The strategy only helps when I have an array in front of me"
+        },
+        "description": "Student selected option C: limiting strategy to visual contexts",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "fact_display",
+              "params": {
+                "description": "Text '3 facts learned → 6 facts known' pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The commutative property works with any multiplication, not just arrays. Whether you see a picture or just numbers, 5 × 7 and 7 × 5 both equal 35."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "fact_display",
+              "params": {
+                "event": "highlight_answer",
+                "status": "confirmed",
+                "description": "Option A highlights: 'If I know 5 × 7, I already know 7 × 5 — no extra work'."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here, let me show you. The strategy is about saving work. When you know 5 × 7 equals 35, you automatically know 7 × 5 equals 35 too. No extra computing needed. The answer is the first option. That is what makes it a strategy, it lets you skip work you would otherwise have to do."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-10T21:08:39.595092+00:00"
+}

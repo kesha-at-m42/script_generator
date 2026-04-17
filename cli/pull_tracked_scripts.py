@@ -46,7 +46,7 @@ _SCRIPT_TYPE_LABELS = {
     "exitcheck": "exit_check",
     "synthesis": "synthesis",
 }
-_SKIP_FILES = {"notion_blocks.json"}
+_SKIP_FILES = {"notion_blocks.json", "notion_push_log.json"}
 
 
 def _parse_registry_key(key: str) -> tuple[str, str, str] | None:
@@ -97,8 +97,13 @@ def _find_last_step_json(version_dir: Path, skip_pull: bool = False) -> Path | N
         if skip_pull and re.match(r"^step_\d+_pull$", step_dir.name):
             continue
         json_files = [f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name]
-        if json_files:
-            return json_files[0]
+        for f in json_files:
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                if isinstance(data, list) or (isinstance(data, dict) and isinstance(data.get("sections"), list)):
+                    return f
+            except Exception:
+                pass
     return None
 
 

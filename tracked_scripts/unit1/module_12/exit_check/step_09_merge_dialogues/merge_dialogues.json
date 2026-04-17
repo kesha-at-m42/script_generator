@@ -1,0 +1,440 @@
+[
+  {
+    "id": "s1_1_transition_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You proved that when you change the order of the factors, the product stays the same. You used highlighting, rotation, and turn-around facts. Let's see what you know.",
+        "id": "s1_1_transition_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_transition_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T21:22:21.758116+00:00"
+  },
+  {
+    "id": "s1_2_dual_expression_building",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "arrays_6x7",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "display_mode": "dots",
+          "rows": 6,
+          "columns": 7,
+          "emphasis": "rows",
+          "description": "6×7 dot array appears with row emphasis — 6 horizontal bands highlighted."
+        },
+        "id": "s1_2_dual_expression_building_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_rows",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "style": "equation",
+          "tiles": [
+            5,
+            6,
+            7,
+            8,
+            40,
+            42,
+            46,
+            48
+          ],
+          "description": "Equation builder appears in equation mode: three blank slots with multiplication and equals signs. Tiles available: 5, 6, 7, 8, 40, 42, 46, 48."
+        },
+        "id": "s1_2_dual_expression_building_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's an array with the rows highlighted. Build the equation for the rows.",
+        "id": "s1_2_dual_expression_building_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for the rows.",
+        "tool": "place_tile",
+        "target": "equation_builder_rows",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 6,
+                "items": 7,
+                "total": 42
+              }
+            },
+            "description": "Student placed 6 × 7 = 42, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 6 rows of 7. 6 times 7 equals 42.",
+                "id": "s1_2_dual_expression_building_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_dual_expression_building_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_6x7",
+            "description": "6×7 dot array with row emphasis — 6 horizontal bands highlighted.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "display_mode": "dots",
+            "rows": 6,
+            "columns": 7,
+            "emphasis": "rows"
+          },
+          {
+            "tangible_id": "equation_builder_rows",
+            "description": "Equation builder showing 6 × 7 = 42.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "style": "equation"
+          }
+        ],
+        "id": "s1_2_dual_expression_building_b4"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "arrays_6x7",
+        "params": {
+          "emphasis": "columns",
+          "description": "Row emphasis clears. Column emphasis applies — 7 vertical bands highlighted."
+        },
+        "id": "s1_2_dual_expression_building_b5"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_rows",
+        "params": {
+          "clear_slots": true,
+          "description": "Equation builder slots clear, ready for new input."
+        },
+        "id": "s1_2_dual_expression_building_b6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now the columns. Build the column equation.",
+        "id": "s1_2_dual_expression_building_b7"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for the columns.",
+        "tool": "place_tile",
+        "target": "equation_builder_rows",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 7,
+                "items": 6,
+                "total": 42
+              }
+            },
+            "description": "Student placed 7 × 6 = 42, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 7 columns of 6. 7 times 6 equals 42. Same product.",
+                "id": "s1_2_dual_expression_building_b8_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_dual_expression_building_b8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "arrays_6x7",
+            "description": "6×7 dot array with column emphasis — 7 vertical bands highlighted.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "display_mode": "dots",
+            "rows": 6,
+            "columns": 7,
+            "emphasis": "columns"
+          },
+          {
+            "tangible_id": "equation_builder_rows",
+            "description": "Equation builder showing 7 × 6 = 42.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "style": "equation"
+          }
+        ],
+        "id": "s1_2_dual_expression_building_b9"
+      }
+    ],
+    "_generated_at": "2026-04-10T21:22:37.446470+00:00"
+  },
+  {
+    "id": "s1_3_rotation_prediction_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_2x8",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "read",
+          "rows": 2,
+          "items_per_row": 8,
+          "display_mode": "dots",
+          "description": "2×8 dot array appears on screen."
+        },
+        "id": "s1_3_rotation_prediction_identify_b0"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "array_2x8",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "System highlights rows sequentially."
+        },
+        "id": "s1_3_rotation_prediction_identify_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "2 rows of 8. That's 2 times 8 equals 16. If I rotate this array, what will the new row expression be?",
+        "id": "s1_3_rotation_prediction_identify_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "After rotation, what will the row expression be?",
+        "tool": "multiple_choice",
+        "options": [
+          "8 × 2",
+          "2 × 8",
+          "16 × 2",
+          "8 + 2"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "8 × 2"
+            },
+            "description": "Student selected 8 × 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 8 times 2. After rotating, 8 rows of 2.",
+                "id": "s1_3_rotation_prediction_identify_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_rotation_prediction_identify_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_2x8",
+            "description": "2×8 dot array displayed. Rows highlighted. Multiple choice tool active.",
+            "tangible_type": "arrays",
+            "mode": "read",
+            "rows": 2,
+            "items_per_row": 8,
+            "display_mode": "dots"
+          }
+        ],
+        "id": "s1_3_rotation_prediction_identify_b4"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "array_2x8",
+        "params": {
+          "event": "rotate_90_clockwise",
+          "status": "confirmed",
+          "description": "Array rotates 90 degrees clockwise, becoming 8×2 array."
+        },
+        "id": "s1_3_rotation_prediction_identify_b5"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "array_2x8",
+        "params": {
+          "rows": 8,
+          "items_per_row": 2,
+          "description": "Array now shows 8 rows of 2 dots each after rotation."
+        },
+        "id": "s1_3_rotation_prediction_identify_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_2x8",
+            "description": "8×2 dot array after rotation. 8 rows of 2 dots each.",
+            "tangible_type": "arrays",
+            "mode": "read",
+            "rows": 8,
+            "items_per_row": 2,
+            "display_mode": "dots"
+          }
+        ],
+        "id": "s1_3_rotation_prediction_identify_b7"
+      }
+    ],
+    "_generated_at": "2026-04-10T21:22:48.941257+00:00"
+  },
+  {
+    "id": "s1_4_equivalence_discrimination_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "array_reference",
+        "tangible_type": "arrays",
+        "params": {
+          "mode": "reading",
+          "rows": 5,
+          "items_per_row": 6,
+          "item_type": "dots",
+          "description": "5×6 dot array displayed as reference. 5 rows of 6 dots. 30 dots total."
+        },
+        "id": "s1_4_equivalence_discrimination_compare_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "mc_options",
+        "tangible_type": "multiple_choice_options",
+        "params": {
+          "description": "Four dot arrays displayed as answer options. A) 3×10 array. B) 6×5 array. C) 10×3 array. D) 2×15 array. All arrays show 30 dots total."
+        },
+        "id": "s1_4_equivalence_discrimination_compare_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's an array: 5 rows of 6. That's 30 dots. These four arrays all have 30 dots too. Which one is the same array, just rotated?",
+        "id": "s1_4_equivalence_discrimination_compare_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Which array is the same as 5 times 6, just rotated?",
+        "tool": "multiple_choice",
+        "options": [
+          "A) 3 × 10",
+          "B) 6 × 5",
+          "C) 10 × 3",
+          "D) 2 × 15"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "B) 6 × 5"
+            },
+            "description": "Student selected B) 6 × 5, correct rotation of 5×6",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "mc_options",
+                "params": {
+                  "highlight_option": "B) 6 × 5",
+                  "description": "Option B) 6 × 5 highlights to confirm selection."
+                },
+                "id": "s1_4_equivalence_discrimination_compare_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. 6 rows of 5. That's 5 rows of 6, just turned. Same dots, same product.",
+                "id": "s1_4_equivalence_discrimination_compare_b3_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_4_equivalence_discrimination_compare_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "array_reference",
+            "description": "5×6 dot array displayed as reference. 5 rows of 6 dots.",
+            "tangible_type": "arrays",
+            "mode": "reading",
+            "rows": 5,
+            "items_per_row": 6,
+            "item_type": "dots"
+          },
+          {
+            "tangible_id": "mc_options",
+            "description": "Four dot arrays displayed as options: A) 3×10, B) 6×5, C) 10×3, D) 2×15. All showing 30 dots.",
+            "tangible_type": "multiple_choice_options"
+          }
+        ],
+        "id": "s1_4_equivalence_discrimination_compare_b4"
+      }
+    ],
+    "_generated_at": "2026-04-10T21:22:59.859269+00:00"
+  },
+  {
+    "id": "s1_5_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready. Let's practice.",
+        "id": "s1_5_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_5_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-10T21:23:02.103777+00:00"
+  }
+]

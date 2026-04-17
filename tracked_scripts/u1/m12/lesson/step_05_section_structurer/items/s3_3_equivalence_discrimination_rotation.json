@@ -1,0 +1,125 @@
+{
+  "id": "s3_3_equivalence_discrimination_rotation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "array_reference",
+      "tangible_type": "arrays",
+      "params": {
+        "mode": "reading",
+        "rows": 3,
+        "items_per_row": 8,
+        "visual_style": "dots",
+        "description": "3×8 dot array appears as the reference. 3 rows of 8 dots. 24 dots total."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "mc_options_rotation",
+      "tangible_type": "multiple_choice_options",
+      "params": {
+        "options": [
+          {
+            "id": "A",
+            "label": "4 × 6",
+            "tangible_id": "array_option_a",
+            "tangible_type": "arrays",
+            "rows": 4,
+            "items_per_row": 6,
+            "visual_style": "dots"
+          },
+          {
+            "id": "B",
+            "label": "8 × 3",
+            "tangible_id": "array_option_b",
+            "tangible_type": "arrays",
+            "rows": 8,
+            "items_per_row": 3,
+            "visual_style": "dots"
+          },
+          {
+            "id": "C",
+            "label": "6 × 4",
+            "tangible_id": "array_option_c",
+            "tangible_type": "arrays",
+            "rows": 6,
+            "items_per_row": 4,
+            "visual_style": "dots"
+          },
+          {
+            "id": "D",
+            "label": "2 × 12",
+            "tangible_id": "array_option_d",
+            "tangible_type": "arrays",
+            "rows": 2,
+            "items_per_row": 12,
+            "visual_style": "dots"
+          }
+        ],
+        "description": "Four dot arrays displayed as answer options. A) 4×6 | B) 8×3 | C) 6×4 | D) 2×12. All have 24 dots."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's an array: 3 rows of 8. That's 24 dots. Now look at these four arrays. They ALL have 24 dots. But which one is the SAME array as 3 × 8, just rotated?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which array is the same as 3 × 8, just rotated?",
+      "tool": "multiple_choice",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "B"
+          },
+          "description": "Student selected B) 8 × 3, correct. Rotation swaps 3 rows of 8 into 8 rows of 3.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "mc_options_rotation",
+              "params": {
+                "highlight_option": "B",
+                "description": "Option B highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "8 rows of 3. That's 3 rows of 8, just turned. Same dots, same product. Now look at the others: 4 × 6, 6 × 4, 2 × 12. They all have 24 dots too, but they're different shapes. You can't rotate 3 rows of 8 and get 4 rows of 6. Same product doesn't mean same array."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "array_reference",
+          "description": "3×8 dot array displayed as reference. 3 rows of 8 dots. 24 dots total.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 3,
+          "items_per_row": 8,
+          "visual_style": "dots"
+        },
+        {
+          "tangible_id": "mc_options_rotation",
+          "description": "Four dot arrays displayed as answer options. A) 4×6 | B) 8×3 | C) 6×4 | D) 2×12. All have 24 dots. Multiple choice tool active.",
+          "tangible_type": "multiple_choice_options"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T20:36:23.501218+00:00"
+}

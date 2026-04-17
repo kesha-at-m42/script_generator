@@ -1,0 +1,239 @@
+{
+  "id": "s1_2_student_tries_row_column_expressions",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "arrays_5x4",
+      "tangible_type": "arrays",
+      "params": {
+        "mode": "reading",
+        "rows": 5,
+        "columns": 4,
+        "item_type": "dots",
+        "description": "5×4 dot array appears in reading mode."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "arrays_5x4",
+      "params": {
+        "emphasis": "rows",
+        "description": "Row emphasis applied — rows highlighted going across."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_rows",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          16,
+          20,
+          24,
+          25
+        ],
+        "description": "Equation builder appears below array. 3 slots: factor × factor = product. Tile palette: 3, 4, 5, 6, 9, 10, 16, 20, 24, 25."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's a new array. I highlighted the rows — see them going across? How many rows, and how many in each? Build the expression and find the product."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for the rows.",
+      "tool": "place_tile",
+      "target": "equation_builder_rows",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "slot_0": 5,
+              "slot_1": 4,
+              "slot_2": 20
+            }
+          },
+          "description": "Student placed 5 × 4 = 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 times 4 equals 20. 5 rows of 4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "arrays_5x4",
+          "description": "5×4 dot array with row emphasis applied.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 5,
+          "columns": 4,
+          "item_type": "dots",
+          "emphasis": "rows"
+        },
+        {
+          "tangible_id": "equation_builder_rows",
+          "description": "Equation builder showing 5 × 4 = 20.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            16,
+            20,
+            24,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "arrays_5x4",
+      "params": {
+        "emphasis": "columns",
+        "description": "Row emphasis clears. Column emphasis applied — columns highlighted going down."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equation_builder_rows",
+      "params": {
+        "description": "Previous equation builder removed."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_columns",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          16,
+          20,
+          24,
+          25
+        ],
+        "description": "New equation builder appears for columns. Same 3-slot template and tile palette."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now I switched to columns. Build the column expression and find the product."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for the columns.",
+      "tool": "place_tile",
+      "target": "equation_builder_columns",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "slot_0": 4,
+              "slot_1": 5,
+              "slot_2": 20
+            }
+          },
+          "description": "Student placed 4 × 5 = 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 columns of 5. 4 times 5 equals 20. Same product again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "arrays_5x4",
+          "description": "5×4 dot array with column emphasis applied.",
+          "tangible_type": "arrays",
+          "mode": "reading",
+          "rows": 5,
+          "columns": 4,
+          "item_type": "dots",
+          "emphasis": "columns"
+        },
+        {
+          "tangible_id": "equation_builder_columns",
+          "description": "Equation builder showing 4 × 5 = 20.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            16,
+            20,
+            24,
+            25
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T20:34:14.344770+00:00"
+}

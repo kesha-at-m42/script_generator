@@ -1,0 +1,108 @@
+{
+  "id": "s1_3_rotation_prediction_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "array_2x8",
+      "tangible_type": "arrays",
+      "params": {
+        "mode": "read",
+        "rows": 2,
+        "items_per_row": 8,
+        "display_mode": "dots",
+        "description": "2×8 dot array appears on screen."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "array_2x8",
+      "params": {
+        "event": "highlight_rows",
+        "status": "confirmed",
+        "description": "System highlights rows sequentially."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "2 rows of 8. That's 2 times 8 equals 16. If I rotate this array, what will the new row expression be?"
+    },
+    {
+      "type": "prompt",
+      "text": "After rotation, what will the row expression be?",
+      "tool": "multiple_choice",
+      "options": [
+        "8 × 2",
+        "2 × 8",
+        "16 × 2",
+        "8 + 2"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "8 × 2"
+          },
+          "description": "Student selected 8 × 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "8 times 2. After rotating, 8 rows of 2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "array_2x8",
+          "description": "2×8 dot array displayed. Rows highlighted. Multiple choice tool active.",
+          "tangible_type": "arrays",
+          "mode": "read",
+          "rows": 2,
+          "items_per_row": 8,
+          "display_mode": "dots"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "array_2x8",
+      "params": {
+        "event": "rotate_90_clockwise",
+        "status": "confirmed",
+        "description": "Array rotates 90 degrees clockwise, becoming 8×2 array."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "array_2x8",
+      "params": {
+        "rows": 8,
+        "items_per_row": 2,
+        "description": "Array now shows 8 rows of 2 dots each after rotation."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "array_2x8",
+          "description": "8×2 dot array after rotation. 8 rows of 2 dots each.",
+          "tangible_type": "arrays",
+          "mode": "read",
+          "rows": 8,
+          "items_per_row": 2,
+          "display_mode": "dots"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-10T21:22:48.941257+00:00"
+}
