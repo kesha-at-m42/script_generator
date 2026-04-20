@@ -1,0 +1,230 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Welcome back! You've been building fractions with bars, shading parts to [event:68fb9f66087679a0] show [fraction numerator=1 denominator=2]one half[/fraction] [delay:0.5], [fraction numerator=2 denominator=3]two thirds[/fraction] [delay], [fraction numerator=3 denominator=4] three fourths [/fraction]. Today we're going to learn how these same fractions can live on a number line.",
+      "audio_dir": "module_4/warmup_1669007412440438920",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "lcm": 2,
+            "intervals": "1/2"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "lcm": 3,
+            "intervals": "1/3"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Remember this? [event:68fba6f99a48c636] One-half shown as a shaded bar. Watch what happens when we show the same fraction on a number line.[event:68fbaedeb6282d09][d:1.5] Same fraction, different view! The amount stays the same, we're just showing it differently.",
+      "audio_dir": "module_4/warmup_7616511688704171650",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Today we're going to discover what the [vocab]denominator[/vocab][event:69790fdc88b2891f] tells us when we work with number lines. Together, we'll learn how fractions  [event:69791076c875d5fd] describe parts [event:6979117d6fb528a6]of a whole and how they work to describe number lines.  ",
+      "audio_dir": "module_4/warmup_8545323747385968255"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "This whole bar [event:6916012946b2a3b8] equals 1. You know how to split[event:6916018bea6f7ce6] the bar and shade to show [event:68fbb20f0b887bc7][fraction numerator=1 denominator=4]one fourth[/fraction] of a bar.",
+      "audio_dir": "module_4/warmup_961279341103156118",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "metadata": {
+        "notes": "Change comparison animation to move top to bottom once supported\n\n"
+      },
+      "dialogue": "Let's look together. [event:68fbb87bf3b77df0] From 0 to 1 on the number line is also one whole [event:691603157eb65b40], just like the bar! To show [vocab]fourths[/vocab], we need four [event:68fbcb2f0944b9cb] equal spaces between 0 and 1.",
+      "audio_dir": "module_4/warmup_1311479082112276572",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now it's your turn. Add a mark where you think one fourth will be on the number line.",
+      "audio_dir": "module_4/warmup_7540849445142332057",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Add a mark at one-fourth on the number line",
+        "tool": {
+          "@type": "Place",
+          "lcm": 8,
+          "is_single": true
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1/4",
+            "1"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try again. Remember you are adding a mark at one fourth.",
+              "audio_dir": "module_4/warmup_7554690678260159303"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Here's a hint: The bar has four [event:69161ab08470e61a] equal spaces. Use that as a guide to find one-fourth on the number line.",
+              "audio_dir": "module_4/warmup_269341022212425576"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:69177e67f78b1d13] Follow along with me: just like the bar has [event:694317ca3c2da1db] four equal spaces, I [event:69433dc149efda04] divide the line into [event:6943186118a98da6] four equal spaces.  [fraction numerator=1 denominator=4]one fourth[/fraction] lines up with the [event:69161ce359951977] first partition.",
+              "audio_dir": "module_4/warmup_5210190203458625735"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly. One-fourth of the way along the line!",
+          "audio_dir": "module_4/warmup_9136551143541048575"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "See these spaces between the marks? They're just like the parts in our shaded bars, [event:69793c2ebd814c44]these spaces must be equal. Mathematicians call these spaces [vocab]intervals[/vocab], and [event:68fbcf1117a65e29]what matters is those spaces, or [vocab]intervals[/vocab], are [event:69793b159392f82a]all the same size! ",
+      "audio_dir": "module_4/warmup_5074324604604226397",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's count the equal spaces together.[event:68fbd0642fca5a29] One, [d:0.3] two, [d:0.4] three, [d:0.4] four. Four equal spaces between 0 and 1 for [vocab]fourths[/vocab], just like four [event:69432647e7ecdfa5] equal parts in the bar!",
+      "audio_dir": "module_4/warmup_6903305752798069776",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "So fractions aren't just parts of shapes, they're also positions on a number line! The [vocab]denominator[/vocab] tells us how many equal spaces on the line to create. Let's explore this more!",
+      "audio_dir": "module_4/warmup_6597178799458257127",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

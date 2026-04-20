@@ -8,6 +8,7 @@ Extracts numerical values from Visual: and Correct Answer: lines to:
   DT3: Flag values outside §1.5 constraint ranges (if parseable)
   DT4: Flag EC values identical to Lesson values (Gate 3+)
   DT5: Flag Synthesis values identical to Lesson/EC values (Gate 3+)
+  DT6: Flag EC sub-items with identical correct answers (Gate 3+)
 
 Gate scoping:
   Gate 1: §1.5 internal consistency only
@@ -16,6 +17,18 @@ Gate scoping:
 
 Usage:
   python sp_dimension_track.py <sp_file.md> --gate N [--json] [--output PATH]
+  python sp_dimension_track.py <sp_file.md> --gate N --working-notes PATH
+
+Working Notes integration (--working-notes):
+  Safely replaces ONLY the '## DIMENSION TRACKING' section in the specified
+  Working Notes file. Uses header-boundary parsing to avoid touching any other
+  section. If the section doesn't exist, appends it at the end.
+
+  CONFLICT AVOIDANCE: The drafting session must save any Working Notes edits
+  BEFORE invoking a gate check with --working-notes. This script replaces the
+  DIMENSION TRACKING section atomically — it reads the full file, replaces
+  only the target section, and writes back. It does NOT touch any other section
+  (Cross-Reference Tables, Author Flags, Session Log, etc.).
 """
 
 import argparse
@@ -134,6 +147,29 @@ def find_dimension_reuse(phase_values: dict) -> list:
                     "dimension": f"{dim[0]}×{dim[1]}",
                 })
 
+    # DT6: EC sub-items with identical correct answers (Known Pattern #54)
+    ec_correct_answers = {}  # answer_value -> list of interaction IDs
+    for ix_id, vals in phase_values.get("EC", {}).items():
+        for num in vals.get("other_numbers", []):
+            ec_correct_answers.setdefault(num, []).append(ix_id)
+        # Also check areas as potential correct answers
+        for area in vals.get("areas", []):
+            ec_correct_answers.setdefault(area, []).append(ix_id)
+
+    for answer_val, ix_ids in ec_correct_answers.items():
+        if len(ix_ids) > 1:
+            findings.append({
+                "check": "DT6",
+                "severity": "MAJOR",
+                "detail": f"EC interactions {', '.join(ix_ids)} share identical correct "
+                         f"answer value {answer_val}. Later items lose diagnostic value — "
+                         f"student can select the answer without computing. "
+                         f"(Known Pattern #54)",
+                "interaction_ids": ix_ids,
+                "phase": "EC",
+                "value": answer_val,
+            })
+
     return findings
 
 
@@ -206,6 +242,91 @@ def run_dimension_track(filepath: str, gate: int) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# Working Notes integration
+# ---------------------------------------------------------------------------
+
+WORKING_NOTES_SECTION = "## DIMENSION TRACKING"
+
+
+def format_dimension_section(result: dict) -> str:
+    """Format the dimension tracking result as a Working Notes markdown section."""
+    lines = [WORKING_NOTES_SECTION, ""]
+
+    meta = result.get("meta", {})
+    usage = meta.get("usage_table", [])
+
+    if usage:
+        lines.append(f"### Usage Table ({len(usage)} interactions with values)")
+        lines.append("")
+        lines.append("| Phase | ID | Dimensions | Areas | Factors |")
+        lines.append("|-------|----|------------|-------|---------|")
+        for row in usage:
+            dims = ", ".join(row["dimensions"]) if row["dimensions"] else "-"
+            areas = ", ".join(str(a) for a in row["areas"]) if row["areas"] else "-"
+            factors = ", ".join(str(f) for f in row["factors"]) if row["factors"] else "-"
+            lines.append(f"| {row['phase']} | {row['interaction_id']} | {dims} | {areas} | {factors} |")
+        lines.append("")
+
+    findings = result.get("findings", [])
+    if findings:
+        lines.append(f"### Findings ({len(findings)})")
+        lines.append("")
+        for f in findings:
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            detail = f.get("detail", "")
+            lines.append(f"* **[{check}] {sev}** — {detail}")
+        lines.append("")
+    else:
+        lines.append("No cross-phase dimension reuse found.")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def update_working_notes(filepath: str, new_section: str) -> None:
+    """Replace ONLY the '## DIMENSION TRACKING' section in a Working Notes file.
+
+    Uses header-boundary parsing: finds the target H2, replaces everything up to
+    the next H2 (or EOF), and writes back. If the section doesn't exist, appends it.
+
+    This is atomic from the file's perspective — read all, replace section, write all.
+    No other section is touched.
+    """
+    if not os.path.exists(filepath):
+        # File doesn't exist — create it with just this section
+        os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
+        with open(filepath, "w") as f:
+            f.write(new_section)
+        return
+
+    with open(filepath, "r") as f:
+        content = f.read()
+
+    # Find the target section
+    # Pattern: ## DIMENSION TRACKING followed by content until next ## or EOF
+    section_pattern = re.compile(
+        r"(^## DIMENSION TRACKING\s*\n)"  # The header line
+        r"(.*?)"                           # Section content (non-greedy)
+        r"(?=^## |\Z)",                    # Until next H2 or end of file
+        re.MULTILINE | re.DOTALL,
+    )
+
+    match = section_pattern.search(content)
+
+    if match:
+        # Replace existing section
+        updated = content[: match.start()] + new_section + content[match.end() :]
+    else:
+        # Append at end, with a blank line separator
+        separator = "\n" if content.endswith("\n") else "\n\n"
+        updated = content + separator + new_section
+
+    with open(filepath, "w") as f:
+        f.write(updated)
+
+
 def print_findings_table(result: dict):
     print(f"\n{'='*80}")
     print(f"DIMENSION TRACKING — {result['file']} — Gate {result['gate']}")
@@ -238,9 +359,20 @@ def main():
     parser.add_argument("--gate", type=int, required=True, choices=[1, 2, 3, 4])
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--output", type=str)
+    parser.add_argument("--working-notes", type=str, metavar="PATH",
+                        help="Write dimension tracking section to a Working Notes file. "
+                             "Replaces ONLY the '## DIMENSION TRACKING' section; "
+                             "all other sections are preserved.")
     args = parser.parse_args()
 
     result = run_dimension_track(args.sp_file, args.gate)
+
+    # Working Notes integration — safe section replacement
+    if args.working_notes:
+        section_md = format_dimension_section(result)
+        update_working_notes(args.working_notes, section_md)
+        print(f"Dimension tracking written to {args.working_notes} "
+              f"(§ DIMENSION TRACKING section only)")
 
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
@@ -251,7 +383,7 @@ def main():
             print(f"Output written to {args.output}")
         if args.json:
             print(json_str)
-    else:
+    elif not args.working_notes:
         print_findings_table(result)
 
 

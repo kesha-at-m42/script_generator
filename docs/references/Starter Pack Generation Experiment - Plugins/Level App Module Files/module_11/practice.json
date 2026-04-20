@@ -1,0 +1,1137 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You showed good understanding there. Now let's practice using both strategies. I'll give you different types of problems - some where denominators match, some where numerators match. See if you can figure out which strategy to use, then compare correctly.",
+      "audio_dir": "module_11/practice_2579120595801739388",
+      "scene": "Practice"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's start with something familiar. Compare [fraction numerator=3 denominator=10]three tenths[/fraction] and [fraction numerator=7 denominator=10]seven tenths[/fraction].",
+      "audio_dir": "module_11/practice_4734859103014398472",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 10,
+            "intervals": "1/10",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 10,
+            "intervals": "1/10",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare 3/10 __ 7/10",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both have tenths. Count the shaded parts.",
+              "audio_dir": "module_11/practice_8546137931415183898"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly highlight shaded parts with numbers"
+              },
+              "dialogue": "Same denominator means count numerators. Look: 3 pieces versus 7 pieces. Which gives you more?",
+              "audio_dir": "module_11/practice_8589804193403343907"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol automatically"
+              },
+              "dialogue": "Watch: Both tenths, so I count. 3 is less than 7, so [fraction numerator=3 denominator=10]three tenths[/fraction] is less than [fraction numerator=7 denominator=10]seven tenths[/fraction].",
+              "audio_dir": "module_11/practice_416988893100020776"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [fraction numerator=3 denominator=10]Three tenths[/fraction] is less than [fraction numerator=7 denominator=10]seven tenths[/fraction]. You counted the pieces.",
+          "audio_dir": "module_11/practice_1004587535157057448"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two pairs. Check what matches in each pair. Which pair would you compare by counting pieces?",
+      "audio_dir": "module_11/practice_1939598618148716355",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 7,
+            "intervals": "1/7",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 7,
+            "intervals": "1/7",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 63,
+            "intervals": "1/7",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 63,
+            "intervals": "1/9",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the pair where you count pieces (left pair: 2/7 and 5/7, right pair: 2/7 and 2/9).",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Left pair (2/7 and 5/7)",
+            "Right pair (2/7 and 2/9)"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Check the bottom numbers. Which pair has matching denominators?",
+              "audio_dir": "module_11/practice_1790681339282785083"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow denominators in each pair"
+              },
+              "dialogue": "Left: both sevenths. Right: sevenths and ninths. Which uses counting?",
+              "audio_dir": "module_11/practice_3831646956855182625"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the left pair"
+              },
+              "dialogue": "Same denominator equals count. The left pair both have 7 on bottom.",
+              "audio_dir": "module_11/practice_4553671426560427654"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly. The left pair has same denominators - both sevenths - so we count.",
+          "audio_dir": "module_11/practice_8625167644325475703"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare [fraction numerator=3 denominator=5]three fifths[/fraction] and [fraction numerator=3 denominator=8]three eighths[/fraction].",
+      "audio_dir": "module_11/practice_989911049900873999",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 40,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 40,
+            "intervals": "1/8",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the greater fraction.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/5",
+            "3/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both show 3 pieces. Look at the SIZE of those pieces.",
+              "audio_dir": "module_11/practice_2583341415999736274"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pulse the 3 fifths and 3 eighths to show size difference"
+              },
+              "dialogue": "Fifths are bigger pieces than eighths. So 3 fifths gives you more than 3 eighths.",
+              "audio_dir": "module_11/practice_7337910961125039368"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight 3/5 as the answer"
+              },
+              "dialogue": "Same numerator means compare sizes. Fifths are greater than eighths, so [fraction numerator=3 denominator=5]three fifths[/fraction] is greater than [fraction numerator=3 denominator=8]three eighths[/fraction].",
+              "audio_dir": "module_11/practice_1950746318347952116"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. [fraction numerator=3 denominator=5]Three fifths[/fraction] is greater because fifths are bigger pieces than eighths.",
+          "audio_dir": "module_11/practice_4934951708031635160"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another problem. The right bar shows [fraction numerator=4 denominator=5]four fifths[/fraction]. Create a fraction with fifths that is less than [fraction numerator=4 denominator=5]four fifths[/fraction].",
+      "audio_dir": "module_11/practice_3154649372346093783",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 5,
+            "intervals": "1/5"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade parts to make a fraction less than 4/5.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 3
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "We need LESS than [fraction numerator=4 denominator=5]four fifths[/fraction]. Try shading fewer parts.",
+              "audio_dir": "module_11/practice_3368520679421553193"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight parts 0, 1, 2 as possible choices"
+              },
+              "dialogue": "Less than [fraction numerator=4 denominator=5]four fifths[/fraction] means fewer pieces. Try shading 1, 2, or 3 sections.",
+              "audio_dir": "module_11/practice_9053162413842335930"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Automatically shade 2 sections"
+              },
+              "dialogue": "To make a fraction less than [fraction numerator=4 denominator=5]four fifths[/fraction], we need fewer than 4 pieces. Let's shade 2 sections - that makes [fraction numerator=2 denominator=5]two fifths[/fraction], which is less than [fraction numerator=4 denominator=5]four fifths[/fraction].",
+              "audio_dir": "module_11/practice_6716860575091848221"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice! You created a correct comparison. You understand how this works.",
+          "audio_dir": "module_11/practice_8937153406992626463"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Create two fractions with sixths where the first is LESS than the second.",
+      "audio_dir": "module_11/practice_8486490707743959564",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 6,
+            "intervals": "1/6"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade bars to model a comparison where the top fraction is less than the bottom fraction.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedPartsValidator",
+          "answer": 2
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Is your top fraction smaller than the bottom?",
+              "audio_dir": "module_11/practice_6048934939892902115"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the top bar as needing fewer parts"
+              },
+              "dialogue": "We need fewer shaded parts on top than on bottom.",
+              "audio_dir": "module_11/practice_173450120111613745"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Shade 2 sections on top bar and 4 sections on bottom bar"
+              },
+              "dialogue": "Let's work through this together: If I shade 2 on top and 4 on bottom, then [fraction numerator=2 denominator=6]two sixths[/fraction] is less than [fraction numerator=4 denominator=6]four sixths[/fraction].",
+              "audio_dir": "module_11/practice_1676457331134064805"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice! You built your own comparison. You understand how this works.",
+          "audio_dir": "module_11/practice_2379331884999866709"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here are three fractions. Which is the smallest?",
+      "audio_dir": "module_11/practice_2380520172687154528",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 18,
+            "intervals": "1/9",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 18,
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 18,
+            "intervals": "1/9",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the smallest fraction.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "4/9",
+            "4/6",
+            "7/9"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Compare them two at a time. What matches in each pair?",
+              "audio_dir": "module_11/practice_2767048770993649257"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight each comparison pair"
+              },
+              "dialogue": "[fraction numerator=4 denominator=9]Four ninths[/fraction] vs [fraction numerator=4 denominator=6]four sixths[/fraction]: ninths are smaller pieces. [fraction numerator=4 denominator=9]Four ninths[/fraction] vs [fraction numerator=7 denominator=9]seven ninths[/fraction]: 4 is less than 7.",
+              "audio_dir": "module_11/practice_708801130396906813"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight 4/9 as the answer"
+              },
+              "dialogue": "[fraction numerator=4 denominator=9]Four ninths[/fraction] is smallest because: ninths are smaller than sixths (so [fraction numerator=4 denominator=9]four ninths[/fraction] is less than [fraction numerator=4 denominator=6]four sixths[/fraction]), and 4 pieces is less than 7 pieces (so [fraction numerator=4 denominator=9]four ninths[/fraction] is less than [fraction numerator=7 denominator=9]seven ninths[/fraction]).",
+              "audio_dir": "module_11/practice_1305271616374188561"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [fraction numerator=4 denominator=9]Four ninths[/fraction] is smallest. You compared [fraction numerator=4 denominator=9]four ninths[/fraction] to [fraction numerator=4 denominator=6]four sixths[/fraction] using piece sizes, and [fraction numerator=4 denominator=9]four ninths[/fraction] to [fraction numerator=7 denominator=9]seven ninths[/fraction] by counting.",
+          "audio_dir": "module_11/practice_7631066088748533224"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Quick check - [fraction numerator=5 denominator=9]five ninths[/fraction] versus [fraction numerator=3 denominator=9]three ninths[/fraction].",
+      "audio_dir": "module_11/practice_6506631236020526348",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 9,
+            "intervals": "1/9",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 9,
+            "intervals": "1/9",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the greater fraction.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "5/9",
+            "3/9"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both have ninths - same size pieces. Count the shaded parts.",
+              "audio_dir": "module_11/practice_5697898369560332293"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the shaded parts in each bar"
+              },
+              "dialogue": "Same denominator means same size pieces. Now count: 5 ninths versus 3 ninths. Which is more?",
+              "audio_dir": "module_11/practice_3133051432315942644"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight 5/9 as the answer"
+              },
+              "dialogue": "Both have ninths - that's the same denominator, same size pieces. Now we count the pieces: 5 is greater than 3, so [fraction numerator=5 denominator=9]five ninths[/fraction] is greater than [fraction numerator=3 denominator=9]three ninths[/fraction].",
+              "audio_dir": "module_11/practice_260917258378690119"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! Both have ninths - same size pieces. So we count: 5 pieces is more than 3 pieces.",
+          "audio_dir": "module_11/practice_3854319443512009515"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare [fraction numerator=5 denominator=6]five sixths[/fraction] and [fraction numerator=5 denominator=10]five tenths[/fraction].",
+      "audio_dir": "module_11/practice_2813768625325582059",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "5/6    5/10",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the greater fraction.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "5/6",
+            "5/10"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both show 5 pieces. Which pieces are bigger - sixths or tenths?",
+              "audio_dir": "module_11/practice_768173918695413130"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show visual hint comparing piece sizes"
+              },
+              "dialogue": "Think about cutting: Fewer parts in the whole means bigger pieces. Are sixths or tenths bigger?",
+              "audio_dir": "module_11/practice_6347638853089032512"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show stacked bars with 5/6 and 5/10 shaded"
+              },
+              "dialogue": "Both have 5 pieces. Cutting into 6 parts makes bigger pieces than cutting into 10 parts. So sixths are bigger pieces, which means [fraction numerator=5 denominator=6]five sixths[/fraction] is greater than [fraction numerator=5 denominator=10]five tenths[/fraction].",
+              "audio_dir": "module_11/practice_2985298062075288145"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [fraction numerator=5 denominator=6]Five sixths[/fraction] is greater - sixths are bigger pieces than tenths.",
+          "audio_dir": "module_11/practice_411103596419652521"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's put everything together. First, complete each comparison using the right strategy.",
+      "audio_dir": "module_11/practice_4620317476509419384",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "3/8 vs 5/8",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "2/5 vs 2/9",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "4/7 vs 3/7",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Fill in <, >, or = for each pair. Select the answer that shows all three comparisons correctly.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3/8 < 5/8, 2/5 > 2/9, 4/7 > 3/7",
+            "3/8 > 5/8, 2/5 < 2/9, 4/7 < 3/7",
+            "3/8 < 5/8, 2/5 < 2/9, 4/7 > 3/7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Check your comparisons. Which pairs have matching denominators? Which have matching numerators?",
+              "audio_dir": "module_11/practice_3340898671301621410"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight each row showing what matches"
+              },
+              "dialogue": "Row 1: both eighths - count. Row 2: both twos - compare sizes. Row 3: both sevenths - count.",
+              "audio_dir": "module_11/practice_4608028567115705690"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the first answer option as correct"
+              },
+              "dialogue": "Let's work through these: [fraction numerator=3 denominator=8]three eighths[/fraction] is less than [fraction numerator=5 denominator=8]five eighths[/fraction] because both have eighths, and 3 is less than 5. Then [fraction numerator=2 denominator=5]two fifths[/fraction] is greater than [fraction numerator=2 denominator=9]two ninths[/fraction] because both have 2 pieces, and fifths are bigger than ninths. Finally [fraction numerator=4 denominator=7]four sevenths[/fraction] is greater than [fraction numerator=3 denominator=7]three sevenths[/fraction] because both have sevenths, and 4 is greater than 3.",
+              "audio_dir": "module_11/practice_2221087339614616111"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Excellent strategy choices!",
+          "audio_dir": "module_11/practice_1293497014493240269"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Use each strategy once - make one comparison by counting, another by size. First, find the pair you'd compare by counting.",
+      "audio_dir": "module_11/practice_8946372619857711100",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "2/7",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "2/5",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "6/7",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": true,
+            "label": "4/5",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click two fractions to compare by counting.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/7 and 6/7",
+            "2/5 and 4/5",
+            "2/7 and 2/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "That pair has the same numerator. We need same DENOMINATOR for counting. Let's try again.",
+              "audio_dir": "module_11/practice_49421449005602242"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the denominators"
+              },
+              "dialogue": "For counting, we need the same bottom number. Look: [fraction numerator=2 denominator=7]two sevenths[/fraction] and [fraction numerator=6 denominator=7]six sevenths[/fraction] both have 7. Or [fraction numerator=2 denominator=5]two fifths[/fraction] and [fraction numerator=4 denominator=5]four fifths[/fraction] both have 5.",
+              "audio_dir": "module_11/practice_7029209925968476841"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the first option"
+              },
+              "dialogue": "Let's figure this out together: [fraction numerator=2 denominator=7]two sevenths[/fraction] and [fraction numerator=6 denominator=7]six sevenths[/fraction] both have sevenths - same denominator means we count. Let's click those two.",
+              "audio_dir": "module_11/practice_3736339187275869368"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good! Those have the same denominator.",
+          "audio_dir": "module_11/practice_4639148011225210499"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now find a pair to compare by size.",
+      "audio_dir": "module_11/practice_2079739987712559722",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click two fractions to compare by piece size.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "2/7 and 2/5",
+            "6/7 and 4/5",
+            "2/7 and 6/7"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "You already used counting. Now find a pair with the same TOP number for size comparison.",
+              "audio_dir": "module_11/practice_696128721471198977"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the numerators"
+              },
+              "dialogue": "For size comparison, we need the same numerator. Look for two fractions with the same top number. [fraction numerator=2 denominator=7]Two sevenths[/fraction] and [fraction numerator=2 denominator=5]two fifths[/fraction] both have 2.",
+              "audio_dir": "module_11/practice_6144919800042864052"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the first option"
+              },
+              "dialogue": "Here's what we need: [fraction numerator=2 denominator=7]two sevenths[/fraction] and [fraction numerator=2 denominator=5]two fifths[/fraction] both have 2 pieces - same numerator. That means we compare the SIZE of those pieces. Click [fraction numerator=2 denominator=7]two sevenths[/fraction] and [fraction numerator=2 denominator=5]two fifths[/fraction].",
+              "audio_dir": "module_11/practice_8089370335746448242"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice, you used both methods. You used counting for same denominators, and size comparison for same numerators.",
+          "audio_dir": "module_11/practice_3533839114065385269"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "metadata": {
+        "mastery_tier": "SUPPORT",
+        "description": "Support/confidence problem - appears after 2+ incorrect answers"
+      },
+      "dialogue": "Let's do an easier one together. [fraction numerator=1 denominator=4]One fourth[/fraction] and [fraction numerator=3 denominator=4]three fourths[/fraction]. Which has more shaded?",
+      "audio_dir": "module_11/practice_1553028932278000625",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the bigger fraction.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "1/4",
+            "3/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pulse shaded portions gently to draw attention"
+              },
+              "dialogue": "Look at how much is shaded. Which bar has more blue?",
+              "audio_dir": "module_11/practice_5915992223142408675"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show numbers 1 over the single shaded section and 1, 2, 3 over the three shaded sections"
+              },
+              "dialogue": "Let's count together. Top bar: 1 shaded part. Bottom bar: 3 shaded parts. Which is more?",
+              "audio_dir": "module_11/practice_6701605906915947495"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Arrow points from 1/4 to 3/4 with < symbol, auto-advance after 3 seconds"
+              },
+              "dialogue": "I'll show you. Both have fourths - same size pieces. Top has 1 piece shaded. Bottom has 3 pieces shaded. 3 is more than 1, so [fraction numerator=3 denominator=4]three fourths[/fraction] is bigger.",
+              "audio_dir": "module_11/practice_2957944594880785043"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "metadata": {
+            "description": "Green checkmark appears next to 3/4 bar, numbers 1, 2, 3 briefly appear above the three shaded sections"
+          },
+          "dialogue": "There we go. When you're not sure, always check what matches first. These both have fourths, so we count: 3 is greater than 1.",
+          "audio_dir": "module_11/practice_4116326658137317679"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Good practice! You've shown you can handle both strategies - counting when denominators match, and comparing sizes when numerators match. You even know how to figure out which strategy to use. Let's see how these strategies connect to bigger ideas!",
+      "audio_dir": "module_11/practice_4836020967554910"
+    }
+  ]
+}

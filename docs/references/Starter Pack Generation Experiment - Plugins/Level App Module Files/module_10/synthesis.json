@@ -1,0 +1,361 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned comparing fractions with the same denominator. Now let's figure out why this works and see how it connects to other math ideas.",
+      "audio_dir": "module_10/synthesis_6007846393334768658",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Notice what happens here. All these fractions are fifths. How do we know we can order these fractions by just looking at the denominators?",
+      "audio_dir": "module_10/synthesis_2165486447911354918",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "1/5",
+              "<",
+              "2/5",
+              "<",
+              "3/5",
+              "<",
+              "4/5",
+              "<",
+              "5/5"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the key reason.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "All the denominators are the same",
+            "The numerators count up by one",
+            "There are five fractions"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "What do all these fractions have in common at the bottom?",
+              "audio_dir": "module_10/synthesis_6233704666685770690"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "All denominators pulse"
+              },
+              "dialogue": "Look at the denominators, the fractions are [event:698a20146112b4b3]all fifths. Since the denominator is 5 for all the fractions, we can compare by numerators.",
+              "audio_dir": "module_10/synthesis_1277778073356631039"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight all denominators, then show counting sequence, then select the correct answer"
+              },
+              "dialogue": "Here's the key: [event:698a2a108d61b1c6]all of these fractions have the same denominator of 5. When denominators match, the pieces are the same size. So [event:698d28fe4b008433]we can order by counting: [event:698a2a69bb5b78d3]1 piece, [event:698a2abf6dad4350]2 pieces, [event:698a2ace09512033]3 pieces, and so on.",
+              "audio_dir": "module_10/synthesis_2248899459118547840"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly. Same [event:698a206c59dd0642]denominators mean same-size pieces. When pieces are the same size, we can order fractions [event:698d29421e5de618]by comparing numerators, [event:698a20968636b930]just like ordering whole numbers. [event:698a21147715dab5]This works for fractions with ANY denominator, thirds, fifths, elevenths, as long as denominators all match.",
+          "audio_dir": "module_10/synthesis_5249569872063986706"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Our comparison method works in real life too. Think about this scenario: Alex and Sam are both reading the same book that has 12 chapters. These bars show us how much they've each read. Who has read more chapters?",
+      "audio_dir": "module_10/synthesis_2191356796994838341",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 12,
+            "intervals": "1/12",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "lcm": 12,
+            "intervals": "1/12",
+            "is_read_only": true
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": true,
+            "label": "Alex",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": true,
+            "label": "Sam",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Who has read more chapters?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Alex read more because [fraction numerator=5 denominator=12]5/12[/fraction] > [fraction numerator=8 denominator=12]8/12[/fraction]",
+            "Sam read more because [fraction numerator=8 denominator=12]8/12[/fraction] > [fraction numerator=5 denominator=12]5/12[/fraction]",
+            "They read the same amount because       [fraction numerator=5 denominator=12]5/12[/fraction] = [fraction numerator=8 denominator=12]8/12[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's check again. We can compare [fraction numerator=5 denominator=12]five twelfths[/fraction] to [fraction numerator=8 denominator=12]eight twelfths[/fraction]. Who read more?",
+              "audio_dir": "module_10/synthesis_8350788171451046415"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numbers 5 and 8 highlight"
+              },
+              "audio_dir": "module_10/synthesis_4284266049561899665"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight 5 parts on Alex's bar, then 8 parts on Sam's bar, then select the correct answer"
+              },
+              "dialogue": "Let me help you: Alex read [event:698a31773b7450d7][fraction numerator=5 denominator=12]five twelfths[/fraction] of the book. Sam read [event:698a3188247f080e][fraction numerator=8 denominator=12]eight twelfths[/fraction] of the book. [event:698a31e7792eb737]Since 8 is greater than 5, [event:698a31a0d726c528]Sam read more chapters.",
+              "audio_dir": "module_10/synthesis_7777416437343353180"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Sam read [event:698a3354144fa9e6][fraction numerator=8 denominator=12]eight twelfths[/fraction] of the book, more than [event:698a3365f4d82a04]Alex's [fraction numerator=5 denominator=12]five twelfths[/fraction]. That's how people solve these problems in real life.",
+          "audio_dir": "module_10/synthesis_3578323260568193760"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look at another problem. Which is bigger, [fraction numerator=2 denominator=3]two thirds[/fraction] or [fraction numerator=2 denominator=5]two fifths[/fraction]? What makes this problem different? Why don’t the strategies you learned previously work here?",
+      "audio_dir": "module_10/synthesis_1616116669906189466",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 3,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select ALL the reasons why our strategies don’t work.",
+        "tool": {
+          "@type": "Select",
+          "is_single": false
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "There are different denominators",
+            "There are different sized pieces",
+            "There are the same number of pieces"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "You're on the right track. Take another look at the denominators and the pieces in each bar.",
+              "audio_dir": "module_10/synthesis_9196272600525936995"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Each phrase highlights in sequence"
+              },
+              "dialogue": "Think about how these ideas connect: different [event:698a3b83aeb075b7]denominators lead to different [event:698a3ba9f70da3d6]piece sizes, which leads to needing a different method.",
+              "audio_dir": "module_10/synthesis_1201846467393691050"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight denominators showing they're different, show piece sizes are different, then select all three options"
+              },
+              "dialogue": "All three of these ideas connect together. We start with different [event:698a3663efbf9e6b]denominators, thirds and fifths. Different denominators mean differently sized [event:698a370ad8b8774d]pieces, a third is bigger than a fifth. And when pieces are different sizes, we can't just count and compare the number of pieces.",
+              "audio_dir": "module_10/synthesis_2237880988490408431"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. All three of these ideas connect together. We start with different [event:698a3663efbf9e6b]denominators, thirds and fifths. Different denominators mean differently sized [event:698a370ad8b8774d]pieces, a third is bigger than a fifth. And when pieces are different sizes, we can't just count and compare the number of pieces. [event:698a3847f74f2132]We need a different method for this kind of problem. There are ways to compare these fractions. You'll learn those methods soon.",
+          "audio_dir": "module_10/synthesis_1726408904887999803"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Today, you've learned that you can compare fractions with the same denominator using [event:698a45953ba413eb]greater than, [event:698a460c55df2975]less than, and [event:698a4618ebde4453]equals. You're demonstrating that you understand how to compare. Check that the [event:698a46edd24d9f8f]denominators match, then compare [event:698a47611bcdd68b]the numerators. And you understand why the process works. When we have the same denominators, that means we have the same size pieces.",
+      "audio_dir": "module_10/synthesis_3423073110250584997",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              ">",
+              "1/4"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "2/6",
+              "<",
+              "3/6"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/5",
+              "=",
+              "3/5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Next time, you'll learn how to compare fractions even when the denominators are different. You're building a strong foundation for understanding fractions.",
+      "audio_dir": "module_10/synthesis_9058787754380907653",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

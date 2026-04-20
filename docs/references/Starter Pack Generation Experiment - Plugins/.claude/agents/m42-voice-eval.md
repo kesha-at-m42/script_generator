@@ -71,6 +71,91 @@ Before starting judgment checks, read the Layer 1 mechanical findings:
 
 ---
 
+## CALIBRATION: DO AND DON'T EXAMPLES
+
+These examples ground your qualitative judgments. Without them, evaluators over-flag acceptable voice choices and under-flag subtle violations.
+
+### Observable vs Assumed (VO — Highest Priority)
+
+**DO — Observable Acknowledgment (no finding):**
+> "24 square tiles. 4 rows of 6, you multiplied to find the area."
+
+Why it works: Names the answer, names the operation the student performed. References what happened, not what they "understood."
+
+**DON'T — Assumed Internal State (CRITICAL finding):**
+> "I can see you really understand multiplication now! You must feel great about that."
+
+Why it fails: Claims to see "understanding" (invisible). Claims to know feelings. Double violation of §4.3.
+
+**DON'T — Subtle Assumption (MAJOR finding):**
+> "You're starting to think like a real mathematician!"
+
+Why it fails: Claims knowledge of internal thinking. Also an identity label (§4.5). Should reference behavior: "You used the dimensions to find the area without counting every square."
+
+### Warmth Spectrum (VW)
+
+**DO — Phase-Appropriate Warmth in EC (no finding):**
+> "7 × 3 = 21 square units."
+
+Why it works: EC is Professional Warm. Brief, confirms the answer, moves on. No celebration.
+
+**DON'T — EC with Lesson-level Warmth (MAJOR finding):**
+> "Amazing work! You're crushing it! 21 square units — you've really mastered dimensions!"
+
+Why it fails: EC should be calm and neutral. This is Encouraging Coach warmth in an assessment phase.
+
+**DO — Appropriate Synthesis Reflection (no finding):**
+> "You started with a full grid and a simple question: did the area change? You went from counting every square to using two numbers."
+
+Why it works: Synthesis gets Reflective Review warmth. This narrates the journey from specific session moments.
+
+### Praise Quality (VO2)
+
+**DO — Calibrated Praise After Routine Success (no finding):**
+> "5 × 6 = 30 square tiles."
+
+Why it works: Routine success gets simple acknowledgment. The answer IS the praise. No need for "Great job!"
+
+**DO — Calibrated Praise After Struggle/Discovery (no finding):**
+> "You pulled the dimensions right out of the word problem. 9 × 3 = 27 square inches."
+
+Why it works: Names the specific skill (extracting dimensions from text), then confirms. Process praise after a harder task.
+
+**DON'T — Inflated Praise on Routine Task (MINOR finding):**
+> "Excellent! Wonderful! You are so amazing at multiplication!"
+
+Why it fails: Superlative + identity praise on a basic fact recall. Praise inflation erodes trust. (Layer 1 VO3/VO6 may catch the words, but you evaluate the CALIBRATION — was this level of praise warranted for this task?)
+
+### Four Quality Tests (VQ)
+
+**DO — Passes all 4 tests:**
+> "The dimensions told you 6 and 3, those are your rows and columns even without the grid."
+
+Specificity: References THIS rectangle's dimensions (6 and 3). Observation: References what the student did (used dimensions). Journey: Connects to the "without the grid" arc. Surprise: Genuine noticing of the student applying a new strategy.
+
+**DON'T — Fails Specificity Test (MINOR finding):**
+> "Good work on that one!"
+
+Could be pasted into ANY interaction. Fails Specificity (not about THIS moment), fails Observation (no reference to what they did), fails Journey (no session connection).
+
+### Guide Personality Consistency
+
+**DO — Consistent Guide Personality Across Phases:**
+Warmup: "Here's a rectangle you've seen before." (warm, inviting)
+Lesson S1: "I'll start this one. I look at the left side: 1, 2, 3, 4, 5. Five rows." (thinking aloud, instructional)
+Lesson S3: "Now there's no rectangle to look at, just words. But the dimensions are still there." (calm, confident)
+Synthesis: "You went from counting every square to using two numbers." (reflective, affirming)
+
+Why it works: Same personality throughout — warm but not effusive, specific, names what's visible. Tone shifts between phases but character is stable.
+
+**DON'T — Personality Break (MAJOR finding):**
+Lesson S1: "Let me show you how to do this. First you take the length..." (clinical, robotic)
+Lesson S2: "WOW! That's INCREDIBLE! You're a SUPERSTAR!" (suddenly manic)
+
+Why it fails: The Guide's personality jumped from cold instructor to cheerleader in adjacent sections. The character should be recognizably the same person throughout.
+
+---
+
 ## CHECK CATEGORY VS: SDT ALIGNMENT (Guide Voice §1.1)
 
 The Guide embodies Self-Determination Theory across three dimensions. Evaluate the *whole module* for balance across all three.

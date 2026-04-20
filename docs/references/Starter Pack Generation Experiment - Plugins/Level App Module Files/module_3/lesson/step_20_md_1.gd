@@ -1,0 +1,22 @@
+extends SequenceEvent
+
+func trigger():
+	use_write_tool(get_frac_shape_part(0, 0), "1")
+	await delay(.1)
+	use_highlight_tool(get_frac_shape_part(0, 0))
+	await delay(.4)
+	use_write_tool(get_frac_shape_part(0, 1), "2")
+	await delay(.1)
+	use_highlight_tool(get_frac_shape_part(0, 1))
+	await delay(.4)
+	use_write_tool(get_frac_shape_part(0, 2), "3")
+	await delay(.1)
+	use_highlight_tool(get_frac_shape_part(0, 2))
+	await delay(.4)
+	use_write_tool(get_frac_shape_part(0, 3), "4")
+	await delay(.1)
+	use_highlight_tool(get_frac_shape_part(0, 3))
+	await delay(.4)
+	use_write_tool(get_frac_shape_part(0, 4), "5")
+	await delay(.1)
+	use_highlight_tool(get_frac_shape_part(0, 4))

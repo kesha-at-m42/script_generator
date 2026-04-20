@@ -1,0 +1,220 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's see how your math skills have grown by seeing how you can build fractions from unit parts.",
+      "audio_dir": "module_3/exit_check_3em0ex"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbc2ad0d9dae96]Look at these three bars. Which one shows [fraction numerator=3 denominator=4]three fourths[/fraction]? Remember, that's three unit fractions combined together.",
+      "audio_dir": "module_3/exit_check_4x7ch2",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals": "1/4"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the bar that shows [fraction numerator=3 denominator=4]three fourths[/fraction].",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 2
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Not quite. Let's count the shaded parts in each bar. We need exactly three shaded parts.",
+              "audio_dir": "module_3/exit_check_ahsxj8"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Try to check carefully. Watch as we [event:696aa698b12cb924]count up to the fraction. See which bar gets to [fraction numerator=3, denominator=4]three fourths[/fraction].",
+              "audio_dir": "module_3/exit_check_m9npmg"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me count for you. First bar: [event:697d3d1afef00934]one piece shaded. That's [fraction numerator=1, denominator=4]one fourth[/fraction]. Middle bar: [event:697d3d352840a91a]one, two pieces shaded. That's [fraction numerator=2, denominator=4]two fourths[/fraction]. Last bar: [event:697d3d4ee6e8359d]one, two, three parts shaded. That's [fraction numerator=3, denominator=4]three fourths[/fraction].",
+              "audio_dir": "module_3/exit_check_ueegrs"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice work. You recognized [fraction numerator=3, denominator=4]three fourths[/fraction], three parts [event:697d3bbaa794394a]created from unit fractions.",
+          "audio_dir": "module_3/exit_check_4330895470567184556"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:696aaeee6db57b23]Look at this empty bar with 6 parts. Please shade the parts to make [fraction numerator=4, denominator=6]four sixths[/fraction]. Start with [fraction numerator=1, denominator=6]one sixth[/fraction], then shade more to make [fraction numerator=4, denominator=6]four sixths[/fraction].",
+      "audio_dir": "module_3/exit_check_3qjx2u",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "lcm": 6,
+            "intervals": "1/6"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click parts to shade [fraction numerator=4, denominator=6]four sixths[/fraction].",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "2/3"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Here's a hint: Try counting as you shade, and remember we need four parts.",
+              "audio_dir": "module_3/exit_check_y1qzps"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Remember,[event: step_7_md_1] we need exactly four parts shaded.",
+              "audio_dir": "module_3/exit_check_ds7r8f"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Watch as we count up[event: step_7_hv_1]: one part[event: step_7_hv_2], two parts[event: step_7_hv_3], three parts[event: step_7_hv_4], four parts[event:691b4853aee2c980]. That makes four sixths.",
+              "audio_dir": "module_3/exit_check_wvbeca"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice. You make [fraction numerator=4, denominator=6]four sixths[/fraction] by combining four unit fractions: [event:697d4236a7439758][fraction numerator=1, denominator=6]one sixth[/fraction] + [fraction numerator=1, denominator=6]one sixth[/fraction] + [fraction numerator=1, denominator=6]one sixth[/fraction] + [fraction numerator=1, denominator=6]one sixth[/fraction]. That's exactly how building fractions works.",
+          "audio_dir": "module_3/exit_check_1315173452850495581"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:696ab5b75d23e540]Next, let's add unit fractions to make one whole. Remember what you learned about [fraction numerator=3, denominator=3]three thirds[/fraction].",
+      "audio_dir": "module_3/exit_check_qkbiss",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 3,
+            "intervals": "1/3"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade all parts to make 1 whole.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Remember, to make one whole, shade every part.",
+              "audio_dir": "module_3/exit_check_evkhm0"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Not quite. To make one whole, you need to shade all three parts [event: step_10_md_1]. [fraction numerator=3, denominator=3]three thirds[/fraction] means three parts out of three total.",
+              "audio_dir": "module_3/exit_check_u9hefq"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me show you. I add them up: [fraction numerator=1, denominator=3]one third[/fraction][event: step_10_hv_1]  + [fraction numerator=1, denominator=3]one third[/fraction][event: step_10_hv_2] + [fraction numerator=1, denominator=3]one third[/fraction][event:696ab7deeaab2bb6] = [fraction numerator=3, denominator=3]three thirds[/fraction]. All three parts shaded makes [fraction numerator=3, denominator=3]three thirds[/fraction], and [fraction numerator=3, denominator=3]three thirds[/fraction] equals exactly 1 whole.",
+              "audio_dir": "module_3/exit_check_13f8y8"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's it. You built [event:697d447b4603d50d][fraction numerator=3, denominator=3]three thirds[/fraction], which equals 1. When we fill all the parts, we get 1.",
+          "audio_dir": "module_3/exit_check_8632168845729860075"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've got it! You can make any fraction by adding unit fractions together.[d:0.5] When the top and bottom numbers match, that equals 1 whole. Now let's strengthen this skill with different challenges.",
+      "audio_dir": "module_3/exit_check_tthogc",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

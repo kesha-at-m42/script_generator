@@ -1,0 +1,470 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at this rectangle bar [event:68fbaf5ff5c53a49]in the center of your screen. See how [event:68fbb04ba77e2f8a] only one piece is shaded? That's [fraction numerator=1 denominator=4]one fourth[/fraction], a [vocab]unit fraction[/vocab]. Remember, a [vocab]unit fraction[/vocab] always has just one part shaded out of the whole.",
+      "audio_dir": "module_3/lesson_txwif2",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "composite_bar_equation",
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "But sometimes we want to show more than one part. Watch what happens when we add another fourth.",
+      "audio_dir": "module_3/lesson_3oexg2",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click any unshaded part.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/2"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Click one of the empty parts to add another fourth.",
+              "audio_dir": "module_3/lesson_z4zno8"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] You're getting there. We have [fraction numerator=1, denominator=4]one fourth[/fraction] now, and we need to [event:68fbb3c510b68d29] add one more to make [fraction numerator=2, denominator=4]two fourths[/fraction].",
+              "audio_dir": "module_3/lesson_jqisou"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you. We start with one fourth here, and I'll [event:68fbb3c510b68d29] click this empty part to add another fourth. Now we have [fraction numerator=2, denominator=4]two fourths[/fraction]. ",
+              "audio_dir": "module_3/lesson_aheo0j"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You just shaded another fourth!",
+          "audio_dir": "module_3/lesson_2827152504503940923"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now we have [fraction numerator=1 denominator=4]one fourth[/fraction], plus another [fraction numerator=1 denominator=4]one fourth[/fraction]. Count the shaded parts with me: [event:697cf5e5010f0d6e]one part shaded, [event:697cf5fbfdab3489] two parts shaded.",
+      "audio_dir": "module_3/lesson_kp9dwq"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at that, we just made [fraction numerator=2 denominator=4]two fourths[/fraction]! When we combine [vocab]unit fractions[/vocab], we're making a bigger fraction.",
+      "audio_dir": "module_3/lesson_m0vtsv"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:698118f269724ab7] Now we have [fraction numerator=2, denominator=4]two fourths[/fraction]. Count with [event:6967d52b26e1f1ff]me: one shaded, two shaded. Time to create an even bigger fraction. [event:6967d6e3f3b564b5] Click one of the unshaded parts.",
+      "audio_dir": "module_3/lesson_7epslw",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click an unshaded part to create [fraction numerator=3, denominator=4]three fourths[/fraction].",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "3/4"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Try again. Look for an empty section to shade. We're adding one more fourth.",
+              "audio_dir": "module_3/lesson_4pf9jv"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Here's a hint: You have [event:6967edb545b13307]  two parts shaded already. Find an empty part to make three total.",
+              "audio_dir": "module_3/lesson_j3j2lv"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start][event:697d148190377c4f]Let's try together. Count what we have: one[event:6967eee4636d9c34]  shaded, two shaded. We need three total. I'll click this[event:6967f03858e3b92b] empty part, see? Now count with me:[event:6967f0689ea0151c] one, two, three. That's [fraction numerator=3, denominator=4]three fourths[/fraction]. [event:6967f0eaca911c33]",
+              "audio_dir": "module_3/lesson_t8szs0"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:68fb9d1f76b9c8e1] You counted carefully and put together [event:697d133eb25512a1]three parts. That's [fraction numerator=3, denominator=4]three fourths[/fraction].",
+          "audio_dir": "module_3/lesson_867755452677766711"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:69681bf4e401e58e]Now look at this fraction, [fraction numerator=3, denominator=4]three fourths[/fraction]. Let's understand what these numbers really mean.",
+      "audio_dir": "module_3/lesson_5n53e3"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "How many shaded parts do you see? Count them.",
+      "audio_dir": "module_3/lesson_apza2u",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "How many shaded parts are in this shape?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "1",
+            "4",
+            "3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Look carefully at the bar and count each shaded part.",
+              "audio_dir": "module_3/lesson_bctu2t"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's count together. [event:697d21a3eece4d7c]One shaded, [event:697d21ddc53e9abf]two shaded, [event:697d21efd5e223df]three shaded. Which number?",
+              "audio_dir": "module_3/lesson_hw1znq"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me count each shaded part with you: [event:6968012f0f3e882a]one, [event:697d2260ee52f880]two, [event:697d227292592b8c]three. There are 3 [event: step_11_hv_4] shaded parts [event: step_11_hv_5].",
+              "audio_dir": "module_3/lesson_phc2ch"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Three shaded parts. [event:697d14ed4e8c9bf9]That top number counts what we have.",
+          "audio_dir": "module_3/lesson_3437977932111176388"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Math experts call this [event:697d24b3bd9ef398]top number the [vocab]NUMERATOR[/vocab].[event:697d260a7aa795f6] Here, we can count 3 [event:68fbbb2e25dbabac] shaded parts. So [event:697d26352d1c222b]3 is the [vocab]numerator[/vocab].",
+      "audio_dir": "module_3/lesson_hyywa9"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbbfcc6078ee7e]Now look at the 4 [event:68fbbfe485c62fde]on bottom. Let's count ALL the parts in the whole bar. Watch as each one lights up: [event:69681398f38cabf8]one, two, three, four.",
+      "audio_dir": "module_3/lesson_6p2bb6"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbc353f56aab04]Four parts total. The bottom number [event:68fbc1f5ea1b571f] tells us how many equal parts make up the whole [event:68fbc385344c0210]thing.",
+      "audio_dir": "module_3/lesson_ds5j7e",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": true,
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:697d30a7fde7085c]This bottom number is called the [event:697d31221d1f9575][vocab]DENOMINATOR[/vocab]. It tells us how to name the type of parts we're working with[event:697d313bc47a2559]. For example, when the [vocab]denominator[/vocab] [event:697d315955ca010d]is 4, then we're working with fourths.",
+      "audio_dir": "module_3/lesson_tb1833",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "intervals_is_shaded": true,
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Denominator",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbc0e857ceca40] So in [fraction numerator=3, denominator=4]three fourths[/fraction]: the [event:697d32996a4938d2][vocab]numerator[/vocab] 3 says 'I have [event:697d32b513ba53c8]three parts' and the [event:697d3321674ede0e][vocab]denominator[/vocab] 4 says 'out [event:697d335cfe7fa123]of four equal parts total.' ",
+      "audio_dir": "module_3/lesson_tvg5n3",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:696921af0c8b31c7]Watch how [event:68fbcb025797ea5b] the [vocab]numerator[/vocab] changes as we add parts, but the [vocab]denominator[/vocab] stays the same.",
+      "audio_dir": "module_3/lesson_8825767383893786983",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "metadata": {
+        "notes": "Needs tts regen for heavy remediation"
+      },
+      "dialogue": "We have [fraction numerator=3, denominator=4]three fourths[/fraction]. What happens if we shade that last unshaded part? Give it a try.",
+      "audio_dir": "module_3/lesson_n07t6m",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the last unshaded part to complete the whole.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's find the one empty part that's left.",
+              "audio_dir": "module_3/lesson_kg9h9u"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Look closely. [event:696925e3091e2de5]Three parts are shaded. We need to shade the fourth part.",
+              "audio_dir": "module_3/lesson_i20oui"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me help. We shade this fourth part [event: step_17_hv_1]. Now all [event:697d3470b8cc75a4]four parts are shaded: [fraction numerator=4, denominator=4]four fourths[/fraction] = 1.",
+              "audio_dir": "module_3/lesson_zc4lzw"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Excellent, [event:697d33b490c8ab7e]all four parts are shaded.",
+          "audio_dir": "module_3/lesson_7751154774873651812"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:696a77566d69ddb7] You discovered something important. When we put together [event:697d34e528ce8933]all 4 pieces to make [fraction numerator=4, denominator=4]four fourths[/fraction], we get one whole. The parts together make exactly 1. When we add up enough [vocab]unit fractions[/vocab] to fill everything, we get 1.",
+      "audio_dir": "module_3/lesson_7r4yrf",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:696a8fff39427586]How about sixths? Let's see what happens. Start with [fraction numerator=1, denominator=6]one sixth[/fraction]. Click the unshaded parts to build up to [fraction numerator=5, denominator=6]five sixths[/fraction].",
+      "audio_dir": "module_3/lesson_92c0rt",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "composite_bar_equation",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click parts to make 5/6.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "5/6"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Not quite. Remember, we need 5 parts shaded total to make [fraction numerator=5, denominator=6]five sixths[/fraction].",
+              "audio_dir": "module_3/lesson_mywt8l"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Watch as we count up [event: step_20_md_1] - we need to reach exactly 5 parts shaded out of 6 total.",
+              "audio_dir": "module_3/lesson_7tqxs8"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me help. We start with 1 shaded. We need 5 total. So shade 4 more: two[event: step_20_hv_2], three[event: step_20_hv_3], four[event: step_20_hv_4], five[event: step_20_hv_5]. That's [fraction numerator=5, denominator=6]five sixths[/fraction].",
+              "audio_dir": "module_3/lesson_75s71c"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "There! You built it step by step.",
+          "audio_dir": "module_3/lesson_5942914732237525687"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbccd76b5d9876]Adding [fraction numerator=1, denominator=6]one sixth[/fraction][event:68fbcc9540cd6080] + [fraction numerator=1, denominator=6]one sixth[/fraction][event:68fbccf610e005e0] + [fraction numerator=1, denominator=6]one sixth[/fraction][event:68fbcd12e061ce22] + [fraction numerator=1, denominator=6]one sixth[/fraction][event:68fbcd2f7f7cac47] + [fraction numerator=1, denominator=6]one sixth[/fraction][event:68fbcd4781007263] = [fraction numerator=5, denominator=6]five sixths[/fraction][event:68fbcd6a71c01cda]. Five parts shaded out of six.",
+      "audio_dir": "module_3/lesson_gu0xtw"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fbcee240c77660]You've learned to build fractions by combining [event:697d37b595815266][vocab]unit fractions[/vocab]. The [vocab]numerator[/vocab] [event:68fbce523fb5349b] (top number) tells us how many parts we've composed. In this lesson, we're working with [event:697d385f6f2d2b52] one whole bar, so we're exploring fractions from[event:696a94e703496036] zero parts up to [event:697d39418bd41278]all the parts. When we combine enough parts to fill the whole bar, we get 1!",
+      "audio_dir": "module_3/lesson_n211qo",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    }
+  ]
+}

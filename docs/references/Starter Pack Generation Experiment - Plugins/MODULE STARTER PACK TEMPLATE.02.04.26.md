@@ -1,28 +1,103 @@
 # **MODULE STARTER PACK TEMPLATE**
 
-**Version:** 02.26.26 (v2) **Usage:** One Starter Pack per module. This is a structural template — all `[bracketed content]` must be replaced with module-specific content. **Companion Documents:** Warmup Phase Playbook, Exit Check Phase Playbook, Synthesis Phase Playbook, Practice Phase Playbook v3, Guide vs Prompt Structure Reference
+**Version:** 03.30.26 (v3) **Usage:** One Starter Pack per module. This is a structural template — all `[bracketed content]` must be replaced with module-specific content. **Companion Documents:** Warmup Phase Playbook, Exit Check Phase Playbook, Synthesis Phase Playbook, Practice Phase Playbook v3, Guide vs Prompt Structure Reference
+
+**v3 Changelog (from v2):** Codifies H3 headers for interaction blocks (matching M8-M11 practice). Adds Pattern 4 (System-Driven Demonstration with Think-Aloud). Formalizes multi-phase interaction sub-numbering with per-phase field requirements. Adds Visual: completeness checklist. Strengthens remediation convention with explicit anti-patterns. Adds interaction block compliance self-check. Driven by M8-M12 deviation audit.
 
 ---
 
 ## **TEMPLATE CONVENTIONS**
 
+### Heading Hierarchy
+
+* Exactly 3 H1s in the SP: Module title, `BACKBONE`, `PHASE SPECIFICATIONS`
+* All sections use H2: `## 1.0 THE ONE THING`, `## 1.6 WARMUP`, etc.
+* Subsections and interactions use H3: `### Interaction W.1:`, `### Verification Checklist`
+* **No H4s.** Convert to bold inline labels if needed.
+* **No bold markers on headings.** Use `## 1.0 THE ONE THING`, NOT `## **1.0 THE ONE THING**`
+
 ### Section Tags
 
-* **\[REQUIRED\]** — Must be present in every Starter Pack  
-* **\[MODULE-SPECIFIC\]** — Content varies by module; placeholders show what to include  
+* **\[REQUIRED\]** — Must be present in every Starter Pack
+* **\[MODULE-SPECIFIC\]** — Content varies by module; placeholders show what to include
 * **\[IF APPLICABLE\]** — Include only when relevant to this module
 
 ### Interaction Design Rules
 
-Every interaction follows one of two patterns:
+Every interaction follows one of four patterns:
 
 **Pattern 1 — Student Action:** Both `Guide:` AND `Prompt:` are REQUIRED. Guide speaks the teaching/instruction. Prompt provides the standalone written instruction (worksheet-style). Both must be independently complete.
 
-**Pattern 2 — No Student Action:** `Guide:` only. Interaction ends with `**No student action.**`
+**Pattern 2 — No Student Action (Teaching-Only):** `Guide:` only. Interaction ends with `* **No student action.**`
 
-**Pattern 3 — System-Driven Activity:** Used for games, animated reveals, or system-controlled demonstrations where student participates but the interaction doesn't fit the Guide+Prompt→Answer structure. Document with a specification table (parameters, duration, student role) and an `**On Complete:**` block for what happens after. Flag with a Design Note explaining why Pattern 1/2 don't apply.
+**Pattern 3 — System-Driven Activity:** Used for games, animated reveals, or system-controlled demonstrations where the student participates but the interaction doesn't fit the Guide+Prompt→Answer structure. Document with a **specification table** and an `**On Complete:**` block. Flag with a Design Note explaining why Patterns 1/2 don't apply.
 
-If you're unsure which pattern applies, default to Pattern 1\.
+Specification table format:
+
+```
+| Parameter | Specification |
+|---|---|
+| **System Action** | [What the system does — animation, shading, highlighting, etc.] |
+| **Duration** | [Estimated time in seconds] |
+| **Student Role** | [Observe / Confirm via MC / Interact during animation] |
+| **Visual State Change** | [What changes on screen from start to end] |
+
+**On Complete:** [Guide dialogue + what happens next]
+```
+
+**Pattern 4 — Think-Aloud Demonstration:** A teaching-only interaction where the Guide models cognitive process. Used for worked examples where making the Guide's reasoning visible is pedagogically important. The Guide field is a single, continuous field of natural speech. Do NOT split the Guide into multiple bullet points or create a separate `[System Action]` field for think-alouds.
+
+**Metacognitive tags (`[PLANNING]`, `[ATTENTION]`, `[SELF-CHECK]`, etc.) are authoring-only annotations.** They may be used during drafting to structure the think-aloud, but must be **stripped before publishing to Notion or handing off to scripting.** The app renders Guide dialogue as spoken narration — bracketed tags would be read aloud or cause parsing errors. The final Guide dialogue should read as natural speech.
+
+```
+### Interaction [ID]: [Title] [WORKED EXAMPLE]
+
+* **Purpose:** [What this demonstrates]
+* **Visual: [Toy Name] ([Mode]).** [State]
+* **Guide:** "First, I need to find out how many parts there are. I'm looking at [specific element]... [result]. Does that match? Yes, because..."
+* **No student action.**
+```
+
+Pattern 4 may be followed by a Pattern 1 interaction where the student attempts the same type of problem. Document this pairing with a Scaffolding Note.
+
+If you're unsure which pattern applies, default to Pattern 1.
+
+### Student Action Vocabulary
+
+Use this standard vocabulary for the Student Action field. These terms describe what the student physically does and are stable across engineering changes. Do not invent free-text descriptions.
+
+**Core Interaction Types (what the student does with the toy):**
+
+| Student Action Term | What the Student Does | Typical Toys |
+|---|---|---|
+| Select (single) | Click one visual element from multiple on-screen options | Fraction strips, number lines, shapes, arrays |
+| Select (multiple) | Click multiple visual elements | Grid cells, fraction parts, graph columns |
+| MC (single) | Choose one option from labeled text/image cards (radio buttons) | Any toy — MC is a response overlay |
+| MC (multiple) | Choose multiple options from labeled text/image cards (checkboxes) | Any toy — "Select ALL that apply" |
+| Shade | Click regions to shade/color them | Fraction strips, fraction circles, area models |
+| Place tick | Click to add tick marks that partition a line | Number lines |
+| Place point | Snap a point to an existing tick on a line | Number lines |
+| Drag label | Drag a fraction label from a palette onto a tick | Number lines |
+| Drag to build | Drag parts from a palette to construct a representation | Equation Builder, Secret Code Cards |
+| Drag to group | Drag cards onto each other to form groups by shared property | Card Grouping |
+| Fill blank | Click a fill space, then select a word/phrase from a palette | Fill-in-the-Blank / Drop Down |
+| Type number | Type digits via keyboard into an input field | Text-Based Numeric Entry |
+| Enter number | Click on-screen digit buttons to compose a numeric answer | On-Screen Numeric Input |
+
+**Toy-specific actions (used within multi-step interactions):**
+
+| Student Action Term | What the Student Does | Typical Toys |
+|---|---|---|
+| Stack / Overlay | Drag or tap to stack place-value cards, hiding trailing zeros | Secret Code Cards |
+| Separate | Tap or drag apart a stacked overlay to reveal component values | Secret Code Cards |
+| Flip | Tap a card to flip between numeral and block representation | Secret Code Cards |
+| Cut | Divide a shape into equal parts | Fraction shapes, area models |
+
+**Combining terms:** When an interaction requires multiple steps, chain them with arrows: "Place tick → Shade" or "Drag to build → MC (single)." When sub-steps are sequential parts of one interaction, use sub-part numbering (a/b/c) with each sub-part getting its own Student Action.
+
+**Extending this table:** If a toy's interaction does not map to any term above, the SP author proposes a new term following these conventions: (1) action-verb-based, describing what the student physically does, (2) no app tool names or engineering internals, (3) distinct from existing terms — not a synonym. Use the proposed term in the Student Action field with a `⚠️ NEW-ACTION` flag, and add it to the Working Notes for author review. Approved terms get added to this table in the next Template revision. If the action is a variant of an existing term, use the base term with a parenthetical qualifier instead (e.g., `Drag to build (slot-constrained)`).
+
+**Observation-only:** When the student watches a Guide demonstration or system animation with no action required, use "No student action." (Pattern 2 or Pattern 4).
 
 ### Interaction Type Labels
 
@@ -41,9 +116,48 @@ Additional module-specific labels may be created when none of the above fit. Eac
 
 ### Multi-Step Interactions
 
-When a single conceptual interaction has multiple student response moments — whether from gradual release (Guide models → student attempts with support → student does independently) or from multi-step problems (Step 1 → Visual Update → Step 2\) — use **sub-part numbering** (a/b/c).
+When a single conceptual interaction has multiple student response moments — whether from gradual release (Guide models → student attempts with support → student does independently) or from multi-step problems (Step 1 → Visual Update → Step 2) — use **sub-part numbering** (a/b/c).
 
-The parent interaction (e.g., W.3 or 3.4) gets the Purpose and overall Visual setup. Each sub-part gets its own Guide, Prompt, Student Action, Correct Answer, and Remediation fields as needed. Label steps explicitly when the student sees them as separate submissions ("Step 1:" / "Step 2:"). Document scaffolding changes across sub-parts with a Scaffolding Note.
+**Structure:**
+
+```
+### Interaction 1.1: [Title] [TYPE LABEL]
+
+* **Purpose:** [Overall purpose of the multi-step sequence]
+* **Visual: [Toy Name] ([Mode]).** [Initial state for the full sequence]
+
+#### Interaction 1.1a: [Sub-step title]
+
+* **Guide:** "[Dialogue for this step]"
+* **Prompt:** "[Instruction for this step]"
+* **Student Action:** [Action type]
+  * [If MC] **Options:** [A, B, C, D]
+* **Correct Answer:** [Answer for this step]
+* **Answer Rationale:** [Required for every MC sub-part]
+  - [Correct] = Correct ([why])
+  - [Distractor] = [Misconception/error type]
+* **On Correct:** "[Feedback for this step]"
+* **Remediation:** Pipeline
+
+#### Interaction 1.1b: [Sub-step title]
+
+* **Visual:** [State change from 1.1a, if any]
+* **Guide:** "[Dialogue for this step]"
+* **Prompt:** "[Instruction for this step]"
+* **Student Action:** [Action type]
+  * [If MC] **Options:** [A, B, C, D]
+* **Correct Answer:** [Answer for this step]
+* **Answer Rationale:** [Required for every MC sub-part]
+* **On Correct:** "[Feedback for this step]"
+* **Remediation:** Pipeline
+```
+
+**Requirements:**
+- Every sub-part with a student action gets its own **Correct Answer**, **Answer Rationale** (if MC), **On Correct**, and **Remediation: Pipeline**.
+- Do NOT combine multiple student actions into a single interaction block without sub-numbering. If a student submits more than one answer, there must be more than one sub-part.
+- The parent interaction holds the shared Purpose and initial Visual. Sub-parts hold per-step fields.
+- Label steps in Guide dialogue when the student sees them as separate submissions ("Step 1:" / "Step 2:").
+- Document scaffolding changes across sub-parts with a Scaffolding Note after the block.
 
 ### Remediation Convention
 
@@ -53,7 +167,13 @@ The parent interaction (e.g., W.3 or 3.4) gets the Purpose and overall Visual se
 * **Remediation:** Pipeline
 ```
 
-The Remediation Pipeline generates content for each assessed interaction. The pipeline determines remediation depth from phase and interaction context — no intensity qualifier is needed in the Starter Pack. If a specific interaction requires highly contextual remediation the pipeline cannot infer, add a \`\*\*Remediation Note:\*\*\` annotation after the interaction block.
+The Remediation Pipeline generates content for each assessed interaction. The pipeline determines remediation depth from phase and interaction context — no intensity qualifier is needed in the Starter Pack. If a specific interaction requires highly contextual remediation the pipeline cannot infer, add a `**Remediation Note:**` annotation after the interaction block.
+
+**Anti-patterns (do NOT do these):**
+- `* **Remediation:** Light` / `Medium` / `Heavy` / `Full L-M-H` — no intensity qualifiers.
+- Inline remediation scripts with numbered steps and dialogue — this is Pipeline output, not SP content.
+- `If student [does X]: 1. Reorient... 2. Redirect...` — this belongs in the Remediation Pipeline, not in the SP.
+- `* **Remediation:** Pipeline` followed by additional remediation bullets — the `Pipeline` keyword is terminal. Use a **Remediation Note** annotation (after the block, as a blockquote) if context is needed.
 
 ### Flexibility
 
@@ -72,7 +192,7 @@ unit: [Unit number]
 domain: [data_graphs | multiplication | fractions | measurement | geometry | etc.]
 primary_toys:
   - name: "[Toy Name]"
-    notion_url: "[Link]"  # Use "In development" if spec doesn't exist yet
+    notion_url: "[Link]"  # Use "In development" if spec doesn't exist yet. At Task 1, verify any "In development" links inherited from M[N-1] — the spec may now exist.
   - name: "[Toy Name]"
     notion_url: "[Link]"
 secondary_toys:
@@ -227,6 +347,7 @@ secondary_toys:
 ### **1.5.1 \[Primary Toy Name\]**
 
 **Notion Spec:** \[Link\] | In development **Changes from M\[N-1\]:** \[What's different about this toy's configuration vs. the previous module. M1 of a unit states "First appearance."\]
+> **Task 1 check:** If M\[N-1\] listed this toy's Notion Spec as "In development," search the toy spec database to confirm whether a spec page now exists before carrying the placeholder forward.
 
 #### Module Configuration (M\[X\])
 
@@ -332,29 +453,29 @@ If this module requires specialized guidance not covered above, add sections her
 | **Interactions** | \[2-3 typical, 5 max\] |
 | **Cognitive Load** | 20-30% |
 | **Remediation** | Pipeline  |
-| **Vocabulary** | Informal only — no formal introduction |
+| **Vocabulary** | NEW terms: forbidden. ESTABLISHED terms from prior modules: activate for review, not re-teaching. No `[vocab]` tags in Warmup — all Warmup terms are established. |
 
 ---
 
-**Interaction W.1: \[Title\]**
+### Interaction W.1: \[Title\] \[TYPE LABEL\]
 
 * **Purpose:** \[What this interaction accomplishes\]  
 * **Visual: \[Toy Name\] (\[Mode\]).** \[Orientation\]. \[Data/content summary\]. \[Pre-completion/scaffold state\]. \[Interaction type\]. \[Visibility flags for paired elements\].  
 * **Guide:** "\[Complete dialogue — what the guide says to set up and instruct\]"  
-* **Prompt:** "\[Complete standalone instruction — what the student reads\]"  
-* **Student Action:** \[Interaction type: MC selection / click-to-set / drag-to-place / etc.\]  
+* **Prompt:** "\[Complete standalone instruction — what the student reads. Target 7–12 words.\]"
+* **Student Action:** \[Use standard vocabulary from §Student Action Vocabulary table above. Chain multi-step with arrows.\]
   * \[If MC\] **Options:** \[A, B, C, D\]  
 * **Correct Answer:** \[Answer\]  
-* **On Correct:** "\[Feedback dialogue\]"  
+* **On Correct:** "\[10–20 words. Fact/action first, never praise. No NEW information — heavy-remediation students skip this.\]"
 * **Remediation:** Pipeline
 
-**Interaction W.2: \[Title\]**
+### Interaction W.2: \[Title\] \[TYPE LABEL\]
 
 \[Same structure\]
 
 ---
 
-**Interaction W.X: Bridge to Lesson**
+### Interaction W.X: Bridge to Lesson
 
 * **Purpose:** Create anticipation for Lesson without teaching.  
 * **Visual: \[Toy Name\] (\[Mode\]).** \[State description\]  
@@ -405,6 +526,19 @@ If this module requires specialized guidance not covered above, add sections her
 | Section 2 | \[Focus area\] | \[X-Y min\] |
 | Section 3 | \[Focus area if applicable\] | \[X-Y min\] |
 
+### **Vocabulary Reinforcement Plan**
+
+Track only **NEW** and **STATUS-CHANGE** terms (informal → formal) introduced in THIS module. Established terms from prior modules are reinforced through natural use but do not appear in this table and do not carry `[vocab]` tags.
+
+| Term | Introduced At | Reinforced In | Target Density |
+| :---- | :---- | :---- | :---- |
+| \[vocab\]term 1\[/vocab\] | Interaction \[X.Y\] | \[List of subsequent interaction IDs where term appears in Guide dialogue\] | \[N\]x in \[M\] remaining interactions (\[%\]) |
+| \[vocab\]term 2\[/vocab\] | Interaction \[X.Y\] | \[List\] | \[N\]x in \[M\] remaining (\[%\]) |
+
+**Minimum target:** Each new/status-change term should appear in Guide dialogue for at least **50% of remaining interactions** after introduction. On Correct fields that reference the concept should also use the formal term with `[vocab]` markup.
+
+**Warmup activation:** If this module's vocabulary builds on prior-module terms, list which established terms are activated in Warmup (for reference — no `[vocab]` tags on established terms).
+
 ---
 
 ### Purpose Frame \[RECOMMENDED\]
@@ -420,11 +554,11 @@ If this module requires specialized guidance not covered above, add sections her
 
 ### **1.7.1 LESSON SECTION 1: \[Title\]**
 
-**Interaction 1.1: \[Title\] \[TYPE LABEL\]**
+### Interaction 1.1: \[Title\] \[TYPE LABEL\]
 
 * **Purpose:** \[What this interaction accomplishes\]
 * **Visual: \[Toy Name\] (\[Mode\]).** \[Orientation\]. \[Data/content summary\]. \[Pre-completion/scaffold state\]. \[Interaction type\]. \[Visibility flags for paired elements\].
-* **Guide:** "\[Complete dialogue including teaching content \+ instruction\]"
+* **Guide:** "\[Complete dialogue including teaching content \+ instruction. Mark vocabulary terms with \[vocab\]term\[/vocab\] from introduction through end of module.\]"
 * **Prompt:** "\[Complete standalone instruction — worksheet-style\]"
 * **Student Action:** \[Interaction type\]
   * \[If MC\] **Options:** \[A, B, C, D\]
@@ -434,11 +568,11 @@ If this module requires specialized guidance not covered above, add sections her
   - \[Distractor 1\] \= \[Misconception \# or error type it targets\]
   - \[Distractor 2\] \= \[Misconception \# or error type\]
   - \[Distractor 3\] \= \[Misconception \# or error type\]
-* **On Correct:** "\[Feedback dialogue\]"
+* **On Correct:** "\[Feedback dialogue. Use \[vocab\]term\[/vocab\] for established vocabulary.\]"
 * **Remediation:** Pipeline
   * \[If needed\] **Remediation Note:** \[Contextual hint for pipeline\]
 
-**Interaction 1.2: \[Title\] \[TYPE LABEL\]**
+### Interaction 1.2: \[Title\] \[TYPE LABEL\]
 
 \[Same structure — include all interactions for this section\]
 
@@ -561,7 +695,7 @@ Verify Lesson understanding before Practice. Tests whether student can \[specifi
 
 ---
 
-**Interaction EC.1: \[Title\]**
+### Interaction EC.1: \[Title\] \[COGNITIVE TYPE\]
 
 * **Purpose:** \[What skill this tests — reference Alignment Check table\]  
 * **Visual: \[Toy Name\] (\[Mode\]).** \[Orientation\]. \[Data/content summary\]. \[Interaction type\]. \[Visibility flags\].  
@@ -577,7 +711,7 @@ Verify Lesson understanding before Practice. Tests whether student can \[specifi
 * **On Correct:** "\[Feedback\]"  
 * **Remediation:** Pipeline
 
-**Interaction EC.2: \[Title\]**
+### Interaction EC.2: \[Title\] \[COGNITIVE TYPE\]
 
 \[Same structure\]
 
@@ -660,7 +794,7 @@ This section provides the required inputs for the Practice Phase Playbook (§7).
 
 ---
 
-**Interaction S.1: \[Title\] — \[Task Type: Pattern Discovery / Representation Transfer / Real-World Bridge / Metacognitive Reflection\]**
+### Interaction S.1: \[Title\] — \[Task Type: Pattern Discovery / Representation Transfer / Real-World Bridge / Metacognitive Reflection\]
 
 * **Purpose:** \[What connection this task builds\]  
 * **Visual: \[Toy Name\] (\[Mode\]).** \[State\]  
@@ -673,11 +807,11 @@ This section provides the required inputs for the Practice Phase Playbook (§7).
 * **Connection:** "\[The principle or pattern this task demonstrates — Guide states this after the task\]"  
 * **Remediation:** Pipeline
 
-**Interaction S.2: \[Title\] — \[Task Type\]**
+### Interaction S.2: \[Title\] — \[Task Type\]
 
 \[Same structure\]
 
-**Interaction S.3: \[Title\] — \[Task Type\]**
+### Interaction S.3: \[Title\] — \[Task Type\]
 
 \[Same structure\]
 
@@ -781,11 +915,19 @@ Master list of cross-cutting design decisions for this module. References phase-
 
 ### **Interaction Block Compliance**
 
-- [ ] Every interaction with student action has BOTH Guide: AND Prompt:  
-- [ ] Every teaching-only interaction has Guide: AND "No student action."  
-- [ ] Every assessed interaction has `**Remediation:** Pipeline`  
-- [ ] Every MC interaction has Answer Rationale with distractor analysis  
-- [ ] All Visual: lines include: Toy Name (Mode), orientation, data summary, visibility flags
+- [ ] Every interaction header uses H3 format: `### Interaction [ID]: [Title] [TYPE LABEL]`
+- [ ] Every field uses inline bullet format: `* **Field:** value` (NOT field-as-paragraph)
+- [ ] Field order matches spec in every interaction: Purpose → Visual → Guide → Prompt → Student Action → Correct Answer → Answer Rationale → On Correct → Remediation
+- [ ] Every interaction with student action has BOTH Guide: AND Prompt:
+- [ ] Every teaching-only interaction has Guide: AND `* **No student action.**`
+- [ ] Every assessed interaction has exactly `* **Remediation:** Pipeline` — no inline scripts
+- [ ] Every MC interaction has Answer Rationale with ALL options explained (including each distractor)
+- [ ] Multi-step interactions use sub-numbering (a/b/c) with per-sub-part fields
+- [ ] All Visual: lines pass the Visual: Completeness Checklist (Toy+Mode, Orientation, Data, State, Interaction type, Visibility)
+- [ ] No ad-hoc field names (no `[System Action]`, `Guide (continuing)`, `Rationale for No Student Action`, etc.)
+- [ ] Annotations use `>` blockquote format AFTER the interaction block, not as fields within it
+- [ ] System-driven interactions use Pattern 3 specification table format
+- [ ] Think-aloud demonstrations use Pattern 4 with tags inside a single Guide field
 
 ### **Phase Checklists**
 
@@ -796,10 +938,11 @@ Master list of cross-cutting design decisions for this module. References phase-
 
 ### **Content Quality**
 
-- [ ] No student-facing dialogue references "Module X" numbers  
-- [ ] No authored remediation dialogue (all remediation is `Pipeline`)  
-- [ ] Misconceptions use global IDs from database  
+- [ ] No student-facing dialogue references "Module X" numbers
+- [ ] No authored remediation dialogue (all remediation is `Pipeline` — no inline scripts, no L-M-H qualifiers)
+- [ ] Misconceptions use global IDs from database
 - [ ] Session-relative language throughout ("last time/this time," NOT "yesterday/today")
+- [ ] Interaction block self-check passed on 3 random interactions (see QUICK REFERENCE)
 
 ---
 
@@ -845,29 +988,37 @@ Add sections when:
 
 ## **QUICK REFERENCE: INTERACTION BLOCK FORMAT**
 
-### Full Interaction (Warmup, Lesson, Exit Check, Synthesis)
+### Formatting Rules (ENFORCED)
+
+1. **Header format:** H3 Markdown header (`### Interaction [ID]: [Title] [TYPE LABEL]`). Not bold text, not H2, not H4.
+2. **Field format:** Every field is a **single bullet line** starting with `* **Field Name:**` followed by the value on the same line. Do NOT promote fields to standalone bold headers with content as a separate paragraph below. Do NOT split a single field across multiple bullets.
+3. **Field order:** Purpose → Visual → Guide → Prompt → Student Action → Options (if MC) → Correct Answer → Answer Rationale (if MC) → On Correct → Remediation. Do not skip fields; do not reorder.
+4. **No ad-hoc fields:** Only the fields listed below are valid interaction fields. Do NOT invent new fields like `[System Action]`, `Rationale for No Student Action`, `Guide (continuing)`, etc. If you need to express something the template doesn't cover, use a **Design Note** annotation after the block.
+5. **Annotations are blockquotes, not fields:** Use `> **Design Note:**` format, placed after the interaction block and a `---` separator. Not as bullet fields within the block.
+
+### Pattern 1 — Full Interaction (Student Action)
 
 ```
-**Interaction [ID]: [Title]**
+### Interaction [ID]: [Title] [TYPE LABEL]
 
 * **Purpose:** [What this interaction accomplishes]
 * **Visual: [Toy Name] ([Mode]).** [Orientation]. [Data/content]. [Scaffold state]. [Interaction type]. [Visibility flags].
-* **Guide:** "[Teaching + instruction dialogue]"
+* **Guide:** "[Teaching + instruction dialogue. Mark NEW and STATUS-CHANGE vocabulary terms with [vocab]term[/vocab] from introduction/formalization through end of module. Do NOT tag established terms from prior modules.]"
 * **Prompt:** "[Standalone written instruction]"
 * **Student Action:** [MC selection / click-to-set / drag-to-place / hover-and-click]
   * [If MC] **Options:** [A, B, C, D]
 * **Correct Answer:** [Answer]
-* **Answer Rationale:** [MC only]
+* **Answer Rationale:** [MC only — REQUIRED for every MC interaction, no exceptions]
   - [Correct] = Correct ([why])
   - [Distractor] = [Misconception/error type]
-* **On Correct:** "[Feedback]"
+* **On Correct:** "[Feedback. Use [vocab]term[/vocab] markup for NEW/STATUS-CHANGE vocabulary terms only. No tags on established terms from prior modules.]"
 * **Remediation:** Pipeline
 ```
 
-### Teaching-Only (No Student Action)
+### Pattern 2 — Teaching-Only (No Student Action)
 
 ```
-**Interaction [ID]: [Title]**
+### Interaction [ID]: [Title] [TYPE LABEL]
 
 * **Purpose:** [What this accomplishes]
 * **Visual: [Toy Name] ([Mode]).** [State]
@@ -875,30 +1026,103 @@ Add sections when:
 * **No student action.**
 ```
 
-### Annotations (appear after an interaction block, not as fields)
+### Pattern 3 — System-Driven Activity
 
-* **Design Note:** Explains a non-obvious design choice for future developers  
-* **Voice Note:** Script-writing guidance for tone/delivery  
-* **Scaffolding Note:** Explains how scaffolding changes across a sequence  
-* **Remediation Note:** Contextual hint for the Remediation Pipeline  
-* **Connection:** Names the principle a task demonstrates (Synthesis phase)
+```
+### Interaction [ID]: [Title] [TYPE LABEL]
+
+* **Purpose:** [What this accomplishes]
+* **Visual: [Toy Name] ([Mode]).** [Initial state]
+
+| Parameter | Specification |
+|---|---|
+| **System Action** | [What the system does] |
+| **Duration** | [Estimated seconds] |
+| **Student Role** | [Observe / Confirm / Interact] |
+| **Visual State Change** | [Start state → End state] |
+
+* **On Complete:** "[Guide dialogue after system action finishes]"
+* **No student action.** (Or Pattern 1 fields if student responds after system action.)
+```
+
+> **Design Note:** [Why Patterns 1/2 don't apply]
+
+### Pattern 4 — Think-Aloud Demonstration
+
+```
+### Interaction [ID]: [Title] [WORKED EXAMPLE]
+
+* **Purpose:** [What this demonstrates]
+* **Visual: [Toy Name] ([Mode]).** [State]
+* **Guide:** "[PLANNING] First, I need to... [ATTENTION] I'm looking at... [SELF-CHECK] Does that match? Yes, because..."
+* **No student action.**
+```
+
+Note: The think-aloud tags (`[PLANNING]`, `[ATTENTION]`, `[SELF-CHECK]`) go INSIDE a single Guide field. Do not split Guide into multiple bullets. Do not create a separate `[Guide_Think_Aloud]` field.
+
+### Annotations (appear AFTER an interaction block, not as fields within it)
+
+Format: blockquote with `>` prefix, after a `---` separator.
+
+```
+---
+
+> **Design Note:** Explains a non-obvious design choice for future developers
+> **Voice Note:** Script-writing guidance for tone/delivery
+> **Scaffolding Note:** Explains how scaffolding changes across a sequence
+> **Remediation Note:** Contextual hint for the Remediation Pipeline
+> **Connection:** Names the principle a task demonstrates (Synthesis phase)
+```
+
+### Interaction Block Self-Check
+
+Before Gate 2, pick 3 interactions at random and verify each one against this checklist:
+
+- [ ] Header is `### Interaction [ID]: [Title] [TYPE LABEL]`
+- [ ] Every field is `* **Field:** value` on one line (not field-as-paragraph)
+- [ ] Field order matches spec: Purpose → Visual → Guide → Prompt → Student Action → Correct Answer → Answer Rationale → On Correct → Remediation
+- [ ] Visual line has all required sub-components (see Visual: Completeness Checklist below)
+- [ ] MC interactions have Answer Rationale with every option explained
+- [ ] Remediation is exactly `Pipeline` — no inline scripts, no intensity qualifiers
+- [ ] Annotations use `>` blockquote format after the block, not as fields within
+- [ ] No ad-hoc field names
+- [ ] Prompt field contains only the student-facing instruction — answer choices live in Options, not in the Prompt text
+- [ ] NEW and STATUS-CHANGE vocabulary terms marked with `[vocab]term[/vocab]` in Guide and On Correct fields (from introduction/formalization through end of module). Established terms from prior modules have NO `[vocab]` tags.
 
 ---
 
 ## **QUICK REFERENCE: VISUAL: LINE FORMAT**
 
-The Visual: line tells the system what to render. Required sub-components:
+The Visual: line tells the system what to render. It is a **single bullet field** starting with `* **Visual: [Toy Name] ([Mode]).**` — all sub-components on one continuous line (or wrapped naturally within the single bullet). Do NOT promote Visual to a standalone paragraph.
+
+Required sub-components:
 
 ```
-**Visual: [Toy Name] ([Mode if applicable]).** [Orientation]. [Data/Content summary]. [Pre-completion/scaffold state]. [Interaction type]. [Visibility flags for paired elements].
+* **Visual: [Toy Name] ([Mode if applicable]).** [Orientation]. [Data/Content summary]. [Pre-completion/scaffold state]. [Interaction type]. [Visibility flags for paired elements].
 ```
 
 | Sub-component | Example | When Required |
 | :---- | :---- | :---- |
-| **Toy Name \+ Mode** | `Picture Graphs (Mode 2: Creating)` | Always |
+| **Toy Name + Mode** | `Grid Rectangles (Dimensions-only mode)` | Always |
 | **Orientation** | `Horizontal` / `Vertical` | Whenever toy has orientation |
-| **Data/Content summary** | `Pizza=20, Tacos=30, Sandwiches=15` | Always |
-| **Pre-completion state** | `Category A complete. Categories B and C empty.` | When partially pre-filled |
-| **Interaction type** | `Click-to-set` / `Drag-to-place` | When student manipulates the toy |
-| **Visibility flags** | `Data Table not visible.` / `Key visible.` | When paired elements exist |
+| **Data/Content summary** | `3 cm × 8 cm rectangle` | Always |
+| **Pre-completion state** | `Partial grid: first row + first column visible.` | When partially pre-filled |
+| **Interaction type** | `Click-to-set` / `Drag-to-place` / `MC selection` | When student manipulates the toy |
+| **Visibility flags** | `Equation Builder visible.` / `Data Table not visible.` | When paired elements exist |
+
+### Visual: Completeness Checklist
+
+Every Visual: line must pass this checklist. If a sub-component is intentionally omitted, the line is incomplete.
+
+- [ ] **Toy Name + Mode** present? (Not just toy name — include the mode if the toy has modes)
+- [ ] **Orientation** present? (Required whenever the toy can be horizontal or vertical)
+- [ ] **Data/Content** present? (What specific values, figures, or content is displayed?)
+- [ ] **Scaffold state** present? (Full grid / partial grid / dimensions only / pre-filled / empty)
+- [ ] **Interaction type** present? (How does the student physically interact — click, drag, select?)
+- [ ] **Visibility flags** present? (Are there paired elements? Which are visible/hidden?)
+
+**Anti-patterns:**
+- `* **Visual:** Same L-shape from W.4` — not self-contained. Every Visual: line must be interpretable without reading prior interactions.
+- `* **Visual:** Grid Rectangles: 2×4 rectangle` — missing Mode, Orientation, Interaction type, Visibility.
+- Promoting Visual to a multi-line paragraph with prose description — keep it structured on one bullet line.
 

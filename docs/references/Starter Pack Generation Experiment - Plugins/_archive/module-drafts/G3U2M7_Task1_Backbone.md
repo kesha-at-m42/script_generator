@@ -6,7 +6,7 @@ primary_toys:
   - name: "Grid Rectangles"
     notion_url: "https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca"
   - name: "Equation Builder"
-    notion_url: "In development"
+    notion_url: "https://www.notion.so/2fc5917eac52803f8604f47c62304ee7"
 secondary_toys: none
 interaction_tools: "MC, Equation Builder (multiplication with unit labels)"
 our_lessons: L8
@@ -410,7 +410,7 @@ These modes form the core of Decision #3 (Progressive Grid Removal) and are the 
 ### **PRIMARY TOY 2: EQUATION BUILDER**
 
 #### **Notion Link**
-In development
+[Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7)
 
 #### **Core Function**
 Supports student construction of area multiplication expressions. Requires explicit connection between dimensions and multiplication. Used in Early (partial grid, unlabeled slots per TVP), Mid (tick marks, labeled with units), and Late (dimensions only, independent expression building) phases.

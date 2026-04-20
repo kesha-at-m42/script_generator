@@ -1,0 +1,272 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Last time, you compared fractions like [event:6984d739de862523] [fraction numerator=3 denominator=8]three eighths[/fraction] and [fraction numerator=5 denominator=8]five eighths[/fraction]: fractions with [event:69850439081a7f2d] different amounts of same-sized [event:698d39d8e312c898] pieces. Today, we'll compare fractions with pieces that [event:698504e9494a189c] aren't the same size.",
+      "audio_dir": "module_11/warmup_3513068111149665043",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/8",
+              " < ",
+              "5/8"
+            ]
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here are two side by side bars, perfect for comparing! Look at these two fractions: [event:6985079b2397383e]  [fraction numerator=4 denominator=5]four fifths[/fraction] and [fraction numerator=2 denominator=5]two fifths[/fraction]. Both bars are partitioned into fifths, that means [event:6985099974b28d20] each bar is cut into five equal parts, so the [event:6985084b9e7bc513] pieces are the [event:6985087265b1857a] same size. We can count[event:698508a29d51c98b]:[event:698508d58a6536d4] four pieces here and [event:698508b1c9016707] two pieces there. Please select the correct symbol to compare [event:698508e9ba42c039] them.",
+      "audio_dir": "module_11/warmup_9048761155699218487",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "visual": "mini_bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "mini_bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "10/10"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "?"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "4/5"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "2/5"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=4 denominator=5][/fraction] and [fraction numerator=2 denominator=5][/fraction]",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try looking at the pieces. Are they the same size? When the pieces are the same size, try counting them to compare. ",
+              "audio_dir": "module_11/warmup_3165579446427410277"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show numbers above shaded sections: 1, 2 on top bar, 1, 2, 3, 4 on bottom bar"
+              },
+              "dialogue": "Both fractions have [event:698b6a25cf21a4ba] fifths, the same size pieces[event:698b6a2fb20c1385]. Count the shaded parts[event:698b6a779be9144c], 2 pieces versus 4 pieces. Which bar has more?",
+              "audio_dir": "module_11/warmup_8689553597792757833"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol automatically"
+              },
+              "dialogue": "Both [event:698b65ea8af9dbca] bars have fifths, so the pieces are [event:698b6663be879412] the same size. Count the shaded pieces[event:698b66c033e83fe6]: [event:698b6921f890a8e5]4 on the left and two on the right. Since 4 is greater than [event:698b6997026b18ea] 2, [fraction numerator=4 denominator=5]four fifths[/fraction] is [event:698b695e406b8ebd] greater than [fraction numerator=2 denominator=5]two fifths[/fraction].",
+              "audio_dir": "module_11/warmup_1685729612465555306"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. [event:698a54a1deac0e5e] [fraction numerator=4 denominator=5]Four fifths[/fraction] is [event:698b6890500ab41e] bigger [event:698a54c6754d57c5] because [event:698a563fa0dfab4d] four pieces is more than two pieces. When the [event:698a56ad4e42bc32] pieces are the [event:698a5553d36a9bb4] same size, we can compare [event:698a56dceca4eb9a] fractions just by [event:698a54da1bac28c8] counting the pieces.",
+          "audio_dir": "module_11/warmup_453079687043123341"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at where [event:69851b10b4a01d52] [fraction numerator=1 denominator=3]one third[/fraction] and [event:69851b1ba7db863f] [fraction numerator=1 denominator=6]one sixth[/fraction] land on these number lines. [event:69851b5135b5398d] Both show exactly [event:69851cb9a2fdb3c6] one interval, [event:69851ce329e0cb3f] the numerators match. But notice where each one lands[event:69851da9283fa41f]. One of them is much farther from zero than the other. [event:698a5da79aee801e] Which fraction is greater? Select the correct symbol.",
+      "audio_dir": "module_11/warmup_5855875459827442161",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/3",
+            "points": [
+              "1/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "1/3"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "1/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "1/6"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "1/3",
+              " ? ",
+              "1/6"
+            ],
+            "visible_terms": [
+              0,
+              2
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=1 denominator=3]one third[/fraction] and [fraction numerator=1 denominator=6]one third[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both show 1 piece. But look at how far each one is from zero. Which is farther along?",
+              "audio_dir": "module_11/warmup_3449587693494809114"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show moving arrow from 0 to each number, making the distance comparison clear"
+              },
+              "audio_dir": "module_11/warmup_1941626672074682982"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol and show distance from 0 to each point with moving arrows"
+              },
+              "dialogue": "Let's work through this together. When we cut the line into [event:698b76d8cb918112] fewer parts, [event:698b72a906922ea3] each part is bigger. So [fraction numerator=1 denominator=3]one third[/fraction] is [event:698b780600c67404] farther along than [fraction numerator=1 denominator=6]one sixth[/fraction], [event:698b76688b074f6c] which means [fraction numerator=1 denominator=3]one third[/fraction] is [event:698b79d6655f4a4d] greater than [fraction numerator=1 denominator=6]one sixth[/fraction].",
+              "audio_dir": "module_11/warmup_7534483476333104031"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:698a5ebdee0a65ce] Right! [fraction numerator=1 denominator=3]One third[/fraction] is [event:698a5bba7b362e43] farther along the number line than [fraction numerator=1 denominator=6]one sixth[/fraction]. Even though [event:698a5c0820ac5f2f] both have one piece, [event:698a5c35cc942915] thirds are bigger pieces than sixths.",
+          "audio_dir": "module_11/warmup_2190826732177140645"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:698a5f15b696d7a4]When [event:69851e90a6678f42] denominators match, we will have [event:69851f6a18bc8f7b] equal-size pieces. But [event:69851fbbdd78c1ab] when [event:69851fe16247e57f] numerators match, we have the same number of [event:698a60289b61c06d] pieces, so we have to look at the [event:698a6046a13e3427] size of the pieces instead. We'll practice comparing both types of fractions.",
+      "audio_dir": "module_11/warmup_864558611960498157"
+    }
+  ]
+}

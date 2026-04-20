@@ -1,0 +1,337 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 12.0,
+        "difficulty": 0.0,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction",
+        "goal_id": 3.0,
+        "fractions": [
+          "1/2"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this rectangle bar. First, divide it into two [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/pool_1_1578059028967829535",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "lcm": 4
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Divide the bar into halves.",
+            "tool": {
+              "@type": "Cut"
+            },
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/2"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Check your spacing. You need two [vocab]equal parts[/vocab].",
+                  "audio_dir": "module_1/pool_1_275982889267095224"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Sequential division strategy shown - midpoint of bar pulses to indicate where equal division should occur"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:690422d8aed01e36]Let's think about this together. For [vocab]halves[/vocab], [event:690422c37a475212] the bar needs two parts that are exactly the same size.",
+                  "audio_dir": "module_1/pool_1_8015759349430174185"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "demonstrate_equal_division",
+                        "description": "Animated demonstration showing cut line appearing at midpoint, then measurement lines confirming both sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:690422d8aed01e36]This can be tricky, so let's work through it together. To make [vocab]halves[/vocab], we cut right in the middle [event:6904230f4355ca2e] so both parts are the same size. See how the left part [event:690423257e77408e] and right part are equal? That's how [vocab]halves[/vocab] work - two [vocab]equal parts[/vocab] make a [vocab]whole[/vocab].",
+                  "audio_dir": "module_1/pool_1_8207259979262920831"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into two [vocab]equal parts[/vocab].",
+              "audio_dir": "module_1/pool_1_6428467287105379725"
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now shade one part to show [fraction numerator=1 denominator=2]one-half[/fraction].",
+          "audio_dir": "module_1/pool_1_5731325505751088128",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/2"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part.",
+            "tool": {
+              "@type": "Paint"
+            },
+            "validator": {
+              "@type": "ShadedPartsValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Almost. Shade just one part of the bar.",
+                  "audio_dir": "module_1/pool_1_630491735556564259"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to show which single section should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:6949a91ff2a27877] You're working on it. Here's what helps - [fraction numerator=1 denominator=2]one-half[/fraction] means only [event:6903cc472efadabe] one piece gets shaded, not both.",
+                  "audio_dir": "module_1/pool_1_326631596537195055"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "demonstrate_shading_one_part",
+                        "description": "Animated demonstration showing one section being shaded while the other remains unshaded, with annotation showing '1 out of 2'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:6904237c87a9d97b]Let me help you with this one. [fraction numerator=1 denominator=2]One-half[/fraction] means we shade one out of the two parts. Watch as I shade just this one piece [event:6903cd833a710194] . See? One piece shaded, one piece blank. That's how [fraction numerator=1 denominator=2]one-half[/fraction] works - 1 out of 2 equal sections.",
+                  "audio_dir": "module_1/pool_1_251443471921486453"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You shaded one part to show [fraction numerator=1 denominator=2]one-half[/fraction].",
+              "audio_dir": "module_1/pool_1_1264678246169237121"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 15.0,
+        "difficulty": 0.0,
+        "verb": "CREATE",
+        "goal": "The student can shade one part to represent a unit fraction",
+        "goal_id": 3.0,
+        "fractions": [
+          "1/2"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Do you see this rectangle bar? Divide it into 6 [vocab]equal parts[/vocab], then shade one of them.",
+          "audio_dir": "module_1/pool_1_7257856464651727492",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "lcm": 12
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Partition into sixths",
+            "tool": {
+              "@type": "Cut"
+            },
+            "validator": {
+              "@type": "FractionShapePartsValidator",
+              "answer": "1/6"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Make sure you divide into 6 [vocab]equal parts[/vocab].",
+                  "audio_dir": "module_1/pool_1_4037418803906859789"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "sequential_division_strategy",
+                        "description": "Sequential division strategy shown - midpoint of bar pulses to indicate where equal division should occur"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:690423d0af417bdf]Let's think about this together. You need 6 [event:690423a5b3f6e932] [vocab]equal parts[/vocab] in the bar.",
+                  "audio_dir": "module_1/pool_1_840660731688733847"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "demonstrate_equal_division",
+                        "description": "Animated demonstration showing cut line appearing at midpoint, then measurement lines confirming both sections are equal width"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:690423d0af417bdf]This can be tricky, so let's work through it together. We divide the bar into 6 [vocab]equal parts[/vocab] by making 5 cuts. [event:690424733013f873]One in the middle, then two more in each half.",
+                  "audio_dir": "module_1/pool_1_1827243730109264953"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "You divided the bar into [vocab]sixths[/vocab].",
+              "audio_dir": "module_1/pool_1_109468334219222375"
+            }
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now shade one part to show one-sixth.",
+          "audio_dir": "module_1/pool_1_2171373596246702961",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade one part to show one-sixth.",
+            "tool": {
+              "@type": "Paint"
+            },
+            "validator": {
+              "@type": "ShadedPartsValidator",
+              "answer": 1
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Shade just one part of the bar.",
+                  "audio_dir": "module_1/pool_1_1072444912581906289"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "outline_single_piece",
+                        "description": "One piece of the bar is outlined to show which single section should be shaded"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:6903cfceacc9f803] You're almost there. Here's what helps - [fraction numerator=1 denominator=6]one-sixth[/fraction] means only [event:6903ce877cefff17] one of the six pieces gets shaded.\n",
+                  "audio_dir": "module_1/pool_1_3680516157276390608"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "demonstrate_shading_one_part",
+                        "description": "Animated demonstration showing one section being shaded while the other remains unshaded, with annotation showing '1 out of 2'"
+                      }
+                    ]
+                  },
+                  "dialogue": "[event:6903cfceacc9f803] Let me help you with this one. [fraction numerator=1 denominator=6]One-sixth[/fraction] means we shade  one out of the six parts. Watch as I shade just this one piece.[event:6903ce877cefff17]  See? That's how [fraction numerator=1 denominator=6]one-sixth[/fraction] works - 1 out of 6 equal parts.",
+                  "audio_dir": "module_1/pool_1_719917879982889150"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Good. You shaded one part to show one-sixth.",
+              "audio_dir": "module_1/pool_1_6514788285127583788"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ primary_toys:
   - name: "Grid Rectangles"
     notion_url: "https://www.notion.so/2fb5917eac528035a19dc2b5b49aeeca"
   - name: "Equation Builder"
-    notion_url: "In development"
+    notion_url: "https://www.notion.so/2fc5917eac52803f8604f47c62304ee7"
 secondary_toys: none
 ---
 ```
@@ -304,7 +304,7 @@ secondary_toys: none
 
 ### 1.5.2 Equation Builder
 
-**Notion Spec:** In development | **Changes from M7:** M7 faded EB from unlabeled slots → labeled → unstructured. M8 uses EB only in Mid phase for reverse problems (provides `___ × ___ = [area]` template with blanks for factor selection). EB does NOT appear in Early, Late, or EC — M8 fades EB entirely by Late phase.
+**Notion Spec:** [Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7) | **Changes from M7:** M7 faded EB from unlabeled slots → labeled → unstructured. M8 uses EB only in Mid phase for reverse problems (provides `___ × ___ = [area]` template with blanks for factor selection). EB does NOT appear in Early, Late, or EC — M8 fades EB entirely by Late phase.
 
 **Purpose:** Scaffolds reverse reasoning in Mid phase by providing the multiplication frame. The blank factor slots + × symbol + known product make explicit that reverse problems are still multiplication problems — the student fills in the factors instead of the product.
 

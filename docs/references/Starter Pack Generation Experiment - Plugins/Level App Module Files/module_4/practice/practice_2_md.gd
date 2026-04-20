@@ -1,0 +1,12 @@
+extends SequenceEvent
+
+func trigger() -> void:
+	var line = get_number_line()
+	var curr = 1
+	for part in line.bar._parts:
+		use_highlight_tool(part, true)
+		use_write_tool(part, var_to_str(curr))
+		curr+=1
+		await delay(0.5)
+		use_highlight_tool(part, false)
+		use_write_tool(part, "")

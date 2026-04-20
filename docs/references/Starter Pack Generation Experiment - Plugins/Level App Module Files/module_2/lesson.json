@@ -1,0 +1,793 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's a bar [event:68f9283496cb0823] divided into two equal parts. Click one part to shade it.",
+      "audio_dir": "module_2/lesson_k6yjz0",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/2"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on 1 part of the bar to shade.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "EqualShadedValidator",
+          "answer": "1/2"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Take another look. Can you click on one of the two parts to shade it?",
+              "audio_dir": "module_2/lesson_4o5g4m"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:introducing_concept_md] We're trying to shade exactly one part. You can click on either the left or right section.",
+              "audio_dir": "module_2/lesson_8y1ttb"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "I'll jump in here: I'll click on one of the two parts to shade it. [event:694acbc251973b56] This creates one-half.",
+              "audio_dir": "module_2/lesson_t9f2wk"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice. You shaded one[event:68f92beab6c0133e]  part [event:68f9272c12404106] out of two equal parts.",
+          "audio_dir": "module_2/lesson_6457439459270803869"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "This is called a [vocab]unit fraction[/vocab]. 'Unit' means one[event:68f92a1310b9e743], so a [vocab]unit fraction[/vocab] always shows exactly ONE [event:68f928ca2edca4e5]part shaded from equal parts.",
+      "audio_dir": "module_2/lesson_7wpmy7"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f928714ec381c3]Here's how we write this fraction in 'math language'.[event:68f9299dd42fe476]\n",
+      "audio_dir": "module_2/lesson_9aln2g"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "We write it as one-half. The top number shows how many parts are shaded - that's 1 [event:68f929c9fd806cb0]. The bottom number shows how many total parts there are - that's 2. [event:68f929e208adcae3]",
+      "audio_dir": "module_2/lesson_lxfwya"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f943f9ae52ab57]Now let's check if you understand. Which of these symbols matches what you created? Click the matching fraction.",
+      "audio_dir": "module_2/lesson_sdwzs5",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the fraction that matches your shaded bar.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=2 denominator=1]two one[/fraction]",
+            "[fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=2 denominator=2]two two[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try double checking your shading - one part out of two total.",
+              "audio_dir": "module_2/lesson_p1vl4m"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68f945fe67ae069b] Remember the rule we're learning: The top number equals the shaded parts (1) [event:68f947e9f6a34811] , the bottom equals total parts (2) [event:68f947fed36aca1e].",
+              "audio_dir": "module_2/lesson_4o4uex"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68f94738bc497112] Let's try again together: We have 1 [event:68f9491d89536310]shaded part - that goes on top. We have 2 total parts [event:68f94952fb646601] - that goes on bottom. So it's one-half.",
+              "audio_dir": "module_2/lesson_ocf4ih"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. One-half [event:68fa772a898376ef] - the top number shows ONE [event:68f9497361497d5d]part shaded, the bottom shows TWO [event:68f94988bb377047] total parts.",
+          "audio_dir": "module_2/lesson_7311857873396518115"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look [event:68f949cc77fb62a8] at this bar. How many equal parts are there? Count them and click your answer.",
+      "audio_dir": "module_2/lesson_dzkgvk",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/3",
+            "shaded": [
+              0
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the number that shows how many equal parts there are.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Count each section of the bar carefully.",
+              "audio_dir": "module_2/lesson_j5d6js"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68f94a26115fd9b5] Let's count together - watch as each section lights up. ",
+              "audio_dir": "module_2/lesson_k2xbtx"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68f94a0e35fab8af] We'll move through this together: one, two, three sections. I'll select 3.",
+              "audio_dir": "module_2/lesson_cee95p"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:68f94cc052f12e7f]Three equal parts total, with one part shaded.[event:68f94dda299ddb04] This is one-third. [event:68f94e109fda1836]",
+          "audio_dir": "module_2/lesson_4026912461194993105"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f94f370bce7f78] See the pattern? The bottom number is 3 [event:68f9505d84dba642] because we have three equal parts total. But the top number is still 1 [event:68f950ce5c76df48] - one part shaded. It's [vocab] 'one-third' [/vocab]",
+      "audio_dir": "module_2/lesson_mthw07"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "In [vocab]unit fractions[/vocab] it's important to remember that the top number [event:68fa78eae139b327] always stays at 1, and the bottom number changes based on how many equal parts we have.",
+      "audio_dir": "module_2/lesson_48l3ss",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/2",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/3",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/4",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another bar. How many equal parts are there? Count them and click the correct number.",
+      "audio_dir": "module_2/lesson_wrnftf",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "fractions": "1/4",
+            "shaded": [
+              0
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the number that shows how many equal parts there are.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look again - be sure to count each part of the bar.",
+              "audio_dir": "module_2/lesson_54274n"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "You're working on it. Try counting both [event:68f951e847c96b53] the shaded and unshaded parts.",
+              "audio_dir": "module_2/lesson_y0fjt0"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's do it together: I'll count each section - [event:68f95265f9abcfcb] one, two, three, four. There are 4 parts total. I'll select 4.",
+              "audio_dir": "module_2/lesson_2twrxx"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, [event:68f95334980eee3f] four equal parts and one part shaded. [event:68f953f252b44c5d]",
+          "audio_dir": "module_2/lesson_2954451791190875608"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f99fef0be7ce36]Now, what fraction does this show? Click the fraction that matches.",
+      "audio_dir": "module_2/lesson_0o33a9",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the fraction that matches this bar.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=3]one third[/fraction]",
+            "[fraction numerator=1 denominator=4]one fourth[/fraction]",
+            "[fraction numerator=1 denominator=5]one fifth[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Check again. Remember - the number of parts is our bottom number. ",
+              "audio_dir": "module_2/lesson_bi4s8b"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "One more time. Counting our parts, we can see that we have 4 [event:68f9554493d1a69b] total. ",
+              "audio_dir": "module_2/lesson_ojuwiz"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you: I count 1 [event:68f956405e91210e] shaded part - that goes on top. I count 4 total parts - [event:68f95584071c6436]  that goes on the bottom. So it's one-fourth. [event:68f955fccb795cf5]",
+              "audio_dir": "module_2/lesson_mscwku"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right - one-fourth [event:68f9a0c07ab210b7]. One part (the top number), shaded out of four equal parts (the bottom number).",
+          "audio_dir": "module_2/lesson_3884471459533802515"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at all three [event:68f9a1364b4fb377] [vocab]unit fractions[/vocab] lined up again. The top number is always 1 [event:68f9a1b4a6d744c5] in [vocab]unit fractions[/vocab]. That's how we can identify [vocab]unit fractions[/vocab] every time. They always show exactly one part of a whole. ",
+      "audio_dir": "module_2/lesson_ia0b5t",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/2",
+            "shaded": [
+              0
+            ],
+            "lcm": 2,
+            "sum_is_visible": true
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/3",
+            "shaded": [
+              0
+            ],
+            "lcm": 3,
+            "sum_is_visible": true
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/4",
+            "shaded": [
+              0
+            ],
+            "lcm": 4,
+            "sum_is_visible": true
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f9a4a62aeaf66e] [vocab]Unit fractions[/vocab] represent one piece [event:68f9a30697ee22d7] of a whole that's divided equally.",
+      "audio_dir": "module_2/lesson_08167a"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f9a518ca6a61e3] Now let's compare sizes. Look at the shaded parts. Click the biggest piece - one-half,  one-third, or one-fourth?",
+      "audio_dir": "module_2/lesson_tpicvm",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the bar with the bigger shaded piece.",
+        "tool": {
+          "@type": "Select"
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 0
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. Try looking at the actual size of the shaded parts, not the numbers.",
+              "audio_dir": "module_2/lesson_1h6ccn"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's compare - see how the [fraction numerator=1, denominator=2]one half[/fraction] piece [event:68f9a9015532a88c] is much bigger than the [fraction numerator=1, denominator=4]one fourth[/fraction] piece? Fewer parts means bigger pieces.",
+              "audio_dir": "module_2/lesson_rtashj"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Follow along as I help explain: This bar split into 2 [event:68f9ab67f6307cae] gives big pieces. This bar split into 4 [event:68f9a98c79b5ed80]  gives smaller pieces. So one-half [event:68f9ac2596e2d660] has the biggest pieces.",
+              "audio_dir": "module_2/lesson_dpel63"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. One-half [event:68f9a60b6aead2cf] is bigger than one-third or one-fourth. Even though 4 is a bigger number than 2, the actual piece [event:68f9a739997f8f42] is smaller.",
+          "audio_dir": "module_2/lesson_2339233833556871456"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68f9a876baf0cf64]Right! The pattern works for all [vocab]unit fractions[/vocab].",
+      "audio_dir": "module_2/lesson_z579l3"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's test this idea. [event:68f9ad1a246c1f4f] Which [vocab]unit fraction[/vocab] is bigger - one-third or one-sixth?",
+      "audio_dir": "module_2/lesson_ru9u25",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/3",
+            "shaded": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/6",
+            "shaded": [
+              0
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the bar with the bigger shaded piece.",
+        "tool": {
+          "@type": "Select"
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 0
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try looking at the actual size of the shaded parts, not just the numbers.",
+              "audio_dir": "module_2/lesson_z9u2do"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me help you compare. Watch - the piece from the 3-part [event:694ae207921835af] bar is twice as big as the piece from the 6-part bar. Which one is larger?",
+              "audio_dir": "module_2/lesson_rm4jms"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's do this problem together. When we split into 3 parts, each piece is this [event:694ae2df3d377a6d] big. When we split into 6 parts, each piece is half that size. [event:694ae37ba99ab090] So [fraction numerator=1, denominator=3]one third[/fraction] is bigger. I'll select it. [event:694ae41bb9c0a341]",
+              "audio_dir": "module_2/lesson_yqfjwn"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. One-third [event:68fa3b19dd491373] is bigger than [event:68fa3ba024d6f21e]one-sixth . The pattern works again - bigger bottom numbers mean smaller pieces.[event:68fa3c3e7e3f4131]",
+          "audio_dir": "module_2/lesson_4959880198046984944"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "More parts means smaller pieces [event:68fa3cbc6b505249], even though 6 is a bigger number than 3.",
+      "audio_dir": "module_2/lesson_y6bszj"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at these two bars [event:68fa3e96851d332a]. Imagine they're both cakes!",
+      "audio_dir": "module_2/lesson_zge0kb",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "lcm": 4
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "lcm": 8
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "The top 'cake' is cut into 4 pieces [event:68fa3f25f209c662] , the bottom into 8 pieces [event:68fa47fe4423e7a0] . Who do you think gets more cake - a person who gets 1 piece [event:68fa4c0f1bc3a921]  from the 4-piece cake, or a person who gets 1 piece [event:68fa4e3c7e3e6604] from the 8-piece cake? Click on the bigger piece of cake.",
+      "audio_dir": "module_2/lesson_li9s77",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the bar with the bigger piece of 'cake'.",
+        "tool": {
+          "@type": "Select"
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 0
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look again at the size of each piece. Remember that more cuts means smaller slices.",
+              "audio_dir": "module_2/lesson_p6x2j9"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Watch this comparison - the 4-piece cake slice is twice [event:extending_pattern_md]  the size of the 8-piece slice. Which piece would you rather have? ",
+              "audio_dir": "module_2/lesson_duutnn"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me show you by selecting the bigger piece. I'm choosing the [event:694ae8bd67b31b29] one-fourth piece because when we cut the same cake into fewer pieces, each piece is bigger.",
+              "audio_dir": "module_2/lesson_izglno"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. When you cut the same cake into only 4 pieces [event:68fa4ef8a2884643] , each piece is bigger than when you cut it into 8 pieces.",
+          "audio_dir": "module_2/lesson_5896385322819800079"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now let's label this new fraction[event:68fa50ebdf126bd5]. What do we call one part [event:68fa515b577f32ae] out of eight? Click the correct label.",
+      "audio_dir": "module_2/lesson_yqmyuu",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/8"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on the fraction that names this bar.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=6]one sixth[/fraction]",
+            "[fraction numerator=1 denominator=8]one eighth[/fraction]",
+            "[fraction numerator=8 denominator=1]eight over one[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Check again, count the total parts for the bottom number.",
+              "audio_dir": "module_2/lesson_hudmq5"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's count together - watch each number: [event:68fa51b2d11be0fc]  1, 2, 3, 4, 5, 6, 7, 8. Eight parts total goes on the bottom.",
+              "audio_dir": "module_2/lesson_8rfc2n"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Follow me and I'll help. I'm choosing one-eighth because we have  [event:68fa51e1e367d06c] 1 shaded part out of 8 total parts.",
+              "audio_dir": "module_2/lesson_33ridh"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. One-eighth. [event:68fa52e8fe169e5f]",
+          "audio_dir": "module_2/lesson_2987473663720769977"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "And look - it's the smallest piece [event:68fa53081746fda8] we've seen yet!",
+      "audio_dir": "module_2/lesson_aqgnif"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You're using the pattern to understand new fractions. When you see other fractions later like one-twelfth [event:68fa5504e0189f34] - you'll already know they're even smaller pieces.",
+      "audio_dir": "module_2/lesson_dm9kkm",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "fractions": "1/8",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/12",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's pause and think about what you've learned. [vocab]Unit fractions[/vocab] [event:68fa564a54c4e43c] always show exactly one part - that's what the 1 on top means. The bottom number tells us how many equal parts the whole has.",
+      "audio_dir": "module_2/lesson_v118wz",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/2",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/3",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/4",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "FracShape",
+            "is_visible": false,
+            "fractions": "1/8",
+            "shaded": [
+              0
+            ],
+            "frac_label_visible": [
+              0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

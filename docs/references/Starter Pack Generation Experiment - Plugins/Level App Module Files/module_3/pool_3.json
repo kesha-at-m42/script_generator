@@ -1,0 +1,718 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 6.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/4"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with four equal parts and one part shaded. What [vocab]fraction[/vocab] does this bar show?",
+          "audio_dir": "module_3/pool_3_5148684934937648581",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/4"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction shown by the bar.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                0
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=4][/fraction]",
+                "[fraction numerator=4 denominator=1][/fraction]",
+                "[fraction numerator=4 denominator=4][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded and how many parts there are in total.",
+                  "audio_dir": "module_3/pool_3_5650892829489671401"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare_shaded]The shaded part shows us the top number, and [event:A_compare]all the equal parts tell us the [vocab]bottom number[/vocab].",
+                  "audio_dir": "module_3/pool_3_6954624495079348571"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. [event:A_count_shaded]We have one part shaded - that's our top number. [event:A_count]Now let's count all the equal parts: 1, 2, 3, 4. That's our bottom number. So we have 1 out of 4 equal parts, which is one-fourth or [fraction numerator=1 denominator=4]one fourth[/fraction]. That's how we read fractions from a bar model.",
+                  "audio_dir": "module_3/pool_3_9101714862136016023"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. One out of four equal parts is one-fourth.",
+              "audio_dir": "module_3/pool_3_269314950431270965"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 8.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "3/4"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. What [vocab]fraction[/vocab] does it show?",
+          "audio_dir": "module_3/pool_3_7559112407794017545",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/4"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction shown by the bar.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=3][/fraction]",
+                "[fraction numerator=3 denominator=4][/fraction]",
+                "[fraction numerator=4 denominator=3][/fraction]",
+                "[fraction numerator=1 denominator=4][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the shaded parts and the total parts.",
+                  "audio_dir": "module_3/pool_3_984569871945410826"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare_shaded] Look at how many parts are shaded compared to the total number of equal parts in the bar.",
+                  "audio_dir": "module_3/pool_3_3941920266069109157"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find this. [event:A_count_shaded] We have three shaded parts. [event:A_count] The bar has four equal parts total. So the fraction is [event: choice_1] three out of four, which we write as [fraction numerator=3 denominator=4]three fourths[/fraction]. That's how we identify the fraction from a shaded bar.",
+                  "audio_dir": "module_3/pool_3_8924394401664722142"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Three out of four parts are shaded.",
+              "audio_dir": "module_3/pool_3_4132329724763146878"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 16.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/6"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with six equal parts. Two of them are shaded. Which [vocab]fraction[/vocab] does this bar show?",
+          "audio_dir": "module_3/pool_3_3646197916344195840",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction shown by the bar.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=2 denominator=4][/fraction]",
+                "[fraction numerator=4 denominator=2][/fraction]",
+                "[fraction numerator=2 denominator=6][/fraction]",
+                "[fraction numerator=4 denominator=6][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look at how many parts are shaded and how many parts there are in total.",
+                  "audio_dir": "module_3/pool_3_4173641252134807951"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. [event:A_compare_shaded] Notice the shaded parts - that's our numerator. Now look at all the parts together - that's our [vocab]denominator[/vocab].",
+                  "audio_dir": "module_3/pool_3_7890834594742048294"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_count_shaded] We have two parts shaded - that's the top number. [event:A_count] The bar has six equal parts total - that's the bottom number. So this bar shows [event: choice_2] [fraction numerator=2 denominator=6]two sixths[/fraction]. That's how we write fractions - shaded parts over total parts.",
+                  "audio_dir": "module_3/pool_3_8538746726449377223"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Two out of six parts are shaded.",
+              "audio_dir": "module_3/pool_3_6254715199431087846"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 19.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "5/6"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at this bar. Five out of six parts are shaded. What [vocab]fraction[/vocab] does that show?",
+          "audio_dir": "module_3/pool_3_4856896666963483713",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "intervals": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction does the bar represent?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=5][/fraction]",
+                "[fraction numerator=5 denominator=6][/fraction]",
+                "[fraction numerator=6 denominator=5][/fraction]",
+                "[fraction numerator=1 denominator=6][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded out of the total.",
+                  "audio_dir": "module_3/pool_3_6527248611696953106"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:A_compare_shaded] Notice the shaded parts compared to all the parts in the bar.",
+                  "audio_dir": "module_3/pool_3_1536823453670468268"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_count_shaded] We have five shaded parts. [event:A_count] The bar has six equal parts total. That means [event: choice_1] five out of six parts are shaded, which is [fraction numerator=5 denominator=6]five sixths[/fraction].",
+                  "audio_dir": "module_3/pool_3_8413941071860075442"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Five out of six equal parts are shaded.",
+              "audio_dir": "module_3/pool_3_7051253693811202793"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 29.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/8"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. What [vocab]fraction[/vocab] does it show?",
+          "audio_dir": "module_3/pool_3_940901233308476166",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Which fraction does the bar represent?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=8][/fraction]",
+                "[fraction numerator=2 denominator=8][/fraction]",
+                "[fraction numerator=3 denominator=8][/fraction]",
+                "[fraction numerator=4 denominator=8][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded and how many parts there are in total.",
+                  "audio_dir": "module_3/pool_3_6023554190633897401"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:A_compare_shaded]Notice the shaded parts - how many are there? And how many total parts make up the whole bar?",
+                  "audio_dir": "module_3/pool_3_7442947447410833319"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_count_shaded]We have two parts shaded. [event:A_count]The whole bar is divided into eight equal parts. So the fraction is [event: choice_1] two out of eight, or [fraction numerator=2 denominator=8]two eighths[/fraction]. That's how we read the shaded portion.",
+                  "audio_dir": "module_3/pool_3_1505146819084331079"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Two out of eight parts are shaded.",
+              "audio_dir": "module_3/pool_3_7568189201400547052"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 35.0,
+        "goal_id": 3.0,
+        "goal_text": "The student can identify the fraction represented by a bar.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "8/8"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with all its parts shaded. What [vocab]fraction[/vocab] does it show?",
+          "audio_dir": "module_3/pool_3_8671054944670305473",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": true,
+                "intervals": "1/8"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the fraction that the bar represents.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                2
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "[fraction numerator=1 denominator=8][/fraction]",
+                "[fraction numerator=8 denominator=1][/fraction]",
+                "[fraction numerator=8 denominator=8][/fraction]",
+                "[fraction numerator=0 denominator=8][/fraction]"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded and how many parts there are in total.",
+                  "audio_dir": "module_3/pool_3_8333451452790043488"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:A_compare_shaded]Notice that every single part of the bar is shaded. The bar has 8 equal parts total.",
+                  "audio_dir": "module_3/pool_3_5976607229504347950"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me walk you through this. [event:A_count_shaded]If we count the shaded parts, we see all 8 parts are shaded. [event:A_count]The bar has 8 equal parts in total. When all parts are shaded, we write [event: choice_2] 8 out of 8, which is eight-eighths. That's how we know the answer is [fraction numerator=8 denominator=8]8 eighths[/fraction].",
+                  "audio_dir": "module_3/pool_3_3402625713281836528"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Yes! All eight parts are shaded, so it's eight-eighths.",
+              "audio_dir": "module_3/pool_3_6791026495487256432"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

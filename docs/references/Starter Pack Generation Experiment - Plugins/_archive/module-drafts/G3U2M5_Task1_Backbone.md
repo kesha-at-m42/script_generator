@@ -8,7 +8,7 @@ primary_toys:
   - name: "Grid Rectangles"
     notion_url: "https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca"
   - name: "Equation Builder"
-    notion_url: "In development"
+    notion_url: "https://www.notion.so/2fc5917eac52803f8604f47c62304ee7"
 secondary_toys: []
 interaction_tools:
   - "Multiple Choice (MC) — misconception traps and direction prediction"
@@ -390,7 +390,7 @@ https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca
 ### Secondary Tool: Equation Builder
 
 #### Notion Link
-In development
+[Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7)
 
 #### M5 Configuration
 - **Input:** Rectangle dimensions (length, width) as numbers; student selects or recognizes the unit type

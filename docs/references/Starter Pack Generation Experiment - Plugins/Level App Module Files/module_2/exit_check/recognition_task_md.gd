@@ -1,0 +1,20 @@
+extends SequenceEvent
+
+func trigger() -> void:
+	#style - this works but is written wrong (I think AI)
+	var frac_bar = get_frac_shape()
+	use_highlight_tool(frac_bar._parts[0], true)
+	use_write_tool(frac_bar._parts[0], "1")
+	await delay(1)
+	use_highlight_tool(frac_bar._parts[0], false)
+	use_highlight_tool(frac_bar._parts[1], true)
+	use_write_tool(frac_bar._parts[1], "2")
+	await delay(1)
+	use_highlight_tool(frac_bar._parts[1], false)
+	use_highlight_tool(frac_bar._parts[2], true)
+	use_write_tool(frac_bar._parts[2], "3")
+	await delay(1)
+	use_highlight_tool(frac_bar._parts[2], false)
+	use_highlight_tool(frac_bar._parts[3], true)
+	use_write_tool(frac_bar._parts[3], "4")
+	await delay(1)

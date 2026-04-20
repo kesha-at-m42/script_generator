@@ -1,0 +1,543 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 1.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can identify the bar representing a fraction.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "1/2"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three bars. One of them shows one-half. Which one is it?",
+          "audio_dir": "module_3/pool_4_6357086629118921867",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/2"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/3"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": [
+                  "3/4",
+                  "1/4"
+                ]
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar that represents [fraction numerator=1 denominator=2][/fraction].",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for a bar with 2 equal parts and 1 part shaded.",
+                  "audio_dir": "module_3/pool_4_7143286724115956617"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare_shaded",
+                        "description": "Compare the shaded parts of the selected bar"
+                      },
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. One-half means 1 out of 2 equal parts. [event:selected_compare_shaded] Check the bar you selected - does it show 1 shaded part? Are there exactly 2 equal parts total?",
+                  "audio_dir": "module_3/pool_4_4012663899423394875"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find one-half. [event: restore_snapshot_prompt_start] For one-half, we need exactly 2 equal parts with 1 part shaded. [event:A_count_shaded] The [event: A_select] top bar has 1 part shaded. [event:A_count] And it has exactly 2 equal parts total. That's what makes it one-half - 1 out of 2 equal parts.",
+                  "audio_dir": "module_3/pool_4_2201884370543098466"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. One out of two equal parts is one-half.",
+              "audio_dir": "module_3/pool_4_6995350988931551183"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 7.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can identify the bar representing a fraction.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/4"
+          ]
+        },
+        "mastery_tier": "STRETCH",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three bars, each divided into four parts. Which one shows two-fourths?",
+          "audio_dir": "module_3/pool_4_295705730836400770",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/4"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/4"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/4"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar that represents [fraction numerator=2 denominator=4][/fraction].",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for the bar with exactly two parts shaded.",
+                  "audio_dir": "module_3/pool_4_5512528955475281921"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare_shaded",
+                        "description": "Compare the shaded parts of the selected bar"
+                      },
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Two-fourths means we need exactly 2 shaded parts out of 4 equal parts. [event:selected_compare_shaded]Look at how many parts are shaded in the bar you selected. Does it show exactly 2 shaded parts?",
+                  "audio_dir": "module_3/pool_4_2319065261043002069"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find two-fourths. [event: restore_snapshot_prompt_start]  [event:A_count_shaded] The [event: A_select] top bar has exactly 2 parts shaded. [event:A_count] And it has 4 equal parts total. That's what two-fourths means - 2 shaded parts out of 4 equal parts.",
+                  "audio_dir": "module_3/pool_4_3179195745513066876"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Two out of four equal parts are shaded.",
+              "audio_dir": "module_3/pool_4_7098984458753564752"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 16.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can identify the bar representing a fraction.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/6"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Four bars are shown. Each one is different. Which one shows two-sixths?",
+          "audio_dir": "module_3/pool_4_4169271006509232183",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar that represents [fraction numerator=2 denominator=6][/fraction].",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for a bar with six equal parts and two parts shaded.",
+                  "audio_dir": "module_3/pool_4_2495073486034456548"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare_shaded",
+                        "description": "Compare the shaded parts of the selected bar"
+                      },
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. Two-sixths means we need a bar with six equal parts total. [event:selected_compare_shaded] Check how many parts are shaded in the bar you selected. Does it have six equal parts?",
+                  "audio_dir": "module_3/pool_4_432785400354553323"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find two-sixths. [event: restore_snapshot_prompt_start] For two-sixths, we need a bar with six equal parts. [event:A_count_shaded] The [event: A_select] first bar has two parts shaded. [event:A_count] And it has six equal parts total. That's what makes it two-sixths - two out of six equal parts.",
+                  "audio_dir": "module_3/pool_4_2500402051062606647"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. That bar shows two out of six equal parts.",
+              "audio_dir": "module_3/pool_4_604222095680630574"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 30.0,
+        "goal_id": 4.0,
+        "goal_text": "The student can identify the bar representing a fraction.",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "3/8"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Look at these four bars. Which one shows three out of eight equal parts?",
+          "audio_dir": "module_3/pool_4_3935063396473223140",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/8"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "intervals": "1/8"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/8"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar representing three-eighths.",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Look for a bar with eight equal parts and three shaded.",
+                  "audio_dir": "module_3/pool_4_2265161729475237866"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "selected_compare_shaded",
+                        "description": "Compare the shaded parts of the selected bar"
+                      },
+                      {
+                        "name": "selected_compare",
+                        "description": "Compare parts of the selected bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. We need a bar with eight equal parts total. [event:selected_compare_shaded] Check how many parts are shaded in the bar you selected. Now look at all the parts - does it have eight equal sections?",
+                  "audio_dir": "module_3/pool_4_1123996642840444278"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      },
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the first or the top bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find three-eighths. [event: restore_snapshot_prompt_start]  [event:A_count_shaded] Bar 1 has three parts shaded - that's the numerator. [event:A_count] Now count all the parts in Bar 1 - there are eight equal parts total. That's the [vocab]denominator[/vocab]. So [event: A_select] Bar 1 shows three out of eight equal parts, which is three-eighths.",
+                  "audio_dir": "module_3/pool_4_1866182017337240733"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. That bar shows three out of eight equal parts.",
+              "audio_dir": "module_3/pool_4_6955642686713326940"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

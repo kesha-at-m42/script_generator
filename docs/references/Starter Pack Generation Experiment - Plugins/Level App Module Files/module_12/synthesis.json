@@ -1,0 +1,217 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's step back and review some of the skills we've practiced working with fractions.",
+      "audio_dir": "module_12/synthesis_131083954059896519",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Think about where you started working with fractions, [event:699503e32b58c1ff] learning what equal parts means, [event:69953523518caa0a] counting pieces, and [event:6995355a7a103e97] placing fractions on [event:6995356a35460eae] lines. Now you can compare fractions even when NOTHING matches. [event:69953683c6f1bbcc] Even when the denominators and numerators are [event:6995369f77ecdc29] both different, you have a way to compare the size of fractions. What strategy makes comparing fractions like these possible?",
+      "audio_dir": "module_12/synthesis_9058084928512961953",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "@layout": "overlay",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              "  >  ",
+              "2/6"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@layout": "underlay",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              ">",
+              "1/2"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@layout": "underlay",
+            "is_visible": false,
+            "terms": [
+              "2/6",
+              "<",
+              "1/2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "What strategy made comparing fractions like these possible?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Counting how many pieces are shaded",
+            "Using benchmarks like [fraction numerator=1 denominator=2]one half[/fraction] as a reference",
+            "Making the bars bigger",
+            "Finding which denominator is larger"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite, think about how we used the halfway line.",
+              "audio_dir": "module_12/synthesis_1687511202881644448"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show a quick visual recap of using the 1/2 benchmark"
+              },
+              "dialogue": "Remember how we [event:69960a84186ef151] compared both fractions to [fraction numerator=1 denominator=2]one half[/fraction]? That halfway point was our benchmark, it helped us see which fraction was greater[event:69960ab0216379eb].",
+              "audio_dir": "module_12/synthesis_6760427239674968320"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the benchmark answer, show the 3/4 vs 2/6 comparison with benchmark"
+              },
+              "dialogue": "Lets take a look. When we had [fraction numerator=3 denominator=4]three fourths[/fraction] and [fraction numerator=2 denominator=6]two sixths[/fraction], we [event:69960d244bb2aee5] couldn't count pieces [event:69960d5efa406890] because the denominators didn't match. [event:69960edd273a5f1d] Instead, we used [fraction numerator=1 denominator=2]one half[/fraction] as a reference point, a benchmark. We saw that [fraction numerator=3 denominator=4]three fourths[/fraction] was [event:699610053d7dec1c] above half and [fraction numerator=2 denominator=6]two sixths[/fraction] was [event:6996103bbcf02da3] below half. [event:69960f1dbede5ea4] That's how benchmarks help us compare.",
+              "audio_dir": "module_12/synthesis_3065950012646959233"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right! We use benchmarks for fractions that are completely different from each other. Some fractions can be [event:69961123969be312] compared to [fraction numerator=1 denominator=2]one half[/fraction] or 1, that's what unlocks comparisons when nothing matches.[event:6996124580557921] ",
+          "audio_dir": "module_12/synthesis_3236169068367997658"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "The skills you've practiced in this lesson allow you to see [event:69952a83ca0a399c] fractions as shapes or as [event:69952b0e3edcd550] positions on a line, and you can take these fractions and compare them.",
+      "audio_dir": "module_12/synthesis_2637030431278354584",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4,
+            "intervals": "1/3"
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've learned three comparison strategies: one to use when [event:69952e45fb73be51] denominators match, one to use when [event:69952e540e835bb6] numerators match, and one to use when [event:69952e6039c5019a] nothing matches. You've practiced which strategy to use based on what you see, and you can [event:69952e71d97b2c76] write your comparisons with symbols.",
+      "audio_dir": "module_12/synthesis_1047333789874407380",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/8",
+              " < ",
+              "5/8"
+            ],
+            "visible_terms": [
+              0,
+              2
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              " > ",
+              "3/6"
+            ],
+            "visible_terms": [
+              0,
+              2
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "2/7",
+              " < ",
+              "3/5"
+            ],
+            "visible_terms": [
+              0,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You're not just following steps anymore; you're choosing which strategy to use based on the fractions you are trying to compare.",
+      "audio_dir": "module_12/synthesis_786490935580797339",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

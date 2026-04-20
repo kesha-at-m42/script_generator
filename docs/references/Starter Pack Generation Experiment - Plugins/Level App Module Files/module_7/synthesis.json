@@ -1,0 +1,384 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned about fractions equaling one. Let's connect that concept to bigger mathematical ideas.",
+      "audio_dir": "module_7/synthesis_3442885666753565001",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at these 3 lines. Think about what we have been working on today. Select the fraction that doesn't equal one.",
+      "audio_dir": "module_7/synthesis_6803392224835094634",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/2",
+            "points": [
+              "2/2"
+            ],
+            "labels": [
+              "0",
+              "2/2",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "3/4",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/7",
+            "points": [
+              "7/7"
+            ],
+            "labels": [
+              "0",
+              "7/7",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which one doesn't follow the pattern?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Give it another try. What makes a fraction equal 1?",
+              "audio_dir": "module_7/synthesis_770580734434849383"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight each fraction showing which have matching numerators and denominators"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's check each fraction. do the [event:69702044f02e767c] top number and bottom number match?",
+              "audio_dir": "module_7/synthesis_4724972710803534355"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select the third number line showing 3/4"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's try it out together: [event:696af0bda43495cb] [fraction numerator=2 denominator=2]two halves[/fraction] are matching numbers, so equal [event:697021b09923f3cc] 1. [event:6970233ed026357e] [fraction numerator=3 denominator=4]Three fourths[/fraction] are different numbers, [event:696af097164a481d] less than [event:697023fca8c0f2b5] 1. [event:696af0d12179330d] [fraction numerator=7 denominator=7]Seven sevenths[/fraction] are matching, so equal [event:6970240f79a53c86] 1.",
+              "audio_dir": "module_7/synthesis_610188345890673717"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:697013a11151f7d2] Good observation. You noticed that [event:696aec1ff88ecb38] [fraction numerator=3 denominator=4]three fourths[/fraction] doesn't equal [event:696aec59a25159c2] 1. [d:.2] [event:6970186149c64ef3] These two lines show fractions where the numbers match [event:697019b274391dea], this [event:697019dc7f1db21c] one shows a fraction [event:69701e37322f119d] less than 1. See how the same concept, [event:696af055814a8115] fractions equaling one, appears across [event:69701ffdc634f86f] different fractions? When the top and bottom match, we always get [event:69701a0ffa6c8d8c] 1. It's a rule that works every time [event:Clear_Arrows_Highlights].",
+          "audio_dir": "module_7/synthesis_3629385461251343383"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Fractions show up in real life all the time. Imagine we have [event:696ae17ff40419e7] three loaves of bread, [event:696ae4b2d0e18fef] all the same size, and three groups of people. Group A has 8 people, so each person gets [event:696ae0bc2ec09379] [fraction numerator=1 denominator=8]one eighth[/fraction] of their loaf of bread. Group B has 10 people, so each person gets [event:696ae11503bc3657] [fraction numerator=1 denominator=10]one tenth[/fraction]. Group C has 12 people, so each person gets [event:696ae121979617b0] [fraction numerator=1 denominator=12]one twelfth[/fraction]. Which group gets the smallest slices of bread?",
+      "audio_dir": "module_7/synthesis_873586266534499933",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/8"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/10"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/12"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which group gets the smallest piece of bread?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            2
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Take another look. Remember, more parts means smaller pieces.",
+              "audio_dir": "module_7/synthesis_4503349892394061919"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the pizza divided into 12 pieces showing they are smallest"
+              },
+              "dialogue": "[event:697026ff012008a9] 12 parts means smaller portions than [event:6970273995e17c7f] 8 or [event:69702741096cacc8] 10 parts.",
+              "audio_dir": "module_7/synthesis_8525219807190735813"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select option C and highlight the 12-piece pizza"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through this step by step: all three [event:696ae4b2d0e18fef] loaves of bread are the same [event:696ae48273e9afad] size. If we cut one into [event:69702868c2b2dbc0] 8 pieces and another into [event:69702877fe8934ef] 12 pieces, which pieces are smaller? The [event:69702894e57629d1] 12 pieces, so [fraction numerator=1 denominator=12]one twelfth[/fraction] is the smallest portion.",
+              "audio_dir": "module_7/synthesis_5279743438555412117"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. When we divide the same-sized loaf of bread into more pieces, each piece gets [event:696af397f3ad2cbd] smaller. The more people sharing, the smaller each portion, that's why [event:696af56547a6e10b] [fraction numerator=1 denominator=12]one twelfth[/fraction] is less than [fraction numerator=1 denominator=10]one tenth[/fraction] or [fraction numerator=1 denominator=8]one eighth[/fraction].",
+          "audio_dir": "module_7/synthesis_6680711470319411744"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another problem. You have [event:696af59d7b7a1a13] [fraction numerator=1 denominator=4]one fourth[/fraction]. Which fraction combines with [fraction numerator=1 denominator=4]one fourth[/fraction] to make exactly one whole?",
+      "audio_dir": "module_7/synthesis_4873775797553733664",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "1"
+            ],
+            "alt_labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the fraction that combines with 1/4 to make 1.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=2 denominator=4]two fourths[/fraction]",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction]",
+            "[fraction numerator=4 denominator=4]four fourths[/fraction]",
+            "[fraction numerator=1 denominator=3]one third[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about what makes one whole. How many fourths total do you need?",
+              "audio_dir": "module_7/synthesis_5781856684858328295"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the space from 1/4 to 1 on the number line"
+              },
+              "dialogue": "You have [event:696adcf172905d8d] [fraction numerator=1 denominator=4]one fourth[/fraction], how many more fourths do you need to reach 1?",
+              "audio_dir": "module_7/synthesis_4547302552257530706"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select option B - 3/4"
+              },
+              "dialogue": "Let's work through this: [fraction numerator=4 denominator=4]four fourths[/fraction] equals [event:696adb67f3e86ec6] 1. You already have [event:696adbc26129d2f0] [fraction numerator=1 denominator=4]one fourth[/fraction]. So you need [event:696adc0def7cda95] 3 more fourths. [fraction numerator=1 denominator=4]One fourth[/fraction] plus [fraction numerator=3 denominator=4]three fourths[/fraction] equals [fraction numerator=4 denominator=4]four fourths[/fraction], which is 1.",
+              "audio_dir": "module_7/synthesis_7381764422509529397"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. [event:696ad764a2b735dd] [fraction numerator=1 denominator=4]One fourth[/fraction], and [event:696ad97f8fdcf014] [fraction numerator=3 denominator=4]three fourths[/fraction] together make [event:696ad99db0577dc7] [fraction numerator=4 denominator=4]four fourths[/fraction], which equals 1.",
+          "audio_dir": "module_7/synthesis_2701724844440127474"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's try another. Now you have [event:696addcada46cf7e] [fraction numerator=2 denominator=5]two fifths[/fraction]. What fraction can you combine with [fraction numerator=2 denominator=5]two fifths[/fraction] to make one whole?",
+      "audio_dir": "module_7/synthesis_420136570123572010",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/5",
+            "labels": [
+              "0",
+              "2/5",
+              "1"
+            ],
+            "alt_labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the fraction that combines with 2/5 to make 1.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=3 denominator=5]three fifths[/fraction]",
+            "[fraction numerator=4 denominator=5]four fifths[/fraction]",
+            "[fraction numerator=5 denominator=5]five fifths[/fraction]",
+            "[fraction numerator=2 denominator=3]two thirds[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Think about what makes one whole. How many fifths total do you need?",
+              "audio_dir": "module_7/synthesis_728253385840848665"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the space from 2/5 to 1 on the number line"
+              },
+              "dialogue": "You have [event:696addcada46cf7e] [fraction numerator=2 denominator=5]two fifths[/fraction]. To make [fraction numerator=5 denominator=5]five fifths[/fraction], which equals 1, you need 3 more fifths.",
+              "audio_dir": "module_7/synthesis_9132093052859838778"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select option A - 3/5"
+              },
+              "dialogue": "Let's work through this: [fraction numerator=5 denominator=5]five fifths[/fraction] equals 1 [event:696adeb5114dd315] . You already have [event:696addcada46cf7e] [fraction numerator=2 denominator=5]two fifths[/fraction]. So you need [event:696adf0043a2c8c3] 3 more fifths. [fraction numerator=2 denominator=5]Two fifths[/fraction] plus [fraction numerator=3 denominator=5]three fifths[/fraction] equals [fraction numerator=5 denominator=5]five fifths[/fraction], which is 1.",
+              "audio_dir": "module_7/synthesis_5362305499671869071"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [event:69716005fdc11d81] [fraction numerator=2 denominator=5]Two fifths[/fraction] and [event:696adf60059cb61a] [fraction numerator=3 denominator=5]three fifths[/fraction] make [fraction numerator=5 denominator=5]five fifths[/fraction], which equals 1 [event:696adeb5114dd315]. See how you used what you know about fractions equaling 1 to work backwards? If [fraction numerator=5 denominator=5]five fifths[/fraction] equals 1 and you have [event:696addcada46cf7e] [fraction numerator=2 denominator=5]two fifths[/fraction], you need 3 more fifths. This kind of thinking, composing and decomposing wholes, is how mathematicians solve problems.",
+          "audio_dir": "module_7/synthesis_2951404298723166116"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've connected fractions to whole numbers, seen patterns across different representations, and even applied these math skills to real world problems. When you see any fraction where the top and bottom match, you'll know it equals exactly one whole. Next lesson, we'll explore how fractions that look different can actually equal the same amount.",
+      "audio_dir": "module_7/synthesis_7021980015181132204",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,841 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Since we've worked with halves, let's try fourths. We have [event:6966b5e58b4f43bc] fourths marked from 0 to 1. Your turn: place tick [event:6966b687e939f941] marks to divide our [event:6966b6c4399cb895] section showing [event:6966b7bc1225fc06] 1 to 2 into fourths, just like we did from 0 to 1.",
+      "audio_dir": "module_6/lesson_8978915343334287807",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place tick marks for fourths between 1 and 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 4
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/4",
+            "1/4",
+            "2/4",
+            "3/4",
+            "4/4",
+            "5/4",
+            "6/4",
+            "7/4",
+            "8/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Try looking at the spacing from 0 to 1. Each fourth is the same size. Use that same size from 1 to 2.",
+              "audio_dir": "module_6/lesson_6690526176319536466"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's check again. Look at the fourths from [event:6966b851442e5522] 0 to 1 [delay:0.5]. You need four equal spaces from [event:6966b8be5fcab8a6] 1 to 2 to match that pattern [event:6966b87d0a43ed00] .",
+              "audio_dir": "module_6/lesson_8772258361915443684"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] We can find the pattern together. From [event:Arrow_0whole_to_1whole]0 to 1, we have [event:6966b9f0232e8158] four equal fourths. Now watch: I'll place [event:6966bafafb96e365] four equal fourths from 1 to 2, using the [event:6966bcc1c0ede778] same spacing.",
+              "audio_dir": "module_6/lesson_11460541475057964"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You divided [event:Arrow_1whole_to_2whole]1 to 2 into fourths with [event:6966b9f0232e8158] equal spacing. Notice how the spacing is the same as from [event:6966bcc1c0ede778] 0 to 1? That pattern continues no matter where you are on the number line.",
+          "audio_dir": "module_6/lesson_3897010793233901292"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's identify fourths on this number line. We'll start from [event:6966d3bdb047385d] zero and take equal-sized jumps, each one a fourth. First, place [fraction numerator=1 denominator=4]one fourth[/fraction] where it goes.",
+      "audio_dir": "module_6/lesson_6460211129561488377",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=1 denominator=4][/fraction] where it goes.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "1/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Double check with me. We want to place [fraction numerator=1 denominator=4]One fourth[/fraction] one space from zero.",
+              "audio_dir": "module_6/lesson_2834085658354183900"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Dotted lines appear briefly dividing 0 to 1 into fourths"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Not quite. Here's a hint. [fraction numerator=1 denominator=4]One fourth[/fraction] [event:Arrow_1_tick_to_2] is exactly one interval from 0",
+              "audio_dir": "module_6/lesson_5805858538455748159"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System animates division of 0-1 into four equal parts, then places 1/4 mark"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Watch me, and I'll help you see how this works. The space [event:Arrow_0whole_to_1whole]\n from 0 to 1 is [event:6968264da991300f] divided into 4 equal parts. [event:6967feae0494f92f] The first jump lands at [event:6967fed1dbd17766] [fraction numerator=1 denominator=4]one fourth[/fraction].",
+              "audio_dir": "module_6/lesson_3443562290960919214"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice work with [fraction numerator=1 denominator=4]one fourth[/fraction].",
+          "audio_dir": "module_6/lesson_4542828305959600808"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's continue that pattern. Please place [fraction numerator=2 denominator=4]two fourths[/fraction], [fraction numerator=3 denominator=4]three fourths[/fraction], and [fraction numerator=4 denominator=4]four fourths[/fraction] on the line ",
+      "audio_dir": "module_6/lesson_6144926882088999386",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=2 denominator=4][/fraction], [fraction numerator=3 denominator=4][/fraction], and [fraction numerator=4 denominator=4][/fraction] on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "2/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "3/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "4/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "1/4",
+            "2/4",
+            "3/4",
+            "4/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Check again. Remember, each fourth needs to be exactly the same size. So be sure to check your spacing between marks.",
+              "audio_dir": "module_6/lesson_5553952264284917805"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Measuring brackets appear showing equal distances"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's think about the problem this way: from [event:69682f178cb28e8b] 0 to 1 needs to be divided into four equal parts. You already have [event:696921403ac2b077] [fraction numerator=1 denominator=4]one fourth[/fraction] marked. Each next fourth should be the same [event:69691bb27520c6eb] distance apart.",
+              "audio_dir": "module_6/lesson_5205597810060631228"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System animates the placement of each fraction with consistent spacing"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] We can work through this one together: Starting from [event:696fbdd67fa7b42b] [fraction numerator=1 denominator=4]one fourth[/fraction], we add[event:Clear_Arrows_Highlights] [event:Arrow_2_tick_to_3] another fourth to get\n [event:69691fa917d84479] [fraction numerator=2 denominator=4]two fourths[/fraction],[event:Clear_Arrows_Highlights]\n [event:Arrow_3_tick_to_4] another fourth to get [event:69692025dbca21b7][fraction numerator=3 denominator=4]three fourths[/fraction], and one [event:Clear_Arrows_Highlights] [event:Arrow_4_tick_to_5] more fourth lands exactly at [event:69692076c3692e10] 1. That's [fraction numerator=4 denominator=4]four fourths[/fraction].",
+              "audio_dir": "module_6/lesson_2207108478014141342"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Notice how [fraction numerator=4 denominator=4]four fourths[/fraction] lands exactly at [event:69691e9764bd6086] 1. [vocab]Four fourths[/vocab] equals one whole[event:69691ec9e77f48be]. They're the same number, just written differently [event:696fbcc6df7bfe9f] .",
+          "audio_dir": "module_6/lesson_697020433339812663"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another question: if we keep [event:6967d00ad794c7dc]  counting fourths with that same spacing, what comes after [fraction numerator=4 denominator=4]four fourths[/fraction]? Place the next [event:6967d82e191f3a15] fourth",
+      "audio_dir": "module_6/lesson_6887094866666697515",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the next fourth after [fraction numerator=4 denominator=4][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "5/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "0",
+            "1/4",
+            "2/4",
+            "3/4",
+            "1",
+            "5/4",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Try again with the same size jump as you've done before, just past 1. The pattern doesn't change.",
+              "audio_dir": "module_6/lesson_5001472274585990287"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "5/4 appears with arrow pointing past 1"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Here's a hint: We are trying to place 5 fourths. The numerator will be 5, and the denominator will stay 4. [fraction numerator=5 denominator=4]five fourths[/fraction]. The denominator [event:69692606d0217e6d] doesn't change just because we passed [event:696927f82a1febd7] 1.",
+              "audio_dir": "module_6/lesson_2093628028101132753"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System animates counting with each fraction appearing, 5/4 glows past 1"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through it step-by-step. [event:696aa766f6dc65d7] [fraction numerator=1 denominator=4]one fourth[/fraction], [fraction numerator=2 denominator=4]two fourths[/fraction], [fraction numerator=3 denominator=4]three fourths[/fraction], [fraction numerator=4 denominator=4]four fourths[/fraction]. [fraction numerator=4 denominator=4]four fourths[/fraction] lands at [event:696aa981217fd8d9] one whole. Then we continue with the same spacing as we add more fourths. That makes  [event:696aa8c3588e2a24][fraction numerator=5 denominator=4]five fourths[/fraction]. That's [event:Clear_Arrows_Highlights] five fourths total from zero.",
+              "audio_dir": "module_6/lesson_1038945505968073032"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! You placed [fraction numerator=5 denominator=4]five fourths[/fraction]. [d:.1] [event:696928a878c8697c] that's five fourths!",
+          "audio_dir": "module_6/lesson_4351110305125779947"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You just made five equal intervals from zero. That's [event:6967d9dd8a1a943f] five fourths, which is more than one whole[event:Arrow_5_tick_to_6]. When a fraction is greater than one whole, like [fraction numerator=5 denominator=4]five fourths[/fraction], [event:6967dacb2c4d6b1e] we call it an [event:6967dc319361db9e] [vocab]improper fraction[/vocab]. That means that our counting pattern [event:6967dc907c5e036f]  continues beyond 1.",
+      "audio_dir": "module_6/lesson_3408114431491917117",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Improper fraction",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's pause here. Through our practice, you're seeing how [event:Arrow_1whole_to_2whole] fractions can extend beyond 1. [event:696943aaafafba63] The fourths didn't stop at 1; they just kept going with that same [event:6969447e0d383018] consistent spacing. That's actually how all fractions work! [event:69716686504dc3c9] This is a mathematical idea you'll keep seeing in our work ahead. Let's continue to build on what we're learning ",
+      "audio_dir": "module_6/lesson_1735834872637119854"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's continue our pattern, and place another improper fraction. Try placing [fraction numerator=6 denominator=4]six fourths[/fraction] here. Remember to use equal spacing.",
+      "audio_dir": "module_6/lesson_5346190294878575469",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "4/4",
+              "5/4",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=6 denominator=4][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. We need six jumps of equal size. Where do we land?",
+              "audio_dir": "module_6/lesson_8904903173637693072"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numbers 1-6 appear sequentially above jump positions"
+              },
+              "dialogue": "Remember that [fraction numerator=6 denominator=4]six fourths[/fraction] means [event:696944f9e98e7bc4] six equal jumps total from 0. Count them carefully. [event:Clear_Arrows_Highlights]\n",
+              "audio_dir": "module_6/lesson_2471907266050643124"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System animates counting with glowing numbers, 6/4 appears past 1"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through it step-by-step. [event:696aa766f6dc65d7] [fraction numerator=1 denominator=4]one fourth[/fraction], [fraction numerator=2 denominator=4]two fourths[/fraction], [fraction numerator=3 denominator=4]three fourths[/fraction], [fraction numerator=4 denominator=4]four fourths[/fraction]. [fraction numerator=4 denominator=4]four fourths[/fraction] lands at [event:696aa981217fd8d9] one whole. Then [event:696aac7ad8797b5d] [fraction numerator=5 denominator=4]five fourths[/fraction], [fraction numerator=6 denominator=4]six fourths[/fraction]. That's six fourths total from zero.[event:Clear_Arrows_Highlights]",
+              "audio_dir": "module_6/lesson_4494477508505922613"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. You're keeping [event:69694559bd6bc62a] equal spacing as we continue to move past [event:69694583fc56a713] 1 on the number line [event:Clear_Arrows_Highlights]",
+          "audio_dir": "module_6/lesson_54118791802320979"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Nice. You're keeping that pattern going just how we set it up. Let's place one more. Where does [fraction numerator=7 denominator=4]seven fourths[/fraction] go?",
+      "audio_dir": "module_6/lesson_7197764722556065680",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Drag [fraction numerator=7 denominator=4]seven fourths[/fraction] onto the number line",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "7/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Try counting out seven jumps from zero.",
+              "audio_dir": "module_6/lesson_2448838037606698374"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "7/4 appears with arrow to numerator labeled jumps"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Keep this in mind: 7 fourths. The numerator is 7, which is 7 intervals from 0.  [event:69694ae9a398514b]",
+              "audio_dir": "module_6/lesson_3662379129274123440"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights each jump with counting numbers appearing"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] I can help with this problem. Follow me. The fraction [fraction numerator=7 denominator=4]seven fourths[/fraction] means seven parts, each [event:69694741754f58cd] one fourth big. So we count: [event:6969489840f88e3c] 1,[d:0.1] 2[d:0.1], 3[d:0.1], 4[d:0.1], 5[d:0.1], 6[d:0.1], 7 jumps. [event:696fc15531ccc618] Seven equal fourths from zero.",
+              "audio_dir": "module_6/lesson_4592854770175086701"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice, that's [event:696aaf7eac6a8d1e] [fraction numerator=7 denominator=4]seven fourths[/fraction]. Also, notice how close [event:696aaf252d0c04a3] [fraction numerator=7 denominator=4]seven fourths[/fraction] is to 2!",
+          "audio_dir": "module_6/lesson_1945587765566950739"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Next, let's try to place one more jump after [fraction numerator=7 denominator=4]seven fourths[/fraction]. Where do you think [fraction numerator=8 denominator=4]eight fourths[/fraction] will land?",
+      "audio_dir": "module_6/lesson_7565175922563643611",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1/4",
+              "2/4",
+              "3/4",
+              "1",
+              "5/4",
+              "6/4",
+              "7/4"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click to place [fraction numerator=8 denominator=4][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "8/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "8/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "That's not quite right. Let's count it out.",
+              "audio_dir": "module_6/lesson_5136899555035221639"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "4/4 = 1 and 8/4 = ? appear side by side"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] You can ask yourself this: Just like [fraction numerator=4 denominator=4]four fourths[/fraction] equals 1 [event:69694ec23d3e8abb] , what do you think [fraction numerator=8 denominator=4]eight fourths[/fraction] equals? It's a pattern.",
+              "audio_dir": "module_6/lesson_2383181884127885893"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System shows grouping brackets: first 4/4 at 1 with = sign, second 4/4 at 2 with = sign"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me help a bit more. Look at this pattern: [fraction numerator=4 denominator=4]four fourths[/fraction] equals 1 [event:696950c955e6be85] whole, [event:696950ded624b5ef] they're the same number. Another [fraction numerator=4 denominator=4]four fourths[/fraction] makes [event:696950f66c516bb5] another whole. So [event:696951c7283f6271] [fraction numerator=8 denominator=4]eight fourths[/fraction] equals [event:6969512e0710610b] 2. same number, [event:Clear_Arrows_Highlights] different ways to write it. The pattern tells you something. Every four fourths makes a whole number!",
+              "audio_dir": "module_6/lesson_231526618550451187"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[fraction numerator=8 denominator=4]Eight fourths[/fraction] lands exactly at [event:69695338545d9a32] 2! Whole numbers are just collections of unit fractions, like how [fraction numerator=8 denominator=4]eight fourths[/fraction] equals 2 wholes.[event:696953c32a918a49]  Every group of four fourths makes another whole number.",
+          "audio_dir": "module_6/lesson_1321958902335589561"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's check how this approach works with thirds. If we're counting by thirds, where would [fraction numerator=4 denominator=3]four thirds[/fraction] go?",
+      "audio_dir": "module_6/lesson_3696923389689406232",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=4 denominator=3]four thirds[/fraction] on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. Remember that [fraction numerator=4 denominator=3]four thirds[/fraction] means four equal jumps of [fraction numerator=1 denominator=3]one third[/fraction] each.",
+              "audio_dir": "module_6/lesson_3189101423310825075"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fractions appear sequentially with 3/3=1 highlighted"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's count together: [event:696955d264d00ded] [fraction numerator=1 denominator=3]one third[/fraction], [event:6969591c31a06ce6] [fraction numerator=2 denominator=3]two thirds[/fraction], [event:69695937e4e2fc5d] [fraction numerator=3 denominator=3]three thirds[/fraction] makes one whole [event:696fc7bc2c6a09d1] , then [fraction numerator=4 denominator=3]four thirds[/fraction] is [event:Clear_Arrows_Highlights] one more third past that.",
+              "audio_dir": "module_6/lesson_6987327264842218671"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System animates thirds counting, shows 3/3=1, then 4/3 past 1"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you how we do this with thirds. Remember, [event:696960e0ed10482e] three thirds make [event:6969614dad8bb846] 1 , that's the pattern. The fourth third goes [event:696959d3cf88a175] past 1. That's [fraction numerator=4 denominator=3]four thirds[/fraction]. [event:Clear_Arrows_Highlights] Same consistent approach, different denominator.",
+              "audio_dir": "module_6/lesson_8551379853972663034"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct! The same idea works with any fraction. When we have more parts than make [event:696954fb5dc01856] one whole, we get a fraction that goes [event:6969554b66019104] beyond 1.",
+          "audio_dir": "module_6/lesson_1152742944707596288"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've got it, the pattern works with any fraction! We've worked out how fractions continue [event:Arrow_1whole_to_2whole]\nbeyond one whole. When we're showing [event:696805b908300edb] fractions on a number line, we have to focus on [event:69696321e5455739] consistent spacing. the [event:6968062bf9644e17] denominator tells us the size of each jump, no matter where we are on the number line.",
+      "audio_dir": "module_6/lesson_1437711907091908567",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

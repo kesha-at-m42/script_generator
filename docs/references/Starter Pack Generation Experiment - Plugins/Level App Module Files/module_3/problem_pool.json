@@ -1,0 +1,563 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 5,
+                "lcm": 4
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now try building two-fourths. Start with unit fractions and put them together.",
+          "audio_dir": "module_3/problem_pool_vuqoba",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click parts to shade 2/4.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "2/4"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's count as you shade. Remember that we need two parts.",
+                  "audio_dir": "module_3/problem_pool_csboho"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Here's a hint: Two-fourths means shade two parts [event: problem_1_md_1] out of four total.",
+                  "audio_dir": "module_3/problem_pool_p8y9mv"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Watch as I do it with you [event: problem_1_hv_1]: I click one part [event: problem_1_hv_2] - that's [fraction numerator=1, denominator=4]one fourth[/fraction]. Click another [event: problem_2_hv_3] - now it's [fraction numerator=2, denominator=4]two fourths[/fraction]. Two parts shaded.",
+                  "audio_dir": "module_3/problem_pool_t1ctl4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "You made [fraction numerator=2, denominator=4]two fourths[/fraction] correctly. Two unit fractions make [fraction numerator=2, denominator=4]two fourths[/fraction].",
+          "audio_dir": "module_3/problem_pool_51x4eq"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "visual": 5,
+                "lcm": 3
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Now I would like you to make a whole. Add up unit fractions until you get 1.",
+          "audio_dir": "module_3/problem_pool_r0mrim",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade all parts to make 1 whole.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "3/3"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "To make 1 whole, be sure to shade every part.",
+                  "audio_dir": "module_3/problem_pool_gunkk6"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember: [fraction numerator=3, denominator=3]three thirds[/fraction] = 1. Fill the entire bar. [event: problem_2_md_1]",
+                  "audio_dir": "module_3/problem_pool_8gm2ve"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Watch me: [event: problem_2_hv_1] [fraction numerator=1, denominator=3]one third[/fraction] [event: problem_2_hv_2] + [fraction numerator=1, denominator=3]one third[/fraction] [event: problem_2_hv_3] + [fraction numerator=1, denominator=3]one third[/fraction] [event: problem_2_hv_4] = [fraction numerator=3, denominator=3]three thirds[/fraction]. When the top number equals the bottom number, we get 1.",
+                  "audio_dir": "module_3/problem_pool_0kuc9d"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "You built that perfectly. Three thirds makes one whole.",
+          "audio_dir": "module_3/problem_pool_z64v0c"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/3",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Which bar shows two-thirds?",
+          "audio_dir": "module_3/problem_pool_3vlyn6",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar showing 2/3.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember to look for two shaded parts out of three total.",
+                  "audio_dir": "module_3/problem_pool_19oaru"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let's try again. Notice how the fraction grows [event: problem_3_md_1] - we're looking for the one that stops at [fraction numerator=2, denominator=3]two thirds[/fraction].",
+                  "audio_dir": "module_3/problem_pool_uita4m"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "I'll walk through this one with you. [event: problem_3_hv_1] Bar A: one [event: problem_3_hv_2] , two shaded [event: problem_3_hv_3] - that's [fraction numerator=2, denominator=3]two thirds[/fraction]. Bar B: one shaded [event: problem_3_hv_4] - [fraction numerator=1, denominator=3]one third[/fraction]. Bar C: three shaded [event: problem_3_hv_5]  - [fraction numerator=3, denominator=3]three thirds[/fraction] or 1.",
+                  "audio_dir": "module_3/problem_pool_s7suwv"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "That's right - [fraction numerator=2, denominator=3]two thirds[/fraction]. You identified two unit fractions added together.",
+          "audio_dir": "module_3/problem_pool_scv8a5"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "shaded": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Look at these two bars. Which fraction is bigger - the one on the top or the one on the bottom? How do you know?",
+          "audio_dir": "module_3/problem_pool_4008889912529296981",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bigger fraction.",
+            "tool": "select",
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember to count the shaded parts in each bar.",
+                  "audio_dir": "module_3/problem_pool_klrq2h"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Almost. Let's look more closely - [fraction numerator=3, denominator=4]three fourths[/fraction] has three parts shaded [event: problem_4_md_1], [fraction numerator=2, denominator=4]two fourths[/fraction] has two [event: problem_4_md_2]. Which has more?",
+                  "audio_dir": "module_3/problem_pool_zw7x9y"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Watch as I go through it with you: [event: problem_4_hv_1] Left bar: one [event: problem_4_hv_2], two [event: problem_4_hv_3], three [event: problem_4_hv_4] shaded. Right bar: one [event: problem_4_hv_5], two [event: problem_4_hv_6] shaded. Three is more than two, so [fraction numerator=3, denominator=4]three fourths[/fraction] is bigger.",
+                  "audio_dir": "module_3/problem_pool_50etl1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "[fraction numerator=3, denominator=4]Three fourths[/fraction] is bigger because it has three parts shaded instead of two - you're comparing the numerators (or top number).",
+          "audio_dir": "module_3/problem_pool_tkl33c"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 5,
+                "shaded": [
+                  0
+                ],
+                "read_only_parts": [
+                  0
+                ],
+                "lcm": 6
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "This bar already has one part shaded - that's [fraction numerator=1, denominator=6]one sixth[/fraction]. Now add more parts to make [fraction numerator=4, denominator=6]four sixths[/fraction].",
+          "audio_dir": "module_3/problem_pool_od8qwc",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click to shade 3 more parts.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "4/6"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember that you started with [fraction numerator=1, denominator=6]one sixth[/fraction]. Try adding three more parts to get to [fraction numerator=4, denominator=6]four sixths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_rmki6h"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Try one more time. [event: problem_5_md_1] See how the fraction grows as we add parts? [event: problem_5_md_2] You need to go from [fraction numerator=1, denominator=6]one sixth[/fraction] up to [fraction numerator=4, denominator=6]four sixths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_ul729a"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me show you. [event: problem_5_hv_1] Start with [fraction numerator=1, denominator=6]one sixth[/fraction] [event: problem_5_hv_2]. Add one - [fraction numerator=2, denominator=6]two sixths[/fraction] [event: problem_5_hv_3]. Add another - [fraction numerator=3, denominator=6]three sixths[/fraction] [event: problem_5_hv_4]. One more - [fraction numerator=4, denominator=6]four sixths[/fraction] [event: problem_5_hv_5].",
+                  "audio_dir": "module_3/problem_pool_pfg570"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "You added exactly three more sixths to make [fraction numerator=4, denominator=6]four sixths[/fraction]. You counted the parts correctly.",
+          "audio_dir": "module_3/problem_pool_dc3tfr"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/6",
+                "visual": 5,
+                "lcm": 6
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Let's work on this next one in steps. First, let's make [fraction numerator=2, denominator=6]two sixths[/fraction].",
+          "audio_dir": "module_3/problem_pool_4ht7ol",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade 2 parts to make 2/6.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "2/6"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember, we need exactly 2 parts shaded for [fraction numerator=2, denominator=6]two sixths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_y3guev"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Count carefully. [step: problem_6_md_1] See how it builds up? [step: problem_6_md_1] We need exactly 2 parts out of 6.",
+                  "audio_dir": "module_3/problem_pool_jnw3l6"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me show you. [step: problem_6_hv_1] I'll shade one part [step: problem_6_hv_2], then another [step: problem_6_hv_3]. That's [fraction numerator=2, denominator=6]two sixths[/fraction] [step: problem_6_hv_4].",
+                  "audio_dir": "module_3/problem_pool_jr27vs"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "[step: problem_6_suc_1] You've got it. That's [fraction numerator=2, denominator=6]two sixths[/fraction].",
+          "audio_dir": "module_3/problem_pool_qxko3k"
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Good! Now for the second step - add three more parts to reach [fraction numerator=5, denominator=6]five sixths[/fraction].",
+          "audio_dir": "module_3/problem_pool_eqzwif",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Shade 3 more parts to make 5/6.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "5/6"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. You have [fraction numerator=2, denominator=6]two sixths[/fraction] already. Add 3 more to get [fraction numerator=5, denominator=6]five sixths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_mysfky"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember, we need 5 [event: problem_7_md_1] parts total. You have 2, so add 3 more.",
+                  "audio_dir": "module_3/problem_pool_7ligie"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me help with this step. [event: problem_7_hv_1] We have 2 shaded [event: problem_7_hv_2]. Add three more: one [event: problem_7_hv_3], two [event: problem_7_hv_4], three [event: problem_7_hv_5]. Now we have [fraction numerator=5, denominator=6]five sixths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_iq9e4w"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "That's it. You built [fraction numerator=2, denominator=6]two sixths[/fraction] first as a foundation, then added three more to reach [fraction numerator=5, denominator=6]five sixths[/fraction]. Nice job working through that step by step.",
+          "audio_dir": "module_3/problem_pool_gnvtg4"
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "steps": [
+        {
+          "@type": "Step",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "FracShape",
+                "fractions": "1/4",
+                "visual": 5,
+                "shaded": [
+                  0
+                ],
+                "read_only_parts": [
+                  0
+                ],
+                "lcm": 4
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Look at this bar - it shows [fraction numerator=1, denominator=4]one fourth[/fraction]. Add one more part to make [fraction numerator=2, denominator=4]two fourths[/fraction].",
+          "audio_dir": "module_3/problem_pool_qh0wz6",
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Click one empty part.",
+            "tool": "paint",
+            "validator": {
+              "@type": "EqualShadedValidator",
+              "answer": "2/4"
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Remember, we started with one part. Add just one more.",
+                  "audio_dir": "module_3/problem_pool_nvgs7y"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "One part is already shaded. So we need to go from [fraction numerator=1, denominator=4]one fourth[/fraction] [event: problem_8_md_1] to [fraction numerator=2, denominator=4]two fourths[/fraction] [event: problem_8_md_1] by adding one more part.",
+                  "audio_dir": "module_3/problem_pool_g5s4bo"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Let me show you. [event: problem_8_hv_1] See this shaded part? [event: problem_8_hv_1] That's [fraction numerator=1, denominator=4]one fourth[/fraction]. I click here [event: problem_8_hv_1] - now [fraction numerator=2, denominator=4]two fourths[/fraction].",
+                  "audio_dir": "module_3/problem_pool_26e6f5"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Step",
+          "dialogue": "Good! You added one more fourth to make [fraction numerator=2, denominator=4]two fourths[/fraction].",
+          "audio_dir": "module_3/problem_pool_epewjc"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's continue to build on your knowledge about fractions equaling one.",
+      "audio_dir": "module_7/exit_check_7575709957624587759",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Take a look at these lines. Please click each line that shows a fraction equaling 1.",
+      "audio_dir": "module_7/exit_check_6037794903616216159",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "3/3"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "3/3",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "5/4",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/8",
+            "points": [
+              "8/8"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "8/8",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click each line that shows a fraction equaling 1.",
+        "tool": {
+          "@type": "Select",
+          "is_single": false
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            0,
+            2
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try taking another look at the top and bottom numbers. What pattern do we notice?",
+              "audio_dir": "module_7/exit_check_7014685582183732367"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the fractions 3/3 and 8/8 showing matching numerators and denominators"
+              },
+              "dialogue": "Try taking another look. A fraction shows 1 whole when the [event:696aeb7b9b658b6f]numerator and denominator are equal.",
+              "audio_dir": "module_7/exit_check_9194505562327656965"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select lines A and C"
+              },
+              "dialogue": "Can we work through this one together? [fraction numerator=3 denominator=3]Three thirds[/fraction] means [event:696aec6a0784de58]3 parts out of 3 total. That's all of them, so it equals 1. Same with [fraction numerator=8 denominator=8]eight eighths[/fraction]. All [event:696aecf194382e09]8 parts out of 8. But [fraction numerator=5 denominator=4]five fourths[/fraction] means [event:696af53097f67b5e] 5 parts when we only [event:696af57cf611ae38] need 4 for a whole. That's more than 1. This will come more easily the more we try these problems.",
+              "audio_dir": "module_7/exit_check_9030970570816247630"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. [event:696ae8e351bf4780]You recognized that the matching numbers mean that [fraction numerator=3 denominator=3]three thirds[/fraction] and [fraction numerator=8 denominator=8]eight eighths[/fraction] both equal 1.",
+          "audio_dir": "module_7/exit_check_7594470756335957619"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "This time, we have a line with sixth marks. Which fraction with the denominator 6 equals 1?",
+      "audio_dir": "module_7/exit_check_4485208956568390451",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the fraction with denominator 6 that equals 1.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=6]one sixth[/fraction]",
+            "[fraction numerator=5 denominator=6]five sixths[/fraction]",
+            "[fraction numerator=6 denominator=6]six sixths[/fraction]",
+            "[fraction numerator=6 denominator=1]six over one[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's count the jumps, where do six sixths take you?",
+              "audio_dir": "module_7/exit_check_6588970537433439330"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the counting from 0 to 1 in sixths"
+              },
+              "dialogue": "Six [event:696af6999752be9c] equal parts, all together, equals what?",
+              "audio_dir": "module_7/exit_check_6010206613528786098"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select option C - 6/6"
+              },
+              "dialogue": "We can work this one out together: each sixth is one equal jump. [event:696af7f5fe8866b1][fraction numerator=1 denominator=6]One sixth[/fraction], [event:696af87045fd9a24][fraction numerator=2 denominator=6]two sixths[/fraction], [event:696af897fdd11244][fraction numerator=3 denominator=6]three sixths[/fraction], [event:696af8aec5976fa8][fraction numerator=4 denominator=6]four sixths[/fraction], [event:696af8bdc6c62606][fraction numerator=5 denominator=6]five sixths[/fraction], and [event:696af8c8d57cfca9][fraction numerator=6 denominator=6]six sixths[/fraction] lands exactly at 1. [event:696af91738d7b3d3]Six equal parts make one whole. Nice. You're learning this concept.",
+              "audio_dir": "module_7/exit_check_2517349897061482355"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:696af5d5cf4f05e1]Right. [fraction numerator=6 denominator=6]Six sixths[/fraction] equals [event:696e74eea2bbafcb] 1. You're using the pattern we worked on earlier.",
+          "audio_dir": "module_7/exit_check_224917800418385085"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "If this point is [fraction numerator=2 denominator=4]two fourths[/fraction], what fraction comes two jumps after it?",
+      "audio_dir": "module_7/exit_check_109842060059358798",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "2/4"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "2/4"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the fraction.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=4]one fourth[/fraction]",
+            "[fraction numerator=4 denominator=4]four fourths[/fraction]",
+            "[fraction numerator=4 denominator=2]four halves[/fraction]",
+            "[fraction numerator=2 denominator=4]two fourths[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "From [fraction numerator=2 denominator=4]two fourths[/fraction], count two more fourths.",
+              "audio_dir": "module_7/exit_check_6646405162803730375"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the two intervals after 4/6"
+              },
+              "dialogue": "[fraction numerator=2 denominator=4]two fourths[/fraction] plus two [event:696afb2363f8ca0d] more fourths equals what?",
+              "audio_dir": "module_7/exit_check_2142142835442829420"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Select option B - 6/6"
+              },
+              "dialogue": "Let's count together: [event:696afb561514a86d][fraction numerator=2 denominator=4]two fourths[/fraction], [event:696afb718f09c33e]then [fraction numerator=3 denominator=4]three fourths[/fraction], [event:696afba146819224]then [fraction numerator=4 denominator=4]four fourths[/fraction]. [event:696afc13f33f63f3]That's two jumps after [fraction numerator=2 denominator=4]two fourths[/fraction].",
+              "audio_dir": "module_7/exit_check_1190353872903872075"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Two more fourths [event:696afa72d127d587] from [fraction numerator=2 denominator=4]two fourths[/fraction] gets us to [fraction numerator=4 denominator=4]four fourths[/fraction].",
+          "audio_dir": "module_7/exit_check_2476497282554941452"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You understand that fractions [event:69700a018d56c4df]equal 1 when the top and bottom numbers match. We can put this knowledge to work in even more ways.",
+      "audio_dir": "module_7/exit_check_1761384294785301150",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "1"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "4/4"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

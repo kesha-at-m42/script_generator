@@ -1,0 +1,1200 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned how to use [fraction numerator=1 denominator=2]one half[/fraction] and 1 whole as benchmarks to help compare fractions when the numerators and denominators are different.",
+      "audio_dir": "module_12/practice_3011713084199432582",
+      "scene": "Practice"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Using benchmarks like [fraction numerator=1 denominator=2]one half[/fraction] or 1 whole helps you figure out if a fraction is greater than, less than, or close to those amounts, so you can tell which fraction is bigger. Let's practice choosing the right benchmark and writing your comparisons with mathematical symbols.",
+      "audio_dir": "module_12/practice_459277837356805150"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Which fraction is greater: [fraction numerator=7 denominator=8]seven eighths[/fraction] or [fraction numerator=3 denominator=5]three fifths[/fraction]?",
+      "audio_dir": "module_12/practice_8537396825202925589",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 40,
+            "intervals": "1/8",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 40,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is greater: seven eighths or three fifths?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=7 denominator=8]seven eighths[/fraction]",
+            "[fraction numerator=3 denominator=5]three fifths[/fraction]",
+            "They're equal"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about where each one sits compared to the benchmark.",
+              "audio_dir": "module_12/practice_1297525160981041744"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the benchmark line at 1/2 on both bars, show 7/8 is much farther above"
+              },
+              "dialogue": "Remember - both are above [fraction numerator=1 denominator=2]one half[/fraction], but which is further above?",
+              "audio_dir": "module_12/practice_2315226458886540898"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting 7/8, show both positions relative to the benchmark"
+              },
+              "dialogue": "Let me show you. [fraction numerator=7 denominator=8]Seven eighths[/fraction] is almost at 1. [fraction numerator=3 denominator=5]Three fifths[/fraction] is just past [fraction numerator=1 denominator=2]one half[/fraction]. So [fraction numerator=7 denominator=8]seven eighths[/fraction] is greater than [fraction numerator=3 denominator=5]three fifths[/fraction].",
+              "audio_dir": "module_12/practice_3980457476357278080"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You saw that [fraction numerator=7 denominator=8]seven eighths[/fraction] is way above half while [fraction numerator=3 denominator=5]three fifths[/fraction] is just barely above.",
+          "audio_dir": "module_12/practice_8431083119266502328"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, let's write out your benchmark thinking. Please fill in the blanks with the correct symbol or word.",
+      "audio_dir": "module_12/practice_3807431207908907756",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 12,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 12,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Fill in the comparison: Is 3/4 greater than, less than, or equal to 1/2?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] > [fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] < [fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] = [fraction numerator=1 denominator=2]one half[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look at where [fraction numerator=3 denominator=4]three fourths[/fraction] stops on the bar compared to the benchmark line.",
+              "audio_dir": "module_12/practice_9015548824080821048"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight where 3/4 sits relative to the 1/2 benchmark"
+              },
+              "dialogue": "[fraction numerator=3 denominator=4]Three fourths[/fraction] goes past [fraction numerator=1 denominator=2]one half[/fraction], so it gets the greater than symbol.",
+              "audio_dir": "module_12/practice_7977905373644084753"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the correct answer, show the comparison visually"
+              },
+              "dialogue": "Let me walk you through this. [fraction numerator=3 denominator=4]Three fourths[/fraction] is above [fraction numerator=1 denominator=2]one half[/fraction], so [fraction numerator=3 denominator=4]three fourths[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_12/practice_63535980285948587"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. [fraction numerator=3 denominator=4]Three fourths[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction].",
+          "audio_dir": "module_12/practice_8487060645866535180"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now compare [fraction numerator=2 denominator=3]two thirds[/fraction] to the benchmark.",
+      "audio_dir": "module_12/practice_9066825116391200440",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Fill in the comparison: Is 2/3 greater than, less than, or equal to 1/2?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=2 denominator=3]two thirds[/fraction] > [fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=2 denominator=3]two thirds[/fraction] < [fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=2 denominator=3]two thirds[/fraction] = [fraction numerator=1 denominator=2]one half[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look at where [fraction numerator=2 denominator=3]two thirds[/fraction] stops on the bar compared to the benchmark line.",
+              "audio_dir": "module_12/practice_1046304063792471205"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight where 2/3 sits relative to the 1/2 benchmark"
+              },
+              "dialogue": "[fraction numerator=2 denominator=3]Two thirds[/fraction] also goes past [fraction numerator=1 denominator=2]one half[/fraction], so it also gets the greater than symbol.",
+              "audio_dir": "module_12/practice_1025853244573478374"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the correct answer, show the comparison visually"
+              },
+              "dialogue": "[fraction numerator=2 denominator=3]Two thirds[/fraction] is also above [fraction numerator=1 denominator=2]one half[/fraction], so [fraction numerator=2 denominator=3]two thirds[/fraction] is greater than [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_12/practice_8015603044818654846"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. [fraction numerator=2 denominator=3]Two thirds[/fraction] is also above the benchmark.",
+          "audio_dir": "module_12/practice_577688031977010219"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Both fractions are above [fraction numerator=1 denominator=2]one half[/fraction]. Since [fraction numerator=3 denominator=4]three fourths[/fraction] is farther from the benchmark than [fraction numerator=2 denominator=3]two thirds[/fraction], which fraction is greater?",
+      "audio_dir": "module_12/practice_2393017741387893884",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Complete the comparison: 3/4 ___ 2/3",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] < [fraction numerator=2 denominator=3]two thirds[/fraction]",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] = [fraction numerator=2 denominator=3]two thirds[/fraction]",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] > [fraction numerator=2 denominator=3]two thirds[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. You just proved that [fraction numerator=3 denominator=4]three fourths[/fraction] is farther from the benchmark than [fraction numerator=2 denominator=3]two thirds[/fraction] is. What does that tell you?",
+              "audio_dir": "module_12/practice_8457822957892135330"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show arrows from benchmark to each fraction, highlighting 3/4 has the longer distance"
+              },
+              "dialogue": "Since [fraction numerator=3 denominator=4]three fourths[/fraction] is farther from [fraction numerator=1 denominator=2]one half[/fraction], it's the greater fraction. The greater than symbol opens toward the bigger one.",
+              "audio_dir": "module_12/practice_5471661321720734635"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the correct answer, show the complete symbolic comparison"
+              },
+              "dialogue": "Your reasoning showed that [fraction numerator=3 denominator=4]three fourths[/fraction] is farther from the benchmark, which means it's larger. So we write: [fraction numerator=3 denominator=4]three fourths[/fraction] is greater than [fraction numerator=2 denominator=3]two thirds[/fraction]. The open part of the symbol faces the bigger fraction, and the point aims at the smaller one.",
+              "audio_dir": "module_12/practice_4243485605116764943"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. You showed your complete reasoning symbolically: both are above [fraction numerator=1 denominator=2]one half[/fraction], but since [fraction numerator=3 denominator=4]three fourths[/fraction] is farther, then [fraction numerator=3 denominator=4]three fourths[/fraction] is greater than [fraction numerator=2 denominator=3]two thirds[/fraction].",
+          "audio_dir": "module_12/practice_1619208285540230573"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's a strategic decision - which benchmark would work better for comparing [fraction numerator=5 denominator=6]five sixths[/fraction] and [fraction numerator=4 denominator=5]four fifths[/fraction]?",
+      "audio_dir": "module_12/practice_6715780875188696446",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 30,
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 30,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Choose your benchmark strategy.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Use [fraction numerator=1 denominator=2]one half[/fraction] benchmark",
+            "Use 1 benchmark"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look how close both fractions are to being complete.",
+              "audio_dir": "module_12/practice_8155060126681970104"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight how close both fractions are to 1 on the bars"
+              },
+              "dialogue": "Both are way above [fraction numerator=1 denominator=2]one half[/fraction], so they're hard to distinguish. Try using 1 instead - it's better when fractions cluster near the top.",
+              "audio_dir": "module_12/practice_7570401710524880900"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the 1 benchmark option, highlight the missing pieces"
+              },
+              "dialogue": "Let me show you. Both fractions are very close to 1, not [fraction numerator=1 denominator=2]one half[/fraction]. When fractions are almost complete, using 1 as the benchmark helps us compare what's missing.",
+              "audio_dir": "module_12/practice_1225298553704930872"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good choice. Both are very close to 1. Let's compare distances.",
+          "audio_dir": "module_12/practice_3219676715888316046"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "What's missing from each fraction to reach 1?",
+      "audio_dir": "module_12/practice_4619174079797298621",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "What's missing from each?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=5 denominator=6]five sixths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction], [fraction numerator=4 denominator=5]four fifths[/fraction] needs [fraction numerator=1 denominator=5]one fifth[/fraction]",
+            "[fraction numerator=5 denominator=6]five sixths[/fraction] needs [fraction numerator=1 denominator=5]one fifth[/fraction], [fraction numerator=4 denominator=5]four fifths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Think about what each fraction needs to become a whole. [fraction numerator=5 denominator=6]Five sixths[/fraction] needs how many sixths more?",
+              "audio_dir": "module_12/practice_5155581227618294446"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the missing piece on each bar"
+              },
+              "dialogue": "[fraction numerator=5 denominator=6]Five sixths[/fraction] equals 5 out of 6 parts. What's missing? [fraction numerator=4 denominator=5]Four fifths[/fraction] equals 4 out of 5 parts. What's missing?",
+              "audio_dir": "module_12/practice_3604502399980813364"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the correct answer, highlight the missing pieces on both bars"
+              },
+              "dialogue": "[fraction numerator=5 denominator=6]Five sixths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction] to reach 1. [fraction numerator=4 denominator=5]Four fifths[/fraction] needs [fraction numerator=1 denominator=5]one fifth[/fraction] to reach 1.",
+              "audio_dir": "module_12/practice_3027486098477175569"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. Since [fraction numerator=1 denominator=6]one sixth[/fraction] is less than [fraction numerator=1 denominator=5]one fifth[/fraction], then [fraction numerator=5 denominator=6]five sixths[/fraction] is greater than [fraction numerator=4 denominator=5]four fifths[/fraction]. That benchmark works here.",
+          "audio_dir": "module_12/practice_2291664724344662532"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Both of these fractions are way above [fraction numerator=1 denominator=2]one half[/fraction]. You'll need to think strategically about which benchmark helps. Which fraction is greater?",
+      "audio_dir": "module_12/practice_8044755915575829544",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "intervals": "1/8",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is greater?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=7 denominator=8]seven eighths[/fraction]",
+            "[fraction numerator=5 denominator=6]five sixths[/fraction]",
+            "They're equal"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Both are close to 1. Check what's missing from each.",
+              "audio_dir": "module_12/practice_1808385768128428292"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the missing pieces on both bars to help compare"
+              },
+              "dialogue": "Let's use the distance-from-1 benchmark. What does [fraction numerator=7 denominator=8]seven eighths[/fraction] need to make 1? What does [fraction numerator=5 denominator=6]five sixths[/fraction] need?",
+              "audio_dir": "module_12/practice_3814638720963239883"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting 7/8, show the missing pieces comparison"
+              },
+              "dialogue": "Let me show you. [fraction numerator=7 denominator=8]Seven eighths[/fraction] needs only [fraction numerator=1 denominator=8]one eighth[/fraction] more to reach 1. [fraction numerator=5 denominator=6]Five sixths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction] more. Since we know eighths are smaller pieces than sixths, [fraction numerator=1 denominator=8]one eighth[/fraction] is less than [fraction numerator=1 denominator=6]one sixth[/fraction]. That means [fraction numerator=7 denominator=8]seven eighths[/fraction] has less missing, so it's closer to 1. Therefore [fraction numerator=7 denominator=8]seven eighths[/fraction] is greater than [fraction numerator=5 denominator=6]five sixths[/fraction].",
+              "audio_dir": "module_12/practice_1556921120993739262"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You figured out that [fraction numerator=7 denominator=8]seven eighths[/fraction] is greater because it needs [fraction numerator=1 denominator=8]one eighth[/fraction] to complete, while [fraction numerator=5 denominator=6]five sixths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction]. Since eighths are smaller pieces, [fraction numerator=7 denominator=8]seven eighths[/fraction] is closer to 1.",
+          "audio_dir": "module_12/practice_4981165919537583222"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's a real-world problem. A recipe needs more than half a cup of sugar. You can measure either [fraction numerator=2 denominator=3]two thirds[/fraction] cup or [fraction numerator=3 denominator=4]three fourths[/fraction] cup.",
+      "audio_dir": "module_12/practice_397066318013428493",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 12,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 12,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which gives you more sugar?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=2 denominator=3]two thirds[/fraction] cup",
+            "[fraction numerator=3 denominator=4]three fourths[/fraction] cup"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Both are above [fraction numerator=1 denominator=2]one half[/fraction], but which one gives you MORE sugar?",
+              "audio_dir": "module_12/practice_2320132504529607759"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the distances from 1 on both bars"
+              },
+              "dialogue": "Look at how far each fraction is from 1. Which one is closer to being a full cup?",
+              "audio_dir": "module_12/practice_7945337239379165428"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting 3/4 cup, show the distance comparison"
+              },
+              "dialogue": "Let's work through this. [fraction numerator=2 denominator=3]Two thirds[/fraction] is [fraction numerator=1 denominator=3]one third[/fraction] away from 1. [fraction numerator=3 denominator=4]Three fourths[/fraction] is [fraction numerator=1 denominator=4]one fourth[/fraction] away from 1. Since [fraction numerator=1 denominator=4]one fourth[/fraction] is smaller than [fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=3 denominator=4]three fourths[/fraction] is closer to 1, which means [fraction numerator=3 denominator=4]three fourths[/fraction] gives you more sugar.",
+              "audio_dir": "module_12/practice_3621541555189612867"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [fraction numerator=3 denominator=4]Three fourths[/fraction] cup gives you more sugar than [fraction numerator=2 denominator=3]two thirds[/fraction].",
+          "audio_dir": "module_12/practice_8597888831142926599"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's use benchmarks to order these three fractions from least to greatest.",
+      "audio_dir": "module_12/practice_2387675998022788498",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 15,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 15,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 15,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Put these in order from smallest to largest.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=3 denominator=5]three fifths[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction]",
+            "[fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction], [fraction numerator=3 denominator=5]three fifths[/fraction]",
+            "[fraction numerator=3 denominator=5]three fifths[/fraction], [fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction]",
+            "[fraction numerator=2 denominator=3]two thirds[/fraction], [fraction numerator=3 denominator=5]three fifths[/fraction], [fraction numerator=1 denominator=3]one third[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Start by finding which one is below [fraction numerator=1 denominator=2]one half[/fraction] and then go from there.",
+              "audio_dir": "module_12/practice_2324945991867900286"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight each bar's position relative to the 1/2 benchmark"
+              },
+              "dialogue": "Use benchmarks for each one. Is [fraction numerator=1 denominator=3]one third[/fraction] above or below half? Is [fraction numerator=3 denominator=5]three fifths[/fraction] above or below half? Is [fraction numerator=2 denominator=3]two thirds[/fraction] above or below half?",
+              "audio_dir": "module_12/practice_1605245461604844697"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the correct ordering, show each fraction's position step by step"
+              },
+              "dialogue": "Let me show you step by step. [fraction numerator=1 denominator=3]One third[/fraction]: half of 3 is 1.5, we only have 1 - that's below half, so it's smallest. [fraction numerator=3 denominator=5]Three fifths[/fraction]: half of 5 is 2.5, we have 3 - that's above half. [fraction numerator=2 denominator=3]Two thirds[/fraction]: half of 3 is 1.5, we have 2 - that's also above half, but farther. So the order is: [fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=3 denominator=5]three fifths[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction].",
+              "audio_dir": "module_12/practice_463140661344871289"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice. You used benchmarks to order all three. You saw that [fraction numerator=1 denominator=3]one third[/fraction] is below half, while [fraction numerator=3 denominator=5]three fifths[/fraction] and [fraction numerator=2 denominator=3]two thirds[/fraction] are both above - and [fraction numerator=2 denominator=3]two thirds[/fraction] is farther above.",
+          "audio_dir": "module_12/practice_7515516372229389021"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Both fractions are very close to 1. How do you decide which is greater?",
+      "audio_dir": "module_12/practice_232172117943494900",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 40,
+            "intervals": "1/8",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "lcm": 40,
+            "intervals": "1/10",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is greater?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=7 denominator=8]seven eighths[/fraction]",
+            "[fraction numerator=9 denominator=10]nine tenths[/fraction]",
+            "They're equal"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look at what's missing from each to make 1.",
+              "audio_dir": "module_12/practice_7571089580189241931"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the missing pieces on both bars"
+              },
+              "dialogue": "[fraction numerator=7 denominator=8]Seven eighths[/fraction] needs [fraction numerator=1 denominator=8]one eighth[/fraction] more. [fraction numerator=9 denominator=10]Nine tenths[/fraction] needs [fraction numerator=1 denominator=10]one tenth[/fraction] more. Which piece is smaller?",
+              "audio_dir": "module_12/practice_4918074617317481995"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting 9/10, show the missing piece comparison"
+              },
+              "dialogue": "Since [fraction numerator=1 denominator=10]one tenth[/fraction] is less than [fraction numerator=1 denominator=8]one eighth[/fraction], that means [fraction numerator=9 denominator=10]nine tenths[/fraction] is closer to 1, so [fraction numerator=9 denominator=10]nine tenths[/fraction] is greater than [fraction numerator=7 denominator=8]seven eighths[/fraction].",
+              "audio_dir": "module_12/practice_6509335885419124146"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You picked [fraction numerator=9 denominator=10]nine tenths[/fraction].",
+          "audio_dir": "module_12/practice_6934818389195844935"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "How did you figure that out?",
+      "audio_dir": "module_12/practice_1706304983939043860",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "How did you figure that out?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=7 denominator=8]seven eighths[/fraction] needs [fraction numerator=1 denominator=8]one eighth[/fraction] to reach 1, and [fraction numerator=9 denominator=10]nine tenths[/fraction] needs [fraction numerator=1 denominator=10]one tenth[/fraction] - since [fraction numerator=1 denominator=10]one tenth[/fraction] is smaller, [fraction numerator=9 denominator=10]nine tenths[/fraction] is closer",
+            "9 is bigger than 7",
+            "The [fraction numerator=9 denominator=10]nine tenths[/fraction] bar looks fuller"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Think about what each fraction needs to reach 1.",
+              "audio_dir": "module_12/practice_3166789426666742938"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the missing pieces to show 1/10 is smaller than 1/8"
+              },
+              "dialogue": "Let's use the benchmark. [fraction numerator=7 denominator=8]Seven eighths[/fraction] needs [fraction numerator=1 denominator=8]one eighth[/fraction] more to complete. [fraction numerator=9 denominator=10]Nine tenths[/fraction] needs [fraction numerator=1 denominator=10]one tenth[/fraction] more. Which missing piece is smaller?",
+              "audio_dir": "module_12/practice_7196245226587690305"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the benchmark reasoning answer, show the complete explanation"
+              },
+              "dialogue": "Here's the benchmark thinking: [fraction numerator=7 denominator=8]seven eighths[/fraction] needs [fraction numerator=1 denominator=8]one eighth[/fraction] more to reach 1. [fraction numerator=9 denominator=10]Nine tenths[/fraction] needs [fraction numerator=1 denominator=10]one tenth[/fraction] more. Since tenths are smaller pieces than eighths, [fraction numerator=1 denominator=10]one tenth[/fraction] is less than [fraction numerator=1 denominator=8]one eighth[/fraction]. That means [fraction numerator=9 denominator=10]nine tenths[/fraction] has less missing, so it's closer to 1. Therefore [fraction numerator=9 denominator=10]nine tenths[/fraction] is greater than [fraction numerator=7 denominator=8]seven eighths[/fraction].",
+              "audio_dir": "module_12/practice_6436117332430958936"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You used the distance-from-1 benchmark to compare, not just the visual.",
+          "audio_dir": "module_12/practice_1261731740875065185"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Three students are reading the same book. Who has read the most?",
+      "audio_dir": "module_12/practice_6179069821883287204",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 30,
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 30,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "lcm": 30,
+            "intervals": "1/10",
+            "is_read_only": true
+          },
+          {
+            "@type": "Benchmark"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Who read the most?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Ana ([fraction numerator=5 denominator=6]five sixths[/fraction])",
+            "Ben ([fraction numerator=3 denominator=5]three fifths[/fraction])",
+            "Carlos ([fraction numerator=7 denominator=10]seven tenths[/fraction])"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Compare each to your benchmarks - first to [fraction numerator=1 denominator=2]one half[/fraction], then see how close each is to 1.",
+              "audio_dir": "module_12/practice_6122733316781647781"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight what's missing from each bar to complete"
+              },
+              "dialogue": "All three are above [fraction numerator=1 denominator=2]one half[/fraction]. Now check: [fraction numerator=5 denominator=6]five sixths[/fraction] needs [fraction numerator=1 denominator=6]one sixth[/fraction] to finish, [fraction numerator=3 denominator=5]three fifths[/fraction] needs [fraction numerator=2 denominator=5]two fifths[/fraction] to finish, and [fraction numerator=7 denominator=10]seven tenths[/fraction] needs [fraction numerator=3 denominator=10]three tenths[/fraction] to finish.",
+              "audio_dir": "module_12/practice_1811258616855324536"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting Ana, show all three distances from 1"
+              },
+              "dialogue": "Let's use benchmarks. All are above [fraction numerator=1 denominator=2]one half[/fraction]. Distance from 1: Ana needs [fraction numerator=1 denominator=6]one sixth[/fraction] more, Ben needs [fraction numerator=2 denominator=5]two fifths[/fraction] more, Carlos needs [fraction numerator=3 denominator=10]three tenths[/fraction] more. Since [fraction numerator=1 denominator=6]one sixth[/fraction] is smallest, Ana read most.",
+              "audio_dir": "module_12/practice_2998025383598440578"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You used the distance-from-1 benchmark to compare all three.",
+          "audio_dir": "module_12/practice_1856229060191271364"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "How did you know Ana read the most?",
+      "audio_dir": "module_12/practice_6069434233107666378",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "How did you know Ana read the most?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "All are above [fraction numerator=1 denominator=2]one half[/fraction], but [fraction numerator=5 denominator=6]five sixths[/fraction] is closest to finishing (only [fraction numerator=1 denominator=6]one sixth[/fraction] left)",
+            "[fraction numerator=5 denominator=6]five sixths[/fraction] has the biggest numerator",
+            "Ana's bar looks fullest"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Think about how we used benchmarks to compare - what does each fraction need to reach 1?",
+              "audio_dir": "module_12/practice_2550639380277022639"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show the benchmark comparison with distances from 1"
+              },
+              "dialogue": "That's not quite right - we can't just compare numerators when denominators are different. Think about how we used benchmarks to find which is closest to 1.",
+              "audio_dir": "module_12/practice_3442889558000374589"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the benchmark reasoning, show all three distances clearly"
+              },
+              "dialogue": "Here's the benchmark thinking: All three are above [fraction numerator=1 denominator=2]one half[/fraction], so we check distance from 1. Ana needs only [fraction numerator=1 denominator=6]one sixth[/fraction] to finish - that's the smallest gap.",
+              "audio_dir": "module_12/practice_2899093854220805356"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good work. You've developed strategies for comparing any fractions.",
+          "audio_dir": "module_12/practice_1215229726683526262"
+        }
+      }
+    }
+  ]
+}

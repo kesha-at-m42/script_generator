@@ -1,0 +1,328 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now that you are growing more familiar with this material, [event:6910e7e4f5ac9806] let's think about when we use fractions and number lines in real life.",
+      "audio_dir": "module_5/synthesis_1578938270777045145",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Imagine this line represents a walk from your house to school. If the whole walk takes 20 minutes, where would you be after 5 minutes?",
+      "audio_dir": "module_5/synthesis_1502253093938923777",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point where you are after 5 minutes",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Think about what fraction of the whole 20 minute walk you'd have completed after 5 minutes.",
+              "audio_dir": "module_5/synthesis_8211337653031459432"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Here's a hint: 5 minutes is one-fourth of 20 minutes total.",
+              "audio_dir": "module_5/synthesis_6667766717680608765"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]\nLet's figure this out together: If the whole walk is 20 minutes, then 5 minutes is [fraction numerator=1, denominator=4]one fourth[/fraction] of the way, right [event:problem1_heavy] here. ",
+              "audio_dir": "module_5/synthesis_1995507028591351779"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. After 5 minutes, you would be [event:696175b943002006] [fraction numerator=1 denominator=4]one fourth[/fraction] of the way to school.",
+          "audio_dir": "module_5/synthesis_8401277747780116926"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now imagine you continue walking and stop again after 10 more minutes to pet a dog. Where would you be after walking for 15 minutes?",
+      "audio_dir": "module_5/synthesis_4613838182522671112",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark where you stopped the second time after 15 minutes.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/4",
+            "3/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost there. 15 out of 20 minutes means three out of four parts of your walk. Try placing [fraction numerator=3, denominator=4]three fourths[/fraction].",
+              "audio_dir": "module_5/synthesis_7172427879224678606"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me help you think about this: You've walked 15 minutes out of 20 total. That's three out of four parts.",
+              "audio_dir": "module_5/synthesis_1955586329692951906"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's solve this one as a team: The walk is 20 minutes total, which we can split into four 5-minute sections. After 15 minutes, you've completed three of those sections - that's [fraction numerator=3 denominator=4]three fourths[/fraction].",
+              "audio_dir": "module_5/synthesis_8841762760105180814"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. The number line helps us see you're almost at school,  just [event:69617732272801f3] one more fourth to go!",
+          "audio_dir": "module_5/synthesis_4709261700000109141"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's explore another real world example. Two friends are reading the same book. Maria has read [fraction numerator=2, denominator=3]two thirds[/fraction] of the book. Sam has read [fraction numerator=3, denominator=4]three fourths[/fraction] of the book. Using these lines, can you show me where each person is in the book? Use the top line for Maria and the bottom line for Sam.",
+      "audio_dir": "module_5/synthesis_3298266627236059228",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/3",
+            "labels": false
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark [fraction numerator=2, denominator=3]two thirds[/fraction] on the top line, and [fraction numerator=3, denominator=4]three fourths[/fraction] on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Remember, [fraction numerator=2, denominator=3]two thirds[/fraction] means two out of three equal parts, [fraction numerator=3, denominator=4]three fourths[/fraction] means three out of four equal parts.",
+              "audio_dir": "module_5/synthesis_7953406126317783941"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]\nLet's work on this together. For the top line, make three equal spaces and [event:696150e2b21a5f5d] count two. For the bottom, make four equal spaces and [event:69615a8d0ca478fc] count three.",
+              "audio_dir": "module_5/synthesis_4611174753799801781"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]\nLet me show you both: [event:691b79e50c618a0e] First, [fraction numerator=2, denominator=3]two thirds[/fraction] on top,  I make three equal parts and mark [event:69615cf62bd810c6] two spaces. Then [event:691b7d16a29f9cf1]  [fraction numerator=3, denominator=4]three fourths[/fraction] on bottom , four equal parts mark [event:69615d325560e46d] three spaces. [event:6966d60690075131]",
+              "audio_dir": "module_5/synthesis_2862460449351289686"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "??????"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Who has read more: Maria who is represented on the top number line, or Sam who is represented on the bottom number line?",
+      "audio_dir": "module_5/synthesis_6714479112495388912",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select who read more: Maria or Sam.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Maria",
+            "Sam",
+            "they are the same"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look again. The top number line represents how much Maria has read and the bottom number line represents how much Sam has read. Which mark is closer to 1?",
+              "audio_dir": "module_5/synthesis_8179963410916010723"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look again. [event:problem4_med] Which mark is closer to 1?",
+              "audio_dir": "module_5/synthesis_7539809013667581770"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Sam at [event:problem4_heavy] [fraction numerator=3, denominator=4]three fourths[/fraction]has read more. See how [fraction numerator=3, denominator=4]three fourths[/fraction] is [event:69615f5845593202] closer to 1?",
+              "audio_dir": "module_5/synthesis_9007246160336343084"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. Sam at [fraction numerator=3, denominator=4]three fourths[/fraction] has read more than Maria at [fraction numerator=2, denominator=3]two thirds[/fraction]. The [event:6910e93480838ab0] number line helps us see who's closer to finishing.",
+          "audio_dir": "module_5/synthesis_5704885769158195494"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": " [event:6910ea9b50710013] How did you decide where to place those marks? [event:6910eac77481bf1d]Did you count spaces? Did you picture the divisions in your [event:6910eb5b4c964fce] head? Figure out what strategies work for you, and keep using them.",
+      "audio_dir": "module_5/synthesis_2698667386135222636",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look at one more example from the real world. Let's say you need to share a pizza with your friends. To do that, you're really thinking about fractions on a line from [event:6910ecaa781a2145]  0 to the whole thing, and deciding how to create [event:6910ee38ef6f769f] equal pieces for everyone.",
+      "audio_dir": "module_5/synthesis_624738562803965841"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "So you didn't just learn to place marks on a line today. You learned a skill that helps you think about parts of anything. Time, distance, amounts to share with friends. Now when you see fractions in the world, you'll know much better what they mean and where they belong.",
+      "audio_dir": "module_5/synthesis_7493027027647900490",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now you know how to split things into equal parts and name each piece. You'll use fractions a lot, like when you're sharing food with friends or figuring out how much time is left in class. It's useful math that shows up in real life all the time!",
+      "audio_dir": "module_5/synthesis_4181381914872346679"
+    }
+  ]
+}

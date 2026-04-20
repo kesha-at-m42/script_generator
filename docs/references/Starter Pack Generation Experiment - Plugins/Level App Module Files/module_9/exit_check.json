@@ -1,0 +1,332 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned that equivalent fractions share the same position. This idea will help us next time when we compare different fractions. Let's try applying what you've discovered!",
+      "audio_dir": "module_9/exit_check_8756077074790943963",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Which fraction is equivalent to [event:697feee893dc027b] [fraction numerator=1 denominator=4]one fourth[/fraction]? Can you place it [event:697feefa054a0632] on the number line?",
+      "audio_dir": "module_9/exit_check_8787332044339245808",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "points": [
+              "1/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "1/4"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/8",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the fraction that equals [fraction numerator=1 denominator=4]one fourth[/fraction] onto the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "2/8"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "3/8"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "2/6"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "0",
+            "2/8",
+            "1"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's try again. Count where [fraction numerator=1 denominator=4]one fourth[/fraction] goes, what fraction does it match on the bottom line?",
+              "audio_dir": "module_9/exit_check_9089037868543727216"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Eighths marks appear on the number line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Not quite. Here's a hint: [fraction numerator=1 denominator=4]one fourth[/fraction] is [event:697fecf0bbaab2c7] here. Let's count eighths: [event:6980f80b97768341] [fraction numerator=1 denominator=8]one eighth[/fraction], [fraction numerator=2 denominator=8]two eighths[/fraction] lands at the [event:6980f93378198375] same spot.",
+              "audio_dir": "module_9/exit_check_4224504413406997722"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animated counting showing 2/8 landing at same position as 1/4"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's work through this together. [fraction numerator=1 denominator=4]One fourth[/fraction] is at  [event:697fecf0bbaab2c7] this point. Now lets count eighths: [event:6980fa20cec58a18] [fraction numerator=1 denominator=8]one eighth[/fraction] is halfway to [fraction numerator=1 denominator=4]one fourth[/fraction], [event:6980fa4a47919eb0] [fraction numerator=2 denominator=8]two eighths[/fraction] reaches exactly where [event:6980fa9f4f87b8df] [fraction numerator=1 denominator=4]one fourth[/fraction] is. So [event:6980fad26043df98] [fraction numerator=2 denominator=8]two eighths[/fraction] equals [fraction numerator=1 denominator=4]one fourth[/fraction].",
+              "audio_dir": "module_9/exit_check_3595144526479174878"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! You figured out that [event:6980090c7973a2d4]  [fraction numerator=2 denominator=8]two eighths[/fraction] equals [event:69800960431aaaaa] [fraction numerator=1 denominator=4]one fourth[/fraction]!",
+          "audio_dir": "module_9/exit_check_9126446432375361891"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "This bar shows [event:6980daa59e35d008] [fraction numerator=3 denominator=3]three thirds[/fraction]. Where does [fraction numerator=3 denominator=3]three thirds[/fraction] land on the number line?",
+      "audio_dir": "module_9/exit_check_3028280156402262393",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": true,
+            "lcm": 3,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at [fraction numerator=3 denominator=3]three thirds[/fraction] on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. [fraction numerator=3 denominator=3]Three thirds[/fraction] means all 3 parts out of 3, that equals 1.",
+              "audio_dir": "module_9/exit_check_3819649546633373110"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "All 3 parts flash in the bar"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Here's how I think through this: You have [event:6980e12edbdead3a] 3 parts and you're taking all 3, that's [event:6980e39c57d3d646] everything, which equals 1.",
+              "audio_dir": "module_9/exit_check_8462810644627474276"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Counting animation showing each third, landing at 1"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through this together. Count: [event:6980dba7c3778738] [fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction], [fraction numerator=3 denominator=3]three thirds[/fraction]. We have [event:6980de3366210d8b] all three parts out of three, that's the complete whole, which equals 1.",
+              "audio_dir": "module_9/exit_check_7259273715204879985"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right! You know that [event:6980e4dd424f6ff0] [fraction numerator=3 denominator=3]three thirds[/fraction] equals [event:6980e787ee057cc6]1.",
+          "audio_dir": "module_9/exit_check_7378550882402671689"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at the top line, it shows [event:6980e9faeb305561] [fraction numerator=4 denominator=3]four thirds[/fraction]. Which fraction from the bank is equivalent to [event:6980ea1669c867e9] [fraction numerator=4 denominator=3]four thirds[/fraction]? place it on the bottom line at the same position.",
+      "audio_dir": "module_9/exit_check_6365698211529881517",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "4/3"
+            ],
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "4/3"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the fraction that equals [fraction numerator=4 denominator=3]four thirds[/fraction] onto the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "8/6"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "6/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "4/6"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "0",
+            "8/6",
+            "2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's think about this. [fraction numerator=4 denominator=3]Four thirds[/fraction] lands here on the top line. Which fraction is equivalent? Remember, equivalent fractions share the same position.",
+              "audio_dir": "module_9/exit_check_7020919154303726351"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Position on both lines pulses"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] You're working on it. Here's a method that helps: [fraction numerator=4 denominator=3]four thirds[/fraction] is four [d:0.1] thirds. Lets count: [event:6980ea556e6cc051] [fraction numerator=3 denominator=3]three thirds[/fraction] equals 1, [fraction numerator=4 denominator=3]four thirds[/fraction] is [event:6980ead8d363c597] one more fourth past that. Now [event:6980eb0e6d976ec6] think: for [fraction numerator=8 denominator=6]eight sixths[/fraction],[d:0.1] [event:6980eb9672fd1296] [fraction numerator=6 denominator=6]six sixths[/fraction] equals 1, then [fraction numerator=7 denominator=6]seven sixths[/fraction], [fraction numerator=8 denominator=6]eight sixths[/fraction]. Thats the same position!",
+              "audio_dir": "module_9/exit_check_5509722253799487585"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animated counting on both lines showing 8/6 aligning with 4/3"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you. [fraction numerator=4 denominator=3]Four thirds[/fraction] on the top lands [event:6980f06ea0f83361] here, past [event:6980f251154fef9f] 1. For [fraction numerator=8 denominator=6]eight sixths[/fraction] on the bottom. count like this:  [event:6980efd42f5620e7] [fraction numerator=6 denominator=6]six sixths[/fraction] equals 1, [fraction numerator=7 denominator=6]seven sixths[/fraction], [fraction numerator=8 denominator=6]eight sixths[/fraction], that lands at the same spot as [fraction numerator=4 denominator=3]Four thirds![/fraction] [event:6980f0211a782ffd]. When you double numerator and denominator, you get an equivalent fraction at the same position.",
+              "audio_dir": "module_9/exit_check_8585486701452800194"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Excellent! You recognized that [fraction numerator=8 denominator=6]eight sixths[/fraction] is [event:6980f34b2fc97b24] equivalent to [fraction numerator=4 denominator=3]four thirds[/fraction]. They both land at the [event:6980f3af64a73440] same position, that proves they're equivalent!",
+          "audio_dir": "module_9/exit_check_3754256373405101474"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Great work! You're showing that you really understand how position shows equivalence!",
+      "audio_dir": "module_9/exit_check_760342414195892241",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

@@ -1,0 +1,770 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Great work placing fractions beyond one whole! Now let's expand on what you discovered.",
+      "audio_dir": "module_6/synthesis_2435175779721482996",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's a number line with fourths. See how [event:696a62a0afbb7dda] [fraction numerator=4 denominator=4]four fourths[/fraction] equals 1 and [event:696a62de30bf5200]  [fraction numerator=8 denominator=4]eight fourths[/fraction] equals 2? The pattern continues with equal jumps.",
+      "audio_dir": "module_6/synthesis_5413174044412670522",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "4/4",
+              "8/4"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now here's a line for thirds. If we follow the same pattern, where would [fraction numerator=6 denominator=3]six thirds[/fraction] go? Use the pattern you see above to help you place it.",
+      "audio_dir": "module_6/synthesis_2227047348552798321",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "4/4",
+              "8/4"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": false,
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=6 denominator=3][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look at the fourths above. How many fourths make 2? Same idea with thirds, how many thirds make 2?",
+              "audio_dir": "module_6/synthesis_5793227404671154608"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pattern equation appears showing 3/3=1 and 6/3=2"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Remember the pattern: [fraction numerator=3 denominator=3]three thirds[/fraction] equals 1[event:696a71713476c7b8] , where should [fraction numerator=6 denominator=3]six thirds[/fraction] go?",
+              "audio_dir": "module_6/synthesis_5282633994056737096"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights both 8/4 and 6/3 at position 2"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you: Just like [event:696a76495cdb1dca] [fraction numerator=8 denominator=4]eight fourths[/fraction] equals 2, [fraction numerator=6 denominator=3]six thirds[/fraction] also equals [event:696a76d549b8e6f9] 2. Different denominators, same destination.",
+              "audio_dir": "module_6/synthesis_8424268291050673440"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly! Just like [event:696a6681945f3ab0] [fraction numerator=8 denominator=4]eight fourths[/fraction] equals 2, so does [event:696a6e9d44cebff7] [fraction numerator=6 denominator=3]six thirds[/fraction]. [event:696a7737a661ef9a] Different denominators, same pattern. [event:696a6ec9b2302871] equal jumps all the way through.",
+          "audio_dir": "module_6/synthesis_4154305975403945357"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Whether you use fourths or thirds or any other fraction, the pattern stays consistent. That's what makes math powerful! Now you try both. On the [event:696a7ffbf2b9f32b] top line, place [fraction numerator=6 denominator=4]six fourths[/fraction].",
+      "audio_dir": "module_6/synthesis_416415971042357292",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=6 denominator=4][/fraction]",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's check the spacing. For [fraction numerator=6 denominator=4]six fourths[/fraction], count six equal fourths from 0. For [fraction numerator=4 denominator=3]four thirds[/fraction], count four equal thirds from 0.",
+              "audio_dir": "module_6/synthesis_1222298401823662468"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Arrows show jump patterns on both lines"
+              },
+              "dialogue": "Remember: The [event:696a79c8b78f07cf] denominator tells you the jump size, the [event:696fd1798bc1763e] numerator tells you how many jumps. Count carefully on each line.",
+              "audio_dir": "module_6/synthesis_5357123805002882254"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System places both fractions with counting animation"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me help: [fraction numerator=6 denominator=4]Six fourths[/fraction] is [event:696a7d94f86fe6d3] 6 jumps of [fraction numerator=1 denominator=4]one fourth[/fraction], landing between [event:696a7e81e1f04df2] 1 and 2[event:Clear_Arrows_Highlights].",
+              "audio_dir": "module_6/synthesis_4199189153829552278"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! fraction numerator=6 denominator=3]six fourths[/fraction] goes [event:696ffd4c788d20e8] right there, between 1 and 2.",
+          "audio_dir": "module_6/synthesis_2219812495431103074"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "On the [event:696a806c7af4da3f] bottom line, place [fraction numerator=4 denominator=3]four thirds[/fraction].",
+      "audio_dir": "module_6/synthesis_7519603363459664349",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1",
+              "6/4",
+              "2"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=4 denominator=3][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "4/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "4/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's check the spacing. For [fraction numerator=6 denominator=4]six fourths[/fraction], count six equal fourths from 0. For [fraction numerator=4 denominator=3]four thirds[/fraction], count four equal thirds from 0.",
+              "audio_dir": "module_6/synthesis_4897002472469824007"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Remember: The [event:696fe4b9ae5de75a] denominator tells you the jump size, the [event:696fe4901faecfc3] numerator tells you how many jumps. Count carefully on each line.",
+              "audio_dir": "module_6/synthesis_1374052898960516317"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me help: [fraction numerator=4 denominator=3]Four Thirds[/fraction] is [event:696fe0299edd6ff8] 4 jumps of [fraction numerator=1 denominator=3]one Third[/fraction], landing between [event:696fe0a595720df2] 1 and 2.",
+              "audio_dir": "module_6/synthesis_1872955198905414364"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice work! Both [fraction numerator=6 denominator=4]six fourths[/fraction] and [fraction numerator=4 denominator=3]four thirds[/fraction] are between [event:696ab5e32f02ff46] 1 and 2. Even though they use different denominators, you counted equal jumps from [event:696ab65dfc5a7898] 0 for both. The denominator told you the jump size, the numerator told you how many jumps. That pattern works for any fraction!",
+          "audio_dir": "module_6/synthesis_2264502546548476054"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "These fractions show up in everyday life. Here's an example, running laps: You complete one full lap plus another quarter lap.",
+      "audio_dir": "module_6/synthesis_5412257216515037830",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "7/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "4/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction shows this?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 2
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "One whole lap is [fraction numerator=4 denominator=4]four fourths[/fraction]. Add one more quarter. That's one more fourth.",
+              "audio_dir": "module_6/synthesis_247470425298870276"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Equation 1 + 1/4 = 5/4 appears"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] A quarter lap is [event:696fd3d4047df470] [fraction numerator=1 denominator=4]one fourth[/fraction][d:0.2]. [event:696fd40100e7d200] One whole plus [fraction numerator=1 denominator=4]one fourth[/fraction][d:0.2] equals [fraction numerator=5 denominator=4]five fourths[/fraction].",
+              "audio_dir": "module_6/synthesis_8282502544688118877"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights the 5/4 line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me help: [event:696a844c5c279a18] One full lap is [fraction numerator=4 denominator=4]four fourths[/fraction]. [event:696a84b58f3946a7] One quarter more makes [fraction numerator=5 denominator=4]five fourths[/fraction]. That's the[event:Clear_Arrows_Highlights]  [event:696a89720a14c742] bottom line.",
+              "audio_dir": "module_6/synthesis_4422579060678466692"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [event:696a89b267001c73] One lap plus a quarter is [fraction numerator=5 denominator=4]five fourths[/fraction] laps.",
+          "audio_dir": "module_6/synthesis_4977189628674379556"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another example, Pizza: Your family orders 2 pizzas but only eats [fraction numerator=7 denominator=4]seven fourths[/fraction] of the pizza.",
+      "audio_dir": "module_6/synthesis_7875378447274255194",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "7/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "4/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction is this?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 0
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite, count each line carefully to find which point is 7 spaces from 0",
+              "audio_dir": "module_6/synthesis_4234772555563671581"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Range between 1 and 2 highlighted on fourths line"
+              },
+              "dialogue": "[fraction numerator=7 denominator=4]Seven fourths[/fraction] is more than [event:696a8df1dff79bfa] 1 whole but less than [event:696a8e7c3cf3ff85] 2. Which point is 7 spaces from 0?",
+              "audio_dir": "module_6/synthesis_3518509842286887385"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights the 7/4 line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you: [fraction numerator=7 denominator=4]Seven fourths[/fraction] is here [event:696a91da2bc37c71] , [event:696a922c5d9b165c] thats 7 spaces from 0 on this number line.",
+              "audio_dir": "module_6/synthesis_5000441154187254355"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly! [fraction numerator=7 denominator=4]Seven fourths[/fraction] means [event:696a8ebd032439af] more than one whole pizza, but not quite two.",
+          "audio_dir": "module_6/synthesis_5563884476494922021"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's my last example, Time: A project takes 1 hour and 20 minutes. Since 20 minutes is [fraction numerator=1 denominator=3]one third[/fraction] of an hour, what fraction would show the total time?",
+      "audio_dir": "module_6/synthesis_3304876903458725883",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "7/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "4/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which fraction shows this?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 1
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "1 hour plus [fraction numerator=1 denominator=3]one third[/fraction] of an hour. How many thirds is that total?",
+              "audio_dir": "module_6/synthesis_5161447746646306343"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Equation 3/3 + 1/3 = 4/3 appears"
+              },
+              "dialogue": "One hour is [event:696a8c0d773cd3f8] here. Add [fraction numerator=1 denominator=3]one third[/fraction] more for 20 minutes.",
+              "audio_dir": "module_6/synthesis_3896087924413195796"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System shows the equation and highlights 4/3"
+              },
+              "dialogue": "Let me help: [event:696a8cd774a5fd49] [fraction numerator=3 denominator=3]Three thirds[/fraction] equals [event:696a8c88c001a241] 1 hour. Plus [event:696a8d656d44dad0] [fraction numerator=1 denominator=3]one third[/fraction] for 20 minutes equals [event:696a8d8cdd8273f5] [fraction numerator=4 denominator=3]four thirds[/fraction] hours.",
+              "audio_dir": "module_6/synthesis_5225595142505362144"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=4 denominator=3]Four thirds[/fraction] hours. [event:696a9766dd5408ae] one hour plus [fraction numerator=1 denominator=3]one third[/fraction] more.",
+          "audio_dir": "module_6/synthesis_5971839625411664057"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:Clear_Arrows_Highlights] Anytime something goes [event:696a9a76e44e8740] beyond one whole, you can describe it with an [event:696a9b3c3322b965] improper fraction. There are different methods for understanding improper fractions, some people [event:69700793645105c2] count jumps, some people [event:697007fd0a11f72f] look for consistant spacing , and some people look for [event:6970088572e55915] fractions past 1. ",
+      "audio_dir": "module_6/synthesis_5620610282254199142"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Think about your learning today. What helped you most when working with fractions beyond one whole on the number line?",
+      "audio_dir": "module_6/synthesis_8023347664100962297",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You started placing fractions between [event:696a9ca82477fa21] 0 and 1. Now you can place them anywhere on the number line - [event:696aa0eb5d169f8b] even beyond 1. You learned that [fraction numerator=8 denominator=4]eight fourths[/fraction] equals 2 by keeping equal jumps going. [event:Clear_Arrows_Highlights] Seeing patterns that continue no matter where you are, that's mathematical thinking!",
+      "audio_dir": "module_6/synthesis_6230798858771851876",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "7/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "4/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "points": [
+              "5/4"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Next time, we'll explore more patterns with these fractions. You're ready!",
+      "audio_dir": "module_6/synthesis_5882486582884587820"
+    }
+  ]
+}

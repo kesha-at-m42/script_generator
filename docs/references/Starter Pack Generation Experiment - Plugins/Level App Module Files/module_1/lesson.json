@@ -1,0 +1,892 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now that you've spotted [event:68fa6ab6209ce5db][vocab]equal parts[/vocab], let's learn exactly how to make [vocab]equal parts[/vocab] and name them.",
+      "audio_dir": "module_1/lesson_ba1m3s",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals": "1/2"
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:6908ece24eda6a43]Before we divide it, let's think about this for a second: This bar [event:68fa6beed22740ab] is our [vocab]whole[/vocab]. It's like one chocolate bar. Everything we do next is a piece of THIS [vocab]whole[/vocab][event:6908ec6c9a339457], not a different one.",
+      "audio_dir": "module_1/lesson_icj381",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 6
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fa6d3d5d25033c]Let's divide it into [vocab]equal parts[/vocab]. Watch first.[delay] [event:68fa6df96e1a9c90]",
+      "audio_dir": "module_1/lesson_x8b1fl"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Oh, and here's something helpful, if you make a cut you don't like, [event:68fa6f0d048d828e]like placing a cut here...",
+      "audio_dir": "module_1/lesson_vcrs3z"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You can just hover over the line and click with the eraser. Watch [event:6908ed84b24d09b0]!",
+      "audio_dir": "module_1/lesson_bdgcxs"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now you try. hover over that middle line and click to erase it.",
+      "audio_dir": "module_1/lesson_8act89",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 8,
+            "intervals": "1/2"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Hover over the line and click to erase it.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Good. Now let's split the bar into two. Click right in the middle to make two [vocab]equal parts[/vocab].",
+      "audio_dir": "module_1/lesson_2zxz6y",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Partitioning",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click once in the middle to split the bar into 2 equal parts.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/2",
+            "1/2",
+            "2/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try clicking right in the middle to split it evenly.",
+              "audio_dir": "module_1/lesson_2vdt91"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:690a5d53fe338284] By finding the exact center of the bar, we'll make two equal halves.",
+              "audio_dir": "module_1/lesson_g7ph05"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me show you. [event:creating_halves_hv] Watch as I click right in the middle to make two [vocab]equal parts[/vocab]. See? Now both parts are the same size.",
+              "audio_dir": "module_1/lesson_5q8tzo"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You made two [vocab]equal parts[/vocab]: two halves[event:6908edffb57438ca]. See how [event:68fa7214113e92af]each part is exactly the same size?",
+          "audio_dir": "module_1/lesson_8517304187604168670"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now click one of those parts to shade it.",
+      "audio_dir": "module_1/lesson_culbhe",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on 1 of the 2 parts to shade it.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/2"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not exactly. Try clicking directly on one of the two parts to shade it in.",
+              "audio_dir": "module_1/lesson_wfnytn"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_halves_md] We're trying to shade in one of the two parts. Click directly on one part.",
+              "audio_dir": "module_1/lesson_1ah2uo"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_halves_hv] I'll shade a part for you. See how one out of two parts is now shaded? That shows one-half.",
+              "audio_dir": "module_1/lesson_6sjegi"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. You selected one part out of two [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_107289637901246476"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:690258cea8269b9a] When we split something into [vocab]equal parts[/vocab] we make all the parts the same size [event:68fa75d430d5b79d]. That's important for what we're learning about fractions. To make\n [vocab]equal parts[/vocab], some kids picture folding the shape, while others might measure it in their mind to check if the parts match. Think about how you did it.",
+      "audio_dir": "module_1/lesson_cxam3s"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fa77a2954a9e89]When mathematicians divide something into [event:695fe4d212927d6c] [vocab]equal parts[/vocab] like you just did, they call it [event:690516c0085fdbe7][vocab]PARTITIONING[/vocab].[event:68fa78c6f3b9c188]  You [vocab]partitioned[/vocab] the bar into two [vocab]equal parts[/vocab]. [vocab]Partition[/vocab] is our special math word for dividing one whole into equal-sized sections.",
+      "audio_dir": "module_1/lesson_68hxy1",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 4
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Partitioning",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's see where this thinking takes us. [event:68fa7a31dfae18ed]Here's a new [vocab]whole[/vocab][event:6908f0d2f05a5312]  bar. This is a strategy to make four [vocab]equal parts[/vocab]: first split it in half, [event:68fa7ae9884f7044] then split each half in half again.[event:68fa7d51d8e5726b]  That gives you four equal sections.",
+      "audio_dir": "module_1/lesson_y8yp8m",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 8
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Equal Parts",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:68fa81fa20b092bb]Your turn! Click once in the middle, then click once in each half.",
+      "audio_dir": "module_1/lesson_au2ypo",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 8
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Equal Parts",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click 3 times to split the bar into 4 equal parts.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/4",
+            "1/4",
+            "2/4",
+            "3/4",
+            "4/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Try it again, and remember - first click in the middle, then click in the middle of each half.",
+              "audio_dir": "module_1/lesson_733tcx"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show the strategy again. Click here [event:690d19c7df69a272]for half, then here, then here.",
+              "audio_dir": "module_1/lesson_5kgak6"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] I'll walk us through this problem: [event:690d17f58381fed7] First I divide in half, then I divide the left half, then the right half. See how all four parts match?",
+              "audio_dir": "module_1/lesson_31gddr"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [event:690518d58e18901b]Four [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_5366806506804971382"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now shade just one part.",
+      "audio_dir": "module_1/lesson_uq9mz9",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on one of the 4 parts to shade it.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/4"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Remember, we just need to shade one of the four parts. Click on any one section.",
+              "audio_dir": "module_1/lesson_3s6msu"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_fourths_md] Look for one of the four equal parts you made. Click on just that one part to shade it.",
+              "audio_dir": "module_1/lesson_eo8oyb"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_fourths_hv] I'll shade one part for you. See how one out of four parts is shaded? That shows one out of four.",
+              "audio_dir": "module_1/lesson_44zwug"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. One[event:690519253051a20c]  out of four [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_2819782114848089345"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:69051dd9800c5073]When all parts are the same size,[event:68fa8479d24a53fa]  we call them[event:69051d261f9991e4]  [vocab]EQUAL PARTS[/vocab]. That's our special math word for parts that match perfectly.",
+      "audio_dir": "module_1/lesson_yigax3"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look more closely. See this symbol: [event:696548048e56e267] [fraction numerator=1, denominator=4] one fourth [/fraction] ? [event:695fe91a05f084e4] That's how we write one[event:69051f58d2d04fb9] [delay]  out  [event:695fef4f66f00d93] of four[event:69051f7ab815d49e] [delay]  [vocab]equal parts[/vocab].' [event:695fef7f246695a0] The bottom [event:68faa0c94c0de8d4] number tells us how many [vocab]equal parts[/vocab] we made. The top number[event:6905200a585d4bef]  tells us how many parts [event:69052041a58f30dd] we selected.",
+      "audio_dir": "module_1/lesson_kr01jy",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's keep exploring. [event:690522d661750636] Here's another [vocab]whole[/vocab] bar. Can you [vocab]partition[/vocab] this one into three [vocab]equal parts[/vocab]?",
+      "audio_dir": "module_1/lesson_7r98fi",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 6
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click 2 times to partition this bar into 3 equal parts.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/3",
+            "1/3",
+            "2/3",
+            "3/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try again. Three [vocab]equal parts[/vocab] means two dividing lines. Try to space them evenly.",
+              "audio_dir": "module_1/lesson_mxpnca"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Here's a strategy: Imagine the bar as three same-sized pieces. [event:creating_thirds_md] Make two cuts to create three equal sections.",
+              "audio_dir": "module_1/lesson_fzn01x"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]\nWatch me: I'll divide this into three [event:creating_thirds_hv] [vocab]equal parts[/vocab]. See how I make two cuts that create [event:696548be8ce7324b] three sections of the same width?",
+              "audio_dir": "module_1/lesson_216apu"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. You [vocab]partitioned[/vocab] the bar into [event:6905242474fe9a10]  three [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_7921681867663049588"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now shade one of them.",
+      "audio_dir": "module_1/lesson_hgy18v",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on 1 of the 3 parts to shade it.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/3"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Take another look. Remember to click on just one of the three parts to shade it.",
+              "audio_dir": "module_1/lesson_sno3wy"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_thirds_md] We're trying to show one-third. Find one of those three sections and click directly on it.",
+              "audio_dir": "module_1/lesson_g14ak0"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:6905249741e939f8] I'll shade one part for you. This shows one-third [event:69052466a2332864]- one part out of three equal parts.",
+              "audio_dir": "module_1/lesson_tq8qcj"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:69052466a2332864]Right. That's one out of three [vocab]equal parts[/vocab], we write it as [fraction numerator=1, denominator=3]one third[/fraction]. ",
+          "audio_dir": "module_1/lesson_8588691870222731152"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Notice the pattern? The bottom number always shows our total [event:690524e38978871f][vocab]equal parts[/vocab].",
+      "audio_dir": "module_1/lesson_weikz3"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's [vocab]partition[/vocab] this bar [event:690525214164c748] into six [vocab]equal parts[/vocab]. This problem is a bit more advanced.",
+      "audio_dir": "module_1/lesson_mvxsup",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 12
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's the strategy: First split the bar in half.[event:68fb9731e51ec1dd]  Then split each half into three [vocab]equal parts[/vocab]. [event:68fb97780f388f82] That gives you six equal sections.",
+      "audio_dir": "module_1/lesson_e3jrbc"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Give it a try! Click once in the middle, then click twice in each half to make thirds.",
+      "audio_dir": "module_1/lesson_z7963c",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 12
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Partition the bar into six equal parts.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/6",
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6",
+            "6/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try this: first make halves, then make each half into three [vocab]equal parts[/vocab].",
+              "audio_dir": "module_1/lesson_ruopff"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:690a5f6cc444a37c] We want to divide the whole [event:690a5ea7eff6e6be] bar in half first, then divide each half into three.",
+              "audio_dir": "module_1/lesson_48at80"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:690409642e32f282]We'll work through it together. First I divide in half[event:690a600c2930240e], then I divide the left half into three, then the right half into three. Six [vocab]equal parts[/vocab]!",
+              "audio_dir": "module_1/lesson_xd4679"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct! You divided the bar into sixths: \nSix [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_5089016163762412806"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now shade just 1.",
+      "audio_dir": "module_1/lesson_7co6bs",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on 1 of the 6 parts to shade it.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/6"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Shade just one of the six parts you created.",
+              "audio_dir": "module_1/lesson_nii7xr"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "We should click on exactly [event:shading_sixths_md] one of the six sections to shade it.",
+              "audio_dir": "module_1/lesson_zpj9vs"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:6905285984b3543b] I'll shade one section for you. This shows one-sixth [event:label_shaded_part], one part out of six equal parts.",
+              "audio_dir": "module_1/lesson_t1hekj"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:label_shaded_part]Yes. One out of six [vocab]equal parts[/vocab], that's [fraction numerator=1, denominator=6]one sixth[/fraction].",
+          "audio_dir": "module_1/lesson_7399311736849976686"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's do one more [event:69052878162552a0],eight [vocab]equal parts[/vocab] this time. Remember how we made four parts? We can extend that strategy.",
+      "audio_dir": "module_1/lesson_zr995k",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 16
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "First, click once[event:68fb98b2eee28833]  in the middle.[delay]  Then click in the middle [event:68fb98ce86fe9bca] of each half. [delay] Then click in the middle of each [event:68fb990860390756] of those four parts.",
+      "audio_dir": "module_1/lesson_154691369771066520"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now you try. Remember the strategy I showed you: first, divide the bar in half. Then make fourths. Then eighths. ",
+      "audio_dir": "module_1/lesson_ab739k",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Partition the bar into eight equal parts.",
+        "tool": {
+          "@type": "Place"
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/8",
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "5/8",
+            "6/8",
+            "7/8",
+            "8/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Remember the strategy - first, divide the bar in half. Then make fourths. Then eighths.",
+              "audio_dir": "module_1/lesson_b5goh4"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:690a48cdd9ae132c] Let me guide you through it: First click here [event:690a5c2c1d96874e], now these two [event:690a5c451a0ed89e], now click in the middle of each of the [event:690a5c6ba02db52a] four sections.",
+              "audio_dir": "module_1/lesson_drr15a"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:690a5bec32fc69bb]Let me show you: Watch how I divide - first in half[event:690a5ad72782fb33], then each half[event:690a5b3950e1443a]  in half making four, then each fourth in half [event:690a5b70b38aaa24] making eight. Eight equal sections!",
+              "audio_dir": "module_1/lesson_yksasa"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. Eight [vocab]equal parts[/vocab].",
+          "audio_dir": "module_1/lesson_8939920834795918972"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now shade one of them.",
+      "audio_dir": "module_1/lesson_0zd9xu",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click on one of the 8 parts to shade it.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "1/8"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try it again. We want to shade just one of the eight parts you created.",
+              "audio_dir": "module_1/lesson_0httn7"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_eighths_md] Once more. You can click on exactly one of the eight sections to shade it.",
+              "audio_dir": "module_1/lesson_hf0t7j"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:shading_eighths_hv] I'll shade one section for you. This shows one-eighth[event:69052bf299b1029b] - one part out of eight equal parts.",
+              "audio_dir": "module_1/lesson_yg92fm"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:69052bf299b1029b] [fraction numerator=1, denominator=8]one eigth[/fraction], one out of eight [vocab]equal parts[/vocab]. You're getting this!",
+          "audio_dir": "module_1/lesson_877445222798987452"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at all the [vocab]fractions[/vocab]\nyou've made: [event:69052d58351decdd][fraction numerator=1, denominator=2]one half[/fraction], [event:69052d724d95ff2c][fraction numerator=1, denominator=4]one fourth[/fraction], [event:69052d7ef1476eee][fraction numerator=1, denominator=3]one third[/fraction], [event:69052d8a38926510][fraction numerator=1, denominator=8]one eighth[/fraction], and [event:69052d9908a927cf][fraction numerator=1, denominator=6]one sixth[/fraction]. \nEach one shows one part of a [vocab]whole[/vocab] that's been [vocab]partitioned[/vocab] into [vocab]equal parts[/vocab].",
+      "audio_dir": "module_1/lesson_7f0ysf",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals": "1/2",
+            "intervals_is_frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals": "1/4",
+            "intervals_is_frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals": "1/3",
+            "intervals_is_frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals": "1/8",
+            "intervals_is_frac_label_visible": [
+              0
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "intervals": "1/6",
+            "intervals_is_frac_label_visible": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've learned that [event:6905300f5d971ba2][vocab]fractions[/vocab] are a way[event:6905303a23285398]  to name parts of a [event:690530541497361b][vocab]whole[/vocab]. The [vocab]whole[/vocab] bar is always one[event:6905332feeff28c3], and we can [vocab]partition[/vocab][event:6905327027352107]  it into [vocab]equal parts[/vocab] to make [vocab]fractions[/vocab].",
+      "audio_dir": "module_1/lesson_q7od0u",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Fractions",
+            "is_highlighted": false
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 4
+          }
+        ]
+      }
+    }
+  ]
+}

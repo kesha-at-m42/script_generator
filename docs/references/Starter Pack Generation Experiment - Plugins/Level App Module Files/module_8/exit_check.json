@@ -1,0 +1,308 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Take a look at these three [event:6979526f548f6de9] fractions with me. Which bars show fractions equivalent to [fraction numerator=1 denominator=2]one half[/fraction]? You can select more than one.",
+      "audio_dir": "module_8/exit_check_8385528721992259761",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 8,
+            "intervals": "1/8"
+          },
+          {
+            "@type": "Benchmark",
+            "@layout": "overlay",
+            "is_visible": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select all bars equivalent to one half.",
+        "tool": {
+          "@type": "Select",
+          "is_single": false
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            0,
+            2
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not exactly. [fraction numerator=1 denominator=2]One half[/fraction] means exactly half shaded, find bars with half their parts shaded.",
+              "audio_dir": "module_8/exit_check_2524256269161722383"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Midpoint lines appear on bars"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's take another look. Half of 6 is [event:697ba81192e0062d] 3, and half of 8 is [event:697ba8c4eaf72ca0] 4. Find the bars that match[event:697ba8e1a72713f6] .",
+              "audio_dir": "module_8/exit_check_4524151057087225610"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Each bar highlights and shows checkmark or X"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] I can work this one out with you. For a bar to equal [fraction numerator=1 denominator=2]one half[/fraction], exactly half its parts need to be shaded. The [event:697ba94c5baeb107] top bar has 6 parts with [event:697ba964aea70ba0] 3 shaded: that's half. The [event:697ba9e3b974a968] middle bar has 6 parts with only [event:697baa112d702dc1] 2 shaded :that's less than half. The [event:697baa69356d68c8] bottom bar has 8 parts with [event:697baa92d5d641f0] 4 shaded: [event:697baac20040ce74] that's half. So [event:697baaed481834f6] [fraction numerator=3 denominator=6]three sixths[/fraction] and [fraction numerator=4 denominator=8]four eighths[/fraction] both equal [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/exit_check_6085520572181622452"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:restore_snapshot_prompt_start] That's right. You recognized that both [event:697a5fa8c79cb335] [fraction numerator=3 denominator=6]three sixths[/fraction] and [event:697a5fd51b0158cb] [fraction numerator=4 denominator=8]four eighths[/fraction] equal [event:697a5f6a0205e621] [fraction numerator=1 denominator=2]one half[/fraction], [event:697a601673159552] while [fraction numerator=2 denominator=6]two sixths[/fraction] does not[event:697a60242f4c96b7] .",
+          "audio_dir": "module_8/exit_check_7050297503199738581"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's try a new approach. Both of these bars are the [event:697d43f5a67cb97c] exact same size and shape. Shade as many as you'd like on the top bar, and then shade the bottom bar to show an equivalent fraction.",
+      "audio_dir": "module_8/exit_check_8752569389016611401",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 8,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 8,
+            "intervals": "1/8"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade the top bar, then shade the bottom to create equivalent fractions.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "SameShadedValidator"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. Both bars need to show the same amount shaded.",
+              "audio_dir": "module_8/exit_check_2062620555059761570"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Dotted lines appear showing the amount to match"
+              },
+              "dialogue": "You're getting there. This is the key: equivalent means the same amount. Let's shade the bottom bar to match the exact same amount as the top bar.",
+              "audio_dir": "module_8/exit_check_8773725026088579633"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animation shows the matching process"
+              },
+              "dialogue": "Let's work through this together. Whatever you shaded in the top bar, shade the same portion in the bottom bar. Since the bottom bar has twice as many parts, shade twice as many pieces to show the same amount.",
+              "audio_dir": "module_8/exit_check_7579462800962257222"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good work! You created equivalent fractions, they show the same amount.",
+          "audio_dir": "module_8/exit_check_3388368221473817947"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another number line to look at. The top line shows [event:697a67b66e62172d] [fraction numerator=4 denominator=6]four sixths[/fraction]. Which fraction below is equivalent to [fraction numerator=4 denominator=6]four sixths[/fraction]? Please place the equivalant fraction on the bottom line.",
+      "audio_dir": "module_8/exit_check_1974484945909943670",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "4/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/3",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "ticks_is_read_only": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "@type": "Benchmark",
+            "is_visible": false,
+            "location": "4/6"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the equivalent fraction on the bottom number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "2/3"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "3/3"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "2/3"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's take another look. See where [fraction numerator=4 denominator=6]four sixths[/fraction] is on the top line? Which fraction on the bottom line lands at the same spot?",
+              "audio_dir": "module_8/exit_check_2831913772222272467"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Vertical alignment guide appears showing the matching position"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Here's a strategy that might help:  [fraction numerator=4 denominator=6]four sixths[/fraction] is [event:697bb0be26ded5ce] four spaces out of six on the top line. Count thirds on the bottom line :[event:697d5a8e67a8b9a6] [fraction numerator=1 denominator=3]one third[/fraction], [fraction numerator=2 denominator=3]two thirds[/fraction], [fraction numerator=3 denominator=3]three thirds[/fraction]. Which third lands at the same position?",
+              "audio_dir": "module_8/exit_check_8335754762026835965"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animation shows counting on both lines with alignment indicator"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's work through this together. Look at the top line, [fraction numerator=4 denominator=6]four sixths[/fraction] is [event:697d6017f971a591] right here. Now on the bottom line, count: [event:697d6048ef5b1a5c] [fraction numerator=1 denominator=3]one third[/fraction] is here, [fraction numerator=2 denominator=3]two thirds[/fraction] is here, at the [event:6983affa42d4690b] exact same position as [fraction numerator=4 denominator=6]four sixths[/fraction]. When fractions are at the [event:697d613ce835319a] same position, they're equivalent. ",
+              "audio_dir": "module_8/exit_check_8154093067362517603"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly! [event:697a798fb44589d7] [fraction numerator=4 denominator=6]Four sixths[/fraction] and [event:697a79acdda963c7] [fraction numerator=2 denominator=3]two thirds[/fraction] are equivalent, they [event:697a62714886863e] land at the same position.",
+          "audio_dir": "module_8/exit_check_9043122881464080319"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Great. You've got the hang of equivalent fractions. Ready to practice some more?",
+      "audio_dir": "module_8/exit_check_8970281641117770316",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

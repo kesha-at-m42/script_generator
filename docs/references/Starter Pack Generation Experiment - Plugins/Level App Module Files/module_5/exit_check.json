@@ -1,0 +1,225 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "How would you label this point?",
+      "audio_dir": "module_5/exit_check_6510077057940661080",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct label",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=2, denominator=4]two fourths[/fraction]",
+            "[fraction numerator=3, denominator=4]three fourths[/fraction]",
+            "[fraction numerator=4, denominator=4]four fourths[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. Try counting the fourths from zero again.",
+              "audio_dir": "module_5/exit_check_215515396219470759"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:problem1_med] Here's a hint: This point is past the halfway mark. Count three spaces, starting from zero.",
+              "audio_dir": "module_5/exit_check_779345936888604193"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Watch me and I'll help count: [fraction numerator=1, denominator=4]one fourth[/fraction][event:691a5ef48165fd31], [fraction numerator=2, denominator=4]two fourths[/fraction][event:691a5f7d3bc030e4] is halfway, [fraction numerator=3, denominator=4]three fourths[/fraction][event:691a5fa0fb913d93] is here. Our point is at [event:691a5fd0d9947ec4][fraction numerator=3, denominator=4]three fourths[/fraction].",
+              "audio_dir": "module_5/exit_check_6388115089299912175"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right.",
+          "audio_dir": "module_5/exit_check_7314657143783771296"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Will you please mark where [fraction numerator=3, denominator=8]three eighths[/fraction] goes?",
+      "audio_dir": "module_5/exit_check_2397896426275092854",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/8",
+            "labels": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark [fraction numerator=3, denominator=8]three eighths[/fraction] on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "3/8"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try that one again. Think about eight equal spaces for eighths.",
+              "audio_dir": "module_5/exit_check_8155443941288336798"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Here's how I think it through: [event:691a60a6674f4100] Each eighth is exactly the same size. You need to count three spaces.",
+              "audio_dir": "module_5/exit_check_2393645009242570611"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try this one together:  I count: [fraction numerator=1, denominator=8]one eighth[/fraction][event:691a61b3eead3952], [fraction numerator=2, denominator=8]two eighths[/fraction][event:691a621536312efd], [fraction numerator=3, denominator=8]three eighths[/fraction][event:691a6227646951ce]. Right there - three-eighths of the way.",
+              "audio_dir": "module_5/exit_check_2530124201554731796"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct! You placed [fraction numerator=3, denominator=8]three eighths[/fraction] accurately.",
+          "audio_dir": "module_5/exit_check_3440702492031972201"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Next, can you show me where [fraction numerator=6, denominator=6]six sixths[/fraction] would go on this line?",
+      "audio_dir": "module_5/exit_check_2795914227297289641",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "labels": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Mark where [fraction numerator=6, denominator=6]six sixths[/fraction] goes.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "6/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Keep in mind what we learned. When we have all the pieces...",
+              "audio_dir": "module_5/exit_check_2191746272330523481"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Here's a hint: [event:691a62c172d3c484]  [fraction numerator=6, denominator=6]six sixths[/fraction] means all six pieces. Where does that take us?",
+              "audio_dir": "module_5/exit_check_5855942889768406808"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let me show you this one. [event:691a63041a8fbd29] When we have all 6 pieces of something cut into sixths, we have the whole thing. [fraction numerator=6, denominator=6]Six sixths[/fraction] equals 1.",
+              "audio_dir": "module_5/exit_check_6623926962585405472"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly! Six sixths equals one whole. Nice job remembering that!",
+          "audio_dir": "module_5/exit_check_5185366340447312536"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,511 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned to find and even create equivalent fractions. Next, we'll try some problems that help us think about equivalent fractions in more advanced ways.",
+      "audio_dir": "module_8/synthesis_5574554507312349581",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here are three equivalent fractions. They all equal [fraction numerator=1 denominator=2]one half[/fraction]. What do you notice about the numbers as we go from [event:697a7dea9b05f61e] top to bottom? Look at the numerator and denominator of each fraction. What happens to them?",
+      "audio_dir": "module_8/synthesis_9063501687942920558",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 8,
+            "intervals": "1/8"
+          },
+          {
+            "@type": "Benchmark",
+            "@layout": "overlay",
+            "is_visible": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "What happens to the numbers?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Both numbers get larger",
+            "Both numbers get smaller"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look again. In [fraction numerator=1 denominator=2]one half[/fraction], the numbers are 1 and 2. In [fraction numerator=2 denominator=4]two fourths[/fraction], the numbers are 2 and 4. Did they get larger or smaller?",
+              "audio_dir": "module_8/synthesis_5485284046770937016"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight numerators and denominators in sequence"
+              },
+              "dialogue": "Compare the numerators: [event:697bb17b66b88099] 1, then 2, then 4. Now compare the [event:697bb22c2fa08dea] denominators: [event:697bb1c81248301e] 2, then 4, then 8. Are these numbers increasing or decreasing?",
+              "audio_dir": "module_8/synthesis_7414367753980598709"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate highlighting each fraction's numerator and denominator as they increase"
+              },
+              "dialogue": "Let me show you. The first fraction is [event:697bb3caeaeff852] [fraction numerator=1 denominator=2]one half[/fraction]: numerator 1, denominator 2. The next is [event:697bb50a3f0509ca] [fraction numerator=2 denominator=4]two fourths[/fraction]: numerator 2, denominator 4. Then [event:697bb5f6a4305d7d] [fraction numerator=4 denominator=8]four eighths[/fraction]: numerator 4, denominator 8. Each time, both numbers got [event:697bb64a2985efbd] larger.",
+              "audio_dir": "module_8/synthesis_6841717051495005925"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Both the top and bottom numbers get larger, but the fractions still show the [event:697a8cadcc39dc83] same amount.",
+          "audio_dir": "module_8/synthesis_1571430958933787826"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another set of equivalent fractions, they all equal [fraction numerator=1 denominator=3]one third[/fraction]. Does the same pattern hold true here?",
+      "audio_dir": "module_8/synthesis_2541861245187352820",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 3,
+            "intervals": "1/3"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 9,
+            "intervals": "1/9"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Do both numbers get larger?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look at the pattern: 1 becomes 2 becomes 3 for the numerators.3 becomes 6 becomes 9 for the denominators. Are these getting larger or smaller?",
+              "audio_dir": "module_8/synthesis_5665418949480189228"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the increasing pattern"
+              },
+              "dialogue": "Let's check: [fraction numerator=1 denominator=3]one third[/fraction] has [event:6983b558f5865694]1 and 3. Then [event:6983b814a6d773a5] [fraction numerator=2 denominator=6]two sixths[/fraction] has [event:6983b75d3649b741] 2 and 6. Both numbers got [event:6983b8306c0e0c65] larger, right?",
+              "audio_dir": "module_8/synthesis_976604788336278844"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate each fraction appearing with numbers highlighted"
+              },
+              "dialogue": "I'll show you: [event:697bb811d45995e2][fraction numerator=1 denominator=3]one third[/fraction] is 1 over 3. [fraction numerator=2 denominator=6]Two sixths[/fraction] is 2 over 6. [fraction numerator=3 denominator=9]Three ninths[/fraction] is 3 over 9. The numerator went [event:697bb85df4652d0a] 1, 2, 3: larger. The denominator went [event:697bb87c3b7622f9] 3, 6, 9: also larger. So yes, both numbers get larger.",
+              "audio_dir": "module_8/synthesis_5781166162604430479"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly! The same pattern, [event:697a913b596a1764] both numbers get larger, but the amount stays the same. [event:697a90f95b082733] [fraction numerator=1 denominator=3]One third[/fraction] equals [fraction numerator=2 denominator=6]two sixths[/fraction] equals [fraction numerator=3 denominator=9]three ninths[/fraction].",
+          "audio_dir": "module_8/synthesis_1463742496004901210"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "The [event:697a9fc98f9604bb] numbers get larger, but the amount stays the [event:697aa8e52d3d0419] same. That's how equivalent fractions work, different numbers show us the same [event:6983bbd3f462c7ac]amount.",
+      "audio_dir": "module_8/synthesis_4011641855349759139"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's [fraction numerator=3 denominator=6]three sixths[/fraction] shown as a [event:697aad0fa8c94400] bar. Where would this same fraction land on the [event:697aad20613b4295] number line? Place a point at [fraction numerator=3 denominator=6]three sixths[/fraction] on the number line.",
+      "audio_dir": "module_8/synthesis_6463194284201615836",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "@type": "Benchmark",
+            "@layout": "overlay",
+            "is_visible": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at [fraction numerator=3 denominator=6]Three sixths[/fraction] on the number line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try again. [fraction numerator=3 denominator=6]Three sixths[/fraction] equals [fraction numerator=1 denominator=2]one half[/fraction]. place it at the halfway point.",
+              "audio_dir": "module_8/synthesis_6908741747588696207"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Counting marks appear on number line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Count the sixths: [event:697bc54f5904e2a9] [fraction numerator=1 denominator=6]one sixth[/fraction], [fraction numerator=2 denominator=6]two sixths[/fraction], [fraction numerator=3 denominator=6]three sixths[/fraction]. That [event:697bca4c88d2a592] third part is halfway to 1.",
+              "audio_dir": "module_8/synthesis_7143898713837374403"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Marker animates to correct position"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let me show you. [event:697bcaafaf78d1e6] [fraction numerator=3 denominator=6]Three sixths[/fraction] is the same as [event:697bcae9880cfe46] [fraction numerator=1 denominator=2]one half[/fraction]. It goes right at the [event:697bcb7efa8f7c59]halfway point between 0 and 1.",
+              "audio_dir": "module_8/synthesis_3374181504702652573"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": " Correct. Whether we use bars or number lines, [event:697aaa88fcd74de3] [fraction numerator=3 denominator=6]three sixths[/fraction] always equals [event:697aad9110fa767e] [fraction numerator=1 denominator=2]one half[/fraction].",
+          "audio_dir": "module_8/synthesis_9033365323679217791"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's see how equivalent fractions work in real life. Imagine you have [event:697ab014eae17fcf] three identical sandwiches, all the same size.",
+      "audio_dir": "module_8/synthesis_4168277069685111462",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 2
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 4
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "lcm": 8
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You cut the first sandwich into [event:697ab05632bed79a] 2 equal pieces and eat 1 piece. That's [fraction numerator=1 denominator=2]one half[/fraction]. You cut the second sandwich into [event:697ab07adaab52b0] 4 equal pieces and eat 2 pieces. That's [fraction numerator=2 denominator=4]two fourths[/fraction]. You cut the third sandwich into [event:697ab0a8e582f905] 8 equal pieces and eat 4 pieces. That's [fraction numerator=4 denominator=8]four eighths[/fraction]. Did you eat the same amount of each sandwich? Click all the bars that show you ate the same amount.",
+      "audio_dir": "module_8/synthesis_7930353346883271999",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select all bars that show the same amount eaten.",
+        "tool": {
+          "@type": "Select",
+          "is_single": false
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": [
+            0,
+            1,
+            2
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's take another look. Please check how much of each bar is shaded, is it the same amount?",
+              "audio_dir": "module_8/synthesis_6748238401530213253"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Midpoint lines appear on all three bars"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] You're working on it. Here's what helps me: each bar shows [event:6983c4a8e5c82fc7] half eaten. Is the same amount of every sandwich shaded?",
+              "audio_dir": "module_8/synthesis_1715232482683071784"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Sequential highlighting showing each equals 1/2"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's check together. The [event:697bcde703d1de41] first sandwich has 2 pieces with 1 eaten, that's half. The second sandwich has 4 pieces with 2 eaten, also half. The third sandwich has 8 pieces with 4 eaten, still half. [event:697bcfe38ede6130] All three show the same amount: half a sandwich. They're all equivalent.",
+              "audio_dir": "module_8/synthesis_8443601049827403813"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [event:697bd1b6c7cd54d0] [fraction numerator=1 denominator=2]One half[/fraction], [fraction numerator=2 denominator=4]two fourths[/fraction], and [fraction numerator=4 denominator=8]four eighths[/fraction] are all equivalent,  you ate half of each [event:6983cd541b7f21ca] sandwich. All of these fractions give us the same total amount, just cut into different numbers of pieces.",
+          "audio_dir": "module_8/synthesis_3700511749445543686"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "This bar has 10 [event:697ab34034b8ff7d] parts. Can you shade it to show a fraction equivalent to [event:6983d1ec52301634] [fraction numerator=1 denominator=2]one half[/fraction]?",
+      "audio_dir": "module_8/synthesis_2676239535549357885",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 10,
+            "intervals": "1/10"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade to show one half.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "5/10"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Not quite. To show [fraction numerator=1 denominator=2]one half[/fraction], you need to shade exactly half the bar.",
+              "audio_dir": "module_8/synthesis_1806719555275308794"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Dotted line appears at midpoint of bar"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] You're getting there. The key is: half of 10 parts is 5 parts. Shade 5 to show [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/synthesis_8135367778052959160"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Parts shade sequentially to show 5 out of 10"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's work through this as a team. The bar has 10 equal parts. To show half, we need to find half of 10. Half of 10 is 5. Watch as I shade: [event:697bd28241616313]one, two, three, four, five parts. That's [fraction numerator=5 denominator=10]five tenths[/fraction], which equals [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/synthesis_7545142301324588889"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Nice work! [event:697ab2e7bdadafa4] [fraction numerator=5 denominator=10]Five tenths[/fraction] equals [fraction numerator=1 denominator=2]one half[/fraction]. You figured out that half of 10 is 5.",
+          "audio_dir": "module_8/synthesis_2881805430423332948"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You learned that different fractions can equal the same amount. [event:697ab478410ee2a3] [fraction numerator=1 denominator=2]One half[/fraction] equals [fraction numerator=2 denominator=4]two fourths[/fraction] equals [fraction numerator=3 denominator=6]three sixths[/fraction]. [event:6983cb7cbc2a8966] [d:.5] Next time, we'll use this understanding to compare fractions that aren't equivalent.",
+      "audio_dir": "module_8/synthesis_6800434617236871149",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "1/2",
+              " = ",
+              "2/4",
+              " = ",
+              "3/6"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

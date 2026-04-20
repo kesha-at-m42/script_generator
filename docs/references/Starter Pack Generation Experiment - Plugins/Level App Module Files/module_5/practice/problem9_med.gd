@@ -1,0 +1,8 @@
+extends SequenceEvent
+
+func trigger():
+	var lines = get_number_lines()
+	clear_selected()
+	for line in lines:
+		use_highlight_tool(line.bar._parts[line.bar._parts.size()-1])
+		await delay(0.25)

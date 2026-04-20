@@ -1,0 +1,260 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 2.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can identify which bar has greater shaded area.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "1/4",
+            "1/3"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three bars with one part shaded in each. Which bar shows the smaller [vocab]fraction[/vocab]?",
+          "audio_dir": "module_3/pool_5_73978026924851319",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/4"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0
+                ],
+                "intervals": "1/3"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar representing a smaller fraction.",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare the size of the shaded parts in each bar.",
+                  "audio_dir": "module_3/pool_5_2749054499843571157"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "B_compare_shaded",
+                        "description": "Compare the shaded parts of the second bar with unequal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:A_compare_shaded][event:B_compare_shaded] When we compare the shaded parts, notice how the top bar is divided into more parts, making each piece smaller.",
+                  "audio_dir": "module_3/pool_5_2379804068241390109"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_B_compare_shaded",
+                        "description": "Compare the shaded parts of the bars of the first bar with the second bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to compare these fractions. [event:restore_snapshot_prompt_start]  [event:A_B_compare_shaded] The top bar shows 1 out of 8 equal parts - that's one-eighth. The middle bar shows 1 out of 4 eq\tual parts - that's one-fourth. The bottom bar shows 1 out of 3 equal parts - that's one-third. When the whole is divided into more parts, each part gets smaller. So [event:A_select] one-eighth is smaller than one-fourth and one-third.",
+                  "audio_dir": "module_3/pool_5_5985842864517764844"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. [fraction numerator=1 denominator=6] one-sixth [/fraction] is smaller than [fraction numerator=1 denominator=4] one-fourth [/fraction] and smaller than [fraction numerator=1 denominator=3] one-third [/fraction].",
+              "audio_dir": "module_3/pool_5_796892157956823220"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 5.0,
+        "goal_text": "The student can identify which bar has greater shaded area.",
+        "verb": "COMPARE",
+        "variables_covered": {
+          "fractions": [
+            "5/6",
+            "4/5"
+          ]
+        },
+        "mastery_tier": "CHALLENGE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "COMPARE"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here are three bars with different amounts shaded. Which one shows a greater [vocab]fraction[/vocab]?",
+          "audio_dir": "module_3/pool_5_5173079943616173014",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "intervals": "1/6"
+              },
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2
+                ],
+                "intervals": "1/5"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the bar with the greater fraction.",
+            "tool": {
+              "@type": "Select",
+              "is_single": true
+            },
+            "validator": {
+              "@type": "SelectionValidator",
+              "answer": 0
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Compare how much is shaded in each bar.",
+                  "audio_dir": "module_3/pool_5_2529781736979343471"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      },
+                      {
+                        "name": "B_compare_shaded",
+                        "description": "Compare the shaded parts of the second bar with unequal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. Notice how much of the top bar is shaded [event:6920b6b3c5d06478] compared to the bottom bar. Which one has more shaded area?",
+                  "audio_dir": "module_3/pool_5_3101329879210000182"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_B_compare_shaded",
+                        "description": "Compare the shaded parts of the bars of the first bar with the second bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to compare these fractions. [event:restore_snapshot_prompt_start] The top bar [event:6920b727faf32d7e] shows 5 out of 6 parts shaded - that's five-sixths. The bottom bar shows 4 out of 5 parts shaded - that's four-fifths. Five-sixths is greater because it's closer to a whole bar. [event: A_select] The top bar has the greater [vocab]fraction[/vocab].",
+                  "audio_dir": "module_3/pool_5_8738532368368847562"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Correct. Five-sixths is greater than four-sixths and greater than three-fifths.",
+              "audio_dir": "module_3/pool_5_3892244036933906809"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

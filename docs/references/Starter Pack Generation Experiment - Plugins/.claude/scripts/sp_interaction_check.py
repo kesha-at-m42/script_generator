@@ -31,6 +31,11 @@ Checks:
     I17: Interaction count per phase within expected ranges
     I18: Phase coverage (each expected phase has at least one interaction)
 
+  Quantitative (migrated from L2 agents):
+    I19: Consecutive teaching-only clustering — max 2 in a row per phase
+    I20: On Correct feedback word count — flag if >20 words (target 5-15)
+    I21: Purpose line sentence count — flag if >3 sentences
+
 Gate scoping:
   Gate 1: Skipped (no interactions)
   Gate 2: Warmup + Lesson only
@@ -199,6 +204,121 @@ def check_guide_prompt_independence(interactions: list) -> list:
 
 
 # ---------------------------------------------------------------------------
+# Quantitative checks (migrated from L2 agents)
+# ---------------------------------------------------------------------------
+
+def check_teaching_only_clustering(interactions: list) -> list:
+    """I19: Flag runs of >2 consecutive teaching-only interactions within a phase.
+
+    Migrated from L2 agent m42-lesson-eval (IQ3.2). Teaching-only clusters
+    longer than 2 risk losing student engagement — the student is passive
+    for too long without any action.
+    """
+    findings = []
+
+    # Group interactions by phase, preserving order
+    phase_runs = {}
+    for ix in interactions:
+        phase_runs.setdefault(ix.phase, []).append(ix)
+
+    for phase, ixs in phase_runs.items():
+        streak = 0
+        streak_start = None
+        for ix in ixs:
+            if ix.pattern == "teaching_only":
+                streak += 1
+                if streak == 1:
+                    streak_start = ix
+            else:
+                if streak > 2:
+                    findings.append({
+                        "check": "I19",
+                        "severity": "MINOR",
+                        "phase": phase,
+                        "interaction_id": streak_start.id,
+                        "detail": f"{streak} consecutive teaching-only interactions "
+                                  f"starting at {streak_start.id} in {phase} "
+                                  f"(max 2 without student action)",
+                        "line_number": streak_start.line_number,
+                    })
+                streak = 0
+                streak_start = None
+
+        # Check final run
+        if streak > 2 and streak_start:
+            findings.append({
+                "check": "I19",
+                "severity": "MINOR",
+                "phase": phase,
+                "interaction_id": streak_start.id,
+                "detail": f"{streak} consecutive teaching-only interactions "
+                          f"starting at {streak_start.id} in {phase} "
+                          f"(max 2 without student action)",
+                "line_number": streak_start.line_number,
+            })
+
+    return findings
+
+
+# Sentence-ending pattern for Purpose line analysis
+_SENTENCE_END_RE = re.compile(r'[.!?]+(?:\s|$)')
+
+
+def check_on_correct_length(interactions: list) -> list:
+    """I20: Flag On Correct feedback that exceeds 20 words.
+
+    Migrated from L2 agent m42-ec-practice-eval (EP2.4). On Correct feedback
+    should be brief reinforcement (5-15 words), not extended teaching. Extended
+    feedback after a correct answer slows pacing and dilutes the reinforcement.
+    """
+    findings = []
+
+    for ix in interactions:
+        if ix.pattern != "student_action":
+            continue
+        for dl in ix.dialogue_lines:
+            if dl.field_type == "On Correct":
+                # Count words in the dialogue text
+                text = dl.text.strip().strip('"').strip()
+                word_count = len(text.split())
+                if word_count > 20:
+                    findings.append(_finding("I20", "MINOR", ix,
+                        f"On Correct feedback is {word_count} words "
+                        f"(target 5-15, max ~20): \"{text[:60]}...\""))
+
+    return findings
+
+
+def check_purpose_length(interactions: list) -> list:
+    """I21: Flag Purpose lines with more than 3 sentences.
+
+    Migrated from L2 agent m42-lesson-eval (LS1.5). The Purpose line should be
+    a concise framing statement (~15 seconds spoken). More than 3 sentences
+    indicates over-explanation that delays engagement.
+    """
+    findings = []
+
+    for ix in interactions:
+        if not ix.has_purpose:
+            continue
+        # Find the Purpose line in raw_lines
+        for line_num, line in ix.raw_lines:
+            stripped = line.strip()
+            if stripped.startswith('* **Purpose:**'):
+                # Extract the text after the field label
+                text = re.sub(r'^\*\s*\*\*Purpose:\*\*\s*', '', stripped)
+                # Count sentences by splitting on sentence-ending punctuation
+                sentences = [s.strip() for s in _SENTENCE_END_RE.split(text) if s.strip()]
+                if len(sentences) > 3:
+                    findings.append(_finding("I21", "MINOR", ix,
+                        f"Purpose has {len(sentences)} sentences (max 3): "
+                        f"\"{text[:80]}...\""))
+                break  # Only check first Purpose line per interaction
+
+    return findings
+
+
+# ---------------------------------------------------------------------------
 # Aggregate checks
 # ---------------------------------------------------------------------------
 
@@ -348,6 +468,22 @@ def run_interaction_check(filepath: str, gate: int) -> dict:
     all_findings.extend(independence_findings)
     if independence_findings:
         checks_run.update(f["check"] for f in independence_findings)
+
+    # Quantitative checks (gate 2+)
+    cluster_findings = check_teaching_only_clustering(sp_filtered.interactions)
+    all_findings.extend(cluster_findings)
+    if cluster_findings:
+        checks_run.update(f["check"] for f in cluster_findings)
+
+    on_correct_findings = check_on_correct_length(sp_filtered.interactions)
+    all_findings.extend(on_correct_findings)
+    if on_correct_findings:
+        checks_run.update(f["check"] for f in on_correct_findings)
+
+    purpose_findings = check_purpose_length(sp_filtered.interactions)
+    all_findings.extend(purpose_findings)
+    if purpose_findings:
+        checks_run.update(f["check"] for f in purpose_findings)
 
     # Aggregate checks (gate 3+)
     if gate >= 3:

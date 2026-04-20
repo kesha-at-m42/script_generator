@@ -1,0 +1,235 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "[event:696821a03376a1c2]Remember how we've been placing fractions past 1?[event:69682ccda11063bb]  Like when [fraction numerator=5 denominator=4]five fourths[/fraction] went [event:696fc3eb32b565eb] beyond one whole?",
+      "audio_dir": "module_7/warmup_5026612733707321543",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:69691e868420095c]Today we're looking for fractions[event:69691f0692c4f5e3] that land exactly on [event:696fc4e20a71a22b]whole numbers.",
+      "audio_dir": "module_7/warmup_1424514128650853751",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/2",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at where [event:696920949a449a45] [fraction numerator=1 denominator=2]one half[/fraction] and [event:696920c02ab56541] [fraction numerator=3 denominator=2]three halves[/fraction] are positioned. Which fraction is less than 1?",
+      "audio_dir": "module_7/warmup_6439583509043999713",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/2",
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select [fraction numerator=1 denominator=2]one half[/fraction] or [fraction numerator=3 denominator=2]three halves[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=2]one half[/fraction]",
+            "[fraction numerator=3 denominator=2]three halves[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try again. Look at where each fraction lands compared to 1.",
+              "audio_dir": "module_7/warmup_6969318951509664146"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the position of 1/2 relative to 1 on the number line"
+              },
+              "dialogue": "Almost. [fraction numerator=1 denominator=2]One half[/fraction][event:69692193eb4d10a5] is halfway to 1. Is that more or less than one whole?",
+              "audio_dir": "module_7/warmup_5146522709186472297"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Point to 1/2 position showing it's before 1, then point to 3/2 showing it's after 1, then select 1/2"
+              },
+              "dialogue": "We can solve it together: [event:696922d010fca17e][fraction numerator=1 denominator=2]one half[/fraction] lands here. That's less than 1. And [event:69692411cb4177be] [fraction numerator=3 denominator=2]three halves[/fraction] lands here. That's more than 1.",
+              "audio_dir": "module_7/warmup_6997839803321872535"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [event:6969270e91757e3f][fraction numerator=1 denominator=2]One half[/fraction] comes before 1, and [event:6969271fa57fd13e] [fraction numerator=3 denominator=2]three halves[/fraction] goes past it. One whole sits between them.",
+          "audio_dir": "module_7/warmup_6469949516041141796"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here comes our new concept. Where do you think [fraction numerator=2 denominator=2]two halves[/fraction] goes?",
+      "audio_dir": "module_7/warmup_2295062495261784320",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/2",
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=2 denominator=2]two halves[/fraction] on the line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Where would two halves take you?",
+              "audio_dir": "module_7/warmup_7666877424810357416"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the position of 1 on the number line"
+              },
+              "dialogue": "[event:696952edc1ec707c]Two halves make one whole. Where is 1 on this line?",
+              "audio_dir": "module_7/warmup_987605474911921341"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate placing the point at position 1"
+              },
+              "dialogue": "Let me show you: we start at [event:69695498d29451da] 0. One [event:69695582692ecd53]half gets us here, and another [event:6969563a8e2ce49a]half gets us to [fraction numerator=2 denominator=2]two halves[/fraction], which is equal to 1.",
+              "audio_dir": "module_7/warmup_8924276017926939858"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:69694c054e5789b9]Look at that, [fraction numerator=2 denominator=2]two halves[/fraction] landed [event:6969500d0370af1b]exactly on 1. Two halves equals one whole.",
+          "audio_dir": "module_7/warmup_106986490596828208"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "We've learned that some fractions, [event:6969595bbc0fb891]like [fraction numerator=2 denominator=2]two halves[/fraction], equal exactly 1. Let's see what else we can discover about fractions that equal 1. Ready to keep exploring?",
+      "audio_dir": "module_7/warmup_9129864745367277773"
+    }
+  ]
+}

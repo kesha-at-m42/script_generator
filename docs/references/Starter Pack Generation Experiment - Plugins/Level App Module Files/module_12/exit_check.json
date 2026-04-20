@@ -1,0 +1,396 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's practice some more problems using what you're learning about benchmarks.",
+      "audio_dir": "module_12/exit_check_8213342006656440149",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "For these bars, I will put a benchmark at [fraction numerator=1 denominator=2]one half[/fraction] on [event:6994d66ad2bd15da] each bar as a reference point. Choose the correct sign to compare [event:6994c72909b4e4b2][fraction numerator=5 denominator=6]five sixths[/fraction] and [fraction numerator=3 denominator=5]three fifths[/fraction].[event:698f805c51b1032b] ",
+      "audio_dir": "module_12/exit_check_2221111743219828627",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "@layout": "overlay",
+            "visual": "mini_bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "@layout": "overlay",
+            "visual": "mini_bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 6,
+            "intervals": "1/6",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "@layout": "overlay",
+            "is_visible": false,
+            "terms": [
+              "3/10"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "@layout": "overlay",
+            "is_visible": false,
+            "terms": [
+              " ? "
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@layout": "overlay",
+            "is_visible": false,
+            "terms": [
+              "5/6"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "@layout": "overlay",
+            "is_visible": false,
+            "terms": [
+              "3/5"
+            ]
+          },
+          {
+            "@type": "Benchmark",
+            "is_visible": false,
+            "is_label_visible": false
+          },
+          {
+            "@type": "Benchmark",
+            "@col": 2,
+            "is_visible": false,
+            "is_label_visible": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Choose the correct sign to compare [fraction numerator=5 denominator=6]five sixths[/fraction] and [fraction numerator=3 denominator=5]three fifths[/fraction].",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's check again. Notice where each fraction sits compared to half.",
+              "audio_dir": "module_12/exit_check_5874920810292218139"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show both bars with the 1/2 benchmark highlighted"
+              },
+              "dialogue": "[event:6996109236e2998a]Let's use benchmarks to compare. We use benchmarks when nothing matches. Is [event:69960f414ff32320][fraction numerator=5 denominator=6]five sixths[/fraction] more or less than[event:6996115946b9e094] [fraction numerator=1 denominator=2]one half[/fraction]? Is[event:699611876afc48a6] [fraction numerator=3 denominator=5]three fifths[/fraction] more or less than[event:69961276b87d6d84] [fraction numerator=1 denominator=2]one half[/fraction]?",
+              "audio_dir": "module_12/exit_check_1561721065840298636"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting 5/6, show both fractions' positions relative to benchmarks"
+              },
+              "dialogue": "[event:69961b3f09184ea8]Here's the strategy to help us find the answer. [fraction numerator=5 denominator=6]Five sixths[/fraction]: half of 6 is[event:69961b6abc39ead5] 3, and we have[event:69961b88d6de9c99] 5 parts. That's above half.[event:69961c60e5fd1e32] [fraction numerator=3 denominator=5]Three fifths[/fraction]: to have half of 5, we'd need the line in the[event:69961c77ed3a8cd4] middle of the third part, and we have[event:69961c8a5bbf5fb7] 3 whole parts. That's also above half, but just barely.[event:69961d1317974542] Since [fraction numerator=5 denominator=6]five sixths[/fraction] is farther past [fraction numerator=1 denominator=2]one half[/fraction], it's[event:6996556cc1f6e76c] greater.",
+              "audio_dir": "module_12/exit_check_7954078518620526206"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:698f7d8fe7d6c3a5]Thats right! You correctly saw that [fraction numerator=5 denominator=6]five sixths[/fraction] is [event:698f7e02da070d7f] way above half while [fraction numerator=3 denominator=5]three fifths[/fraction] is just slightly above. That means that [fraction numerator=5 denominator=6]five sixths[/fraction] is [event:699654e41e911428]greater than [fraction numerator=3 denominator=5]three fifths[/fraction].",
+          "audio_dir": "module_12/exit_check_8543754094385065033"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, use the [event:698f8a438f8d2385] benchmark to compare [event:698f88b3b1866d6a] [fraction numerator=4 denominator=6]four sixths[/fraction] and [fraction numerator=3 denominator=8]three eighths[/fraction].",
+      "audio_dir": "module_12/exit_check_7638343569883870691",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "4/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "4/6"
+            ],
+            "ticks_is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/8",
+            "points": [
+              "3/8"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "3/8"
+            ],
+            "ticks_is_read_only": true
+          },
+          {
+            "@type": "Benchmark",
+            "is_visible": false,
+            "is_label_visible": false
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "4/6",
+              "?",
+              "3/8"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Compare [fraction numerator=4 denominator=6]four sixths[/fraction] and [fraction numerator=3 denominator=8]three eighths[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite, give that another try. Remember to use the benchmark. Where does each fraction sit compared to the [fraction numerator=1 denominator=2]one half[/fraction] line?",
+              "audio_dir": "module_12/exit_check_5004499920422872733"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the benchmark line and show each fraction's position"
+              },
+              "dialogue": "You're working it out. [fraction numerator=4 denominator=6]Four sixths[/fraction] is to the[event:699620348b3a88fb] right of the benchmark. [fraction numerator=3 denominator=8]Three eighths[/fraction] is to the[event:699620f0573aad30] left of the benchmark. [event:69962138acea20df]Which symbol shows that [fraction numerator=4 denominator=6]four sixths[/fraction] is greater?",
+              "audio_dir": "module_12/exit_check_4142522839002542479"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the > symbol, show the complete comparison"
+              },
+              "dialogue": "Let's work through this together.[event:699623daaa90b449] [fraction numerator=4 denominator=6]Four sixths[/fraction] sits to the[event:6996261685c96d93] right of [fraction numerator=1 denominator=2]one half[/fraction] on its number line.[event:69962696e9d7da5d] That means it's more than halfway.[event:699626bacf45c29c] [fraction numerator=3 denominator=8]Three eighths[/fraction] sits to the[event:699626d7505b26ab] left of [fraction numerator=1 denominator=2]one half[/fraction]. That means it's less than halfway.[event:6996277632b98080] So [fraction numerator=4 denominator=6]four sixths[/fraction] is greater. We write: [fraction numerator=4 denominator=6]four sixths[/fraction] is [event:699627d71b65a3da]greater than [fraction numerator=3 denominator=8]three eighths[/fraction]. The open part faces the bigger fraction.",
+              "audio_dir": "module_12/exit_check_8782471136630054648"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Exactly. [fraction numerator=4 denominator=6]Four sixths[/fraction] [event:698f8ba8b9c5a764] is greater than [fraction numerator=3 denominator=8]three eighths[/fraction]. you chose the correct symbol by comparing the fractions using the benchmark.",
+          "audio_dir": "module_12/exit_check_6963912938126277328"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Both of these fractions are close to 1. Can you use [event:6994ab17bc621e14] 1 as the benchmark to [event:6994bd286a1aa964] compare them?",
+      "audio_dir": "module_12/exit_check_4820331972464154787",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "3/4"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/5",
+            "points": [
+              "4/5"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "4/5"
+            ]
+          },
+          {
+            "@type": "Benchmark",
+            "is_visible": false,
+            "location": "1",
+            "is_label_visible": false
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              "?",
+              "4/5"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Compare [fraction numerator=3 denominator=4]three fourths[/fraction] and [fraction numerator=4 denominator=5]four fifths[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            " < ",
+            " = ",
+            " > "
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Nearly there. Both are close to 1, but let's think about what's missing from each to reach the benchmark.",
+              "audio_dir": "module_12/exit_check_8649595205870413997"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the distances from each fraction to 1"
+              },
+              "dialogue": "Let's check again. [fraction numerator=3 denominator=4]Three fourths[/fraction] needs[event:69962933041fd226] [fraction numerator=1 denominator=4]one fourth[/fraction] to reach 1. [fraction numerator=4 denominator=5]Four fifths[/fraction][event:69962940e5e6af55] needs [fraction numerator=1 denominator=5]one fifth[/fraction] to reach 1. Which missing piece is smaller? Which fraction is closer to 1?",
+              "audio_dir": "module_12/exit_check_658037707381848973"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animate selecting the < symbol, show the distance comparison"
+              },
+              "dialogue": "Let's work through it as a team. [fraction numerator=3 denominator=4]Three fourths[/fraction] needs[event:69962933041fd226] [fraction numerator=1 denominator=4]one fourth[/fraction] more to complete. [fraction numerator=4 denominator=5]Four fifths[/fraction] needs[event:69962940e5e6af55] only [fraction numerator=1 denominator=5]one fifth[/fraction] more.[event:69962ba9fd38ad5b] Since fifths[event:69962be2dd11064e] are smaller pieces than fourths, [fraction numerator=1 denominator=5]one fifth[/fraction] is less than [fraction numerator=1 denominator=4]one fourth[/fraction].[event:69962cb3ffba6198] That means [fraction numerator=4 denominator=5]four fifths[/fraction] is closer to 1. We write: [fraction numerator=3 denominator=4]three fourths[/fraction] is [event:69962cd8183d1570]less than [fraction numerator=4 denominator=5]four fifths[/fraction].",
+              "audio_dir": "module_12/exit_check_5447185917272963753"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right. We can see that [fraction numerator=3 denominator=4]three fourths[/fraction] [event:6994be1131b50cbd] is less than [fraction numerator=4 denominator=5]four fifths[/fraction] because [fraction numerator=4 denominator=5]four fifths[/fraction] is [event:6994c038a01e3e79] closer to 1, it needs only [fraction numerator=1 denominator=5]one more fifth[/fraction] to reach one, while [fraction numerator=3 denominator=4]three fourths[/fraction] needs [event:6994c075e1426a70] [fraction numerator=1 denominator=4]one more fourth[/fraction].",
+          "audio_dir": "module_12/exit_check_4664108535395678827"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": " You're proving you understand how to use benchmarks to compare any fractions. Lets get ready to practice this skill! ",
+      "audio_dir": "module_12/exit_check_5588662481760584191",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

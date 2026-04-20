@@ -1,0 +1,824 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "In our warmup we found that two bars divided into [event:69740cc7a7aca14b] different numbers of [event:69740cd96a76149d] pieces showed the [event:69740d05f539ae62] same amount of the [event:69740d1eb1ece270] whole bar [event:69740d31f4b1af13] shaded. Now let's look at that same [event:69740df2134bcf29] idea, but this time with the [event:69740d73a434417b] fraction names. These two bars are divided differently, one [event:69740e1bf0e84236] into halves, one into [event:69740e4a507572d6] fourths. Check if they show the same amount or different amounts.",
+      "audio_dir": "module_8/lesson_443653401841951482",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Are they the same or different?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Same",
+            "Different"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's take another look. Compare the amount of space shaded in both bars.",
+              "audio_dir": "module_8/lesson_7291269426706562889"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Overlay or alignment guide appears showing the shaded portions"
+              },
+              "dialogue": "You're working on it. Remember: [event:697b92a93d37be8f] both bars are the same size. Check if the [event:697b9357c13f9e36] shaded amounts match, they should cover the same space.",
+              "audio_dir": "module_8/lesson_7019967955056519632"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animation shows bars overlapping to prove equivalence"
+              },
+              "dialogue": "Let me help you with this one. The top bar has [event:697b95aa76836029] 1 out of 2 parts shaded, that's half. The bottom bar has [event:697b95e9f059a4a9] 2 out of 4 parts shaded, also half. Different numbers, same amount.",
+              "audio_dir": "module_8/lesson_4845182636193922726"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "yes! [event:697413789c79f181] [fraction numerator=2 denominator=4]two fourths[/fraction] equals [fraction numerator=1 denominator=2]one half[/fraction]. They [event:6974164d3996b987] show the exact same amount, just written differently.",
+          "audio_dir": "module_8/lesson_6882600886745252486"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You found that [event:6974183c4d9d559d] [fraction numerator=1 denominator=2]one half[/fraction] and [fraction numerator=2 denominator=4]two fourths[/fraction] show the same amount. When different fractions show the same amount like this, we call them [event:6974188de2533df6] [vocab]equivalent fractions[/vocab]. Equivalent means equal, the [event:697d154db1b86173] same amount.",
+      "audio_dir": "module_8/lesson_6960794193038729554",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Equivalent Fractions",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "So [event:6974192ab0613858] [fraction numerator=1 denominator=2]one half[/fraction] and [fraction numerator=2 denominator=4]two fourths[/fraction] are equivalent fractions [event:697419d984b82437]. They're [event:697419e82e57b874] equal. Let's find more [event:69741af640346849] equivalent fractions.",
+      "audio_dir": "module_8/lesson_1745622885715859080"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's [event:69741b17d222598b] [fraction numerator=1 denominator=2]one half[/fraction] again at the top[event:69741b39985e647b]. Which bar below shows an equivalent fraction, the same amount as [event:69741b8f10a7eb00] [fraction numerator=1 denominator=2]one half[/fraction]? Click the equivalent bar[event:69741bd3c9988bbe] .",
+      "audio_dir": "module_8/lesson_4971409178255777371",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the bar that is equivalent to [fraction numerator=1 denominator=2]One half[/fraction].",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "SelectionValidator",
+          "answer": 3
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Almost. [fraction numerator=1 denominator=2]One half[/fraction] means exactly half. find the bar that matches, the other bar with half its parts shaded.",
+              "audio_dir": "module_8/lesson_3639406524054305602"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Midpoint line appears on each bar showing where half is"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] You're getting there. The key is: [event:697d21380417f64d] [fraction numerator=1 denominator=2]one half[/fraction] means exactly [event:697d21d2a8f16ce4] half the bar is shaded. Count the parts, which bar matches the bar on top and has exactly half of its parts shaded?",
+              "audio_dir": "module_8/lesson_3478853456802951180"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Sequential highlighting with checkmarks/X marks"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Here, let's walk through this together. [event:697d223c819866d2] [fraction numerator=1 denominator=2]One half[/fraction] means half the bar is shaded. The middle bar has [event:697d228872e179f4] 6 parts total and [event:697d247b9a85ff60] 4 are shaded, that's more than half. [event:697d25ab231d765e] The bottom bar has [event:697d25ebbd5fdad7] 6 parts and [event:697d25feda9dd3a9] 3 are shaded, that's [event:697d273151c4859c] exactly half. So [event:698381e56f573725] [fraction numerator=3 denominator=6]three sixths[/fraction] equals fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/lesson_5648094910374051605"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:restore_snapshot_prompt_start] Good, you found another one. [event:69741c76a56811f8] [fraction numerator=3 denominator=6]Three sixths[/fraction] also equals [event:69741c952dc8e2d9] [fraction numerator=1 denominator=2]one half[/fraction].",
+          "audio_dir": "module_8/lesson_5475428465208382776"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "So far we've found that [event:69741de428ecfdc7] [fraction numerator=1 denominator=2]one half[/fraction] equals [event:69741eb8a7f2c0f7] [fraction numerator=2 denominator=4]two fourths[/fraction] equals [event:69741e996d148572] [fraction numerator=3 denominator=6]three sixths[/fraction]. They all show the [event:69742036269e4532] same amount even though the numbers are [event:6974209a0e930570] different. Another pattern is emerging.",
+      "audio_dir": "module_8/lesson_102267916122236469",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Our pattern only works because our bars are all the [event:697420cae46ebac8] same size. We can only say fractions are equivalent when they're parts of the same sized [event:6974212beeddc2b5] whole. [fraction numerator=1 denominator=2]One half[/fraction] of a granola bar, and [fraction numerator=2 denominator=4]two fourths[/fraction] of a school bus, aren't equal, because the wholes are different sizes. But [event:6974214e007a155b] [fraction numerator=1 denominator=2]one half[/fraction] and [event:6974222c2c64c7d0] [fraction numerator=2 denominator=4]two fourths[/fraction] of the same kind of granola bar are [event:6974224462420d53] equal. The [event:697421e1277471f0] whole has to be exactly the same size for fractions to be equivalent.",
+      "audio_dir": "module_8/lesson_1367899684691509019"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look at our pattern. [event:697423ca59ec7ea7] [fraction numerator=1 denominator=2]One half[/fraction] equals [fraction numerator=2 denominator=4]two fourths[/fraction] equals [fraction numerator=3 denominator=6]three sixths[/fraction]. They all show half[event:6974241988009808]. Now, how many eighths would equal [fraction numerator=1 denominator=2]One half[/fraction]? Click on parts to shade them.",
+      "audio_dir": "module_8/lesson_4070891667952536851",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2",
+            "intervals_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "intervals_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6",
+            "intervals_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 8,
+            "intervals": "1/8"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade the number of eighths needed to show [fraction numerator=1 denominator=2]One half[/fraction].",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "4/8"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look at this problem again. Half of 8 parts means shading 4 parts.",
+              "audio_dir": "module_8/lesson_4109921351679125837"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Dotted line appears at halfway point"
+              },
+              "dialogue": "Not quite. Try this: to show half, shade 4 of the 8 parts.",
+              "audio_dir": "module_8/lesson_7841848393530895551"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Parts shade one by one to 4"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] I'll help walk you through this. We have [event:697b9ab8161920f1] 8 equal parts total. To show [fraction numerator=1 denominator=2]one half[/fraction], we need exactly [event:697b9aece51fbc86] half shaded. Half of 8 is 4, so we shade [event:697b9b24649b68a7] 4 parts. That makes [event:697b9b71d6ad33b1] [fraction numerator=4 denominator=8]four eighths[/fraction], which equals [event:697b9b96a719233e] [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/lesson_2283369483836906614"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct! [event:697936921ac5d901] [fraction numerator=4 denominator=8]Four eighths[/fraction] is also [event:6983d609fb1eabc1] [fraction numerator=1 denominator=2]one half[/fraction]. You're seeing how our pattern extends[event:6983d62f009c1ed1].",
+          "audio_dir": "module_8/lesson_2102406749506909081"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:697424988aac7c4f] [fraction numerator=1 denominator=2]One half[/fraction], [fraction numerator=2 denominator=4]two fourths[/fraction], [fraction numerator=3 denominator=6]three sixths[/fraction], [fraction numerator=4 denominator=8]four eighths[/fraction], [event:69791ea633c3bb8b]  they all show half. The pieces get smaller, so [event:6979267cbbac66af] we shade more pieces [event:697d32fc3616ad8d], but the total amount of the [event:697926af543a0957] whole bar that's shaded stays the same.",
+      "audio_dir": "module_8/lesson_7321751425923412609",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 2,
+            "intervals": "1/2"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2
+            ],
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 8,
+            "intervals": "1/8"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:69792f194b407a82] For fractions to be equivalent, they need to show the [event:697934582101b010] same amount of the same sized whole. All our bars are the [event:6979349e08e6647a] same size, so when they match like [event:6979342f8e68ef67] this, we can be sure they're equivalent.",
+      "audio_dir": "module_8/lesson_1452134611461694077"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's try this another way: using a [event:6979384a521f6dd2] number line instead of bars. Can you place a point at [fraction numerator=1 denominator=2]one half[/fraction]?",
+      "audio_dir": "module_8/lesson_6481911167756940988",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/2",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at  [fraction numerator=1 denominator=2]one half[/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. [fraction numerator=1 denominator=2]One half[/fraction] is at the halfway point between 0 and 1.",
+              "audio_dir": "module_8/lesson_4070430786887975272"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Counting marks appear"
+              },
+              "dialogue": "Let's try once more. The halfway point between[event:697b9dc52b0d052e] 0 and 1 is where [fraction numerator=1 denominator=2]one half[/fraction] [event:697b9de87a1d326d] goes.",
+              "audio_dir": "module_8/lesson_3869369265038323255"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Marker animates to correct position"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you. [fraction numerator=1 denominator=2]One half[/fraction] goes right [event:697b9e0dd5a01656] here at the halfway point between [event:697b9e72c33708a5] 0 and 1.",
+              "audio_dir": "module_8/lesson_1350022192670425799"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good! Thats right where [event:6973fc7946cfbd6c] [fraction numerator=1 denominator=2]one half[/fraction] goes on the number line.",
+          "audio_dir": "module_8/lesson_4118887761344808702"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, place a point at [fraction numerator=2 denominator=4]two fourths[/fraction] on the [event:697938cbe075bdc7] bottom number line",
+      "audio_dir": "module_8/lesson_6087504511122749590",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/2",
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "1/2"
+            ],
+            "ticks_is_read_only": true,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the point at two fourths on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. [fraction numerator=2 denominator=4]Two fourths[/fraction] lands halfway between 0 and 1.",
+              "audio_dir": "module_8/lesson_6051142790421441943"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Counting marks appear"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's try once more. [fraction numerator=2 denominator=4]Two fourths[/fraction] means two spaces out of [event:697b9f6585cd4e78] four total. That puts you halfway to 1, same as [fraction numerator=1 denominator=2]one half[/fraction].",
+              "audio_dir": "module_8/lesson_6867612747074608148"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animated counting showing both 1/2 and 2/4 landing at same point"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through this together. Starting at 0, we count fourths: [event:697d3c4038abb8b2] [fraction numerator=1 denominator=4]one fourth[/fraction] is here, [fraction numerator=2 denominator=4]two fourths[/fraction] is [event:697d3ccaa8d3ea54] here,[event:69838d9edbf8263a] right at the [event:69838dc38aba1ae5] halfway point, exactly where [event:697d3cf50affbcde] [fraction numerator=1 denominator=2]one half[/fraction] is. When fractions land at the same position, they're equivalent.",
+              "audio_dir": "module_8/lesson_691443548079734360"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right, [fraction numerator=2 denominator=4]two fourths[/fraction] lands at the [event:6973fdea688f8eae] same point. That's another strategy for proving when [event:6973ff203a2893de] fractions are equivalent.",
+          "audio_dir": "module_8/lesson_3020980895426566991"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Nice work. Whether we use bars or number lines, equivalent fractions will always [event:6979451bc0316a95] match. Bars and number lines are different ways to show the same concept[event:69794558f3218988] .",
+      "audio_dir": "module_8/lesson_7857301624922980947",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "points": [
+              "1/2"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "0",
+              "2/4",
+              "1"
+            ],
+            "is_read_only": true
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "You've identified two strategies to prove fractions are equivalent: bars and number lines. Now let's learn how to create equivalent fractions ourselves.",
+      "audio_dir": "module_8/lesson_1077432997752295080",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's [fraction numerator=2 denominator=3]two thirds[/fraction]. Now watch what happens when we split each third in [event:6979395abb642532] half. This is how we will create equivalent fractions.",
+      "audio_dir": "module_8/lesson_6527808815592299738",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 3,
+            "intervals": "1/3"
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Follow along as I work. Each shaded third becomes [event:697949612c59f7f3] two shaded sixths when I split them. See? I had [event:697949a82bd24082] 2 thirds shaded. When each third became 2 sixths, my [event:69794af635b8e58b] 2 shaded thirds became [event:69794b1b6f1f8d99] 4 shaded sixths. The amount stays the [event:69794ba6688f3885] same even though we've added more pieces. Now, let's try with a new bar[event:69794c4cf59ec778] .",
+      "audio_dir": "module_8/lesson_7658552383569171401",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 6,
+            "intervals": "1/3"
+          },
+          {
+            "@type": "Benchmark",
+            "@layout": "overlay",
+            "is_visible": false,
+            "location": "2/3"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Click to shade parts to make both bars equivalent",
+      "audio_dir": "module_8/lesson_7986334756439505544",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 3,
+            "intervals": "1/3",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 6,
+            "intervals": "1/6"
+          },
+          {
+            "@type": "Benchmark",
+            "@layout": "overlay",
+            "is_visible": false,
+            "location": "2/3"
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Shade to keep the same amount as two thirds.",
+        "tool": {
+          "@type": "Paint"
+        },
+        "validator": {
+          "@type": "ShadedValidator",
+          "answer": "4/6"
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's rethink. Your shading should show the same amount as [fraction numerator=2 denominator=3]two thirds[/fraction].",
+              "audio_dir": "module_8/lesson_3551877307554180987"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Arrows show the splitting"
+              },
+              "dialogue": "You're working on it. You can think of it this way: each third became [event:697ba11c623cc06d] 2 sixths when split, so 2 thirds becomes 4 sixths.",
+              "audio_dir": "module_8/lesson_2457436758686924430"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Animation of splitting process"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through this together. [event:6983a08a7d024c3a] Each shaded third becomes [event:697ba1979fcc898e] 2 shaded sixths when we split. We had 2 thirds shaded, so that becomes [event:697ba2012b7eb3bb] 4 sixths shaded. The amount stays the [event:697ba2565f78013f]same, just with more pieces. [event:697ba294f662e14d] [fraction numerator=2 denominator=3]Two thirds[/fraction] equals [event:6983a171f5d02736] [fraction numerator=4 denominator=6]four sixths[/fraction].",
+              "audio_dir": "module_8/lesson_8099026004234708663"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "You've got it. [event:69793ab9751271bf] [fraction numerator=4 denominator=6]Four sixths[/fraction] equals [fraction numerator=2 denominator=3]two thirds[/fraction]. You're creating equivalent fractions [event:69839f59b9b173ad] now.",
+          "audio_dir": "module_8/lesson_4148922683290289339"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:697942601f2bb394] Hopefully that helps you see our new pattern. As long as our bars are the [event:6979420477ee7de2] same size, different [event:6979421da7fcfee0] fractions can sometimes show thesame amount. You recognized this principle, [event:69794255ab9b5573] and you even started creating [event:6983a59d356f1142] equivalent fractions yourself. Let's keep this in mind as we continue to practice.",
+      "audio_dir": "module_8/lesson_913356141238396574"
+    }
+  ]
+}

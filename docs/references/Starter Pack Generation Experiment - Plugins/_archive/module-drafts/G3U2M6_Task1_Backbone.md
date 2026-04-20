@@ -6,7 +6,7 @@ primary_toys:
   - name: "Grid Rectangles"
     notion_url: "https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca"
   - name: "Equation Builder"
-    notion_url: "In development"
+    notion_url: "https://www.notion.so/2fc5917eac52803f8604f47c62304ee7"
 secondary_toys: none
 interaction_tools: "MC (with Tier scaffolding), Equation Builder (multiplication with unit labels), Drag-to-Rank"
 our_lessons: L7
@@ -313,7 +313,7 @@ Equation Builder will support multi-step calculation and unit labeling in M6 and
 - **Late Lesson / Practice:** Display equation format for multiplication-based area calculation with unit labels.
   - Example: 3 feet × 4 feet = 12 square feet
 - **Interaction:** Students select or input dimensions and verify area.
-- **Notion Link:** In development (TBD)
+- **Notion Link:** [Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7)
 
 #### M6-Specific Configuration (TBD)
 - Display unit labels alongside numbers.

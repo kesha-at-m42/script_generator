@@ -1,0 +1,538 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "In this lesson we've worked on two ways to compare fractions: The same denominator strategy, and the same numerator strategy. Now let's think about when each one helps us most.",
+      "audio_dir": "module_11/synthesis_2236045019061160767",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Juan and Theresa are sharing identical sandwiches. Juan's sandwich is [event:698a4e43a7546afa]cut into 3 equal pieces and he gets [event:698a4e887f129336]one piece. Theresa's sandwich is [event:698a4eaa5df778a9]cut into 7 equal pieces and she gets [event:698a4edf7d3c6d18]one piece. Who gets more sandwich?",
+      "audio_dir": "module_11/synthesis_2689930341117128369",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 3,
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 7,
+            "is_read_only": true
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": true,
+            "label": "Juan",
+            "is_highlighted": false
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": true,
+            "label": "Theresa",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct statement.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "Juan gets more because [fraction numerator=1 denominator=3]1/3[/fraction] > [fraction numerator=1 denominator=7]1/7[/fraction]",
+            "Theresa gets more because [fraction numerator=1 denominator=3]1/3[/fraction] < [fraction numerator=1 denominator=7]1/7[/fraction]",
+            "They get the same because [fraction numerator=1 denominator=3]1/3[/fraction] = [fraction numerator=1 denominator=7]1/7[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look again at the piece sizes. Which highlighted piece takes up more space?",
+              "audio_dir": "module_11/synthesis_2643257436792520997"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pulse the highlighted pieces to emphasize size difference"
+              },
+              "dialogue": "When a sandwich is cut into only [event:698a5084fbfcd619]3 pieces, each piece is much bigger than when it's cut into 7 pieces. [event:698d0e1e61f596dc]Look at Juan's piece compared to Theresa's piece.",
+              "audio_dir": "module_11/synthesis_7513986400660697614"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight choice A"
+              },
+              "dialogue": "Let me help you see this. Both have [event:698a525b23c36670]1 piece, the same numerator, but [event:698a53c0efb6f60a]thirds are bigger pieces than sevenths. So Juan's [fraction numerator=1 denominator=3]one third[/fraction] is more [event:698a52afecdc8198]than Theresa's [fraction numerator=1 denominator=7]one seventh[/fraction].",
+              "audio_dir": "module_11/synthesis_3341504235809483035"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct. Juan gets more sandwich. [event:698a4fa7171f4531][fraction numerator=1 denominator=3]One third[/fraction] is more than [event:698a4fbd43d610af][fraction numerator=1 denominator=7]one seventh[/fraction]. Fewer pieces means each piece is bigger.",
+          "audio_dir": "module_11/synthesis_8735526756141440789"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look at these two problems. One uses the counting strategy, one uses the size comparison strategy. Which problem would you solve by counting?",
+      "audio_dir": "module_11/synthesis_7561736489266016057",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "4/9",
+              "<",
+              "7/9"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "terms": [
+              "2/5",
+              ">",
+              "2/8"
+            ]
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": false,
+            "label": "test",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the problem where you count parts.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=4 denominator=9]4/9[/fraction] < [fraction numerator=7 denominator=9]7/9[/fraction]",
+            "[fraction numerator=2 denominator=5]2/5[/fraction] > [fraction numerator=2 denominator=8]2/8[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "The first problem has two fractions with [event:698a60349e45d346]ninths, the same denominator. The second problem has [event:698a60428c28d4ef]fifths and eighths, two different denominators. Which problem is best for the counting strategy?",
+              "audio_dir": "module_11/synthesis_3293973694709914806"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight denominators in each problem"
+              },
+              "audio_dir": "module_11/synthesis_3122449815837889968"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Problem A"
+              },
+              "dialogue": "The first problem has [event:698a60bb2c8d42e0][fraction numerator=4 denominator=9]four ninths[/fraction] and [event:698a60d4986e4eac][fraction numerator=7 denominator=9]seven ninths[/fraction], both ninths. They have the same denominator, so we use the [event:698a60fa872a181b]counting strategy for that one.",
+              "audio_dir": "module_11/synthesis_2043245175801512248"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Both [event:698a5e4bf1a29160]show ninths,[d:0.2]\n the same denominator,[d:0.2] so we use the counting strategy.",
+          "audio_dir": "module_11/synthesis_3079503150674432339"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, which of these two problems do we solve with the size comparison strategy?",
+      "audio_dir": "module_11/synthesis_7687760128675274196",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "4/8",
+              "<",
+              "7/8"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "terms": [
+              "3/5",
+              ">",
+              "3/8"
+            ]
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": false,
+            "label": "test",
+            "is_highlighted": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the problem where you compare piece sizes.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=4 denominator=8]4/8[/fraction] < [fraction numerator=7 denominator=8]7/8[/fraction]",
+            "[fraction numerator=3 denominator=5]3/5[/fraction] > [fraction numerator=3 denominator=8]3/8[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "The fractions in the second problem have the same [event:698a7214a4c69c08]numerator. That means we compare piece sizes.",
+              "audio_dir": "module_11/synthesis_9177135493410982416"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight numerators in Problem B"
+              },
+              "audio_dir": "module_11/synthesis_4047011797483517576"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Problem B"
+              },
+              "dialogue": "The second problem has [event:698a72abfc412e4f][fraction numerator=3 denominator=5]three fifths[/fraction] and [event:698a72b71a56b107][fraction numerator=3 denominator=8]three eighths[/fraction], both have the [event:698a72eac854b782]same numerator. [event:698a73718cfeb88a]That means we use the size comparison strategy.",
+              "audio_dir": "module_11/synthesis_4784454067583534184"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Both fractions have [event:698a63c7dc438fef]3 pieces, the same numerator, so we compare the size of those pieces.",
+          "audio_dir": "module_11/synthesis_8875212871229536157"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "The first step is always the same: check [event:698a663706606ded]what matches. Then you know which strategy to use.",
+      "audio_dir": "module_11/synthesis_4290679584388234734",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "4/9",
+              "?",
+              "7/9"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "terms": [
+              "3/5",
+              "?",
+              "3/8"
+            ]
+          },
+          {
+            "@type": "Vocab",
+            "@col": 1,
+            "is_visible": false,
+            "label": "test",
+            "is_highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's review what you learned today. First, when denominators match, like [event:698a9760fc9c82ae][fraction numerator=3 denominator=8]three eighths[/fraction] and [event:698a987fdba15e13][fraction numerator=5 denominator=8]five eighths[/fraction], we count the pieces or intervals to compare the size of different fractions. Both show us [event:698a9acf3acf16a1]eighths, so we can count: [event:698a961a09bd3cc3]3 versus [event:698a9645b31b8d08]5. [event:698a96dda8e3407a]That gives us the answer.[event:698d112d6e4f0c5a]",
+      "audio_dir": "module_11/synthesis_8763013037107395086",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "mini_bar",
+            "intervals": "1/8"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "visual": "mini_bar",
+            "intervals": "1/8"
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/8"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "10/10"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "<"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "5/8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Second, when numerators match, like [event:698a9c5ea32c5966][fraction numerator=1 denominator=4]one fourth[/fraction] and [event:698a9c70de968763][fraction numerator=1 denominator=8]one eighth[/fraction], we compare piece sizes. Both have [event:698a9dce9a8b1d1d]1 piece shaded, so we look at which piece is bigger. Fourths [event:698a9fa060f4570c]are bigger than eighths.",
+      "audio_dir": "module_11/synthesis_5234246686354209159",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "mini_bar",
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "visual": "mini_bar",
+            "intervals": "1/8"
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "1/4"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "<"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              ">"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "1/8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Third, and this is the skill that will help you the most, you learned to choose which strategy to use. Check what matches: same [event:698aa201ce93c215]denominator or same [event:698aa249e1776cd2]numerator. That tells you which tool to use. You're deciding how to solve them. That's mathematical thinking.",
+      "audio_dir": "module_11/synthesis_2571714962792143986",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/4",
+              "<",
+              "4/4"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "terms": [
+              "1/5",
+              ">",
+              "1/6"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "1/5",
+              ">",
+              "1/6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "As we continue to compare fractions, here is something to think about: What if the numerators and denominators are both different? Like comparing [event:698aa5e7fed2648b][fraction numerator=3 denominator=8]three eighths[/fraction] and [event:698aa709462f7f04][fraction numerator=2 denominator=5]two fifths[/fraction]? You can't count because the pieces aren't [event:698aa76abe259066]the same size. You can't just compare piece sizes because you have different [event:698aa7ab0b32f99a]numbers of pieces.",
+      "audio_dir": "module_11/synthesis_1992098798965900648",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "mini_bar",
+            "intervals": "1/8"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "visual": "mini_bar",
+            "intervals": "1/5"
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/8"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "<"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              ">"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "2/5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "That's the puzzle we'll solve next time. The thinking you did today, checking what matches first, is an important step as we explore more ways to compare fractions. You added two new strategies to your problem solving toolkit today.",
+      "audio_dir": "module_11/synthesis_1221885569564121906",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

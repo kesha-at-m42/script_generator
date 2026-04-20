@@ -1,0 +1,1492 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Let's [event:698b7c15df859b9c] review what we covered in the warm-up: when the [event:698b7c4139d36da7] [vocab]denominators[/vocab] are the same, we can just [event:698b7c6eb904a9d8] count how many parts are shaded. [event:698b7ccecd018178] But when the [vocab]numerators[/vocab] are the same, we have to ask: [event:698b7d6b33b1756a] How big is each piece? Let's keep exploring.",
+      "audio_dir": "module_11/lesson_9041526359343324644",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "mini_bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "mini_bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true,
+            "sum_location": "bottom"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "is_visible": false,
+            "visual": "mini_bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "is_visible": false,
+            "visual": "mini_bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 3,
+            "intervals": "1/3",
+            "is_read_only": true,
+            "sum_location": "bottom"
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's look at what [fraction numerator=2 denominator=6]two sixths[/fraction] and [fraction numerator=4 denominator=6]four sixths[/fraction] have in common. [event:69863b4b3e0415fe] Both of these number lines are divided into sixths, the [event:69863b779a5f9b20] intervals are the same size. First, place a point at [fraction numerator=2 denominator=6]two sixths[/fraction] on the top line.",
+      "audio_dir": "module_11/lesson_5142588742640991268",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at  [fraction numerator=2 denominator=6]two sixths[/fraction] on the top line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "2/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Count the intervals from zero. We need two intervals.",
+              "audio_dir": "module_11/lesson_7572400711419134275"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the first two intervals briefly"
+              },
+              "audio_dir": "module_11/lesson_4094365161675182481"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Automatically place blue dot at 2/6 position on top number line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me show you: Starting at zero, count two intervals: [event:698a9be217dafa32] [fraction numerator=1 denominator=6]one sixth[/fraction], [fraction numerator=2 denominator=6]two sixths[/fraction]. That's where it goes.",
+              "audio_dir": "module_11/lesson_5111766280019257676"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Good. [event:698a6553153ce740] [fraction numerator=2 denominator=6]Two sixths[/fraction] is two [event:69863d1333662e85] intervals from zero.",
+          "audio_dir": "module_11/lesson_8857199014788382551"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, let's place a point at [fraction numerator=4 denominator=6]four sixths[/fraction] on the bottom line.",
+      "audio_dir": "module_11/lesson_7937343411046545035",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "alt_labels": [
+              "2/6"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "labels": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at [fraction numerator=4 denominator=6]four sixths[/fraction] on the bottom line.",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "4/6"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Count from zero. We need four intervals.",
+              "audio_dir": "module_11/lesson_5769879737465987484"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the first four intervals briefly"
+              },
+              "audio_dir": "module_11/lesson_3758705135743036722"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Automatically place blue dot at 4/6 position on bottom number line"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Count from zero: [event:698a9ca645fc16cb] [fraction numerator=1 denominator=6]one sixth[/fraction], [fraction numerator=2 denominator=6]two sixths[/fraction], [fraction numerator=3 denominator=6]three sixths[/fraction], [fraction numerator=4 denominator=6]four sixths[/fraction]. That's where it belongs.",
+              "audio_dir": "module_11/lesson_8345929112373572467"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. [event:698a660f2dbb40ca] [fraction numerator=4 denominator=6]Four sixths[/fraction] means [event:69863e1196c18e99] four intervals from zero.",
+          "audio_dir": "module_11/lesson_126886032110540225"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now let's compare them. Both have sixths, the [event:69863e6d7b26ebaa] intervals are the same size. So we can count: [event:69863f1c70e7a268] two intervals here and [event:69864046c0938a9a] four intervals there. Select the correct symbol to compare [event:6986407ccd0794c0] [fraction numerator=2 denominator=6]two sixths[/fraction] and [fraction numerator=4 denominator=6]four sixths[/fraction].",
+      "audio_dir": "module_11/lesson_9052529741461004018",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "4/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "2/6",
+              " ? ",
+              "4/6"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the correct symbol to compare [fraction numerator=2 denominator=6]two sixths[/fraction] and [fraction numerator=4 denominator=6]four sixths[/fraction]",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Take a look at the points on the number lines. Which is farther from zero? Count the intervals.",
+              "audio_dir": "module_11/lesson_1487472275974531167"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight intervals from 0 to each dot: show 1, 2 on top and 1, 2, 3, 4 on bottom"
+              },
+              "dialogue": "Both fractions have sixths, [event:698b83afc8e90500]same size intervals. Count: [event:698b83dfbffc7fdd]2 intervals versus 4 intervals. Which is more?",
+              "audio_dir": "module_11/lesson_5048501307495050590"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol automatically"
+              },
+              "dialogue": "Both fractions have sixths: [event:698b85a8f5b5c6a2]same denominator, [event:698b860587b07167]same size intervals. The [event:698b8615c3a5d1a1]top point is [event:698b8626eb14c5b3]2 intervals from 0, the bottom point [event:698b865cdce4a437]is 4 intervals from 0. [fraction numerator=2 denominator=6]Two sixths[/fraction] is [event:698b869d74ea0b39]closer to 0 than [fraction numerator=4 denominator=6]four sixths[/fraction], so [event:698b87893b56277c][fraction numerator=2 denominator=6]two sixths[/fraction] [event:698b8576c47f1682]is less than [fraction numerator=4 denominator=6]four sixths[/fraction].",
+              "audio_dir": "module_11/lesson_4212535145531807779"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [fraction numerator=2 denominator=6]Two sixths[/fraction] is [event:698a6d4e7bc68e25] less than [fraction numerator=4 denominator=6]four sixths[/fraction]. When intervals are the same size, [event:698a6e9168cfffff] counting the intervals tells us which is greater.",
+          "audio_dir": "module_11/lesson_4743160354467952259"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here's another problem where we can use the same-denominator strategy. Let's compare [event:698a6f19db70457b] [fraction numerator=3 denominator=8]three eighths[/fraction] and [fraction numerator=5 denominator=8]five eighths[/fraction]. [event:698a6f7a711058a4] Please select the correct symbol.",
+      "audio_dir": "module_11/lesson_3645697284237240243",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "3/8",
+              " ? ",
+              "5/8"
+            ],
+            "visible_terms": false
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the comparison symbol for  [fraction numerator=3 denominator=8]three eighths[/fraction] and [fraction numerator=5 denominator=8]five eighths[/fraction]",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's look again. Both fractions are marked with eighths. Which fraction has a bigger numerator?",
+              "audio_dir": "module_11/lesson_8314276648276592147"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly highlight the numbers 3 and 5 in the fractions"
+              },
+              "dialogue": "Let's figure this out together. which number is bigger, [event:698d48af214c0bb9] three or five?",
+              "audio_dir": "module_11/lesson_9199036846886765810"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol, then show stacked number lines with 3/8 and 5/8 labeled"
+              },
+              "dialogue": "Same [event:698a9d2926f5f821] denominator means we need to count [event:698a9d50bede63b1] numerators. 3 versus 5. Since 3 is less [event:698b87f4548fb383] than 5, we write [fraction numerator=3 denominator=8]three eighths[/fraction] [event:698a9d19315acfaf] is less than [fraction numerator=5 denominator=8]five eighths[/fraction].",
+              "audio_dir": "module_11/lesson_5174020660856302822"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=3 denominator=8]Three eighths[/fraction] [event:69864ebf89832fc4] is less than [fraction numerator=5 denominator=8]five eighths[/fraction].",
+          "audio_dir": "module_11/lesson_1242440970936335626"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:69865221cf6f01fd] We've practiced comparing fractions using the same-denominator strategy. Now, let's practice another way to compare [event:698651e5c41cb7af] fractions. Here are [event:69865235723eb943] two bars with [event:698652667b89a421] [fraction numerator=1 denominator=4]one fourth[/fraction] and [event:698652d8efa843a7] [fraction numerator=1 denominator=8]one eighth[/fraction] shaded.",
+      "audio_dir": "module_11/lesson_6012574001289027213",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0
+            ],
+            "lcm": 8,
+            "intervals": "1/8",
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "1/4",
+              "?",
+              "1/8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's try our counting strategy to compare these fractions. Both bars have [event:698a70e72f25f8c1]one piece shaded. Both [event:69865e177c0ea3d0]numerators are 1, so counting the numerators [event:69865e53745dda61] doesn't help to compare these fractions. But let's look at the actual pieces. Even though there's [event:69865e77ba60887d]one of each, they're definitely different sizes. [event:69865ea7443f21a4]Which fraction is greater?",
+      "audio_dir": "module_11/lesson_5459705030826115084",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=1 denominator=4]one fourth[/fraction] and [fraction numerator=1 denominator=8]one eighth[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try once more. Look at the actual pieces. Which shaded part is larger?",
+              "audio_dir": "module_11/lesson_3092702781015511349"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pulse the shaded pieces to emphasize size difference"
+              },
+              "dialogue": "When we look closely, the [event:698b8839d32e9afc] fourth is much bigger than the eighth. Cutting into fewer [event:698b8863bd484fdf] parts means we create bigger pieces.",
+              "audio_dir": "module_11/lesson_5325451799885534534"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol automatically"
+              },
+              "dialogue": "This can be tricky. When we cut a bar into [event:698a9e16706ceaf6] 4 parts, each part is [event:698a9e7de3c8a1f4] bigger than when we cut into 8 parts. So [fraction numerator=1 denominator=4]one fourth[/fraction] is [event:698b88803a4ac434] greater than [fraction numerator=1 denominator=8]one eighth[/fraction][event:698a9feb9d864a09].",
+              "audio_dir": "module_11/lesson_469119170579410827"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=1 denominator=4]one fourth[/fraction] is [event:698a71a766d4d7b9] greater than [fraction numerator=1 denominator=8]one eighth[/fraction]. Even though both have [event:698a71c5392ce309] one piece shaded, the fourth is a much bigger piece. This is our second [event:698a721a46fabeca] strategy. when [event:698a723a230ce668] numerators are the same, we compare the [event:698a726967e50b4c] size of the pieces.",
+          "audio_dir": "module_11/lesson_1074582086829072252"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "These [event:698a735ab76b1c78] side by side bars show two different fractions. Lets use our new strategy to compare [event:698661e2a1ed098b] [fraction numerator=3 denominator=5]Three fifths[/fraction] and [fraction numerator=3 denominator=7]three sevenths[/fraction]. Both have three pieces shaded. Take a look at the pieces. [event:698662ef8897303e] Which gives you more, three fifths or three [event:6986631830adc54e] sevenths?",
+      "audio_dir": "module_11/lesson_1773491437412092866",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 7,
+            "intervals": "1/7",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "3/10"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              " ? "
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/5"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "3/7"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=3 denominator=5]Three fifths[/fraction] and [fraction numerator=3 denominator=7]Three sevenths[/fraction]",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Nearly there. Both show 3 pieces. But look at the SIZE of those pieces.",
+              "audio_dir": "module_11/lesson_5255003923309129927"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Shade 3 sections in each bar to show the size comparison"
+              },
+              "dialogue": "Not quite. Fewer parts in the whole means bigger pieces. Are [event:698d4bd169d3b119] fifths or sevenths bigger?",
+              "audio_dir": "module_11/lesson_4851857547344265334"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol, then shade 3 sections in each bar"
+              },
+              "dialogue": "Cutting into 5 parts makes [event:6986639af120f7c2] bigger pieces than cutting into 7. So [fraction numerator=3 denominator=5]three fifths[/fraction] [event:698aa036a66ff62e] is greater than [event:698aa024cb52d117] [fraction numerator=3 denominator=7]three sevenths[/fraction].",
+              "audio_dir": "module_11/lesson_301791759439027427"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [fraction numerator=3 denominator=5]Three fifths[/fraction] is [event:698a73d85fd7a12a] greater than [fraction numerator=3 denominator=7]three sevenths[/fraction] because [event:698665a1126c030c] fifths are bigger pieces than sevenths.",
+          "audio_dir": "module_11/lesson_3125846199333519132"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now take a look at these number lines. Both have points at TWO intervals from zero, at [event:698666183acbbaae] [fraction numerator=2 denominator=3]two thirds[/fraction] and [event:698667625b966fa4] [fraction numerator=2 denominator=6]two sixths[/fraction].  [event:698a398704946987] Which fraction is greater?",
+      "audio_dir": "module_11/lesson_9117995860706644367",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/3",
+            "points": [
+              "2/3"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "2/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "2/3",
+              " ? ",
+              "2/6"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=2 denominator=3]two thirds[/fraction] and [fraction numerator=2 denominator=6]two sixths[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look with me at the top numbers. What do you notice about them?",
+              "audio_dir": "module_11/lesson_6789637872553944267"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight one third interval vs one sixth interval for size comparison"
+              },
+              "dialogue": "Let's take another look. Both fractions have [event:698d4c461a6570c8] 2 in the numerator. When the top numbers match, we look at the interval [event:698d4c79c050436d] sizes. Which intervals are bigger, thirds or sixths?",
+              "audio_dir": "module_11/lesson_805864447980174208"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol automatically"
+              },
+              "dialogue": "Let me show you. Both have [event:698aa070710ffa64] 2 intervals from zero. Since we have the same number of intervals, we check which intervals are [event:698aa0a6febc6c55] bigger. Thirds are bigger than sixths. So [fraction numerator=2 denominator=3]two thirds[/fraction] [event:698aa0ca80113654] is greater than [fraction numerator=2 denominator=6]two sixths[/fraction].",
+              "audio_dir": "module_11/lesson_8861138730834669798"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right. When the [event:69866c88b44174e7] numerators match, we compare the [event:69866e346a1d474a] size of the intervals. Thirds are bigger than sixths, so [fraction numerator=2 denominator=3]two thirds[/fraction] is [event:698a39f867288ce9] greater than [fraction numerator=2 denominator=6]two sixths[/fraction].",
+          "audio_dir": "module_11/lesson_1548364289019830009"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:698a1db9ab703002] The work we're doing now will help you recognize when to use each strategy later. [event:698a1dd243f6da4f]Let's continue. Let's [event:698673a38d151f3d] look at [fraction numerator=2 denominator=6]two sixths[/fraction] and [fraction numerator=2 denominator=4]two fourths[/fraction]. First, identify what matches in these fractions. Based on what you see, which two strategies should we use?",
+      "audio_dir": "module_11/lesson_3096026409816395875",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 6,
+            "intervals": "1/6",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 4,
+            "intervals": "1/4",
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "2/6"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              " 10/10 "
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              " ? "
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "2/4"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare the fractions?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1,
+            3
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same denominator",
+            "Check for same numerator",
+            "Count the equal parts",
+            "Compare the sizes of parts"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Check the top numbers once more. What do you notice?",
+              "audio_dir": "module_11/lesson_3101260526504372132"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the numerators"
+              },
+              "dialogue": "Let's look at the numerators: [event:698aa884a6bd4bd8] 2 and 2. When numerators match, we [event:698aa8bd445121e1] compare piece sizes.",
+              "audio_dir": "module_11/lesson_8149866363230378629"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Same Numerator option"
+              },
+              "dialogue": "Both fractions have [event:698aa8f40bf2db70] 2 in the numerator. [event:698c027035c0797d]That means we use the Same Numerator strategy and compare piece sizes.",
+              "audio_dir": "module_11/lesson_7341043221760115201"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Both have a [event:698a24bda6513597] numerator of 2, so [event:698a253194ab0ebf] we compare piece sizes.",
+          "audio_dir": "module_11/lesson_9154358023237621214"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:698d4d376bd6de11]Now try comparing [event:698a267e1bcaa3cf] the fractions.",
+      "audio_dir": "module_11/lesson_3646650176633196454",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=2 denominator=6]Two sixths[/fraction] and [fraction numerator=2 denominator=4]Two fourths[/fraction].",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's try again. Both fractions show 2 pieces. Which pieces are bigger, fourths or sixths?",
+              "audio_dir": "module_11/lesson_8229912091377257843"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Pulse one fourth and one sixth to show size comparison"
+              },
+              "dialogue": "Fewer parts means bigger pieces. [event:698d4d74df293d90] Fourths are bigger than sixths.",
+              "audio_dir": "module_11/lesson_8912527558267021942"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol automatically"
+              },
+              "dialogue": "Both have 2 pieces shaded. [event:698aa25e545233d1] Fourths are bigger than [event:698aa3e87a38fa88] sixths. Which means [fraction numerator=2 denominator=6]two sixths[/fraction] [event:698aa4d73df3f2f7] is less than [fraction numerator=2 denominator=4]two fourths[/fraction].",
+              "audio_dir": "module_11/lesson_4308975701560548041"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=2 denominator=6]Two sixths[/fraction] is [event:698a26d527e39860] less than [fraction numerator=2 denominator=4]two fourths[/fraction]. [event:698a27d300a1a7be] Fourths are bigger pieces than [event:698a282e368b0593] sixths. You identified the [event:698a2890f0efb9b3] right strategy and applied it correctly.",
+          "audio_dir": "module_11/lesson_1811998123733852471"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's [event:698a1d619acfeccb] look at [fraction numerator=4 denominator=7]four sevenths[/fraction] and [fraction numerator=2 denominator=7]two sevenths[/fraction]. What strategies should we use to find the bigger fraction?",
+      "audio_dir": "module_11/lesson_8523357961728492221",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 7,
+            "intervals": "1/7",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "NumLine",
+            "@col": 2,
+            "is_visible": false,
+            "visual": "mini_bar",
+            "lcm": 7,
+            "intervals": "1/7",
+            "is_read_only": true,
+            "sum_location": "top"
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "4/7"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              "10/10"
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 1,
+            "is_visible": false,
+            "terms": [
+              " ? "
+            ]
+          },
+          {
+            "@type": "MathExpression",
+            "@col": 2,
+            "is_visible": false,
+            "terms": [
+              "2/7"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare the fractions?",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            3
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Check for same denominator",
+            "Check for same numerator",
+            "Compare the sizes of parts",
+            "Count the equal parts"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try checking the bottom numbers. What do you notice?",
+              "audio_dir": "module_11/lesson_7909004723532871700"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the denominators"
+              },
+              "dialogue": "Look with me at the denominators: [event:698bba9d0a3ae35a] 7 and 7. When denominators match[event:698bbab31f1423dc] , we count the number of pieces.",
+              "audio_dir": "module_11/lesson_1668967030530575184"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Same Denominator option"
+              },
+              "dialogue": "Both fractions have [event:698b8a4def41e078] 7 in the denominator. That means we use the [event:698b8a75a13b9811] Same Denominator strategy [event:698b8a9624233eef] and count the equal parts.",
+              "audio_dir": "module_11/lesson_7057305835874654841"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Both represent sevenths, they have the [event:698a2a35c649116a] same denominator, so [event:698a2aff2105d63a] we [event:698a2a463780f173] count the number of pieces.",
+          "audio_dir": "module_11/lesson_2229362256767708973"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Next, let's [event:698a2b6ddf6a8ef5] compare these fractions. ",
+      "audio_dir": "module_11/lesson_3680704141036034173",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare 4/7 and 2/7.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "You're thinking it through. Both fractions have a denominator of 7. Which is bigger, four pieces or two pieces?",
+              "audio_dir": "module_11/lesson_2419033734653111654"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Shade 4 and 2 sections in respective bars"
+              },
+              "dialogue": "When fractions share the [event:698b8de57ba6e853] same denominator, that means we count: [event:698bbaef31453627] 4 parts or 2 parts. Which is more?",
+              "audio_dir": "module_11/lesson_5935463508287898520"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol automatically"
+              },
+              "dialogue": "Let's work through this together. Both fractions are [event:698bbb043c39b7d1] sevenths, so they have the same size parts. [event:698bbb2dcedfed98] Count: [event:698bbb46a62a8064] 4 is greater than [event:698bbb64b2516751] 2, so [fraction numerator=4 denominator=7]four sevenths[/fraction] [event:698bbb8669051b00] is greater than [fraction numerator=2 denominator=7]two sevenths[/fraction].",
+              "audio_dir": "module_11/lesson_8755454265473271143"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes. [fraction numerator=4 denominator=7]Four sevenths[/fraction] is [event:698a2b94aab52ace] greater than [fraction numerator=2 denominator=7]two sevenths[/fraction].",
+          "audio_dir": "module_11/lesson_8307120866729784328"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "When we have [event:698a2c0d6e070618] [fraction numerator=3 denominator=6]three sixths[/fraction] and [fraction numerator=5 denominator=6]five sixths[/fraction], what strategies should we use to compare their sizes?",
+      "audio_dir": "module_11/lesson_196208858134969648",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "3/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/6",
+            "points": [
+              "5/6"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/6",
+              " ? ",
+              "5/6"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare the fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0,
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Same Denominator",
+            "Same Numerator",
+            "Count the equal intervals",
+            "Compare sizes of intervals"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Check the bottom numbers. What do you notice?",
+              "audio_dir": "module_11/lesson_8142296108263146842"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the denominators"
+              },
+              "dialogue": "Look at the denominators: [event:698aa5a1ef91828d] 6 and 6. When denominators match, we count [event:698aa5b63666318e] intervals.",
+              "audio_dir": "module_11/lesson_97640576234976954"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Same Denominator option"
+              },
+              "dialogue": "Both fractions have [event:698aa51caf334e68] 6 in the denominator. That means we use [event:698c05b356d1b8eb]the Same Denominator [event:698aa589ed6efd04] strategy, [event:698aa5bf53c51c95] counting the equal intervals.",
+              "audio_dir": "module_11/lesson_2834921499959754995"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! Both represent sixths, they have the [event:698a2ce147f0498e] same denominator, [event:698a2c8a01ac8067] so we count the intervals.",
+          "audio_dir": "module_11/lesson_5790162542556608680"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now, let's try [event:698a36e62e9f3ee2] comparing the fractions.",
+      "audio_dir": "module_11/lesson_3610217045487107933",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=3 denominator=6]Three sixths[/fraction] and [fraction numerator=5 denominator=6]five sixths[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            0
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Almost. Count the intervals from zero. Three intervals or five intervals, which is more?",
+              "audio_dir": "module_11/lesson_2359286361477284102"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight the intervals from 0 to each dot sequentially"
+              },
+              "dialogue": "When fractions share the same [event:698aa8236530fcb6] denominator, that means we count: 3 intervals versus 5 intervals. Which is more?",
+              "audio_dir": "module_11/lesson_8852643652181184942"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the < symbol automatically"
+              },
+              "dialogue": "Both have sixths, the [event:698aa753e558c9d6] same size intervals. So we can compare the numerators[event:698aa78bd56b795f] : [event:698aa7a6c406af09] 3 is less than 5, so [fraction numerator=3 denominator=6]three sixths[/fraction] is [event:698aa7e22dba368a] less than [fraction numerator=5 denominator=6]five sixths[/fraction].",
+              "audio_dir": "module_11/lesson_8712733701448326376"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=3 denominator=6]Three sixths[/fraction] is [event:698a37067863114d] less than [fraction numerator=5 denominator=6]five sixths[/fraction]. You counted the intervals, [event:698a9a1275a6103d] 3 versus 5, and chose correctly.",
+          "audio_dir": "module_11/lesson_7093782257217721150"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now look at [event:698a3ad6cda5d248] [fraction numerator=3 denominator=4]three fourths[/fraction] and [fraction numerator=3 denominator=7]three sevenths[/fraction]. What strategy should we use to compare them?",
+      "audio_dir": "module_11/lesson_2422265566360016841",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "points": [
+              "3/4"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/7",
+            "points": [
+              "3/7"
+            ],
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "is_visible": false,
+            "terms": [
+              "3/4",
+              " ? ",
+              "3/7"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Which TWO can help you compare the fractions?",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1,
+            3
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": true,
+          "options": [
+            "Same Denominator",
+            "Same Numerator",
+            "Count the equal intervals",
+            "Compare sizes of intervals"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Look again. This time, try checking the top numbers. What do you notice?",
+              "audio_dir": "module_11/lesson_23752635716177477"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Briefly glow the numerators"
+              },
+              "dialogue": "Look at the numerators with me: [event:698bbdd0b1e60b73] 3 and 3. When numerators match, we compare interval sizes.",
+              "audio_dir": "module_11/lesson_780879997858612404"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight Same Numerator option"
+              },
+              "dialogue": "Both fractions have [event:698bbf3d88e3389f] 3 in the numerator. That means we use the [event:698bc1287cc89e5b] Same Numerator strategy and [event:698bbedf087e9cc4] compare interval sizes.",
+              "audio_dir": "module_11/lesson_4723494058124383929"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [event:698a3b308d4eeffe] Same numerator, so we [event:698a3b6c8a6e8cd4] compare interval sizes.",
+          "audio_dir": "module_11/lesson_4121355044927967236"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:698a3c776ddd136b] Now, let's [event:698a3babab837df3] compare the fractions.",
+      "audio_dir": "module_11/lesson_6769837084429153277",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Select the symbol to compare [fraction numerator=3 denominator=4]three fourths[/fraction] and [fraction numerator=3 denominator=7]three sevenths[/fraction].",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "<",
+            "=",
+            ">"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Take another look. Both show 3 intervals. Which intervals are bigger, fourths or sevenths?",
+              "audio_dir": "module_11/lesson_8182651455972626550"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight one fourth interval and one seventh interval for size comparison"
+              },
+              "dialogue": "Fewer parts means bigger intervals. [event:698bc17bc5f5f2a9] Fourths are bigger than sevenths.",
+              "audio_dir": "module_11/lesson_3009226564605920357"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Fill in the > symbol automatically"
+              },
+              "dialogue": "Both have [event:698bc214e0b2dd3d] 3 intervals. [event:698bc1ef67b68bea] Fourths are bigger than sevenths. So [event:698bc1fe34f1b973] [fraction numerator=3 denominator=4]three fourths[/fraction] is [event:698bc1d373a1111a] greater than [fraction numerator=3 denominator=7]three sevenths[/fraction].",
+              "audio_dir": "module_11/lesson_8583956882603817814"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Thats right! [fraction numerator=3 denominator=4]Three fourths[/fraction] is greater [event:698a3bfc95da7544] than [fraction numerator=3 denominator=7]three sevenths[/fraction]. [event:698a3c17576893c9] Fourths are bigger intervals than sevenths.",
+          "audio_dir": "module_11/lesson_5761221822458664496"
+        }
+      }
+    }
+  ]
+}

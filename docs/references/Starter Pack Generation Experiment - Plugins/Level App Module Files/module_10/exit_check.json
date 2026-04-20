@@ -1,0 +1,306 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "You've learned to compare fractions with the same denominator. These next three questions are quick checks to see if you're ready to keep building on this knowledge.",
+      "audio_dir": "module_10/exit_check_5434098034990547421",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Here are two fractions for us to compare. Please choose the right symbol to compare the fractions.",
+      "audio_dir": "module_10/exit_check_7591219022695996441",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "lcm": 10,
+            "intervals": "1/10",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "intervals_is_shaded": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "lcm": 10,
+            "intervals": "1/10",
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "5/10",
+              " ? ",
+              "8/10"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Choose the right symbol.",
+        "tool": {
+          "@type": "Select",
+          "is_single": true
+        },
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Try counting the shaded parts in each bar. Which has more tenths?",
+              "audio_dir": "module_10/exit_check_6593204340369393497"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numbers 5 and 8 highlight above bars"
+              },
+              "dialogue": "Both have tenths, the same size pieces. [event:698bdfc58687d48e]Five tenths versus eight tenths. Which number is bigger?",
+              "audio_dir": "module_10/exit_check_2795459194831967740"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Highlight 5 parts on top bar, 8 parts on bottom bar, then show the < symbol, then select the correct answer"
+              },
+              "dialogue": "Let's work through it together: The top bar has [event:698be05d69c49e17]5 parts shaded, the bottom bar has [event:698be0bb0886f1af]8 parts shaded. Since they're both tenths, 8 is more than 5. So [event:698be02caaf18a79][fraction numerator=5 denominator=10]five tenths[/fraction] is less than [fraction numerator=8 denominator=10]eight tenths[/fraction].",
+              "audio_dir": "module_10/exit_check_6761826724613320661"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's correct. [event:698bd7dd248f8a67][fraction numerator=5 denominator=10]Five tenths[/fraction] < [fraction numerator=8 denominator=10]eight tenths[/fraction].",
+          "audio_dir": "module_10/exit_check_8660575310613286942"
+        }
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "The bar and the number line are partitioned into fifths. Compare [fraction numerator=2 denominator=5]two fifths[/fraction] and [fraction numerator=3 denominator=5]three fifths[/fraction]. Which symbol goes between them?",
+      "audio_dir": "module_10/exit_check_404172963238681802",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "lcm": 5,
+            "intervals": "1/5",
+            "is_read_only": true
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/5",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          },
+          {
+            "@type": "MathExpression",
+            "terms": [
+              "2/5",
+              " ? ",
+              "3/5"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Choose the right symbol.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not exactly. Both have fifths. Compare 2 pieces to 3 pieces. Which is less?",
+              "audio_dir": "module_10/exit_check_1760827590641099452"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "First 2 parts pulse, then first 3 parts pulse"
+              },
+              "dialogue": "Try thinking about what each fraction means: [event:698cf66c795972af][fraction numerator=2 denominator=5]two fifths[/fraction] is two of these parts, [event:698cf6d9d7772d20][fraction numerator=3 denominator=5]three fifths[/fraction] is three of these parts. Which is more?",
+              "audio_dir": "module_10/exit_check_5670768607153914100"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Bar highlights 2 parts, then 3 parts for comparison, then select the correct answer"
+              },
+              "dialogue": "Let me show you: [fraction numerator=2 denominator=5]Two fifths[/fraction] means [event:698cfac27c9e48c8]two of these fifth parts. [fraction numerator=3 denominator=5]Three fifths[/fraction] means [event:698cfb76a3edec4e]three of these parts. Since 2 is less than 3, we write [event:698cfc73ee670c64][fraction numerator=2 denominator=5]two fifths[/fraction] < [fraction numerator=3 denominator=5]three fifths[/fraction].",
+              "audio_dir": "module_10/exit_check_6561001673511983708"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:698d1eb93c426315]Right. [event:698d1ed8ca62abf5][fraction numerator=2 denominator=5]Two fifths[/fraction] is less than [event:698d2148665f39e4][fraction numerator=3 denominator=5]three fifths[/fraction].",
+          "audio_dir": "module_10/exit_check_1799928514174822854"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "We have three more fractions to compare. We need the three fractions in order from smallest to largest. Remember to check the denominators first.",
+      "audio_dir": "module_10/exit_check_2185235764942189472",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "ticks": "1/7",
+            "labels": [
+              "0",
+              "1"
+            ],
+            "is_read_only": true
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Pick the option with fractions ordered smallest to largest.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            2
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=1 denominator=7]1/7[/fraction], [fraction numerator=5 denominator=7]5/7[/fraction], [fraction numerator=2 denominator=7]2/7[/fraction]",
+            "[fraction numerator=2 denominator=7]2/7[/fraction], [fraction numerator=1 denominator=7]1/7[/fraction], [fraction numerator=5 denominator=7]5/7[/fraction]",
+            "[fraction numerator=1 denominator=7]1/7[/fraction], [fraction numerator=2 denominator=7]2/7[/fraction], [fraction numerator=5 denominator=7]5/7[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "All of these fractions are sevenths, which numerator is smallest?",
+              "audio_dir": "module_10/exit_check_1977562626703519416"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numerators 1, 2, 5 highlight in sequence"
+              },
+              "dialogue": "[event:698ceaa307c3d5dd]Same denominators mean we're able to compare numerators. [event:698ceb08d9e229fb]Look for the option that has 1, 2, and 5 ordered from smallest to largest.",
+              "audio_dir": "module_10/exit_check_2061643385366921033"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Show numerators in order, then select the correct answer"
+              },
+              "dialogue": "[event:698ceb7e4f6512ce]Let me demonstrate: All three fractions have a denominator of 7. That means I can count parts: [event:698ceb9abe4d5714]1,[d:0.2] 2,[d:0.3]\nand 5. The order is: [event:698cf2ae46866649][fraction numerator=1 denominator=7]one seventh[/fraction] first, then [event:698cf2d63764461a][fraction numerator=2 denominator=7]two sevenths[/fraction], then [event:698cf2e18f458284][fraction numerator=5 denominator=7]five sevenths[/fraction].",
+              "audio_dir": "module_10/exit_check_1822386228729229406"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "[event:698cf486d15fef23]Great work. [event:698cf4e5d0f1c7b9][fraction numerator=1 denominator=7]One seventh[/fraction] < [event:698cf503de4f6f0f][fraction numerator=2 denominator=7]two sevenths[/fraction] < [event:698cf5108e41e090][fraction numerator=5 denominator=7]five sevenths[/fraction]. When all the denominators are the same, we can compare size by comparing numerators.",
+          "audio_dir": "module_10/exit_check_8175325071501466382"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Great. You're proving you understand how to compare fractions with the same denominator. You know when to use >, <, and =. You're ready for a round of solo practice.",
+      "audio_dir": "module_10/exit_check_4334134972581579542",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": []
+      },
+      "scene": "ZoomedOut"
+    }
+  ]
+}

@@ -44,8 +44,8 @@ from sp_parse_interactions import parse_sp
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(SCRIPTS_DIR))  # two levels up from .claude/scripts/
 
-MODULE_MAP_PATH = os.path.join(BASE_DIR, "Grade 3 Unit 2 Area and Multiplication .xlsx")
-TVP_PATH = os.path.join(BASE_DIR, "Grade 3 Unit 2_ Toy Flow.docx")
+MODULE_MAP_PATH = os.path.join(BASE_DIR, "Grade 3 Unit 2", "Grade 3 Unit 2 Area and Multiplication .xlsx")
+TVP_PATH = os.path.join(BASE_DIR, "Grade 3 Unit 2", "Grade 3 Unit 2_ Toy Flow.docx")
 
 
 # ---------------------------------------------------------------------------

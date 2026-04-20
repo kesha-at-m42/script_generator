@@ -11,7 +11,7 @@ primary_toys:
   - name: "Grid Rectangles"
     notion_url: "https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca"
   - name: "Equation Builder"
-    notion_url: "In development"
+    notion_url: "https://www.notion.so/2fc5917eac52803f8604f47c62304ee7"
 secondary_toys: none
 interaction_tools: MC, Drag-to-Place (Equation Builder), Tap-to-Highlight (Grid Rectangles)
 our_lessons: L5
@@ -268,7 +268,7 @@ The area of a rectangle can be found by multiplying its side lengths — because
 
 ### **1.5.2 Equation Builder**
 
-**Notion Spec:** In development | **First Appearance:** M4 is the first module using Equation Builder in Unit 2. Students used Equation Builder for expressions in Unit 1 (per TVP: "Students used Equation Builder for expressions in Unit 1, so it's prior knowledge"). M4 re-introduces it in the area context with scaffolding.
+**Notion Spec:** [Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7) | **First Appearance:** M4 is the first module using Equation Builder in Unit 2. Students used Equation Builder for expressions in Unit 1 (per TVP: "Students used Equation Builder for expressions in Unit 1, so it's prior knowledge"). M4 re-introduces it in the area context with scaffolding.
 
 **Purpose:** Students build multiplication expressions that describe the row-by-column structure of a displayed rectangle. The Equation Builder is the NOTATION TOOL — Grid Rectangles provides the visual source. Expression building is drag-and-drop or click-and-place (touchpad-friendly per Decision #6).
 

@@ -55,10 +55,10 @@ Based on the gate, invoke the appropriate evaluation agents. Each agent is a `.m
 
 | Gate | Agents to Invoke | Sections Covered |
 |------|-----------------|------------------|
-| **1** | `m42-gate1-eval.md`, `m42-source-fidelity.md` | §1.0–§1.5 source fidelity + backbone compliance |
-| **2** | Gate 1 agents + `m42-warmup-eval.md`, `m42-lesson-eval.md`, `m42-guide-prompt-eval.md` | + §1.6 warmup quality, §1.7 lesson scripting, prompt design |
-| **3** | Gate 2 agents + `m42-ec-practice-eval.md`, `m42-synthesis-eval.md`, `m42-kdd-eval.md` | + §1.8 exit check, §1.9 synthesis, §1.10 design decisions |
-| **4** | Gate 3 agents + `m42-voice-eval.md`, `m42-cross-module-eval.md` | + whole-SP voice quality, cross-module alignment |
+| **1** | `m42-gate1-eval.md`, `m42-source-fidelity.md`, `m42-pedagogy-eval.md` | §1.0–§1.5 source fidelity + backbone compliance + Section Plan pedagogy |
+| **2** | Gate 1 agents + `m42-warmup-eval.md`, `m42-lesson-eval.md`, `m42-guide-prompt-eval.md` | + §1.6 warmup quality, §1.7 lesson scripting, prompt design (6 agents — mandatory quality gate) |
+| **3** | Gate 2 agents (excl. pedagogy) + `m42-ec-practice-eval.md`, `m42-synthesis-eval.md`, `m42-kdd-eval.md` | + §1.8 exit check, §1.9 synthesis, §1.10 design decisions |
+| **4** | Gate 3 agents + `m42-voice-eval.md`, `m42-cross-module-eval.md`, `m42-pedagogy-eval.md`, `m42-requirements-eval.md` | + whole-SP voice quality, cross-module alignment, full pedagogy arc, requirements compliance |
 
 ### Agent Invocation Protocol
 
@@ -138,9 +138,9 @@ State one of:
 
 ## EXECUTION TIPS
 
-- **Gate 1 evaluations** are the fastest (~2 agents). Good for early backbone review.
-- **Gate 2 evaluations** add 3 more agents and cover the bulk of scripted content. Most common evaluation point.
-- **Gate 3 evaluations** are near-complete. The incremental agents (EC, synthesis, KDD) are smaller sections.
+- **Gate 1 evaluations** are the fastest (~3 agents). Good for early backbone review.
+- **Gate 2 evaluations** are the mandatory quality gate (6 agents including pedagogy-eval). Most common evaluation point — catches ~75% of student-facing content issues.
+- **Gate 3 evaluations** are near-complete. The incremental agents (EC, synthesis, KDD) cover smaller sections.
 - **Gate 4** is a full audit. The voice-eval agent alone can take significant time. Reserve for pre-release review.
 - If the user wants speed over depth, suggest running `sp-quick-check` first, then following up with a targeted gate-eval only if L1 finds issues.
 - If the user asks for a specific agent only (e.g., "just run voice eval"), you can skip the full orchestration and invoke that single agent directly from `.claude/agents/`.

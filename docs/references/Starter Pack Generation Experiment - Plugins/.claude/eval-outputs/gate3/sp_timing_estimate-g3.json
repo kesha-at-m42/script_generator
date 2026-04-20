@@ -1,0 +1,66 @@
+{
+  "checker": "sp_timing_estimate",
+  "file": "G3U2M11_Task1_Backbone.md",
+  "gate": 3,
+  "checks_run": [
+    "TM1",
+    "TM2"
+  ],
+  "total_findings": 2,
+  "severity_counts": {
+    "MINOR": 2
+  },
+  "check_counts": {
+    "TM1": 1,
+    "TM2": 1
+  },
+  "findings": [
+    {
+      "check": "TM1",
+      "severity": "MINOR",
+      "phase": "Synthesis",
+      "detail": "Synthesis estimated 2.4-4.2 min (target: 5-7 min) \u2014 may be under-scoped",
+      "est_min": 2.4,
+      "est_max": 4.2
+    },
+    {
+      "check": "TM2",
+      "severity": "MINOR",
+      "detail": "Total session estimated 15.2-26.7 min (target: 25-30 min) \u2014 may be under-scoped"
+    }
+  ],
+  "meta": {
+    "phase_estimates": {
+      "Warmup": {
+        "interaction_count": 4,
+        "est_min_seconds": 180,
+        "est_max_seconds": 300,
+        "est_min_minutes": 3.0,
+        "est_max_minutes": 5.0
+      },
+      "Lesson": {
+        "interaction_count": 13,
+        "est_min_seconds": 465,
+        "est_max_seconds": 840,
+        "est_min_minutes": 7.8,
+        "est_max_minutes": 14.0
+      },
+      "EC": {
+        "interaction_count": 3,
+        "est_min_seconds": 120,
+        "est_max_seconds": 210,
+        "est_min_minutes": 2.0,
+        "est_max_minutes": 3.5
+      },
+      "Synthesis": {
+        "interaction_count": 5,
+        "est_min_seconds": 145,
+        "est_max_seconds": 255,
+        "est_min_minutes": 2.4,
+        "est_max_minutes": 4.2
+      }
+    },
+    "session_total_min": 15.2,
+    "session_total_max": 26.7
+  }
+}

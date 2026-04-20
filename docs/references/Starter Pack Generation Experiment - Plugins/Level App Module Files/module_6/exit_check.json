@@ -1,0 +1,285 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Today we covered how fractions continue beyond one whole. Let's do a quick review.",
+      "audio_dir": "module_6/exit_check_4242807114311728341",
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Take a look at this number line marked in thirds. Which label belongs at the point?",
+      "audio_dir": "module_6/exit_check_2150046005256624052",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 3,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/3",
+            "points": [
+              "5/3"
+            ],
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Click the correct label.",
+        "validator": {
+          "@type": "MultipleChoiceValidator",
+          "answer": [
+            1
+          ]
+        },
+        "choices": {
+          "@type": "WorkspaceChoices",
+          "allow_multiple": false,
+          "options": [
+            "[fraction numerator=3 denominator=5]three fifths[/fraction]",
+            "[fraction numerator=5 denominator=3]five thirds[/fraction]",
+            "[fraction numerator=4 denominator=3]four thirds[/fraction]"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Let's try that again - how many thirds from 0?",
+              "audio_dir": "module_6/exit_check_7255330820651742590"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numbers 1, 2, 3, 4, 5 appear above each jump"
+              },
+              "dialogue": "Here's how I think through it: the top number counts our jumps. So you need to [event:6967dd8ef7f0402a] count each third from 0 to the highlighted point.",
+              "audio_dir": "module_6/exit_check_7958055464294971654"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights each third as it's counted, with fractions appearing"
+              },
+              "dialogue": "Not quite. Let's work through this together. First, look at this number line, it's [event:6967df032b910774] divided into thirds. Now we count: [event:6967df82ce914df0] [fraction numerator=1 denominator=3]one third[/fraction], [event:6967e046c0c64a24][fraction numerator=2 denominator=3]two thirds[/fraction], [event:6967e0549ec3defe][fraction numerator=3 denominator=3]three thirds[/fraction].[fraction numerator=3 denominator=3]Three thirds[/fraction] [event:69696520e1f1ea29] is the same as [event:6969653f7ab8d28d] one whole. Now we keep counting: [event:6967e0779292a64f][fraction numerator=4 denominator=3]four thirds[/fraction], [event:6967e0860d8f9d74][fraction numerator=5 denominator=3]five thirds[/fraction]. So this point is [fraction numerator=5 denominator=3]five thirds[/fraction] ,five jumps of [event:696968e21b9b6a66] [fraction numerator=1 denominator=3]one third[/fraction] from [event:6969692fc056de63] zero.",
+              "audio_dir": "module_6/exit_check_5685309248784441382"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "That's right! You counted [event:697004a71659202c] five thirds from zero.",
+          "audio_dir": "module_6/exit_check_518229082042809427"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now let's work with fourths. Please place [fraction numerator=7 denominator=4]seven fourths[/fraction] on this line.",
+      "audio_dir": "module_6/exit_check_6757243912379424789",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 4,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/4",
+            "labels": [
+              "0",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "place where [fraction numerator=7 denominator=4][/fraction] should go.",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "7/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "7/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Let's take another look. [fraction numerator=7 denominator=4]Seven fourths[/fraction] means seven equal jumps from 0.",
+              "audio_dir": "module_6/exit_check_1990902536944920651"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "First four fourths highlighted, then arrow showing three more"
+              },
+              "dialogue": "Close. Remember that each fourth is the same size. From [event:69696a035c71a044] 0 to 1 has four fourths. Where would three more fourths go?",
+              "audio_dir": "module_6/exit_check_8847239076943152725"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System places each fraction with animated counting"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] There's a lot to count here, so let me show you: [event:69697249825f0a9e] [fraction numerator=1 denominator=4]one fourth[/fraction],[d:0.1] [fraction numerator=2 denominator=4]two fourths[/fraction], [d:0.1] [fraction numerator=3 denominator=4]three fourths[/fraction],[d:0.1] [fraction numerator=4 denominator=4]four fourths[/fraction] reaches 1. Then [event:696979fd5f441f12] [fraction numerator=5 denominator=4]five fourths[/fraction], [fraction numerator=6 denominator=4]six fourths[/fraction], [fraction numerator=7 denominator=4]seven fourths[/fraction]. [event:696ff78c40842fc0] Seven fourths total. Each jump is the same size[event:Clear_Arrows_Highlights]\n!",
+              "audio_dir": "module_6/exit_check_1883931761266893877"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! [fraction numerator=7 denominator=4]Seven fourths[/fraction] is [event:696971d944abfcb9] seven jumps of [fraction numerator=1 denominator=4]one fourth[/fraction] from zero.",
+          "audio_dir": "module_6/exit_check_8230068830813307625"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Let's try one more placement to make sure you understand this concept. Can you show me where [fraction numerator=6 denominator=5]six fifths[/fraction] is on this number line?",
+      "audio_dir": "module_6/exit_check_321960232859317529",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 6,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/5",
+            "labels": [
+              "0",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=6 denominator=5][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "6/5"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "6/5"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start] Try counting one more time: six equal-sized jumps from 0.",
+              "audio_dir": "module_6/exit_check_7862487088652796088"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Mark appears at 1 with label 6/6, arrow showing one more jump"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Remember: [event:6967e2e24c79d6a8] [fraction numerator=5 denominator=5]five fifths[/fraction] equals 1. Where would one more [event:Clear_Arrows_Highlights] fifth go?",
+              "audio_dir": "module_6/exit_check_3230697146000858321"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System shows counting with each sixth appearing"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let's work through this together: [event:6967e2e24c79d6a8] [fraction numerator=5 denominator=5]five fifths[/fraction] make 1, then [event:6969a1f79103cd38] one more fifth gives us [fraction numerator=6 denominator=5]six fifths[/fraction] between 1 and [event:Clear_Arrows_Highlights] 2.",
+              "audio_dir": "module_6/exit_check_6705717383579414182"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! [fraction numerator=6 denominator=5]six fifths[/fraction] is [event:696fdf0d7e41c070] six jumps of [fraction numerator=1 denominator=5]one fifth[/fraction] from zero.",
+          "audio_dir": "module_6/exit_check_6759722617668753251"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Great work! Seems like you're getting the hang of how fractions work beyond one whole. I think you're ready to lock in this knowledge with a few practice problems.",
+      "audio_dir": "module_6/exit_check_3453301443251190523"
+    }
+  ]
+}

@@ -222,8 +222,12 @@ def parse_interaction_header(line: str):
     Supports two formats:
       H3:   ### Interaction W.1: Count the Tiles [Type B]
       Bold: **Interaction W.1: Comparison Set 1 — Same Shape** — [Type B]
+    Also handles Notion-escaped brackets: \\[Type B\\]
     """
     stripped = line.strip()
+
+    # Normalize Notion-escaped brackets: \[Type B\] → [Type B]
+    stripped = stripped.replace('\\[', '[').replace('\\]', ']')
 
     # Skip non-interaction headers
     lower = stripped.lower()
@@ -342,57 +346,65 @@ def parse_interactions(lines: list) -> list:
 
         current.raw_lines.append((i + 1, line))
 
+        # Normalize bullet style: Notion-pulled files use "- **Field:**"
+        # while the canonical format uses "* **Field:**". Accept both.
+        field_line = stripped
+        if field_line.startswith('- **'):
+            field_line = '* **' + field_line[4:]
+        elif field_line.startswith('\t- **') or field_line.startswith('  - **'):
+            field_line = field_line.replace('- **', '* **', 1)
+
         # Parse fields within the interaction
-        if stripped.startswith('* **Purpose:**'):
+        if field_line.startswith('* **Purpose:**'):
             current.has_purpose = True
-        elif stripped.startswith('* **Visual:'):
+        elif field_line.startswith('* **Visual:'):
             current.has_visual = True
-            current.visual_text = stripped
-        elif stripped.startswith('* **Guide:**'):
+            current.visual_text = field_line
+        elif field_line.startswith('* **Guide:**'):
             current.has_guide = True
-            text = _extract_quoted(stripped, '* **Guide:**')
+            text = _extract_quoted(field_line, '* **Guide:**')
             if text:
                 dl = DialogueLine("Guide", text, current.id, current.title, current.phase, i + 1)
                 current.dialogue_lines.append(dl)
-        elif stripped.startswith('* **Prompt:**'):
+        elif field_line.startswith('* **Prompt:**'):
             current.has_prompt = True
-            text = _extract_quoted(stripped, '* **Prompt:**')
+            text = _extract_quoted(field_line, '* **Prompt:**')
             if text:
                 dl = DialogueLine("Prompt", text, current.id, current.title, current.phase, i + 1)
                 current.dialogue_lines.append(dl)
-        elif stripped.startswith('* **Student Action:**'):
+        elif field_line.startswith('* **Student Action:**'):
             current.has_student_action = True
-        elif stripped.startswith('* **Correct Answer:**'):
+        elif field_line.startswith('* **Correct Answer:**'):
             current.has_correct_answer = True
-        elif stripped.startswith('* **On Correct:**'):
+        elif field_line.startswith('* **On Correct:**'):
             current.has_on_correct = True
-            text = _extract_quoted(stripped, '* **On Correct:**')
+            text = _extract_quoted(field_line, '* **On Correct:**')
             if text:
                 dl = DialogueLine("On Correct", text, current.id, current.title, current.phase, i + 1)
                 current.dialogue_lines.append(dl)
-        elif stripped.startswith('* **On Selection'):
-            text = _extract_quoted_after_colon(stripped)
+        elif field_line.startswith('* **On Selection'):
+            text = _extract_quoted_after_colon(field_line)
             if text:
                 dl = DialogueLine("On Selection", text, current.id, current.title, current.phase, i + 1)
                 current.dialogue_lines.append(dl)
-        elif stripped.startswith('* **Remediation:**'):
+        elif field_line.startswith('* **Remediation:**'):
             current.has_remediation = True
-            current.remediation_text = stripped.replace('* **Remediation:**', '').strip()
-        elif stripped.startswith('* **No student action.**'):
+            current.remediation_text = field_line.replace('* **Remediation:**', '').strip()
+        elif field_line.startswith('* **No student action.**') or field_line.startswith('* **No student action**'):
             current.has_no_student_action = True
-        elif stripped.startswith('* **Options:**') or stripped.startswith('  * **Options:**'):
+        elif field_line.startswith('* **Options:**') or '* **Options:**' in field_line:
             current.has_options = True
-        elif stripped.startswith('* **Answer Rationale:**'):
+        elif field_line.startswith('* **Answer Rationale:**'):
             current.has_answer_rationale = True
-        elif stripped.startswith('* **Connection:**'):
+        elif field_line.startswith('* **Connection:**'):
             current.has_connection = True
-        elif stripped.startswith('* **On Complete:**') or stripped.startswith('**On Complete:**'):
+        elif field_line.startswith('* **On Complete:**') or field_line.startswith('**On Complete:**'):
             current.has_on_complete = True
 
         # Also capture Guide lines that aren't in the standard field format
         # (e.g. multi-part interactions with "* **Guide (synced):**")
-        elif '**Guide' in stripped and ':**' in stripped and not stripped.startswith('* **Guide:**'):
-            text = _extract_quoted_after_colon(stripped)
+        elif '**Guide' in field_line and ':**' in field_line and not field_line.startswith('* **Guide:**'):
+            text = _extract_quoted_after_colon(field_line)
             if text:
                 dl = DialogueLine("Guide", text, current.id, current.title, current.phase, i + 1)
                 current.dialogue_lines.append(dl)
@@ -406,7 +418,15 @@ def parse_interactions(lines: list) -> list:
 
 
 def _finalize_interaction(interaction: Interaction):
-    """Determine the pattern type of the interaction."""
+    """Determine the pattern type of the interaction.
+
+    Classification priority:
+      1. Explicit "No student action" → teaching_only
+      2. On Complete block → system_driven
+      3. Student Action / Prompt / Correct Answer / Options → student_action
+      4. Guide only → teaching_only (assumes teaching block)
+      5. Fallback → unknown
+    """
     # If both student-action fields and "No student action" are present,
     # prioritize student-action (the "No student action" likely leaked
     # from an adjacent section transition or teaching block)
@@ -415,6 +435,10 @@ def _finalize_interaction(interaction: Interaction):
     elif interaction.has_on_complete:
         interaction.pattern = "system_driven"
     elif interaction.has_student_action or interaction.has_prompt:
+        interaction.pattern = "student_action"
+    elif interaction.has_correct_answer or interaction.has_options:
+        # Has Correct Answer or Options but no explicit Student Action field —
+        # this is a student-action interaction with a missing field (checker will flag it)
         interaction.pattern = "student_action"
     elif interaction.has_guide and not interaction.has_prompt:
         # Has Guide but no Prompt and no "No student action" — might be missing fields

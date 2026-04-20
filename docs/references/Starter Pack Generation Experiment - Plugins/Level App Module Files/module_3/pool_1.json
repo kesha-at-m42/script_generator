@@ -1,0 +1,458 @@
+{
+  "@type": "SequencePool",
+  "sequences": [
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 4.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify the number of shaded parts (numerator) and the number of total parts (denominator).",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/3"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Count all the equal parts in the bar.",
+          "audio_dir": "module_3/pool_1_3588977922329907041",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/3"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How many equal parts are there?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "2",
+                "3",
+                "4",
+                "5"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count all the equal parts in the bar.",
+                  "audio_dir": "module_3/pool_1_6173480525472419232"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare",
+                        "description": "Compare all the parts of the bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's think about this together. We need to count all the parts, not just the shaded ones. [event:A_compare] Look at how the bar is divided into sections.",
+                  "audio_dir": "module_3/pool_1_7710185840752211613"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count",
+                        "description": "Count and label the parts of the bar"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to count the total parts. [event:A_count] We count each section in the bar - one, two, three. The bar has [event:69121bb2b9b7bd8c] three equal parts total. That's how we find the [vocab]denominator[/vocab].",
+                  "audio_dir": "module_3/pool_1_7576114399899089913"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. The bar has three equal parts.",
+              "audio_dir": "module_3/pool_1_1556728333296671659"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 11.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify the number of shaded parts (numerator) and the number of total parts (denominator).",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "2/5"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. Count how many parts are shaded.",
+          "audio_dir": "module_3/pool_1_6233888470467718629",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1
+                ],
+                "intervals": "1/5"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "How many shaded parts are there?",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "1",
+                "2",
+                "3",
+                "5"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count the shaded parts carefully.",
+                  "audio_dir": "module_3/pool_1_245196342644663293"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more closely. [event:A_compare_shaded] Notice which parts have color - those are the shaded parts.",
+                  "audio_dir": "module_3/pool_1_8966110006466268053"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to count the shaded parts. [event:A_count_shaded] We count each shaded section: one, two. There are [event:69121c0e17240de2] 2 shaded parts in this bar.",
+                  "audio_dir": "module_3/pool_1_1716169569500738077"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. Two parts are shaded.",
+              "audio_dir": "module_3/pool_1_3189342291949568653"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 18.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify the number of shaded parts (numerator) and the number of total parts (denominator).",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "4/6"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "dialogue": "Here's a bar with some parts shaded. What's the [vocab]numerator[/vocab]?",
+          "audio_dir": "module_3/pool_1_479256598590751637",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "intervals": "1/6"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the numerator.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                1
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "2",
+                "4",
+                "6",
+                "8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are shaded.",
+                  "audio_dir": "module_3/pool_1_3555492935845996428"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. [event:A_compare_shaded] The shaded parts show us the numerator - that's the [vocab]top number[/vocab].",
+                  "audio_dir": "module_3/pool_1_3254646900668646548"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find the [vocab]numerator[/vocab]. [event:A_count_shaded] We count the shaded parts: 1, 2, 3, 4. [event:69121c216e559b3f] Four parts are shaded, so the numerator is 4. The numerator tells us how many parts we're talking about.",
+                  "audio_dir": "module_3/pool_1_1712389598787794082"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "Right. Four parts are shaded, so the [vocab]numerator[/vocab] is 4.",
+              "audio_dir": "module_3/pool_1_164998681287169941"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Sequence",
+      "metadata": {
+        "@type": "SequenceMetadata",
+        "problem_id": 33.0,
+        "goal_id": 1.0,
+        "goal_text": "The student can identify the number of shaded parts (numerator) and the number of total parts (denominator).",
+        "verb": "IDENTIFY",
+        "variables_covered": {
+          "fractions": [
+            "6/8"
+          ]
+        },
+        "mastery_tier": "BASELINE",
+        "mastery_component": "CONCEPTUAL",
+        "mastery_verbs": [
+          "IDENTIFY"
+        ]
+      },
+      "steps": [
+        {
+          "@type": "Step",
+          "metadata": {
+            "notes": "medium remediation is broken. also, editing a named event creates a new event, which is not ideal."
+          },
+          "dialogue": "Here's a bar with some parts shaded. What's the [vocab]denominator[/vocab]?",
+          "audio_dir": "module_3/pool_1_7310990106773967056",
+          "workspace": {
+            "@type": "WorkspaceData",
+            "tangibles": [
+              {
+                "@type": "NumLine",
+                "visual": "bar",
+                "intervals_is_shaded": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "intervals": "1/8"
+              }
+            ]
+          },
+          "prompt": {
+            "@type": "Prompt",
+            "text": "Select the denominator.",
+            "validator": {
+              "@type": "MultipleChoiceValidator",
+              "answer": [
+                3
+              ]
+            },
+            "choices": {
+              "@type": "WorkspaceChoices",
+              "allow_multiple": false,
+              "options": [
+                "2",
+                "4",
+                "6",
+                "8"
+              ]
+            },
+            "remediations": [
+              {
+                "@type": "Remediation",
+                "id": "light",
+                "step": {
+                  "@type": "Step",
+                  "dialogue": "Not quite. Count how many parts are in total.",
+                  "audio_dir": "module_3/pool_1_2125442195718295945"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "medium",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_compare_shaded",
+                        "description": "Compare the shaded parts of the first or the top bar with equal parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let's look more carefully. The total number of [event: A_compare_first_last] parts show us the [vocab]denominator[/vocab].",
+                  "audio_dir": "module_3/pool_1_7173865991491746982"
+                }
+              },
+              {
+                "@type": "Remediation",
+                "id": "heavy",
+                "step": {
+                  "@type": "Step",
+                  "metadata": {
+                    "events": [
+                      {
+                        "name": "A_count_shaded",
+                        "description": "Count and label the shaded parts"
+                      }
+                    ]
+                  },
+                  "dialogue": "Let me show you how to find the [vocab]denominator[/vocab]. We [event: A_count] count each equal part: 1, 2, 3, 4, 5, 6, 7 and 8. [event:69121c2fd6f22a67] Eight total parts, so the [vocab]denominator[/vocab] is 8 [event: choice_3].",
+                  "audio_dir": "module_3/pool_1_2064239642913646269"
+                }
+              }
+            ],
+            "on_correct": {
+              "@type": "Step",
+              "dialogue": "That's right. There are eight equal parts, so the [vocab]denominator[/vocab] is 8.",
+              "audio_dir": "module_3/pool_1_58705483980500540"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

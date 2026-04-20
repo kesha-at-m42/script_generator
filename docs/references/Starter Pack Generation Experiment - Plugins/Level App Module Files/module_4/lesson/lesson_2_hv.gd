@@ -1,0 +1,9 @@
+extends SequenceEvent
+
+func trigger() -> void:
+	var line = get_number_line()
+	for i in range(line.bar._parts.size()):
+		use_highlight_tool(line.bar._parts[i], true)
+		await delay(0.5)
+		use_highlight_tool(line.bar._parts[i], false)
+	use_choice_tool([1])

@@ -365,7 +365,7 @@ https://www.notion.so/ocpgg/Grid-Rectangles-2fb5917eac528035a19dc2b5b49aeeca
 ### Secondary Tool: Equation Builder
 
 #### Notion Link
-In development
+[Equation Builder](https://www.notion.so/2fc5917eac52803f8604f47c62304ee7)
 
 #### M5 Configuration
 - **Input:** Rectangle dimensions (length, width) as numbers; student selects or recognizes the unit type

@@ -71,6 +71,56 @@ Before starting judgment checks, read the Layer 1 mechanical findings from the e
 
 ---
 
+## CALIBRATION: DO AND DON'T EXAMPLES
+
+These examples ground your qualitative judgments. Use them to calibrate severity.
+
+### Hook Quality (WH)
+
+**DO — Good Hook (no finding):**
+> "Here's a rectangle you've seen before. 4 rows, 6 in each row. What's the area?"
+
+Why it works: Starts with familiar territory (prior module callback), immediately presents a task, creates a success moment within 15 seconds.
+
+**DO — Good Hook Escalation (no finding):**
+> "Watch what happens. [ANIMATED GRID FADE.] The squares are gone. But look, those two numbers are still there!"
+
+Why it works: Creates genuine curiosity. Student SEES something unexpected. Guide names the surprise without explaining it.
+
+**DON'T — Bad Hook (MAJOR finding):**
+> "Today we're going to learn about finding area using dimensions instead of counting squares."
+
+Why it fails: This teaches. It tells the student what they'll learn, killing curiosity. The hook should make them WONDER, not inform.
+
+**DON'T — Borderline Hook (MINOR finding):**
+> "Let's look at some rectangles. Tap the one that has the most squares."
+
+Why it's borderline: There's a task, but no surprise, no curiosity, no callback. Functional but not engaging.
+
+### Engagement Anchors (WE)
+
+**DO — Genuine Engagement Anchor (no finding):**
+> Bridge uses familiar 4×6 grid from prior module → student has REAL prior experience to draw on
+
+**DON'T — Token Anchor (MINOR finding):**
+> "Think about a time you measured something at home."
+
+Why it fails: Generic personalization. Could be pasted into any module. Not grounded in the session.
+
+### Bridge Quality (WB)
+
+**DO — Good Bridge (no finding):**
+> "You've always had a grid to count. But what if there's no grid — just those two numbers? Let's figure out how to find area when the squares aren't there."
+
+Why it works: Names what they've done (grid counting), names the mystery (no grid), creates forward anticipation without teaching.
+
+**DON'T — Bridge that Teaches (CRITICAL finding):**
+> "When you don't have a grid, you can multiply the two side lengths to find the area. Let's practice that."
+
+Why it fails: This IS the Lesson content. The bridge should create the QUESTION, not provide the ANSWER.
+
+---
+
 ## CHECK CATEGORY WH: HOOK QUALITY
 
 ### WH1: Hook Presence and Timing

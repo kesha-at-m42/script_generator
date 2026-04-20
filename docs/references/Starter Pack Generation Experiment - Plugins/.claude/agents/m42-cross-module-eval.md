@@ -30,21 +30,48 @@ This agent has no direct Layer 1 dependencies. It reads adjacent module SPs dire
 
 ## SETUP: LOCATE AND READ FILES
 
-### Required Files (FAIL if none found — exit gracefully)
+### Step 1: Identify the Target Module Number
+
+Extract the module number from the SP being evaluated. The filename follows the pattern `G[grade]U[unit]M[X]_*.md` — extract `[X]`.
+
+### Step 2: Detect Adjacent Module SPs
+
+Scan the workspace for adjacent module files. Use Glob to search for:
+
+```
+G[grade]U[unit]M*_Notion_Ready.md
+G[grade]U[unit]M*_Starter_Pack.md
+```
+
+From the matches, extract module numbers and identify M[X-1] and M[X+1]. Prefer `_Notion_Ready.md` over `_Starter_Pack.md` (Notion-ready is the more current format). If the file is in `_archive/module-drafts/`, it's still usable — archived drafts are older but contain the same structural content.
+
+**Detection outcomes:**
+
+| M[X-1] Found | M[X+1] Found | Action |
+|:---:|:---:|---|
+| Yes | Yes | Run all checks (XS, XV, XT, XB, XM, XD) |
+| Yes | No | Run all checks; skip forward bridge checks (XB2) |
+| No | Yes | Run all checks; skip backward bridge checks (XB1) and scope handoff from prior (XS1.1, XS1.3) |
+| No | No | **Exit silently** — cross-module evaluation requires at least one adjacent SP. Report: "No adjacent module SPs found. Cross-module evaluation skipped." |
+
+### Step 3: Read Files
+
+### Required Files
 
 | File | What to Read | Purpose |
 |------|-------------|---------|
 | M[X] Starter Pack | Full SP | The primary module being evaluated |
-| M[X-1] Starter Pack | Full SP (if available) | Prior module — handoff source |
+| M[X-1] Starter Pack | Full SP (if found in Step 2) | Prior module — handoff source |
+| M[X+1] Starter Pack | Full SP (if found in Step 2) | Next module — handoff target |
 
 ### Recommended Files (proceed without, but note absence)
 
 | File | What to Read | Purpose |
 |------|-------------|---------|
-| M[X+1] TVP section | If available | Next module — handoff target |
+| TVP (Grade 3 Unit 2_ Toy Flow.docx) | M[X+1] section (if M[X+1] SP not available) | Fallback for forward bridge checks |
 | Important Decisions sheet | All entries | Constraint continuity across modules |
 
-**After locating files, confirm what you found. If neither M[X-1] nor M[X+1] is available, state this and exit — cross-module evaluation requires at least one adjacent module.**
+**After locating files, confirm what you found and which check categories will run.**
 
 ---
 
@@ -144,8 +171,8 @@ This agent has no direct Layer 1 dependencies. It reads adjacent module SPs dire
 
 ## EXECUTION PROCEDURE
 
-1. **Locate adjacent module SPs.** If neither M[X-1] nor M[X+1] is available, report and exit.
-2. **Read all available files.** Read M[X] in full, M[X-1] in full, M[X+1] TVP if available.
+1. **Run detection (Setup Steps 1–2).** Glob for adjacent SPs, determine which checks to run. If neither found, exit silently.
+2. **Read all available files (Setup Step 3).** Read M[X] in full, M[X-1] in full if found, M[X+1] in full or TVP section if found.
 3. **Run Scope Boundary checks** (XS1–XS2). Present findings table.
 4. **Run Vocabulary Handoff checks** (XV1–XV2). Present findings table.
 5. **Run Toy Progression checks** (XT1). Present findings table.

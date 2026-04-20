@@ -1,0 +1,230 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "In previous lessons we've used [event:69668a59ee0f81ec] equal intervals to place fractions between 0 and 1 [event:69668d9d8168a2ee]. Today, we're going to learn what happens when our number line keeps going [event:69668de71709ef54] BEYOND 1.",
+      "audio_dir": "module_6/warmup_2474942885884605902",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 2,
+            "ticks": "1/2"
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Look at the space past 1 whole [event:69668e3e4e153e12]. What fractions do you think [event:6966907f4c290962] go there? Let's explore and find out.",
+      "audio_dir": "module_6/warmup_1073543519975105979",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 2,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "We've marked [event:6966939d8c13ef45] [fraction numerator=1 denominator=2]one half[/fraction] on the part of our line showing [event:6966960ef2beedd3] 0 to 1. Now let's divide the section showing [event:696693ca5276b5ae] 1 to 2 the same way. Click to place a tick mark that divides the space between [event:6966980e4b3972d3] 1 and 2 into halves [event:Clear_Arrows_Highlights] .",
+      "audio_dir": "module_6/warmup_6533059727472273995",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 2,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": [
+              "0",
+              "1/2",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place the tick mark for halves between 1 and 2.",
+        "tool": {
+          "@type": "Place",
+          "lcm": 4,
+          "is_single": true,
+          "bounds": [
+            "1",
+            "2"
+          ]
+        },
+        "validator": {
+          "@type": "TickValidator",
+          "answer": [
+            "0/2",
+            "1/2",
+            "2/2",
+            "3/2",
+            "4/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. Look once more at where [fraction numerator=1 denominator=2]one half[/fraction] is between 0 and 1. Try placing the tick mark at the same spot between 1 and 2.",
+              "audio_dir": "module_6/warmup_2711739070796180827"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Measuring bracket appears showing equal distances"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start]Let's try again. We're trying to split the [event:6966928573edf455] space showing 1 to 2 into two equal parts. The tick mark should go right in the middle [event:696692ea72ece5b1], halfway between [event:69669a5c51c7a8df] 1 and 2[event:Clear_Arrows_Highlights].",
+              "audio_dir": "module_6/warmup_4851441879849331492"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System places tick mark at midpoint with animation showing equal spacing"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] Let me help you out with this one. Just like [event:69669ad413376c61] [fraction numerator=1 denominator=2]one half[/fraction] is halfway from [event:69669b2923aaa7ad] 0 to 1, we need a mark halfway from [event:69669b1007c9dac1] 1 to 2. That's right here in the middle [event:69669beacb3aacdb].",
+              "audio_dir": "module_6/warmup_4934051960849039240"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Right! That [event:696ea10610e113b9] tick mark divides the space showing [event:696ea15c8e04696f] 1 to 2 into two equal halves, just like [event:Clear_Arrows_Highlights] with the section we marked between [event:696ea1b4120d3b66] 0 and 1.",
+          "audio_dir": "module_6/warmup_8601610753218233457"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Good! Now we have halves marked all the way to 2. Let's count them: [event:69669d7bc407f386] [fraction numerator=1 denominator=2]one half[/fraction], [event:69669dd8ae14f9f6] [fraction numerator=2 denominator=2]two halves[/fraction], and... what comes next? Place the fraction [fraction numerator=3 denominator=2]three halves[/fraction] on this line.[event:Clear_Arrows_Highlights]",
+      "audio_dir": "module_6/warmup_7476218195804091045",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "lcm": 2,
+            "range": [
+              0,
+              2
+            ],
+            "ticks": "1/2",
+            "labels": [
+              "0",
+              "1/2",
+              "1",
+              "2"
+            ],
+            "alt_labels": [
+              "0",
+              "1",
+              "2"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place [fraction numerator=3 denominator=2][/fraction].",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "3/2"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "3/2"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:restore_snapshot_prompt_start]\n Almost. Let's count the halves from 0: [fraction numerator=1 denominator=2]one half[/fraction], [fraction numerator=2 denominator=2]two halves[/fraction] is at 1, then one more half. Where's [fraction numerator=3 denominator=2]three halves[/fraction]?",
+              "audio_dir": "module_6/warmup_2125182804265495112"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "Numbers 1, 2, 3 appear above each half position"
+              },
+              "dialogue": "[event:restore_snapshot_prompt_start] \nRemember: [fraction numerator=3 denominator=2]three halves[/fraction] means three [d:.2] halves[d:.1] from 0. Count [event:Arrow_1_tick_to_2] [fraction numerator=1 denominator=2]one half[/fraction], [event:Arrow_2_tick_to_3] [fraction numerator=2 denominator=2]two halves[/fraction], [event:Arrow_3_tick_to_4] [fraction numerator=3 denominator=2]three halves[/fraction]. [event:Clear_Arrows_Highlights] That [event:6966b374958cb34c] third half is past 1[event:6966b44d6255c77a].",
+              "audio_dir": "module_6/warmup_5764968977980533843"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "metadata": {
+                "description": "System highlights each half with counting animation, places 3/2"
+              },
+              "dialogue": "Let's count together: [event:Arrow_1_tick_to_2] First half is [fraction numerator=1 denominator=2]one half[/fraction],  [event:Arrow_2_tick_to_3] second half is [fraction numerator=2 denominator=2]two halves[/fraction] at 1, [event:Arrow_3_tick_to_4] third half is [event:696919381b4ce8c6] [fraction numerator=3 denominator=2]three halves[/fraction] right here past 1[event:Clear_Arrows_Highlights].",
+              "audio_dir": "module_6/warmup_3141272187282464981"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! You placed [fraction numerator=3 denominator=2]three halves[/fraction], that's [event:Arrow_3_tick_to_4] three halves from zero. The pattern keeps going past 1[event:Clear_Arrows_Highlights].",
+          "audio_dir": "module_6/warmup_7518752284022858850"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Great work! Whether we use halves or fourths, the [event:Arrow_1whole_to_2whole] pattern continues past 1 with the same [event:697127812bc978f3] equal spacing. Let's keep building on this idea in our [event:Clear_Arrows_Highlights] lesson.",
+      "audio_dir": "module_6/warmup_4613008597508991785"
+    }
+  ]
+}

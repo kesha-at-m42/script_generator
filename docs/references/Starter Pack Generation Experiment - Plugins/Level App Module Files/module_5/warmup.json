@@ -1,0 +1,236 @@
+{
+  "@type": "Sequence",
+  "steps": [
+    {
+      "@type": "Step",
+      "dialogue": "Welcome back! Today we're going to get really good at putting fractions in the right spot on a number line.",
+      "audio_dir": "module_5/warmup_572231603220800041",
+      "scene": "ZoomedOut"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "To do that, you'll use the bottom number in a fraction, or the [event:6917906078e3c181] [vocab]denominator[/vocab]. You've already [event:6917920a087ab305] learned that the [vocab]denominator[/vocab] tells you how many equal parts to make.[event:69179386423f57aa]  So if the bottom number is 4 [event:695edada43674640] , you split the line into 4 [event:690bd3c1ee044f71] equal spaces.",
+      "audio_dir": "module_5/warmup_7517180290088433581",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Denominator",
+            "is_highlighted": false
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false,
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "is_visible": false
+          }
+        ]
+      },
+      "scene": "Lesson"
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Then, the [event:690bd46d8df073b5] top number tells you how many of those spaces to count [event:691797ca91c9a950] from zero. Let's practice this method!",
+      "audio_dir": "module_5/warmup_3111266009716550214",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "Vocab",
+            "is_visible": false,
+            "label": "Denominator",
+            "is_highlighted": false
+          },
+          {
+            "@type": "NumLine",
+            "visual": "bar",
+            "sum_is_visible": true,
+            "intervals_is_shaded": [
+              0,
+              1
+            ],
+            "lcm": 4,
+            "intervals": "1/4"
+          },
+          {
+            "@type": "NumLine",
+            "ticks": "1/4"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "[event:690bd4d8c7fc5ee3]Let's take a look at this number line. It's [event:69179b448f757394] already split into 4 equal parts. The blue marks tell you which tick marks [event:69179c9c9bc5ee11] you can select. Place a point where [fraction numerator=1, denominator=4]one fourth[/fraction] goes [event:6917a00a1f263e4d] .",
+      "audio_dir": "module_5/warmup_7988058782818101459",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "ticks_is_read_only": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "prompt": {
+        "@type": "Prompt",
+        "text": "Place a point at [fraction numerator=1, denominator=4]one fourth[/fraction] .",
+        "tool": {
+          "@type": "Move",
+          "mode": "points",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "PointStack"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "PointValidator",
+          "answer": [
+            "1/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Not quite. You're looking for the first mark after the zero. That's what the 1 in [fraction numerator=1, denominator=4]one fourth[/fraction] is telling us. Try again!",
+              "audio_dir": "module_5/warmup_6961998216937469117"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Keep in mind that, [event:690cbe8c574a2c5d] we're marking fourths, four equal spaces. Where's the first mark located?",
+              "audio_dir": "module_5/warmup_5668056081546247896"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Watch me count: starting from zero, the first space [event:69179bf5bfdf4be9] ends at the first tick. That's where [fraction numerator=1, denominator=4]one fourth[/fraction][event:69179c038b0e734d] goes.",
+              "audio_dir": "module_5/warmup_1854382020763907542"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Yes! You found the first mark. [event:695ffed7e687c222]",
+          "audio_dir": "module_5/warmup_7400371649291251127"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Now label the point using a fraction from the bank.",
+      "audio_dir": "module_5/warmup_378378769971403821",
+      "prompt": {
+        "@type": "Prompt",
+        "text": "label the point using a fraction from the bank. ",
+        "tool": {
+          "@type": "Move",
+          "mode": "frac_labels",
+          "allow_multiple": false,
+          "palette": {
+            "@type": "Palette",
+            "stacks": [
+              {
+                "@type": "FracLabelStack",
+                "label": "1/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "2/4"
+              },
+              {
+                "@type": "FracLabelStack",
+                "label": "3/4"
+              }
+            ]
+          }
+        },
+        "validator": {
+          "@type": "LabelValidator",
+          "answer": [
+            "1/4"
+          ]
+        },
+        "remediations": [
+          {
+            "@type": "Remediation",
+            "id": "light",
+            "step": {
+              "@type": "Step",
+              "dialogue": "Think about what numerator belongs at the first tick mark.",
+              "audio_dir": "module_5/warmup_5385363971585283036"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "medium",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68faae11b3641ff8] That's not quite right. On a number line, [fraction numerator=1, denominator=4]one fourth[/fraction] is the first fourth.",
+              "audio_dir": "module_5/warmup_3144905193835776624"
+            }
+          },
+          {
+            "@type": "Remediation",
+            "id": "heavy",
+            "step": {
+              "@type": "Step",
+              "dialogue": "[event:68faae18a92e5263]I'll give you some help: The first of four [event:69669b926b5cc6a8] equal parts is [event:69669bc0c4eecece] [fraction numerator=1, denominator=4]one fourth[/fraction]. So that's where the label goes.",
+              "audio_dir": "module_5/warmup_7149657030768559921"
+            }
+          }
+        ],
+        "on_correct": {
+          "@type": "Step",
+          "dialogue": "Correct: [fraction numerator=1, denominator=4]one fourth[/fraction] goes right there. ",
+          "audio_dir": "module_5/warmup_726826251141934626"
+        }
+      }
+    },
+    {
+      "@type": "Step",
+      "dialogue": "Seems like you're grasping this method. First, make sure the spaces[event:690cbbc24d188332] are the same size, [delay]then place and label[event:690cbbfa7540dcd5]. Now let's try placing fractions without any guide marks.",
+      "audio_dir": "module_5/warmup_3502922084936466004",
+      "workspace": {
+        "@type": "WorkspaceData",
+        "tangibles": [
+          {
+            "@type": "NumLine",
+            "ticks": "1/4",
+            "labels": false
+          }
+        ]
+      }
+    }
+  ]
+}

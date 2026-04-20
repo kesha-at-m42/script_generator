@@ -1,0 +1,9 @@
+extends SequenceEvent
+
+func trigger():
+	var number_line = get_number_line()
+	use_place_tick_tool(number_line, 1)
+	number_line._ticks[1].is_read_only = true
+	await delay(1)
+	use_place_tick_tool(number_line, 2)
+	number_line._ticks[2].is_read_only = true
