@@ -214,10 +214,18 @@ def _process(
             "",
         ]
 
+        first_step_in_section = True
+
         for active_beats, cs_beat in _iter_step_groups(section):
             fields = _beats_to_fields(active_beats, vocab_open, vocab_close)
             if not fields:
                 continue
+
+            if first_step_in_section:
+                existing = fields.get("components", [])
+                if "SceneComponent" not in existing:
+                    fields["components"] = ["SceneComponent"] + existing
+                first_step_in_section = False
 
             step_key = f"step_{step_counter}_{slug}"
             step_counter += 1
@@ -404,8 +412,8 @@ if __name__ == "__main__":
             module_dir.mkdir(parents=True, exist_ok=True)
             shutil.copy2(str(output_path), str(dest_path))
             print(f"  [TOML_SEQUENCE_WRITER] Copied to {dest_path}")
-            # Copy .modtag from module_example if this is a newly created module dir
-            if is_new_dir:
+            # Copy .modtag from module_example if missing from module dir
+            if not (module_dir / ".modtag").exists():
                 sequences_base = os.environ.get("SEQUENCES_DIR", "").strip()
                 if sequences_base:
                     modtag_src = Path(sequences_base) / f"unit{unit_number}" / "module_example" / ".modtag"

@@ -1332,8 +1332,12 @@ def _render_current_scene(beat: dict, nested: bool = False, after_prompt: bool =
     if nested:
         return []
     if after_prompt:
-        return [_paragraph("⏭️")]
-    return [_toggle(_CURRENT_SCENE_TOGGLE_LABEL, [_paragraph("—")])]
+        return [_paragraph("⏭️ Student presses Next")]
+    elements = beat.get("elements") or []
+    children = [_bullet(e["description"]) for e in elements if e.get("description")]
+    if not children:
+        return [_paragraph("⏭️ Student presses Next")]
+    return [_toggle(_CURRENT_SCENE_TOGGLE_LABEL, children)]
 
 
 def _render_beat(beat: dict, section_id: str, nested: bool = False, after_prompt: bool = False) -> list[dict]:
@@ -1669,7 +1673,7 @@ def _is_step_break(block: dict) -> bool:
     btype = block.get("type")
     if btype == "paragraph":
         text = _extract_rt(block.get("paragraph", {}).get("rich_text", [])).strip()
-        return text == "⏭️" or text == "· · ·"
+        return text.startswith("⏭️") or text == "· · ·"
     if btype == "toggle":
         toggle_text = _extract_rt(block.get("toggle", {}).get("rich_text", []))
         return toggle_text.startswith(_CURRENT_SCENE_TOGGLE_PREFIX) or any(

@@ -174,6 +174,7 @@ class PromptBuilderV2:
         variables: Dict = None,
         input_content: str = None,
         save_prompt_to: str = None,
+        extra_context: str = "",
     ) -> Dict:
         """Build complete prompt with caching support
 
@@ -279,6 +280,17 @@ class PromptBuilderV2:
             if prompt.cache_ttl == "1h":
                 cache_control["ttl"] = "1h"
             system_blocks[-1]["cache_control"] = cache_control
+
+        # 6b. Extra context (e.g. lesson_sections from context_files) — cached system block
+        # Injected after the prompt's own cache boundary so it gets its own cache entry.
+        if extra_context:
+            extra_block = self._create_block(
+                text=extra_context.strip(),
+                block_type="context",
+                purpose="Pipeline-injected context (e.g. lesson sections)",
+            )
+            extra_block["cache_control"] = {"type": "ephemeral"}
+            system_blocks.append(extra_block)
 
         # 7. Build user message (dynamic - just the input data)
         # User message contains ONLY the input content that changes per request
@@ -609,6 +621,7 @@ class PromptBuilderV2:
         input_content: str = None,
         model: str = None,
         save_prompt_to: str = None,
+        extra_context: str = "",
     ) -> str:
         """Build and execute a prompt in one call
 
@@ -634,7 +647,8 @@ class PromptBuilderV2:
 
         # Build the prompt using existing build() method
         built_prompt = self.build(
-            prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to
+            prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to,
+            extra_context=extra_context,
         )
 
         # Create client and execute

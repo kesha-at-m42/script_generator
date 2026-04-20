@@ -328,7 +328,10 @@
       "output_file": "lesson_sections_incorrects.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "context_files": {
+        "lesson_sections": "section_structurer/section_structurer.json"
+      }
     },
     {
       "name": "remediation_merger",
@@ -576,7 +579,10 @@
       "output_file": "exitcheck_sections_incorrects.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "context_files": {
+        "lesson_sections": "lesson_generator_dialogue_pass::section_structurer/section_structurer.json"
+      }
     },
     {
       "name": "remediation_merger",

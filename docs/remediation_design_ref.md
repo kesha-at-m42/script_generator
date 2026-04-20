@@ -119,7 +119,11 @@ System moves forward
 
 ### 2.4 Generic Non-MC Structure
 
-**Light (10-20 words):** Brief redirect, no visual **Medium (20-30 words):** Conceptual reminder \+ visual scaffold **Heavy (30-60 words):** Full modeling with \[Modeling\] tag, reveals answer
+**Light (10-20 words):** Brief redirect, no visual.
+
+**Medium (20-30 words):** Visual scaffold required. Teach the method — name what to look at and in what order — without supplying the specific counts or values. The student still has to do the work. Close with a pointed question or specific imperative that sends the student back to the problem.
+
+**Heavy (30-60 words):** Full modeling with \[Modeling\] tag. Narrate the thinking, not just the mechanics — name the structure being demonstrated, connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is.
 
 ### 2.5 Specific Conditions (special case)
 
@@ -133,6 +137,24 @@ Some Non-MC prompts have specific wrong-answer conditions identified in the spec
 2. Generic Light — attempt 1, wrong answer that did not match a specific condition
 3. Generic Medium — attempt 2, wrong answer that did not match a specific condition
 4. Generic Heavy — system models the correct answer. Always last. Also fires for specific conditions on attempt 3+.
+
+### Writing specific condition dialogue
+
+Two patterns work well for specific condition mediums:
+
+**Pattern A — Credit + narrow:** When the student got part of the answer right, acknowledge it, then narrow to the specific thing that was wrong. Close with a pointed question.
+
+> "You're right that there are 4 columns. But count how many dots are in each column. Are there 4?"
+
+Structure: `[What was right]. [But/Now] [what to re-examine]. [Pointed question or one step.]`
+
+**Pattern B — Name + redirect + point:** Name what the student did briefly, redirect to the correct concept, give one concrete action or question.
+
+> "You counted the Dogs. When we ask how many fewer, we need to find the difference. Count how far apart Dogs and Fish are."
+
+Structure: `[What they did — one phrase]. [What the question actually needs]. [One action or question.]`
+
+In both patterns: do not give the correct counts or values. The student still has to look and execute. The medium names the error and points the way — it does not complete the work.
 
 **Rules:**
 - Each specific condition is ONE state covering attempt 1 or 2. Do not write separate states per attempt.
@@ -397,6 +419,18 @@ Save "Remember" for Medium/Heavy. At Light level, use:
 - "You're working on it. Here's what helps: \[specific support\]"
 - "You're getting there. The key is \[crucial detail\]"
 - "Let's think about this a bit more. \[guidance\]"
+
+### 5.2 Closing with a Call to Action
+
+Every medium closes with a call to action that sends the student back to attempt. Use a pointed question or a specific imperative — concrete enough that the student knows exactly where to look or what to do next.
+
+Effective CTAs:
+- "How many rows do you see?"
+- "Count those and place the numbers."
+- "Place those numbers into the expression."
+- "Does it change?"
+
+The starter establishes the redirect; the CTA makes it actionable.
 
 ### 5.2 Single-Select MC Medium Structure
 

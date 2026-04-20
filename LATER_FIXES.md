@@ -173,3 +173,15 @@ from v10's collated outputs at each batch step.
 create a composite stub version pre-seeded with existing batch outputs, then use `--batch-ids`
 (not `--skip-batch-ids`) with the list of missing IDs. The existing `batch_only_items` +
 `base_version_dir` merge path handles it correctly.
+
+---
+
+## Create `fixes/stitch_pipeline_outputs.py`
+
+Extract the sync-from-outputs logic that was removed from `cli/pull_tracked_scripts.py`. Script should:
+- Load registry, find the latest version dir per entry in `outputs/`
+- Copy it into `tracked_scripts/{unit}/{module}/{script_type}/` (replacing existing)
+- Support `--unit`, `--module`, `--type` filters
+- Exclude `_SKIP_FILES = {"notion_blocks.json", "notion_push_log.json"}`
+
+**Location:** `fixes/stitch_pipeline_outputs.py`

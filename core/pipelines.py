@@ -52,6 +52,7 @@ def step_from_config(step_data: dict) -> Step:
             input_file=input_file,
             output_file=output_file,
             model=step_data.get("model"),
+            context_files=step_data.get("context_files", {}),
             **batch_kwargs,
         )
     else:  # formatting step

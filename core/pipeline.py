@@ -155,6 +155,7 @@ class Step:
         batch_skip_items: List[str] = None,
         batch_stop_on_error: bool = False,
         stop_on_validation_failure: bool = True,
+        context_files: dict = None,
     ):
         """
         Args:
@@ -180,6 +181,9 @@ class Step:
             batch_skip_items: Skip these item IDs (list of strings)
             batch_stop_on_error: Stop pipeline if any item fails (default: False, continue)
             stop_on_validation_failure: Stop pipeline if validation fails (default: True, stop)
+            context_files: Dict mapping XML tag names to "{step_name}/{filename}" refs.
+                          The referenced file is injected into the user message after </input>.
+                          e.g. {"lesson_sections": "lesson_generator/lesson_sections.json"}
 
         Note: Either prompt_name OR function must be specified, not both.
         """
@@ -201,6 +205,7 @@ class Step:
         self.batch_skip_items = batch_skip_items or []
         self.batch_stop_on_error = batch_stop_on_error
         self.stop_on_validation_failure = stop_on_validation_failure
+        self.context_files = context_files or {}
 
         # Validation
         if prompt_name and function:
@@ -217,6 +222,64 @@ class Step:
     def is_formatting_step(self) -> bool:
         """Returns True if this is a formatting step (deterministic function)"""
         return self.function is not None
+
+
+# =============================================================================
+# CONTEXT FILE RESOLUTION
+# =============================================================================
+
+
+def _resolve_context_files(
+    step: "Step", output_dir_path: Path, module_number: int, verbose: bool
+) -> str:
+    """Resolve context_files for a step and return the extra_context string.
+
+    Two ref formats:
+      "step_name/filename"               — same pipeline run
+      "pipeline_name::step_name/filename" — latest version of a sibling pipeline run
+    """
+    extra_context = ""
+    for tag_name, ref in step.context_files.items():
+        if "::" in ref:
+            pipeline_name, step_ref = ref.split("::", 1)
+            cf_step_name, cf_filename = step_ref.split("/", 1)
+            unit_root = output_dir_path.parent.parent
+            pipeline_module_dir = unit_root / f"{pipeline_name}_module_{module_number}"
+            if not pipeline_module_dir.exists():
+                if verbose:
+                    print(f"  [WARN] context_files: {pipeline_module_dir} not found, skipping")
+                continue
+            latest_file = pipeline_module_dir / "latest.txt"
+            if latest_file.exists():
+                latest_version = latest_file.read_text(encoding="utf-8").strip()
+                search_dir = pipeline_module_dir / latest_version
+            else:
+                version_dirs = sorted(
+                    d for d in pipeline_module_dir.iterdir()
+                    if d.is_dir() and d.name.startswith("v")
+                )
+                if not version_dirs:
+                    if verbose:
+                        print(f"  [WARN] context_files: no version dir in {pipeline_module_dir}, skipping")
+                    continue
+                search_dir = version_dirs[-1]
+        else:
+            cf_step_name, cf_filename = ref.split("/", 1)
+            search_dir = output_dir_path
+
+        cf_step_dir = find_step_directory_by_name(search_dir, cf_step_name)
+        if not cf_step_dir:
+            if verbose:
+                print(f"  [WARN] context_files: no dir ending in _{cf_step_name} in {search_dir}")
+            continue
+        cf_path = cf_step_dir / cf_filename
+        if not cf_path.exists():
+            if verbose:
+                print(f"  [WARN] context_files: {cf_path} not found, skipping")
+            continue
+        cf_content = cf_path.read_text(encoding="utf-8")
+        extra_context += f"\n<{tag_name}>\n{cf_content}\n</{tag_name}>"
+    return extra_context
 
 
 # =============================================================================
@@ -966,6 +1029,11 @@ def run_pipeline(
 
                         claude_client = ClaudeClient()
 
+                        # Resolve context_files for this step
+                        extra_context = _resolve_context_files(
+                            step, output_dir_path, module_number, verbose
+                        )
+
                         while retry_attempt <= max_retries and not validation_passed:
                             if is_retry and verbose:
                                 print(
@@ -981,11 +1049,13 @@ def run_pipeline(
                                     input_content=item_input,
                                     model=step.model,
                                     save_prompt_to=str(prompt_save_path) if not is_retry else None,
+                                    extra_context=extra_context,
                                 )
 
                                 # Build prompt for conversation tracking
                                 built_prompt = builder.build(
-                                    step.prompt_name, merged_vars, input_content=item_input
+                                    step.prompt_name, merged_vars, input_content=item_input,
+                                    extra_context=extra_context,
                                 )
 
                                 # Extract text from system blocks (list of content blocks)
@@ -1385,12 +1455,18 @@ Review your original instructions and schemas to ensure the regenerated output f
                 # Save prompt to step directory
                 prompt_save_path = step_paths["prompt_file"]
 
+                # Resolve context_files for this step
+                extra_context = _resolve_context_files(
+                    step, output_dir_path, module_number, verbose
+                )
+
                 output = builder.run(
                     prompt_name=step.prompt_name,
                     variables=step_vars,
                     input_content=input_content,
                     model=step.model,
                     save_prompt_to=str(prompt_save_path),
+                    extra_context=extra_context,
                 )
                 last_output = output
             else:

@@ -63,6 +63,7 @@ Output one string per beat, in the same order. Your output `dialogues` array mus
 3. **Em dashes / double hyphens** — contains `—` or `--`
 4. **Wrong on_correct opening** — beat with context `"on_correct"` does not open with a brief positive signal
 5. **Curriculum-document register** — reads like written text rather than spoken language: overly formal, passive, or structured in a way no real teacher would say out loud
+6. **Letter labels in dialogue** — contains A, B, C or similar letter identifiers carried from the spec. Those are system-level placeholders; the visual narration handles what they refer to. Replace with the actual name, value, or a plain description of what the visual shows.
 
 If none of these apply, the beat is fine. Do not change it.
 

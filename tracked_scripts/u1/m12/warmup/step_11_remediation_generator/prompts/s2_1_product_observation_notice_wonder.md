@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-16T13:37:35.789614
+# Generated: 2026-04-10T16:19:45.008662
 ======================================================================
 
 ## API Parameters
@@ -29,8 +29,8 @@ Cacheable: Yes
 <remediation_design_ref>
 # REMEDIATION DESIGN REFERENCE v3
 
-**Version:** 3.2
-**Last Updated:** April 2026
+**Version:** 3.1
+**Last Updated:** March 2026
 **Purpose:** Authoritative guide for all remediation across learning modules
 
 ---
@@ -62,8 +62,7 @@ Cacheable: Yes
 
 | Question Type | Remediation Approach | Rationale |
 | :---- | :---- | :---- |
-| **Non-MC with ambiguous errors** (create, shade, place, etc. — no specific wrong answers identified) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
-| **Non-MC with specific errors** (same interaction types, but spec identifies one or more known wrong answers) | One Medium per specific condition + generic L-M-H for other answers | Spec identifies a known error (e.g. "reversed numbers") worth targeted feedback; see Section 2.5 |
+| **Non-MC** (create, shade, place, etc.) | Generic L-M-H only | Error cause often ambiguous; tracking handles patterns |
 | **Single-Select MC** (one correct answer) | Per-distractor branching | We know exactly which wrong answer; targeted feedback valuable |
 | **Multiselect MC** ("select all that apply") | Per-branch Medium + single Heavy | Selection pattern reveals cognitive state; generic language stays scalable |
 
@@ -78,10 +77,8 @@ Cacheable: Yes
 
 ```
 IMMEDIATE FEEDBACK (This Document)
-├── Non-MC (ambiguous errors): Generic L-M-H
+├── Non-MC: Generic L-M-H
 │   └── Validators tag probable error type (for tracking only)
-├── Non-MC (specific errors): One Medium per spec-defined condition + generic L-M-H for other answers
-│   └── Spec identifies one or more known wrong-answer conditions; see Section 2.5
 ├── Single-Select MC: Per-distractor Medium + Heavy
 │   └── Targeted feedback based on which wrong answer chosen
 └── Multiselect MC: Per-branch Medium + Heavy
@@ -111,13 +108,13 @@ PATTERN DETECTION (Background)
 
 ---
 
-## SECTION 2: Non-MC Remediation
+## SECTION 2: Non-MC Remediation (Generic L-M-H)
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, etc.), use **Generic remediation only**.
 
-When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
+**The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback regardless of detected error.
 
 ### 2.2 Why Generic Works
 
@@ -146,27 +143,9 @@ System moves forward
 [Background: Validator logs probable error type for tracking]
 ```
 
-### 2.4 Generic Non-MC Structure
+### 2.4 Non-MC Structure
 
 **Light (10-20 words):** Brief redirect, no visual **Medium (20-30 words):** Conceptual reminder \+ visual scaffold **Heavy (30-60 words):** Full modeling with \[Modeling\] tag, reveals answer
-
-### 2.5 Specific Conditions (special case)
-
-Some Non-MC prompts have specific wrong-answer conditions identified in the spec (e.g. "student reverses the two numbers"). There may be one or more such conditions.
-
-**One Medium per identified condition.** Each condition gets one state, written at Medium level (visual scaffold + 20–30 words of dialogue). It fires on either the first or second attempt when that specific wrong answer is given. The generic L-M-H remains — it covers all other wrong answers, and covers the specific conditions on attempt 3+.
-
-**State order when specific conditions are present:**
-
-1. One Medium per specific condition — fires on attempt 1 or 2 when that specific wrong answer is given
-2. Generic Light — attempt 1, wrong answer that did not match a specific condition
-3. Generic Medium — attempt 2, wrong answer that did not match a specific condition
-4. Generic Heavy — system models the correct answer. Always last. Also fires for specific conditions on attempt 3+.
-
-**Rules:**
-- Each specific condition is ONE state covering attempt 1 or 2. Do not write separate states per attempt.
-- Generic L-M-H states are always required even when specific conditions are present.
-- Specific condition states are Non-MC only. Single-Select MC and Multiselect MC use per-distractor/per-branch logic instead.
 
 ---
 
@@ -300,24 +279,6 @@ Each branch must be expressed as a self-sufficient condition — do not rely on 
 **Branch 2 must explicitly exclude incorrect selections.** Without that clause, a student who selects one correct answer plus one incorrect answer will be caught by Branch 2 (under-selecting) instead of Branch 4 (mixed). This is the most common condition bug for multiselect questions.
 
 **Branch 4 must explicitly require at least one correct selection.** Without that clause, the condition overlaps with Branch 3. The overlap is masked by evaluation order but makes the condition's intent ambiguous and fragile.
-
-### 3B.9 No-Wrong-Options Variant
-
-Some Multiselect MC prompts have **no incorrect options** — every option in the list is a valid correct answer. The correct validator condition contains only `selected` clauses and no `not_selected` clauses.
-
-In this case, Branch 3 (all-wrong) and Branch 4 (mixed correct + incorrect) are **structurally impossible**. The student can only under-select or select all.
-
-**Detection:** Inspect the correct validator condition. If it contains zero `not_selected` clauses, this is the no-wrong-options variant.
-
-**Structure:** Because every possible error is an under-selecting error (no wrong options exist), use `incorrect_count` conditions — the same L/M/H pattern as Non-MC.
-
-- **Light (`incorrect_count: 1`):** Short nudge, no scene beat. Example: "Read the scenarios carefully. Did you select ALL?"
-- **Medium (`incorrect_count: 2`):** More guidance with visual scaffold (20–30 words).
-- **Heavy (`condition: {}`):** Models all correct answers. `scene animate` beat required.
-
-**Do not invent phantom wrong options.** If the correct condition has no `not_selected` clauses, emit L/M/H with `incorrect_count` conditions — not Branch 2/3/4.
-
----
 
 ### 3B.8 Heavy for Multiselect MC
 
@@ -686,7 +647,6 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ### 12.1 Non-MC Remediation Checklist
 
-**Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
 - [ ] Light: 10-20 words, no visual
 - [ ] Medium: 20-30 words, visual REQUIRED
@@ -695,13 +655,6 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Different language at each level
 - [ ] No independent-success praise after modeling
 - [ ] Validator tags probable error type (noted in script or separate)
-
-**Track B (specific errors — spec defines known wrong answers):**
-- [ ] One state per specific condition using `and`/`or` condition: `{ "and": [{ condition }, { "or": [{"incorrect_count":1},{"incorrect_count":2}] }] }`, Medium level, visual REQUIRED
-- [ ] Generic Light (`incorrect_count: 1`) after all specific-condition states
-- [ ] Generic Medium (`incorrect_count: 2`), visual REQUIRED
-- [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
-- [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
 ### 12.2 Single-Select MC Remediation Checklist
 
@@ -1420,11 +1373,6 @@ Every state must include `is_correct: true` or `is_correct: false`. `incorrect_c
 { "condition": { "or": [{ "selected": "Oranges" }, { "selected": "Grapes" }] } }
 ```
 
-**Negation:**
-```json
-{ "condition": { "not": { "selected": "Apples" } } }
-```
-
 **Fallback: empty object; always matches:**
 ```json
 {}
@@ -1475,7 +1423,7 @@ Cacheable: Yes
 
 ## TASK
 
-The section to process is in `<input>`. Walk its `beats` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
+The section to process is in `<input>`. Walk its `steps` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
@@ -1508,26 +1456,19 @@ Each state follows the validator state schema:
 
 ## STEP 1: DETECT QUESTION TYPE
 
-For each qualifying prompt, check the `tool` field:
+For each qualifying prompt, check `tool.name`:
 
-| `tool` | Track |
+| `tool.name` | Track |
 |---|---|
-| `click_category`, `click_tangible`, `click_component`, or any workspace tool | **Non-MC** → Generic L-M-H |
+| `click_category`, `click_tangible`, or any workspace tool | **Non-MC** → Generic L-M-H |
 | `multiple_choice` | **Single-Select MC** → Per-distractor Medium + Heavy |
 | `multi_select` | **Multiselect MC** → Per-branch Medium + Heavy |
 
 ---
 
-## STEP 2A: NON-MC: STATES
+## STEP 2A: NON-MC: THREE STATES
 
-Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
-
-**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
-- `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
-- `description`: a plain-English label for what wrong answer this represents
-- `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
-
-For each specific condition, emit one state using the `and`/`or` condition shape from the STATE ORDER section below. Write or rewrite the dialogue and scene beats to Medium standard — do not just copy the placeholder beats verbatim.
+Emit in this order. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
 **Light** (`incorrect_count: 1`): dialogue only.
 ```json
@@ -1556,7 +1497,7 @@ For each specific condition, emit one state using the `and`/`or` condition shape
 }
 ```
 
-**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer).
+**Heavy** (`condition: {}`): `scene animate` beat required (system demonstrates the answer).
 ```json
 {
   "condition": {},
@@ -1615,43 +1556,9 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 
 ## STEP 2C: MULTISELECT MC: PER-BRANCH STATES
 
-Identify **correct answers** from the success/correct validator state condition — these are the values listed under `selected` clauses. **Incorrect answers** are values listed under `not_selected` clauses in that same condition.
+Identify **correct answers** from the success/correct validator state condition. All other options are **incorrect answers**.
 
-**First, detect the no-wrong-options variant:** Count `not_selected` clauses in the correct validator condition. If there are **none**, all options are correct — no wrong options exist. Follow Section 3B.9 of `<remediation_design_ref>` and emit only Branch 2 + Heavy. Do NOT invent phantom wrong option values.
-
-For the **no-wrong-options variant**, every possible error is an under-selecting error — so use `incorrect_count` conditions (same as Non-MC L/M/H). Do NOT use Branch 2/3/4 conditions.
-
-**Light** (`incorrect_count: 1`) — dialogue only:
-```json
-{
-  "condition": { "incorrect_count": 1 },
-  "description": "Student has not selected all correct answers (first attempt)",
-  "is_correct": false,
-  "steps": [
-    [ { "type": "dialogue", "text": "..." } ]
-  ]
-}
-```
-Use a short nudge (10–20 words) pointing toward completeness — e.g. "Read the scenarios carefully. Did you select ALL?" Adapt to the content.
-
-**Medium** (`incorrect_count: 2`) — scene beat required:
-```json
-{
-  "condition": { "incorrect_count": 2 },
-  "description": "Student has not selected all correct answers (second attempt)",
-  "is_correct": false,
-  "steps": [
-    [
-      { "type": "scene", "method": "update", "tangible_id": "...", "params": { "description": "..." } },
-      { "type": "dialogue", "text": "..." }
-    ]
-  ]
-}
-```
-
-**Heavy** (`condition: {}`) — `scene animate` beat required. Models all correct answers.
-
-For the **standard variant** (has at least one `not_selected` clause = has wrong options), identify all options not listed as `selected` in the correct condition as incorrect answers. See `<remediation_design_ref>` Section 3B for structure, branch definitions, language requirements, and condition patterns (no Light; Branches 2/3/4 Mediums + one Heavy).
+See `<remediation_design_ref>` Section 3B for structure, branch definitions, language requirements, and condition patterns (no Light; Branches 2/3/4 Mediums + one Heavy).
 
 One **Medium per branch**: scene beat required.
 ```json
@@ -1689,25 +1596,19 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 ## STATE ORDER
 
 **Non-MC inner array:**
-1. One Medium per specific condition (if any) — `{ "and": [{ specific_condition }, { "or": [{"incorrect_count": 1}, {"incorrect_count": 2}] }] }`
-2. Generic Light — `{ "and": [{"incorrect_count": 1}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
-3. Generic Medium — `{ "and": [{"incorrect_count": 2}, {"not": { specific_condition }}, ...] }` (one `not` per specific condition)
-4. Generic Heavy (`condition: {}`): always last
+1. Light (`incorrect_count: 1`)
+2. Medium (`incorrect_count: 2`)
+3. Heavy (`condition: {}`): always last
 
 **Single-Select MC inner array:**
 1. One Medium per distractor (any order among themselves)
 2. Heavy (`condition: {}`): always last
 
-**Multiselect MC inner array (standard — has wrong options):**
+**Multiselect MC inner array:**
 1. Branch 2 Medium — under-selecting
 2. Branch 3 Medium — all-wrong
 3. Branch 4 Medium — mixed
 4. Heavy (`condition: {}`): always last
-
-**Multiselect MC inner array (no-wrong-options variant — zero `not_selected` in correct condition):**
-1. Light — `{ "incorrect_count": 1 }` — dialogue only
-2. Medium — `{ "incorrect_count": 2 }` — scene beat required
-3. Heavy — `condition: {}` — always last
 
 ---
 
@@ -1776,45 +1677,129 @@ Cacheable: Yes
 
 <input>
 {
-  "id": "s1_0_opening_hook_15_20_seconds",
-  "type": "transition",
+  "id": "s2_1_product_observation_notice_wonder",
   "beats": [
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "arrays_intro",
+      "tangible_id": "array_2x7",
       "tangible_type": "arrays",
       "params": {
         "mode": "reading",
+        "orientation": "rows",
         "rows": 2,
-        "columns": 7,
-        "item_type": "dots",
-        "description": "A 2×7 dot array appears centrally on screen. No highlighting."
+        "items_per_row": 7,
+        "description": "2×7 array appears, showing row organization. 2 rows, 7 items per row."
       },
-      "id": "s1_0_opening_hook_15_20_seconds_b0"
+      "id": "s2_1_product_observation_notice_wonder_b0"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_row",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "2",
+          "x",
+          "7",
+          "=",
+          "14"
+        ],
+        "description": "Row expression appears: 2 × 7 = 14"
+      },
+      "id": "s2_1_product_observation_notice_wonder_b1"
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "array_2x7",
+      "params": {
+        "event": "transition_to_columns",
+        "status": "confirmed",
+        "description": "Array transitions to show column emphasis. 7 columns, 2 items per column."
+      },
+      "id": "s2_1_product_observation_notice_wonder_b2"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_column",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "7",
+          "x",
+          "2",
+          "=",
+          "14"
+        ],
+        "description": "Column expression appears: 7 × 2 = 14"
+      },
+      "id": "s2_1_product_observation_notice_wonder_b3"
     },
     {
       "type": "dialogue",
-      "text": "Here's an array. You got really good at reading these last time. Rows and columns, two expressions. But this array is hiding something in its numbers. Let's see if you can spot it.",
-      "id": "s1_0_opening_hook_15_20_seconds_b1"
+      "text": "Now check this out. Here's the row expression AND the column expression, both with their products. Look at those two products. What do you notice?",
+      "id": "s2_1_product_observation_notice_wonder_b4"
+    },
+    {
+      "type": "prompt",
+      "text": "What do you notice about the two products?",
+      "tool": "multiple_choice",
+      "options": [
+        "They're both 14 — the same product",
+        "They're different because the expressions are different",
+        "The second product is bigger",
+        "You can't tell without counting again"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "They're both 14 — the same product"
+          },
+          "description": "Student selected option A, observes product equivalence",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Same product. Two different expressions, but they both equal 14. Hmm. You noticed something like that last time too.",
+              "id": "s2_1_product_observation_notice_wonder_b5_v0_b0"
+            }
+          ]
+        }
+      ],
+      "id": "s2_1_product_observation_notice_wonder_b5"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "arrays_intro",
+          "tangible_id": "array_2x7",
+          "description": "2×7 array showing column emphasis. 7 columns, 2 items per column.",
           "tangible_type": "arrays",
-          "description": "A 2×7 dot array displayed centrally. No emphasis highlighting.",
           "mode": "reading",
+          "orientation": "columns",
           "rows": 2,
           "columns": 7,
-          "item_type": "dots"
+          "items_per_column": 2
+        },
+        {
+          "tangible_id": "equation_row",
+          "description": "Row expression displayed: 2 × 7 = 14",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_column",
+          "description": "Column expression displayed: 7 × 2 = 14",
+          "tangible_type": "equation"
         }
       ],
-      "id": "s1_0_opening_hook_15_20_seconds_b2"
+      "id": "s2_1_product_observation_notice_wonder_b6"
     }
   ],
-  "_generated_at": "2026-04-16T18:37:33.266941+00:00"
+  "_generated_at": "2026-04-10T21:19:15.854186+00:00"
 }
 </input>
 
@@ -1822,5 +1807,5 @@ Cacheable: Yes
 
 ## Prefill
 
-{"id": "s1_0_opening_hook_15_20_seconds", "incorrects": [
+{"id": "s2_1_product_observation_notice_wonder", "incorrects": [
 

@@ -42,7 +42,7 @@ map it to the appropriate schema context:
   options `[2, 6, 8, 12]`
 - `student_action: "Multi-select: Dogs, Cats, Fish"` → `multi_select` with
   those options
-- `guide_2`, `prompt_2`, `on_correct_2` etc. → a second step in the section
+- `guide_2`, `prompt_2`, `on_correct_2` etc. → a second step in the section. When `prompt_2` (or any numbered prompt field) exists without a corresponding `guide_2`, you must still generate a dialogue beat before that prompt — infer it from `visual_N`, the prompt text itself, or surrounding context. A missing `guide_N` is never a reason to omit the required dialogue beat.
 - `divider` fields are contextual labels only — they describe what is happening at that point in the spec. Do not use them to determine step boundaries and do not output them as beats. Use the surrounding prompt, student_action, and guide fields to determine structure.
 - A `student_action` field that contains two actions joined by "and" (e.g. "selects X or Y and fills two number slots") represents two sequential prompts — split them into separate steps
 - Inline annotations in any text field (e.g. `[System highlights rows
@@ -78,24 +78,30 @@ Include all required phrases from <input>. Avoid all forbidden phrases.
 
 ## WHAT IS A STEP GROUP
 
-A step group contains at most one prompt beat, almost always contains dialogue, and always ends with `current_scene`. Multiple dialogue beats are allowed — they collapse into a single block of text for the student.
+A step group is one **teaching moment** — one idea, paired with its visual. Everything in the group serves that moment. The student presses Next once to advance past it.
 
-**Step pacing** — each step is one "press Next" for the student. The goal is to match cognitive load: enough content to make the step meaningful, not so much that it overwhelms.
+**Scene and dialogue are partners.** A step is usually the guide teaching something using a visual: the scene beat shows what appears or changes on screen; the dialogue beat says what it means. They co-narrate the same moment and belong together in the same step.
 
-- **Instructional content: one idea per step.** When the section is explaining concepts — naming something, introducing a property, articulating a strategy — each distinct idea belongs in its own step. Multiple blocks of explanatory text in one step create cognitive overload: the student is reading several different things before they can advance. Split by idea, not by paragraph count.
-- **Worked examples: don't over-fracture.** When the section is demonstrating a procedure (showing how something works step by step), maintain the flow of the demonstration. Splitting every animation into its own step breaks the student's mental model of what's being demonstrated. A demonstration move and the narration explaining it belong together in one step.
-- **No silent steps.** Don't create a step with only scene beats and no dialogue (or prompt). Scene beats belong with the dialogue they support — fold them into the adjacent step, not into their own isolated step.
+**Scene beat ordering depends on method.** `add`, `update`, `show`, and `hide` beats set up state — place them before the dialogue they establish. `animate` beats play concurrently with dialogue — place them in the same step alongside the dialogue they accompany.
 
-**Scene beats group with the dialogue they are tied to.** A scene beat either sets up the visual before the guide speaks, or fires immediately after the dialogue as the guide's words take visual effect on screen. Group them accordingly.
+**Dialogue is animation-agnostic.** Scene beats own the visual description — what highlights, pulses, or animates. Guide dialogue stays at the level of meaning. Prefer dialogue that says what something means ("That bar shows the total for the week.") over dialogue that narrates the animation ("notice the highlighted bar"). Where the spec dialogue already does this well, keep it.
 
-Valid step group compositions (scene beats may appear before dialogue, after dialogue, or both):
-- Scene beat(s) → Dialogue → `current_scene`
-- Scene beat(s) → Prompt → `current_scene`
-- Scene beat(s) → Dialogue → Scene beat(s) → `current_scene`
-- Scene beat(s) → Dialogue → Prompt → `current_scene`
-- Scene beat(s) → Dialogue → Scene beat(s) → Prompt → `current_scene`
+A step group contains at most one prompt beat, always contains dialogue, and always ends with `current_scene`. Multiple dialogue beats are allowed — they collapse into a single block of text for the student.
 
-A `student_action` field that describes multiple interactions (e.g. "selects X, then presses button Y, then fills slot") means multiple step groups — one per interaction. Each step group ends with `current_scene`.
+**Step sizing** — the question for every step boundary is: is this one teaching moment, or two?
+
+- **One moment: keep together.** When beats co-narrate the same thing — a visual and the narration explaining it, an animation and the dialogue it plays alongside — they belong in one step. Splitting them breaks the student's understanding of what's being shown.
+- **Two moments: split.** When the section is naming something, introducing a property, or making a distinct conceptual point, each idea belongs in its own step. Two unrelated explanations in one step mean the student is absorbing different things before they can advance.
+- **Scene setup is never its own step.** Setup beats (`add`, `update`, `show`, `hide`) always belong to the step whose dialogue they establish. Never end a step immediately after setup beats with no dialogue.
+
+The same principle drives both: if removing one beat would leave the other incomplete or out of context, they belong together. If each beat could stand on its own as a distinct moment, split them.
+
+Valid step group compositions:
+- Scene setup beat(s) → Dialogue → `current_scene`  ← default
+- Scene setup beat(s) → Dialogue → Prompt → `current_scene`
+- Dialogue → Prompt → `current_scene`
+
+**Every prompt is preceded by a dialogue beat.** Dialogue is heard; prompt text is read. The dialogue beat is the guide's narrated setup — the same CTA in spoken register. The prompt text is the concise written instruction the student reads on screen. Both are required; they are not redundant. Consequently, a `student_action` that describes multiple interactions means multiple step groups — one per interaction, each with its own preceding dialogue and ending with `current_scene`. When interactions are closely related, additional dialogue beats may appear within a step group to narrate the transition between them.
 
 `current_scene` is always the last beat in every step group. All step groups are in the flat `beats` array — do not wrap them in a `steps` array.
 
@@ -175,6 +181,8 @@ tangible, then treat subsequent sections as having the bar graph on screen.
 
 Translate the spec's dialogue intent directly. Keep it clear and on-point.
 Do not embellish. Voice enhancement happens in a later step.
+
+Never use letter labels (A, B, C) in dialogue even if the spec uses them as identifiers. Those labels are system-level placeholders; the visual narration handles what they refer to. Use the actual name, value, or a plain description instead.
 
 ### Prompt: student interacts
 
@@ -296,12 +304,28 @@ This means:
 the correct answer.** Do not add beats that narrate the student's specific
 path, set up the next scene, or make assumptions about what the student chose.
 
-- For concrete answers (MC, click_category): name the answer.
-  "Apples got the most votes: 6."
+**When there is a way to be wrong — when the condition specifies a concrete
+required answer (any condition that is not `{}` and is not a branching prompt) —
+the correct state must have substantive on_correct dialogue.** Name the answer and
+close with the principle. `{ "type": "empty" }` is only for interactions where the
+student cannot be wrong: branching prompts (both choices are valid) and
+any-response-advances (`condition: {}`). Even in two-step interactions, each step
+with a concrete correct answer needs its own acknowledgment beat — it may be brief
+("4 boxes.") but it must exist.
+
+- For concrete answers (MC, click_category): name the answer, then close by
+  naming what the answer demonstrates — the principle or structural insight
+  the student just proved. The closing sentence should be transferable to the
+  next problem.
+  "Apples got the most votes: 6." is the answer. "That's how you read the
+  tallest bar." is the principle. Together: "Apples got the most votes: 6.
+  That's how you read the tallest bar."
 - For open-ended interactions (`variable_answer: true`): simple achievement
   acknowledgment only. Do not narrate the specific values the student may
-  have used. "You got to 20."
-- For branching or non-remediateable interactions where there is no meaningful
+  have used. You may still close with a transferable principle that does not
+  reference the student's specific values. "You got to 20. Any combination
+  of equal groups that reaches the total works."
+- For branching prompts or any-response-advances where there is no meaningful
   feedback to give: use `{ "type": "empty" }` to signal intentional silence.
   Prefer this over an empty array.
 

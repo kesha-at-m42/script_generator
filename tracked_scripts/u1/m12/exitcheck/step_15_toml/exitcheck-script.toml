@@ -1,0 +1,38 @@
+title = "exitcheck"
+type = "sequence"
+
+# --- Section: dual_expression_building ---
+[section_100_dual_expression_building]
+template = "array_template"
+
+[step_100_dual_expression_building]
+dialogue = "Here's an array with the rows highlighted. Build the equation for the rows."
+components = ["SceneComponent", "PromptComponent"]
+
+[step_101_dual_expression_building]
+dialogue = "Now think about the columns. Build the column equation."
+components = ["PromptComponent"]
+
+# --- Section: rotation_prediction_identify ---
+[section_101_rotation_prediction_identify]
+template = "array_template"
+
+[step_102_rotation_prediction_identify]
+dialogue = "2 rows of 8. That's 2 times 8 equals 16. If I rotate this array, what will the new row expression be?"
+components = ["SceneComponent", "PromptComponent"]
+
+# --- Section: equivalence_discrimination_compare ---
+[section_102_equivalence_discrimination_compare]
+template = "array_template"
+
+[step_103_equivalence_discrimination_compare]
+dialogue = "Here's an array: 5 rows of 6. That's 30 dots. These four arrays all have 30 dots too. Which one is the same array, just rotated?"
+components = ["SceneComponent", "PromptComponent"]
+
+# --- Section: exit_check_closure ---
+[section_103_exit_check_closure]
+template = "array_template"
+
+[step_104_exit_check_closure]
+dialogue = "You're ready. Let's practice."
+components = ["SceneComponent"]

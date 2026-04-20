@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-16T13:37:33.547183
+# Generated: 2026-04-10T16:19:23.391512
 ======================================================================
 
 ## API Parameters
@@ -940,11 +940,15 @@ Cacheable: Yes
 
 <input>
 {
-  "id": "s1_0_opening_hook_15_20_seconds",
+  "id": "s1_1_row_expression_recognition",
   "dialogues": [
     {
-      "text": "Here's an array. You got really good at reading these last time. Rows and columns, two expressions. But this array is hiding something in its numbers. Let's see if you can spot it.",
+      "text": "I'm highlighting the rows. See them going across? There are 2 rows, and each row has 7 dots. Which expression matches what you see?",
       "context": "lesson"
+    },
+    {
+      "text": "2 times 7. 2 rows of 7. Nice.",
+      "context": "on_correct"
     }
   ]
 }
@@ -954,5 +958,5 @@ Cacheable: Yes
 
 ## Prefill
 
-{"id": "s1_0_opening_hook_15_20_seconds", "dialogues": [
+{"id": "s1_1_row_expression_recognition", "dialogues": [
 

@@ -5,8 +5,8 @@ Deterministically splits a raw markdown spec (lesson/warmup/synthesis/exitcheck)
 into one item per interaction or transition section.
 
 Detected header patterns:
-  ### Interaction X.Y: <title>           (lesson specs)
-  ### Interaction W.N: <title>           (warmup specs)
+  ### Interaction X.Y: <title>           (lesson specs; ### optional — bold-only accepted)
+  ### Interaction W.N: <title>           (warmup specs; ### optional — bold-only accepted)
   ### Interaction S.N: <title>           (synthesis specs — bold variant allowed)
   ## Section W.X: <title>               (warmup sub-sections)
   ### W.Xa: <title>                      (warmup sub-sections)
@@ -43,9 +43,9 @@ _META_HEADER_RE = re.compile(r"^#{2,3}\s+\S", re.MULTILINE)
 # Does NOT match meta-headers like "### 1.7.1 LESSON SECTION 1: ..." (start with digits).
 _HEADER_RE = re.compile(
     r'^(?:'
-    r'#{2,3}\s+\*{0,2}Interaction\s+\d+\.\d+[^\n]*'    # ### Interaction X.Y: ... (lesson), bold variant allowed
+    r'(?:#{2,3}\s+)?\*{0,2}Interaction\s+\d+\.\d+[^\n]*'    # ### Interaction X.Y: ... (lesson), bold+headingless variant allowed
     r'|'
-    r'#{2,3}\s+\*{0,2}Interaction\s+W\.\d+[^\n]*'      # ### Interaction W.N: ... (warmup), bold variant allowed
+    r'(?:#{2,3}\s+)?\*{0,2}Interaction\s+W\.\d+[^\n]*'  # ### Interaction W.N: ... (warmup), bold+headingless variant allowed
     r'|'
     r'#{2,3}\s+Section\s+W\.\d+[^\n]*'                 # ## Section W.X: ...
     r'|'
@@ -168,6 +168,7 @@ def split_spec(input_data, **kwargs):
         return []
 
     minor_counters: dict = defaultdict(int)
+    seen_ids: dict = defaultdict(int)
     last_major = 1
     sections = []
 
@@ -197,8 +198,11 @@ def split_spec(input_data, **kwargs):
         body = re.sub(r"```[^\n]*\n(.*?)\n```", r"\1", body, flags=re.DOTALL)
 
         slug = _slug_from_header(header)
+        base_id = f"s{major}_{minor}_{slug}"
+        seen_ids[base_id] += 1
+        section_id = base_id if seen_ids[base_id] == 1 else f"{base_id}_{seen_ids[base_id]}"
         sections.append({
-            "id": f"s{major}_{minor}_{slug}",
+            "id": section_id,
             "index": i,
             "major": major,
             "minor": minor,

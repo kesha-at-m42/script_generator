@@ -8,27 +8,15 @@ Remediation beats fire when a student answers incorrectly. Three levels: light, 
 
 ---
 
-## Key Changes That Align with Guide Design
+## Design Principles
 
-**"Hmm," and hedging removed from light remediations**
-Old scripts used "Hmm," to signal a wrong answer. This is filler and slightly condescending. The new dialogue is direct.
+**Light remediations are direct statements, not questions.** Statements redirect; questions can feel like testing. "Look again at the parts in the bars. They all need to be the same width." — not "Are they all the same width?"
 
-> ❌ Old: "Hmm, look again at the parts in that bar. Are they all the same width?"
-> ✅ New: "Look again at the parts in the bars. They all need to be the same width."
+**Medium remediations teach the method, not the answer.** Name what to look at and in what order without supplying the counts or values. The student still has to do the work. Close with a pointed question or specific imperative.
 
-Also: old light remediations often asked a question ("Are they all the same width?"). New ones make a statement. Questions can feel like testing; statements feel like redirecting.
+**Heavy remediations model reasoning, not just the answer.** Narrate the thinking during the demo. End with the underlying principle — why the answer has to be what it is, not just what it is.
 
-**"Let me show you" → more inviting openers for heavy**
-Old scripts opened heavy remediations with "Let me show you." The new register uses collaborative framing: "Follow me", "Let's work through this", "I'll help you think through this."
-
-> ❌ Old: "Let me show you. Watch as I click right in the middle to make two equal parts."
-> ✅ New: "I'll walk us through this problem: First I divide in half, then I divide the left half, then the right half."
-
-**Heavy remediations model reasoning, not just the answer**
-Old scripts sometimes showed the answer without explaining why: "I'll select it." The new register narrates the thinking during the demo: "I'm choosing the one-fourth piece because when we cut the same cake into fewer pieces, each piece is bigger."
-
-**"You're working on it" used sparingly and correctly**
-This phrase appears in medium remediations as gentle acknowledgment before redirecting. It works when genuine; avoid using it in every medium remediation or it becomes formulaic.
+**"You're working on it" used sparingly.** It works when genuine as a gentle acknowledgment before redirecting. Avoid using it in every medium remediation — it becomes formulaic.
 
 ---
 
@@ -108,6 +96,38 @@ Why it works: "Here's a hint" signals that the next thing is help, not correctio
 
 ---
 
+### SPECIFIC CONDITION MEDIUMS (per-distractor)
+
+Specific condition mediums fire when the student makes an identifiable wrong choice. They name the error precisely, redirect to the correct concept, and close with a call to action. They do not complete the work — the student still has to execute.
+
+**Pattern A — Credit + narrow (M11)**
+> "You're right that there are 4 columns. But count how many dots are in each column. Are there 4?"
+
+Why it works: Opens by crediting what was correct. Narrows to exactly the one thing that was wrong. Ends with a pointed question the student can immediately act on.
+
+---
+
+**Pattern A — Credit + narrow, two-step problem (M1)**
+> "That's the Fish and Lizards total. The question asks how many MORE have Cats. You need to compare Cats to that total."
+
+Why it works: Names what the student found (a correct partial result). Redirects to what the question actually asks. One clear action.
+
+---
+
+**Pattern B — Name + redirect + point (M1)**
+> "You counted the Dogs. When we ask how many fewer, we need to find the difference. Count how far apart Dogs and Fish are."
+
+Why it works: One-phrase description of the error. States what the question needs. Points to the evidence in the visual.
+
+---
+
+**Pattern B — Name + redirect + point (M11)**
+> "That's the rows description. Look at columns now. How many columns are there? Each column has how many dots?"
+
+Why it works: Names the error (described rows when asked for columns). Redirects with a direct imperative. Ends with two questions that walk the student through the correct path step by step.
+
+---
+
 ### HEAVY REMEDIATIONS
 
 **Reasoning narrated during demo (M8)**
@@ -152,12 +172,30 @@ Why it works: Does both number lines step by step. "Same position!" is earned he
 
 ---
 
+**Principle ending — two paths modeled (M11)**
+> "Let me show you the two ways to think about this array. If I want rows, I count the horizontal rows: 6 rows. Then I count the dots in one row: 3 dots. 6 rows of 3 is 18 total dots. 6 times 3 equals 18. If I want columns, I count the vertical columns: 3 columns. Then I count the dots in one column: 6 dots. 3 columns of 6 is 18 total dots. 3 times 6 equals 18. Two ways to describe this array and equations that match. Both are correct."
+
+Why it works: Models both valid paths, not just one. Names the structure at each step ("horizontal rows", "vertical columns"). Ends with the principle — the student leaves knowing the rule, not just the answer.
+
+---
+
+**Principle ending — invariant stated (M12)**
+> "Here's what matters: when you describe an array by rows or columns, the dots don't change. 3 times 5 has the exact same dots as 5 times 3. You just read them differently. Same dots means same total. That is why both expressions give the same product."
+
+Why it works: States the principle and explains why it must be true. The closing sentence ("Same dots means same total. That is why...") is the insight the student carries forward.
+
+---
+
 ## Remediation Register Notes
 
 **Light:** One or two sentences. No explanation of why the answer was wrong. Just a redirect.
 
-**Medium:** Two to four sentences. Identifies what to look at or how to think about it. May include a small visual anchor or hint. Does not fully solve the problem.
+**Medium:** Two to four sentences. Teaches the method — names what to look at and in what order — without supplying the specific counts or values. Visual scaffold required. Closes with a pointed question or specific imperative. Does not solve the problem.
 
-**Heavy:** The guide models the full solution. Narrates reasoning during the demo. Ends with the answer stated clearly, and — when possible — with the principle that generated it.
+**Specific Condition Medium:** Same length and visual requirement as Medium. Names the error in one phrase, redirects to the correct concept, closes with a call to action. Does not give away the correct counts or values.
 
-**All levels:** Avoid "You're almost there!" (assuming closeness), "Don't worry!" (assuming feelings), and "Let's try again" as an opener (too soft — state the redirect directly).
+**Heavy:** Models the full solution. Narrates the thinking, not just the mechanics — names the structure being demonstrated. Ends with the underlying principle: why the answer has to be what it is.
+
+**On-correct and Heavy share a closing philosophy:** both end by naming what was demonstrated, not just what the answer was. Heavy closes with why (the structural insight). On-correct closes with what was demonstrated (the discovery or principle the student just proved). The closing sentence should be transferable to the next problem.
+
+**All levels:** Avoid "You're almost there!" (assuming closeness) and "Don't worry!" (assuming feelings).
