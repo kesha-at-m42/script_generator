@@ -66,6 +66,8 @@ from typing import Any
 
 # Modules not listed here fall back to "PLACEHOLDER".
 _MODULE_TEMPLATES: dict[int, str] = {
+    1: "chart_template",
+    2: "chart_template",
     11: "array_template",
     12: "array_template",
 }

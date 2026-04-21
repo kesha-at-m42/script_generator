@@ -307,7 +307,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -332,6 +332,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
         "misconceptions": "misconceptions",
         "forbidden_phrases": "scope_fence.forbidden_phrases",
         "required_phrases": "scope_fence.required_phrases",
+        "advanced_concepts": "scope_fence.advanced_concepts",
         "vocabulary": "vocabulary",
         "the_one_thing": "the_one_thing.statement",
     },

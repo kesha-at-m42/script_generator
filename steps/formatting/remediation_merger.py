@@ -36,7 +36,8 @@ def _merge_incorrects_into_section(section, incorrects):
     section = copy.deepcopy(section)
     queue = list(incorrects)  # one inner array per qualifying prompt, in order
 
-    for beat in section.get("beats", []):
+    beats = section.get("beats") or [b for frame in section.get("steps", []) for b in frame]
+    for beat in beats:
         if beat.get("type") != "prompt":
             continue
         validator = beat.get("validator", [])
