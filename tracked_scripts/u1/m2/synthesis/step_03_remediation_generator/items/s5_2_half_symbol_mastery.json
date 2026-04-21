@@ -1,0 +1,265 @@
+{
+  "id": "s5_2_half_symbol_mastery",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "7"
+                },
+                {
+                  "selected": "9"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "7"
+                  },
+                  {
+                    "selected": "9"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only 7 or only 9 (correct answers only, but not all)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "The selected odd number highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found an odd number. Odd numbers need half-symbols because they don't split evenly into groups of 2. Are there any other odd numbers in the list?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "8"
+                },
+                {
+                  "selected": "12"
+                }
+              ]
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "7"
+                  },
+                  {
+                    "selected": "9"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only even numbers (all wrong, no correct answers)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "Key pulses: Each symbol = 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Even numbers split perfectly into groups of 2. Half-symbols are for numbers that DON'T split evenly. Which numbers leave 1 leftover when you group by 2?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "7"
+                },
+                {
+                  "selected": "9"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "8"
+                },
+                {
+                  "selected": "12"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of odd and even numbers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "Odd numbers in the list pulse briefly."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found the odd numbers. Those DO need half-symbols. But even numbers split perfectly into groups of 2. Which selections don't belong?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "event": "highlight_options",
+                "status": "confirmed",
+                "description": "7 and 9 highlight and pulse to confirm they are the odd numbers.",
+                "options": [
+                  "7",
+                  "9"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 8 splits evenly: 4 groups of 2. 12 splits evenly: 6 groups of 2. But 7 is 3 groups of 2 plus 1 leftover. 9 is 4 groups of 2 plus 1 leftover. The answers are 7 and 9. Odd numbers need half-symbols because they always have 1 left over."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "Half of the total"
+        },
+        "description": "Student selected 'Half of the total': misconception that half-symbol relates to total count",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "Key pulses: Each symbol = 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "A half-symbol doesn't show half of the total. It shows half of what ONE symbol is worth. Look at the key. Each symbol equals 2. What is half of 2?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 items"
+        },
+        "description": "Student selected '2 items': confused half-symbol with full symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "Key pulses: Each symbol = 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "A full symbol shows 2 items. A HALF-symbol shows half of that. If a full symbol is 2, what is half of 2?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Nothing—it's decoration"
+        },
+        "description": "Student selected 'Nothing—it's decoration': does not understand half-symbols have meaning",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "description": "Key highlights: Each symbol = 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Half-symbols have real meaning. They show 1 item when the scale is 2. That's how we show odd numbers exactly. What is half of 2?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_numbers",
+              "params": {
+                "event": "demonstrate_half_symbol",
+                "status": "confirmed",
+                "description": "Key animates: full symbol labeled '2', half-symbol labeled '1'."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how it works. The key says each symbol equals 2. So a half-symbol equals half of 2, which is 1. That's how we show the leftover 1 when we have an odd number. The answer is 'Half of 2, which is 1.'"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T19:07:44.284276+00:00"
+}

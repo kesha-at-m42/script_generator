@@ -1,0 +1,630 @@
+[
+  {
+    "id": "w1_data_collection",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "minis_counting_game",
+          "tangible_type": "data_collection_game",
+          "params": {
+            "style": "mario_party_counting",
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Yellow Minis"
+            ],
+            "value_range": [
+              6,
+              8,
+              10,
+              12,
+              14
+            ],
+            "constraint": "even_only",
+            "duration": 60,
+            "description": "Animated counting game with Minis characters. Three categories: Red Minis, Blue Minis, Yellow Minis. Items appear for student to count."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "The Minis need your help counting! Let's see what we find."
+        },
+        {
+          "type": "prompt",
+          "text": "Count the items in each category and confirm your count.",
+          "tool": "counting_game",
+          "target": "minis_counting_game",
+          "validator": [
+            {
+              "condition": {},
+              "description": "Student completes counting activity for all three categories",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Nice counting! You found them all."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "minis_counting_game",
+                        "description": "Counting game complete. Student's counts recorded for Red Minis, Blue Minis, and Yellow Minis.",
+                        "tangible_type": "data_collection_game",
+                        "state": "complete"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "minis_counting_game",
+              "description": "Mario Party-style counting game active. Three categories of Minis characters visible for counting.",
+              "tangible_type": "data_collection_game",
+              "style": "mario_party_counting",
+              "categories": [
+                "Red Minis",
+                "Blue Minis",
+                "Yellow Minis"
+              ],
+              "state": "active"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w2_prediction",
+    "scene": [
+      "minis_counting_game"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "results_display",
+          "tangible_type": "data_display",
+          "params": {
+            "format": "category_value_pairs",
+            "data_source": "minis_counting_game",
+            "description": "Results screen showing student's counts. Red Minis: 8, Blue Minis: 10, Yellow Minis: 6."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You counted 8 Red Minis, 10 Blue Minis, and 6 Yellow Minis. That's YOUR data."
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's something new: what if each symbol showed 2 items instead of 1?"
+        },
+        {
+          "type": "dialogue",
+          "text": "You have 8 Red Minis. If you group them into 2s..."
+        },
+        {
+          "type": "prompt",
+          "text": "How many groups of 2 can you make from 8?",
+          "tool": "multiple_choice",
+          "options": [
+            4,
+            8,
+            10,
+            6
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 4
+              },
+              "description": "Student predicted 4 groups (correct)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "You think 4 groups. Let's see if you're right..."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "results_display",
+                        "description": "Results display showing counts. Student predicted 4 groups of 2 from 8 Red Minis.",
+                        "tangible_type": "data_display",
+                        "student_prediction": 4
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 8
+              },
+              "description": "Student predicted 8 groups (same as total)",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "You think 8 groups. Let's see if you're right..."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "results_display",
+                        "description": "Results display showing counts. Student predicted 8 groups from 8 Red Minis.",
+                        "tangible_type": "data_display",
+                        "student_prediction": 8
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 10
+              },
+              "description": "Student predicted 10 groups",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "You think 10 groups. Let's see if you're right..."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "results_display",
+                        "description": "Results display showing counts. Student predicted 10 groups from 8 Red Minis.",
+                        "tangible_type": "data_display",
+                        "student_prediction": 10
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 6
+              },
+              "description": "Student predicted 6 groups",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "You think 6 groups. Let's see if you're right..."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "results_display",
+                        "description": "Results display showing counts. Student predicted 6 groups from 8 Red Minis.",
+                        "tangible_type": "data_display",
+                        "student_prediction": 6
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "results_display",
+              "description": "Results display showing student's counts: Red Minis: 8, Blue Minis: 10, Yellow Minis: 6. Multiple choice prompt active asking about groups of 2.",
+              "tangible_type": "data_display",
+              "format": "category_value_pairs"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w3_grouping_animation",
+    "scene": [
+      "results_display"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "animation_workspace",
+          "tangible_type": "animation_canvas",
+          "params": {
+            "data_source": "minis_counting_game",
+            "animation_type": "grouping_to_scaled_graph",
+            "description": "Animation workspace appears showing picture graph structure ready for transformation."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You counted 8 Red Minis. Watch what happens..."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_1_items_appear",
+            "status": "confirmed",
+            "category": "Red Minis",
+            "count": 8,
+            "description": "8 Red Minis items appear in animation workspace"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "8 items... watch them pair up into groups of 2..."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_2_grouping",
+            "status": "confirmed",
+            "pairs": [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                7,
+                8
+              ]
+            ],
+            "description": "8 Red Minis visually pair up: 2, 2, 2, 2. Four groups of 2 visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Each group of 2 becomes ONE symbol."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_3_transformation",
+            "status": "confirmed",
+            "groups": 4,
+            "description": "Each pair transforms into one symbol. 4 symbols now appear on the graph row for Red Minis."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "4 groups... 4 symbols."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_4_key_reveal",
+            "status": "confirmed",
+            "description": "Key appears on graph: 'Each ⭐ = 2'"
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Each symbol shows 2 items, not 1. That's different from before!"
+        },
+        {
+          "type": "dialogue",
+          "text": "10 items... 5 groups of 2... 5 symbols."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_5_category_2",
+            "status": "confirmed",
+            "category": "Blue Minis",
+            "count": 10,
+            "groups": 5,
+            "description": "Blue Minis category transforms: 10 items group into 5 pairs, become 5 symbols."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "6 items... 3 groups of 2... 3 symbols."
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_5_category_3",
+            "status": "confirmed",
+            "category": "Yellow Minis",
+            "count": 6,
+            "groups": 3,
+            "description": "Yellow Minis category transforms: 6 items group into 3 pairs, become 3 symbols."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "animation_workspace",
+          "params": {
+            "event": "phase_6_complete_graph",
+            "status": "confirmed",
+            "description": "Full scaled picture graph visible with all 3 categories. Red Minis: 4 symbols, Blue Minis: 5 symbols, Yellow Minis: 3 symbols. Key shows 'Each ⭐ = 2'."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Your data is now a SCALED picture graph!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "animation_workspace",
+              "description": "Complete scaled picture graph showing student's data. Red Minis: 4 symbols (8 items), Blue Minis: 5 symbols (10 items), Yellow Minis: 3 symbols (6 items). Key visible: 'Each ⭐ = 2'.",
+              "tangible_type": "animation_canvas",
+              "state": "complete",
+              "graph_type": "scaled_picture_graph",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "w4_verification_bridge",
+    "scene": [
+      "animation_workspace"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_student_data",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Yellow Minis"
+            ],
+            "values": [
+              8,
+              10,
+              6
+            ],
+            "symbol_counts": [
+              4,
+              5,
+              3
+            ],
+            "key_visible": true,
+            "key_text": "Each ⭐ = 2",
+            "description": "Horizontal scaled picture graph with student's collected data. Red Minis: 4 symbols (8 total), Blue Minis: 5 symbols (10 total), Yellow Minis: 3 symbols (6 total). Key shows 'Each ⭐ = 2'."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "hide",
+          "tangible_id": "animation_workspace"
+        },
+        {
+          "type": "dialogue",
+          "text": "Now you've seen how grouping works! Each group of 2 became one symbol."
+        },
+        {
+          "type": "prompt",
+          "text": "Look at Blue Minis. How many symbols do you see?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            4,
+            5,
+            10
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 5
+              },
+              "description": "Student correctly counted 5 symbols for Blue Minis",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "5 symbols. And each one shows 2 items. So that's 10 total!"
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You can already read a scaled graph! Now let's learn more about how they work."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_student_data",
+                        "description": "Horizontal scaled picture graph. Blue Minis row emphasized showing 5 symbols. Key visible: 'Each ⭐ = 2'.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Red Minis",
+                          "Blue Minis",
+                          "Yellow Minis"
+                        ],
+                        "highlight_categories": [
+                          "Blue Minis"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 3
+              },
+              "description": "Student selected 3 — confused with Yellow Minis symbol count",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_student_data",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue Minis"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let's look at Blue Minis specifically. Count the symbols in just that row."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 4
+              },
+              "description": "Student selected 4 — confused with Red Minis symbol count",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_student_data",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue Minis"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You're looking at the wrong row. Find Blue Minis and count those symbols."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {
+                "selected": 10
+              },
+              "description": "Student selected 10 — counted total items instead of symbols",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_student_data",
+                    "params": {
+                      "highlight_categories": [
+                        "Blue Minis"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "The question asks about symbols, not total items. Count just the star symbols in Blue Minis."
+                  }
+                ]
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly — system models counting symbols",
+              "is_correct": false,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_student_data",
+                    "params": {
+                      "event": "count_symbols",
+                      "status": "confirmed",
+                      "description": "Each symbol in Blue Minis row pulses and counts: 1, 2, 3, 4, 5",
+                      "category": "Blue Minis"
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Let me show you. Look at the Blue Minis row. Count each star symbol: 1, 2, 3, 4, 5. There are 5 symbols."
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_student_data",
+              "description": "Horizontal scaled picture graph in reading mode. Red Minis: 4 symbols, Blue Minis: 5 symbols, Yellow Minis: 3 symbols. Key shows 'Each ⭐ = 2'. Multiple choice prompt asking about Blue Minis symbol count.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Red Minis",
+                "Blue Minis",
+                "Yellow Minis"
+              ],
+              "key_visible": true
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

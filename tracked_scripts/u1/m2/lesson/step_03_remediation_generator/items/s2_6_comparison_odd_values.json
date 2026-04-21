@@ -1,0 +1,112 @@
+{
+  "id": "s2_6_comparison_odd_values",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 — likely subtracted the symbol counts (5 - 3.5 rounded) instead of the actual values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Squirrels"
+                ],
+                "description": "Key highlighted showing scale of 2, with Birds and Squirrels rows emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the key — each symbol stands for 2 animals. Count the actual number of animals, not just the symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2 — likely subtracted rounded symbol counts (5 - 3) instead of actual values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Squirrels"
+                ],
+                "description": "Birds row showing 3.5 symbols (7 animals) and Squirrels row showing 5 symbols (10 animals) highlighted with value labels."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Remember, each symbol equals 2 animals. Birds has 3 and a half symbols — that's 7 animals. Squirrels has 5 symbols — that's 10 animals."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — chose the Birds total instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Squirrels"
+                ],
+                "description": "Birds and Squirrels rows highlighted with emphasis on comparing the two values."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "7 is how many Birds there are. The question asks how many FEWER Birds than Squirrels — we need to find the difference between the two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "event": "show_comparison_calculation",
+                "status": "confirmed",
+                "description": "Animation shows Birds: 3.5 symbols × 2 = 7 animals, Squirrels: 5 symbols × 2 = 10 animals, then 10 - 7 = 3."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count Birds: 3 and a half symbols times 2 equals 7 animals. Then Squirrels: 5 symbols times 2 equals 10 animals. To find how many FEWER Birds, we subtract: 10 minus 7 equals 3. The answer is 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:54:24.416302+00:00"
+}

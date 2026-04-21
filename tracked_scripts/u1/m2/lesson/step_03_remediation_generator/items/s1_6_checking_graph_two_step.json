@@ -1,0 +1,175 @@
+{
+  "id": "s1_6_checking_graph_two_step",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look at the height of each column—which one has the most symbols?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers"
+                ],
+                "description": "Crackers column highlighted showing 7 symbols, tallest column."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. Crackers has 7 symbols—that's more than any other category. Count each column to compare."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times—system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "event": "count_symbols_by_category",
+                "status": "confirmed",
+                "description": "System counts each category's symbols, highlighting Crackers with 7 as the tallest."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. I'll count each column: Popcorn has 5, Pretzels has 3, Fruit has 4, Crackers has 7, and Chips has 5. Crackers has 7 symbols—the most. Click Crackers."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7—counted symbols instead of votes",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers"
+                ],
+                "description": "Crackers column highlighted with key showing each symbol = 2 votes."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted 7 symbols—good start! But check the key: each symbol equals 2 votes. You need to multiply 7 symbols by 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9—calculation error (7 + 2 instead of 7 × 2)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers"
+                ],
+                "description": "Crackers column with key emphasized: each symbol = 2 votes."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: you have 7 symbols, and each symbol stands for 2 votes. That means 7 groups of 2—multiply, not add."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 16
+        },
+        "description": "Student selected 16—counting error or wrong category",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers"
+                ],
+                "description": "Crackers column highlighted showing exactly 7 symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count Crackers carefully. There are 7 symbols in the Crackers column. Each symbol equals 2 votes, so 7 × 2 gives us the total."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly—system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "event": "count_and_scale_symbols",
+                "status": "confirmed",
+                "description": "System counts 7 Crackers symbols, then shows each symbol splitting into 2 votes, totaling 14."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count the symbols for Crackers—there are 7. The key tells us each symbol equals 2 votes. So we multiply: 7 symbols times 2 votes each equals 14 votes total. The answer is 14."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:53:01.199084+00:00"
+}

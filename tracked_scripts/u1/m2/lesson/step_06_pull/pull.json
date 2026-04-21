@@ -1,0 +1,3064 @@
+[
+  {
+    "id": "s1_1_your_scaled_graph",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal picture graph appears. Completed Warmup graph with 3 categories, even values. Key visible: Each ⭐ = 2. Apples=8 (4 symbols), Bananas=6 (3 symbols), Oranges=10 (5 symbols)."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table appears alongside graph, showing same Favorite Fruits values: Apples=8, Bananas=6, Oranges=10."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "You already began to read this graph. You counted 5 symbols for Oranges. Each symbol shows 2 items, not 1. This is called a {SCALED picture graph}.",
+        "_notion_block_id": "31b5917e-ac52-8131-abaf-c5df6e97ec46"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's find out how to tell that symbol equals 2.",
+        "notion_flag": "suggested"
+      }
+    ],
+    "_toml_key": "section_100_your_scaled_graph"
+  },
+  {
+    "id": "s1_2_what_is_key_scale",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Key area highlighted showing 'Each ⭐ = 2'."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Every graph has a {key}. The {key} is like a decoder. It tells you what each symbol MEANS.",
+        "_notion_block_id": "31b5917e-ac52-812f-884c-d209e23ec961"
+      },
+      {
+        "type": "dialogue",
+        "text": "This {key} says: each symbol equals 2. That \"2\" is called the {scale}.",
+        "_notion_block_id": "31b5917e-ac52-81df-8ca9-d2ae5c22dd2c"
+      },
+      {
+        "type": "dialogue",
+        "text": "{Scale of 1} means each symbol shows 1 item. So what does {scale of 2} mean?",
+        "_notion_block_id": "31b5917e-ac52-81d0-849b-eeed3ac7e58e"
+      },
+      {
+        "type": "prompt",
+        "text": "This graph has a {scale of 2}. What does that mean?",
+        "tool": "multiple_choice",
+        "options": [
+          "There are 2 symbols",
+          "Each symbol shows 2 items",
+          "There are 2 categories",
+          "Add 2 to each number"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Each symbol shows 2 items"
+            },
+            "description": "Student selected 'Each symbol shows 2 items' — correct definition of scale",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Scale of 2 means each symbol represents 2 items. The {key} tells you the scale. Always check the key first.",
+                "_notion_block_id": "31b5917e-ac52-8104-a024-f981e2ee47d3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "There are 2 symbols"
+            },
+            "description": "Student selected 'There are 2 symbols' — confused scale with symbol count",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_warmup",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlighted showing 'Each ⭐ = 2'."
+                },
+                "_notion_block_id": "31b5917e-ac52-810b-82b1-cb84db8cb372"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Scale isn't about how many symbols there are. Look at the key. What does it tell you?",
+                "_notion_block_id": "31b5917e-ac52-81ed-874d-f23b6ac13d2e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "There are 2 categories"
+            },
+            "description": "Student selected 'There are 2 categories' — confused scale with category count",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_warmup",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlighted showing 'Each ⭐ = 2'."
+                },
+                "_notion_block_id": "31b5917e-ac52-81eb-9d47-ed8116e83862"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. Scale isn't about categories. The key shows the scale. What information does it give you?",
+                "_notion_block_id": "31b5917e-ac52-81bd-90cc-e543c464d301"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Add 2 to each number"
+            },
+            "description": "Student selected 'Add 2 to each number' — misunderstood scale as an arithmetic operation",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_warmup",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlighted showing 'Each ⭐ = 2'."
+                },
+                "_notion_block_id": "31b5917e-ac52-81a5-823c-db0a59c7d108"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, that's not it. Scale isn't about adding. Look at the key. What do you learn about the symbol from the key?",
+                "_notion_block_id": "31b5917e-ac52-8170-a4fd-c23a7023d110"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_warmup",
+                "params": {
+                  "event": "demonstrate_scale",
+                  "status": "confirmed",
+                  "description": "Key pulses, then one star symbol expands to show 2 items inside it."
+                },
+                "_notion_block_id": "31b5917e-ac52-811a-91c1-d41667b90fa0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look together. The key says each symbol equals 2. That's the scale. Scale of 2 means each symbol represents 2 items. So if I see one symbol, that represents 2 items.",
+                "_notion_block_id": "31b5917e-ac52-81a5-936a-cf87b65f2688"
+              },
+              {
+                "type": "dialogue",
+                "text": "The {key} tells you the scale. Always check the key first.",
+                "notion_flag": "suggested"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81a3-b82d-d1acd4e59ca1"
+      }
+    ],
+    "_toml_key": "section_101_what_is_key_scale"
+  },
+  {
+    "id": "s1_3_using_key_to_read",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "NEW vertical picture graph appears. Favorite Playground Equipment with 4 categories. Key highlighted: Each ⭐ = 2 votes. Swings=8 (4 symbols), Slide=6 (3 symbols), Monkey Bars=10 (5 symbols), Sandbox=4 (2 symbols)."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a new graph about a class's favorite playground equipment. First step: check the {key}. What is the {scale} of this graph?",
+        "_notion_block_id": "31b5917e-ac52-819d-84ea-f36cd055cac8"
+      },
+      {
+        "type": "prompt",
+        "text": "What is the {scale} of this graph?",
+        "tool": "multiple_choice",
+        "options": [
+          1,
+          2,
+          4,
+          5
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student answered 2 — correct scale",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct. It has a scale of 2. Each symbol equals 2 votes. Now you can read the graph.",
+                "_notion_block_id": "31b5917e-ac52-8166-9103-eaf5fcf7b7e2"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 1
+            },
+            "description": "Student selected 1 — counted symbols as 1 each instead of using the scale",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key pulses: Each ⭐ = 2 votes"
+                },
+                "_notion_block_id": "31b5917e-ac52-814e-8ad7-eb46a739c25a"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. Look at the key. Each symbol doesn't equal 1 vote. What does each symbol represent?",
+                "_notion_block_id": "31b5917e-ac52-814a-a8c9-dac635db0966"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — counted the number of categories instead of reading the key",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlighted: Each ⭐ = 2 votes"
+                },
+                "_notion_block_id": "31b5917e-ac52-81cd-8f7b-cfdc6ee01f4d"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, look again. There are 4 categories on this graph, but we want the scale. Look for the key. The scale tells us what each symbol equals.",
+                "_notion_block_id": "31b5917e-ac52-8121-876e-ea4fdc035292"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — counted symbols in one row instead of reading the scale from the key",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlighted showing scale value"
+                },
+                "_notion_block_id": "31b5917e-ac52-81fc-9370-ea6a2bbe1b2b"
+              },
+              {
+                "type": "dialogue",
+                "text": "No. There are 5 symbols in the monkey bars category, but that's not the scale. Look at the key. The scale tells us what each symbol equals. ",
+                "_notion_block_id": "31b5917e-ac52-819c-85fb-d37ddcbec07d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models finding the scale in the key",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "highlight_scale_value",
+                  "status": "confirmed",
+                  "description": "Key zooms in, scale value '2' pulses and highlights"
+                },
+                "_notion_block_id": "31b5917e-ac52-8196-bef3-ef1c4811e20e"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's take another look together. The key tells us the scale. It says \"each symbol = 2 votes.\" The scale is 2. Each symbol on this graph represents 2 votes, not 1. Now you can read the graph.",
+                "_notion_block_id": "31b5917e-ac52-81f7-9ab1-fc24b43ba66d"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-819a-9bcf-fd7e85ef8379"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph with key highlighted. Favorite Playground Equipment data. Scale of 2. Multiple choice options for scale value visible.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Swings",
+              "Slide",
+              "Monkey Bars",
+              "Sandbox"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8143-857c-f5cef7f69a07",
+        "_toml_key": "step_102_using_key_to_read"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph. Monkey Bars highlighted with 5 symbols. Multiple choice options for vote count visible.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Swings",
+              "Slide",
+              "Monkey Bars",
+              "Sandbox"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8195-8bab-c5e0ff2cc09e"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Monkey Bars category highlighted, showing 5 symbols."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's look at one category. Monkey Bars has 5 symbols. Each symbol equals 2 votes. So how many voted for Monkey Bars as their favorite playground equipment?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students chose Monkey Bars as their favorite playground equipment?",
+        "tool": "multiple_choice",
+        "options": [
+          5,
+          7,
+          10,
+          12
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student answered 10 — correct (5 symbols × 2 = 10)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes, 10 students. 5 symbols with scale of 2. Count by 2s: 2, 4, 6, 8, 10.",
+                "_notion_block_id": "31b5917e-ac52-818e-b3cc-ce42eccb8c16"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — counted symbols without multiplying by the scale",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_categories": [
+                    "Monkey Bars"
+                  ],
+                  "highlight_component": "key",
+                  "description": "Monkey Bars and key both highlighted"
+                },
+                "_notion_block_id": "31b5917e-ac52-8191-a9a9-f3ce1084439f"
+              },
+              {
+                "type": "dialogue",
+                "text": "Nearly. You counted 5 symbols, that's right. But each symbol equals 2 votes, not 1. Try counting by 2s.",
+                "_notion_block_id": "31b5917e-ac52-8191-bdba-c0ee112c5399"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — miscalculated or added incorrectly when counting by 2s",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_categories": [
+                    "Monkey Bars"
+                  ],
+                  "description": "Monkey Bars symbols highlighted one by one"
+                },
+                "_notion_block_id": "31b5917e-ac52-81aa-8ec0-c8dbd972728b"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's not it. How many symbols are there for Monkey Bars? Remember the scale shows each symbol is 2 votes. Try counting by 2s for each symbol.",
+                "_notion_block_id": "31b5917e-ac52-8109-a4d0-d7400098dda5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 12
+            },
+            "description": "Student selected 12 — likely counted 6 symbols or miscounted when multiplying",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_categories": [
+                    "Monkey Bars"
+                  ],
+                  "description": "Each symbol in Monkey Bars row highlights sequentially"
+                },
+                "_notion_block_id": "31b5917e-ac52-817f-8c77-e19e86217bdb"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. How many symbols are there for Monkey Bars? Each symbol equals 2 votes. Count by 2s carefully.",
+                "_notion_block_id": "31b5917e-ac52-8171-99fd-ed6b0c8ff17d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models counting symbols and multiplying by scale",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "count_by_scale",
+                  "status": "confirmed",
+                  "description": "Each symbol in Monkey Bars lights up sequentially with running total: 2, 4, 6, 8, 10"
+                },
+                "_notion_block_id": "31b5917e-ac52-813c-98bb-cfc555c78c2d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s break this down step by step. First, notice the scale is 2, so each symbol equals 2 votes. Then count the symbols in Monkey Bars: 5 symbols. Count by 2s for each symbol: 2, 4, 6, 8, 10. The answer is 10 votes for Monkey Bars. That's how we read a picture graph with a scale of 2.",
+                "_notion_block_id": "31b5917e-ac52-81f3-86c9-fe5c4ccb24f7"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8111-a690-e958963925cb"
+      }
+    ],
+    "_toml_key": "section_102_using_key_to_read"
+  },
+  {
+    "id": "s1_4_create_guided_popcorn",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "NEW data table appears. Vertical orientation. Favorite Snacks data: Popcorn=8, Pretzels=10, Fruit=12, Crackers=14, Chips=10."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Empty picture graph template appears, vertical orientation. 3 of 5 categories pre-filled: Pretzels=5 symbols, Fruit=6 symbols, Crackers=7 symbols. Popcorn and Chips columns empty. Key shows: Each ⭐ = 2."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here is a table showing people’s favorite snacks. Let’s make a picture graph of this data. Some of the categories have been filled in already. Let's graph \"Popcorn\" together. The table shows 8 people chose Popcorn.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "8 is an {even number}. It groups perfectly into 2s. 8 splits into 4 groups of 2. Place 4 symbols for Popcorn.",
+        "_notion_block_id": "31b5917e-ac52-8140-92df-d10270a84f84"
+      },
+      {
+        "type": "prompt",
+        "text": "Place 4 symbols for Popcorn.",
+        "tool": "click_to_place",
+        "target": "picture_graph_snacks",
+        "validator": [
+          {
+            "condition": {
+              "category": "Popcorn",
+              "symbols_placed": 4
+            },
+            "description": "Student placed 4 symbols for Popcorn — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct. 4 symbols. Each shows 2 votes. 4 groups of 2 is 8.",
+                "_notion_block_id": "31b5917e-ac52-8184-95c5-db91e325a69c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. We want 4 symbols. Click 4 symbols up in the Popcorn category. ",
+                "_notion_block_id": "31b5917e-ac52-81c0-96ee-f1b5c58dfe51"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Popcorn"
+                  ],
+                  "description": "Highlight Popcorn on data_table_snacks"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8153-879a-f7c75b68b9f0"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, we need 4 symbols in the Popcorn category. Find the category, start at the bottom and click to place 4 symbols.",
+                "_notion_block_id": "31b5917e-ac52-8120-8471-d29b58decc72"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "place_symbols",
+                  "status": "confirmed",
+                  "description": "System places 4 symbols in Popcorn column one at a time, highlighting each placement",
+                  "category": "Popcorn",
+                  "count": 4
+                },
+                "_notion_block_id": "31b5917e-ac52-816a-a8c5-e2faad9c1b52"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's do this together. Popcorn has 8 votes. Each symbol equals 2 votes. So when we place 1 symbol, that's 2 votes. Place another symbol, now 4 votes. Place a third symbol to make it 6 votes. Lastly, the fourth symbol gets us to all 8 votes. Popcorn needs 4 symbols total.",
+                "_notion_block_id": "31b5917e-ac52-8198-ba62-fcaf0de17328"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-810d-8c25-d8922817b511"
+      }
+    ],
+    "_toml_key": "section_103_create_guided_popcorn"
+  },
+  {
+    "id": "s1_5_more_practice_even",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Now let's finish this picture graph by filling in the Chips. The table shows 10 people chose Chips.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "10 is also an {even number}. It groups into 2s perfectly. Place symbols for Chips.",
+        "_notion_block_id": "31b5917e-ac52-814f-8eb5-fa436e4d8d31"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for Chips.",
+        "tool": "click_to_place",
+        "target": "picture_graph_snacks",
+        "validator": [
+          {
+            "condition": {
+              "category": "Chips",
+              "symbols_placed": 5
+            },
+            "description": "Student placed 5 symbols for Chips — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 5 symbols for 10 votes. Group by 2s, and even numbers give us whole symbols. You're getting this.",
+                "_notion_block_id": "31b5917e-ac52-81ce-a91e-e609f4510e38"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "No, let’s check the table again. Chips has 10 votes, and each symbol stands for 2 votes. How many symbols do we need?",
+                "_notion_block_id": "31b5917e-ac52-81e1-babd-d47b34495a7f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Chips"
+                  ],
+                  "description": "Highlight Chips on data_table_snacks"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8164-a86b-e1b6ac9b38bd"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not there yet. The table shows 10 votes for Chips. Each symbol equals 2 votes. Count by 2s until you reach 10. How many symbols does that mean?",
+                "_notion_block_id": "31b5917e-ac52-8141-9a71-fad0d620936a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "place_symbols",
+                  "status": "confirmed",
+                  "description": "System places 5 symbols in Chips column, one at a time",
+                  "category": "Chips",
+                  "symbol_count": 5
+                },
+                "_notion_block_id": "31b5917e-ac52-8141-b6d2-d3c596e22cfa"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s think through this together. Start with the number in the category, look at the scale, then determine the correct amount of symbols. Chips has 10 votes. Each symbol represents 2 votes so skip count by 2s: 2, 4, 6, 8, 10. It is 5 twos to reach 10. That means we place 5 symbols. When we group by 2s, even numbers give us whole symbols.",
+                "_notion_block_id": "31b5917e-ac52-81d0-b6ca-e935be0cae4d"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81cd-9dac-dbd0fd29c37f"
+      }
+    ],
+    "_toml_key": "section_104_more_practice_even"
+  },
+  {
+    "id": "s1_6_checking_graph_two_step",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "data_table_snacks",
+        "_notion_block_id": "31b5917e-ac52-8164-87b2-ef2b760e0d27"
+      },
+      {
+        "type": "dialogue",
+        "text": "You made a scaled picture graph. Let's check: which snack got the most votes?",
+        "_notion_block_id": "31b5917e-ac52-8140-af9d-f1b438e67105"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on the category with the most votes.",
+        "tool": "click_category",
+        "target": "picture_graph_snacks",
+        "validator": [
+          {
+            "condition": {
+              "selected": "Crackers"
+            },
+            "description": "Student clicked Crackers — correct, 7 symbols showing most",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly, crackers has the most symbols. Even with scale of 2, the highest column shows the most votes.",
+                "_notion_block_id": "31b5917e-ac52-81cd-b0db-cf6bc75cc384"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Crackers column highlighted with 7 symbols."
+                },
+                "_notion_block_id": "31b5917e-ac52-8186-94fb-dc2b1e1487ce"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not that one. Compare the height of each category to find the most votes.",
+                "_notion_block_id": "31b5917e-ac52-8127-8684-c5e62c7656bc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Crackers column highlighted showing 7 symbols, tallest column."
+                },
+                "_notion_block_id": "31b5917e-ac52-8126-b806-e493e4be30e2"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count each category to compare. Which snack has more symbols than all other categories?",
+                "_notion_block_id": "31b5917e-ac52-812c-877a-c7cc95a6be4e"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times—system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "count_symbols_by_category",
+                  "status": "confirmed",
+                  "description": "System counts each category's symbols, highlighting Crackers with 7 as the tallest."
+                },
+                "_notion_block_id": "31b5917e-ac52-81ac-bc29-ed271cd5bf27"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s work through this together. I'll count the symbols in each category: Popcorn has 5, Pretzels has 3, Fruit has 4, Crackers has 7, and Chips has 5. Crackers has 7 symbols which is the most. Even with scale of 2, the highest column shows the most votes.",
+                "_notion_block_id": "31b5917e-ac52-818e-9239-f8f5a2e4cf6c"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-813f-b585-d8be235bf0a4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Completed vertical picture graph showing all 5 Favorite Snacks categories. Data table hidden. Click category tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Fruit",
+              "Crackers",
+              "Chips"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81e4-83a3-de10c1c64d58",
+        "_toml_key": "step_106_checking_graph_two_step"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Vertical picture graph. Crackers highlighted with 7 symbols. Multiple choice options for vote count visible.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Popcorn",
+              "Pretzels",
+              "Fruit",
+              "Crackers",
+              "Chips"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8196-ab52-cbfbce620b1d"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many votes did Crackers get?",
+        "_notion_block_id": "31b5917e-ac52-81a9-8513-f5e8e9896993"
+      },
+      {
+        "type": "prompt",
+        "text": "How many votes did Crackers get?",
+        "tool": "multiple_choice",
+        "options": [
+          7,
+          9,
+          14,
+          16
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student answered 14 — correct (7 symbols × 2 = 14 votes)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes, 14 votes. 7 symbols, and each symbol equals 2 votes. 7 groups of 2 is 14.",
+                "_notion_block_id": "31b5917e-ac52-81aa-9e34-fb7aa6628d47"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7—counted symbols instead of votes",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Crackers column highlighted with key showing each symbol = 2 votes."
+                },
+                "_notion_block_id": "31b5917e-ac52-812f-bbfc-c414e21f3db0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Remember to look at the key: each symbol equals 2 votes, not 1. Count by 2s.",
+                "_notion_block_id": "31b5917e-ac52-81a0-92f4-d5ce835536a8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 9
+            },
+            "description": "Student selected 9—calculation error (7 + 2 instead of 7 × 2)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Crackers column with key emphasized: each symbol = 2 votes."
+                },
+                "_notion_block_id": "31b5917e-ac52-8113-a471-d61f00d81caa"
+              },
+              {
+                "type": "dialogue",
+                "text": "No. There are 7 symbols for Crackers, and each symbol stands for 2 votes. That means 7 groups of 2. How many votes is that?",
+                "_notion_block_id": "31b5917e-ac52-811d-aa94-c813b3407f64"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 16
+            },
+            "description": "Student selected 16—counting error or wrong category",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers"
+                  ],
+                  "description": "Crackers column highlighted showing exactly 7 symbols."
+                },
+                "_notion_block_id": "31b5917e-ac52-811c-9001-ca56a4172c20"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. Count Crackers carefully. How many symbols are in the Crackers column? Each symbol equals 2 votes, so skip count by 2s to find the number of votes.",
+                "_notion_block_id": "31b5917e-ac52-8176-a728-c7c3d5e011a2"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly—system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "count_and_scale_symbols",
+                  "status": "confirmed",
+                  "description": "System counts 7 Crackers symbols, then shows each symbol splitting into 2 votes, totaling 14."
+                },
+                "_notion_block_id": "31b5917e-ac52-81a8-8262-c5ab8af9e521"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s start by counting the symbols for Crackers: there are 7. The key tells us each symbol equals 2 votes. So we count 7 groups of 2: 2, 4, 6, 8, 10, 12, 14. Crackers got 14 votes.",
+                "_notion_block_id": "31b5917e-ac52-8198-8429-f1926bd565b7"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8113-97c5-dd204ca35aaa"
+      }
+    ],
+    "_toml_key": "section_105_checking_graph_two_step"
+  },
+  {
+    "id": "s1_7_how_many_more",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Crackers (7 symbols) and Popcorn (4 symbols) highlighted for comparison."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's compare some favorite snacks. How many more people chose Crackers than Popcorn?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more people chose Crackers than Popcorn?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          6,
+          14,
+          22
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student answered 6 — correct (14 - 8 = 6)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right, 6 more people. Crackers has 14 votes, Popcorn has 8. The difference is 6.",
+                "_notion_block_id": "31b5917e-ac52-81a7-9819-c7d6b8e6304f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — likely counted the difference between symbol counts (7 - 4 = 3) instead of using actual values",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers",
+                    "Popcorn"
+                  ],
+                  "description": "Crackers and Popcorn rows highlighted with emphasis on counting total symbols"
+                },
+                "_notion_block_id": "31b5917e-ac52-816c-99e1-d34fd1d3a3db"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. Remember, each symbol stands for 2 votes. Use the symbols to find the number of votes in each category, then find the difference.",
+                "_notion_block_id": "31b5917e-ac52-812d-9fbd-cf9bbe92c522"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 14
+            },
+            "description": "Student selected 14 — gave the total for Crackers instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers",
+                    "Popcorn"
+                  ],
+                  "description": "Both categories highlighted to emphasize comparison between the two values"
+                },
+                "_notion_block_id": "31b5917e-ac52-81f3-bc24-d8d7325503bf"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, 14 is how many chose Crackers. But the question asks to compare popcorn and crackers. What's the difference between the votes for those snacks?",
+                "_notion_block_id": "31b5917e-ac52-813f-a8d2-f3dc9008c677"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 22
+            },
+            "description": "Student selected 22 — added the two values (14 + 8) instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Crackers",
+                    "Popcorn"
+                  ],
+                  "description": "Both categories highlighted with visual emphasis on comparing, not combining"
+                },
+                "_notion_block_id": "31b5917e-ac52-81cc-a022-ef38c16f40d3"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's not it. When comparing, we need to subtract Popcorn from Crackers, not combine them.",
+                "_notion_block_id": "31b5917e-ac52-810c-84c4-c9eaaf2acde8"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "show_difference_calculation",
+                  "status": "confirmed",
+                  "description": "System demonstrates counting Crackers (7 symbols × 2 = 14), then Popcorn (4 symbols × 2 = 8), then shows 14 - 8 = 6"
+                },
+                "_notion_block_id": "31b5917e-ac52-81fa-bacc-ec3b27bb0d2a"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's work through this together. First, count the symbols in the Crackers column. 7 symbols, and each symbol is 2 votes, so that's 14 total. Then count Popcorn column: 4 symbols with a scale of 2 is 8 votes. To compare how many more, we subtract: 14 minus 8 equals 6. 6 more people chose Crackers than Popcorn.",
+                "_notion_block_id": "31b5917e-ac52-81a3-907c-cb139dcf2b4b"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8102-b16a-f9f0ae9e8231"
+      }
+    ],
+    "_toml_key": "section_106_how_many_more"
+  },
+  {
+    "id": "s2_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_snacks",
+        "_notion_block_id": "31b5917e-ac52-8184-a36f-c555a9d36165"
+      },
+      {
+        "type": "dialogue",
+        "text": "You made graphs with numbers like 8, 10, 12, 14. Those are {even numbers}, they group into 2s perfectly. But what happens with {odd numbers}?",
+        "_notion_block_id": "31b5917e-ac52-818b-b104-f776d4b55c8d"
+      }
+    ],
+    "_toml_key": "section_107_s2_transition"
+  },
+  {
+    "id": "s2_1_problem_with_7",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "NEW data table appears. Horizontal. Animals We Saw data: Birds=7, Squirrels=10, Rabbits=8, Deer=6."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Key display appears showing 'Each ⭐ = 2' for upcoming graph."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "This graph show animals that were sighted while on a nature walk. The {key} shows “Each ⭐ = 2”, so we need to group into 2's to make the graph. Look at Birds: 7 sightings. Let's try to group 7 into 2's.",
+        "_notion_block_id": "31b5917e-ac52-8178-867e-c2463756cae3"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Animation shows 7 items appearing, then grouping: 2, 2, 2... with 1 left over. Text overlay: '7 items... 3 groups of 2... and 1 left over. We have 6 put into groups of 2, but 1 more. What do we do with that 1?'"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "7 makes 3 groups of 2, with 1 left over. How do we show the leftover 1 with our symbols?",
+        "_notion_block_id": "31b5917e-ac52-819e-96f6-fe035d0cc39c"
+      },
+      {
+        "type": "prompt",
+        "text": "How do we show the leftover 1?",
+        "tool": "multiple_choice",
+        "options": [
+          "Ignore the leftover",
+          "Use a half-symbol for 1",
+          "Make it 8 and use another symbol"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Use a half-symbol for 1"
+            },
+            "description": "Student selected 'Use a half-symbol for 1' — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes, a half-symbol shows 1 item. Let's see how that works.",
+                "_notion_block_id": "31b5917e-ac52-81eb-9195-cfec19555dfd"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Ignore the leftover"
+            },
+            "description": "Student selected 'Ignore the leftover' — misconception that we can drop remainders in scaled graphs",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "grouping_animation_birds",
+                "params": {
+                  "event": "highlight_leftover_item",
+                  "status": "proposed",
+                  "description": "The 1 leftover item pulses/highlights to draw attention"
+                },
+                "_notion_block_id": "31b5917e-ac52-81e1-b32d-ef1021dc9e01"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. If we ignore the 1, we'd only show 6 birds instead of 7. We need to show all the data, that leftover 1 matters.",
+                "_notion_block_id": "31b5917e-ac52-8124-9d98-d3d9858ba70e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Round up to 8"
+            },
+            "description": "Student selected 'Round up to 8' — misconception that we can change the data to fit the scale",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "data_table_animals",
+                "params": {
+                  "event": "highlight_value",
+                  "status": "proposed",
+                  "description": "The value 7 for Birds highlights in the data table"
+                },
+                "_notion_block_id": "31b5917e-ac52-817c-8040-e9d20eabcaca"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly, the table says 7 birds so we can't change the data to 8. We need to show exactly 7, so we use a half-symbol for that 1.",
+                "_notion_block_id": "31b5917e-ac52-81e0-8df8-fdf31f38b067"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "grouping_animation_birds",
+                "params": {
+                  "event": "demonstrate_half_symbol_solution",
+                  "status": "confirmed",
+                  "description": "Animation shows 7 items grouping: 2+2+2=6, then the remaining 1 transforms into a half-star symbol. Text overlay: '3 full symbols for 6, plus a half-symbol for 1 = 7 total'"
+                },
+                "_notion_block_id": "31b5917e-ac52-81cc-9c99-e0f77dc69d45"
+              },
+              {
+                "type": "dialogue",
+                "text": "Symbols are determined by scale. Each full symbol is 2, so 3 full symbols represents 6 sightings. We don't want to show only 6 sightings or make it another whole symbol for 8 sightings. There were 7 sightings and we want the graph to show that. The leftover 1 gets shown with a half-symbol, because half of 2 is 1. That's how we show all 7 birds accurately.",
+                "_notion_block_id": "31b5917e-ac52-8167-ad81-d90709fa99aa"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8173-bc1f-e00f3882042d"
+      }
+    ],
+    "_toml_key": "section_108_problem_with_7"
+  },
+  {
+    "id": "s2_2_half_symbol_teaching",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Animation continues: Key highlighted showing 'Each ⭐ = 2'. Then 3 full symbols appear for the 6 grouped items. Half-symbol appears for the remaining 1. Text overlay: 'Half of 2 is 1. This half-symbol shows 1 item. 7 = [3 full symbols] + [1 half-symbol]'"
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Half of 2 is 1. So a half-symbol shows 1 sighting. How many sightings does 3 and a half symbols show?",
+        "_notion_block_id": "31b5917e-ac52-813a-b6eb-e1bbe84a3cf9"
+      },
+      {
+        "type": "prompt",
+        "text": "How many sightings does 3 and a half symbols show?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          6,
+          7,
+          8
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student answered 7 — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct, 7 sightings. 3 full symbols show 6, plus the half-symbol shows 1 more.",
+                "_notion_block_id": "31b5917e-ac52-8101-9edb-ed6f14fe3669"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — counted only the full symbols, ignoring the half-symbol",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "highlight_symbols",
+                  "status": "proposed",
+                  "description": "All symbols pulse: 3 full symbols, then the half-symbol"
+                },
+                "_notion_block_id": "31b5917e-ac52-8153-a446-df10b3aeff3b"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite, you counted the 3 full symbols. Don't forget the half-symbol. Remember to check the key. How many sightings does each symbol represent?",
+                "_notion_block_id": "31b5917e-ac52-8181-b8fa-d07c89952ffe"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — counted only the full symbols at scale 2, ignoring the half-symbol",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "highlight_half_symbol",
+                  "status": "proposed",
+                  "description": "Half-symbol pulses with label showing '= 1'"
+                },
+                "_notion_block_id": "31b5917e-ac52-8120-aacf-d5dcfb7033f5"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. 3 full symbols show 6 sightings. But there's also a half-symbol. How many sightings does that half-symbol show?",
+                "_notion_block_id": "31b5917e-ac52-81e6-9014-c9e28b602ec8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — likely counted the half-symbol as a full symbol",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "compare_symbols",
+                  "status": "proposed",
+                  "description": "Animation shows 3 full symbols labeled '2 each = 6' then half-symbol labeled '1'"
+                },
+                "_notion_block_id": "31b5917e-ac52-81d1-b472-f5a3df54a81d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. The half-symbol doesn't equal 2. Each full symbol is 2, so 3 full symbols are 6. How many more are shown with the half-symbol?",
+                "_notion_block_id": "31b5917e-ac52-8186-8ad3-f57f40123d7c"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals",
+                "params": {
+                  "event": "step_through_counting",
+                  "status": "confirmed",
+                  "description": "Animation counts: First symbol '2', second symbol '4', third symbol '6', half-symbol '7'. Final highlight shows 7."
+                },
+                "_notion_block_id": "31b5917e-ac52-8165-a664-fc8e61141c64"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s look together. The key tells us each symbol equals 2. First symbol represents 2 sightings. Second represents 4. Third represents 6. The half-symbol equals half of 2 which is 1, so we add 1 more: 7 total sightings.",
+                "_notion_block_id": "31b5917e-ac52-8133-977e-c1a9fe52b7da"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81fd-b17e-e7b2019103f7"
+      }
+    ],
+    "_toml_key": "section_109_half_symbol_teaching"
+  },
+  {
+    "id": "s2_3_create_with_half_symbols",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table appears in. Animals We Saw context, 4 categories, horizontal. Values: Squirrels=10, Deer=6, Birds=7, Rabbits=8. Symbols show grouping by 2s."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Empty picture graph template appears, horizontal. 2 of 4 categories pre-filled: Squirrels=5 symbols, Deer=3 symbols. Birds and Rabbits rows empty. Key: Each ⭐ = 2."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you place the symbols on the graph to show 7 Bird sightings. Remember: 7 needs 3 full symbols and 1 half-symbol.",
+        "_notion_block_id": "31b5917e-ac52-8194-adf7-ef6e66a24213"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for Birds.",
+        "tool": "click_to_place",
+        "target": "picture_graph_animals_create",
+        "validator": [
+          {
+            "condition": {
+              "category": "Birds",
+              "symbols_placed": 3.5
+            },
+            "description": "Student placed 3.5 symbols for Birds — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct, 3 and a half symbols for 7. Each full symbol is 2 sightings, the half is 1 sighting. 6 plus 1 is 7.",
+                "_notion_block_id": "31b5917e-ac52-8184-bf16-f799e72ba521"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Find the Birds category on the graph. You want 3 full symbols and 1 half-symbol to show 7 Bird sightings.",
+                "_notion_block_id": "31b5917e-ac52-81c8-8564-ce7ca38d505f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_animals_full",
+                "params": {
+                  "highlight_categories": [
+                    "Birds"
+                  ],
+                  "description": "Highlight Birds on data_table_animals_full"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8131-a7a3-f1a97eae6e6f"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not there yet. Birds shows 7 sightings. Each full symbol stands for 2, so 3 full symbols is 6. Then you need one more sighting so that's a half-symbol. Click to place 3 and a half symbols in the category row called \"Birds\".",
+                "_notion_block_id": "31b5917e-ac52-810f-b6aa-d1b8edc0ca9d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "event": "place_symbols",
+                  "status": "confirmed",
+                  "description": "System places 3.5 symbols in Birds row",
+                  "category": "Birds",
+                  "symbols_placed": 3.5
+                },
+                "_notion_block_id": "31b5917e-ac52-8198-b023-fd036451f362"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s work through this together. Birds has 7 sightings. Each full symbol is 2, so I place 3 full symbols in the Birds row. That's 6 sightings. Then I need 1 more, so I place a half-symbol. 6 plus 1 equals 7. The picture graph now shows 7 sightings for Birds.",
+                "_notion_block_id": "31b5917e-ac52-812a-838a-fa5a897c6286"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81c6-9af0-c3943a3c168e"
+      }
+    ],
+    "_toml_key": "section_110_create_with_half_symbols"
+  },
+  {
+    "id": "s2_4_complete_graph_rabbits",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Keep going with this data. Rabbits have 8 sightings. Think about if 8 needs a half-symbol. Fill in the picture graph for Rabbits.",
+        "_notion_block_id": "31b5917e-ac52-8125-a7ab-e966c6acb811"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for Rabbits.",
+        "tool": "click_to_place",
+        "target": "picture_graph_animals_create",
+        "validator": [
+          {
+            "condition": {
+              "category": "Rabbits",
+              "symbols_placed": 4
+            },
+            "description": "Student placed 4 symbols for Rabbits — correct (no half-symbol needed)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly, 4 symbols for 8 sightings. 8 is even so it groups perfectly into 2s. No half-symbol needed.",
+                "_notion_block_id": "31b5917e-ac52-815d-8c50-f805c4a669b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Remember to check the key. Count carefully as you place the symbols for Rabbits.",
+                "_notion_block_id": "31b5917e-ac52-81b5-97c1-e6cd1b5db3cd"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_animals_full",
+                "params": {
+                  "highlight_categories": [
+                    "Rabbits"
+                  ],
+                  "description": "Highlight Rabbits on data_table_animals_full"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8177-811a-ff67bcf61a59"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not there yet. The key shows each symbol represents 2 sightings. Rabbits have 8 sightings. Count by 2s as you make the symbols until you reach 8.",
+                "_notion_block_id": "31b5917e-ac52-8172-bacd-f1262a908b81"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "event": "place_symbols",
+                  "status": "confirmed",
+                  "description": "System places 4 symbols in Rabbits row one at a time",
+                  "category": "Rabbits",
+                  "symbol_count": 4
+                },
+                "_notion_block_id": "31b5917e-ac52-81e8-9e37-cc3217baed9c"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's go through the process step by step. There are 8 sightings for Rabbits. The key tells us each symbol equals 2 sightings. I count by 2s: 2, 4, 6, 8. That's 4 symbols. We reached the number of sightings exactly. 8 is even, so no half-symbol needed.",
+                "_notion_block_id": "31b5917e-ac52-818a-8cc8-e0dda5e9f2fc"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8139-800c-c7bb5b687b7e"
+      }
+    ],
+    "_toml_key": "section_111_complete_graph_rabbits"
+  },
+  {
+    "id": "s2_5_how_many_in_all",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "data_table_animals_full",
+        "_notion_block_id": "31b5917e-ac52-8175-8559-ce2212c1604a"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Graph switches to reading mode. Birds (3.5 symbols) and Deer (3 symbols) highlighted."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "The picture graph is complete. Let's answer some questions using the graph. How many animals sighted were Birds and Deer IN ALL?",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many animals sighted were Birds and Deer IN ALL?",
+        "tool": "multiple_choice",
+        "options": [
+          6,
+          7,
+          13,
+          16
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 13
+            },
+            "description": "Student answered 13 — correct (7 + 6 = 13)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes, 13 Birds and Deer in all. 7 Birds and 6 Deer were sighted. 7 plus 6 is 13.",
+                "_notion_block_id": "31b5917e-ac52-8159-b3e5-d42700574dbc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — only counted Deer, missed Birds",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Deer"
+                  ],
+                  "description": "Both Birds and Deer rows pulse to show both categories need to be counted"
+                },
+                "_notion_block_id": "31b5917e-ac52-8122-a572-d6ff46c449ff"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. That's the value for only the Deer sightings. The question asks for Birds AND Deer in all. Combine both rows together.",
+                "_notion_block_id": "31b5917e-ac52-8102-93a1-e0548a119be3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — only counted Birds, missed Deer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Deer"
+                  ],
+                  "description": "Both Birds and Deer rows pulse to show both categories need to be counted"
+                },
+                "_notion_block_id": "31b5917e-ac52-81e3-a592-efab36e6d27e"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. That's the value for only the Bird sightings. The question asks for Birds AND Deer in all. Combine both rows together.",
+                "_notion_block_id": "31b5917e-ac52-8152-b599-f2fbb4679718"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 16
+            },
+            "description": "Student selected 16 — likely counted all categories instead of just Birds and Deer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Deer"
+                  ],
+                  "description": "Only Birds and Deer rows remain highlighted, other categories dim"
+                },
+                "_notion_block_id": "31b5917e-ac52-810c-91bd-fac3d287caa7"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. That's the total of all the animals sighted. We only need Birds and Deer. Combine only those two rows.",
+                "_notion_block_id": "31b5917e-ac52-811f-9011-fd281277922a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "event": "count_and_combine_categories",
+                  "status": "confirmed",
+                  "description": "System counts Birds row (7 symbols light up one by one), then Deer row (6 symbols light up), then shows 7 + 6 = 13",
+                  "categories": [
+                    "Birds",
+                    "Deer"
+                  ]
+                },
+                "_notion_block_id": "31b5917e-ac52-81cc-8799-cb2545ca3c93"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Each symbol is 2 sightings. First, count the Birds row: 2, 4, 6, with a half-symbol of 1 more is 7. Then count the Deer row: 2, 4, 6. \"In all\" means we combine the values, so add them: 7 plus 6 equals 13. There were 13 sightings of birds and deer in all.",
+                "_notion_block_id": "31b5917e-ac52-8187-b639-c3ad846fac12"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8196-9872-d5a5b67fc299"
+      }
+    ],
+    "_toml_key": "section_112_how_many_in_all"
+  },
+  {
+    "id": "s2_6_comparison_odd_values",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Birds (3.5 symbols) and Squirrels (5 symbols) highlighted for comparison."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many FEWER Birds were sighted than Squirrels?",
+        "_notion_block_id": "31b5917e-ac52-8129-b75c-c1edb55f47e7"
+      },
+      {
+        "type": "prompt",
+        "text": "How many FEWER Birds were sighted than Squirrels?",
+        "tool": "multiple_choice",
+        "options": [
+          1,
+          2,
+          3,
+          7
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student answered 3 — correct (10 - 7 = 3)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly, 3 fewer. You compared 10 Squirrels to the 7 Birds sighted. The difference is 3.",
+                "_notion_block_id": "31b5917e-ac52-8128-9ae7-ea0c2f63cedb"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 1
+            },
+            "description": "Student selected 1 — likely subtracted the symbol counts (5 - 3.5 rounded) instead of the actual values",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Squirrels"
+                  ],
+                  "description": "Key highlighted showing scale of 2, with Birds and Squirrels rows emphasized."
+                },
+                "_notion_block_id": "31b5917e-ac52-8149-b320-e5bfb46f081d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look at the key, each symbol stands for 2 sightings. Count by 2s to find the actual number of animals, not just the symbols.",
+                "_notion_block_id": "31b5917e-ac52-81eb-a1ca-dd753094f988"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student selected 2 — likely subtracted rounded symbol counts (5 - 3) instead of actual values",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Squirrels"
+                  ],
+                  "description": "Birds row showing 3.5 symbols (7 animals) and Squirrels row showing 5 symbols (10 animals) highlighted with value labels."
+                },
+                "_notion_block_id": "31b5917e-ac52-810e-a7aa-debd33dafe76"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Remember, each symbol equals 2 sightings.  Count by 2s as you find the sightings of Birds and Squirrels, then compare them.",
+                "_notion_block_id": "31b5917e-ac52-8157-be3d-ccf7a38a1c2f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 7
+            },
+            "description": "Student selected 7 — chose the Birds total instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "highlight_categories": [
+                    "Birds",
+                    "Squirrels"
+                  ],
+                  "description": "Birds and Squirrels rows highlighted with emphasis on comparing the two values."
+                },
+                "_notion_block_id": "31b5917e-ac52-815c-bda5-efd3b6d495fd"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not there yet. Using the scale of 2, 7 is how many Birds there are. The question asks how many FEWER Birds than Squirrels, we need to compare the two categories.",
+                "_notion_block_id": "31b5917e-ac52-810a-8fc6-c74493e9c866"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_animals_create",
+                "params": {
+                  "event": "show_comparison_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows Birds: 3.5 symbols × 2 = 7 animals, Squirrels: 5 symbols × 2 = 10 animals, then 10 - 7 = 3."
+                },
+                "_notion_block_id": "31b5917e-ac52-8102-aaa3-f13fc3ac1a4f"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s work through this together. First, notice the key shows a scale of 2, each symbol is 2 sightings. We need to compare Birds and Squirrels. Let's start by counting Birds: 2, 4, 6 with a half-symbol of 1 more equals 7 birds. Then Squirrels: 2, 4, 6, 8, 10. So 10 squirrels. To find how many fewer Birds, we subtract: 10 minus 7 equals 3. There were 3 fewer birds sighted than squirrels.",
+                "_notion_block_id": "31b5917e-ac52-818b-aa1f-dd3cfbebb2d3"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8143-995e-d895750e6142"
+      }
+    ],
+    "_toml_key": "section_113_comparison_odd_values"
+  },
+  {
+    "id": "s3_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_animals_create",
+        "_notion_block_id": "31b5917e-ac52-81e2-85cc-d63125268188"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "NEW data table appears in numeric display mode (numbers only, no symbol display). Books Read This Week context, 4 categories, horizontal. Values: Maya=9, James=12, Sofia=7, Aiden=11."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "You created scaled picture graphs with {even} numbers that grouped perfectly into 2s. You used HALF-SYMBOLS for {odd} numbers, because there's always 1 left over. Now let's see if you can handle BOTH together. A mix of even and odd in picture graphs, all on your own.",
+        "_notion_block_id": "31b5917e-ac52-8147-8d84-c3af91578620"
+      }
+    ],
+    "_toml_key": "section_114_s3_transition"
+  },
+  {
+    "id": "s3_1_create_mixed_maya",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "NEW data table appears in numeric display mode (numbers only, no symbol display). Books Read This Week context, 4 categories, horizontal. Values: Maya=9, James=12, Sofia=7, Aiden=11."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Empty picture graph template appears, vertical orientation. 0 categories pre-filled. Key: Each ⭐ = 2 books. All four columns empty."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "This table shows the number of books read this week by 4 students. Build Maya's row in the picture graph first. Notice the key: \"Each symbol = 2 books\". From the table, Maya read 9 books. Before you graph, think: is 9 is even or odd? Will you need a half-symbol? Then build Maya's column.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for Maya's 9 books read.",
+        "tool": "click_to_place",
+        "target": "picture_graph_books",
+        "validator": [
+          {
+            "condition": {
+              "category": "Maya",
+              "symbols_placed": 4.5
+            },
+            "description": "Student placed 4.5 symbols for Maya — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct, 4 and a half symbols. 9 is odd. 8 needs 4 full symbols, plus that leftover 1 needs a half-symbol.",
+                "_notion_block_id": "31b5917e-ac52-8130-9846-c99642611320"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's check again. Each symbol equals 2 books. Count by 2s to place the right amount of symbols.",
+                "_notion_block_id": "31b5917e-ac52-8164-9668-dcbb9f0bff34"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya"
+                  ],
+                  "description": "Highlight Maya on data_table_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81b1-ae41-c3b8ccac3c8e"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Maya read 9 books. Does 9 group perfectly into 2s? No, it's an odd number. Count by 2s for the full symbols and place a half-symbol for the 1 book left over.",
+                "_notion_block_id": "31b5917e-ac52-8184-9cea-c5660f7ee140"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "place_symbols",
+                  "status": "confirmed",
+                  "description": "System places 4.5 symbols in Maya's column",
+                  "category": "Maya",
+                  "symbols": 4.5
+                },
+                "_notion_block_id": "31b5917e-ac52-81fe-8739-d9d05171afd0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s take this from the beginning together. We know Maya read 9 books. Each symbol equals 2 books. Count: 2, 4, 6, 8. That's 4 full symbols for 8 books. We have 1 book left over to make 9 books, so we need a half-symbol. 4 full symbols plus a half makes 4 and a half symbols total. That shows 9 books.",
+                "_notion_block_id": "31b5917e-ac52-81bf-b142-d27c046363c2"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-812e-a72a-ec4f18cefca8"
+      }
+    ],
+    "_toml_key": "section_115_create_mixed_maya"
+  },
+  {
+    "id": "s3_2_create_full_graph",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Build the whole picture graph. Use the key and the table to figure out how many symbols each person needs. Place symbols for all remaining categories.",
+        "_notion_block_id": "31b5917e-ac52-8143-afa3-dc684543c170"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for all remaining categories.",
+        "tool": "click_to_place",
+        "target": "picture_graph_books",
+        "validator": [
+          {
+            "condition": {
+              "and": [
+                {
+                  "category": "James",
+                  "symbols_placed": 6
+                },
+                {
+                  "category": "Sofia",
+                  "symbols_placed": 3.5
+                },
+                {
+                  "category": "Aiden",
+                  "symbols_placed": 5.5
+                }
+              ]
+            },
+            "description": "Student correctly placed all remaining symbols: James=6, Sofia=3.5, Aiden=5.5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes, you built the graph correctly. You figured out which numbers were odd and needed half symbols.",
+                "_notion_block_id": "31b5917e-ac52-817c-ad13-d84b0eba52d8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed incorrect number of symbols on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Remember the key. Each symbol stands for 2 books. Read the table carefully to place the right symbols.",
+                "_notion_block_id": "31b5917e-ac52-81dc-9c44-c0ad33a2ab40"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed incorrect number of symbols on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_books",
+                "params": {
+                  "highlight_categories": [
+                    "James",
+                    "Sofia",
+                    "Aiden"
+                  ],
+                  "description": "Highlight James, Sofia, Aiden on data_table_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-814c-a4c0-e097cea0780b"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. With a scale of 2, even numbers need whole symbols and odd numbers need half-symbols. Find the value for each category in the table and count by 2s as you place the symbols. If there is 1 book left, use a half-symbol.",
+                "_notion_block_id": "31b5917e-ac52-815e-9072-e6c4132628f5"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed incorrect number of symbols three or more times—system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "place_remaining_symbols",
+                  "status": "confirmed",
+                  "description": "System places symbols: James gets 6 full symbols, Sofia gets 3 full + 1 half, Aiden gets 5 full + 1 half"
+                },
+                "_notion_block_id": "31b5917e-ac52-810d-be3d-e22003817a73"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s do this together. Each symbol stands for 2 books, so we count by 2s. James read 12 books: 2, 4, 6, 8, 10, 12. He needs 6 symbols. Sofia read 7 books: 2, 4, 6, plus 1 more makes 7. That's 3 symbols plus a half-symbol for the extra 1 book. Aiden read 11 books: 2, 4, 6, 8, 10 makes 5 symbols, plus a half for the last book to get 11 books. Odd numbers like 7 and 11 need half-symbols. Even numbers like 6 need only whole symbols with a scale of 2.",
+                "_notion_block_id": "31b5917e-ac52-810a-8596-f89cb9f82d67"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81d4-8933-e814218b768c"
+      }
+    ],
+    "_toml_key": "section_116_create_full_graph"
+  },
+  {
+    "id": "s3_2b_scale_reflection",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "data_table_books",
+        "_notion_block_id": "31b5917e-ac52-8144-b464-f059a1f22ed1"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Student's completed 1:2 graph moves to left side of screen."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "System-generated 1:1 scale graph appears on right. Same Books Read data, but each book gets its own symbol. Key: Each ⭐ = 1. Maya shows 9 symbols. James 12 symbols. Sofia 7 symbols. Aiden 11 symbols. Both graphs visible simultaneously."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's the same data showing the number of books read but with scale of 1. Every book gets its own symbol.",
+        "_notion_block_id": "31b5917e-ac52-8190-995d-dcac17d55260"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at James. Your graph with scale of 2 shows 6 symbols. The scale-of-1 graph shows 12 symbols. Same number of books!",
+        "_notion_block_id": "31b5917e-ac52-81c0-958a-d803dc9a29cc"
+      },
+      {
+        "type": "prompt",
+        "text": "Which graph uses fewer symbols to show the same data?",
+        "tool": "click_tangible",
+        "target": [
+          "picture_graph_books",
+          "picture_graph_books_scale1"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "picture_graph_books"
+            },
+            "description": "Student clicked scale of 2 graph — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct! Scale of 2, just 6 symbols instead of 12 for James. Same data, fewer symbols. That's why we use scales.",
+                "_notion_block_id": "31b5917e-ac52-8176-ba97-ecb0fe7e70f6"
+              },
+              {
+                "type": "dialogue",
+                "text": "Now let's use your graph to answer some questions.",
+                "_notion_block_id": "31b5917e-ac52-81dd-9436-c6847c04ab8e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked scale of 1 graph on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Compare one category on both graphs. How many symbols does each use to show the same number of books?",
+                "_notion_block_id": "31b5917e-ac52-8194-8e24-f791069de66d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked scale of 1 graph on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James"
+                  ],
+                  "description": "Highlight James on picture_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8146-a988-e6b3110f347c"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's not it. Look at the category with James. He read 12 books. Your graph shows 6 symbols for James. The other graph shows 12 symbols. Which uses fewer symbols?",
+                "_notion_block_id": "31b5917e-ac52-81c4-b4c0-c2118c60ba5b"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked scale of 1 graph three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "pulse_row",
+                  "status": "confirmed",
+                  "description": "James row pulses on scale of 2 graph, showing 6 symbols",
+                  "category": "James"
+                },
+                "_notion_block_id": "31b5917e-ac52-81cb-988f-dc0e039d0e10"
+              },
+              {
+                "type": "dialogue",
+                "text": "Walk through this with me. Your graph on the left uses scale of 2, James has 6 symbols to show his 12 books read. The right graph uses scale of 1, James has 12 symbols to show his 12 books read. Same 12 books, but your graph needs fewer symbols. That's why we use scales.",
+                "_notion_block_id": "31b5917e-ac52-8169-a16b-cf34ebaf60cf"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81c6-8761-feb2a7de60d6"
+      }
+    ],
+    "_toml_key": "section_117_s3_2b_scale_reflection"
+  },
+  {
+    "id": "s3_3_who_read_most",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Student's 1:2 graph returns to center position."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now let's use your scale of 2 graph to answer: Who read the most books?",
+        "_notion_block_id": "31b5917e-ac52-812b-bb9d-f61aae421a79"
+      },
+      {
+        "type": "prompt",
+        "text": "Click on the category with the most books.",
+        "tool": "click_category",
+        "target": "picture_graph_books",
+        "validator": [
+          {
+            "condition": {
+              "selected": "James"
+            },
+            "description": "Student clicked James — correct (12 books = 6 symbols)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct, James read the most at 12 books. 6 symbols, each worth 2. That category is the tallest.",
+                "_notion_block_id": "31b5917e-ac52-81df-a93a-ff7c900fe012"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the symbols in each column. Which one has the most?",
+                "_notion_block_id": "31b5917e-ac52-81f0-9b92-e971ff069a8d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James"
+                  ],
+                  "description": "Highlight James on picture_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8101-b6d2-fd694bc63da3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly. The most books read will be the tallest column. More symbols means more books. Who has the most symbols?",
+                "_notion_block_id": "31b5917e-ac52-81f9-9528-f781f261b674"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "count_symbols_by_category",
+                  "status": "confirmed",
+                  "description": "System counts symbols for each person: Maya 4.5, James 6, Sofia 3.5, Aiden 5.5. James column highlights as tallest."
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8197-a880-e5eb55ad268a"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's count this together to find the most. Maya has 4 and a half symbols, James has 6, Sofia has 3 and a half, Aiden has 5 and a half. James has the most symbols. With a scale of 2, 6 symbols means 12 books. James read more books than the other students. His column is the tallest.",
+                "_notion_block_id": "31b5917e-ac52-81fd-bc34-f8307ccc2ac3"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8175-8be1-d7272d2ea45d"
+      }
+    ],
+    "_toml_key": "section_118_who_read_most"
+  },
+  {
+    "id": "s3_4_how_many_in_all_james_aiden",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "James (6 symbols) and Aiden (5.5 symbols) highlighted for addition question."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many books did James and Aiden read IN ALL?",
+        "_notion_block_id": "31b5917e-ac52-81bb-97d6-edb9f63e9c22"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books did James and Aiden read IN ALL?",
+        "tool": "multiple_choice",
+        "options": [
+          11,
+          12,
+          23,
+          39
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 23
+            },
+            "description": "Student answered 23 — correct (12 + 11 = 23)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly, 23 books in all. We combine. James read 12, Aiden read 11. 12 plus 11 is 23.",
+                "_notion_block_id": "31b5917e-ac52-81c4-9fba-cabbece392ec"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 11
+            },
+            "description": "Student selected 11 — counted only Aiden's books, not both students combined",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James",
+                    "Aiden"
+                  ],
+                  "description": "Highlight James, Aiden on picture_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-81f6-8d25-e7f66913b0e8"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not there yet, that's how many books only Aiden read. The question asks for both James AND Aiden together. Add their books.",
+                "_notion_block_id": "31b5917e-ac52-81fe-bc63-ec56c5c9ebbe"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 17
+            },
+            "description": "Student selected 17 — added the number of symbols instead of counting each symbol as 2 books",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James",
+                    "Aiden"
+                  ],
+                  "description": "Highlight James, Aiden on picture_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8145-b8a3-e793ad2469f0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look at the key. Each symbol stands for 2 books. Count James's symbols by 2s. Do the same for Aiden. Then combine their books.",
+                "_notion_block_id": "31b5917e-ac52-81e7-b6da-f877cb535578"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 28
+            },
+            "description": "Student selected 28 — added all four students' books instead of just James and Aiden",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James",
+                    "Aiden"
+                  ],
+                  "description": "Highlight James, Aiden on picture_graph_books"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8109-ab5f-f90b227da648"
+              },
+              {
+                "type": "dialogue",
+                "text": "This answer is the total of all the students. The question only asks for James and Aiden combined. Count their books, then add those two amounts together.",
+                "_notion_block_id": "31b5917e-ac52-814c-9476-e92c0dd5109e"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "demonstrate_addition",
+                  "status": "confirmed",
+                  "description": "System highlights James (6 symbols highlight one after another, number changing from 2 to 4, 6 all the way up to 12), then Aiden (5.5 symbols highlight one after another, number changing from 2 to 4, 6 all the way up to 11), then shows 12 + 11 = 23"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8109-b329-c8c7428e569f"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s walk through this together. Starting with James, he has 6 symbols. Each symbol is 2 books, so 2, 4, 6, 8, 10, 12. James read 12 books. Aiden has 5 and a half symbols, 2, 4, 6, 8, 10 with 1 half extra is 11 books. To find the total, we combine: 12 plus 11 equals 23 books in all.",
+                "_notion_block_id": "31b5917e-ac52-8138-8f4d-f53b3ea35f3c"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8120-9c0a-d84588fc7ea8"
+      }
+    ],
+    "_toml_key": "section_119_how_many_in_all_james_aiden"
+  },
+  {
+    "id": "s3_5_two_step_chained",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "All highlighting cleared for new two-step problem."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a two-step problem. How many more books did Maya and Sofia read together than James? Let's break it down. First we need to {combine} Maya and Sofia's books and then we need to {compare} their books to James.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Step 1: How many books did Maya and Sofia read together?",
+        "_notion_block_id": "31b5917e-ac52-81fe-8ca2-dff25ac3eb27"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Maya (4.5 symbols) and Sofia (3.5 symbols) highlighted for Step 1 addition."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books did Maya and Sofia read together?",
+        "tool": "multiple_choice",
+        "options": [
+          8,
+          9,
+          28,
+          16
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 16
+            },
+            "description": "Student answered 16 — correct (9 + 7 = 16)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Exactly, 16 books together. Combine Maya and Sofia. 9 plus 7 equals 16.",
+                "_notion_block_id": "31b5917e-ac52-818a-8682-f16632f81eb0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 9
+            },
+            "description": "Student selected 9 — only counted Maya's books, didn't add Sofia",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Sofia"
+                  ],
+                  "description": "Both Maya and Sofia remain highlighted to show we need both categories."
+                },
+                "_notion_block_id": "31b5917e-ac52-81a2-9652-f01eae77dda3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not exactly, we need Maya and Sofia together. Count by 2s for Maya's symbols, then add Sofia's.",
+                "_notion_block_id": "31b5917e-ac52-8107-a322-e32afb771d09"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 12
+            },
+            "description": "Student selected 12 — added James instead of Sofia, or miscounted",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Sofia"
+                  ],
+                  "description": "Maya and Sofia highlighted to clarify which two categories to add."
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8136-a638-cd0b511f8703"
+              },
+              {
+                "type": "dialogue",
+                "text": "No, look at Maya and Sofia only. Remember each symbol is 2 books. Add those two amounts.",
+                "_notion_block_id": "31b5917e-ac52-8152-b24b-dd6a4df513b0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 19
+            },
+            "description": "Student selected 19 — added all three readers or made a counting error",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Sofia"
+                  ],
+                  "description": "Only Maya and Sofia highlighted, key highlighted"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8121-abdf-ff257834616c"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Remember the key shows a scale of 2. Each symbol is 2 books, not 1. Count by 2s for Maya and Sofia's symbols to find the combined total.",
+                "_notion_block_id": "31b5917e-ac52-8143-b8b3-fd11fddd0d08"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "count_combined_categories",
+                  "status": "confirmed",
+                  "description": "System counts Maya's 9 symbols, then Sofia's 7 symbols, showing 9 + 7 = 16."
+                },
+                "_notion_block_id": "31b5917e-ac52-81ac-be55-f237649f76b3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s do this first step together. The key means each symbol is 2 books. Count Maya's: 2, 4, 6, 8, with a half-symbol makes 9 books. Count Sofia's: 2, 4, 6, with a half-symbol makes 7 books. Together that's 9 plus 7, which equals 16 books.",
+                "_notion_block_id": "31b5917e-ac52-81e9-a143-d66c12555f69"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8121-b545-e2ac7cff96b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_books",
+            "description": "Vertical picture graph. Maya and Sofia highlighted for Step 1 addition. Multiple choice options visible.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Maya",
+              "James",
+              "Sofia",
+              "Aiden"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-81af-8a65-d54b259c67f2",
+        "_toml_key": "step_122_two_step_chained"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_books",
+            "description": "Vertical picture graph. Step 1 result '16' displayed. James highlighted. Step 2 multiple choice options visible.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Maya",
+              "James",
+              "Sofia",
+              "Aiden"
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-814a-9656-da2d6bcb419f"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Step 1 result '16' displayed. James highlighted for Step 2 comparison."
+        },
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same two-step question: How many more more books did Maya and Sofia read together than James? Now step 2: Compare James to the total of 16 books from Maya and Sofia.",
+        "notion_flag": "suggested"
+      },
+      {
+        "type": "prompt",
+        "text": "Maya and Sofia read 16 books. Compare that to James. Who read more, and by how many books?",
+        "tool": "multiple_choice",
+        "options": [
+          "James read 4 more",
+          "Maya and Sofia read 4 more",
+          "James read 28 more",
+          "They read the same"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Maya and Sofia read 4 more"
+            },
+            "description": "Student selected 'Maya and Sofia read 4 more' — correct (16 - 12 = 4)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Correct, Maya and Sofia read 4 more books together than James. 16 minus 12 is 4.",
+                "_notion_block_id": "31b5917e-ac52-8129-812a-ed2fea6368ad"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "James read 4 more"
+            },
+            "description": "Student selected 'James read 4 more' — reversed the comparison direction",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James"
+                  ],
+                  "display_result": "Maya + Sofia = 16",
+                  "description": "James (12) highlighted with Maya + Sofia total (16) displayed for comparison."
+                },
+                "_notion_block_id": "31b5917e-ac52-816b-a95d-ead15bf3a192"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite, check which number is bigger: James read 12 books, Maya and Sofia read 16. Who read more?",
+                "_notion_block_id": "31b5917e-ac52-81b8-8c67-db1be3061691"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "James read 28 more"
+            },
+            "description": "Student selected 'James read 28 more' — added instead of subtracting (16 + 12)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James"
+                  ],
+                  "display_result": "Maya + Sofia = 16",
+                  "description": "Visual emphasizes comparing 16 to 12, not adding them."
+                },
+                "_notion_block_id": "31b5917e-ac52-819c-9c05-ff7f247595ac"
+              },
+              {
+                "type": "dialogue",
+                "text": "No. Check the number of symbols for James. 6 symbols with a scale of 2 is 12 books. James read only 12 books. When we compare to find \"how many more\", we subtract to find the difference. Compare James' 12 books to Maya and Sofia's total.",
+                "_notion_block_id": "31b5917e-ac52-81fa-9170-ccfaa5ed9997"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They read the same"
+            },
+            "description": "Student selected 'They read the same' — didn't compare the amounts correctly",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "James"
+                  ],
+                  "display_result": "Maya + Sofia = 16",
+                  "description": "James row and combined total shown side-by-side to emphasize the difference."
+                },
+                "_notion_block_id": "31b5917e-ac52-81b9-b9a3-e7828c5215de"
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look closely at the amounts. You found Maya and Sofia read 16 books together. Does James have 8 symbols on the picture graph to show 16 books? No, so those aren't equal. Find how many books James read and compare that to 16.",
+                "_notion_block_id": "31b5917e-ac52-8187-931a-dd6b7fb591d6"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "System shows Maya + Sofia total (16) and James (12), then highlights the difference between them."
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31b5917e-ac52-8129-891b-ffa37e9b08b9"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let’s try this step together. Maya and Sofia together read 16 books. James has 6 symbols. With a scale of 2, that's 2, 4, 6, 8, 10, 12 books for James. To find how many more, we subtract: 16 minus 12 equals 4. Maya and Sofia read 4 more books than James.",
+                "_notion_block_id": "31b5917e-ac52-8194-af41-fe0eb0985d6f"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31b5917e-ac52-8138-afa9-ca724aef353d"
+      }
+    ],
+    "_toml_key": "section_120_two_step_chained"
+  },
+  {
+    "id": "s3_bridge_to_exit",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You made scaled picture graphs. You know when each symbol equals 2. You know half-symbols show 1. Let's see what you know.",
+        "_notion_block_id": "31b5917e-ac52-816a-883e-d105ec8e33f4"
+      }
+    ],
+    "_toml_key": "section_121_s3_bridge_to_exit"
+  }
+]

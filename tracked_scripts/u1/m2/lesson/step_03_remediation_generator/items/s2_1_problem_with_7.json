@@ -1,0 +1,81 @@
+{
+  "id": "s2_1_problem_with_7",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Ignore the leftover"
+        },
+        "description": "Student selected 'Ignore the leftover' — misconception that we can drop remainders in scaled graphs",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "grouping_animation_birds",
+              "params": {
+                "event": "highlight_leftover_item",
+                "status": "proposed",
+                "description": "The 1 leftover item pulses/highlights to draw attention"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "If we ignore the 1, we'd only show 6 birds instead of 7. We need to show all the data—that leftover 1 matters."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Round up to 8"
+        },
+        "description": "Student selected 'Round up to 8' — misconception that we can change the data to fit the scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table_animals",
+              "params": {
+                "event": "highlight_value",
+                "status": "proposed",
+                "description": "The value 7 for Birds highlights in the data table"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The table says 7 birds—we can't change the data to 8. We need to show exactly 7, so we use a half-symbol for that 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "grouping_animation_birds",
+              "params": {
+                "event": "demonstrate_half_symbol_solution",
+                "status": "confirmed",
+                "description": "Animation shows 7 items grouping: 2+2+2=6, then the remaining 1 transforms into a half-star symbol. Text overlay: '3 full symbols for 6, plus a half-symbol for 1 = 7 total'"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each full symbol = 2, so 3 full symbols = 6. The leftover 1 gets shown with a half-symbol, because half of 2 equals 1. That's how we show all 7 birds accurately."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:53:29.466354+00:00"
+}

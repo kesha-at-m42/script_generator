@@ -1,0 +1,116 @@
+{
+  "id": "s2_5_how_many_in_all",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — only counted Deer, missed Birds",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Deer"
+                ],
+                "description": "Both Birds and Deer rows pulse to show both categories need to be counted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted just one category. The question asks for Birds AND Deer in all—count both rows together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — only counted Birds, missed Deer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Deer"
+                ],
+                "description": "Both Birds and Deer rows pulse to show both categories need to be counted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted just one category. The question asks for Birds AND Deer in all—count both rows, then add them together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 16
+        },
+        "description": "Student selected 16 — likely counted all categories instead of just Birds and Deer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "highlight_categories": [
+                  "Birds",
+                  "Deer"
+                ],
+                "description": "Only Birds and Deer rows remain highlighted, other categories dim"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted all the animals. We only need Birds and Deer. Count those two rows: Birds has 7, Deer has 6."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "event": "count_and_combine_categories",
+                "status": "confirmed",
+                "description": "System counts Birds row (7 symbols light up one by one), then Deer row (6 symbols light up), then shows 7 + 6 = 13",
+                "categories": [
+                  "Birds",
+                  "Deer"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count the Birds row: 1, 2, 3, 4, 5, 6, 7. Then count the Deer row: 1, 2, 3, 4, 5, 6. Now add them: 7 plus 6 equals 13. That's how many in all."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:54:10.088065+00:00"
+}

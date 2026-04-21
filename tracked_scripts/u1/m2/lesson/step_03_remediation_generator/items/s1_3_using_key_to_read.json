@@ -1,0 +1,207 @@
+{
+  "id": "s1_3_using_key_to_read",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 — counted symbols as 1 each instead of using the scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key pulses: Each ⭐ = 2 votes"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the key. Each symbol doesn't equal 1 — it equals 2 votes. What does each symbol represent?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — counted the number of categories instead of reading the key",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key highlighted: Each ⭐ = 2 votes"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The scale tells us what each symbol equals, not how many categories there are. Check the key — what number do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — counted symbols in one row instead of reading the scale from the key",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key highlighted showing scale value"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted symbols in a row. The scale is in the key — it tells us what each symbol equals. Look at the key."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models finding the scale in the key",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "event": "highlight_scale_value",
+                "status": "confirmed",
+                "description": "Key zooms in, scale value '2' pulses and highlights"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The key tells us the scale. It says 'Each ⭐ = 2 votes.' The scale is 2. Each symbol on this graph represents 2 votes, not 1. See how that works?"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — counted symbols without multiplying by the scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_categories": [
+                  "Monkey Bars"
+                ],
+                "highlight_component": "key",
+                "description": "Monkey Bars and key both highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted 5 symbols — that's right. But each symbol equals 2 votes, not 1. Multiply: 5 symbols × 2 votes = how many total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 7
+        },
+        "description": "Student selected 7 — miscalculated or added incorrectly when counting by 2s",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_categories": [
+                  "Monkey Bars"
+                ],
+                "description": "Monkey Bars symbols highlighted one by one"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count by 2s together. Point to each symbol: 2, 4, 6, 8, 10. There are 5 symbols, and each equals 2 votes."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected 12 — likely counted 6 symbols or miscounted when multiplying",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "highlight_categories": [
+                  "Monkey Bars"
+                ],
+                "description": "Each symbol in Monkey Bars row highlights sequentially"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the symbols carefully — there are 5, not 6. Each symbol equals 2. Count by 2s: 2, 4, 6, 8, 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models counting symbols and multiplying by scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "event": "count_by_scale",
+                "status": "confirmed",
+                "description": "Each symbol in Monkey Bars lights up sequentially with running total: 2, 4, 6, 8, 10"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count the symbols in Monkey Bars — 5 symbols. The scale is 2, so each symbol equals 2 votes. Count by 2s: 2, 4, 6, 8, 10. The answer is 10 students. There we go."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:52:27.005516+00:00"
+}

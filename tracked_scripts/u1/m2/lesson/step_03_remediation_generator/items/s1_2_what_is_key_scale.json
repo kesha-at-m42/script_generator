@@ -1,0 +1,103 @@
+{
+  "id": "s1_2_what_is_key_scale",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "There are 2 symbols"
+        },
+        "description": "Student selected 'There are 2 symbols' — confused scale with symbol count",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_warmup",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key highlighted showing 'Each ⭐ = 2'."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale isn't about how many symbols there are. Look at the key—it tells you what each symbol represents."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "There are 2 categories"
+        },
+        "description": "Student selected 'There are 2 categories' — confused scale with category count",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_warmup",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key highlighted showing 'Each ⭐ = 2'."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale isn't about categories. The key shows the scale—it tells you how many items each symbol stands for."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Add 2 to each number"
+        },
+        "description": "Student selected 'Add 2 to each number' — misunderstood scale as an arithmetic operation",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_warmup",
+              "params": {
+                "highlight_component": "key",
+                "description": "Key highlighted showing 'Each ⭐ = 2'."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale isn't about adding. Look at the key—each star equals 2. That means one symbol represents 2 items."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_warmup",
+              "params": {
+                "event": "demonstrate_scale",
+                "status": "confirmed",
+                "description": "Key pulses, then one star symbol expands to show 2 items inside it."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. The key says each star equals 2. That's the scale. Scale of 2 means each symbol shows 2 items. So if I see one star, that represents 2 items. There we go."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:52:05.663534+00:00"
+}

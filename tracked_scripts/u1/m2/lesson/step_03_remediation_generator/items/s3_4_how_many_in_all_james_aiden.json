@@ -1,0 +1,109 @@
+{
+  "id": "s3_4_how_many_in_all_james_aiden",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 11
+        },
+        "description": "Student selected 11 — counted only Aiden's books, not both students combined",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Aiden's books. The question asks for IN ALL — both James AND Aiden together. Add their books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 17
+        },
+        "description": "Student selected 17 — added the number of symbols instead of counting each symbol as 2 books",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: look at the key. Each symbol stands for 2 books. Count James's symbols, multiply by 2. Do the same for Aiden. Then add."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 28
+        },
+        "description": "Student selected 28 — added all four students' books instead of just James and Aiden",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James",
+                  "Aiden"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added all the students. The question only asks for James AND Aiden. Count their books, then add those two amounts together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "demonstrate_addition",
+                "status": "confirmed",
+                "description": "System highlights James (6 symbols × 2 = 12), then Aiden (5.5 symbols × 2 = 11), then shows 12 + 11 = 23"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. James has 6 symbols. Each symbol is 2 books, so 6 times 2 is 12 books. Aiden has 5 and a half symbols. That's 11 books. Now we add: 12 plus 11 equals 23 books in all. See how that works?"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:55:13.761914+00:00"
+}

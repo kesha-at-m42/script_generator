@@ -1,0 +1,72 @@
+{
+  "id": "s3_2b_scale_reflection",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked scale of 1 graph on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at how many symbols each graph needs to show James's books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked scale of 1 graph on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "James"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Your graph shows 6 symbols for James. The other graph shows 12 symbols. Which uses fewer symbols?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked scale of 1 graph three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "pulse_row",
+                "status": "confirmed",
+                "description": "James row pulses on scale of 2 graph, showing 6 symbols",
+                "category": "James"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Your graph on the left uses scale of 2 — James has 6 symbols. The right graph uses scale of 1 — James has 12 symbols. Same 12 books, but your graph needs fewer symbols. Click your graph on the left."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:54:52.065739+00:00"
+}

@@ -1,0 +1,73 @@
+{
+  "id": "s2_4_complete_graph_rabbits",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed wrong number of symbols on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the table. How many sightings does Rabbits have? Each symbol stands for 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed wrong number of symbols on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_animals_full",
+              "params": {
+                "highlight_categories": [
+                  "Rabbits"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Rabbits has 8 sightings. Each symbol equals 2, so 8 divided by 2 equals 4 symbols."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed wrong number of symbols three or more times — system models the answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals_create",
+              "params": {
+                "event": "place_symbols",
+                "status": "confirmed",
+                "description": "System places 4 symbols in Rabbits row one at a time",
+                "category": "Rabbits",
+                "symbol_count": 4
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is tricky, so let me show you. Rabbits has 8 sightings. Each symbol equals 2. I count: 2, 4, 6, 8 — that's 4 symbols. 8 is even, so no half-symbol needed."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:53:57.919791+00:00"
+}

@@ -1,0 +1,135 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 5
+Output Directory: C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8
+======================================================================
+
+[STEP 1/5] [AI] script_generator
+  [SKIP] Outside execution range (3-5)
+
+[STEP 2/5] [FORMATTING] filter_sections
+  [SKIP] Outside execution range (3-5)
+
+[STEP 3/5] [AI] remediation_generator
+  [DIR] step_03_remediation_generator
+  [AUTO-CHAIN] Using base version: v4/step_02_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v4\step_02_filter_sections\filter_sections.json
+  [DEBUG] File size: 23673 bytes
+  [DEBUG] Read 22965 chars from 23673 bytes
+  [OK] Loaded 22965 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 5 items from JSON array
+  [RERUN] Processing only: ['s5_2_half_symbol_mastery']
+  [SKIP 1/5] s5_opening_frame (copied from base)
+  [SKIP 2/5] s5_1_scale_toggle (copied from base)
+
+  [BATCH 3/5] s5_2_half_symbol_mastery
+    Variables: {'id': 's5_2_half_symbol_mastery', 'scene': [], 'steps': [[{'type': 'scene', 'method': 'remove', 'tangible_id': 'data_table'}, {'type': 'scene', 'method': 'remove', 'tangible_id': 'picture_graph_pets'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'picture_graph_numbers', 'tangible_type': 'picture_graph', 'params': {'mode': 'reading', 'orientation': 'horizontal', 'scale': 2, 'description': 'New picture graph context appears. Key visible: Each symbol = 2. No data table visible. Clean display showing the key prominently.'}}, {'type': 'dialogue', 'text': 'You learned about half-symbols. If you made a graph using this key, which numbers would need a half-symbol?'}, {'type': 'prompt', 'text': 'If you made a graph with scale of 2, which numbers would need a half-symbol? Select all that apply.', 'tool': 'multi_select', 'options': ['8', '7', '12', '9'], 'validator': [{'condition': {'and': [{'selected': '7'}, {'selected': '9'}]}, 'description': 'Student selected 7 and 9 — correct, both odd numbers', 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "7 and 9 are ODD numbers. They don't split evenly into groups of 2, so they need a half-symbol for the leftover 1."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_numbers', 'description': 'Picture graph with key visible. Scale of 2. 7 and 9 highlighted as selected.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 2}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_numbers', 'description': 'Picture graph with key visible: Each symbol = 2. Multi-select prompt active with options 8, 7, 12, 9.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 2}]}], [{'type': 'dialogue', 'text': 'What does a half-symbol show?'}, {'type': 'prompt', 'text': 'What does a half-symbol show?', 'tool': 'multiple_choice', 'options': ['Half of 2, which is 1', 'Half of the total', '2 items', "Nothing—it's decoration"], 'validator': [{'condition': {'selected': 'Half of 2, which is 1'}, 'description': "Student selected 'Half of 2, which is 1' — correct", 'is_correct': True, 'steps': [[{'type': 'dialogue', 'text': "Half of 2 is 1. A half-symbol shows 1 item. That's how we show odd numbers exactly — the full symbols show groups of 2, the half shows the 1 left over."}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_numbers', 'description': 'Picture graph with key visible. Scale of 2.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 2}]}]]}]}, {'type': 'current_scene', 'elements': [{'tangible_id': 'picture_graph_numbers', 'description': 'Picture graph with key visible. Multiple choice prompt active asking what a half-symbol shows.', 'tangible_type': 'picture_graph', 'mode': 'reading', 'orientation': 'horizontal', 'scale': 2}]}]]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'advanced_concepts' from 'scope_fence.advanced_concepts'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8\step_03_remediation_generator\prompts\s5_2_half_symbol_mastery.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1294
+  output_tokens: 1863
+  total_tokens: 3157
+  requests: 1
+  cache_creation_tokens: 20677
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'advanced_concepts' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 4/5] s5_3_metacognitive_reflection (copied from base)
+  [SKIP 5/5] s5_4_closure (copied from base)
+
+  [BATCH COMPLETE]
+    Processed: 5/5
+    Skipped: 4
+    Errors: 0
+  [SAVE] Saved 5 items to: step_03_remediation_generator\remediation_generator.json
+
+[STEP 4/5] [FORMATTING] merge_remediation
+  [DIR] step_04_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_03_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8\step_03_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 17441 bytes
+  [DEBUG] Read 16898 chars from 17441 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8\step_04_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_merge_remediation\merge_remediation.json
+
+[STEP 5/5] [FORMATTING] push
+  [DIR] step_05_push
+  [AUTO-CHAIN] Using previous step output: step_04_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8\step_04_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 40499 bytes
+  [DEBUG] Read 39318 chars from 40499 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=2
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=1
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\synthesis_generator_module_2\v8\step_05_push\push.json
+  [EXEC] Passing rerun_items=['s5_2_half_symbol_mastery']
+  [EXEC] Passing input to parameter 'data'
+  [NOTION] Rerun mode — pushing only: ['s5_2_half_symbol_mastery']
+Updating existing page: https://notion.so/31b5917eac5281b4b7a4f3064ac71c34
+  [PUSH] s5_2_half_symbol_mastery
+
+  [NOTION] Pushed -> https://notion.so/31b5917eac5281b4b7a4f3064ac71c34
+  [NOTION] Tagged 5 sections + 32 beats → merge_remediation.json
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v8
+Status: draft
+Duration: 2808.7s
+Output: outputs/synthesis_generator_module_2/latest/
+======================================================================

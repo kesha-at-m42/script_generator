@@ -1,0 +1,106 @@
+{
+  "id": "s2_2_half_symbol_teaching",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — counted only the full symbols, ignoring the half-symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "highlight_symbols",
+                "status": "proposed",
+                "description": "All symbols pulse: 3 full symbols, then the half-symbol"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the full symbols. Don't forget the half-symbol—it represents 1 more sighting."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6 — counted only the full symbols at scale 2, ignoring the half-symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "highlight_half_symbol",
+                "status": "proposed",
+                "description": "Half-symbol pulses with label showing '= 1'"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "3 full symbols show 6 sightings. But there's also a half-symbol—half of 2 is 1, so we need to add 1 more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8 — likely counted the half-symbol as a full symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "compare_symbols",
+                "status": "proposed",
+                "description": "Animation shows 3 full symbols labeled '2 each = 6' then half-symbol labeled '1'"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The half-symbol doesn't equal 2—it equals 1. Each full symbol is 2, so 3 full symbols are 6, plus the half-symbol adds just 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_animals",
+              "params": {
+                "event": "step_through_counting",
+                "status": "confirmed",
+                "description": "Animation counts: First symbol '2', second symbol '4', third symbol '6', half-symbol '7'. Final highlight shows 7."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each symbol equals 2. First symbol: 2. Second: 4. Third: 6. The half-symbol equals 1, so we add 1 more: 7 total sightings. See how that works?"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:53:42.726906+00:00"
+}

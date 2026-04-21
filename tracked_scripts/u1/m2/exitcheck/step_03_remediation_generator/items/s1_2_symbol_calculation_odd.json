@@ -1,0 +1,106 @@
+{
+  "id": "s1_2_symbol_calculation_odd",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4 — counted only full symbols, missed that 9 is odd and needs a half-symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Emma"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "4 symbols would show 8 stickers. But Emma has 9—that's 1 more than 8. What can we use to show just 1 sticker?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 — counted symbols as if each represents 1 sticker instead of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Emma"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Each symbol stands for 2 stickers, not 1. So 5 symbols would show 10 stickers total. Emma has 9—how many symbols for that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9 — used the data value directly instead of calculating symbols needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Emma"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "9 is how many stickers Emma has. But each symbol stands for 2 stickers. How many symbols do we need to show 9?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table",
+              "params": {
+                "event": "demonstrate_symbol_calculation",
+                "status": "confirmed",
+                "description": "System demonstrates calculating symbols for 9: 4 full symbols show 8, plus half-symbol shows 1 more"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Emma has 9 stickers. Each symbol stands for 2, so 4 full symbols show 8 stickers. We need 1 more sticker—that's a half-symbol. So 4 and a half symbols total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T21:45:57.451326+00:00"
+}

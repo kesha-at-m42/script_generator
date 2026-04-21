@@ -1,0 +1,514 @@
+[
+  {
+    "id": "s5_opening_frame",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made scaled picture graphs. You used half-symbols for odd numbers. Now let's see WHY scaled graphs are useful."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s5_1_scale_toggle",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Scale of 1"
+          },
+          "description": "Student selected Scale of 1 — thinks more symbols means fewer symbols used",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Cats"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Cats. Scale of 1 shows 8 symbols. Scale of 2 shows 4 symbols. Which number is smaller?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets",
+                "params": {
+                  "event": "scale_comparison_highlight",
+                  "status": "confirmed",
+                  "description": "Graph shows scale of 1 (8+6+10+4=28 total symbols) then scale of 2 (4+3+5+2=14 total symbols) side by side, with totals labeled."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Scale of 1 uses 28 total symbols. Scale of 2 uses only 14 symbols — half as many. When each symbol represents more pets, you need fewer symbols to show the same data. Scale of 2 uses fewer symbols."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T17:52:55.870404+00:00"
+  },
+  {
+    "id": "s5_2_half_symbol_mastery",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "7"
+                  },
+                  {
+                    "selected": "9"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "7"
+                    },
+                    {
+                      "selected": "9"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only 7 or only 9 (correct answers only, but not all)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "The selected odd number highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found an odd number. Odd numbers need half-symbols because they don't split evenly into groups of 2. Are there any other odd numbers in the list?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "8"
+                  },
+                  {
+                    "selected": "12"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "7"
+                    },
+                    {
+                      "selected": "9"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 3: Student selected only even numbers (all wrong, no correct answers)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "Key pulses: Each symbol = 2."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Even numbers split perfectly into groups of 2. Half-symbols are for numbers that DON'T split evenly. Which numbers leave 1 leftover when you group by 2?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "7"
+                  },
+                  {
+                    "selected": "9"
+                  }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "selected": "8"
+                  },
+                  {
+                    "selected": "12"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected mix of odd and even numbers",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "Odd numbers in the list pulse briefly."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the odd numbers. Those DO need half-symbols. But even numbers split perfectly into groups of 2. Which selections don't belong?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "event": "highlight_options",
+                  "status": "confirmed",
+                  "description": "7 and 9 highlight and pulse to confirm they are the odd numbers.",
+                  "options": [
+                    "7",
+                    "9"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. 8 splits evenly: 4 groups of 2. 12 splits evenly: 6 groups of 2. But 7 is 3 groups of 2 plus 1 leftover. 9 is 4 groups of 2 plus 1 leftover. The answers are 7 and 9. Odd numbers need half-symbols because they always have 1 left over."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": "Half of the total"
+          },
+          "description": "Student selected 'Half of the total': misconception that half-symbol relates to total count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "Key pulses: Each symbol = 2."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "A half-symbol doesn't show half of the total. It shows half of what ONE symbol is worth. Look at the key. Each symbol equals 2. What is half of 2?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "2 items"
+          },
+          "description": "Student selected '2 items': confused half-symbol with full symbol",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "Key pulses: Each symbol = 2."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "A full symbol shows 2 items. A HALF-symbol shows half of that. If a full symbol is 2, what is half of 2?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Nothing—it's decoration"
+          },
+          "description": "Student selected 'Nothing—it's decoration': does not understand half-symbols have meaning",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "description": "Key highlights: Each symbol = 2."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Half-symbols have real meaning. They show 1 item when the scale is 2. That's how we show odd numbers exactly. What is half of 2?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_numbers",
+                "params": {
+                  "event": "demonstrate_half_symbol",
+                  "status": "confirmed",
+                  "description": "Key animates: full symbol labeled '2', half-symbol labeled '1'."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how it works. The key says each symbol equals 2. So a half-symbol equals half of 2, which is 1. That's how we show the leftover 1 when we have an odd number. The answer is 'Half of 2, which is 1.'"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T19:07:44.284276+00:00"
+  },
+  {
+    "id": "s5_3_metacognitive_reflection",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "How many symbols are on the graph"
+          },
+          "description": "Student selected 'How many symbols are on the graph' — confusing scale with total symbol count",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets_scale1",
+                "params": {
+                  "highlight_component": "key"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The number of symbols changes depending on the scale. Look at the key—it tells you what each symbol stands for, not how many symbols total."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "How many categories there are"
+          },
+          "description": "Student selected 'How many categories there are' — confusing scale with number of data categories",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets_scale2",
+                "params": {
+                  "highlight_component": "key"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Both graphs show the same categories—Cats, Dogs, Birds, Fish. The scale tells you what each symbol represents. Check the key on each graph."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The size of the symbols"
+          },
+          "description": "Student selected 'The size of the symbols' — confusing scale with visual size of symbols",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_pets_scale1",
+                "params": {
+                  "highlight_component": "key"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The symbols are the same size on both graphs. Scale tells you how many items each symbol shows—look at what the key says."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly — system models the correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_pets_scale1",
+                "params": {
+                  "event": "highlight_key_then_category",
+                  "status": "confirmed",
+                  "description": "Key pulses showing 'Each ⭐ = 1', then Cats row highlights showing 8 symbols = 8 pets",
+                  "category": "Cats"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. The scale tells you how many items each symbol shows. On this graph, the key says each symbol equals 1. That's scale of 1. On the other graph, each symbol equals 2—that's scale of 2. The scale is what each symbol stands for."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-03-06T17:53:27.094896+00:00"
+  },
+  {
+    "id": "s5_4_closure",
+    "scene": [
+      "picture_graph_pets_scale1",
+      "picture_graph_pets_scale2"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_pets_scale1"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_pets_scale2"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "grouping_animation_warmup",
+          "tangible_type": "animation",
+          "params": {
+            "animation_type": "grouping_transformation",
+            "description": "Static frame from student's Warmup data transformation appears briefly. Shows items grouped by 2s becoming symbols on a picture graph."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You started by watching your data transform. Now you can CREATE scaled graphs yourself. You know that each symbol shows 2, and half-symbols show 1."
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "grouping_animation_warmup"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_lesson_complete",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "description": "A completed 1:2 picture graph from the Lesson appears. Visual bookend showing student's work. Clean, complete display with key visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You discovered something important: scaled graphs need fewer symbols. That makes them easier to read when numbers get big."
+        },
+        {
+          "type": "dialogue",
+          "text": "Next time, you'll use a scale of 5. Instead of groups of 2, you'll group by 5s. You already know how to count by 5s — that will help!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_lesson_complete",
+              "description": "Completed 1:2 picture graph from Lesson. Key visible. Clean display as visual closure.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+title = "warmup"
+type = "sequence"
+
+# --- Section: w1_data_collection ---
+[section_100_w1_data_collection]
+template = "chart_template"
+
+[step_100_w1_data_collection]
+dialogue = "The Minis need your help counting! Let's see what we find."
+components = ["SceneComponent", "PromptComponent"]
+
+# --- Section: w2_prediction ---
+[section_101_w2_prediction]
+template = "chart_template"
+
+[step_101_w2_prediction]
+dialogue = "You counted 8 Red Minis, 10 Blue Minis, and 6 Yellow Minis. That's your data. Let's make a picture graph with it. Here's something new though: what if each symbol showed 2 items instead of 1? You have 8 Red Minis. If you group them into 2s..."
+components = ["SceneComponent", "PromptComponent"]
+
+# --- Section: w3_grouping_animation ---
+[section_102_w3_grouping_animation]
+template = "chart_template"
+
+[step_102_w3_grouping_animation]
+dialogue = "Here are the 8 Red Minis. Watch what happens... 8 items... watch them pair up into groups of 2... Each group of 2 becomes ONE symbol. 4 groups... 4 symbols. Each symbol shows 2 items, not 1. That's different from before! Let's transform the Blue Minis into symbols. 10 items... 5 groups of 2... 5 symbols. Now the Yellow Minis into symbols representing 2 each. 6 items... 3 groups of 2... 3 symbols. Your data is now a [vocab]scaled picture graph[/vocab]! Each symbol represents 2 instead of 1."
+components = ["SceneComponent"]
+
+# --- Section: w4_verification_bridge ---
+[section_103_w4_verification_bridge]
+template = "chart_template"
+
+[step_103_w4_verification_bridge]
+dialogue = "Now you've seen how grouping works. Each group of 2 became one symbol."
+components = ["SceneComponent", "PromptComponent"]

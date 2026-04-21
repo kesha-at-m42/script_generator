@@ -1,0 +1,642 @@
+[
+  {
+    "id": "s5_opening_frame",
+    "type": "transition",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You made scaled picture graphs. You used half-symbols for odd numbers. Now let's see WHY scaled graphs are useful."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s5_1_scale_toggle",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table",
+          "tangible_type": "data_table",
+          "params": {
+            "categories": [
+              "Cats",
+              "Dogs",
+              "Birds",
+              "Fish"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Data table appears showing Cats=8, Dogs=6, Birds=10, Fish=4."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Cats",
+              "Dogs",
+              "Birds",
+              "Fish"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Horizontal picture graph appears alongside data table. Pets data. Scale of 2. Cats=4 symbols, Dogs=3 symbols, Birds=5 symbols, Fish=2 symbols. Key visible: Each ⭐ = 2. Scale toggle control visible with options: Each ⭐ = 1 and Each ⭐ = 2."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's data you know — and a graph with scale of 2. But watch what happens when you change the scale."
+        },
+        {
+          "type": "prompt",
+          "text": "Toggle the scale to 1. What happens to the graph?",
+          "tool": "click_component",
+          "target": "picture_graph_pets.scale_toggle",
+          "validator": [
+            {
+              "condition": {},
+              "description": "Student toggles scale from 2 to 1 — graph transforms",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_pets",
+                    "params": {
+                      "event": "scale_toggle_animation",
+                      "status": "confirmed",
+                      "description": "Symbols double in count. Cats: 4 symbols → 8 symbols, Dogs: 3 → 6, Birds: 5 → 10, Fish: 2 → 4. Key updates to Each ⭐ = 1. Animation shows symbols appearing smoothly."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Look at that! Cats went from 4 symbols to 8. Same 8 cats — but now every cat gets its own symbol."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table showing Cats=8, Dogs=6, Birds=10, Fish=4.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "picture_graph_pets",
+                        "description": "Picture graph now at scale of 1. Cats=8 symbols, Dogs=6 symbols, Birds=10 symbols, Fish=4 symbols. Key shows Each ⭐ = 1.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 1,
+                        "categories": [
+                          "Cats",
+                          "Dogs",
+                          "Birds",
+                          "Fish"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Cats=8, Dogs=6, Birds=10, Fish=4.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Picture graph at scale of 2. Scale toggle control active. Key visible: Each ⭐ = 2.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Cats",
+                "Dogs",
+                "Birds",
+                "Fish"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "Now toggle back to scale of 2."
+        },
+        {
+          "type": "prompt",
+          "text": "Which scale uses fewer symbols?",
+          "tool": "multiple_choice",
+          "options": [
+            "Scale of 1",
+            "Scale of 2"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Scale of 2"
+              },
+              "description": "Student selected Scale of 2 — correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "animate",
+                    "tangible_id": "picture_graph_pets",
+                    "params": {
+                      "event": "scale_toggle_animation",
+                      "status": "confirmed",
+                      "description": "Symbols halve in count. Cats: 8 symbols → 4 symbols, Dogs: 6 → 3, Birds: 10 → 5, Fish: 4 → 2. Key updates to Each ⭐ = 2."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 2 — fewer symbols, same data. That's what makes scaled graphs efficient."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "You just saw the same data change shape. The INFORMATION stays the same — only the number of symbols changes. That's the power of scale."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table showing Cats=8, Dogs=6, Birds=10, Fish=4.",
+                        "tangible_type": "data_table"
+                      },
+                      {
+                        "tangible_id": "picture_graph_pets",
+                        "description": "Picture graph back at scale of 2. Cats=4 symbols, Dogs=3, Birds=5, Fish=2. Key shows Each ⭐ = 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Cats",
+                          "Dogs",
+                          "Birds",
+                          "Fish"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Cats=8, Dogs=6, Birds=10, Fish=4.",
+              "tangible_type": "data_table"
+            },
+            {
+              "tangible_id": "picture_graph_pets",
+              "description": "Picture graph at scale of 1. Cats=8 symbols, Dogs=6, Birds=10, Fish=4. Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 1,
+              "categories": [
+                "Cats",
+                "Dogs",
+                "Birds",
+                "Fish"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s5_2_half_symbol_mastery",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_pets"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_numbers",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "description": "New picture graph context appears. Key visible: Each symbol = 2. No data table visible. Clean display showing the key prominently."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You learned about half-symbols. If you made a graph using this key, which numbers would need a half-symbol?"
+        },
+        {
+          "type": "prompt",
+          "text": "If you made a graph with scale of 2, which numbers would need a half-symbol? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "8",
+            "7",
+            "12",
+            "9"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "and": [
+                  {
+                    "selected": "7"
+                  },
+                  {
+                    "selected": "9"
+                  }
+                ]
+              },
+              "description": "Student selected 7 and 9 — correct, both odd numbers",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "7 and 9 are ODD numbers. They don't split evenly into groups of 2, so they need a half-symbol for the leftover 1."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_numbers",
+                        "description": "Picture graph with key visible. Scale of 2. 7 and 9 highlighted as selected.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_numbers",
+              "description": "Picture graph with key visible: Each symbol = 2. Multi-select prompt active with options 8, 7, 12, 9.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "type": "dialogue",
+          "text": "What does a half-symbol show?"
+        },
+        {
+          "type": "prompt",
+          "text": "What does a half-symbol show?",
+          "tool": "multiple_choice",
+          "options": [
+            "Half of 2, which is 1",
+            "Half of the total",
+            "2 items",
+            "Nothing—it's decoration"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Half of 2, which is 1"
+              },
+              "description": "Student selected 'Half of 2, which is 1' — correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Half of 2 is 1. A half-symbol shows 1 item. That's how we show odd numbers exactly — the full symbols show groups of 2, the half shows the 1 left over."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_numbers",
+                        "description": "Picture graph with key visible. Scale of 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_numbers",
+              "description": "Picture graph with key visible. Multiple choice prompt active asking what a half-symbol shows.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s5_3_metacognitive_reflection",
+    "scene": [
+      "picture_graph_numbers"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_numbers"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets_scale1",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 1,
+            "categories": [
+              "Cats",
+              "Dogs",
+              "Birds",
+              "Fish"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Picture graph at scale of 1 appears. Cats=8 symbols, Dogs=6, Birds=10, Fish=4. Key visible: Each ⭐ = 1."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_pets_scale2",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "categories": [
+              "Cats",
+              "Dogs",
+              "Birds",
+              "Fish"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Picture graph at scale of 2 appears alongside scale of 1 graph. Same pets data. Cats=4 symbols, Dogs=3, Birds=5, Fish=2. Key visible: Each ⭐ = 2. Side-by-side comparison display."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You've been working with 'scale of 2' all lesson. Which of these describes what a 'scale' on a graph means?"
+        },
+        {
+          "type": "prompt",
+          "text": "Which of these describes what a 'scale' on a graph means?",
+          "tool": "multiple_choice",
+          "options": [
+            "How many items each symbol shows",
+            "How many symbols are on the graph",
+            "How many categories there are",
+            "The size of the symbols"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "How many items each symbol shows"
+              },
+              "description": "Student selected 'How many items each symbol shows' — correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale tells you how many items each symbol shows. Scale of 1 means each symbol is 1. Scale of 2 means each symbol is 2."
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "When you see a graph, always check the key first. The key tells you the scale."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_pets_scale1",
+                        "description": "Picture graph at scale of 1. Pets data. Key visible.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 1,
+                        "categories": [
+                          "Cats",
+                          "Dogs",
+                          "Birds",
+                          "Fish"
+                        ]
+                      },
+                      {
+                        "tangible_id": "picture_graph_pets_scale2",
+                        "description": "Picture graph at scale of 2. Same pets data. Key visible.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "horizontal",
+                        "scale": 2,
+                        "categories": [
+                          "Cats",
+                          "Dogs",
+                          "Birds",
+                          "Fish"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_pets_scale1",
+              "description": "Picture graph at scale of 1. Pets data with 8, 6, 10, 4 symbols.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 1,
+              "categories": [
+                "Cats",
+                "Dogs",
+                "Birds",
+                "Fish"
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_pets_scale2",
+              "description": "Picture graph at scale of 2. Same pets data with 4, 3, 5, 2 symbols. Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2,
+              "categories": [
+                "Cats",
+                "Dogs",
+                "Birds",
+                "Fish"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s5_4_closure",
+    "scene": [
+      "picture_graph_pets_scale1",
+      "picture_graph_pets_scale2"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_pets_scale1"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_pets_scale2"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "grouping_animation_warmup",
+          "tangible_type": "animation",
+          "params": {
+            "animation_type": "grouping_transformation",
+            "description": "Static frame from student's Warmup data transformation appears briefly. Shows items grouped by 2s becoming symbols on a picture graph."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You started by watching your data transform. Now you can CREATE scaled graphs yourself. You know that each symbol shows 2, and half-symbols show 1."
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "grouping_animation_warmup"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_lesson_complete",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2,
+            "description": "A completed 1:2 picture graph from the Lesson appears. Visual bookend showing student's work. Clean, complete display with key visible."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "You discovered something important: scaled graphs need fewer symbols. That makes them easier to read when numbers get big."
+        },
+        {
+          "type": "dialogue",
+          "text": "Next time, you'll use a scale of 5. Instead of groups of 2, you'll group by 5s. You already know how to count by 5s — that will help!"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_lesson_complete",
+              "description": "Completed 1:2 picture graph from Lesson. Key visible. Clean display as visual closure.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    ]
+  }
+]

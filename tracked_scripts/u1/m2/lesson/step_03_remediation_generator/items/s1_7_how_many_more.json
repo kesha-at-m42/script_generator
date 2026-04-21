@@ -1,0 +1,112 @@
+{
+  "id": "s1_7_how_many_more",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 — likely counted the difference between symbol counts (7 - 4 = 3) instead of using actual values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers",
+                  "Popcorn"
+                ],
+                "description": "Crackers and Popcorn rows highlighted with emphasis on counting total symbols"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're working on it. Remember, each symbol stands for 2 students. Count all the symbols in each row, then find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 — gave the total for Crackers instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers",
+                  "Popcorn"
+                ],
+                "description": "Both categories highlighted to emphasize comparison between the two values"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: 14 is how many chose Crackers. But the question asks how many MORE — that means we need to subtract."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 22
+        },
+        "description": "Student selected 22 — added the two values (14 + 8) instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "highlight_categories": [
+                  "Crackers",
+                  "Popcorn"
+                ],
+                "description": "Both categories highlighted with visual emphasis on comparing, not combining"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The word MORE means we're comparing. We need to subtract Popcorn from Crackers, not add them together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly — system models the correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_snacks",
+              "params": {
+                "event": "show_difference_calculation",
+                "status": "confirmed",
+                "description": "System demonstrates counting Crackers (7 symbols × 2 = 14), then Popcorn (4 symbols × 2 = 8), then shows 14 - 8 = 6"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. First, count all the Crackers symbols: 7 symbols, and each symbol is 2 students, so that's 14 total. Then count Popcorn: 4 symbols times 2 is 8 students. To find how many MORE, we subtract: 14 minus 8 equals 6."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-03-06T20:53:15.596912+00:00"
+}

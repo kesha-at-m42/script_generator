@@ -1,0 +1,659 @@
+[
+  {
+    "id": "s1_transition_into_exit_check",
+    "type": "transition",
+    "scene": [
+      "picture_graph_stickers",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_stickers"
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table"
+        },
+        {
+          "type": "dialogue",
+          "text": "You made scaled picture graphs with whole symbols and half-symbols. Let's see what you know."
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_1_scale_meaning",
+    "scene": [],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_sports",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "placed_counts": [
+              4,
+              3,
+              5,
+              2
+            ],
+            "scale_text": "Each ⭐ = 2 votes",
+            "description": "Vertical picture graph appears showing Favorite Sports data. Soccer has 4 stars (8 votes), Basketball has 3 stars (6 votes), Baseball has 5 stars (10 votes), Tennis has 2 stars (4 votes). Key displays: Each ⭐ = 2 votes."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table",
+          "tangible_type": "data_table",
+          "params": {
+            "display_mode": "numeric",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Baseball",
+              "Tennis"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "description": "Data table appears alongside graph showing Favorite Sports values: Soccer 8, Basketball 6, Baseball 10, Tennis 4."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at the key. This graph has a scale of 2. What does 'scale of 2' mean?"
+        },
+        {
+          "type": "prompt",
+          "text": "What does 'scale of 2' mean?",
+          "tool": "multiple_choice",
+          "options": [
+            "There are 2 categories",
+            "Each symbol shows 2 votes",
+            "Add 2 to find the total",
+            "There are 2 symbols"
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": "Each symbol shows 2 votes"
+              },
+              "description": "Student selected 'Each symbol shows 2 votes' — correct understanding of scale meaning",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "Scale of 2 means each symbol shows 2 votes."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_sports",
+                        "description": "Vertical picture graph showing Favorite Sports data with scale of 2. Key emphasized.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Soccer",
+                          "Basketball",
+                          "Baseball",
+                          "Tennis"
+                        ],
+                        "values": [
+                          8,
+                          6,
+                          10,
+                          4
+                        ]
+                      },
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table showing Favorite Sports numeric values.",
+                        "tangible_type": "data_table"
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_sports",
+              "description": "Vertical picture graph in reading mode. Favorite Sports data with scale of 2. Soccer=8 (4 symbols), Basketball=6 (3 symbols), Baseball=10 (5 symbols), Tennis=4 (2 symbols). Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Soccer",
+                "Basketball",
+                "Baseball",
+                "Tennis"
+              ],
+              "values": [
+                8,
+                6,
+                10,
+                4
+              ],
+              "placed_counts": [
+                4,
+                3,
+                5,
+                2
+              ]
+            },
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Favorite Sports values: Soccer 8, Basketball 6, Baseball 10, Tennis 4.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_2_symbol_calculation_odd",
+    "scene": [
+      "picture_graph_sports",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_sports"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "data_table",
+          "params": {
+            "categories": [
+              "Emma"
+            ],
+            "values": [
+              9
+            ],
+            "description": "Data table updates to show Emma collected 9 stickers. Context: scale of 2."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Emma collected 9 stickers. How many symbols does Emma need?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many symbols does Emma need?",
+          "tool": "multiple_choice",
+          "options": [
+            4,
+            4.5,
+            5,
+            9
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 4.5
+              },
+              "description": "Student selected 4.5 — correct, 9 requires 4 full symbols plus 1 half-symbol",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "4 and a half symbols. 9 is odd — 4 full symbols for 8, plus a half-symbol for 1."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table showing Emma: 9 stickers. Scale of 2 context established.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric",
+                        "categories": [
+                          "Emma"
+                        ],
+                        "values": [
+                          9
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Emma: 9 stickers. Scale of 2 context. Multiple choice prompt active.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric",
+              "categories": [
+                "Emma"
+              ],
+              "values": [
+                9
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_3_create_half_symbol",
+    "scene": [
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "data_table",
+          "params": {
+            "categories": [
+              "Emma",
+              "Liam",
+              "Ava",
+              "Noah"
+            ],
+            "values": [
+              8,
+              6,
+              7,
+              10
+            ],
+            "description": "Data table updates showing Stickers Collected: Emma 8, Liam 6, Ava 7, Noah 10. Mix of even and odd values."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_stickers_create",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "creating",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Emma",
+              "Liam",
+              "Ava",
+              "Noah"
+            ],
+            "values": [
+              8,
+              6,
+              7,
+              10
+            ],
+            "placed_counts": [
+              4,
+              3,
+              0,
+              5
+            ],
+            "scale_text": "Each 🎨 = 2",
+            "description": "Empty picture graph template appears for student creation. Scale of 2. Emma (4 symbols), Liam (3 symbols), and Noah (5 symbols) already placed. Ava row is empty, awaiting student placement."
+          }
+        },
+        {
+          "type": "dialogue",
+          "text": "Place the symbols for Ava. She collected 7 stickers."
+        },
+        {
+          "type": "prompt",
+          "text": "Place symbols for Ava.",
+          "tool": "click_place_symbols",
+          "target": "picture_graph_stickers_create",
+          "validator": [
+            {
+              "condition": {
+                "category": "Ava",
+                "symbols_placed": 3.5
+              },
+              "description": "Student placed 3 full symbols and 1 half-symbol for Ava (7 stickers) — correct",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "scene",
+                    "method": "update",
+                    "tangible_id": "picture_graph_stickers_create",
+                    "params": {
+                      "placed_counts": [
+                        4,
+                        3,
+                        3.5,
+                        5
+                      ],
+                      "description": "Ava row now shows 3 full symbols and 1 half-symbol. Graph complete."
+                    }
+                  },
+                  {
+                    "type": "dialogue",
+                    "text": "3 and a half symbols for 7. Each full symbol is 2, the half is 1."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "data_table",
+                        "description": "Data table showing Stickers Collected: Emma 8, Liam 6, Ava 7, Noah 10.",
+                        "tangible_type": "data_table",
+                        "display_mode": "numeric",
+                        "categories": [
+                          "Emma",
+                          "Liam",
+                          "Ava",
+                          "Noah"
+                        ],
+                        "values": [
+                          8,
+                          6,
+                          7,
+                          10
+                        ]
+                      },
+                      {
+                        "tangible_id": "picture_graph_stickers_create",
+                        "description": "Completed picture graph showing all students. Ava has 3.5 symbols (7 stickers). Scale of 2.",
+                        "tangible_type": "picture_graph",
+                        "mode": "creating",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Emma",
+                          "Liam",
+                          "Ava",
+                          "Noah"
+                        ],
+                        "values": [
+                          8,
+                          6,
+                          7,
+                          10
+                        ],
+                        "placed_counts": [
+                          4,
+                          3,
+                          3.5,
+                          5
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table",
+              "description": "Data table showing Stickers Collected: Emma 8, Liam 6, Ava 7, Noah 10.",
+              "tangible_type": "data_table",
+              "display_mode": "numeric",
+              "categories": [
+                "Emma",
+                "Liam",
+                "Ava",
+                "Noah"
+              ],
+              "values": [
+                8,
+                6,
+                7,
+                10
+              ]
+            },
+            {
+              "tangible_id": "picture_graph_stickers_create",
+              "description": "Picture graph template with Emma, Liam, and Noah rows filled. Ava row empty. Symbol placement tool active.",
+              "tangible_type": "picture_graph",
+              "mode": "creating",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Emma",
+                "Liam",
+                "Ava",
+                "Noah"
+              ],
+              "values": [
+                8,
+                6,
+                7,
+                10
+              ],
+              "placed_counts": [
+                4,
+                3,
+                0,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_4_read_total_value",
+    "scene": [
+      "picture_graph_stickers_create",
+      "data_table"
+    ],
+    "steps": [
+      [
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "data_table"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "picture_graph_bus",
+          "tangible_type": "picture_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Bus",
+              "Walk",
+              "Car",
+              "Bike"
+            ],
+            "values": [
+              8,
+              6,
+              10,
+              4
+            ],
+            "placed_counts": [
+              4,
+              3,
+              5,
+              2
+            ],
+            "scale_text": "Each 🚌 = 2 students",
+            "description": "Completed picture graph appears showing How Students Get to School. Bus has 4 symbols (8 students), Walk has 3 symbols (6 students), Car has 5 symbols (10 students), Bike has 2 symbols (4 students). Key visible: Each 🚌 = 2 students."
+          }
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_stickers_create"
+        },
+        {
+          "type": "dialogue",
+          "text": "Look at the completed graph. How many students take the bus to school?"
+        },
+        {
+          "type": "prompt",
+          "text": "How many students take the bus to school?",
+          "tool": "multiple_choice",
+          "options": [
+            3,
+            4,
+            6,
+            8
+          ],
+          "validator": [
+            {
+              "condition": {
+                "selected": 8
+              },
+              "description": "Student selected 8 — correct, 4 symbols × 2 = 8 students",
+              "is_correct": true,
+              "steps": [
+                [
+                  {
+                    "type": "dialogue",
+                    "text": "8 students take the bus to school. 4 symbols, each worth 2."
+                  },
+                  {
+                    "type": "current_scene",
+                    "elements": [
+                      {
+                        "tangible_id": "picture_graph_bus",
+                        "description": "Picture graph showing How Students Get to School. Bus row highlighted showing 4 symbols = 8 students.",
+                        "tangible_type": "picture_graph",
+                        "mode": "reading",
+                        "orientation": "vertical",
+                        "scale": 2,
+                        "categories": [
+                          "Bus",
+                          "Walk",
+                          "Car",
+                          "Bike"
+                        ],
+                        "values": [
+                          8,
+                          6,
+                          10,
+                          4
+                        ],
+                        "placed_counts": [
+                          4,
+                          3,
+                          5,
+                          2
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "picture_graph_bus",
+              "description": "Completed picture graph showing How Students Get to School with scale of 2. Bus=8 (4 symbols), Walk=6 (3 symbols), Car=10 (5 symbols), Bike=4 (2 symbols). Multiple choice prompt active.",
+              "tangible_type": "picture_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 2,
+              "categories": [
+                "Bus",
+                "Walk",
+                "Car",
+                "Bike"
+              ],
+              "values": [
+                8,
+                6,
+                10,
+                4
+              ],
+              "placed_counts": [
+                4,
+                3,
+                5,
+                2
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "id": "s1_closure",
+    "type": "transition",
+    "scene": [
+      "picture_graph_bus"
+    ],
+    "steps": [
+      [
+        {
+          "type": "dialogue",
+          "text": "You understand scaled picture graphs. Let's connect what you learned."
+        },
+        {
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "picture_graph_bus"
+        },
+        {
+          "type": "current_scene",
+          "elements": []
+        }
+      ]
+    ]
+  }
+]
