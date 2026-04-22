@@ -42,6 +42,45 @@ from utils.notion import (  # noqa: E402
     set_registry_entry,
 )
 
+TRACKED_DIR = project_root / "tracked_scripts"
+_PIPELINE_RE = re.compile(
+    r"^(lesson|warmup|exitcheck|synthesis)_generator_(?:dialogue_pass_)?module_(\d+)$"
+)
+_STITCH_SKIP = {"notion_blocks.json", "notion_push_log.json"}
+
+
+def _auto_stitch(file_path: Path) -> str | None:
+    """If file_path is inside outputs/, copy its version dir to tracked_scripts/.
+
+    Returns the relative dest path on success, or None if not applicable.
+    """
+    try:
+        rel = file_path.relative_to(project_root / "outputs")
+    except ValueError:
+        return None
+
+    parts = rel.parts
+    if len(parts) < 3:
+        return None
+
+    unit, pipeline, version = parts[0], parts[1], parts[2]
+    if not re.match(r"^v\d+$", version):
+        return None
+
+    m = _PIPELINE_RE.match(pipeline)
+    if not m:
+        return None
+
+    script_type, module_num = m.group(1), m.group(2)
+    unit_short = re.sub(r"^unit(\d+)$", r"u\1", unit)
+    version_dir = project_root / "outputs" / unit / pipeline / version
+    dest = TRACKED_DIR / unit_short / f"m{module_num}" / script_type
+
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(version_dir, dest, ignore=shutil.ignore_patterns(*_STITCH_SKIP))
+    return str(dest.relative_to(project_root))
+
 
 def main():
     parser = argparse.ArgumentParser(description="Push or pull a lesson JSON file with Notion")
@@ -87,7 +126,9 @@ def main():
         _push(file_path, args.title, test_push=args.test_push, sections=args.sections)
 
 
-def _push(file_path: Path, title: str | None, test_push: bool = False, sections: list[str] | None = None) -> None:
+def _push(
+    file_path: Path, title: str | None, test_push: bool = False, sections: list[str] | None = None
+) -> None:
     data = json.loads(file_path.read_text(encoding="utf-8"))
     title = title or file_path.parent.parent.parent.name
     if test_push:
@@ -107,6 +148,11 @@ def _push(file_path: Path, title: str | None, test_push: bool = False, sections:
         sections=sections,
     )
     print(f"[OK] {get_page_url(page_id)}")
+
+    if not test_push:
+        dest = _auto_stitch(file_path)
+        if dest:
+            print(f"[OK] Stitched to {dest}")
 
 
 def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
@@ -175,8 +221,6 @@ def _resolve_push_source(file_path: Path) -> tuple[Path, Path] | None:
     return original_path, out_step_dir / "pull.json"
 
 
-
-
 def _collect_notion_ids(obj: Any, acc: dict[str, str]) -> None:
     """Recursively collect {beat_id: _notion_block_id} from a lesson structure."""
     if isinstance(obj, dict):
@@ -240,7 +284,9 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
         page_id = page_id_override.replace("-", "")
         # Normalise to dashed UUID format if needed
         if len(page_id) == 32:
-            page_id = f"{page_id[:8]}-{page_id[8:12]}-{page_id[12:16]}-{page_id[16:20]}-{page_id[20:]}"
+            page_id = (
+                f"{page_id[:8]}-{page_id[8:12]}-{page_id[12:16]}-{page_id[16:20]}-{page_id[20:]}"
+            )
     else:
         entry = get_registry_entry(file_path)
         if not entry:
@@ -310,7 +356,9 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
         print(f"[OK] Registered {page_id} in notion_pages.json")
 
     blocks_path = out_path.parent / "notion_blocks.json"
-    blocks_path.write_text(json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    blocks_path.write_text(
+        json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     print(f"[OK] Notion blocks saved to {blocks_path.relative_to(project_root)}")
 
     flags_path = out_path.parent / "notion_flags.json"
@@ -322,17 +370,23 @@ def _pull(file_path: Path, new_version: bool = False, page_id_override: str | No
         for f in flags:
             ftype = f.get("flag_type", "")
             if ftype == "scene_description_updated":
-                print(f"  [scene_description_updated] [{f['section_id']}] {f['method']} {f['tangible_id']}")
+                print(
+                    f"  [scene_description_updated] [{f['section_id']}] {f['method']} {f['tangible_id']}"
+                )
                 print(f"    was:   {f['original_description']}")
                 print(f"    now:   {f['notion_description']}")
             elif ftype == "options_parse_failed":
-                print(f"  [options_parse_failed] [{f['section_id']}] beat {f['beat_id']} — {f['message']}")
+                print(
+                    f"  [options_parse_failed] [{f['section_id']}] beat {f['beat_id']} — {f['message']}"
+                )
                 if f.get("original_options"):
                     print(f"    source: {f['original_options']}")
                 if f.get("notion_options_text"):
                     print(f"    notion: {f['notion_options_text']}")
             elif ftype == "section_not_in_notion":
-                print(f"  [section_not_in_notion] [{f['section_id']}] type={f.get('section_type')} — dropped")
+                print(
+                    f"  [section_not_in_notion] [{f['section_id']}] type={f.get('section_type')} — dropped"
+                )
             else:
                 print(f"  {f}")
         print(f"\n  Saved to: {flags_path.relative_to(project_root)}")
