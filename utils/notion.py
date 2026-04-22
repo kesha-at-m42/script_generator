@@ -230,8 +230,7 @@ def _reviewer_guide_callout(reviewer_user_id: str | None = None) -> dict:
         "type": "callout",
         "callout": {
             "rich_text": _rt(
-                "Toggle all: Ctrl+Alt+T / Cmd+Opt+T"
-                "  •  {word} = vocab highlight — dialogue only"
+                "Toggle all: Ctrl+Alt+T / Cmd+Opt+T  •  {word} = vocab highlight — dialogue only"
             ),
             "icon": {"type": "emoji", "emoji": "💡"},
             "color": "yellow_background",
@@ -241,9 +240,16 @@ def _reviewer_guide_callout(reviewer_user_id: str | None = None) -> dict:
 
 # Block types that carry a color field inside their type-specific object
 _COLORABLE_TYPES = {
-    "paragraph", "heading_1", "heading_2", "heading_3",
-    "bulleted_list_item", "numbered_list_item", "toggle",
-    "callout", "quote", "to_do",
+    "paragraph",
+    "heading_1",
+    "heading_2",
+    "heading_3",
+    "bulleted_list_item",
+    "numbered_list_item",
+    "toggle",
+    "callout",
+    "quote",
+    "to_do",
 }
 
 
@@ -299,7 +305,6 @@ def _code_blocks(text: str) -> list[dict]:
         }
         for i in range(0, len(text), _RT_LIMIT)
     ]
-
 
 
 # ---------------------------------------------------------------------------
@@ -572,7 +577,9 @@ def _sync_blocks(client: Client, parent_id: str, new_blocks: list[dict]) -> None
                         if k > new_key:
                             insert_at = i
                             break
-                    existing_h2s.insert(insert_at, ({"id": inserted_id, "type": "heading_2"}, new_key))
+                    existing_h2s.insert(
+                        insert_at, ({"id": inserted_id, "type": "heading_2"}, new_key)
+                    )
 
     for leftover in existing[ex_ptr:]:
         client.blocks.update(leftover["id"], archived=True)
@@ -626,7 +633,8 @@ def _tag_section(section: dict, heading_block_id: str, beat_blocks: list[dict]) 
                         sb for sb in state.get("beats", []) if sb.get("type") == "dialogue"
                     ]
                     toggle_dialogue = [
-                        c for c in toggle_children
+                        c
+                        for c in toggle_children
                         if c.get("type") == "callout"
                         and c.get("callout", {}).get("icon", {}).get("emoji") == "💬"
                     ]
@@ -709,9 +717,7 @@ def _render_section_children(section: dict) -> list[dict]:
     while beats and beats[-1].get("type") == "current_scene":
         beats = beats[:-1]
 
-    branch_start = next(
-        (i for i, b in enumerate(beats) if b.get("branch_name")), len(beats)
-    )
+    branch_start = next((i for i, b in enumerate(beats) if b.get("branch_name")), len(beats))
     pre_branch = beats[:branch_start]
     post_branch = beats[branch_start:]
 
@@ -791,7 +797,7 @@ def _section_needs_push(
                     pos = None
                 if pos is not None:
                     actual_toggles = 0
-                    for sib in section_blocks_ordered[pos + 1:]:
+                    for sib in section_blocks_ordered[pos + 1 :]:
                         if sib.get("type") != "toggle":
                             break
                         actual_toggles += 1
@@ -845,7 +851,7 @@ def push_section(
     if h2_block is not None:
         # Collect existing beats under this H2 (flat siblings until next H2/divider)
         existing_section_blocks = []
-        for block in page_blocks[h2_idx + 1:]:
+        for block in page_blocks[h2_idx + 1 :]:
             if block.get("type") in ("heading_2", "divider"):
                 break
             existing_section_blocks.append(block)
@@ -863,7 +869,9 @@ def push_section(
                 client.blocks.update(child["id"], archived=True)
             toggle_children = []  # already archived; skip the second archive pass below
             rt = h2_block["heading_2"]["rich_text"]
-            client.blocks.update(h2_block["id"], heading_2={"rich_text": rt, "is_toggleable": False})
+            client.blocks.update(
+                h2_block["id"], heading_2={"rich_text": rt, "is_toggleable": False}
+            )
         else:
             # Non-toggle: include children in existing_by_id for KEEP/INSERT classification
             for child in toggle_children:
@@ -898,7 +906,7 @@ def push_section(
                         pos = None
                     validator_toggle_ids: list[str] = []
                     if pos is not None:
-                        for sib in existing_section_blocks[pos + 1:]:
+                        for sib in existing_section_blocks[pos + 1 :]:
                             if sib.get("type") != "toggle":
                                 break
                             validator_toggle_ids.append(sib["id"])
@@ -985,7 +993,7 @@ def push_section(
     # section is inserted AFTER all of that section's content, not right after
     # its heading (which would displace its beats).
     if after_h2_idx is not None:
-        for block in page_blocks[after_h2_idx + 1:]:
+        for block in page_blocks[after_h2_idx + 1 :]:
             if block.get("type") in ("heading_2", "divider"):
                 break
             after_id = block["id"]
@@ -1010,7 +1018,9 @@ def push_section(
     h2_id = first_resp["results"][1]["id"]
     last_after = first_resp["results"][-1]["id"]
     for i in range(98, len(new_beats), 100):
-        resp = client.blocks.children.append(page_id, children=new_beats[i : i + 100], after=last_after)
+        resp = client.blocks.children.append(
+            page_id, children=new_beats[i : i + 100], after=last_after
+        )
         last_after = resp["results"][-1]["id"]
     return h2_id
 
@@ -1133,6 +1143,146 @@ def get_page_comments(page_id: str) -> list[dict]:
     client = get_notion_client()
     response = client.comments.list(block_id=page_id)
     return response.get("results", [])
+
+
+def _extract_comment_text(rich_text: list[dict]) -> str:
+    """Flatten rich_text to plain string, handling @mention spans."""
+    parts = []
+    for span in rich_text:
+        if span.get("type") == "mention":
+            parts.append(span.get("plain_text", ""))
+        else:
+            parts.append(span.get("text", {}).get("content", ""))
+    return "".join(parts)
+
+
+def _collect_notion_block_ids(obj: object, acc: list | None = None) -> list[str]:
+    """Recursively collect unique _notion_block_id values from a sections structure."""
+    if acc is None:
+        acc = []
+    if isinstance(obj, dict):
+        bid = obj.get("_notion_block_id")
+        if bid and bid not in acc:
+            acc.append(bid)
+        for v in obj.values():
+            _collect_notion_block_ids(v, acc)
+    elif isinstance(obj, list):
+        for item in obj:
+            _collect_notion_block_ids(item, acc)
+    return acc
+
+
+def _build_block_to_beat_map(sections: list) -> dict[str, dict]:
+    """Return {notion_block_id: {section_id, beat_description, beat}} for all tagged beats."""
+    result: dict[str, dict] = {}
+
+    def _reg(bid: str, section_id: str, description: str, beat: dict | None) -> None:
+        if bid:
+            result[bid] = {"section_id": section_id, "beat_description": description, "beat": beat}
+
+    for section in sections:
+        if not isinstance(section, dict):
+            continue
+        sid = section.get("id", "")
+        _reg(section.get("_notion_block_id", ""), sid, "section heading", None)
+
+        for bi, beat in enumerate(section.get("beats", [])):
+            if not isinstance(beat, dict):
+                continue
+            btype = beat.get("type", "")
+            _reg(beat.get("_notion_block_id", ""), sid, f"beats[{bi}] ({btype})", beat)
+
+            for vi, validator in enumerate(beat.get("validator", [])):
+                if not isinstance(validator, dict):
+                    continue
+                is_correct = validator.get("is_correct", False)
+                label = "correct" if is_correct else f"incorrect[{vi}]"
+                for di, vbeat in enumerate(validator.get("beats", [])):
+                    if not isinstance(vbeat, dict):
+                        continue
+                    vbtype = vbeat.get("type", "")
+                    _reg(
+                        vbeat.get("_notion_block_id", ""),
+                        sid,
+                        f"beats[{bi}].validator[{vi}] ({label}).beats[{di}] ({vbtype})",
+                        vbeat,
+                    )
+
+    return result
+
+
+def _fetch_all_block_comments(client: Client, block_id: str) -> list[dict]:
+    """Fetch all comments for a block, following pagination cursors."""
+    comments: list[dict] = []
+    cursor: str | None = None
+    while True:
+        kwargs: dict = {"block_id": block_id}
+        if cursor:
+            kwargs["start_cursor"] = cursor
+        try:
+            resp = client.comments.list(**kwargs)
+        except Exception:
+            break
+        comments.extend(resp.get("results", []))
+        if not resp.get("has_more"):
+            break
+        cursor = resp.get("next_cursor")
+    return comments
+
+
+def fetch_lesson_comments(page_id: str, sections: list) -> list[dict]:
+    """Fetch all Notion comment threads that mention @claude.
+
+    Checks every block tagged with _notion_block_id in sections, plus the page
+    itself. When any message in a thread mentions @claude, the entire thread is
+    returned so the caller has full context.
+
+    Each returned dict:
+      discussion_id, block_id, section_id, beat_description, beat,
+      thread: [{comment_id, comment_text, author_id, created_time}, ...]
+    """
+    client = get_notion_client()
+    block_to_beat = _build_block_to_beat_map(sections)
+    all_block_ids = [page_id] + _collect_notion_block_ids(sections)
+
+    results: list[dict] = []
+    for bid in all_block_ids:
+        all_comments = _fetch_all_block_comments(client, bid)
+        if not all_comments:
+            continue
+
+        # Group into threads by discussion_id, preserving chronological order.
+        threads: dict[str, list[dict]] = {}
+        for comment in all_comments:
+            did = comment.get("discussion_id") or comment.get("id", "")
+            threads.setdefault(did, []).append(comment)
+
+        ctx = block_to_beat.get(bid, {})
+        for did, thread_comments in threads.items():
+            if not any(
+                "@claude" in _extract_comment_text(c.get("rich_text", [])).lower()
+                for c in thread_comments
+            ):
+                continue
+            results.append(
+                {
+                    "discussion_id": did,
+                    "block_id": bid,
+                    "section_id": ctx.get("section_id"),
+                    "beat_description": ctx.get("beat_description"),
+                    "beat": ctx.get("beat"),
+                    "thread": [
+                        {
+                            "comment_id": c.get("id", ""),
+                            "comment_text": _extract_comment_text(c.get("rich_text", [])),
+                            "author_id": c.get("created_by", {}).get("id", ""),
+                            "created_time": c.get("created_time", ""),
+                        }
+                        for c in thread_comments
+                    ],
+                }
+            )
+    return results
 
 
 # ---------------------------------------------------------------------------
@@ -1280,7 +1430,9 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
         if child_blocks:
             blocks.append(_toggle(toggle_header, child_blocks))
         else:
-            blocks.append(_paragraph(f"{indicator} {branch_prefix}{description} — student moves forward"))
+            blocks.append(
+                _paragraph(f"{indicator} {branch_prefix}{description} — student moves forward")
+            )
     return blocks
 
 
@@ -1320,7 +1472,9 @@ _CURRENT_SCENE_TOGGLE_LABEL = "⏭️ Student presses Next — toggle open to se
 _LEGACY_STEP_BREAK_PREFIXES = ("📋 Current scene state",)
 
 
-def _render_current_scene(beat: dict, nested: bool = False, after_prompt: bool = False) -> list[dict]:
+def _render_current_scene(
+    beat: dict, nested: bool = False, after_prompt: bool = False
+) -> list[dict]:
     """Render current_scene as a ⏭️ step separator.
 
     After a prompt the scene state is branch-dependent, so the toggle would be
@@ -1340,7 +1494,9 @@ def _render_current_scene(beat: dict, nested: bool = False, after_prompt: bool =
     return [_toggle(_CURRENT_SCENE_TOGGLE_LABEL, children)]
 
 
-def _render_beat(beat: dict, section_id: str, nested: bool = False, after_prompt: bool = False) -> list[dict]:
+def _render_beat(
+    beat: dict, section_id: str, nested: bool = False, after_prompt: bool = False
+) -> list[dict]:
     t = beat.get("type", "")
     if t == "dialogue":
         return _render_dialogue(beat)
@@ -1585,15 +1741,19 @@ def _scene_rendered_text(beat: dict) -> str:
             return f"Update {tid} [{params_str}]"
         return f"Update {tid}"
     action_map = {
-        "show": f"Show {tid}", "hide": f"Hide {tid}", "remove": f"Remove {tid}",
-        "lock": f"Lock {tid}", "unlock": f"Unlock {tid}",
-        "animate": f"Animate {tid}", "add": f"Add {tid}",
+        "show": f"Show {tid}",
+        "hide": f"Hide {tid}",
+        "remove": f"Remove {tid}",
+        "lock": f"Lock {tid}",
+        "unlock": f"Unlock {tid}",
+        "animate": f"Animate {tid}",
+        "add": f"Add {tid}",
     }
     return action_map.get(method, f"{method.upper()} {tid}")
 
 
 _DIALOGUE_MATCH_COVERAGE = 0.6  # minimum fraction of Notion words found in the JSON beat
-_LEGACY_MATCH_WINDOW = 3        # only look this many positions ahead in the pool
+_LEGACY_MATCH_WINDOW = 3  # only look this many positions ahead in the pool
 
 
 def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
@@ -1614,7 +1774,9 @@ def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
     for i, candidate in enumerate(pool[: _LEGACY_MATCH_WINDOW + 1]):
         c_type = candidate.get("type", "")
         if emoji == "🎬" and c_type == "scene":
-            key = f"{candidate.get('method', '')} {candidate.get('tangible_id', '')}".strip().lower()
+            key = (
+                f"{candidate.get('method', '')} {candidate.get('tangible_id', '')}".strip().lower()
+            )
             if first_line.lower().startswith(key):
                 return i
         elif emoji == "💬" and c_type == "dialogue":
@@ -1705,7 +1867,9 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
         if "_notion_block_id" in sb and sb.get("type") in _EDITABLE_BEAT_TYPES
     }
     positional_pools: dict[str, list] = {
-        beat_type: [b for b in state_beats if b.get("type") == beat_type and "_notion_block_id" not in b]
+        beat_type: [
+            b for b in state_beats if b.get("type") == beat_type and "_notion_block_id" not in b
+        ]
         for beat_type in _EDITABLE_BEAT_TYPES
     }
 
@@ -1786,6 +1950,7 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
     Beats are emitted in Notion page order — reordering and deletions are reflected.
     """
     from steps.formatting.id_stamper import flatten_beats
+
     json_beats = flatten_beats(section)
 
     id_to_beat: dict[str, dict] = {
@@ -1803,15 +1968,13 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
     # 🎬 only matches scene beats, ❔ only matches prompt beats.
     positional_pools: dict[str, list] = {
         beat_type: [
-            b for b in json_beats
-            if b.get("type") == beat_type and "_notion_block_id" not in b
+            b for b in json_beats if b.get("type") == beat_type and "_notion_block_id" not in b
         ]
         for beat_type in _EDITABLE_BEAT_TYPES
     }
 
     cs_positional_pool = [
-        b for b in json_beats
-        if b.get("type") == "current_scene" and "_notion_block_id" not in b
+        b for b in json_beats if b.get("type") == "current_scene" and "_notion_block_id" not in b
     ]
     cs_positional_ptr = 0
 
@@ -1851,7 +2014,9 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
             validator_state_idx = 0
 
             if emoji not in _EDITABLE_CALLOUT_EMOJIS:
-                result.append({"type": "unparsed", "_notion_block_id": block_id, "notion_type": btype})
+                result.append(
+                    {"type": "unparsed", "_notion_block_id": block_id, "notion_type": btype}
+                )
                 continue
 
             text = _extract_rt(block.get("callout", {}).get("rich_text", []))
@@ -1904,13 +2069,17 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
                     if ftype in ("heading_1", "heading_2", "heading_3"):
                         h_text = _extract_rt(first.get(ftype, {}).get("rich_text", []))
                         if h_text.startswith("🔀 "):
-                            branch_name = h_text[len("🔀 "):]
+                            branch_name = h_text[len("🔀 ") :]
                             content_start = 1
 
                 # Positional pool scoped to this branch so fallback doesn't
                 # cross into the other branch's beats.
                 branch_pools: dict[str, list] = {
-                    bt: [b for b in positional_pools.get(bt, []) if b.get("branch_name") == branch_name]
+                    bt: [
+                        b
+                        for b in positional_pools.get(bt, [])
+                        if b.get("branch_name") == branch_name
+                    ]
                     for bt in _EDITABLE_BEAT_TYPES
                 }
 
@@ -1964,7 +2133,11 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
         # Everything else: preserve as unparsed so nothing is silently dropped
         inner = block.get(btype, {}) if btype else {}
         text = _extract_rt(inner.get("rich_text", [])) if isinstance(inner, dict) else ""
-        entry: dict = {"type": "unparsed", "_notion_block_id": block_id, "notion_type": btype or "unknown"}
+        entry: dict = {
+            "type": "unparsed",
+            "_notion_block_id": block_id,
+            "notion_type": btype or "unknown",
+        }
         if text:
             entry["text"] = text
         result.append(entry)
@@ -2055,11 +2228,13 @@ def blocks_to_lesson(blocks: list[dict], original: dict | list) -> tuple[dict | 
             _patch_section_beats(section, section_map[sid])
             kept.append(section)
         else:
-            extra_flags.append({
-                "flag_type": "section_not_in_notion",
-                "section_id": sid,
-                "section_type": section.get("type"),
-            })
+            extra_flags.append(
+                {
+                    "flag_type": "section_not_in_notion",
+                    "section_id": sid,
+                    "section_type": section.get("type"),
+                }
+            )
 
     if isinstance(patched, list):
         patched[:] = kept
@@ -2314,8 +2489,12 @@ def push_lesson(
 
     # Ensure the 💡 reviewer guide callout is present and up to date.
     _guide = next(
-        (b for b in page_blocks if b.get("type") == "callout"
-         and b.get("callout", {}).get("icon", {}).get("emoji") == "💡"),
+        (
+            b
+            for b in page_blocks
+            if b.get("type") == "callout"
+            and b.get("callout", {}).get("icon", {}).get("emoji") == "💡"
+        ),
         None,
     )
     _desired_rt = _reviewer_guide_callout()["callout"]["rich_text"]
@@ -2323,12 +2502,18 @@ def push_lesson(
         if _extract_rt(_guide.get("callout", {}).get("rich_text", [])) != _extract_rt(_desired_rt):
             client.blocks.update(
                 _guide["id"],
-                callout={"rich_text": _desired_rt, "icon": {"type": "emoji", "emoji": "💡"}, "color": "yellow_background"},
+                callout={
+                    "rich_text": _desired_rt,
+                    "icon": {"type": "emoji", "emoji": "💡"},
+                    "color": "yellow_background",
+                },
             )
     else:
         client.blocks.children.append(page_id, children=[_reviewer_guide_callout()])
         page_blocks = _all_blocks(client, page_id)
-        print("  [NOTION] ⚠️  💡 callout was missing — added at bottom of page. Move it to the top manually.")
+        print(
+            "  [NOTION] ⚠️  💡 callout was missing — added at bottom of page. Move it to the top manually."
+        )
 
     for section in target_sections:
         sid = section.get("id", "?")

@@ -26,12 +26,23 @@ from pathlib import Path
 
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "core"))
+sys.path.insert(0, str(project_root / "steps" / "prompts"))
 
 from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
-from utils.notion import is_configured, load_registry, pull_lesson, pull_out_path  # noqa: E402
+from claude_client import ClaudeClient  # noqa: E402
+from comment_analyzer import COMMENT_ANALYZER_PROMPT  # noqa: E402
+
+from utils.notion import (  # noqa: E402
+    fetch_lesson_comments,
+    is_configured,
+    load_registry,
+    pull_lesson,
+    pull_out_path,
+)
 
 TRACKED_DIR = project_root / "tracked_scripts"
 
@@ -71,11 +82,15 @@ def _find_source_json(tracked_dir: Path) -> Path | None:
             continue
         if re.match(r"^step_\d+_push$", step_dir.name):
             continue
-        json_files = [f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name]
+        json_files = [
+            f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name
+        ]
         for f in json_files:
             try:
                 data = json.loads(f.read_text(encoding="utf-8"))
-                if isinstance(data, list) or (isinstance(data, dict) and isinstance(data.get("sections"), list)):
+                if isinstance(data, list) or (
+                    isinstance(data, dict) and isinstance(data.get("sections"), list)
+                ):
                     return f
             except Exception:
                 pass
@@ -92,7 +107,9 @@ def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
         patched, flags, raw_blocks = pull_lesson(page_id, original)
 
         out_path = pull_out_path(source)
-        out_path.write_text(json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        out_path.write_text(
+            json.dumps(patched, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
         if flags:
             (out_path.parent / "notion_flags.json").write_text(
                 json.dumps(flags, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -105,6 +122,90 @@ def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
     return None
 
 
+def _analyze_comment(comment: dict, sections: list) -> dict:
+    """Call Claude to identify which pipeline step introduced the issue in a comment thread."""
+    section_by_id = {s["id"]: s for s in sections if isinstance(s, dict) and "id" in s}
+    surrounding = section_by_id.get(comment.get("section_id") or "", {})
+
+    user_message = json.dumps(
+        {
+            "thread": comment["thread"],
+            "section_id": comment.get("section_id"),
+            "beat_description": comment.get("beat_description"),
+            "beat": comment.get("beat"),
+            "surrounding_section": surrounding,
+        },
+        ensure_ascii=False,
+    )
+
+    system_text = (
+        (COMMENT_ANALYZER_PROMPT.role or "") + "\n\n" + COMMENT_ANALYZER_PROMPT.instructions
+    )
+
+    logs_dir = project_root / "logs"
+    logs_dir.mkdir(exist_ok=True)
+    client = ClaudeClient(log_file=str(logs_dir / "claude_usage.jsonl"))
+
+    try:
+        raw = client.generate(
+            system=system_text,
+            user_message=user_message,
+            max_tokens=COMMENT_ANALYZER_PROMPT.max_tokens or 600,
+            temperature=COMMENT_ANALYZER_PROMPT.temperature or 0.3,
+        )
+        return json.loads(raw)
+    except Exception as e:
+        return {"error": str(e), "raw": raw if "raw" in dir() else ""}
+
+
+def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
+    """Fetch @claude comments from Notion, analyze each, write notion_comments.json."""
+    pull_dirs = sorted(
+        [d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_pull$", d.name)],
+        key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
+    )
+    if not pull_dirs:
+        return "no pull dir"
+
+    pull_file = pull_dirs[-1] / "pull.json"
+    if not pull_file.exists():
+        return "pull.json missing"
+
+    sections = json.loads(pull_file.read_text(encoding="utf-8"))
+    if not isinstance(sections, list):
+        return "pull.json not a list"
+
+    try:
+        comments = fetch_lesson_comments(page_id, sections)
+    except Exception as e:
+        return f"comment fetch error: {e}"
+
+    if not comments:
+        out_path = pull_dirs[-1] / "notion_comments.json"
+        if out_path.exists():
+            out_path.unlink()
+        return "no @claude comments"
+
+    analyzed = []
+    for comment in comments:
+        analysis = _analyze_comment(comment, sections)
+        entry = {
+            "discussion_id": comment["discussion_id"],
+            "block_id": comment["block_id"],
+            "section_id": comment.get("section_id"),
+            "beat_description": comment.get("beat_description"),
+            "beat": comment.get("beat"),
+            "thread": comment["thread"],
+        }
+        entry.update(analysis)
+        analyzed.append(entry)
+
+    out_path = pull_dirs[-1] / "notion_comments.json"
+    out_path.write_text(json.dumps(analyzed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    rel = out_path.relative_to(project_root)
+    return f"{len(analyzed)} @claude comment(s) → {rel}"
+
+
 def _pull_entry(key: str, entry: dict) -> str:
     """Pull one registry entry. Returns a status string."""
     parsed = _parse_registry_key(key)
@@ -112,7 +213,7 @@ def _pull_entry(key: str, entry: dict) -> str:
         return f"SKIP  {key} (not a unit/module pipeline)"
 
     unit, script_type, module_num = parsed
-    unit_short = re.sub(r'^unit(\d+)$', r'u\1', unit)
+    unit_short = re.sub(r"^unit(\d+)$", r"u\1", unit)
     dest = TRACKED_DIR / unit_short / f"m{module_num}" / script_type
 
     if not dest.exists():
@@ -122,17 +223,20 @@ def _pull_entry(key: str, entry: dict) -> str:
     if err:
         return f"PULL ERROR  {key}: {err}"
 
+    comment_status = _sweep_comments(dest, entry["page_id"])
     rel = dest.relative_to(project_root)
-    return f"OK    {rel}"
+    return f"OK    {rel}  [{comment_status}]"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Pull Notion edits into tracked_scripts/"
-    )
+    parser = argparse.ArgumentParser(description="Pull Notion edits into tracked_scripts/")
     parser.add_argument("--unit", help="Filter by unit (e.g. unit1)")
     parser.add_argument("--module", help="Filter by module number (e.g. 12)")
-    parser.add_argument("--type", dest="script_type", help="Filter by script type (lesson/warmup/exitcheck/synthesis)")
+    parser.add_argument(
+        "--type",
+        dest="script_type",
+        help="Filter by script type (lesson/warmup/exitcheck/synthesis)",
+    )
     args = parser.parse_args()
 
     if not is_configured():
@@ -177,7 +281,9 @@ def main() -> None:
 
     deduped = list(best.values())
     total = len(deduped) + len(skipped_keys)
-    print(f"Pulling {len(deduped)} pipeline(s) from Notion into tracked_scripts/... ({total - len(deduped)} skipped as duplicates)\n")
+    print(
+        f"Pulling {len(deduped)} pipeline(s) from Notion into tracked_scripts/... ({total - len(deduped)} skipped as duplicates)\n"
+    )
 
     for key, entry in skipped_keys:
         print(f"SKIP  {key} (not a unit/module pipeline)")
