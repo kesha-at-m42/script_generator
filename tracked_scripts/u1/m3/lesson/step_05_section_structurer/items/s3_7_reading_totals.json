@@ -1,0 +1,91 @@
+{
+  "id": "s3_7_reading_totals",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_screen_time",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Saturday",
+          "Sunday",
+          "Monday",
+          "Tuesday"
+        ],
+        "values": {
+          "Saturday": 35,
+          "Sunday": 30,
+          "Monday": 40,
+          "Tuesday": 25
+        },
+        "title": "Weekend Screen Time",
+        "description": "Horizontal bar graph appears. Weekend Screen Time data. Saturday=35, Sunday=30, Monday=40, Tuesday=25."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_screen_time",
+      "params": {
+        "highlight_categories": [
+          "Saturday",
+          "Sunday"
+        ],
+        "description": "Saturday and Sunday bars highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many minutes of screen time on Saturday and Sunday in all?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many minutes of screen time on Saturday and Sunday in all?",
+      "tool": "multiple_choice",
+      "options": [
+        5,
+        35,
+        65,
+        70
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 65
+          },
+          "description": "Student selected 65, correct answer (35 + 30)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65. That's how you add values from a bar graph."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_screen_time",
+          "description": "Horizontal bar graph in reading mode. Weekend Screen Time data. Saturday and Sunday bars highlighted. Saturday=35, Sunday=30, Monday=40, Tuesday=25.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:35.491135+00:00"
+}

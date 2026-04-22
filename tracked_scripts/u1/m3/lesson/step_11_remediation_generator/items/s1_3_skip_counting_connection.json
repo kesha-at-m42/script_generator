@@ -1,0 +1,109 @@
+{
+  "id": "s1_3_skip_counting_connection",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4, treating symbol count as the total",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_swings",
+              "params": {
+                "highlight_categories": [
+                  "Swings"
+                ],
+                "description": "Swings column highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the symbols. But each symbol stands for more than 1. Check the key. What does each star represent?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9, likely miscounting or using wrong scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_swings",
+              "params": {
+                "highlight_categories": [
+                  "Swings"
+                ],
+                "description": "Key highlights on picture graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the key. Each star equals 5. Count by 5s: one star is 5, two stars is 10. Keep going."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15, stopped counting before the fourth symbol",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_swings",
+              "params": {
+                "highlight_categories": [
+                  "Swings"
+                ],
+                "description": "All 4 symbols in Swings column highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're counting by 5s. But check how many symbols are in the column. Count all of them: 5, 10, 15... what comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_swings",
+              "params": {
+                "event": "highlight_scale_counting",
+                "status": "confirmed",
+                "description": "System highlights each symbol in sequence while counting: 5, 10, 15, 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Look at the key: each star equals 5. Now count: one star is 5, two stars is 10, three stars is 15, four stars is 20. The picture graph shows 20 because we skip count by the scale."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:38.539377+00:00"
+}

@@ -1,0 +1,103 @@
+{
+  "id": "s1_2_grouping_animation_groups_5_worked",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical orientation."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's see how 20 items become symbols when the scale is 5. Watch—we'll group by 5s."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "data_table",
+      "params": {
+        "event": "grouping_animation",
+        "status": "proposed",
+        "description": "20 items appear for Swings category. Key visible: Each ⭐ = 5.",
+        "category": "Swings",
+        "total_items": 20,
+        "group_size": 5
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Playground Activities. 20 items displayed for Swings, preparing to group by 5s. Key: Each ⭐ = 5.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "data_table",
+      "params": {
+        "event": "form_groups",
+        "status": "confirmed",
+        "description": "20 items cluster into 4 groups of 5.",
+        "category": "Swings",
+        "groups_formed": 4
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "5, 10, 15, 20. That's 4 groups of 5."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table with Swings items grouped into 4 clusters of 5. Key: Each ⭐ = 5.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "data_table",
+      "params": {
+        "event": "transform_to_picture_graph",
+        "status": "confirmed",
+        "description": "4 groups transform into 4 symbols, stacking upward on picture graph for Swings column.",
+        "category": "Swings",
+        "symbols_placed": 4
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "20 items equals 4 symbols. Each symbol shows 5."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Picture graph appears. Swings column shows 4 symbols. Other columns empty. Vertical orientation. Key: Each ⭐ = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:24.604330+00:00"
+}

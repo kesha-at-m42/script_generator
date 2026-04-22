@@ -1,0 +1,70 @@
+{
+  "id": "s3_6_bar_graph_independent_creation_horizontal",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set one or more bars incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look at the data table and the axis. Match each value to where it lands on the scale."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set one or more bars incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "highlight_axis_numbers": true,
+                "description": "Axis numbers highlight to show the skip-counting pattern."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. The axis counts by 5s: 5, 10, 15, 20, 25, 30, 35, 40, 45. For each day, find the number in the data table, then set the bar to end at that number on the axis. Where does Monday's 40 land?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set one or more bars incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "event": "model_all_bars",
+                "status": "confirmed",
+                "description": "System demonstrates setting all four bars. Saturday bar extends to 35, Sunday bar extends to 30, Monday bar extends to 40, Tuesday bar extends to 25."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Saturday has 35 minutes, so I set the bar to end at 35 on the axis. Sunday has 30, so the bar ends at 30. Monday has 40, the bar ends at 40. Tuesday has 25, the bar ends at 25. The bar length shows the value. Each bar ends right on the axis number that matches the data."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:08:49.247875+00:00"
+}

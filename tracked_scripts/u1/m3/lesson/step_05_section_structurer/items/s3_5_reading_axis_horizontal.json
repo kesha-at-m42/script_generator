@@ -1,0 +1,96 @@
+{
+  "id": "s3_5_reading_axis_horizontal",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25. 4 categories displayed numerically."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_screen_time",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "categories": [
+          "Saturday",
+          "Sunday",
+          "Monday",
+          "Tuesday"
+        ],
+        "axis_range": [
+          0,
+          45
+        ],
+        "axis_interval": 5,
+        "description": "Horizontal bar graph appears. Bars extend sideways from left. Axis along bottom labeled 0, 5, 10, 15, 20, 25, 30, 35, 40, 45. All 4 bars empty."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This bar graph is horizontal—the bars go sideways. But look at the axis along the bottom. Same skip-counting by 5s."
+    },
+    {
+      "type": "prompt",
+      "text": "What comes after 35 on this axis?",
+      "tool": "multiple_choice",
+      "options": [
+        36,
+        40,
+        45,
+        30
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "40. The axis counts by 5s: 5, 10, 15... 35, 40, 45. Same pattern, just running sideways."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Weekend Screen Time values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_screen_time",
+          "description": "Horizontal bar graph in building mode. Axis along bottom labeled 0–45 in 5s. All bars empty.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday"
+          ],
+          "axis_range": [
+            0,
+            45
+          ],
+          "axis_interval": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:16.886117+00:00"
+}

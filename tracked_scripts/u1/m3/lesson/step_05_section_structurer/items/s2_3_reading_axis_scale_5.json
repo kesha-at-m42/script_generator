@@ -1,0 +1,115 @@
+{
+  "id": "s2_3_reading_axis_scale_5",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Pizza",
+          "Tacos",
+          "Salad",
+          "Pasta",
+          "Sandwiches"
+        ],
+        "axis_range": [
+          0,
+          35
+        ],
+        "axis_interval": 5,
+        "bar_heights": {
+          "Tacos": 30,
+          "Sandwiches": 15
+        },
+        "description": "Vertical bar graph appears. Favorite Lunch Foods. Axis labeled 0-35 in 5s. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_lunch",
+      "params": {
+        "highlight_axis_numbers": true,
+        "description": "Axis numbers highlight to draw attention to the scale."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Before you create the bars, look at the numbers on the axis."
+    },
+    {
+      "type": "dialogue",
+      "text": "These numbers count by 5s—just like you did with symbols. The axis does the skip-counting for you. What comes after 20 on this axis?"
+    },
+    {
+      "type": "prompt",
+      "text": "What comes after 20 on this axis?",
+      "tool": "multiple_choice",
+      "options": [
+        21,
+        25,
+        30,
+        22
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25. The axis counts by 5s: 5, 10, 15, 20, 25, 30... Same skip-counting you used for symbols, just written on the side."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Lunch Foods values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph in building mode. Favorite Lunch Foods. Axis labeled 0-35 in 5s, axis numbers highlighted. Tacos bar at 30, Sandwiches bar at 15. Pizza, Salad, Pasta bars empty.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Pasta",
+            "Sandwiches"
+          ],
+          "axis_range": [
+            0,
+            35
+          ],
+          "axis_interval": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:11.986587+00:00"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "s2_7_comparison_question_bars_work_too",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Tacos",
+          "Pizza",
+          "Salad",
+          "Pasta"
+        ],
+        "axis_range": [
+          0,
+          35
+        ],
+        "scale": 5,
+        "description": "Vertical bar graph appears. Favorite Lunch Foods. Tacos=30, Pizza=25, Salad=15, Pasta=20. Tacos and Salad bars highlighted."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You already know how to compare using graphs. Same skill works here. How many MORE students chose Tacos than Salad?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many MORE students chose Tacos than Salad?",
+      "tool": "multiple_choice",
+      "options": [
+        10,
+        15,
+        30,
+        45
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 15
+          },
+          "description": "Student selected 15, correct difference",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "15 more. Tacos has 30, Salad has 15. The difference is 15."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph showing Favorite Lunch Foods. Tacos and Salad bars highlighted.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Tacos",
+            "Pizza",
+            "Salad",
+            "Pasta"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:55.339316+00:00"
+}

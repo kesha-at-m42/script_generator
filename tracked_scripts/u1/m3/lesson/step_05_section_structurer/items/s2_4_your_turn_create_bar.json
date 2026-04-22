@@ -1,0 +1,113 @@
+{
+  "id": "s2_4_your_turn_create_bar",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing Favorite Lunch Foods values: Tacos=30, Pizza=20, Sandwiches=15, Salad=25, Pasta=10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Tacos",
+          "Pizza",
+          "Sandwiches",
+          "Salad",
+          "Pasta"
+        ],
+        "scale": 5,
+        "axis_max": 30,
+        "bar_heights": {
+          "Tacos": 30,
+          "Sandwiches": 15,
+          "Pizza": 0,
+          "Salad": 0,
+          "Pasta": 0
+        },
+        "description": "Vertical bar graph appears in building mode. Favorite Lunch Foods. Tacos bar pre-filled at 30, Sandwiches at 15. Pizza, Salad, Pasta bars empty. Scale: 5. Axis shows 0, 5, 10, 15, 20, 25, 30."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Pizza has 20 votes. You found 20 on the axis. Set the height for Pizza to show 20."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the height for Pizza to show 20.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_lunch",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "category": "Pizza",
+            "bar_height": 20
+          },
+          "description": "Student set Pizza bar height to 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "confirm_bar_height",
+                "status": "confirmed",
+                "category": "Pizza",
+                "description": "Pizza bar confirms at height 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bar ends at 20—right on the axis. The skip-counting is already there; you just match the height."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Lunch Foods values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph in building mode. Tacos=30, Sandwiches=15, Pizza=20 confirmed. Salad and Pasta bars empty. Scale: 5.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Tacos",
+            "Pizza",
+            "Sandwiches",
+            "Salad",
+            "Pasta"
+          ],
+          "scale": 5,
+          "axis_max": 30,
+          "bar_heights": {
+            "Tacos": 30,
+            "Sandwiches": 15,
+            "Pizza": 20,
+            "Salad": 0,
+            "Pasta": 0
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:23.852566+00:00"
+}

@@ -1,0 +1,72 @@
+{
+  "id": "s3_3_comparison_question",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_books",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Liam",
+          "Emma",
+          "Noah",
+          "Olivia"
+        ],
+        "description": "Horizontal picture graph appears. Books Read This Month data. Liam=7 symbols (35 books), Emma=4 symbols (20 books), Noah=5 symbols (25 books), Olivia=8 symbols (40 books). Key visible: each symbol = 5 books."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use your graph to find how many fewer books Emma read than Olivia."
+    },
+    {
+      "type": "prompt",
+      "text": "How many FEWER books did Emma read compared to Olivia?",
+      "tool": "multiple_choice",
+      "options": [
+        15,
+        20,
+        40,
+        60
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20, correct difference between Olivia and Emma",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "20 fewer. Olivia read 40. Emma read 20. The difference is 20."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph in reading mode. Books Read This Month data. Liam=7 symbols (35), Emma=4 symbols (20), Noah=5 symbols (25), Olivia=8 symbols (40). Key visible.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:36.646521+00:00"
+}

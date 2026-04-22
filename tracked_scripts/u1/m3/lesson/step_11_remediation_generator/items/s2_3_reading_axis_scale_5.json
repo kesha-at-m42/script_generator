@@ -1,0 +1,118 @@
+{
+  "id": "s2_3_reading_axis_scale_5",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 21
+        },
+        "description": "Student selected 21: counting by 1s instead of recognizing the scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_axis_numbers": [
+                  15,
+                  20,
+                  25,
+                  30
+                ],
+                "description": "Numbers 15, 20, 25, 30 pulse on the axis to show the pattern."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the pattern on the axis. These numbers skip by 5s, not 1s. What number comes after 15?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30: skipped ahead by 10 instead of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_axis_numbers": [
+                  15,
+                  20,
+                  25
+                ],
+                "description": "Numbers 15, 20, 25 pulse to show the spacing between marks."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Each step on this axis goes up by 5, not 10. From 15 to 20 is 5. From 20 to the next mark is another 5. What's 20 plus 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 22
+        },
+        "description": "Student selected 22: added 2 instead of following the scale pattern",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_axis_numbers": [
+                  0,
+                  5,
+                  10,
+                  15,
+                  20
+                ],
+                "description": "All axis numbers from 0 to 20 pulse to show the consistent interval."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This axis counts by 5s, just like you counted symbols. 5, 10, 15, 20, and then what? Keep counting by 5s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "trace_axis_scale",
+                "status": "confirmed",
+                "description": "Axis numbers highlight in sequence: 0, 5, 10, 15, 20, 25, 30, 35, showing the counting by 5s pattern."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The axis counts by 5s the whole way up: 0, 5, 10, 15, 20. After 20 comes 25. That's how the scale works. The skip-counting is built into the side of the graph."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:57.716080+00:00"
+}

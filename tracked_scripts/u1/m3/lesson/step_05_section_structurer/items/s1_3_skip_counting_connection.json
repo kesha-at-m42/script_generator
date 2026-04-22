@@ -1,0 +1,116 @@
+{
+  "id": "s1_3_skip_counting_connection",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_swings",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Swings",
+          "Slide",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "scale": 5,
+        "description": "Vertical picture graph appears. Swings column has 4 star symbols. Other columns empty. Key visible: Each star = 5."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears alongside picture graph showing same playground data."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "It is easier to read this picture graph if you can count by 5s. That's exactly what we do with scale of 5."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_swings",
+          "description": "Vertical picture graph. Swings column has 4 star symbols. Other columns empty. Key: Each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slide",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing playground data alongside graph.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's check: does the picture graph match our data table? 4 symbols, scale of 5. Count by 5s with me… 4 symbols, counting by 5s. What's the total?"
+    },
+    {
+      "type": "prompt",
+      "text": "What is the total represented by the picture graph?",
+      "tool": "multiple_choice",
+      "options": [
+        4,
+        9,
+        15,
+        20
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student answered 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "20 items. 5, 10, 15, 20. Skip counting tells you the total in the picture graph and that matches the value in the data table."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_swings",
+          "description": "Vertical picture graph. Swings column has 4 star symbols. Other columns empty. Key: Each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slide",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing playground data alongside graph.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:37.038683+00:00"
+}

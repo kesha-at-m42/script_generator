@@ -1,0 +1,313 @@
+{
+  "id": "s3_4_three_scale_toggle_same_data",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_books",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Liam",
+          "Emma",
+          "Noah",
+          "Olivia"
+        ],
+        "scale": 5,
+        "scale_options": [
+          1,
+          2,
+          5
+        ],
+        "description": "Horizontal picture graph appears. Books Read data. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control visible with three options: Each star = 1, Each star = 2, Each star = 5. Currently set to scale of 5."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears alongside graph showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You built this graph with scale of 5. But what would it look like with a different scale? Try it."
+    },
+    {
+      "type": "prompt",
+      "text": "Toggle the scale to 1. What happens?",
+      "tool": "click_scale_button",
+      "target": "picture_graph_books",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 1
+          },
+          "description": "Student toggled scale from 5 to 1",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_change",
+                "status": "confirmed",
+                "description": "Symbols multiply as scale changes to 1. Olivia: 8 symbols → 40 symbols. Liam: 7 symbols → 35 symbols. Noah: 5 symbols → 25 symbols. Emma: 4 symbols → 20 symbols. Key updates to Each star = 1 book."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Books Read data at scale of 1. Liam=35 (35 symbols), Emma=20 (20 symbols), Noah=25 (25 symbols), Olivia=40 (40 symbols). Key: Each star = 1 book. Scale toggle control active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 1,
+          "scale_options": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Olivia went from 8 symbols to 40. That's a lot of symbols. Now try scale of 2."
+    },
+    {
+      "type": "prompt",
+      "text": "Toggle the scale to 2.",
+      "tool": "click_scale_button",
+      "target": "picture_graph_books",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student toggled scale from 1 to 2",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_change",
+                "status": "confirmed",
+                "description": "Symbols reduce as scale changes to 2. Olivia: 40 symbols → 20 symbols. Liam: 35 symbols → 17.5 symbols (half-symbol appears). Noah: 25 symbols → 12.5 symbols (half-symbol appears). Emma: 20 symbols → 10 symbols. Key updates to Each star = 2 books."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Books Read data at scale of 2. Liam=35 (17.5 symbols), Emma=20 (10 symbols), Noah=25 (12.5 symbols), Olivia=40 (20 symbols). Half-symbols visible for odd values. Key: Each star = 2 books. Scale toggle control active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 2,
+          "scale_options": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Fewer symbols, but still more than scale of 5. Toggle back to 5."
+    },
+    {
+      "type": "prompt",
+      "text": "Toggle the scale back to 5.",
+      "tool": "click_scale_button",
+      "target": "picture_graph_books",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student toggled scale from 2 to 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_change",
+                "status": "confirmed",
+                "description": "Graph returns to original state. Olivia: 20 symbols → 8 symbols. Liam: 17.5 symbols → 7 symbols. Noah: 12.5 symbols → 5 symbols. Emma: 10 symbols → 4 symbols. Key updates to Each star = 5 books."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5,
+          "scale_options": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Same 40 books for Olivia every time. Scale of 1: 40 symbols. Scale of 2: 20 symbols. Scale of 5: just 8."
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale uses the fewest symbols?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 1",
+        "Scale of 2",
+        "Scale of 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 5"
+          },
+          "description": "Student selected Scale of 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 5. Bigger scale, fewer symbols, same data."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control inactive after MC question answered.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5,
+          "scale_options": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "All three showed the same information. The scale just changes how many symbols you need. Now let's use your graph to answer some questions."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5,
+          "scale_options": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:07.213419+00:00"
+}

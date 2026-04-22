@@ -1,0 +1,108 @@
+{
+  "id": "s3_2_complete_picture_graph",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_steps",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "categories": [
+          "Liam",
+          "Emma",
+          "Noah",
+          "Olivia"
+        ],
+        "scale": 5,
+        "values": {
+          "Liam": 35,
+          "Emma": 0,
+          "Noah": 0,
+          "Olivia": 0
+        },
+        "description": "Horizontal picture graph appears. Steps Taken data. Liam row filled with 7 symbols. Emma, Noah, Olivia rows empty. Key: each symbol = 5 steps."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears alongside graph showing Steps Taken values: Liam 35, Emma 20, Noah 25, Olivia 40."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Finish the picture graph. Use the data table and complete the graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the lengths for all remaining categories.",
+      "tool": "click_to_place",
+      "target": "picture_graph_steps",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "category": "Emma",
+                "symbols_placed": 4
+              },
+              {
+                "category": "Noah",
+                "symbols_placed": 5
+              },
+              {
+                "category": "Olivia",
+                "symbols_placed": 8
+              }
+            ]
+          },
+          "description": "Student placed Emma 4, Noah 5, Olivia 8, all correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You built the whole graph. Each symbol shows 5, and you used skip-counting to figure out how many."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_steps",
+          "description": "Horizontal picture graph completed. All rows filled: Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: each symbol = 5 steps.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5,
+          "values": {
+            "Liam": 35,
+            "Emma": 20,
+            "Noah": 25,
+            "Olivia": 40
+          }
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Steps Taken values.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:28.457493+00:00"
+}

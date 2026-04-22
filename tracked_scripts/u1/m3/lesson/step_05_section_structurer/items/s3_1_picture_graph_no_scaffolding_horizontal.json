@@ -1,0 +1,122 @@
+{
+  "id": "s3_1_picture_graph_no_scaffolding_horizontal",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Vertical data table appears. Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_books",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "categories": [
+          "Liam",
+          "Emma",
+          "Noah",
+          "Olivia"
+        ],
+        "scale": 5,
+        "description": "Horizontal picture graph appears. Books Read This Month. 0 categories filled. Key visible: Each ⭐ = 5 books."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This graph goes sideways, horizontal. Same idea, you just click for the length for the number of symbols instead of height."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table. Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph in building mode. Books Read This Month. 0 categories filled. Key: Each ⭐ = 5 books.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Make a picture graph. Start with Liam. He read 35 books. Set the number of symbols for Liam."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the number of symbols for Liam.",
+      "tool": "click_to_place",
+      "target": "picture_graph_books",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "symbols_placed": 7
+          },
+          "description": "Student placed 7 symbols for Liam, correct for 35 books at scale 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "confirm_symbols_placed",
+                "status": "confirmed",
+                "description": "7 symbols confirm in Liam row.",
+                "category": "Liam"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "7 symbols for 35 books. 5, 10, 15, 20, 25, 30, 35. That's how you count by the scale to place the right number of symbols."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table. Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Liam row has 7 symbols placed. Emma, Noah, Olivia rows empty. Key: Each ⭐ = 5 books.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Liam",
+            "Emma",
+            "Noah",
+            "Olivia"
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:17.467296+00:00"
+}

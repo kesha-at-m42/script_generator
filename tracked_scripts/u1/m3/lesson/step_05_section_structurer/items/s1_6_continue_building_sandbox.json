@@ -1,0 +1,95 @@
+{
+  "id": "s1_6_continue_building_sandbox",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_playground",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "scale": 5,
+        "description": "Vertical picture graph appears. Favorite Playground Equipment data. Swings column has 4 symbols, Slides column has 3 symbols, Monkey Bars column has 5 symbols, Sandbox column empty. Key: each symbol = 5 votes."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears alongside graph, showing Favorite Playground Equipment values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's complete the picture graph. Sandbox has 10. That's the smallest number."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the height for Sandbox.",
+      "tool": "click_to_set_height",
+      "target": "picture_graph_playground",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "category": "Sandbox",
+            "symbols_placed": 2
+          },
+          "description": "Student set Sandbox to 2 symbols, correct for value 10",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "event": "confirm_symbol_placement",
+                "status": "confirmed",
+                "description": "2 symbols appear in Sandbox column to confirm placement.",
+                "category": "Sandbox"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "2 symbols for 10. Count by 5s: 5, 10."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph in building mode. Favorite Playground Equipment data. Swings=4 symbols, Slides=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols. Key: each symbol = 5 votes.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Playground Equipment values.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:13.210439+00:00"
+}

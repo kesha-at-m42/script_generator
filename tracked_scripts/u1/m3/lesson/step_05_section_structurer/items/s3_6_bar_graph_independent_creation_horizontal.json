@@ -1,0 +1,116 @@
+{
+  "id": "s3_6_bar_graph_independent_creation_horizontal",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_screen_time",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "categories": [
+          "Saturday",
+          "Sunday",
+          "Monday",
+          "Tuesday"
+        ],
+        "axis_range": [
+          0,
+          45
+        ],
+        "scale_increment": 5,
+        "description": "Empty horizontal bar graph template appears. Weekend Screen Time. Scale marked 0, 5, 10... up to 45."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now a bar graph, also horizontal. Read the data, set the lengths of the bars to complete the graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Create the bar graph. Set all four bars.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_screen_time",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "bar_height": {
+                  "category": "Saturday",
+                  "value": 35
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Sunday",
+                  "value": 30
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Monday",
+                  "value": 40
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Tuesday",
+                  "value": 25
+                }
+              }
+            ]
+          },
+          "description": "All four bars correctly set to match data table values",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You created the bar graph independently. Horizontal or vertical—you've got this."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Weekend Screen Time values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_screen_time",
+          "description": "Horizontal bar graph in building mode. Weekend Screen Time. All four bars set correctly: Saturday=35, Sunday=30, Monday=40, Tuesday=25.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday"
+          ],
+          "axis_range": [
+            0,
+            45
+          ],
+          "scale_increment": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:26.389333+00:00"
+}

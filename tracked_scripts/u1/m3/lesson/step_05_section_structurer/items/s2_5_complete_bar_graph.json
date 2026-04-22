@@ -1,0 +1,99 @@
+{
+  "id": "s2_5_complete_bar_graph",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Pizza",
+          "Tacos",
+          "Sandwiches",
+          "Salad",
+          "Pasta"
+        ],
+        "bar_heights": {
+          "Pizza": 20,
+          "Tacos": 30,
+          "Sandwiches": 15,
+          "Salad": 0,
+          "Pasta": 0
+        },
+        "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza bar at 20, Tacos at 30, Sandwiches at 15. Salad and Pasta bars empty, ready to build."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Finish the graph. Salad has 15, Pasta has 25. Set the heights for Salad and Pasta."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the heights for Salad and Pasta.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_lunch",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "bar_height": {
+                  "category": "Salad",
+                  "value": 15
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Pasta",
+                  "value": 25
+                }
+              }
+            ]
+          },
+          "description": "Student set Salad to 15 and Pasta to 25, both correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "confirm_bar_heights",
+                "status": "confirmed",
+                "description": "Salad and Pasta bars confirm at correct heights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You built the bar graph. Each bar shows exactly how many votes that food got."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch Foods. Pizza=20, Tacos=30, Sandwiches=15, Salad=15, Pasta=25. All bars complete.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Sandwiches",
+            "Salad",
+            "Pasta"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:33.640574+00:00"
+}

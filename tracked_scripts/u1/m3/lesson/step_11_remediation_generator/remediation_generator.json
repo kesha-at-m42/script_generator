@@ -1,0 +1,2060 @@
+[
+  {
+    "id": "s1_1_building_on_scale_comparison",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student selected 2, confusing scale of 2 with scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "highlight_key": true,
+                  "description": "Key on scale of 5 graph highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're looking at the scale of 2 graph. Look at the key on the scale of 5 graph. What does it say each symbol equals?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, possibly doubling the scale value",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "highlight_key": true,
+                  "description": "Key on scale of 5 graph highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The key tells you exactly what each symbol stands for. Read the key on the scale of 5 graph. What number do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 1
+          },
+          "description": "Student selected 1, confusing scale with counting by 1s",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "highlight_key": true,
+                  "description": "Key on scale of 5 graph highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "When the scale is 5, each symbol represents 5 items, not 1. Look at the key. It shows what each symbol equals."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "event": "highlight_key_and_symbol",
+                  "status": "confirmed",
+                  "description": "Key highlights showing Each ⭐ = 5. One symbol pulses to demonstrate the connection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The key says Each star equals 5. That means every symbol you see on this graph represents 5 items. When the scale is 5, each symbol stands for 5. That's what makes it a scale of 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:26.034382+00:00"
+  },
+  {
+    "id": "s1_2_grouping_animation_groups_5_worked",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears. Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical orientation."
+        },
+        "id": "s1_2_grouping_animation_groups_5_worked_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's see how 20 items become symbols when the scale is 5. Watch. We'll group by 5s.",
+        "id": "s1_2_grouping_animation_groups_5_worked_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_table",
+        "params": {
+          "event": "grouping_animation",
+          "status": "proposed",
+          "description": "20 items appear for Swings category. Key visible: Each ⭐ = 5.",
+          "category": "Swings",
+          "total_items": 20,
+          "group_size": 5
+        },
+        "id": "s1_2_grouping_animation_groups_5_worked_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Playground Activities. 20 items displayed for Swings, preparing to group by 5s. Key: Each ⭐ = 5.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s1_2_grouping_animation_groups_5_worked_b3"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_table",
+        "params": {
+          "event": "form_groups",
+          "status": "confirmed",
+          "description": "20 items cluster into 4 groups of 5.",
+          "category": "Swings",
+          "groups_formed": 4
+        },
+        "id": "s1_2_grouping_animation_groups_5_worked_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "5, 10, 15, 20. That's 4 groups of 5.",
+        "id": "s1_2_grouping_animation_groups_5_worked_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table with Swings items grouped into 4 clusters of 5. Key: Each ⭐ = 5.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s1_2_grouping_animation_groups_5_worked_b6"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_table",
+        "params": {
+          "event": "transform_to_picture_graph",
+          "status": "confirmed",
+          "description": "4 groups transform into 4 symbols, stacking upward on picture graph for Swings column.",
+          "category": "Swings",
+          "symbols_placed": 4
+        },
+        "id": "s1_2_grouping_animation_groups_5_worked_b7"
+      },
+      {
+        "type": "dialogue",
+        "text": "20 items equals 4 symbols. Each symbol shows 5.",
+        "id": "s1_2_grouping_animation_groups_5_worked_b8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_playground",
+            "description": "Picture graph appears. Swings column shows 4 symbols. Other columns empty. Vertical orientation. Key: Each ⭐ = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Swings",
+              "Slides",
+              "Monkey Bars",
+              "Sandbox"
+            ]
+          }
+        ],
+        "id": "s1_2_grouping_animation_groups_5_worked_b9"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:24.604330+00:00"
+  },
+  {
+    "id": "s1_3_skip_counting_connection",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4, treating symbol count as the total",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_swings",
+                "params": {
+                  "highlight_categories": [
+                    "Swings"
+                  ],
+                  "description": "Swings column highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the symbols. But each symbol stands for more than 1. Check the key. What does each star represent?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 9
+          },
+          "description": "Student selected 9, likely miscounting or using wrong scale",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_swings",
+                "params": {
+                  "highlight_categories": [
+                    "Swings"
+                  ],
+                  "description": "Key highlights on picture graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the key. Each star equals 5. Count by 5s: one star is 5, two stars is 10. Keep going."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 15
+          },
+          "description": "Student selected 15, stopped counting before the fourth symbol",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_swings",
+                "params": {
+                  "highlight_categories": [
+                    "Swings"
+                  ],
+                  "description": "All 4 symbols in Swings column highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're counting by 5s. But check how many symbols are in the column. Count all of them: 5, 10, 15... what comes next?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_swings",
+                "params": {
+                  "event": "highlight_scale_counting",
+                  "status": "confirmed",
+                  "description": "System highlights each symbol in sequence while counting: 5, 10, 15, 20."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Look at the key: each star equals 5. Now count: one star is 5, two stars is 10, three stars is 15, four stars is 20. The picture graph shows 20 because we skip count by the scale."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:38.539377+00:00"
+  },
+  {
+    "id": "s1_4_your_turn_guided_creation",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed wrong number of symbols on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count by 5s: 5, 10, 15. How many times did you count?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed wrong number of symbols on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Slides"
+                  ],
+                  "description": "Slides row highlights in data table showing 15."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Slides in the table: 15. Each symbol stands for 5. Count by 5s until you reach 15. That tells you how many symbols to place."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed wrong number of symbols three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_play",
+                "params": {
+                  "event": "model_symbol_placement",
+                  "status": "confirmed",
+                  "description": "System demonstrates placing symbols one at a time in Slides column while counting by 5s: 5, 10, 15. Three symbols appear.",
+                  "category": "Slides"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Slides has 15. Each symbol represents 5. I count by 5s: 5, 10, 15. That is 3 fives, so 3 symbols. The answer is 3 symbols for Slides."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:48.464599+00:00"
+  },
+  {
+    "id": "s1_5_complete_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed wrong number of symbols on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count by 5s until you reach 25."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed wrong number of symbols on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Monkey Bars"
+                  ],
+                  "description": "Monkey Bars row highlights in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the data table. Monkey Bars has 25. Count by 5s: how many 5s make 25? Each symbol equals 5."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed wrong number of symbols three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "demonstrate_skip_counting",
+                  "status": "confirmed",
+                  "description": "System demonstrates counting by 5s: symbols appear one at a time with labels 5, 10, 15, 20, 25 appearing sequentially.",
+                  "category": "Monkey Bars"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Count by 5s: 5, 10, 15, 20, 25. That's 5 groups of 5. When each symbol equals 5, you need 5 symbols to show 25. The answer is 5 symbols."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:57.587744+00:00"
+  },
+  {
+    "id": "s1_6_continue_building_sandbox",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set incorrect number of symbols on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Check the key. Each symbol stands for 5 votes."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set incorrect number of symbols on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Sandbox"
+                  ],
+                  "description": "Sandbox value highlights in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Sandbox has 10 votes. The key shows each symbol equals 5. Count by 5s: how many 5s make 10?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set incorrect number of symbols three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "model_symbol_placement",
+                  "status": "confirmed",
+                  "description": "System demonstrates placing 2 symbols in Sandbox column, counting by 5s: 5, 10.",
+                  "category": "Sandbox"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Sandbox has 10 votes. Each symbol shows 5. I count by 5s: 5, 10. That's 2 symbols. The answer is 2 symbols because 2 groups of 5 equal 10."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:06:06.849660+00:00"
+  },
+  {
+    "id": "s1_7_reading_your_graph_most_least",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Which column is tallest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_categories": [
+                    "Monkey Bars"
+                  ],
+                  "description": "Monkey Bars column highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the heights of the columns. The tallest column shows the most votes. Which one reaches highest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Monkey Bars",
+                  "description": "Monkey Bars column highlights as system demonstrates."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I look at each column: Swings has 4 symbols, Slides has 3, Monkey Bars has 5, Sandbox has 2. The tallest column is Monkey Bars with 5 symbols. That's 25 votes. The most popular activity is Monkey Bars because it has the tallest column."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Almost. Which column is shortest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "highlight_categories": [
+                    "Sandbox"
+                  ],
+                  "description": "Sandbox column highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: fewest means the smallest number. Look at the column heights. Which one is shortest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_playground",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Sandbox",
+                  "description": "Sandbox column highlights as system demonstrates."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through this. I compare the heights: Swings has 4 symbols, Slides has 3, Monkey Bars has 5, Sandbox has 2. The shortest column is Sandbox with only 2 symbols. That's 10 votes. The activity with the fewest votes is Sandbox because it has the shortest column."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:06:19.707733+00:00"
+  },
+  {
+    "id": "s1_8_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_pets",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Fish",
+            "Birds",
+            "Lizards"
+          ],
+          "scale": 5,
+          "description": "Horizontal picture graph appears on left. Favorite Pets data with scale of 5. Dogs=20, Cats=15, Fish=10, Birds=5, Lizards=0. Key: each paw symbol = 5 votes."
+        },
+        "id": "s1_8_section_transition_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You made a picture graph with scale of 5. Now let's see another way to show the exact same data.",
+        "id": "s1_8_section_transition_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_pets",
+            "description": "Horizontal picture graph on left side. Favorite Pets data with scale of 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds",
+              "Lizards"
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s1_8_section_transition_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:32.478431+00:00"
+  },
+  {
+    "id": "s2_1_two_ways_show_scale_5",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "In the symbols"
+          },
+          "description": "Student selected 'In the symbols', confusing bar graph with picture graph format",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_playground",
+                "params": {
+                  "highlight_axis": true,
+                  "description": "Axis numbers highlight to draw attention to where the scale is shown."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This is a bar graph, not a picture graph. Bar graphs don't use symbols. Look at the numbers along the side. Those show the scale."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "In the title"
+          },
+          "description": "Student selected 'In the title', misunderstanding where scale information appears",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_playground",
+                "params": {
+                  "highlight_axis": true,
+                  "description": "Axis numbers highlight to draw attention to the scale."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The title names what the graph is about. The scale is shown by the numbers along the side. Look at those numbers. What pattern do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_playground",
+                "params": {
+                  "event": "trace_axis",
+                  "status": "confirmed",
+                  "description": "Animation traces up the axis, highlighting each number: 0, 5, 10, 15, 20, 25, 30."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Watch the axis. The numbers go 0, 5, 10, 15, 20, 25, 30. That's counting by 5s. The axis is where the scale lives in a bar graph. The answer is 'On the axis.' That's how bar graphs show scale of 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:06:30.396724+00:00"
+  },
+  {
+    "id": "s2_2_reading_bar_height",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3 (the number of symbols in the picture graph)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_play",
+                "params": {
+                  "highlight_categories": [
+                    "Slides"
+                  ],
+                  "description": "Slides bar highlights. Axis markings pulse at 5, 10, 15."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the symbols in the picture graph. In a bar graph, look where the bar ENDS on the axis. Follow the top of the Slides bar across. What number does it reach?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10 (incorrect axis reading)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_play",
+                "params": {
+                  "highlight_categories": [
+                    "Slides"
+                  ],
+                  "description": "Slides bar highlights. Guideline draws from bar top to axis at 15."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look closely at where the bar ends. The axis counts by 5s: 5, 10, 15. The Slides bar goes past 10. Where does the top of the bar land?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20 (reading Swings bar instead of Slides)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_play",
+                "params": {
+                  "highlight_categories": [
+                    "Slides"
+                  ],
+                  "description": "Slides bar pulses to draw attention. Other bars dim."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "20 is the Swings bar. Look at the Slides bar, the one that is highlighted. Follow the top of that bar to the axis. What number does it reach?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_play",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Guideline draws from top of Slides bar across to axis, landing at 15.",
+                  "category": "Slides"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Follow the top of the Slides bar across to the axis. It ends at 15. That is the bar's height. The bar shows 15 votes, the same as 3 symbols in the picture graph. The height tells you the value."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:06:44.076723+00:00"
+  },
+  {
+    "id": "s2_3_reading_axis_scale_5",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 21
+          },
+          "description": "Student selected 21: counting by 1s instead of recognizing the scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_axis_numbers": [
+                    15,
+                    20,
+                    25,
+                    30
+                  ],
+                  "description": "Numbers 15, 20, 25, 30 pulse on the axis to show the pattern."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the pattern on the axis. These numbers skip by 5s, not 1s. What number comes after 15?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30: skipped ahead by 10 instead of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_axis_numbers": [
+                    15,
+                    20,
+                    25
+                  ],
+                  "description": "Numbers 15, 20, 25 pulse to show the spacing between marks."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Each step on this axis goes up by 5, not 10. From 15 to 20 is 5. From 20 to the next mark is another 5. What's 20 plus 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 22
+          },
+          "description": "Student selected 22: added 2 instead of following the scale pattern",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_axis_numbers": [
+                    0,
+                    5,
+                    10,
+                    15,
+                    20
+                  ],
+                  "description": "All axis numbers from 0 to 20 pulse to show the consistent interval."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This axis counts by 5s, just like you counted symbols. 5, 10, 15, 20, and then what? Keep counting by 5s."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "trace_axis_scale",
+                  "status": "confirmed",
+                  "description": "Axis numbers highlight in sequence: 0, 5, 10, 15, 20, 25, 30, 35, showing the counting by 5s pattern."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The axis counts by 5s the whole way up: 0, 5, 10, 15, 20. After 20 comes 25. That's how the scale works. The skip-counting is built into the side of the graph."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:06:57.716080+00:00"
+  },
+  {
+    "id": "s2_4_your_turn_create_bar",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set incorrect bar height on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Check the axis. Where is 20?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set incorrect bar height on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_axis_numbers": [
+                    20
+                  ],
+                  "description": "The number 20 highlights on the axis."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what helps: the axis counts by 5s. Find 20 on those numbers and set the bar so it ends right there."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set incorrect bar height three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "confirm_bar_height",
+                  "status": "confirmed",
+                  "category": "Pizza",
+                  "description": "Pizza bar extends upward to height 20, demonstrating correct placement."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Pizza has 20 votes. I look at the axis: 5, 10, 15, 20. I set the bar so it ends at 20. The bar height matches the value. That is how you use the axis to place a bar correctly."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:07:07.390530+00:00"
+  },
+  {
+    "id": "s2_5_complete_bar_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set incorrect heights on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at the data table. What number is next to Salad? What number is next to Pasta?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set incorrect heights on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_axis_numbers": true,
+                  "description": "Axis numbers highlight to show the scale increments."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The axis counts by 5s. Salad has 15. Count up: 5, 10, 15. Where does 15 land? Pasta has 25. Count: 5, 10, 15, 20, 25. Set each bar to end at its number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set incorrect heights three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "model_bar_placement",
+                  "status": "confirmed",
+                  "description": "System demonstrates: Salad bar rises to 15 on the axis, then Pasta bar rises to 25."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Salad has 15. I find 15 on the axis and set the bar to end there. Pasta has 25. I find 25 on the axis and set that bar to end there. The bar height matches the value on the axis. That is how bar graphs work: the height shows the count."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:07:18.172717+00:00"
+  },
+  {
+    "id": "s2_6_reading_completed_bar_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student selected 4, confusing symbols with the value 20",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza"
+                  ],
+                  "description": "Pizza column highlights on picture graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Pizza on the picture graph. It has 4 symbols, and that equals 20. But Pasta shows 25 on the bar graph. Count by 5s from the Pasta symbols."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20, confusing the number of items with number of symbols",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "highlight_categories": [],
+                  "description": "All highlights clear."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "event": "highlight_key",
+                  "status": "proposed",
+                  "description": "Key pulses: Each star = 5."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The key tells us each symbol represents 5 items, not 1. How many groups of 5 do you need to make 25?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25, reading the bar value instead of converting to symbols",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "highlight_categories": [],
+                  "description": "All highlights clear."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "event": "highlight_key",
+                  "status": "proposed",
+                  "description": "Key pulses: Each star = 5."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "25 is the number of items Pasta got. But the question asks how many SYMBOLS the picture graph needs. Each symbol stands for 5. Count by 5s to reach 25."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_lunch",
+                "params": {
+                  "event": "count_by_scale",
+                  "status": "confirmed",
+                  "description": "System counts Pasta symbols by 5s: 5, 10, 15, 20, 25. Each symbol lights up as counted.",
+                  "category": "Pasta"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Pasta has 25 on the bar graph. Count by 5s: 5, 10, 15, 20, 25. That's 5 symbols. Each symbol represents 5 items, so 5 symbols equals 25 items total."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:07:32.444426+00:00"
+  },
+  {
+    "id": "s2_7_comparison_question_bars_work_too",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, likely subtracted 5 instead of finding difference between 30 and 15",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Tacos and Salad bars pulse to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at where each bar ends on the axis. Tacos reaches 30. Salad reaches 15. What's the difference between those two numbers?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30, reading Tacos value instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Tacos and Salad bars pulse."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks how many MORE Tacos got than Salad. That means we need the difference. Tacos is 30, Salad is 15. How far apart are they?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45, added the two values instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Tacos and Salad bars pulse."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "When we ask how many MORE, we subtract to find the difference. We don't add them together. What's 30 minus 15?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "Visual bracket appears connecting Tacos bar at 30 and Salad bar at 15, showing the gap of 15.",
+                  "categories": [
+                    "Tacos",
+                    "Salad"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Tacos ends at 30 on the axis. Salad ends at 15. To find how many more, I subtract: 30 minus 15 equals 15. The difference between the two bars is 15."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:07:44.747413+00:00"
+  },
+  {
+    "id": "s2_8_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears showing numeric values only."
+        },
+        "id": "s2_8_section_transition_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "So far, some parts of the graphs were already filled in for you. Now let's see if you can build a whole graph on your own.",
+        "id": "s2_8_section_transition_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing numeric values only.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s2_8_section_transition_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:04.030327+00:00"
+  },
+  {
+    "id": "s3_1_picture_graph_no_scaffolding_horizontal",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed wrong number of symbols on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count by 5s until you reach 35. How many times do you count?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed wrong number of symbols on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_value": "35",
+                  "description": "Liam's value 35 highlights in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Liam's value: 35 books. The key shows each symbol equals 5 books. Count by 5s: 5, 10, 15, 20, 25, 30, 35. How many 5s is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed wrong number of symbols three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "model_symbol_placement",
+                  "status": "confirmed",
+                  "description": "7 symbols appear one by one in Liam row, skip-counting by 5s as each appears: 5, 10, 15, 20, 25, 30, 35.",
+                  "category": "Liam"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Liam read 35 books. Each symbol stands for 5 books. I count by 5s: 5, 10, 15, 20, 25, 30, 35. That's 7 times I counted 5. So I place 7 symbols. The answer is 7 symbols because 35 equals seven groups of 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:07:55.302861+00:00"
+  },
+  {
+    "id": "s3_2_complete_picture_graph",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed incorrect number of symbols on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Check the data table and count by 5s for each category."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed incorrect number of symbols on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_rows": [
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ],
+                  "description": "Data table rows highlight for Emma, Noah, and Olivia."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: Emma has 20. Count by 5s until you reach 20. How many 5s is that? Do the same for Noah and Olivia."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed incorrect number of symbols three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_steps",
+                "params": {
+                  "event": "confirm_symbols_placed",
+                  "status": "confirmed",
+                  "description": "Emma row fills with 4 symbols, Noah row with 5 symbols, Olivia row with 8 symbols.",
+                  "categories": [
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Emma has 20 steps. Count by 5s: 5, 10, 15, 20. That's 4 symbols. Noah has 25: 5, 10, 15, 20, 25. That's 5 symbols. Olivia has 40: 5, 10, 15, 20, 25, 30, 35, 40. That's 8 symbols. Each category gets exactly the number of symbols that matches its value when you count by the scale."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:08:06.755662+00:00"
+  },
+  {
+    "id": "s3_3_comparison_question",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 15
+          },
+          "description": "Student selected 15: possibly subtracted symbol count (8-4=4) then multiplied by 5 incorrectly, or confused which values to compare",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Emma",
+                    "Olivia"
+                  ],
+                  "description": "Emma and Olivia rows highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Emma and Olivia. Count the symbols in each row, then skip-count by 5s to find how many books each person read. What's the difference?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40: read Olivia's total instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Emma",
+                    "Olivia"
+                  ],
+                  "description": "Emma and Olivia rows highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks how many FEWER Emma read than Olivia. You need the difference between them. Find both totals, then subtract."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 60
+          },
+          "description": "Student selected 60: added Olivia and Emma's totals instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Emma",
+                    "Olivia"
+                  ],
+                  "description": "Emma and Olivia rows highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The word FEWER tells us to compare, not add. Find how many books Olivia read, then how many Emma read. Subtract to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "demonstrate_comparison",
+                  "status": "confirmed",
+                  "description": "System highlights Emma's row showing 4 symbols, counts by 5s: 5, 10, 15, 20. Then highlights Olivia's row showing 8 symbols, counts by 5s: 5, 10, 15, 20, 25, 30, 35, 40. Visual shows subtraction: 40 minus 20 equals 20."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Emma has 4 symbols. Count by 5s: 5, 10, 15, 20. That's 20 books. Olivia has 8 symbols: 5, 10, 15, 20, 25, 30, 35, 40. That's 40 books. The difference between 40 and 20 is 20. Emma read 20 fewer books than Olivia."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:08:21.430947+00:00"
+  },
+  {
+    "id": "s3_4_three_scale_toggle_same_data",
+    "incorrects": [],
+    "_generated_at": "2026-04-20T17:08:23.527111+00:00"
+  },
+  {
+    "id": "s3_5_reading_axis_horizontal",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 36
+          },
+          "description": "Student selected 36 — counting by 1s instead of recognizing the scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_axis_numbers": true,
+                  "description": "Axis numbers highlight to draw attention to the scale pattern."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the numbers on the axis. They don't go 31, 32, 33. They jump by 5s. What comes after 30? After 35?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45 — skipped ahead, missing the next value in the sequence",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_axis_numbers": true,
+                  "description": "Axis numbers highlight to draw attention to the sequence."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "45 is on the axis, but it's not right after 35. Count from 30: 30, then add 5. What do you get?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30 — went backward instead of forward in the sequence",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_axis_numbers": true,
+                  "description": "Axis numbers highlight to draw attention to the direction."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "30 comes before 35, not after. The axis counts up: 0, 5, 10, 15... What's the next jump after 35?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "event": "highlight_skip_counting",
+                  "status": "confirmed",
+                  "description": "Axis numbers highlight in sequence: 5, 10, 15, 20, 25, 30, 35, 40."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how the axis works. It counts by 5s: 5, 10, 15, 20, 25, 30, 35. After 35, add 5 more. That gives us 40. The answer is 40. That's how a scale of 5 works on a bar graph axis."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:08:37.607647+00:00"
+  },
+  {
+    "id": "s3_6_bar_graph_independent_creation_horizontal",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set one or more bars incorrectly on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look at the data table and the axis. Match each value to where it lands on the scale."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set one or more bars incorrectly on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_axis_numbers": true,
+                  "description": "Axis numbers highlight to show the skip-counting pattern."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. The axis counts by 5s: 5, 10, 15, 20, 25, 30, 35, 40, 45. For each day, find the number in the data table, then set the bar to end at that number on the axis. Where does Monday's 40 land?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set one or more bars incorrectly three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "event": "model_all_bars",
+                  "status": "confirmed",
+                  "description": "System demonstrates setting all four bars. Saturday bar extends to 35, Sunday bar extends to 30, Monday bar extends to 40, Tuesday bar extends to 25."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Saturday has 35 minutes, so I set the bar to end at 35 on the axis. Sunday has 30, so the bar ends at 30. Monday has 40, the bar ends at 40. Tuesday has 25, the bar ends at 25. The bar length shows the value. Each bar ends right on the axis number that matches the data."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:08:49.247875+00:00"
+  },
+  {
+    "id": "s3_7_reading_totals",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5, the scale increment instead of the sum",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_categories": [
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "description": "Saturday and Sunday bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're looking at the scale. We need the total for these two days. What value does Saturday's bar reach?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 35
+          },
+          "description": "Student selected 35, only Saturday's value",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_categories": [
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "description": "Saturday and Sunday bars pulse to draw attention to both."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Saturday: 35 minutes. The question asks for Saturday AND Sunday. Find Sunday's value, then add them together."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 70
+          },
+          "description": "Student selected 70, possibly doubled 35 or added Monday's value",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "highlight_categories": [
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "description": "Saturday and Sunday bars highlight separately, one after the other."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's check each bar carefully. Saturday reaches 35 on the axis. Sunday reaches 30. Count by 5s if that helps. What do you get when you add 35 and 30?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_screen_time",
+                "params": {
+                  "event": "trace_bar_values",
+                  "status": "confirmed",
+                  "description": "System traces Saturday bar from 0 to 35, then Sunday bar from 0 to 30, showing the values on axis."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Saturday's bar ends at 35. Sunday's bar ends at 30. When we add them, 35 plus 30 equals 65. The answer is 65 minutes in all. We read each bar's height, then add those values together."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:09:02.465208+00:00"
+  },
+  {
+    "id": "s3_9_bridge_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_final",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "scale": 5,
+          "description": "Vertical bar graph appears. Scale of 5. Shows completed work from prior section."
+        },
+        "id": "s3_9_bridge_exit_check_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You made picture graphs and bar graphs, both with scale of 5. You used skip-counting to figure out symbols and bar heights. Let's see what you know.",
+        "id": "s3_9_bridge_exit_check_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_final",
+            "description": "Vertical bar graph. Scale of 5. Shows completed work.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          }
+        ],
+        "id": "s3_9_bridge_exit_check_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:03:50.840190+00:00"
+  }
+]

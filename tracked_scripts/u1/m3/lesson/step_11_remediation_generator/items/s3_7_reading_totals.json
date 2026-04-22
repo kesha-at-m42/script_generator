@@ -1,0 +1,112 @@
+{
+  "id": "s3_7_reading_totals",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5, the scale increment instead of the sum",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "highlight_categories": [
+                  "Saturday",
+                  "Sunday"
+                ],
+                "description": "Saturday and Sunday bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're looking at the scale. We need the total for these two days. What value does Saturday's bar reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35, only Saturday's value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "highlight_categories": [
+                  "Saturday",
+                  "Sunday"
+                ],
+                "description": "Saturday and Sunday bars pulse to draw attention to both."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Saturday: 35 minutes. The question asks for Saturday AND Sunday. Find Sunday's value, then add them together."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 70
+        },
+        "description": "Student selected 70, possibly doubled 35 or added Monday's value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "highlight_categories": [
+                  "Saturday",
+                  "Sunday"
+                ],
+                "description": "Saturday and Sunday bars highlight separately, one after the other."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's check each bar carefully. Saturday reaches 35 on the axis. Sunday reaches 30. Count by 5s if that helps. What do you get when you add 35 and 30?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_screen_time",
+              "params": {
+                "event": "trace_bar_values",
+                "status": "confirmed",
+                "description": "System traces Saturday bar from 0 to 35, then Sunday bar from 0 to 30, showing the values on axis."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Saturday's bar ends at 35. Sunday's bar ends at 30. When we add them, 35 plus 30 equals 65. The answer is 65 minutes in all. We read each bar's height, then add those values together."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:09:02.465208+00:00"
+}

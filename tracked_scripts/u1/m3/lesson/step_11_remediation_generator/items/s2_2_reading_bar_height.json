@@ -1,0 +1,110 @@
+{
+  "id": "s2_2_reading_bar_height",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 (the number of symbols in the picture graph)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_play",
+              "params": {
+                "highlight_categories": [
+                  "Slides"
+                ],
+                "description": "Slides bar highlights. Axis markings pulse at 5, 10, 15."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the symbols in the picture graph. In a bar graph, look where the bar ENDS on the axis. Follow the top of the Slides bar across. What number does it reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10 (incorrect axis reading)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_play",
+              "params": {
+                "highlight_categories": [
+                  "Slides"
+                ],
+                "description": "Slides bar highlights. Guideline draws from bar top to axis at 15."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look closely at where the bar ends. The axis counts by 5s: 5, 10, 15. The Slides bar goes past 10. Where does the top of the bar land?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20 (reading Swings bar instead of Slides)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_play",
+              "params": {
+                "highlight_categories": [
+                  "Slides"
+                ],
+                "description": "Slides bar pulses to draw attention. Other bars dim."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "20 is the Swings bar. Look at the Slides bar, the one that is highlighted. Follow the top of that bar to the axis. What number does it reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_play",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guideline draws from top of Slides bar across to axis, landing at 15.",
+                "category": "Slides"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Follow the top of the Slides bar across to the axis. It ends at 15. That is the bar's height. The bar shows 15 votes, the same as 3 symbols in the picture graph. The height tells you the value."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:44.076723+00:00"
+}

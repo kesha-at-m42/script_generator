@@ -1,0 +1,108 @@
+{
+  "id": "s3_8_final_check_what_s_same",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_books",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Mystery",
+          "Fantasy",
+          "Adventure",
+          "Biography",
+          "Sports"
+        ],
+        "description": "Horizontal picture graph appears. Favorite Books data. Mystery=10, Fantasy=15, Adventure=5, Biography=20, Sports=10. Key: each book symbol = 5 votes. Scale of 5."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_screen_time",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Games",
+          "Videos",
+          "Reading",
+          "Social",
+          "Learning"
+        ],
+        "scale": 5,
+        "description": "Horizontal bar graph appears. Screen Time data. Games=15, Videos=10, Reading=20, Social=5, Learning=15. Vertical axis shows scale: 0, 5, 10, 15, 20. Scale of 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You made both kinds of graphs today. Here's one last question. Picture graphs use symbols. Bar graphs use bars. What do these graphs have in common?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do these graphs have in common?",
+      "tool": "multiple_choice",
+      "options": [
+        "They both use the same scale",
+        "They both use symbols",
+        "They look the same",
+        "They both have 5 categories"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "They both use the same scale"
+          },
+          "description": "Student selected 'They both use the same scale', correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Both use scale of 5. Picture graphs show it with symbols—count by 5s. Bar graphs show it on the side. Same scale, different format."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_books",
+          "description": "Horizontal picture graph. Favorite Books data. Scale of 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Mystery",
+            "Fantasy",
+            "Adventure",
+            "Biography",
+            "Sports"
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_screen_time",
+          "description": "Horizontal bar graph. Screen Time data. Scale of 5 shown on vertical axis.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Games",
+            "Videos",
+            "Reading",
+            "Social",
+            "Learning"
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:46.118887+00:00"
+}

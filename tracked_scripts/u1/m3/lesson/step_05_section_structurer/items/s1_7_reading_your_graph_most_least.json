@@ -1,0 +1,145 @@
+{
+  "id": "s1_7_reading_your_graph_most_least",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_playground",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "scale": 5,
+        "description": "Vertical picture graph appears. Favorite Playground Activities data. Swings=4 symbols, Slides=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols. Key visible: each star symbol = 5 votes."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You made a scaled picture graph. Let's read it. Which activity is the most popular?"
+    },
+    {
+      "type": "prompt",
+      "text": "Click on the activity that is most popular.",
+      "tool": "click_category",
+      "target": "picture_graph_playground",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Monkey Bars"
+          },
+          "description": "Student clicked Monkey Bars, correct, 5 symbols = 25 votes",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Monkey Bars",
+                "description": "Monkey Bars column highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Monkey Bars has 5 symbols, that's 25. The tallest column has the most votes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph. Favorite Playground Activities data. Monkey Bars column highlighted. Key visible: each star = 5 votes.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "picture_graph_playground",
+      "params": {
+        "highlight_categories": [],
+        "description": "Previous highlight clears."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "And which got the fewest?"
+    },
+    {
+      "type": "prompt",
+      "text": "Click on the category with the fewest.",
+      "tool": "click_category",
+      "target": "picture_graph_playground",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Sandbox"
+          },
+          "description": "Student clicked Sandbox, correct, 2 symbols = 10 votes",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_playground",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Sandbox",
+                "description": "Sandbox column highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Sandbox has only 2 symbols, that's 10 votes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph. Favorite Playground Activities data. Sandbox column highlighted. Key visible: each star = 5 votes.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:26.899625+00:00"
+}

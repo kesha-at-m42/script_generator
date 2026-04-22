@@ -1,0 +1,131 @@
+{
+  "id": "s1_1_building_on_scale_comparison",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale_2",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Apples",
+          "Bananas",
+          "Oranges"
+        ],
+        "description": "Vertical picture graph appears on left. Scale of 2. Each star symbol = 2."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale_5",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Apples",
+          "Bananas",
+          "Oranges"
+        ],
+        "description": "Vertical picture graph appears on right. Scale of 5. Each star symbol = 5. Key highlighted."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "In Warmup, you saw something important. Same data, but the scale of 5 graph needed fewer symbols. That's because each symbol represents MORE."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale_2",
+          "description": "Vertical picture graph on left. Scale of 2. Same data as scale of 5 graph.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ]
+        },
+        {
+          "tangible_id": "picture_graph_scale_5",
+          "description": "Vertical picture graph on right. Scale of 5. Key highlighted. Fewer symbols than scale of 2 graph.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Same data, fewer symbols. That's why scale of 5 is useful when numbers get bigger. What does each symbol represent when the scale is 5?"
+    },
+    {
+      "type": "prompt",
+      "text": "What does each symbol represent when the scale is 5?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        5,
+        10,
+        1
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Each symbol represents 5 items. That's the scale."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale_2",
+          "description": "Vertical picture graph on left. Scale of 2.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ]
+        },
+        {
+          "tangible_id": "picture_graph_scale_5",
+          "description": "Vertical picture graph on right. Scale of 5. Key highlighted. Multiple choice tool active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:13.037000+00:00"
+}
