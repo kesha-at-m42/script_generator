@@ -1,0 +1,130 @@
+{
+  "id": "s2_2_student_computes_product_method_relational",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 8,
+        "items_per_container": 2,
+        "description": "8 bags appear, each containing 2 items. Context visualization for 8 × 2."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_8x2",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "8",
+          "×",
+          "2",
+          "=",
+          "__"
+        ],
+        "description": "Equation Builder appears: 8 × 2 = [___]. Product slot empty, awaiting student answer."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Your turn. 8 times 2. That means 8 groups of 2. Skip-count by 2s — eight times. Pick the product of 8 times 2."
+    },
+    {
+      "type": "prompt",
+      "text": "Find the product of 8 × 2.",
+      "tool": "multiple_choice",
+      "options": [
+        10,
+        14,
+        16,
+        18
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 16
+          },
+          "description": "Student selected 16, correct product of 8 × 2",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_8x2",
+              "params": {
+                "expression": [
+                  "8",
+                  "×",
+                  "2",
+                  "=",
+                  "16"
+                ],
+                "description": "16 fills the product slot in the equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "8 times 2 equals 16. Notice that it's even — fits the 2s pattern. You built the equation."
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "equal_groups_bags",
+                  "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
+                  "tangible_type": "equal_groups",
+                  "mode": "reading",
+                  "container_count": 8,
+                  "items_per_container": 2
+                },
+                {
+                  "tangible_id": "equation_builder_8x2",
+                  "description": "Equation Builder showing completed equation: 8 × 2 = 16.",
+                  "tangible_type": "equation_builder",
+                  "expression": [
+                    "8",
+                    "×",
+                    "2",
+                    "=",
+                    "16"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 8,
+          "items_per_container": 2
+        },
+        {
+          "tangible_id": "equation_builder_8x2",
+          "description": "Equation Builder: 8 × 2 = [___]. Product slot has MC options 10, 14, 16, 18.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "8",
+            "×",
+            "2",
+            "=",
+            "__"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:37.556155+00:00"
+}

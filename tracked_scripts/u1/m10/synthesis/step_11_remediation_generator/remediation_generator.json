@@ -1,0 +1,700 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've practiced equations with all kinds of groups and unknowns. Let's connect what you discovered.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:14.236178+00:00"
+  },
+  {
+    "id": "s1_1_sign_truth_check",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "A"
+          },
+          "description": "Student selected A: 3 × 5 = 15, which is true",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_A",
+                "params": {
+                  "description": "Equation A highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "3 times 5 is 15. Both sides have the same value. That means this equation is true. We're looking for the one that's false."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "B"
+          },
+          "description": "Student selected B: 15 = 3 × 5, which is true",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_B",
+                "params": {
+                  "description": "Equation B highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The total is on the left here, but 15 still equals 3 times 5. Both sides match. This equation is true. Look for the one where the sides don't match."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "D"
+          },
+          "description": "Student selected D: 15 = 5 × 3, which is true",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_D",
+                "params": {
+                  "description": "Equation D highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "5 times 3 is 15. The order changed, but the value is the same on both sides. This equation is true. Which one has sides that don't match?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_C",
+                "params": {
+                  "event": "highlight_mismatch",
+                  "status": "confirmed",
+                  "description": "Equation C highlights. Left side shows 15, right side shows 20 with mismatch indicator."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to check. I solve the left side: 3 times 5 is 15. The right side says 20. 15 does not equal 20. The sides don't match, so this equation is false. The answer is C. The equals sign checks if both sides have the same value."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:02:52.512623+00:00"
+  },
+  {
+    "id": "s2_1_context_variety_same_structure",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "All have 4 groups of 2"
+              },
+              {
+                "not": {
+                  "selected": "All have 8 things"
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only 'All have 4 groups of 2' but missed 'All have 8 things'",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_shared",
+                "params": {
+                  "highlight_terms": [
+                    "8"
+                  ],
+                  "description": "The answer 8 highlights in the equation"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the structure: 4 groups of 2. That structure gives us a total. Look at the equation. What number comes after the equals sign?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "not": {
+                  "selected": "All have 4 groups of 2"
+                }
+              },
+              {
+                "not": {
+                  "selected": "All have 8 things"
+                }
+              }
+            ]
+          },
+          "description": "Branch 3: Student selected neither correct answer",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_books",
+                "params": {
+                  "highlight_groups": true,
+                  "description": "The 4 rows in the books image highlight to show grouping structure"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look past what the pictures show. Count the groups in each picture, then count how many are in each group. What pattern do you see in all three?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "or": [
+              {
+                "selected": "All look the same"
+              },
+              {
+                "selected": "All use books"
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected at least one incorrect answer along with possibly some correct answers",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "image_butterflies",
+                "params": {
+                  "highlight": true,
+                  "description": "The butterflies image highlights"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The pictures look different. Books, cups, butterflies. Different things. But the equation fits all three because something about how they're arranged is the same. What is it?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_books",
+                "params": {
+                  "event": "count_groups_and_items",
+                  "status": "confirmed",
+                  "description": "System counts the 4 rows in books image, then counts 2 items per row"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_cups",
+                "params": {
+                  "event": "count_groups_and_items",
+                  "status": "confirmed",
+                  "description": "System counts the 4 stacks in cups image, then counts 2 items per stack"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_butterflies",
+                "params": {
+                  "event": "count_groups_and_items",
+                  "status": "confirmed",
+                  "description": "System counts the 4 circled groups in butterflies image, then counts 2 items per group"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Books: I count 4 rows, 2 books in each row. Cups: 4 stacks, 2 cups in each stack. Butterflies: 4 circles, 2 butterflies in each circle. Every picture has the same structure: 4 groups of 2. That gives us 8 things total. The correct answers are 'All have 4 groups of 2' and 'All have 8 things.'"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:03:09.473818+00:00"
+  },
+  {
+    "id": "s3_1_unknown_position_flexibility",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "The unknown is always the hardest number"
+          },
+          "description": "Student selected B: The unknown is always the hardest number",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_product_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    2,
+                    4
+                  ],
+                  "description": "First equation highlights 4, 5, and the blank to show the relationship."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The unknown isn't about difficulty. Look at the three equations. What stays constant: the numbers and their relationship. What do 4, 5, and 20 always mean together?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The numbers are different each time"
+          },
+          "description": "Student selected C: The numbers are different each time",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_product_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    2
+                  ],
+                  "description": "First equation highlights 4 and 5."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_factor2_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    4
+                  ],
+                  "description": "Second equation highlights 4 and 20."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_factor1_unknown",
+                "params": {
+                  "highlight_positions": [
+                    2,
+                    4
+                  ],
+                  "description": "Third equation highlights 5 and 20."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at all three equations. The same three numbers appear: 4, 5, and 20. Only the position of the unknown changes. What relationship do these numbers always show?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The equation changes meaning each time"
+          },
+          "description": "Student selected D: The equation changes meaning each time",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_product_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "First equation highlights 4 × 5."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_factor2_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "Second equation highlights 4 × blank."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_factor1_unknown",
+                "params": {
+                  "highlight_positions": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "Third equation highlights blank × 5."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The meaning doesn't change. Each equation shows the same relationship: 4 groups of 5 is 20. Read each one. What's the constant relationship among 4, 5, and 20?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_product_unknown",
+                "params": {
+                  "event": "highlight_relationship",
+                  "status": "confirmed",
+                  "description": "First equation highlights the full relationship: 4 × 5 = 20."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_factor2_unknown",
+                "params": {
+                  "event": "highlight_relationship",
+                  "status": "confirmed",
+                  "description": "Second equation highlights the same relationship: 4 × (5) = 20."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_factor1_unknown",
+                "params": {
+                  "event": "highlight_relationship",
+                  "status": "confirmed",
+                  "description": "Third equation highlights the same relationship: (4) × 5 = 20."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you what stays constant. First equation: 4 groups of 5 equals 20. Second equation: 4 groups of something equals 20. That something is 5. Third equation: some number of groups of 5 equals 20. That number is 4. The relationship never changes: 4 groups of 5 equals 20. The unknown just tells you which piece you need to figure out."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:03:25.244832+00:00"
+  },
+  {
+    "id": "s4_1_m9_m10_growth",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "The total moved to the other side"
+          },
+          "description": "Student selected A: noticed the reversed structure but missed the other changes",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_m10",
+                "params": {
+                  "highlight_elements": [
+                    "__"
+                  ],
+                  "description": "The unknown box on the left side of today's equation highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Yes, the total moved. But look at what else changed. What symbol is on the left side now? That's new too."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "There's an unknown number"
+          },
+          "description": "Student selected B: noticed the unknown but missed the other changes",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_m9",
+                "params": {
+                  "highlight_elements": [
+                    "=",
+                    "30"
+                  ],
+                  "description": "The equals sign and 30 in last time's equation highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Right, there's an unknown. But that's not the only change. Look where the total appears in each equation. What moved?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The picture uses stacks, not bags"
+          },
+          "description": "Student selected C: noticed the context change but missed the equation structure changes",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_m10",
+                "params": {
+                  "highlight_elements": [
+                    "__",
+                    "="
+                  ],
+                  "description": "The unknown box and equals sign in today's equation highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The picture did change. But look at the equation itself. What's on the left side today that wasn't there before?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_m10",
+                "params": {
+                  "event": "highlight_all_changes",
+                  "status": "confirmed",
+                  "description": "Today's equation highlights: the unknown on the left, the reversed structure with multiplication on the right, and the stacks context image."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Three things changed. The total moved from right to left. An unknown replaced a known number. And the context switched from bags to stacks. All three are new in Module 10. All of these are different today."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:03:38.301371+00:00"
+  },
+  {
+    "id": "s4_2_key_takeaway",
+    "incorrects": [],
+    "_generated_at": "2026-04-20T17:03:40.600388+00:00"
+  },
+  {
+    "id": "s4_3_identity_building_closure_m11_bridge",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_m9",
+        "tangible_type": "equation",
+        "params": {
+          "description": "M9 equation appears briefly: 3 × 4 = 12"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_m10",
+        "tangible_type": "equation",
+        "params": {
+          "description": "M10 equation appears briefly: 4 × 3 = 12"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_m9",
+        "params": {
+          "event": "fade_out",
+          "status": "confirmed",
+          "description": "M9 equation fades out"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b2"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_m10",
+        "params": {
+          "event": "fade_out",
+          "status": "confirmed",
+          "description": "M10 equation fades out"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b3"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "dot_arrangement",
+        "tangible_type": "image",
+        "params": {
+          "description": "Simple rectangular arrangement of dots appears: 3 rows of 4 dots"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "You came in knowing expressions and products. Now you write complete equations. You know the equals sign means same value as. You find unknowns in any position. And you see equal groups everywhere: bags, rows, stacks, groups.",
+        "id": "s4_3_identity_building_closure_m11_bridge_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "dot_arrangement",
+            "description": "Rectangular arrangement of dots visible: 3 rows of 4 dots",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s4_3_identity_building_closure_m11_bridge_b6"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "dot_arrangement",
+        "params": {
+          "event": "highlight_rows",
+          "status": "confirmed",
+          "description": "Rows highlight briefly"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b7"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "dot_arrangement",
+        "params": {
+          "event": "highlight_columns",
+          "status": "confirmed",
+          "description": "Columns highlight briefly"
+        },
+        "id": "s4_3_identity_building_closure_m11_bridge_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next time, you'll see equal groups arranged in a new way.",
+        "id": "s4_3_identity_building_closure_m11_bridge_b9"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "dot_arrangement",
+            "description": "Rectangular arrangement of dots: 3 rows of 4 dots, columns highlighted",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s4_3_identity_building_closure_m11_bridge_b10"
+      },
+      {
+        "type": "dialogue",
+        "text": "Rows AND columns. You'll have a lot to notice.",
+        "id": "s4_3_identity_building_closure_m11_bridge_b11"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "dot_arrangement",
+            "description": "Rectangular arrangement of dots: 3 rows of 4 dots",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s4_3_identity_building_closure_m11_bridge_b12"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:21.043295+00:00"
+  }
+]

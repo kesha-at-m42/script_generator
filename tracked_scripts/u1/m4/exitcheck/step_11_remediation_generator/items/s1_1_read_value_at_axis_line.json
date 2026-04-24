@@ -1,0 +1,109 @@
+{
+  "id": "s1_1_read_value_at_axis_line",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4, confusing 4 with 40 or misreading scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar remains highlighted. Axis lines 0–60 visible."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at where the top of the bar ends. The numbers on the axis tell you the value. This scale counts by 10s, not 1s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35, estimating between 30 and 40 instead of reading the exact line",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar remains highlighted. 40 axis line emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bar ends exactly on a line, not between two lines. Check which number the top of the bar touches."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, reading one line above where bar ends",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar remains highlighted. 40 axis line emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the very top of the bar. It ends at 40, not at the next line up. Count the lines from the bottom to see."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "trace_bar_to_axis",
+                "status": "confirmed",
+                "description": "System traces from top of Fiction bar horizontally to 40 line on axis."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The top of the Fiction bar lines up exactly with the 40 mark on the axis. We read straight across from the top of the bar to find the value. The Fiction bar shows 40."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:58:56.647252+00:00"
+}

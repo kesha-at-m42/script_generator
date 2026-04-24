@@ -1,0 +1,86 @@
+{
+  "id": "s1_2_build_full_visual_2_create",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the groups first, then count how many dots are in each group."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_context",
+              "params": {
+                "event": "sequential_highlight",
+                "status": "proposed",
+                "description": "Groups highlight sequentially: 1, 2, 3, 4, 5, 6."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. I see 6 groups. Each group has 2 dots. Place those two factors first, then skip-count by 2s six times to find the product."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the correct equation.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_context",
+              "params": {
+                "event": "sequential_highlight_with_count",
+                "status": "confirmed",
+                "description": "Groups highlight as guide skip-counts: 2, 4, 6, 8, 10, 12."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_main",
+              "params": {
+                "event": "place_tiles_sequence",
+                "status": "confirmed",
+                "description": "Tiles place into slots in sequence: 6 in first slot, 2 in second slot, 12 in product slot.",
+                "tiles": [
+                  6,
+                  2,
+                  12
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to build it. First I count the groups: 6 groups total. That's the first factor. Then I count the dots in each group: 2 dots. That's the second factor. Now I skip-count by 2s six times: 2, 4, 6, 8, 10, 12. The product is 12. The complete equation is 6 times 2 equals 12."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:19.499223+00:00"
+}

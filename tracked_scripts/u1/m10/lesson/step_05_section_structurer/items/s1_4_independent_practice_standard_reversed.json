@@ -1,0 +1,163 @@
+{
+  "id": "s1_4_independent_practice_standard_reversed",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 6,
+        "container_type": "bags",
+        "item_type": "marbles",
+        "description": "Equal groups appear. 4 bags, 6 marbles in each bag."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "tile_palette": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          10,
+          16,
+          18,
+          24,
+          28
+        ],
+        "description": "Equation builder appears below. Template: blank × blank = blank. Tile palette: 3, 4, 5, 6, 7, 10, 16, 18, 24, 28."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "One more with bags. Build the equation."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation that matches the picture.",
+      "tool": "place_tile",
+      "target": "equation_builder",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 4,
+              "items": 6,
+              "total": 24
+            }
+          },
+          "description": "Student placed 4 × 6 = 24, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 times 6 equals 24. Four bags, 6 in each, same value as 24."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 6,
+          "container_type": "bags",
+          "item_type": "marbles"
+        },
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation builder with template blank × blank = blank. Student placing tiles.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            16,
+            18,
+            24,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder",
+      "params": {
+        "template": [
+          "24",
+          "=",
+          "4",
+          "×",
+          "6"
+        ],
+        "description": "Equation builder updates to reversed template: 24 = 4 × 6."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "And we can write it this way too — same value."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 6,
+          "container_type": "bags",
+          "item_type": "marbles"
+        },
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing reversed template: 24 = 4 × 6.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "24",
+            "=",
+            "4",
+            "×",
+            "6"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:29.712399+00:00"
+}

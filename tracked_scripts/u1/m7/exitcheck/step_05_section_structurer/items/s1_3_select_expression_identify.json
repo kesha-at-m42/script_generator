@@ -1,0 +1,108 @@
+{
+  "id": "s1_3_select_expression_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 2,
+        "container_type": "circle",
+        "item_type": "dot",
+        "description": "4 circles appear, each containing 2 dots. Semi-abstract visual."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Alright, circles. Figure out the groups, then pick the expression that matches."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression shows this?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 2",
+        "2 × 4",
+        "4 + 2",
+        "2 + 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 2"
+          },
+          "description": "Student selected 4 × 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 × 2. Four circles, two dots each. That's how you match groups to the expression."
+            }
+          ]
+        },
+        {
+          "condition_id": "reversed_factors",
+          "condition": {
+            "selected": "2 × 4"
+          },
+          "description": "Student selected 2 × 4, reversed factors",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Count the circles first — that's 4. Groups go first: 4 × 2."
+            }
+          ]
+        },
+        {
+          "condition_id": "used_addition_4_plus_2",
+          "condition": {
+            "selected": "4 + 2"
+          },
+          "description": "Student selected 4 + 2, used addition instead of multiplication",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 + 2 is 6. But 4 groups of 2 is 8 items. Equal groups means multiplication: 4 × 2."
+            }
+          ]
+        },
+        {
+          "condition_id": "used_addition_2_plus_4",
+          "condition": {
+            "selected": "2 + 4"
+          },
+          "description": "Student selected 2 + 4, used addition instead of multiplication",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 + 2 is 6. But 4 groups of 2 is 8 items. Equal groups means multiplication: 4 × 2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each containing 2 dots. Semi-abstract visual.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "container_type": "circle",
+          "item_type": "dot"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:17.060162+00:00"
+}

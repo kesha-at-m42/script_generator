@@ -1,5 +1,248 @@
 {
   "id": "s3_4_three_scale_toggle_same_data",
-  "incorrects": [],
-  "_generated_at": "2026-04-20T17:08:23.527111+00:00"
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected scale of 2 instead of scale of 1",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You chose scale of 2. But the question asks you to toggle to 1. Look at the three options and click on scale of 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected scale of 5 instead of scale of 1",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "The graph is already at scale of 5. The question asks you to change it to 1. Click on scale of 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student did not select scale of 1 after multiple attempts",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_toggle_transform",
+                "status": "confirmed",
+                "description": "Graph animates to scale of 1. Symbols multiply: Olivia from 8 to 40, Liam from 7 to 35, Noah from 5 to 25, Emma from 4 to 20. Key updates to Each star = 1."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When you toggle to scale of 1, each symbol represents just 1 book. So Olivia's 40 books need 40 symbols. That's why the graph gets so long."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected scale of 1 instead of scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "That's scale of 1, where you just were. The question asks you to toggle to 2. Click on scale of 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected scale of 5 instead of scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "That's scale of 5. We'll go there soon. First, try scale of 2. Click on scale of 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student did not select scale of 2 after multiple attempts",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_toggle_transform",
+                "status": "confirmed",
+                "description": "Graph animates to scale of 2. Symbols reduce: Olivia from 40 to 20, Liam from 35 to 17.5 with half-symbol, Noah from 25 to 12.5 with half-symbol, Emma from 20 to 10. Key updates to Each star = 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "At scale of 2, each symbol represents 2 books. So Olivia's 40 books need 20 symbols. That's half as many as scale of 1, but still more than scale of 5."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected scale of 1 instead of scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You went back to scale of 1, the longest one. The question asks you to toggle to 5. Click on scale of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected scale of 2 instead of scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "That's scale of 2, where you just were. The question asks you to go to 5. Click on scale of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student did not select scale of 5 after multiple attempts",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "scale_toggle_transform",
+                "status": "confirmed",
+                "description": "Graph animates to scale of 5. Symbols reduce: Olivia from 20 to 8, Liam from 17.5 to 7, Noah from 12.5 to 5, Emma from 10 to 4. Key updates to Each star = 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "At scale of 5, each symbol represents 5 books. Olivia's 40 books need just 8 symbols. That's the original graph you built, the shortest version."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "Scale of 1"
+        },
+        "description": "Student selected Scale of 1, which uses the most symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Olivia"
+                ],
+                "description": "Olivia row highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at Olivia's row at each scale. At scale of 1, she had 40 symbols. At scale of 5, she had only 8. Which is fewer?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected Scale of 2, which uses more symbols than scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Olivia"
+                ],
+                "description": "Olivia row highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "At scale of 2, Olivia had 20 symbols. At scale of 5, she had 8 symbols. Which number is smaller, 20 or 8?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student did not select Scale of 5 after multiple attempts",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "highlight_all_scales_comparison",
+                "status": "confirmed",
+                "description": "Visual shows side-by-side comparison: Scale 1 with 40 symbols for Olivia, Scale 2 with 20 symbols, Scale 5 with 8 symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 uses the fewest symbols. When each symbol represents MORE books, you need FEWER symbols. That's why bigger scales are useful when numbers get large."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-24T01:13:00.780557+00:00"
 }

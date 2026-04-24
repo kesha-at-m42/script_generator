@@ -1,0 +1,85 @@
+{
+  "id": "s2_3_near_independent_graph_callback_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 5,
+        "container_type": "circle",
+        "item_type": "dot",
+        "description": "4 circles appear, each containing 5 dots. Same structure as the Warmup graph: 4 groups of 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You know this already. You did something like this in the graph."
+    },
+    {
+      "type": "dialogue",
+      "text": "What do you see?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each containing 5 dots. Equal groups structure visible.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "That's multiplication."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression matches?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 5",
+        "5 × 4",
+        "4 + 5",
+        "5 + 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 5"
+          },
+          "description": "Student selected 4 × 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 × 5. Four circles, five dots each. Same as the graph scale: 4 groups of 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "4 circles, each containing 5 dots. Multiple choice options displayed.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:33.272961+00:00"
+}

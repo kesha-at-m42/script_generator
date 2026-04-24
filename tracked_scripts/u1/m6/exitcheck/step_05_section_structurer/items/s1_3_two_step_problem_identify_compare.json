@@ -1,0 +1,224 @@
+{
+  "id": "s1_3_two_step_problem_identify_compare",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_fieldtrip",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "axis_range": [
+          0,
+          60
+        ],
+        "categories": [
+          "Aquarium",
+          "Museum",
+          "Zoo",
+          "Park",
+          "Farm"
+        ],
+        "values": {
+          "Aquarium": 35,
+          "Museum": 25,
+          "Zoo": 45,
+          "Park": 30,
+          "Farm": 15
+        },
+        "description": "Vertical bar graph appears. Scale of 5, axis 0-60. Context: Votes for Field Trip. Five categories: Aquarium 35, Museum 25, Zoo 45, Park 30, Farm 15."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many fewer votes did the museum and farm combined get than the zoo?"
+    },
+    {
+      "type": "prompt",
+      "text": "What should we find first?",
+      "tool": "multiple_choice",
+      "options": [
+        "Add museum and farm",
+        "Compare zoo to museum",
+        "Add all five places",
+        "Subtract farm from museum"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add museum and farm"
+          },
+          "description": "Student selected to add museum and farm first, correct strategy",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Combine museum and farm first."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fieldtrip",
+          "description": "Vertical bar graph in reading mode. Votes for Field Trip data. Five categories displayed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Aquarium",
+            "Museum",
+            "Zoo",
+            "Park",
+            "Farm"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_fieldtrip",
+      "params": {
+        "highlight_categories": [
+          "Museum",
+          "Farm"
+        ],
+        "description": "Museum bar (25) and Farm bar (15) highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "What's the combined total of votes for the museum and farm?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many votes did museum and farm get combined?",
+      "tool": "multiple_choice",
+      "options": [
+        10,
+        30,
+        40,
+        45
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student answered 40, correct (25 + 15 = 40)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "40 combined. That's 25 plus 15."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fieldtrip",
+          "description": "Vertical bar graph. Museum and Farm bars highlighted. Votes for Field Trip data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Aquarium",
+            "Museum",
+            "Zoo",
+            "Park",
+            "Farm"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_fieldtrip",
+      "params": {
+        "highlight_categories": [
+          "Zoo"
+        ],
+        "description": "Zoo bar (45) highlights. Combined value 40 displayed."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Museum and farm combined is 40. Now find how many fewer votes they got than the zoo."
+    },
+    {
+      "type": "prompt",
+      "text": "How many fewer votes did the museum and farm combined get than the zoo?",
+      "tool": "multiple_choice",
+      "options": [
+        85,
+        45,
+        40,
+        5
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student answered 5, correct (45 - 40 = 5)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo. You used two steps: first added, then compared."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fieldtrip",
+          "description": "Vertical bar graph. Zoo bar highlighted. Votes for Field Trip data. Combined value 40 displayed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Aquarium",
+            "Museum",
+            "Zoo",
+            "Park",
+            "Farm"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:27.688772+00:00"
+}

@@ -1,0 +1,100 @@
+{
+  "id": "s1_1_compute_5_product_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected 12: likely added 7 + 5 instead of multiplying",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_7x5",
+              "params": {
+                "description": "The × symbol pulses to emphasize multiplication operation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The × means multiply, not add. You need 7 groups of 5. Skip-count by 5s seven times."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30: confused 7 × 5 with 6 × 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_7x5",
+              "params": {
+                "description": "The 7 in the first factor position highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the first factor. It's 7, not 6. Skip-count by 5s seven times, not six."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40: likely confused 7 × 5 with 8 × 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_7x5",
+              "params": {
+                "description": "The 7 in the first factor position highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the first factor. It's 7, not 8. Count by 5s seven times: 5, 10, 15, 20, 25, 30... what comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_7x5",
+              "params": {
+                "event": "demonstrate_skip_count",
+                "status": "confirmed",
+                "description": "Skip-count sequence appears above equation: 5, 10, 15, 20, 25, 30, 35. Each number pulses briefly as if counting. After sequence completes, 35 fills the product slot."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 7 times 5 means 7 groups of 5. I skip-count by 5s seven times: 5, 10, 15, 20, 25, 30, 35. The seventh number is 35. That's the product. Notice it ends in 5, which is the pattern for all multiples of 5. The answer is 35."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:06.964210+00:00"
+}

@@ -1,0 +1,290 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:53.642742+00:00"
+  },
+  {
+    "id": "s1_1_scale_too_small_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Vertical data table appears: Toys Collected. Amy: 45, Ben: 70, Cora: 15, Dan: 30."
+        },
+        "id": "s1_1_scale_too_small_identify_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_toys",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Amy",
+            "Ben",
+            "Cora",
+            "Dan"
+          ],
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ],
+          "description": "Four scale options displayed below the data table. Scale of 1, 2, and 5 marked with ❌ and 'doesn't fit'. Scale of 10 marked with ✓."
+        },
+        "id": "s1_1_scale_too_small_identify_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Four friends collected toys for a donation drive. Ben collected the most with 70 toys. Which scale works best for this data?",
+        "id": "s1_1_scale_too_small_identify_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Which scale works best for this data?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 1",
+          "Scale of 2",
+          "Scale of 5",
+          "Scale of 10"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 10"
+            },
+            "description": "Student selected Scale of 10, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8, much easier to read.",
+                "id": "s1_1_scale_too_small_identify_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_scale_too_small_identify_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Vertical data table showing Toys Collected values: Amy: 45, Ben: 70, Cora: 15, Dan: 30.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_toys",
+            "description": "Bar graph with scale options displayed. Scale of 10 selected and confirmed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Amy",
+              "Ben",
+              "Cora",
+              "Dan"
+            ],
+            "scale_options": [
+              1,
+              2,
+              5,
+              10
+            ]
+          }
+        ],
+        "id": "s1_1_scale_too_small_identify_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:03.822445+00:00"
+  },
+  {
+    "id": "s1_2_non_multiples_need_scale_2",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Horizontal data table appears. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
+        },
+        "id": "s1_2_non_multiples_need_scale_2_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "These students tracked how many minutes they read this week. Check the numbers: 23, 31, 9, 16. Which scale will show ALL these values exactly?",
+        "id": "s1_2_non_multiples_need_scale_2_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Which scale will show ALL these values exactly?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 2",
+          "Scale of 5",
+          "Scale of 10"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 2"
+            },
+            "description": "Student selected Scale of 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph.",
+                "id": "s1_2_non_multiples_need_scale_2_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_non_multiples_need_scale_2_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Horizontal data table. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s1_2_non_multiples_need_scale_2_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:10.583732+00:00"
+  },
+  {
+    "id": "s1_3_select_appropriate_scale_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Vertical data table appears. Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
+        },
+        "id": "s1_3_select_appropriate_scale_compare_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "All these numbers end in 0. Think about the biggest number.",
+        "id": "s1_3_select_appropriate_scale_compare_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Which scale is the best choice for this data?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 10 — it's easiest to read.",
+          "Scale of 5 — it shows more detail.",
+          "Scale of 2 — it works for any numbers."
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 10 — it's easiest to read."
+            },
+            "description": "Student selected Scale of 10, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 10. For data up to 90, Scale of 10 gives you a clean graph with only 10 lines on the axis.",
+                "id": "s1_3_select_appropriate_scale_compare_b2_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_5",
+            "condition": {
+              "selected": "Scale of 5 — it shows more detail."
+            },
+            "description": "Student selected Scale of 5, incorrect",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 5 could work, but the biggest number is 90. You'd need a lot of lines to reach 90. Scale of 10 only needs 10 — much cleaner for numbers this big.",
+                "id": "s1_3_select_appropriate_scale_compare_b2_v1_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_2",
+            "condition": {
+              "selected": "Scale of 2 — it works for any numbers."
+            },
+            "description": "Student selected Scale of 2, incorrect",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 2 would need too many lines to reach 90! For big data like this, use a bigger scale.",
+                "id": "s1_3_select_appropriate_scale_compare_b2_v2_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_select_appropriate_scale_compare_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Vertical data table showing Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s1_3_select_appropriate_scale_compare_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:19.305568+00:00"
+  },
+  {
+    "id": "s1_4_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready to practice.",
+        "id": "s1_4_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:22.002737+00:00"
+  }
+]

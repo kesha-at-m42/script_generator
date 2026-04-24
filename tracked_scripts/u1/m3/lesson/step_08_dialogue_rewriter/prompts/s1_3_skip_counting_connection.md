@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:57.519990
+# Generated: 2026-04-23T12:28:16.170636
 ======================================================================
 
 ## API Parameters
@@ -948,11 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Let's check: does the picture graph match our data table? 4 symbols, scale of 5. Count by 5s with me… 4 symbols, counting by 5s. What's the total?",
+      "text": "Let's check: does the picture graph match our data table? 4 symbols, scale of 5. Count by 5s with me. 4 symbols, counting by 5s. What's the total?",
       "context": "lesson"
     },
     {
-      "text": "20 items. 5, 10, 15, 20. Skip counting tells you the total in the picture graph and that matches the value in the data table.",
+      "text": "20 items. 5, 10, 15, 20. Skip-counting tells you the total in the picture graph and that matches the value in the data table.",
       "context": "on_correct"
     }
   ]

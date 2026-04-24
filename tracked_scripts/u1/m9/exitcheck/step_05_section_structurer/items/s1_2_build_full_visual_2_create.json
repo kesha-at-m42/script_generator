@@ -1,0 +1,109 @@
+{
+  "id": "s1_2_build_full_visual_2_create",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_context",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 6,
+        "items_per_container": 2,
+        "description": "6 groups appear, each containing 2 dots."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_main",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "tile_palette": [
+          2,
+          4,
+          5,
+          6,
+          8,
+          10,
+          12,
+          14
+        ],
+        "description": "Equation builder appears below the visual. Three empty slots. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the equation that matches the picture."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation represented by this picture.",
+      "tool": "place_tile",
+      "target": "equation_builder_main",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 6,
+              "items": 2,
+              "total": 12
+            }
+          },
+          "description": "Student placed 6 × 2 = 12, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "6 groups of 2 is 6 times 2 which equals 12."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_context",
+          "description": "6 groups with 2 dots each visible on screen.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 2
+        },
+        {
+          "tangible_id": "equation_builder_main",
+          "description": "Equation builder with three empty slots. Tile palette active.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "tile_palette": [
+            2,
+            4,
+            5,
+            6,
+            8,
+            10,
+            12,
+            14
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:30.249835+00:00"
+}

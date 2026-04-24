@@ -1,0 +1,204 @@
+{
+  "id": "s3_2_minimal_scaffolding_3_step_chain",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_pets",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "scale": 10,
+        "categories": [
+          "Dogs",
+          "Cats",
+          "Birds",
+          "Fish"
+        ],
+        "values": {
+          "Dogs": 65,
+          "Cats": 40,
+          "Birds": 25,
+          "Fish": 30
+        },
+        "title": "Pets at the Shelter",
+        "description": "Horizontal bar graph appears. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "One more. Think about what to do first."
+    },
+    {
+      "type": "prompt",
+      "text": "Select what to find first.",
+      "tool": "multiple_choice",
+      "options": [
+        "Add fish and birds",
+        "Compare dogs to fish",
+        "Subtract birds from dogs",
+        "Add all pets"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add fish and birds"
+          },
+          "description": "Student selected add fish and birds, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Fish and birds combined. Find that total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_pets",
+          "description": "Horizontal bar graph. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_pets",
+      "params": {
+        "highlight_categories": [
+          "Fish",
+          "Birds"
+        ],
+        "description": "Fish bar (30) and Birds bar (25) highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Fish is 30. Birds is 25. What's the combined total of fish and birds?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many fish and birds combined?",
+      "tool": "multiple_choice",
+      "options": [
+        5,
+        45,
+        55,
+        65
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 55
+          },
+          "description": "Student selected 55, correct (30 + 25)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "55 combined."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_pets",
+          "description": "Horizontal bar graph. Fish bar (30) and Birds bar (25) highlighted. Pets at the Shelter.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_pets",
+      "params": {
+        "highlight_categories": [
+          "Dogs"
+        ],
+        "description": "Dogs bar (65) highlights."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Fish and birds combined is 55. Now find how many more dogs there are."
+    },
+    {
+      "type": "prompt",
+      "text": "How many more dogs than fish and birds combined?",
+      "tool": "multiple_choice",
+      "options": [
+        120,
+        65,
+        55,
+        10
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, correct (65 - 55)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "10 more dogs. You found the combined total first, then compared."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_pets",
+          "description": "Horizontal bar graph. Dogs bar (65) highlighted. Pets at the Shelter.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:23.023864+00:00"
+}

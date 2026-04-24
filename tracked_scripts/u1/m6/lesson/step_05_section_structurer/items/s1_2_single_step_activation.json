@@ -1,0 +1,82 @@
+{
+  "id": "s1_2_single_step_activation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Pizza",
+          "Salad",
+          "Sandwich",
+          "Pasta"
+        ],
+        "axis_range": [
+          0,
+          50
+        ],
+        "scale": 5,
+        "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many more students chose pizza than salad? Remember what how many more tells us to do."
+    },
+    {
+      "type": "prompt",
+      "text": "How many more students chose pizza than salad?",
+      "tool": "multiple_choice",
+      "options": [
+        55,
+        35,
+        30,
+        15
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 35
+          },
+          "description": "Student selected 35, correct (45 - 10 = 35)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "35 more. How many more means compare—we subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Salad",
+            "Sandwich",
+            "Pasta"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:59.661637+00:00"
+}

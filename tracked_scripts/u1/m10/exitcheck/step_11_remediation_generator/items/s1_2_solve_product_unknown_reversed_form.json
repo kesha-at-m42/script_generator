@@ -1,0 +1,69 @@
+{
+  "id": "s1_2_solve_product_unknown_reversed_form",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed wrong tile on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the total flowers in all 4 groups."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed wrong tile on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_flowers",
+              "params": {
+                "description": "One group highlights to show 7 flowers."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Each group has 7 flowers. 4 groups means you count 7 four times. Count them all and place that number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed wrong tile three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_flowers",
+              "params": {
+                "event": "count_all",
+                "status": "confirmed",
+                "description": "Each group lights up as the guide counts: 7, 14, 21, 28."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count each group: 7, 14, 21, 28. Four groups of 7 equals 28 total. The total is 28, so 28 equals 4 times 7."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:57.452381+00:00"
+}

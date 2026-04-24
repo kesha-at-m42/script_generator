@@ -1,0 +1,87 @@
+{
+  "id": "s3_3_10_independent_computation_application_reinforcement",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_6x10",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "6",
+          "x",
+          "10",
+          "=",
+          "__"
+        ],
+        "pre_filled": {
+          "groups": 6,
+          "items": 10
+        },
+        "palette": [
+          10,
+          16,
+          30,
+          50,
+          60,
+          70
+        ],
+        "description": "Equation Builder appears. 6 × 10 = [blank]. Factors pre-filled. Palette shows 10, 16, 30, 50, 60, 70. Methods C/D active."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "More 10s. 6 times 10. Skip-count by 10s and place the product."
+    },
+    {
+      "type": "prompt",
+      "text": "Find the product of 6 × 10. Place the tile.",
+      "tool": "place_tile",
+      "target": "equation_builder_6x10",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "total": 60
+          },
+          "description": "Student placed 60, correct product",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_6x10",
+              "params": {
+                "event": "tile_locks_in_slot",
+                "status": "confirmed",
+                "description": "60 tile locks into product slot."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "6 times 10 equals 60. Ends in zero so it shows the 10s pattern."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_6x10",
+          "description": "Equation Builder showing 6 × 10 = 60. All slots filled. Palette showing 10, 16, 30, 50, 60, 70.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "6",
+            "x",
+            "10",
+            "=",
+            "60"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:04.115148+00:00"
+}

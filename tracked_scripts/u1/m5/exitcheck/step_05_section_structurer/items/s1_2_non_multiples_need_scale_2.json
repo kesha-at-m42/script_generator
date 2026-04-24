@@ -1,0 +1,55 @@
+{
+  "id": "s1_2_non_multiples_need_scale_2",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Horizontal data table appears. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "These students tracked how many minutes they read this week. Check the numbers: 23, 31, 9, 16. Which scale will show ALL these values exactly?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale will show ALL these values exactly?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 2",
+        "Scale of 5",
+        "Scale of 10"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 2"
+          },
+          "description": "Student selected Scale of 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Horizontal data table. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:10.583732+00:00"
+}

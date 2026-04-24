@@ -1,0 +1,118 @@
+{
+  "id": "s2_5_mixed_values_at_lines_between",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_reading",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "axis_range": [
+          0,
+          60
+        ],
+        "scale": 10,
+        "snap_to": 5,
+        "gridlines_visible": true,
+        "description": "Vertical bar graph appears with scale of 10, axis 0 to 60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Some values are at the axis lines. Some are between. You decide where each bar goes. Try to complete the graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Complete the graph.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_reading",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "bar_height": {
+                  "category": "Monday",
+                  "value": 40
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Tuesday",
+                  "value": 35
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Wednesday",
+                  "value": 50
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Thursday",
+                  "value": 25
+                }
+              }
+            ]
+          },
+          "description": "Student set all four bars correctly: Monday=40, Tuesday=35, Wednesday=50, Thursday=25",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Monday and Wednesday are at the axis lines. Tuesday and Thursday are between the lines. You figured out which is which."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_reading",
+          "description": "Vertical bar graph in building mode. All four bars set correctly: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:51.614207+00:00"
+}

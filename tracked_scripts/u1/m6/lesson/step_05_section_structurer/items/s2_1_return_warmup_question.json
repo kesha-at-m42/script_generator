@@ -1,0 +1,115 @@
+{
+  "id": "s2_1_return_warmup_question",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Pizza",
+          "Tacos",
+          "Salad",
+          "Burgers"
+        ],
+        "values": {
+          "Pizza": 45,
+          "Tacos": 25,
+          "Salad": 10,
+          "Burgers": 15
+        },
+        "description": "Vertical bar graph appears. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed: How many more students chose pizza than tacos and salad together?"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Remember this question from Warmup? You noticed it needed more than one step. Now let's figure out HOW to solve it."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "First, let's find the categories we need. Which categories does the question ask about? Select all of the needed categories."
+    },
+    {
+      "type": "prompt",
+      "text": "Which categories do we need?",
+      "tool": "multi_select",
+      "options": [
+        "Pizza",
+        "Tacos",
+        "Salad",
+        "Burgers"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "Pizza"
+              },
+              {
+                "selected": "Tacos"
+              },
+              {
+                "selected": "Salad"
+              }
+            ]
+          },
+          "description": "Student selected Pizza, Tacos, and Salad (all three correct categories)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Those three. Notice we DON'T need burgers. The question doesn't ask about burgers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch data. Pizza, Tacos, and Salad bars highlighted to indicate needed categories.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "highlight_categories": [
+            "Pizza",
+            "Tacos",
+            "Salad"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:15.231463+00:00"
+}

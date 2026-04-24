@@ -1,0 +1,141 @@
+{
+  "id": "s1_4_two_step_with_scale_2",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_books",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 2,
+        "categories": [
+          "Maya",
+          "Ben",
+          "Carla",
+          "David"
+        ],
+        "values": {
+          "Maya": 14,
+          "Ben": 9,
+          "Carla": 11,
+          "David": 6
+        },
+        "description": "Vertical bar graph appears. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Different graph, different scale. Use what you know."
+    },
+    {
+      "type": "prompt",
+      "text": "How many books did Maya and Ben read together?",
+      "tool": "multiple_choice",
+      "options": [
+        23,
+        5,
+        14,
+        22
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 23
+          },
+          "description": "Student selected 23, correct (14 + 9 = 23)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "23 books together. You added Maya's 14 and Ben's 9."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 2,
+          "categories": [
+            "Maya",
+            "Ben",
+            "Carla",
+            "David"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_books",
+      "params": {
+        "highlight_categories": [
+          "Carla"
+        ],
+        "description": "Carla bar highlights for step 2."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now compare that total to Carla."
+    },
+    {
+      "type": "prompt",
+      "text": "How many MORE books did Maya and Ben read together than Carla?",
+      "tool": "multiple_choice",
+      "options": [
+        34,
+        12,
+        23,
+        17
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 12
+          },
+          "description": "Student selected 12, correct (23 - 11 = 12)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "12 more. You found the combined total first, then compared."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Carla bar highlighted. Maya=14, Ben=9, Carla=11, David=6.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 2,
+          "categories": [
+            "Maya",
+            "Ben",
+            "Carla",
+            "David"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:41.115060+00:00"
+}

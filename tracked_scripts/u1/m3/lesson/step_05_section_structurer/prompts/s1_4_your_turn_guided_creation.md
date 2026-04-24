@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:37.847370
+# Generated: 2026-04-23T12:20:58.279773
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -819,7 +835,7 @@ Cacheable: Yes
   "correct_answer": "3 symbols placed",
   "on_correct": "\"3 symbols. 5, 10, 15. You used skip-counting to figure it out.\"",
   "remediation_light": "\"Count by 5s: 5, 10, 15. That's 3 fives. Place/Select 3 symbols.\"",
-  "_generated_at": "2026-04-20T16:56:18.421266+00:00",
+  "_generated_at": "2026-04-23T17:17:22.318149+00:00",
   "workspace_specs": {
     "toys": [
       "data_table"
@@ -827,7 +843,8 @@ Cacheable: Yes
     "tools": [
       "click_to_set_height"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_building_on_scale_comparison\n# Section Summary: s1_1_building_on_scale_comparison\n\n**VISUAL STATE:** Two vertical picture graphs display side-by-side in reading mode, both representing \"Books Read This Week\" data across categories Monday, Tuesday, Wednesday, Thursday, and Friday. The left graph uses scale 2 (each star = 2 books): Monday 10 books (5 stars), Tuesday 6 books (3 stars), Wednesday 8 books (4 stars), Thursday 4 books (2 stars), Friday 12 books (6 stars). The right graph uses scale 5 (each star = 5 books): Monday 10 books (2 stars), Tuesday 6 books (2 partial stars), Wednesday 8 books (2 partial stars), Thursday 4 books (1 partial star), Friday 12 books (3 partial stars), with the key highlighted showing \"Each star = 5.\"\n\n**CONTENT:** Students learned that the same dataset can be represented with different scales, and that larger scales require fewer symbols because each symbol represents a greater quantity. The vocabulary term \"scale\" was reinforced, specifically understanding that scale determines the value each symbol represents.\n\n**STUDENT ACTION:** Students answered a multiple-choice question identifying that when the scale is 5, each symbol represents 5 items, selecting the correct answer from options: 2, 5, 10, 1.\n\n---\n\n## s1_2_grouping_animation_groups_5_worked\n# Section Summary: s1_2_grouping_animation_groups_5_worked\n\n**VISUAL STATE:** Two tangibles appear side-by-side at section end: (1) a vertical data table titled \"Favorite Playground Activities\" with categories Swings, Slides, Monkey Bars, Sandbox and values 20, 15, 25, 10 respectively; (2) a vertical picture graph in reading mode with the same four categories, scale of 5 (key: \"Each ⭐ = 5\"), showing 4 star symbols stacked in the Swings column and empty columns for Slides, Monkey Bars, and Sandbox.\n\n**CONTENT:** This section introduced the concept of **grouping by scale** to convert raw data into picture graph symbols. Students learned that when scale = 5, items are organized into groups of 5, and each complete group becomes one symbol. The vocabulary \"scale\" and \"group by 5s\" were formally used. The worked example demonstrated that 20 items organize into 4 groups of 5, which then transform into 4 symbols.\n\n**STUDENT ACTION:** The student observed an animated transformation sequence: 20 individual items for Swings appeared, grouped themselves into 4 sets of 5 items each (counting \"5, 10, 15, 20\"), and then converted into 4 stacked star symbols in the picture graph. This was a demonstration/observation task rather than an interactive construction.\n\n---\n\n## s1_3_skip_counting_connection\n# Section Summary: s1_3_skip_counting_connection\n\n**VISUAL STATE:** A vertical picture graph titled \"Favorite Playground Activities\" displays four categories (Swings, Slides, Monkey Bars, Sandbox) with a scale of 5 (key: Each ⭐ = 5). The Swings column contains 4 star symbols; other columns are empty. A data table appears alongside showing values: Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. A multiple-choice tool is active on screen.\n\n**CONTENT:** The section introduces the connection between skip-counting and reading picture graphs with a scale. Students learned that when a scale equals 5, skip-counting by 5s efficiently determines the total value represented by symbols in a graph, and that this total should match corresponding data table values.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking for the total represented by 4 symbols at scale 5, selecting the correct answer of 20 (skip-counting: 5, 10, 15, 20)."
 }
 </input>
 

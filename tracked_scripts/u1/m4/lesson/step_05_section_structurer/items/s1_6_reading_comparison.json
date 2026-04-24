@@ -1,0 +1,78 @@
+{
+  "id": "s1_6_reading_comparison",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_books",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Fiction",
+          "Nonfiction",
+          "Comics",
+          "Poetry"
+        ],
+        "values": {
+          "Fiction": 40,
+          "Nonfiction": 60,
+          "Comics": 20,
+          "Poetry": 30
+        },
+        "description": "Vertical bar graph appears. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. All 4 bars visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the completed graph. Use it to answer a question. How many MORE books were Nonfiction than Comics?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many MORE books were Nonfiction than Comics?",
+      "tool": "multiple_choice",
+      "options": [
+        20,
+        40,
+        60,
+        80
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40, correct difference between Nonfiction (60) and Comics (20)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "40 more. Nonfiction is 60, Comics is 20. The difference is 40."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph in reading mode. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Fiction",
+            "Nonfiction",
+            "Comics",
+            "Poetry"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:53.985682+00:00"
+}

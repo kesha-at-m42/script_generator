@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:29.582559
+# Generated: 2026-04-23T12:28:46.863475
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_6_reading_completed_bar_graph",
   "dialogues": [
     {
-      "text": "Here's the same data as a picture graph. Let's check: do they match? Look at Pasta. The bar shows 25.",
+      "text": "Here's the same data as a picture graph. Let's check: do they match? Look at Pasta. The bar shows 25. How many symbols should the picture graph have?",
       "context": "lesson"
     },
     {

@@ -1,0 +1,165 @@
+{
+  "id": "s2_4_guided_practice_full_scaffolding",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_rolling",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 10,
+        "categories": [
+          "Skateboards",
+          "Rollerblades",
+          "Bikes",
+          "Scooters"
+        ],
+        "values": {
+          "Skateboards": 15,
+          "Rollerblades": 10,
+          "Bikes": 65,
+          "Scooters": 30
+        },
+        "title": "Favorite Ways to Roll",
+        "description": "Vertical bar graph appears. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Your turn. Here's a new graph."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_rolling",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "categories": [
+            "Skateboards",
+            "Rollerblades",
+            "Bikes",
+            "Scooters"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "This problem needs two steps. What should we find first?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select what to find first.",
+      "tool": "multiple_choice",
+      "options": [
+        "Add scooters and skateboards",
+        "Compare bikes to scooters",
+        "Add all four categories"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add scooters and skateboards"
+          },
+          "description": "Student selected add scooters and skateboards, correct first step",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Right—scooters and skateboards combined. Let's find that total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_rolling",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30. Question visible: How many more students chose bikes than scooters and skateboards together?",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "categories": [
+            "Skateboards",
+            "Rollerblades",
+            "Bikes",
+            "Scooters"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_rolling",
+      "params": {
+        "highlight_categories": [
+          "Scooters",
+          "Skateboards"
+        ],
+        "description": "Scooters and Skateboards bars highlight. Shows 30 + 15 = 45."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Scooters and skateboards combined is 45. Now we compare. How many more is bikes than 45?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many more is bikes than 45?",
+      "tool": "multiple_choice",
+      "options": [
+        110,
+        65,
+        45,
+        20
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student answered 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "20 more. Bikes is 65, combined is 45, so 65 minus 45 is 20. You used the strategy: find the combined total first, then compare."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_rolling",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Scooters and Skateboards bars highlighted. Shows 30 + 15 = 45.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "categories": [
+            "Skateboards",
+            "Rollerblades",
+            "Bikes",
+            "Scooters"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:48.073858+00:00"
+}

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:10.037583
+# Generated: 2026-04-23T12:28:28.894056
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_8_section_transition",
   "dialogues": [
     {
-      "text": "You made a picture graph with scale of 5. Now let's see another way to show the exact same data.",
+      "text": "You made a picture graph with scale of 5. Now let's see ANOTHER way to show the exact same data.",
       "context": "lesson"
     }
   ]

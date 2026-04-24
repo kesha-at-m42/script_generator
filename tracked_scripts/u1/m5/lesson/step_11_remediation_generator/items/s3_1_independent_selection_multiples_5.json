@@ -1,0 +1,297 @@
+{
+  "id": "s3_1_independent_selection_multiples_5",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected Scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruits",
+              "params": {
+                "highlight_categories": [
+                  "Dates"
+                ],
+                "description": "Dates value (60) highlighted in data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 2 works, but look at the biggest number: 60. That means 30 tick marks on the axis. With Scale of 10, you only need 6 tick marks. Which is easier to read?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 5"
+        },
+        "description": "Student selected Scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruits",
+              "params": {
+                "description": "Scale of 5 and Scale of 10 options highlighted side by side."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 fits all the data. But look: to reach 60, you need 12 tick marks. Scale of 10 only needs 6. Both work, but which graph is cleaner?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fruits",
+              "params": {
+                "event": "preview_scale_comparison",
+                "status": "confirmed",
+                "description": "System demonstrates Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. All bars fit cleanly: Dates at 60, Cherries at 45, Bananas at 30, Apples at 15."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how I think about it. The biggest number is 60. All values end in 0 or 5, so Scale of 5 and Scale of 10 both show exact values. But Scale of 10 only needs 6 tick marks while Scale of 5 needs 12. Fewer marks make the graph easier to read. The answer is Scale of 10 because it balances precision with clarity."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "selected": "All values end in 0 or 5 so they can be graphed precisely."
+              }
+            },
+            {
+              "not": {
+                "selected": "The graph is easy to read."
+              }
+            },
+            {
+              "not": {
+                "selected": "The biggest number is 60 so the bars fit on the graph."
+              }
+            },
+            {
+              "not": {
+                "selected": "Scale of 2 takes too many marks to reach the biggest number."
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected all incorrect answers, none correct",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "description": "Data values highlighted with ones place digits shown: 60 (0), 45 (5), 30 (0), 15 (5)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at what the question asks: why is Scale of 10 a good choice? Check the ones place digits. What do you notice about 60, 45, 30, 15?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "All values end in 0 or 5 so they can be graphed precisely."
+                },
+                {
+                  "selected": "The graph is easy to read."
+                },
+                {
+                  "selected": "The biggest number is 60 so the bars fit on the graph."
+                },
+                {
+                  "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "All values end in 0 or 5 so they can be graphed precisely."
+                  },
+                  {
+                    "selected": "The graph is easy to read."
+                  },
+                  {
+                    "selected": "The biggest number is 60 so the bars fit on the graph."
+                  },
+                  {
+                    "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "not": {
+                      "selected": "All values end in 0 or 5 so they can be graphed precisely."
+                    }
+                  },
+                  {
+                    "not": {
+                      "selected": "The graph is easy to read."
+                    }
+                  },
+                  {
+                    "not": {
+                      "selected": "The biggest number is 60 so the bars fit on the graph."
+                    }
+                  },
+                  {
+                    "not": {
+                      "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only correct answers, but not all of them",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruits",
+              "params": {
+                "description": "Scale preview system showing comparison: Scale of 2 (30 marks), Scale of 10 (6 marks)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found some correct reasons. Look at all four statements again. Each one explains something important about why Scale of 10 works well. Are there any others that also fit?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "not": {
+                    "selected": "All values end in 0 or 5 so they can be graphed precisely."
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "The graph is easy to read."
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "The biggest number is 60 so the bars fit on the graph."
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                  }
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "All values end in 0 or 5 so they can be graphed precisely."
+                },
+                {
+                  "selected": "The graph is easy to read."
+                },
+                {
+                  "selected": "The biggest number is 60 so the bars fit on the graph."
+                },
+                {
+                  "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of correct and incorrect answers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "description": "Correct selections highlighted in green."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Some of your choices are right. But check the others carefully. Do they all explain why Scale of 10 is a good choice for this specific data?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fruits",
+              "params": {
+                "event": "demonstrate_all_reasons",
+                "status": "confirmed",
+                "description": "System highlights each reason in sequence: ones place digits showing 0 or 5, axis with only 6 clean tick marks, all bars fitting within range, comparison showing Scale of 2 would need 30 marks."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk through why Scale of 10 works. First, all values end in 0 or 5, so they land exactly on tick marks or halfway between. Second, the graph is easy to read with only 6 marks on the axis. Third, the biggest number is 60, so all bars fit well. Fourth, Scale of 2 would need 30 marks to reach 60, which is too many. All four reasons explain why Scale of 10 is the best choice here."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:06.122290+00:00"
+}

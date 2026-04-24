@@ -1,0 +1,104 @@
+{
+  "id": "s2_1_personalization_recognition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 2,
+        "context": "boxes_with_items",
+        "description": "4 boxes appear, each containing 2 items. Concrete context visualization."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "mc_options",
+      "tangible_type": "multiple_choice",
+      "params": {
+        "description": "Multiple choice options panel appears with four equation choices."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Last time, you matched expressions to equal groups like these. Let's see if you remember how."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression matches these boxes?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 2",
+        "2 × 4",
+        "4 + 2",
+        "2 + 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 2"
+          },
+          "description": "Student selected 4 × 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You matched it: 4 times 2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "4 boxes, each containing 2 items. Concrete context visualization.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "context": "boxes_with_items"
+        },
+        {
+          "tangible_id": "mc_options",
+          "description": "Multiple choice options panel with four equation choices.",
+          "tangible_type": "multiple_choice"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "mc_options",
+      "params": {
+        "description": "Multiple choice options panel clears. Expression 4 × 2 remains visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Last time, you picked the right expression from choices. This time? YOU build them. Let's go."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "4 boxes, each containing 2 items. Expression 4 × 2 visible from previous step.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "context": "boxes_with_items"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:06.941176+00:00"
+}

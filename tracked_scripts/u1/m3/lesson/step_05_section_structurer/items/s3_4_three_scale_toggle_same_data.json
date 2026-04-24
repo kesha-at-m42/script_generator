@@ -4,6 +4,15 @@
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "picture_graph_books",
       "tangible_type": "picture_graph",
       "params": {
@@ -16,21 +25,7 @@
           "Olivia"
         ],
         "scale": 5,
-        "scale_options": [
-          1,
-          2,
-          5
-        ],
-        "description": "Horizontal picture graph appears. Books Read data. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control visible with three options: Each star = 1, Each star = 2, Each star = 5. Currently set to scale of 5."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "add",
-      "tangible_id": "data_table",
-      "tangible_type": "data_table",
-      "params": {
-        "description": "Data table appears alongside graph showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40."
+        "description": "Horizontal picture graph appears titled Books Read This Month. Scale 5: each star = 5 books. Four rows show: Liam 7 symbols (35 books), Emma 4 symbols (20 books), Noah 5 symbols (25 books), Olivia 8 symbols (40 books). Key visible. Scale toggle control displays three options: Each star = 1, Each star = 2, Each star = 5. Defaults to scale of 5."
       }
     },
     {
@@ -48,7 +43,7 @@
           "condition": {
             "selected": 1
           },
-          "description": "Student toggled scale from 5 to 1",
+          "description": "Student toggled scale from 5 to 1. Symbols multiply: Olivia 8 to 40, Liam 7 to 35, Noah 5 to 25, Emma 4 to 20. Key updates to Each star = 1.",
           "is_correct": true,
           "beats": [
             {
@@ -56,10 +51,34 @@
               "method": "animate",
               "tangible_id": "picture_graph_books",
               "params": {
-                "event": "scale_change",
+                "event": "scale_toggle_transform",
                 "status": "confirmed",
-                "description": "Symbols multiply as scale changes to 1. Olivia: 8 symbols → 40 symbols. Liam: 7 symbols → 35 symbols. Noah: 5 symbols → 25 symbols. Emma: 4 symbols → 20 symbols. Key updates to Each star = 1 book."
+                "description": "Graph animates: symbols multiply. Olivia goes from 8 symbols to 40, Liam from 7 to 35, Noah from 5 to 25, Emma from 4 to 20. Key updates to Each star = 1."
               }
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+                  "tangible_type": "data_table"
+                },
+                {
+                  "tangible_id": "picture_graph_books",
+                  "description": "Horizontal picture graph, scale 1. Liam 35 symbols, Emma 20 symbols, Noah 25 symbols, Olivia 40 symbols. Key: Each star = 1.",
+                  "tangible_type": "picture_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": [
+                    "Liam",
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ],
+                  "scale": 1
+                }
+              ]
             }
           ]
         }
@@ -69,8 +88,13 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph. Books Read data at scale of 1. Liam=35 (35 symbols), Emma=20 (20 symbols), Noah=25 (25 symbols), Olivia=40 (40 symbols). Key: Each star = 1 book. Scale toggle control active.",
+          "description": "Horizontal picture graph, scale 5 (default). Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5. Scale toggle active with three options.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -80,17 +104,7 @@
             "Noah",
             "Olivia"
           ],
-          "scale": 1,
-          "scale_options": [
-            1,
-            2,
-            5
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-          "tangible_type": "data_table"
+          "scale": 5
         }
       ]
     },
@@ -109,7 +123,7 @@
           "condition": {
             "selected": 2
           },
-          "description": "Student toggled scale from 1 to 2",
+          "description": "Student toggled scale from 1 to 2. Symbols reduce: Olivia 40 to 20, Liam 35 to 17.5, Noah 25 to 12.5, Emma 20 to 10. Key updates to Each star = 2.",
           "is_correct": true,
           "beats": [
             {
@@ -117,10 +131,34 @@
               "method": "animate",
               "tangible_id": "picture_graph_books",
               "params": {
-                "event": "scale_change",
+                "event": "scale_toggle_transform",
                 "status": "confirmed",
-                "description": "Symbols reduce as scale changes to 2. Olivia: 40 symbols → 20 symbols. Liam: 35 symbols → 17.5 symbols (half-symbol appears). Noah: 25 symbols → 12.5 symbols (half-symbol appears). Emma: 20 symbols → 10 symbols. Key updates to Each star = 2 books."
+                "description": "Graph animates: symbols reduce. Olivia goes from 40 symbols to 20, Liam from 35 to 17.5 (half-symbol appears), Noah from 25 to 12.5 (half-symbol appears), Emma from 20 to 10. Key updates to Each star = 2."
               }
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+                  "tangible_type": "data_table"
+                },
+                {
+                  "tangible_id": "picture_graph_books",
+                  "description": "Horizontal picture graph, scale 2. Liam 17.5 symbols (includes half-symbol), Emma 10 symbols, Noah 12.5 symbols (includes half-symbol), Olivia 20 symbols. Key: Each star = 2.",
+                  "tangible_type": "picture_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": [
+                    "Liam",
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ],
+                  "scale": 2
+                }
+              ]
             }
           ]
         }
@@ -130,8 +168,13 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph. Books Read data at scale of 2. Liam=35 (17.5 symbols), Emma=20 (10 symbols), Noah=25 (12.5 symbols), Olivia=40 (20 symbols). Half-symbols visible for odd values. Key: Each star = 2 books. Scale toggle control active.",
+          "description": "Horizontal picture graph, scale 1. Liam 35 symbols, Emma 20 symbols, Noah 25 symbols, Olivia 40 symbols. Key: Each star = 1. Scale toggle active.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -141,17 +184,7 @@
             "Noah",
             "Olivia"
           ],
-          "scale": 2,
-          "scale_options": [
-            1,
-            2,
-            5
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-          "tangible_type": "data_table"
+          "scale": 1
         }
       ]
     },
@@ -161,7 +194,7 @@
     },
     {
       "type": "prompt",
-      "text": "Toggle the scale back to 5.",
+      "text": "Toggle the scale to 5.",
       "tool": "click_scale_button",
       "target": "picture_graph_books",
       "validator": [
@@ -170,7 +203,7 @@
           "condition": {
             "selected": 5
           },
-          "description": "Student toggled scale from 2 to 5",
+          "description": "Student toggled scale from 2 to 5. Graph returns to original state: Olivia 20 to 8, Liam 17.5 to 7, Noah 12.5 to 5, Emma 10 to 4. Key updates to Each star = 5.",
           "is_correct": true,
           "beats": [
             {
@@ -178,10 +211,34 @@
               "method": "animate",
               "tangible_id": "picture_graph_books",
               "params": {
-                "event": "scale_change",
+                "event": "scale_toggle_transform",
                 "status": "confirmed",
-                "description": "Graph returns to original state. Olivia: 20 symbols → 8 symbols. Liam: 17.5 symbols → 7 symbols. Noah: 12.5 symbols → 5 symbols. Emma: 10 symbols → 4 symbols. Key updates to Each star = 5 books."
+                "description": "Graph animates back to original state. Olivia goes from 20 symbols to 8, Liam from 17.5 to 7, Noah from 12.5 to 5, Emma from 10 to 4. Key updates to Each star = 5."
               }
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+                  "tangible_type": "data_table"
+                },
+                {
+                  "tangible_id": "picture_graph_books",
+                  "description": "Horizontal picture graph, scale 5. Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5.",
+                  "tangible_type": "picture_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": [
+                    "Liam",
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ],
+                  "scale": 5
+                }
+              ]
             }
           ]
         }
@@ -191,8 +248,13 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control active.",
+          "description": "Horizontal picture graph, scale 2. Liam 17.5 symbols, Emma 10 symbols, Noah 12.5 symbols, Olivia 20 symbols. Key: Each star = 2. Scale toggle active.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -202,17 +264,7 @@
             "Noah",
             "Olivia"
           ],
-          "scale": 5,
-          "scale_options": [
-            1,
-            2,
-            5
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-          "tangible_type": "data_table"
+          "scale": 2
         }
       ]
     },
@@ -235,12 +287,44 @@
           "condition": {
             "selected": "Scale of 5"
           },
-          "description": "Student selected Scale of 5, correct",
+          "description": "Student selected Scale of 5, correct answer.",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Scale of 5. Bigger scale, fewer symbols, same data."
+              "text": "Scale of 5. Bigger scale, fewer symbols—same data."
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "description": "Scale toggle becomes inactive after correct answer."
+              }
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+                  "tangible_type": "data_table"
+                },
+                {
+                  "tangible_id": "picture_graph_books",
+                  "description": "Horizontal picture graph, scale 5. Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5. Scale toggle inactive.",
+                  "tangible_type": "picture_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": [
+                    "Liam",
+                    "Emma",
+                    "Noah",
+                    "Olivia"
+                  ],
+                  "scale": 5
+                }
+              ]
             }
           ]
         }
@@ -250,8 +334,13 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control inactive after MC question answered.",
+          "description": "Horizontal picture graph, scale 5. Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5. Scale toggle active with three options.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -261,17 +350,7 @@
             "Noah",
             "Olivia"
           ],
-          "scale": 5,
-          "scale_options": [
-            1,
-            2,
-            5
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-          "tangible_type": "data_table"
+          "scale": 5
         }
       ]
     },
@@ -283,8 +362,13 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books.",
+          "description": "Horizontal picture graph, scale 5. Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5. Scale toggle inactive.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -294,20 +378,10 @@
             "Noah",
             "Olivia"
           ],
-          "scale": 5,
-          "scale_options": [
-            1,
-            2,
-            5
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-          "tangible_type": "data_table"
+          "scale": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:07.213419+00:00"
+  "_generated_at": "2026-04-23T17:26:46.142156+00:00"
 }

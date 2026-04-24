@@ -1,0 +1,66 @@
+{
+  "id": "s2_2_reduced_scaffolding_product_introduction",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 3,
+        "container_type": "circles",
+        "item_type": "dots",
+        "description": "3 circles appear, each containing 3 dots."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here are more circles. What do you notice?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups? How many in each?",
+      "tool": "multiple_choice",
+      "options": [
+        "3 groups of 3",
+        "3 groups of 2",
+        "2 groups of 3",
+        "4 groups of 3"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "3 groups of 3"
+          },
+          "description": "Student identified 3 groups of 3, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "3 groups of 3. That's 3 times 3. And here's something new: the answer to a multiplication problem is called the product. 3 times 3 equals 9. 9 is the product. You have 9 dots altogether."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "3 circles, each containing 3 dots. Reading mode.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 3,
+          "container_type": "circles",
+          "item_type": "dots"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:24.345100+00:00"
+}

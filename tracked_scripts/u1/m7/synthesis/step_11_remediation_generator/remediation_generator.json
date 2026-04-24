@@ -1,0 +1,356 @@
+[
+  {
+    "id": "s1_1_pattern_discovery_what_makes_groups",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "A"
+          },
+          "description": "Student selected A: 3 bags with 4 items each (an equal group)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "A"
+                  ],
+                  "description": "Option A highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at A. Each bag has 4 items. That's the same in every bag. Equal groups have the same amount in each. Which picture shows different amounts in the containers?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "B"
+          },
+          "description": "Student selected B: 4 circles with 2 dots each (an equal group)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "B"
+                  ],
+                  "description": "Option B highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at B. Every circle has 2 dots. That's equal. For groups to NOT be equal, one group needs a different number. Which picture shows that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "D"
+          },
+          "description": "Student selected D: 5 bags with 3 items each (an equal group)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "D"
+                  ],
+                  "description": "Option D highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check D. All five bags have 3 items. That's the same number in each, so that's equal. Look for the picture where the containers have different amounts inside."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "event": "highlight_option",
+                  "status": "confirmed",
+                  "option_id": "C",
+                  "description": "Option C highlights to show the correct answer."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Look at A: 3 bags, each has 4. That's equal. B: 4 circles, each has 2. Equal. D: 5 bags, each has 3. Equal. Now C: one box has 3, the other has 5. Those are different numbers. That makes C NOT equal groups. The answer is C. Equal groups need the same amount in every container."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:01:13.861436+00:00"
+  },
+  {
+    "id": "s2_1_representation_transfer_same_multiplication_three",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "5 groups of 3"
+          },
+          "description": "Student selected 5 groups of 3: reversed the group structure",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight": "containers",
+                  "description": "The 3 bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're counting what's inside the groups. Count the groups themselves first. How many bags are there? How many circles? How many symbols on the graph?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "3 + 5"
+          },
+          "description": "Student selected 3 + 5: interpreted as addition instead of multiplication",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "highlight": "all",
+                  "description": "All circles highlight showing repeated groups."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Addition means we're combining two different amounts. Here, we have the same amount repeating. Each group has 5. Count how many groups have that same 5 inside."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "15 things with no groups"
+          },
+          "description": "Student selected 15 things with no groups: seeing total without structure",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight": "containers",
+                  "description": "Bags highlight to show container structure."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The items are organized. They're not loose. Each bag holds 5, each circle holds 5, each symbol represents 5. How many of those containers are there?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "System counts the 3 bags, then shows 5 items in each."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to see this. First, I count the containers. 1 bag, 2 bags, 3 bags. Then I look inside one bag: 5 items. Every bag has that same 5. So it's 3 groups of 5. The circles show it the same way: 3 circles, 5 dots in each. The graph shows it too: 3 symbols, each symbol stands for 5. Different containers, same structure. All three show 3 groups of 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:01:28.420512+00:00"
+  },
+  {
+    "id": "s3_1_real_world_bridge_equal_groups",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set wrong container count on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. How many packs are on the shelf?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set wrong container count on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "word_problem_real_world",
+                "params": {
+                  "highlight_phrase": "4 packs",
+                  "description": "Text '4 packs' highlights in the problem."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the problem. It says 4 packs of juice boxes. That tells you how many groups. Set the containers to match."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set wrong container count three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_juice",
+                "params": {
+                  "event": "set_container_count",
+                  "status": "confirmed",
+                  "description": "System sets container count to 4.",
+                  "container_count": 4
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The problem says 4 packs of juice boxes. That means we need 4 groups. So I set the containers to 4. The number of packs is the number of groups."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student set wrong items per container on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Check the problem. How many juice boxes in each pack?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student set wrong items per container on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "word_problem_real_world",
+                "params": {
+                  "highlight_phrase": "Each pack has 6",
+                  "description": "Text 'Each pack has 6' highlights in the problem."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The problem says each pack has 6 juice boxes. That's how many items go in each container. Read that part again and set the number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student set wrong items per container three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_juice",
+                "params": {
+                  "event": "set_items_per_container",
+                  "status": "confirmed",
+                  "description": "System sets items per container to 6.",
+                  "items_per_container": 6
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how this works. The problem says each pack has 6 juice boxes. That means every group needs the same amount, 6. So I set the items per container to 6. Now we have 4 groups of 6, which is what the shelf looks like. The answer is 6 in each pack."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:01:41.412775+00:00"
+  },
+  {
+    "id": "s4_1_metacognitive_reflection_type_2_connection",
+    "incorrects": [],
+    "_generated_at": "2026-04-20T17:01:44.000279+00:00"
+  }
+]

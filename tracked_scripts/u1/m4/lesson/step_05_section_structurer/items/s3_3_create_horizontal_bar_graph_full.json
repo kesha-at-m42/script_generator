@@ -1,0 +1,117 @@
+{
+  "id": "s3_3_create_horizontal_bar_graph_full",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Miles Walked This Week. Kai=35, Ava=50, Noah=25, Zoe=45."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_miles",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "categories": [
+          "Kai",
+          "Ava",
+          "Noah",
+          "Zoe"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "snap_to": 5,
+        "description": "Horizontal bar graph appears. Miles Walked This Week. Scale of 10. Axis 0 to 60. No bars filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Create the whole graph. Some values are at axis lines, some are between."
+    },
+    {
+      "type": "prompt",
+      "text": "Complete the graph.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_miles",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "bar_height": {
+                  "category": "Kai",
+                  "value": 35
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Ava",
+                  "value": 50
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Noah",
+                  "value": 25
+                }
+              },
+              {
+                "bar_height": {
+                  "category": "Zoe",
+                  "value": 45
+                }
+              }
+            ]
+          },
+          "description": "All four bars correctly placed: Kai=35, Ava=50, Noah=25, Zoe=45",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Ava at 50, right at the line. Kai, Noah, and Zoe all between the lines."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Miles Walked This Week values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_miles",
+          "description": "Horizontal bar graph. Miles Walked This Week. All four bars set: Kai=35, Ava=50, Noah=25, Zoe=45.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "categories": [
+            "Kai",
+            "Ava",
+            "Noah",
+            "Zoe"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:31.362526+00:00"
+}

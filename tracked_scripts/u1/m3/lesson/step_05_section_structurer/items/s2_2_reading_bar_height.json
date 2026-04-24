@@ -4,7 +4,7 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "picture_graph_play",
+      "tangible_id": "picture_graph_playground",
       "tangible_type": "picture_graph",
       "params": {
         "mode": "reading",
@@ -12,15 +12,23 @@
         "categories": [
           "Swings",
           "Slides",
-          "Monkey bars"
+          "Monkey Bars",
+          "Sandbox"
         ],
-        "description": "Vertical picture graph appears. Favorite Playground Equipment data. Swings=4 symbols, Slides=3 symbols, Monkey bars=5 symbols. Key: each symbol = 5 votes."
+        "scale": 5,
+        "symbols_placed": {
+          "Swings": 4,
+          "Slides": 3,
+          "Monkey Bars": 5,
+          "Sandbox": 2
+        },
+        "description": "Vertical picture graph titled Favorite Playground Activities. Categories: Swings (4 symbols), Slides (3 symbols), Monkey Bars (5 symbols), Sandbox (2 symbols). Scale 5: each star = 5. Key visible."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_play",
+      "tangible_id": "bar_graph_playground",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -28,36 +36,43 @@
         "categories": [
           "Swings",
           "Slides",
-          "Monkey bars"
+          "Monkey Bars",
+          "Sandbox"
         ],
-        "scale": 5,
+        "values": {
+          "Swings": 20,
+          "Slides": 15,
+          "Monkey Bars": 25,
+          "Sandbox": 10
+        },
         "axis_range": [
           0,
-          25
+          30
         ],
-        "description": "Vertical bar graph appears alongside picture graph. Same Favorite Playground Equipment data. Swings bar height=20, Slides bar height=15, Monkey bars bar height=25."
+        "axis_interval": 5,
+        "description": "Vertical bar graph titled Favorite Playground Activities. Categories: Swings (20), Slides (15), Monkey Bars (25), Sandbox (10). Axis: 0 to 30 in intervals of 5. Side-by-side with picture graph."
       }
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "picture_graph_play",
+      "tangible_id": "picture_graph_playground",
       "params": {
         "highlight_categories": [
           "Slides"
         ],
-        "description": "Slides category highlights on picture graph."
+        "description": "Slides column highlights on picture graph."
       }
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "bar_graph_play",
+      "tangible_id": "bar_graph_playground",
       "params": {
         "highlight_categories": [
           "Slides"
         ],
-        "description": "Slides category highlights on bar graph."
+        "description": "Slides bar highlights on bar graph."
       }
     },
     {
@@ -80,9 +95,20 @@
           "condition": {
             "selected": 15
           },
-          "description": "Student selected 15, correct bar height",
+          "description": "Student selected 15, bar height correct",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_playground",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "category": "Slides",
+                "description": "Horizontal line draws from top of Slides bar to vertical axis, 15 highlights."
+              }
+            },
             {
               "type": "dialogue",
               "text": "15. The bar's HEIGHT is 15. It ends at 15 on the axis. Same as 3 symbols on the picture graph. Both show 15."
@@ -95,36 +121,34 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "picture_graph_play",
-          "description": "Vertical picture graph. Slides category highlighted. Favorite Playground Equipment data.",
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph. Favorite Playground Activities. Slides column highlighted. Categories: Swings (4 symbols), Slides (3 symbols), Monkey Bars (5 symbols), Sandbox (2 symbols). Scale 5. Key visible.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Swings",
             "Slides",
-            "Monkey bars"
-          ]
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
         },
         {
-          "tangible_id": "bar_graph_play",
-          "description": "Vertical bar graph. Slides category highlighted. Slides bar height=15.",
+          "tangible_id": "bar_graph_playground",
+          "description": "Vertical bar graph. Favorite Playground Activities. Slides bar highlighted with guideline drawn to 15 on axis. Categories: Swings (20), Slides (15), Monkey Bars (25), Sandbox (10). Axis: 0 to 30 in intervals of 5.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Swings",
             "Slides",
-            "Monkey bars"
-          ],
-          "scale": 5,
-          "axis_range": [
-            0,
-            25
+            "Monkey Bars",
+            "Sandbox"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:00.624572+00:00"
+  "_generated_at": "2026-04-23T17:23:19.183310+00:00"
 }

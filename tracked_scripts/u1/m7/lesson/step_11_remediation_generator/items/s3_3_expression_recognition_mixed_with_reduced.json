@@ -1,0 +1,103 @@
+{
+  "id": "s3_3_expression_recognition_mixed_with_reduced",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "4 × 2"
+        },
+        "description": "Student selected 4 × 2: reversed the order, counting items first instead of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Both boxes highlight to emphasize counting groups first."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the items first. In multiplication, we count the groups first. How many boxes? That's the first number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 + 4"
+        },
+        "description": "Student selected 2 + 4: used addition symbol instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Both boxes highlight to show the equal groups structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The plus sign is for adding. When you have equal groups, you need the times sign. Count the boxes, then what's inside each."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 + 2"
+        },
+        "description": "Student selected 4 + 2: used addition and reversed the order",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Both boxes highlight to emphasize the group structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Equal groups need the times sign, not plus. Count the groups first. How many boxes do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Boxes highlight one at a time: 1, 2. Then one box opens to reveal 4 items, which highlight one by one: 1, 2, 3, 4."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to read equal groups. First, count the boxes. How many groups? 1, 2. Two groups. Now look inside one box. How many? 1, 2, 3, 4. Four in each. The expression is 2 × 4. Groups first, then what's in each group. That's how multiplication works."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:35.082560+00:00"
+}

@@ -1,0 +1,116 @@
+{
+  "id": "s1_3_skip_counting_connection",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2, counting bars instead of reading the scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Yellow"
+                ],
+                "description": "Yellow bar remains highlighted with axis gridlines emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's how many jumps of 10. But each jump is worth 10. Look at the axis numbers. Where does the bar end?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected 12, misreading the scale or adding incorrectly",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "highlight_axis_values_sequential",
+                "status": "proposed",
+                "description": "Axis values 10, 20 highlight sequentially.",
+                "values": [
+                  10,
+                  20
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count by 10s from 0. First line is 10, next line is 20. Which line does Yellow's bar reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25, reading between lines when bar is at a line",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "proposed",
+                "description": "Horizontal guideline draws from top of Yellow bar to axis at 20.",
+                "category": "Yellow"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bar ends exactly at a line, not between lines. This line shows 20. Count by 10s: 10, then 20."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "highlight_axis_values_sequential",
+                "status": "confirmed",
+                "description": "Axis values 10, 20 glow in sequence, then guideline draws from Yellow bar to 20.",
+                "values": [
+                  10,
+                  20
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Start at 0. Count by 10s: 10, 20. Yellow's bar ends right at the 20 line. That's the value. The answer is 20 because the bar's height matches the 20 on the axis."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:22.416462+00:00"
+}

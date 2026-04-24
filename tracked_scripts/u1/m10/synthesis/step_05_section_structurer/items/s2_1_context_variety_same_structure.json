@@ -1,0 +1,112 @@
+{
+  "id": "s2_1_context_variety_same_structure",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_books",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image 1: 4 rows of 2 books on shelves"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_cups",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image 2: 4 stacks of 2 cups"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_butterflies",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image 3: 4 groups of 2 butterflies in circled clusters"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_shared",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "4",
+          "x",
+          "2",
+          "=",
+          "8"
+        ],
+        "description": "One equation below all three images: 4 × 2 = 8"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Three pictures. One equation fits all of them. What makes them the same?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do all three pictures have in common?",
+      "tool": "multi_select",
+      "options": [
+        "All have 4 groups of 2",
+        "All have 8 things",
+        "All look the same",
+        "All use books"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "All have 4 groups of 2"
+              },
+              {
+                "selected": "All have 8 things"
+              }
+            ]
+          },
+          "description": "Student selected both A and B, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Both true! They all have 8 things — and the reason is the same every time: 4 groups of 2. The structure underneath is what the equation captures."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "image_books",
+          "tangible_type": "image",
+          "description": "Image showing 4 rows of 2 books on shelves"
+        },
+        {
+          "tangible_id": "image_cups",
+          "tangible_type": "image",
+          "description": "Image showing 4 stacks of 2 cups"
+        },
+        {
+          "tangible_id": "image_butterflies",
+          "tangible_type": "image",
+          "description": "Image showing 4 groups of 2 butterflies in circled clusters"
+        },
+        {
+          "tangible_id": "equation_shared",
+          "tangible_type": "equation",
+          "description": "Equation displayed below all three images: 4 × 2 = 8"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:37.403028+00:00"
+}

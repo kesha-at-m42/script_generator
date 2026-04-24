@@ -1,0 +1,211 @@
+[
+  {
+    "id": "s1_1_judgment_noticing_task",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_left",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "context": "bags",
+          "position": "left",
+          "description": "Left visual: 3 bags, 5 items in each bag. Equal groups arrangement."
+        },
+        "id": "s1_1_judgment_noticing_task_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_right",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3,
+          "context": "bags",
+          "position": "right",
+          "description": "Right visual: 5 bags, 3 items in each bag. Equal groups arrangement."
+        },
+        "id": "s1_1_judgment_noticing_task_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look closely at both. What's DIFFERENT about these two?",
+        "id": "s1_1_judgment_noticing_task_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "What's different about these groups?",
+        "tool": "multiple_choice",
+        "options": [
+          "Different number of bags",
+          "Different items inside",
+          "One has more total items inside",
+          "Nothing—they're the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Different number of bags"
+            },
+            "description": "Student selected Different number of bags, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. The left has 3 bags. The right has 5 bags.",
+                "id": "s1_1_judgment_noticing_task_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_judgment_noticing_task_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_left",
+            "description": "Left visual: 3 bags, 5 items in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 5,
+            "context": "bags",
+            "position": "left"
+          },
+          {
+            "tangible_id": "equal_groups_right",
+            "description": "Right visual: 5 bags, 3 items in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 3,
+            "context": "bags",
+            "position": "right"
+          }
+        ],
+        "id": "s1_1_judgment_noticing_task_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:54.885712+00:00"
+  },
+  {
+    "id": "s2_1_personalization_recognition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "context": "boxes_with_items",
+          "description": "4 boxes appear, each containing 2 items. Concrete context visualization."
+        },
+        "id": "s2_1_personalization_recognition_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "mc_options",
+        "tangible_type": "multiple_choice",
+        "params": {
+          "description": "Multiple choice options panel appears with four equation choices."
+        },
+        "id": "s2_1_personalization_recognition_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Last time, you matched expressions to equal groups like these. Let's see if you remember how.",
+        "id": "s2_1_personalization_recognition_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression matches these boxes?",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 2",
+          "2 × 4",
+          "4 + 2",
+          "2 + 4"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 × 2"
+            },
+            "description": "Student selected 4 × 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 times 2.",
+                "id": "s2_1_personalization_recognition_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "4 boxes, each containing 2 items. Concrete context visualization.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "context": "boxes_with_items"
+          },
+          {
+            "tangible_id": "mc_options",
+            "description": "Multiple choice options panel with four equation choices.",
+            "tangible_type": "multiple_choice"
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b4"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "mc_options",
+        "params": {
+          "description": "Multiple choice options panel clears. Expression 4 × 2 remains visible."
+        },
+        "id": "s2_1_personalization_recognition_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Last time, you picked the right expression from choices. This time? YOU build them. Let's go.",
+        "id": "s2_1_personalization_recognition_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "4 boxes, each containing 2 items. Expression 4 × 2 visible from previous step.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "context": "boxes_with_items"
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b7"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:06.941176+00:00"
+  }
+]

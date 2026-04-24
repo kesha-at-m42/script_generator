@@ -5,18 +5,47 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_final",
+      "tangible_id": "picture_graph_books",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Liam",
+          "Emma",
+          "Noah",
+          "Olivia"
+        ],
+        "scale": 5,
+        "description": "Horizontal picture graph titled 'Books Read This Month' appears. Scale 5 (each star = 5 books). Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_screentime",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
-        "orientation": "vertical",
+        "orientation": "horizontal",
         "categories": [
-          "Category A",
-          "Category B",
-          "Category C"
+          "Saturday",
+          "Sunday",
+          "Monday",
+          "Tuesday"
         ],
-        "scale": 5,
-        "description": "Vertical bar graph appears. Scale of 5. Shows completed work from prior section."
+        "values": [
+          35,
+          30,
+          40,
+          25
+        ],
+        "axis_range": [
+          0,
+          45
+        ],
+        "axis_interval": 5,
+        "description": "Horizontal bar graph titled 'Weekend Screen Time (minutes)' appears. Saturday 35, Sunday 30, Monday 40, Tuesday 25. Horizontal axis 0–45 in intervals of 5."
       }
     },
     {
@@ -24,18 +53,39 @@
       "text": "You made picture graphs and bar graphs, both with scale of 5. You used skip-counting to figure out symbols and bar heights. Let's see what you know."
     },
     {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_books",
+      "params": {
+        "event": "fade_out",
+        "status": "confirmed",
+        "description": "Picture graph fades out."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_screentime",
+      "params": {
+        "event": "fade_out",
+        "status": "confirmed",
+        "description": "Bar graph fades out."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "picture_graph_books"
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "bar_graph_screentime"
+    },
+    {
       "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "bar_graph_final",
-          "description": "Vertical bar graph. Scale of 5. Shows completed work.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 5
-        }
-      ]
+      "elements": []
     }
   ],
-  "_generated_at": "2026-04-20T17:03:50.840190+00:00"
+  "_generated_at": "2026-04-23T17:28:08.546821+00:00"
 }

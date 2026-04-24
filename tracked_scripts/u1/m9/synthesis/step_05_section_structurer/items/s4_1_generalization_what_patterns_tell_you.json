@@ -1,0 +1,69 @@
+{
+  "id": "s4_1_generalization_what_patterns_tell_you",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_7x2",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "7",
+          "x",
+          "2",
+          "=",
+          "__"
+        ],
+        "description": "Equation Builder appears showing 7 × 2 = ? with product blank."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Before you even skip-count — just looking at 7 times 2 — what do you know about the answer?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do you know about the product of 7 × 2 before computing?",
+      "tool": "multiple_choice",
+      "options": [
+        "The answer is definitely even",
+        "The answer could be even or odd",
+        "The answer is definitely odd"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "The answer is definitely even"
+          },
+          "description": "Student selected A: The answer is definitely even",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You know it's even before counting a single number. That's the pattern working for you."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_7x2",
+          "description": "Equation Builder showing 7 × 2 = ? with product blank.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "7",
+            "x",
+            "2",
+            "=",
+            "__"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:45.008709+00:00"
+}

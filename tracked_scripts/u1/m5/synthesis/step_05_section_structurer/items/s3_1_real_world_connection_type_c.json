@@ -1,0 +1,233 @@
+{
+  "id": "s3_1_real_world_connection_type_c",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table_steps",
+      "tangible_type": "data_table",
+      "params": {
+        "title": "Daily Steps",
+        "categories": [
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu"
+        ],
+        "values": [
+          4500,
+          3200,
+          5100,
+          2800
+        ],
+        "description": "Data table A appears. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table_coins",
+      "tangible_type": "data_table",
+      "params": {
+        "title": "Coins Collected",
+        "categories": [
+          "Jar 1",
+          "Jar 2",
+          "Jar 3",
+          "Jar 4"
+        ],
+        "values": [
+          7,
+          12,
+          19,
+          23
+        ],
+        "description": "Data table B appears. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table_books",
+      "tangible_type": "data_table",
+      "params": {
+        "title": "Books Read",
+        "categories": [
+          "Room A",
+          "Room B",
+          "Room C",
+          "Room D"
+        ],
+        "values": [
+          25,
+          30,
+          35,
+          40
+        ],
+        "description": "Data table C appears. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "People collect data about all kinds of things. Look at these three tables. Which data would HAVE to use Scale of 2?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which data would HAVE to use Scale of 2?",
+      "tool": "multiple_choice",
+      "options": [
+        "Table A",
+        "Table B",
+        "Table C"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Table B"
+          },
+          "description": "Student selected Table B (Coins Collected), correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table_coins",
+              "params": {
+                "highlight": true,
+                "description": "Table B (Coins Collected) highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The coin counts: 7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table_steps",
+          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "tangible_type": "data_table",
+          "title": "Daily Steps",
+          "categories": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu"
+          ],
+          "values": [
+            4500,
+            3200,
+            5100,
+            2800
+          ]
+        },
+        {
+          "tangible_id": "data_table_coins",
+          "description": "Data table B. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "tangible_type": "data_table",
+          "title": "Coins Collected",
+          "categories": [
+            "Jar 1",
+            "Jar 2",
+            "Jar 3",
+            "Jar 4"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ]
+        },
+        {
+          "tangible_id": "data_table_books",
+          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "tangible_type": "data_table",
+          "title": "Books Read",
+          "categories": [
+            "Room A",
+            "Room B",
+            "Room C",
+            "Room D"
+          ],
+          "values": [
+            25,
+            30,
+            35,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Remember this quick check: Do all the numbers end in 0 or 5? If yes, you have options. If no and the numbers are small, Scale of 2 is your go-to."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table_steps",
+          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "tangible_type": "data_table",
+          "title": "Daily Steps",
+          "categories": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu"
+          ],
+          "values": [
+            4500,
+            3200,
+            5100,
+            2800
+          ]
+        },
+        {
+          "tangible_id": "data_table_coins",
+          "description": "Data table B highlighted. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "tangible_type": "data_table",
+          "title": "Coins Collected",
+          "categories": [
+            "Jar 1",
+            "Jar 2",
+            "Jar 3",
+            "Jar 4"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ]
+        },
+        {
+          "tangible_id": "data_table_books",
+          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "tangible_type": "data_table",
+          "title": "Books Read",
+          "categories": [
+            "Room A",
+            "Room B",
+            "Room C",
+            "Room D"
+          ],
+          "values": [
+            25,
+            30,
+            35,
+            40
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:42.424896+00:00"
+}

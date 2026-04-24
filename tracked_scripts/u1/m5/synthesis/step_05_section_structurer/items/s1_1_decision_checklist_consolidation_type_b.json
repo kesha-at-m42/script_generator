@@ -1,0 +1,55 @@
+{
+  "id": "s1_1_decision_checklist_consolidation_type_b",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "Here's the first question you learned: Does the biggest number fit?"
+    },
+    {
+      "type": "dialogue",
+      "text": "Dan scored 80. That's too big for Scale of 5. You'd need a bigger scale."
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the second question: Do all the numbers end in 0 or 5?"
+    },
+    {
+      "type": "dialogue",
+      "text": "7, 12, 19, 23—none of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check FIRST?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which question should you check FIRST?",
+      "tool": "multiple_choice",
+      "options": [
+        "Does the biggest number fit?",
+        "Do the numbers end in 0 or 5?"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Does the biggest number fit?"
+          },
+          "description": "Student selected Does the biggest number fit?, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Right. Check if it fits first—that tells you which scales are even possible. Then check the digits."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:01.749188+00:00"
+}

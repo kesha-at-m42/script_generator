@@ -1,0 +1,55 @@
+{
+  "id": "s1_2_real_world_bridge_where_do",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "D"
+        },
+        "description": "Student selected scenario D: park benches with varying numbers of people (not equal groups)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_scenarios",
+              "params": {
+                "highlight_scenario": "scenario_d",
+                "description": "Scenario D (park benches) highlights to show the unequal groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at those benches. Some have 2 people, some have 3, some have 1. Equal groups need the same number in each. Which scenarios have the same number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models correct answers.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_scenarios",
+              "params": {
+                "event": "highlight_all_equal",
+                "status": "confirmed",
+                "description": "Scenarios A, B, and C all highlight to show they are valid equal groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The egg carton has 2 rows of 6 eggs. The parking lot has 3 rows of 4 cars. The bookshelf has 5 shelves with 3 books each. All three show equal groups because each group has the same number. D doesn't work because the benches have different numbers of people."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:43.427365+00:00"
+}

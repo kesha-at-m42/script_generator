@@ -1,0 +1,521 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You read and created bar graphs with scale of 10. You figured out values at the lines AND between the lines. Let's look at some patterns you discovered.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:34.036683+00:00"
+  },
+  {
+    "id": "s1_1_scale_progression_pattern_type_pattern",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong graph on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look closely. Count the lines on each graph. Which one has the fewest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong graph on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "highlight_categories": [
+                    "Scale 10"
+                  ],
+                  "description": "Scale of 10 graph highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me help. The graph on the right shows only 2 lines: 0, 10, 20. Count the lines on the others. Which has the fewest?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong graph three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "description": "Scale of 10 graph highlights to show the correct answer.",
+                  "category": "Scale 10"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The scale of 1 graph has 20 lines. The scale of 2 has 10 lines. The scale of 5 has 4 lines. The scale of 10 has only 2 lines. Scale of 10 uses the fewest lines because each line represents a bigger jump."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:58:55.197393+00:00"
+  },
+  {
+    "id": "s2_1_orientation_transfer_type_d_representation",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look for the bar that reaches between the 30 and 40 lines."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_vertical",
+                "params": {
+                  "highlight_categories": [
+                    "Category B"
+                  ],
+                  "description": "Category B bar highlights in vertical graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: follow the gridlines to see where each bar stops. The bar showing 35 is between 30 and 40. Which category is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_vertical",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Guideline draws from top of Category B bar to axis, showing it lands between 30 and 40.",
+                  "category": "Category B"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I follow the top of each bar to see where it lands on the axis. Category A reaches 20. Category C reaches 40. Category D reaches 15. Category B reaches between 30 and 40, so that's 35. Category B is the answer."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at where the bar ends. Which bar reaches between the 30 and 40 lines?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_horizontal",
+                "params": {
+                  "highlight_categories": [
+                    "Category B"
+                  ],
+                  "description": "Category B bar highlights in horizontal graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. In a horizontal graph, bars go sideways instead of up. Find the bar that reaches between 30 and 40. Which one is it?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_horizontal",
+                "params": {
+                  "event": "draw_bar_guideline",
+                  "status": "confirmed",
+                  "description": "Guideline draws from end of Category B bar to axis, showing it lands between 30 and 40.",
+                  "category": "Category B"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This one takes a bit of thought, so let's work through it together. I check where each bar ends. Category A ends at 20. Category C ends at 40. Category D ends at 15. Category B ends between 30 and 40, which is 35. The bars go sideways, but the axis still shows the same values. Category B is the answer."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:59:10.165847+00:00"
+  },
+  {
+    "id": "s3_1_real_world_connection_type_c",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "A"
+              },
+              {
+                "not": {
+                  "selected": "B"
+                }
+              },
+              {
+                "not": {
+                  "selected": "C"
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only A (under-selecting, correct but incomplete)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_images",
+                "params": {
+                  "description": "Image A pulses to confirm selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Money does use 10s. Look at the other images. Are there any others that group things by 10?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "B"
+              },
+              {
+                "not": {
+                  "selected": "A"
+                }
+              },
+              {
+                "not": {
+                  "selected": "C"
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected only B (under-selecting, correct but incomplete)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_images",
+                "params": {
+                  "description": "Image B pulses to confirm selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Measuring does use 10s. Look at the other images. Are there any others that group things by 10?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "not": {
+                  "selected": "A"
+                }
+              },
+              {
+                "not": {
+                  "selected": "B"
+                }
+              }
+            ]
+          },
+          "description": "Branch 3: Student selected only C or nothing (all-wrong)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_images",
+                "params": {
+                  "description": "Images A and B dim slightly to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 10 means counting in groups of 10. Look at the money and the ruler. What pattern do you see on both?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "C"
+              },
+              {
+                "or": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected C plus at least one correct answer (mixed correct and incorrect)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_images",
+                "params": {
+                  "description": "Images A and B highlight, C dims."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found situations that use 10s. But counting one by one doesn't use groups of 10. Which images show counting by 10s?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "scenario_images",
+                "params": {
+                  "event": "highlight_answers",
+                  "status": "confirmed",
+                  "description": "Images A and B highlight. Annotation appears: '10, 20, 30...' over both."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Look at image A: dollar bills in stacks of 10. Look at image B: the ruler has marks at 10, 20, 30. Both count by 10s. Image C counts one by one, not in groups of 10. The answers are A and B. When you see bigger numbers organized in groups of 10, scale of 10 makes counting faster."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:59:27.346158+00:00"
+  },
+  {
+    "id": "s4_1_metacognitive_reflection_strategy_identification",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "I picked the line closest to the top of the bar"
+          },
+          "description": "Student selected the closest-line strategy (doesn't account for between-line precision)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_reflection",
+                "params": {
+                  "highlight_categories": [
+                    "Example"
+                  ],
+                  "description": "Bar remains highlighted. Ghost gridlines at 5s pulse briefly."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That gets you close, but the bar is exactly halfway between 40 and 50. What number is halfway?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "I added the two numbers on the lines"
+          },
+          "description": "Student selected adding the gridline numbers (arithmetic error—confuses sum with midpoint)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_reflection",
+                "params": {
+                  "highlight_categories": [
+                    "Example"
+                  ],
+                  "description": "Bar remains highlighted. Ghost gridlines at 5s pulse briefly."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Adding 40 and 50 gives 90, which is too big. To find halfway, you need half of the difference. What's half of 10?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "I guessed"
+          },
+          "description": "Student selected guessing (lacks awareness of the halfway pattern strategy)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_reflection",
+                "params": {
+                  "highlight_categories": [
+                    "Example"
+                  ],
+                  "description": "Bar remains highlighted. Ghost gridlines at 5s pulse briefly."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You don't need to guess. There's a pattern: halfway between any two lines is always 5 more than the lower line. Why is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct strategy.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_reflection",
+                "params": {
+                  "event": "highlight_interval",
+                  "status": "confirmed",
+                  "description": "Ghost gridlines at 5s pulse. The space between 40 and 50 highlights briefly, then the halfway point at 45 glows.",
+                  "interval": [
+                    40,
+                    50
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you the pattern. The bar is halfway between 40 and 50. The lines are 10 apart. Half of 10 is 5. So halfway is always 5 more than the lower line: 40 plus 5 equals 45. That pattern works for any bar graph with scale of 10. Halfway between the lines is always 5 more."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:59:40.226587+00:00"
+  }
+]

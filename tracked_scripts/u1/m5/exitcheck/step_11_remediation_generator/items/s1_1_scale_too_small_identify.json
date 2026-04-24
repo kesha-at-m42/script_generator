@@ -1,0 +1,103 @@
+{
+  "id": "s1_1_scale_too_small_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 1"
+        },
+        "description": "Student selected Scale of 1",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_toys",
+              "params": {
+                "highlight_scale": 1,
+                "description": "Scale of 1 option pulses briefly to acknowledge selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 1 would take 70 tick marks to reach Ben's data. That's way too crowded. Look at the biggest number and think about how many lines you'd need."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected Scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_toys",
+              "params": {
+                "highlight_scale": 2,
+                "description": "Scale of 2 option pulses briefly to acknowledge selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 2 would work if the numbers were small, but to reach 70, you'd need 35 tick marks. That's a lot. Try a bigger scale."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 5"
+        },
+        "description": "Student selected Scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_toys",
+              "params": {
+                "highlight_scale": 5,
+                "description": "Scale of 5 option pulses briefly to acknowledge selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 could fit the data, but to reach 70, you'd need 14 tick marks. There's a bigger scale that makes the graph even cleaner."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_toys",
+              "params": {
+                "event": "demonstrate_scale_comparison",
+                "status": "confirmed",
+                "description": "Visual comparison shows all four scales side by side. Scale of 1 shows 70 marks crowded together. Scale of 2 shows 35 marks. Scale of 5 shows 14 marks. Scale of 10 shows 8 marks, cleanest and easiest to read."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you why Scale of 10 works best here. The biggest number is 70. Scale of 1 would need 70 tick marks. That's way too many. Scale of 2 needs 35. Still crowded. Scale of 5 needs 14. Better, but we can do even cleaner. Scale of 10 only needs 8 tick marks to reach 70. That's the clearest graph. When data goes up to 70 and all the numbers are multiples of 5, Scale of 10 is your best choice."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:59:55.646721+00:00"
+}

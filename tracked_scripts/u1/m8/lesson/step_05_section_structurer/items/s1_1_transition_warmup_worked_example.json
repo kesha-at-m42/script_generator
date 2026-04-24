@@ -1,0 +1,337 @@
+{
+  "id": "s1_1_transition_warmup_worked_example",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 3,
+        "context": "bags_with_apples",
+        "separation": "full",
+        "worked_example": true,
+        "description": "4 bags with 3 apples each appear. Full separation. Worked example designation visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_demo",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "x",
+          "__"
+        ],
+        "style": "equation",
+        "description": "Equation builder appears showing empty template: blank × blank."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You've been matching expressions to equal groups. Now YOU get to build them, and you'll learn to go the other way too, figuring out what an expression looks like as a picture. Let me show you how building works."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each. Full separation. Worked example.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Empty equation template: blank × blank.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "First, I ask myself: how many GROUPS? Each bag is one group."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_bags",
+      "params": {
+        "event": "highlight_containers_sequentially",
+        "status": "confirmed",
+        "description": "Bags highlight one by one as Guide counts."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "1, 2, 3, 4. Four bags. That's 4 groups."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each. All bags highlighted after sequential count.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Empty equation template: blank × blank.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now I ask: how many in EACH group? Let me look inside one bag."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_bags",
+      "params": {
+        "event": "focus_container",
+        "status": "confirmed",
+        "container_index": 0,
+        "description": "First bag zooms into focus, apples inside highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "1, 2, 3. Three apples. Let me check another..."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "First bag in focus with 3 apples highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Empty equation template: blank × blank.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_bags",
+      "params": {
+        "event": "focus_container",
+        "status": "confirmed",
+        "container_index": 1,
+        "description": "Second bag highlights."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Also 3. They're equal groups — same number in every bag."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Second bag highlighted showing 3 apples.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Empty equation template: blank × blank.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "So I have 4 groups of 3. Now watch how I build the expression."
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "highlight_slot": 0,
+        "slot_label": "groups",
+        "description": "First slot glows with subtle label \"groups\"."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each visible.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "First slot glowing with label \"groups\". Second slot empty.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "The first number is how many groups. I click 4."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "event": "place_tile",
+        "status": "confirmed",
+        "slot_index": 0,
+        "value": 4,
+        "description": "4 appears in first slot."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each visible.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "First slot filled with 4. Second slot empty.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "4",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "highlight_slot": 1,
+        "slot_label": "in each",
+        "description": "Second slot glows with label \"in each\"."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "The second number is how many in each group. I click 3."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each visible.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "First slot shows 4. Second slot glowing with label \"in each\".",
+          "tangible_type": "equation_builder",
+          "template": [
+            "4",
+            "x",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "event": "place_tile",
+        "status": "confirmed",
+        "slot_index": 1,
+        "value": 3,
+        "description": "3 appears in second slot. Complete expression shows: 4 × 3."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "I built 4 times 3. This is called an EXPRESSION. An expression uses numbers and symbols to show the math. No equal sign — just the numbers and the times symbol."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 3 apples each visible.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Complete expression: 4 × 3.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "4",
+            "x",
+            "3"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:45.401241+00:00"
+}

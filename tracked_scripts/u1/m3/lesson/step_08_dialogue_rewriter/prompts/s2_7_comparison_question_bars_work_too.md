@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:32.435455
+# Generated: 2026-04-23T12:28:50.027598
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_7_comparison_question_bars_work_too",
   "dialogues": [
     {
-      "text": "You already know how to compare using graphs. Same skill works here. How many MORE students chose Tacos than Salad?",
+      "text": "You already know how to compare using graphs. Same skill works here.",
       "context": "lesson"
     },
     {

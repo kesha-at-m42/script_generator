@@ -1,0 +1,152 @@
+{
+  "id": "s2_3_scale_2_works_non_multiples",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_marbles",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red",
+          "Blue",
+          "Green",
+          "Yellow"
+        ],
+        "values": [
+          7,
+          12,
+          9,
+          5
+        ],
+        "current_scale": 10,
+        "scale_selector_active": true,
+        "description": "Vertical bar graph appears. Marbles data. Red=7, Blue=12, Green=9, Yellow=5. Currently showing Scale of 10. Scale selector interactive."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's try a smaller scale. Try a Scale of 2."
+    },
+    {
+      "type": "prompt",
+      "text": "Click 'Scale of 2' to preview.",
+      "tool": "click_scale_button",
+      "target": "bar_graph_marbles",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student clicked Scale of 2 button",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "preview_scale_transition",
+                "status": "confirmed",
+                "new_scale": 2,
+                "description": "Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears. No warnings."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look—we can read the end of the bars clearly. ALL the numbers land exactly. 7 is right at 7, exactly halfway between 6 and 8. 12 is right at 12."
+            },
+            {
+              "type": "current_scene",
+              "elements": [
+                {
+                  "tangible_id": "bar_graph_marbles",
+                  "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks. Green checkmark visible.",
+                  "tangible_type": "bar_graph",
+                  "mode": "reading",
+                  "orientation": "vertical",
+                  "categories": [
+                    "Red",
+                    "Blue",
+                    "Green",
+                    "Yellow"
+                  ],
+                  "values": [
+                    7,
+                    12,
+                    9,
+                    5
+                  ],
+                  "current_scale": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Vertical bar graph in reading mode. Marbles data showing Scale of 10. Scale selector active with Scale of 2 option available.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ],
+          "values": [
+            7,
+            12,
+            9,
+            5
+          ],
+          "current_scale": 10,
+          "scale_selector_active": true
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "With Scale of 2, half of 2 is 1. So you can show ANY whole number exactly."
+    },
+    {
+      "type": "dialogue",
+      "text": "Scale of 2 works to show the exact value for all numbers—and for small data, the graph won't have too many marks on the axis."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ],
+          "values": [
+            7,
+            12,
+            9,
+            5
+          ],
+          "current_scale": 2
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:38.476125+00:00"
+}

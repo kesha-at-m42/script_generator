@@ -1,0 +1,801 @@
+[
+  {
+    "id": "s1_1_data_collection_game",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_collection_game_minis",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "categories": [
+            "Red Minis",
+            "Blue Minis",
+            "Green Minis",
+            "Yellow Minis"
+          ],
+          "target_values": [
+            20,
+            40,
+            30,
+            50
+          ],
+          "description": "Animated Minis characters appear collecting items. Four categories visible: Red, Blue, Green, and Yellow Minis."
+        },
+        "id": "s1_1_data_collection_game_b0",
+        "_notion_block_id": "3485917e-ac52-81a3-9fd1-cbbadeebaba2"
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are collecting items! Help count what they found.",
+        "id": "s1_1_data_collection_game_b1",
+        "_notion_block_id": "3485917e-ac52-813a-8b75-e911fb478c48"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_collection_game_minis",
+        "params": {
+          "event": "count_items",
+          "status": "confirmed",
+          "description": "Student counts items across categories. Results: Red Minis 20, Blue Minis 40, Green Minis 30, Yellow Minis 50. Values display as multiples of 10 with clear differences."
+        },
+        "id": "s1_1_data_collection_game_b2",
+        "_notion_block_id": "3485917e-ac52-8131-9760-c67a136a67c6"
+      },
+      {
+        "type": "dialogue",
+        "text": "You counted the items. That's a lot! Let's see how to show this data.",
+        "id": "s1_1_data_collection_game_b3",
+        "_notion_block_id": "3485917e-ac52-81b3-a656-f359af3a163e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game_minis",
+            "description": "Completed counting game showing results. Red Minis: 20, Blue Minis: 40, Green Minis: 30, Yellow Minis: 50.",
+            "tangible_type": "data_collection_game",
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Green Minis",
+              "Yellow Minis"
+            ],
+            "values": [
+              20,
+              40,
+              30,
+              50
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b4",
+        "_toml_key": "step_100_data_collection_game"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:37.337163+00:00",
+    "_notion_block_id": "3485917e-ac52-81a6-a0c4-fcfedcf365bf",
+    "_toml_key": "section_100_data_collection_game"
+  },
+  {
+    "id": "s2_1_scale_comparison_1_5_vs",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale_5",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "description": "Left vertical picture graph appears. Student's data shown with scale of 5. Key: each star symbol = 5."
+        },
+        "id": "s2_1_scale_comparison_1_5_vs_b0",
+        "_notion_block_id": "3485917e-ac52-81fe-bfdb-f779ad93c817"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale_10",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "description": "Right vertical picture graph appears. Same data shown with scale of 10. Key: each star symbol = 10."
+        },
+        "id": "s2_1_scale_comparison_1_5_vs_b1",
+        "_notion_block_id": "3485917e-ac52-81b3-b1f2-ee3c910c983c"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's your data two ways. Look at both graphs. Which graph uses fewer symbols to show the same data?",
+        "id": "s2_1_scale_comparison_1_5_vs_b2",
+        "_notion_block_id": "3485917e-ac52-81cb-b85f-df1e6a8230a4"
+      },
+      {
+        "type": "prompt",
+        "text": "Which graph uses FEWER symbols to show the same data?",
+        "tool": "multiple_choice",
+        "options": [
+          "Left graph (scale of 5)",
+          "Right graph (scale of 10)"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Right graph (scale of 10)"
+            },
+            "description": "Student selected the 1:10 graph, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_10",
+                "params": {
+                  "event": "highlight_graph",
+                  "status": "confirmed",
+                  "description": "Right graph highlights to confirm selection."
+                },
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Scale of 10 uses fewer symbols. Each symbol shows more, so you need fewer of them.",
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8190-9396-f98f12d6fa7e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Left graph (scale of 5)"
+            },
+            "description": "Student selected the 1:5 graph, which uses more symbols",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "description": "Left graph highlights."
+                },
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v1_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_10",
+                "params": {
+                  "description": "Right graph highlights."
+                },
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v1_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the keys. When each symbol stands for more, you need fewer symbols. Which key shows a bigger number?",
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v1_b2",
+                "_notion_block_id": "3485917e-ac52-8144-82b7-d98510d6aee3"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_10",
+                "params": {
+                  "event": "highlight_graph",
+                  "status": "confirmed",
+                  "description": "Right graph highlights to show the answer."
+                },
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The right graph has scale of 10. Each symbol stands for 10. The left graph has scale of 5. Each symbol stands for 5. When each symbol shows more, you need fewer symbols to show the same amount. The right graph uses fewer symbols because its scale is bigger.",
+                "id": "s2_1_scale_comparison_1_5_vs_b3_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81fd-a0b3-d847f16e3547"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_scale_comparison_1_5_vs_b3",
+        "_notion_block_id": "3485917e-ac52-8140-87f4-f88828455516"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale_5",
+            "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          },
+          {
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Right vertical picture graph highlighted. Same data with scale of 10. Key: each star = 10.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ],
+        "id": "s2_1_scale_comparison_1_5_vs_b4",
+        "_notion_block_id": "3485917e-ac52-81d1-a4ec-c23cef7f11b8",
+        "_toml_key": "step_101_scale_comparison_1_5_vs"
+      },
+      {
+        "type": "dialogue",
+        "text": "With scale of 10, each symbol shows more than scale of 5. That's why you need fewer symbols for the same data.",
+        "id": "s2_1_scale_comparison_1_5_vs_b5",
+        "_notion_block_id": "3485917e-ac52-8150-b810-f4b95e084dfa"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale_5",
+            "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          },
+          {
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Right vertical picture graph. Same data with scale of 10. Key: each star = 10.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ],
+        "id": "s2_1_scale_comparison_1_5_vs_b6",
+        "_toml_key": "step_102_scale_comparison_1_5_vs"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:49.722385+00:00",
+    "_notion_block_id": "3485917e-ac52-812b-a83e-f77acc141bc2",
+    "_toml_key": "section_101_scale_comparison_1_5_vs"
+  },
+  {
+    "id": "s3_1_picture_bar_bridge_1_10",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_w2",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Fish",
+            "Birds"
+          ],
+          "scale": 10,
+          "description": "Vertical picture graph appears on left. Scale 1:10. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols). Key: each symbol = 10 votes."
+        },
+        "id": "s3_1_picture_bar_bridge_1_10_b0",
+        "_notion_block_id": "3485917e-ac52-81c5-aaa9-ec238ddebd1d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now watch this. Here's the SAME data as a bar graph.",
+        "id": "s3_1_picture_bar_bridge_1_10_b1",
+        "_notion_block_id": "3485917e-ac52-8102-bd25-d2eb52bb60f9"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_pets",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Fish",
+            "Birds"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears on right. Same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Vertical axis shows scale of 10: 0, 10, 20, 30, 40, 50, 60."
+        },
+        "id": "s3_1_picture_bar_bridge_1_10_b2",
+        "_notion_block_id": "3485917e-ac52-81ad-bba4-ec7f0dc6ae31"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_w2",
+            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols).",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "scale": 10
+          },
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s3_1_picture_bar_bridge_1_10_b3",
+        "_notion_block_id": "3485917e-ac52-81ad-80a1-e846b5c765e8",
+        "_toml_key": "step_103_picture_bar_bridge_1_10"
+      },
+      {
+        "type": "dialogue",
+        "text": "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?",
+        "id": "s3_1_picture_bar_bridge_1_10_b4",
+        "_notion_block_id": "3485917e-ac52-8141-b4c4-ceb1de309a03"
+      },
+      {
+        "type": "prompt",
+        "text": "Both graphs show 50 for Birds. Can you find where?",
+        "tool": "click_category",
+        "target": "picture_graph_w2",
+        "validator": [
+          {
+            "condition_id": "clicked_pg_birds",
+            "condition": {
+              "selected": "Birds"
+            },
+            "description": "Student clicked Birds on picture graph, correct, 50 votes shown as 5 symbols",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_w2",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds column highlights on picture graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b1",
+                "_notion_block_id": "3485917e-ac52-814a-a60f-f4a87566a93c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on picture graph, first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check the key. How many symbols show 50?",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81d9-a7e9-f9fcafc4086b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on picture graph, second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_w2",
+                "params": {
+                  "highlight_categories": [
+                    "Birds"
+                  ],
+                  "description": "Birds column highlights on picture graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The key says each symbol equals 10. Count the Birds column: 5 symbols. How much is that?",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8168-90f8-efa0b7e32a94"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category on picture graph three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_w2",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds column highlights on picture graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The key tells us each symbol equals 10. I count the Birds column: 1, 2, 3, 4, 5 symbols. That's 5 times 10, which equals 50. Birds shows 50.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81b0-bbe2-c49f2309e966"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_picture_bar_bridge_1_10_b5",
+        "_notion_block_id": "3485917e-ac52-81dd-b03b-d5cae7f041aa"
+      },
+      {
+        "type": "prompt",
+        "text": "Both graphs show 50 for Birds. Can you find where?",
+        "tool": "click_category",
+        "target": "bar_graph_pets",
+        "validator": [
+          {
+            "condition_id": "clicked_bg_birds",
+            "condition": {
+              "selected": "Birds"
+            },
+            "description": "Student clicked Birds on bar graph, correct, bar height at 50",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds bar highlights on bar graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b1",
+                "_notion_block_id": "3485917e-ac52-810d-93f0-fc3f7a2cc7c1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student clicked a wrong category on bar graph, first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look at the heights. Which bar reaches 50?",
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v1_b0",
+                "_notion_block_id": "3485917e-ac52-8128-852c-fbf36a3583d1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student clicked a wrong category on bar graph, second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Birds"
+                  ],
+                  "description": "Birds bar highlights on bar graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The axis shows 0, 10, 20, 30, 40, 50, 60. Follow the Birds bar up to the top. What number does it reach?",
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81c6-aa60-df0cdbc643b3"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student clicked a wrong category on bar graph three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds bar highlights on bar graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to read bar graphs. I look at the vertical axis: 0, 10, 20, 30, 40, 50, 60. Then I follow the Birds bar to its top. It stops at 50. That's how bar graphs show the count. Birds has 50.",
+                "id": "s3_1_picture_bar_bridge_1_10_b6_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8159-9caa-e0b893f0550f"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_picture_bar_bridge_1_10_b6",
+        "_notion_block_id": "3485917e-ac52-814a-a4af-fc9543f3e2ef"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_w2",
+            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Birds column highlighted showing 5 symbols (50 votes).",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "scale": 10
+          },
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Vertical bar graph on right. Same data. Birds bar highlighted at height 50.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s3_1_picture_bar_bridge_1_10_b7",
+        "_notion_block_id": "3485917e-ac52-812c-bfe2-c42963539f64",
+        "_toml_key": "step_104_picture_bar_bridge_1_10"
+      },
+      {
+        "type": "dialogue",
+        "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols.",
+        "id": "s3_1_picture_bar_bridge_1_10_b8",
+        "_notion_block_id": "3485917e-ac52-81c3-8b3c-d6e507aa2773"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_w2",
+            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "scale": 10
+          },
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Fish",
+              "Birds"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s3_1_picture_bar_bridge_1_10_b9",
+        "_toml_key": "step_105_picture_bar_bridge_1_10"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:10.156261+00:00",
+    "_notion_block_id": "3485917e-ac52-8109-8c5e-f23a0f7563d4",
+    "_toml_key": "section_102_picture_bar_bridge_1_10"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Yellow",
+            "Green"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears. Favorite Colors data with scale of 10. Red=30, Blue=50, Yellow=60, Green=40."
+        },
+        "id": "s4_1_bridge_lesson_b0",
+        "_notion_block_id": "3485917e-ac52-81db-9d0c-ce54804a306c"
+      },
+      {
+        "type": "dialogue",
+        "text": "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data.",
+        "id": "s4_1_bridge_lesson_b1",
+        "_notion_block_id": "3485917e-ac52-8109-b9e2-c96a281d5fd2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b2",
+        "_notion_block_id": "3485917e-ac52-8169-a876-c238c4f4b5ef",
+        "_toml_key": "step_106_bridge_lesson"
+      },
+      {
+        "type": "dialogue",
+        "text": "Bar graphs are powerful. You can read exact amounts from the numbers on the side.",
+        "id": "s4_1_bridge_lesson_b3",
+        "_notion_block_id": "3485917e-ac52-815f-8ecd-edb418603185"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b4",
+        "_notion_block_id": "3485917e-ac52-813b-b470-dd2169e8fbe1",
+        "_toml_key": "step_107_bridge_lesson"
+      },
+      {
+        "type": "dialogue",
+        "text": "Ready to learn how to create bar graphs with scale of 10? Let's go.",
+        "id": "s4_1_bridge_lesson_b5",
+        "_notion_block_id": "3485917e-ac52-810d-9fa0-d50a9518f93c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b6",
+        "_toml_key": "step_108_bridge_lesson"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:18.139145+00:00",
+    "_notion_block_id": "3485917e-ac52-8193-af59-cda404c91c58",
+    "_toml_key": "section_103_bridge_lesson"
+  }
+]

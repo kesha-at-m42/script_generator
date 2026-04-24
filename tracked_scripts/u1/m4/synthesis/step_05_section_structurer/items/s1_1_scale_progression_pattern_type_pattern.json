@@ -1,0 +1,221 @@
+{
+  "id": "s1_1_scale_progression_pattern_type_pattern",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_1",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Scale 1"
+        ],
+        "scale": 1,
+        "axis_range": [
+          0,
+          20
+        ],
+        "description": "Vertical bar graph appears on left. Scale of 1. Axis shows 0, 1, 2, 3... 20. Bar reaches 20. 20 axis lines visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_2",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Scale 2"
+        ],
+        "scale": 2,
+        "axis_range": [
+          0,
+          20
+        ],
+        "description": "Vertical bar graph appears second from left. Scale of 2. Axis shows 0, 2, 4, 6... 20. Bar reaches 20. 10 axis lines visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_5",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Scale 5"
+        ],
+        "scale": 5,
+        "axis_range": [
+          0,
+          20
+        ],
+        "description": "Vertical bar graph appears third from left. Scale of 5. Axis shows 0, 5, 10, 15, 20. Bar reaches 20. 4 axis lines visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_10",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Scale 10"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          20
+        ],
+        "description": "Vertical bar graph appears on right. Scale of 10. Axis shows 0, 10, 20. Bar reaches 20. 2 axis lines visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at all four graphs. They show the same amount: 20. Which scale uses the fewest lines to show the same amount?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale uses the fewest lines to show the same amount?",
+      "tool": "click_category",
+      "target": "bar_graph_scale_10",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale 10"
+          },
+          "description": "Student clicked scale of 10 graph, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "description": "Scale of 10 graph highlights to confirm selection.",
+                "category": "Scale 10"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 10 uses the fewest lines. Each line shows more, so you need fewer of them."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_scale_1",
+          "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 1"
+          ],
+          "scale": 1
+        },
+        {
+          "tangible_id": "bar_graph_scale_2",
+          "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 2"
+          ],
+          "scale": 2
+        },
+        {
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 5"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 10"
+          ],
+          "scale": 10
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You've learned four scales now: 1, 2, 5, and 10. Each one is useful for different sized numbers. Bigger numbers work better with bigger scales."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_scale_1",
+          "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 1"
+          ],
+          "scale": 1
+        },
+        {
+          "tangible_id": "bar_graph_scale_2",
+          "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 2"
+          ],
+          "scale": 2
+        },
+        {
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 5"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Scale 10"
+          ],
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:57:53.837596+00:00"
+}

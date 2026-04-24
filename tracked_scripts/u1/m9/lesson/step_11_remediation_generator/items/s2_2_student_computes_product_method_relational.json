@@ -1,0 +1,102 @@
+{
+  "id": "s2_2_student_computes_product_method_relational",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10 (stopped counting too early)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_skip_count_sequence",
+                "status": "proposed",
+                "description": "Bags highlight one at a time as skip-count sequence progresses: 2, 4, 6, 8, 10, 12, 14, 16."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're skip-counting by 2s, but you stopped at 5 groups. We have 8 groups here. Keep going: 2, 4, 6, 8, 10, 12, 14, 16."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14 (counted 7 groups instead of 8)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "All 8 bags pulse to emphasize the count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's 7 times 2. Count the bags carefully. There are 8 bags, not 7. Skip-count one more time: 2, 4, 6, 8, 10, 12, 14, and one more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 18
+        },
+        "description": "Student selected 18 (counted one extra group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "All 8 bags pulse to emphasize the count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's 9 times 2. We only have 8 bags here. Count the bags: 1, 2, 3, 4, 5, 6, 7, 8. Now skip-count by 2s that many times."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_skip_count_sequence",
+                "status": "confirmed",
+                "description": "System demonstrates skip-counting. Bags highlight sequentially: 2, 4, 6, 8, 10, 12, 14, 16. Final answer 16 glows."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count the bags: 8 bags. Each bag has 2 items. I skip-count by 2s, eight times: 2, 4, 6, 8, 10, 12, 14, 16. So 8 times 2 equals 16. That's the product."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:34.988659+00:00"
+}

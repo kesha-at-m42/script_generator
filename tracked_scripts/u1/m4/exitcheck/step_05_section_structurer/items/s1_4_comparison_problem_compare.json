@@ -1,0 +1,78 @@
+{
+  "id": "s1_4_comparison_problem_compare",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_supplies",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Markers",
+          "Crayons",
+          "Paintbrushes",
+          "Glue Sticks"
+        ],
+        "values": {
+          "Markers": 30,
+          "Crayons": 45,
+          "Paintbrushes": 20,
+          "Glue Sticks": 55
+        },
+        "description": "Vertical bar graph appears. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use the graph you made. How many MORE art supplies does Glue Sticks have than Markers?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many MORE art supplies does Glue Sticks have than Markers?",
+      "tool": "multiple_choice",
+      "options": [
+        15,
+        25,
+        55,
+        85
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25, correct difference between Glue Sticks and Markers",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25 more. Glue Sticks has 55, Markers has 30. The difference is 25."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_supplies",
+          "description": "Vertical bar graph in reading mode. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Markers",
+            "Crayons",
+            "Paintbrushes",
+            "Glue Sticks"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:58:22.876995+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "id": "s4_1_metacognitive_reflection_type_1_strategy",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "What helped you most when deciding which scale to use?"
+    },
+    {
+      "type": "prompt",
+      "text": "What helped you most when deciding which scale to use?",
+      "tool": "multiple_choice",
+      "options": [
+        "Checking the biggest number first",
+        "Looking at the last digits",
+        "Trying the preview to see what happens",
+        "Thinking about which graph would be easiest to read"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_biggest_number",
+          "condition": {
+            "selected": "Checking the biggest number first"
+          },
+          "description": "Student selected checking the biggest number first",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That's one of the two key questions. Checking the biggest number tells you right away which scales can even work."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_last_digits",
+          "condition": {
+            "selected": "Looking at the last digits"
+          },
+          "description": "Student selected looking at the last digits",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That's one of the key checks. Spotting those last digits tells you whether you have multiples of 5 or need a smaller scale like 1 or 2."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_preview",
+          "condition": {
+            "selected": "Trying the preview to see what happens"
+          },
+          "description": "Student selected trying the preview",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "The preview is helpful! And here's a shortcut: ask yourself the two key questions first. Does the biggest number fit without too many lines? Are the numbers multiples of 5? Those two checks guide you every time."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_easiest_to_read",
+          "condition": {
+            "selected": "Thinking about which graph would be easiest to read"
+          },
+          "description": "Student selected thinking about which graph would be easiest to read",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That matters once you know your options. Start with the two key questions: Does the biggest number fit? Are the numbers multiples of 5? Then pick what's easiest to read without too many lines."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:50.785089+00:00"
+}

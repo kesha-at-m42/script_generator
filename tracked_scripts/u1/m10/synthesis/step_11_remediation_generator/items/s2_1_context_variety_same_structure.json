@@ -1,0 +1,152 @@
+{
+  "id": "s2_1_context_variety_same_structure",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "All have 4 groups of 2"
+            },
+            {
+              "not": {
+                "selected": "All have 8 things"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only 'All have 4 groups of 2' but missed 'All have 8 things'",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_shared",
+              "params": {
+                "highlight_terms": [
+                  "8"
+                ],
+                "description": "The answer 8 highlights in the equation"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found the structure: 4 groups of 2. That structure gives us a total. Look at the equation. What number comes after the equals sign?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "selected": "All have 4 groups of 2"
+              }
+            },
+            {
+              "not": {
+                "selected": "All have 8 things"
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected neither correct answer",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_books",
+              "params": {
+                "highlight_groups": true,
+                "description": "The 4 rows in the books image highlight to show grouping structure"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look past what the pictures show. Count the groups in each picture, then count how many are in each group. What pattern do you see in all three?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "or": [
+            {
+              "selected": "All look the same"
+            },
+            {
+              "selected": "All use books"
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected at least one incorrect answer along with possibly some correct answers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_butterflies",
+              "params": {
+                "highlight": true,
+                "description": "The butterflies image highlights"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The pictures look different. Books, cups, butterflies. Different things. But the equation fits all three because something about how they're arranged is the same. What is it?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_books",
+              "params": {
+                "event": "count_groups_and_items",
+                "status": "confirmed",
+                "description": "System counts the 4 rows in books image, then counts 2 items per row"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_cups",
+              "params": {
+                "event": "count_groups_and_items",
+                "status": "confirmed",
+                "description": "System counts the 4 stacks in cups image, then counts 2 items per stack"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_butterflies",
+              "params": {
+                "event": "count_groups_and_items",
+                "status": "confirmed",
+                "description": "System counts the 4 circled groups in butterflies image, then counts 2 items per group"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Books: I count 4 rows, 2 books in each row. Cups: 4 stacks, 2 cups in each stack. Butterflies: 4 circles, 2 butterflies in each circle. Every picture has the same structure: 4 groups of 2. That gives us 8 things total. The correct answers are 'All have 4 groups of 2' and 'All have 8 things.'"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:03:09.473818+00:00"
+}

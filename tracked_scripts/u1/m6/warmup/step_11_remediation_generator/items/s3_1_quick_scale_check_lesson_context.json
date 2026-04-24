@@ -1,0 +1,111 @@
+{
+  "id": "s3_1_quick_scale_check_lesson_context",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9: counted the marks instead of multiplying by scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ],
+                "description": "Pizza bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the marks on the bar. But look at the scale: each mark stands for 5 students. How many students is that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25: read wrong category or miscounted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza",
+                  "Tacos"
+                ],
+                "description": "Pizza and Tacos bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the Tacos bar. We need Pizza. Count the marks on the Pizza bar and multiply by 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50: read axis maximum instead of bar height",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ],
+                "description": "Pizza bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the top of the axis. Count where the Pizza bar stops. How many marks does it reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "count_marks",
+                "status": "confirmed",
+                "description": "System counts marks on Pizza bar: 9 marks highlighted sequentially.",
+                "category": "Pizza"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count the marks on the Pizza bar: 9 marks. The scale says each mark equals 5 students. 9 times 5 equals 45. The answer is 45 students. When the scale isn't 1, you multiply the marks by the scale number."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:59.115533+00:00"
+}

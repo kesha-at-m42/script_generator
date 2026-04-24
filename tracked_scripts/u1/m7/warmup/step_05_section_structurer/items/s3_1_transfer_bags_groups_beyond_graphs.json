@@ -1,0 +1,62 @@
+{
+  "id": "s3_1_transfer_bags_groups_beyond_graphs",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 4,
+        "description": "3 bags appear, each containing 4 items. Static visual, no animation."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's a different picture. No graph. Just bags."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student answered 3 groups, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "3 bags. That's 3 groups of 4. Same idea—bags instead of graph symbols."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "3 bags, each containing 4 items. Static visual.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:16.917423+00:00"
+}

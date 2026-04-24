@@ -1,0 +1,117 @@
+{
+  "id": "s2_5_independent_new_context_product_unknown",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_shelves",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 8,
+        "visual_context": "shelves_with_jars",
+        "description": "Equal groups visual appears: 2 shelves with 8 jars each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_shelves",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "2",
+          "×",
+          "8",
+          "=",
+          "__"
+        ],
+        "palette": [
+          10,
+          14,
+          16,
+          18
+        ],
+        "description": "Equation builder appears with pre-filled equation: 2 × 8 = ☐. Palette shows tiles: 10, 14, 16, 18."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "New context, same pattern of equal groups. 2 shelves of 8 jars. Find the unknown — the product."
+    },
+    {
+      "type": "prompt",
+      "text": "2 × 8 = ☐. Find the product.",
+      "tool": "place_tile",
+      "target": "equation_builder_shelves",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "total": 16
+          },
+          "description": "Student placed 16 in the product slot, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 times 8 equals 16. Two shelves, 8 in each, 16 total."
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_shelves",
+              "params": {
+                "expression": [
+                  "16",
+                  "=",
+                  "2",
+                  "×",
+                  "8"
+                ],
+                "description": "Equation builder updates to show reversed version: 16 = 2 × 8."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Same value — both ways."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_shelves",
+          "description": "Equal groups visual showing 2 shelves with 8 jars each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 8
+        },
+        {
+          "tangible_id": "equation_builder_shelves",
+          "description": "Equation builder showing 2 × 8 = ☐ with palette tiles 10, 14, 16, 18. Place_tile tool active.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "2",
+            "×",
+            "8",
+            "=",
+            "__"
+          ],
+          "palette": [
+            10,
+            14,
+            16,
+            18
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:39.506925+00:00"
+}

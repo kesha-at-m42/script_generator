@@ -1,0 +1,239 @@
+[
+  {
+    "id": "s1_1_judgment_noticing_task",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Different items inside"
+          },
+          "description": "Student selected 'Different items inside': misread what changed between the two groups",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual highlights: bags pulse to draw attention."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual highlights: bags pulse to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the bags themselves. The items inside are the same. What about the number of bags?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "One has more total items inside"
+          },
+          "description": "Student selected 'One has more total items inside': focused on total rather than structure",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual: container outlines pulse."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual: container outlines pulse."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The total is the same. But look at how the groups are organized. Count the bags on each side."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Nothing—they're the same"
+          },
+          "description": "Student selected 'Nothing—they're the same': did not notice structural difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual: all bags highlight."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual: all bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "They look similar, but something is different. Count how many bags are on the left. Now count the bags on the right."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "Left visual: bags count from 1 to 3."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "Right visual: bags count from 1 to 5."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. On the left, I count the bags: 1, 2, 3. Three bags. On the right, I count: 1, 2, 3, 4, 5. Five bags. The number of bags is different."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:26.319240+00:00"
+  },
+  {
+    "id": "s2_1_personalization_recognition",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "2 × 4"
+          },
+          "description": "Student selected 2 × 4: reversed the order of groups and items per group",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_container_count": true,
+                  "description": "The 4 boxes highlight to emphasize the number of groups."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You've got the right numbers. But in multiplication, order matters for what we're describing. Count the boxes first. How many groups are there?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "4 + 2"
+          },
+          "description": "Student selected 4 + 2: used addition instead of multiplication",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All items in all boxes highlight to show the total count."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Addition puts amounts together. But here we have equal groups. When you see equal groups, multiplication is the tool. How many groups, and how many in each?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "2 + 4"
+          },
+          "description": "Student selected 2 + 4: used addition and reversed the order",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_container_count": true,
+                  "description": "The 4 boxes highlight to show the structure of equal groups."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "These aren't two separate amounts to add. They're equal groups. Multiplication describes equal groups. Count the boxes, then count what's in one box."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "count_groups_then_items",
+                  "status": "confirmed",
+                  "description": "Animation counts the 4 boxes, then counts 2 items in one box, building 4 × 2."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. First, count the boxes: 1, 2, 3, 4. Four groups. Then look inside one box: 2 items. The expression is 4 times 2. That's how multiplication captures equal groups."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:40.434519+00:00"
+  }
+]

@@ -1,0 +1,165 @@
+{
+  "id": "s1_1_build_complete_equation_variety_visual",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "groups": 6,
+                  "items": 3
+                },
+                {
+                  "groups": 6,
+                  "total": 18
+                },
+                {
+                  "items": 3,
+                  "total": 18
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed groups and items (placed 6 × 3 or partial reversal) on first or second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_pencils",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 3 rows highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're right that there are 3 and 6. But count how many rows there are. Is it 6?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "groups": 6,
+                    "items": 3
+                  },
+                  {
+                    "groups": 6,
+                    "total": 18
+                  },
+                  {
+                    "items": 3,
+                    "total": 18
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect equation on first attempt (not a reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the rows. Then count how many pencils are in each row."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "groups": 6,
+                    "items": 3
+                  },
+                  {
+                    "groups": 6,
+                    "total": 18
+                  },
+                  {
+                    "items": 3,
+                    "total": 18
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect equation on second attempt (not a reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_pencils",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 3 rows highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: count the rows first. That number goes in the first slot. Then count the pencils in one row. How many are in each row?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect equation three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_pencils",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles into equation: 3 in first slot, 6 in second slot, 18 in third slot. Equation becomes 3 × 6 = 18."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I count the rows. There are 3 rows. That's my first number. Then I count the pencils in one row. There are 6 pencils. That's my second number. 3 times 6 equals 18. The equation is 3 times 6 equals 18."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:49.481186+00:00"
+}

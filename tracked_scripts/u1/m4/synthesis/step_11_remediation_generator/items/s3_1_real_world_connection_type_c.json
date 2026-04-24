@@ -1,0 +1,176 @@
+{
+  "id": "s3_1_real_world_connection_type_c",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "A"
+            },
+            {
+              "not": {
+                "selected": "B"
+              }
+            },
+            {
+              "not": {
+                "selected": "C"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only A (under-selecting, correct but incomplete)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_images",
+              "params": {
+                "description": "Image A pulses to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Money does use 10s. Look at the other images. Are there any others that group things by 10?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "B"
+            },
+            {
+              "not": {
+                "selected": "A"
+              }
+            },
+            {
+              "not": {
+                "selected": "C"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only B (under-selecting, correct but incomplete)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_images",
+              "params": {
+                "description": "Image B pulses to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Measuring does use 10s. Look at the other images. Are there any others that group things by 10?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "selected": "A"
+              }
+            },
+            {
+              "not": {
+                "selected": "B"
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only C or nothing (all-wrong)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_images",
+              "params": {
+                "description": "Images A and B dim slightly to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 10 means counting in groups of 10. Look at the money and the ruler. What pattern do you see on both?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "selected": "C"
+            },
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "B"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected C plus at least one correct answer (mixed correct and incorrect)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_images",
+              "params": {
+                "description": "Images A and B highlight, C dims."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found situations that use 10s. But counting one by one doesn't use groups of 10. Which images show counting by 10s?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "scenario_images",
+              "params": {
+                "event": "highlight_answers",
+                "status": "confirmed",
+                "description": "Images A and B highlight. Annotation appears: '10, 20, 30...' over both."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Look at image A: dollar bills in stacks of 10. Look at image B: the ruler has marks at 10, 20, 30. Both count by 10s. Image C counts one by one, not in groups of 10. The answers are A and B. When you see bigger numbers organized in groups of 10, scale of 10 makes counting faster."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:59:27.346158+00:00"
+}

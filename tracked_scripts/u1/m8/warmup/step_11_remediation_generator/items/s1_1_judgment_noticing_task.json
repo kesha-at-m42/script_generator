@@ -1,0 +1,134 @@
+{
+  "id": "s1_1_judgment_noticing_task",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Different items inside"
+        },
+        "description": "Student selected 'Different items inside': misread what changed between the two groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_left",
+              "params": {
+                "description": "Left visual highlights: bags pulse to draw attention."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_right",
+              "params": {
+                "description": "Right visual highlights: bags pulse to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the bags themselves. The items inside are the same. What about the number of bags?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "One has more total items inside"
+        },
+        "description": "Student selected 'One has more total items inside': focused on total rather than structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_left",
+              "params": {
+                "description": "Left visual: container outlines pulse."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_right",
+              "params": {
+                "description": "Right visual: container outlines pulse."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The total is the same. But look at how the groups are organized. Count the bags on each side."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Nothing—they're the same"
+        },
+        "description": "Student selected 'Nothing—they're the same': did not notice structural difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_left",
+              "params": {
+                "description": "Left visual: all bags highlight."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_right",
+              "params": {
+                "description": "Right visual: all bags highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "They look similar, but something is different. Count how many bags are on the left. Now count the bags on the right."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_left",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Left visual: bags count from 1 to 3."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_right",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Right visual: bags count from 1 to 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. On the left, I count the bags: 1, 2, 3. Three bags. On the right, I count: 1, 2, 3, 4, 5. Five bags. The number of bags is different."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:26.319240+00:00"
+}

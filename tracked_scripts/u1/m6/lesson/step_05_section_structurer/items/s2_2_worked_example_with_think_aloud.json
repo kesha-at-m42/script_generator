@@ -1,0 +1,137 @@
+{
+  "id": "s2_2_worked_example_with_think_aloud",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Pizza",
+          "Tacos",
+          "Salad",
+          "Burgers"
+        ],
+        "values": {
+          "Pizza": 45,
+          "Tacos": 25,
+          "Salad": 10,
+          "Burgers": 15
+        },
+        "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let me show you how I solve this. First, I ask myself: What should I find FIRST?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "The question says tacos and salad together. That word together tells me to ADD those first. Let me find that total."
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_lunch",
+      "params": {
+        "highlight_categories": [
+          "Tacos",
+          "Salad"
+        ],
+        "description": "Tacos bar (25) and Salad bar (10) highlight together."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_lunch",
+      "params": {
+        "event": "show_calculation",
+        "status": "confirmed",
+        "description": "Animation shows: 25 + 10 = 35"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Tacos is 25, salad is 10. Combined, that's 35."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Tacos (25) and Salad (10) highlighted. Calculation 25 + 10 = 35 displayed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "NOW I can compare. How many more is pizza than that total of 35?"
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_lunch",
+      "params": {
+        "highlight_categories": [
+          "Pizza"
+        ],
+        "description": "Pizza bar (45) highlights. Shows: 45 compared to 35."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Pizza is 45 while tacos and salad combined is 35. 45 minus 35 is 10. Pizza is 10 MORE than tacos and salad combined."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Pizza bar (45) highlighted. Comparison to 35 shown.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:27.657011+00:00"
+}

@@ -1,0 +1,332 @@
+[
+  {
+    "id": "s1_1_transition_warmup",
+    "visual": "Brief callback—Scale Preview System from Warmup showing student's data with all four scales working (all show ✓).",
+    "guide": "\"In Warmup, all four scales worked for your data. You had options!\"",
+    "guide_2": "\"But what happens when the numbers are bigger? Let's find out.\"",
+    "no_student_prompt": "(transition framing)",
+    "_generated_at": "2026-04-20T16:58:12.814788+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": []
+    }
+  },
+  {
+    "id": "s1_2_when_scale_needs_too_many",
+    "visual": "NEW data context: \"Books Read This Month\"\n  - Data Table: Aisha: 20, Ben: 35, Carlos: 55, Dana: 80\n  - Scale Preview System with \"Scale of 5\" pre-selected\n  - Vertical graph currently shows axis 0-50, initially empty",
+    "guide": "\"Here's data about how many books four students read this month. Dana read the most—80 books!\"",
+    "guide_2": "[Think-Aloud] \"Let me try Scale of 5 and see what happens.\"",
+    "animation": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear normally. Dana's bar (80) extends PAST the current graph boundary. ⚠️ indicator appears.",
+    "guide_3": "\"Hmm. Carlos's bar is just above my graph, but Dana's bar goes past the top. The graph only goes up to 50 right now.\"",
+    "guide_4": "[Think-Aloud] \"I COULD make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80...\"",
+    "animation_2": "Axis extends upward, showing tick marks appearing: 55, 60, 65, 70, 75, 80. The axis now looks crowded with many tick marks.",
+    "guide_5": "\"That's a LOT of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!\"",
+    "visual_highlight": "Axis shown with all 17 tick marks visible (0, 5, 10, 15... 75, 80)",
+    "guide_6": "\"It works... but is there a better way?\"",
+    "key_teaching_point": "\"When one scale needs too many tick marks, try a bigger scale.\"",
+    "divider": "**No student prompt** (observation—demonstration teaches)",
+    "_generated_at": "2026-04-20T16:58:20.220126+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": []
+    }
+  },
+  {
+    "id": "s1_3_trying_bigger_scale",
+    "visual": "Same \"Books Read\" data. Scale Preview System now interactive. The crowded Scale of 5 graph still visible.",
+    "guide": "\"Scale of 5 works, but that's a lot of tick marks. Let's try a bigger scale.\"",
+    "prompt": "\"Click 'Scale of 10' to see what happens.\"",
+    "student_action": "Click \"Scale of 10\" button",
+    "divider": "Preview displays: All four bars fit cleanly. ✓ indicator. Axis shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks.",
+    "guide_2": "\"Look at that—only 9 tick marks now instead of 17. Much cleaner!\"",
+    "guide_3": "\"All the data fits, and the graph is easier to read.\"",
+    "_generated_at": "2026-04-20T16:58:24.310918+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph"
+      ],
+      "tools": [
+        "click_scale_button"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s1_4_range_check_efficiency",
+    "visual": "Same data with Scale of 10 preview showing. Largest value (80) highlighted in data table.",
+    "guide": "\"Here's the first thing to check: What's your BIGGEST number? That tells you what scales might work.\"",
+    "prompt": "\"What's the biggest number in this data?\"",
+    "student_action": "[Multiple choice: 20 / 35 / 55 / 80]",
+    "correct_answer": "80",
+    "on_correct": "\"80 is the biggest. Always check the biggest number first—does it fit on the scale without too many lines on the axis?\"",
+    "remediation_light": "\"Look at all four numbers. Which one is the greatest?\"",
+    "guide_2": "\"You saw that Scale of 5 needed 17 tick marks. Scale of 10 only needs 9. For big data, bigger scales make cleaner graphs.\"",
+    "key_teaching_point": "\"When more than one scale fits, pick the one that's easier to read.\"",
+    "_generated_at": "2026-04-20T16:58:28.393283+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_1_all_scales_fit_small_data",
+    "visual": "NEW data context: \"Marbles in Jars\"\n  * Horizontal Data Table: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23\n  * Scale Preview System with all four buttons. Horizontal bar graphs. Initially no graph showing.",
+    "guide": "\"Here's data about marbles. Look at the biggest number—23. That's pretty small!\"",
+    "guide_2": "\"This graph is horizontal—the bars go sideways. Let's check: which scales fit? Try clicking each scale\"",
+    "prompt": "\"Click each scale to see if 23 fits.\"",
+    "student_action": "Explore all four scales\n  * Scale of 1: ✓ fits\n  * Scale of 2: ✓ fits\n  * Scale of 5: ✓ fits\n  * Scale of 10: ✓ fits",
+    "guide_3": "\"All four scales fit! Let's look at Scale of 1.\"",
+    "prompt_2": "\"Click 'Scale of 1' to see what it looks like.\"",
+    "student_action_2": "Click \"Scale of 1\"",
+    "visual_2": "Preview shows all bars fit with ✓, but axis displays 24 tick marks (0-23).",
+    "guide_4": "\"It works — every number lands exactly. But look at all those lines on the side!\"",
+    "key_teaching_point": "\"Small data = all scales fit. But some are cleaner than others.\"",
+    "_generated_at": "2026-04-20T16:58:34.672370+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "click_scale_button"
+      ],
+      "unresolved": [
+        "Scale Preview System with all four buttons",
+        "Initially no graph showing"
+      ]
+    }
+  },
+  {
+    "id": "s2_2_but_which_is_best_efficiency",
+    "visual": "Same \"Marbles\" data. Scale of 1 still showing from previous interaction (24 tick marks visible).",
+    "guide": "\"Scale of 1 works, but that's a lot of lines. You learned bigger scales are usually easier to read.\"",
+    "guide_2": "\"Let's try Scale of 10.\"",
+    "prompt": "\"Click 'Scale of 10' to compare.\"",
+    "student_action": "Click \"Scale of 10\"",
+    "preview_displays": "Bars appear with ⚠️ indicators. Jar A (7) between 0 and 10. Jar C (19) between 10 and 20.",
+    "guide_3": "\"Hmm. Scale of 10 fits... but there are only 3 marks on the axis. Look at those warnings. Can you tell the exact value of where those bars end? Someone looking at our graph without the data table would need to guess how many marbles are shown.\"",
+    "visual_highlight": "⚠️ on Jar A with message: \"7 won't land exactly on a line or in the middle\"",
+    "guide_4": "\"For big data, we'd pick Scale of 10 anyway—it's the easiest to read because we don't want too many lines on the axis. But these numbers are small and it's hard to find the exact location of the bar on the graph. We can do better.\"",
+    "key_teaching_point": "\"When data is small, you have room to find a scale where everything lands exactly.\"",
+    "_generated_at": "2026-04-20T16:58:40.204487+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "click_scale_button"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s2_3_scale_2_works_non_multiples",
+    "visual": "Same \"Marbles\" data. Graph showing Scale of 10. Scale Preview System interactive.",
+    "guide": "\"Let's try a smaller scale. Try a Scale of 2.\"",
+    "prompt": "\"Click 'Scale of 2' to preview.\"",
+    "student_action": "Click \"Scale of 2\" button",
+    "preview_displays": "All bars land exactly. ✓ indicator. No warnings.",
+    "guide_2": "\"Look—we can read the end of the bars clearly. ALL the numbers land exactly. 7 is right at 7, exactly halfway between 6 and 8. 12 is right at 12.\"",
+    "guide_3": "\"With Scale of 2, half of 2 is 1. So you can show ANY whole number exactly.\"",
+    "key_teaching_point": "\"Scale of 2 works to show the exact value for all numbers—and for small data, the graph won't have too many marks on the axis.\"",
+    "_generated_at": "2026-04-20T16:58:44.319275+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph"
+      ],
+      "tools": [
+        "click_scale_button"
+      ],
+      "workspace_carry_over": true
+    }
+  },
+  {
+    "id": "s2_4_digit_pattern_recognition_shortcut",
+    "visual": "Side-by-side comparison:\n  * Left: Data Set A — 20, 35, 55, 80 (labeled \"Ones digits: 0 or 5\")\n  * Right: Data Set B — 7, 12, 19, 23 (labeled \"Ones digits: 7, 2, 9, 3\")",
+    "guide": "\"Here's a quick way to know if you need Scale of 2. Check the last digit of each number in the ones place.\"",
+    "guide_2": "\"Numbers that end in 0 or 5—like 20, 35, 55, 80—those are multiples of 5 and can be shown clearly with Scales of 5 and 10.\"",
+    "guide_3": "\"But look at 7, 12, 19, 23. See the digits in the ones place? 7, 2, 9, 3. None are 0 or 5—that tells you they aren't multiples of 5 so Scale of 2 might be your best choice. Check our groups. Which data set has last digits that are NOT 0 or 5?\"",
+    "prompt": "\"Which data set has last digits that are NOT 0 or 5?\"",
+    "student_action": "Click Data Set A / Click Data Set B",
+    "correct_answer": "Data Set B (7, 12, 19, 23)",
+    "on_correct": "\"Right. Look at those last digits: 7, 2, 9, 3. None are 0 or 5—that's your Scale of 2 signal.\"",
+    "remediation_light": "\"Check the last digit of each number. Does 23 end in 0 or 5? Does 12?\"",
+    "_generated_at": "2026-04-20T16:58:49.931076+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_5_practice_with_non_multiples",
+    "visual": "NEW data context: \"Points Scored\"\n  * Vertical Data Table: Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31",
+    "guide": "\"Here's data from a game. Four rounds of points: 22, 15, 8, 31.\"",
+    "guide_2": "\"Check the ones place digits: 2, 5, 8, 1. Do they all end in 0 or 5?\"",
+    "guide_3": "\"22... no. 15... yes! 8... no. 31... no. Three of them don't so they aren't multiples of 5. Which scale will show ALL values exactly?\"",
+    "prompt": "\"Which scale will show ALL values exactly?\"",
+    "student_action": "[Multiple choice: \"Scale of 1\" / \"Scale of 2\" / \"Scale of 5\" / \"Scale of 10\"]",
+    "correct_answer": "\"Scale of 2\"",
+    "on_correct": "Visual - Scale of 2 \"Points Scored\" vertical bar graph shown. \"Scale of 2. All of the bars fit well on the graph and their exact values are clear.\"",
+    "remediation_light": "\"Look at the last digits: 2, 5, 8, 1. Most aren't 0 or 5. Which scale works for any number?\"",
+    "visual_transition": "Side-by-side comparison (same height bars, only axis markings changed):\n  * Scale of 2 \"Points Scored\" vertical bar graph\n  * Scale of 1 \"Points Scored\" vertical bar graph",
+    "guide_transition": "\"Scale of 1 also shows the exact values, but it would require a lot of marks on the axis to get to the greatest value of 31. Let's consider when we might choose a scale of 1.\"",
+    "_generated_at": "2026-04-20T16:58:55.282259+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s2_6_very_small_data_scale_1",
+    "visual": "NEW data context: \"Stickers Earned Today\"\n  * Vertical Data Table: Mia: 9, Noah: 5, Olivia: 7, Pete: 3\n  * Scale Preview System available. Vertical bar graphs. No bars showing.",
+    "guide": "\"Look at these numbers: 9, 5, 7, 3. They're really small!\"",
+    "guide_2": "\"What happens if we try Scale of 10?\"",
+    "prompt": "\"Click 'Scale of 10'\"",
+    "student_action": "Click \"Scale of 10\" button.",
+    "preview_displays": "Only tick marks at 0 and 10. Bars appear with ⚠️ indicators.",
+    "guide_3": "\"The bars fit, but we don't know the exact value for any of the bars.\"",
+    "guide_4": "\"Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click 'Scale of 2.'\"",
+    "prompt_2": "\"Click 'Scale of 2'\"",
+    "student_action_2": "Click \"Scale of 2\" button.",
+    "preview_displays_2": "All bars show ✓ indicator. Clean graph with 0-10 range.",
+    "guide_5": "\"That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work. But when numbers are this small, you have another option. Try Scale of 1. What do you notice?\"",
+    "prompt_3": "\"Click 'Scale of 1'\"",
+    "student_action_3": "Click \"Scale of 1\" button",
+    "preview_displays_3": "All bars land exactly on tick marks. ✓ indicator. Clean graph with 0-10 range.",
+    "guide_6": "\"Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table.\"",
+    "key_teaching_point": "\"For very small numbers, Scale of 1 can be a great choice—simple and exact.\"",
+    "divider": "**→ SECTION 2 COMPLETE. PROCEED TO SECTION 3.**",
+    "_generated_at": "2026-04-20T16:59:03.420277+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph",
+        "data_table"
+      ],
+      "tools": [
+        "click_scale_button"
+      ]
+    }
+  },
+  {
+    "id": "s3_1_independent_selection_multiples_5",
+    "visual": "NEW data context: \"Favorite Fruits\" (HORIZONTAL orientation)\n  - Vertical Data Table: Dates: 60, Cherries: 45, Bananas: 30, Apples: 15\n  - Scale Preview System available",
+    "guide": "\"Here's data about students' favorite fruits. The most votes went to Dates with 60. Scale of 1 doesn't make sense here because it would take 60 lines on the axis - that's too much!\"",
+    "guide_2": "\"Your job: pick the right scale. Which scale will you use?\"",
+    "student_action": "Explore Scale Preview System with 2, 5 and 10 freely (all three scales show ✓)",
+    "prompt": "\"Which scale will you use?\"",
+    "student_action_2": "[Select: Scale of 2 / Scale of 5 / Scale of 10]",
+    "correct_answer": "Scale of 10",
+    "on_correct": "\"Good choice.\"",
+    "on_incorrect": "(Scale 2 or 5) \"That scale could work, but check—all values end in 0 or 5. Which scale would be easiest to read?\"",
+    "prompt_2": "(justification) \"Why is Scale of 10 a good choice? Choose all of the reasons.\"",
+    "student_action_3": "[Multi-Select:\n  - A) \"All values end in 0 or 5 so they can be graphed precisely.\"\n  - B) \"The graph is easy to read.\"\n  - C) \"The biggest number is 60 so the bars fit on the graph.\"\n  - D) \"Scale of 2 takes too many marks to reach the biggest number.\"]",
+    "correct_answer_2": "All of them selected",
+    "on_correct_2": "\"Exactly. All values are multiples of 5, so scales of 5 and 10 both work to read the graph clearly. For data going up to 60, Scale of 10 gives you a cleaner graph.\"",
+    "on_incorrect_2": "\"Let's consider the questions we ask when choosing a scale. What is the biggest number? Does the data all fit? Look at all the numbers—do they end in 0 or 5 so we can find the exact location of the bars? What scale can we use for the best looking graph? All of these reasons help us choose the scale of 10.\"",
+    "remediation": "(Light) \"Think of everything we need to consider when choosing a scale.\"",
+    "_generated_at": "2026-04-20T16:59:10.015404+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": [
+        "click_scale_button",
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s3_2_selection_creation_non_multiples",
+    "visual": "NEW data context: \"Minutes of Practice\" (VERTICAL orientation)\n  - Vertical Data Table: Guitar: 27, Piano: 14, Violin: 41, Drums: 33",
+    "guide": "\"Here's data about how many minutes students practiced their instruments.\"",
+    "guide_2": "\"Check: are these numbers multiples of 5? Which scale is best for this data?\"",
+    "prompt": "\"Which scale is best for this data?\"",
+    "student_action": "[Select: Scale of 1 / Scale of 2 / Scale of 5 / Scale of 10]",
+    "correct_answer": "Scale of 2",
+    "on_correct": "\"Scale of 2. You saw that 14, 27, 33, 41 aren't multiples of 5 so we need scale of 2 to graph them precisely. Scale of 2 can work when the largest value is 41.\"",
+    "on_incorrect": "(5 or 10) \"These numbers aren't multiples of 5 so the values can't be shown exactly with that scale. Try scale of 2.\"",
+    "on_incorrect_2": "(1) \"Scale of 1 lets us graph exact numbers, but the largest value is 41. That would be a lot of marks on the axis. Which scale would be exact and look cleaner?\"",
+    "remediation": "(Light) \"Check those ones digits: 7, 4, 1, 3. None are 0 or 5. Which scale works for any number?\"",
+    "divider": "[After correct scale selection]",
+    "visual_2": "same data context: \"Minutes of Practice\" (VERTICAL orientation bar graph)\n  - Vertical Data Table: Guitar: 27, Piano: 14, Violin: 41, Drums: 33",
+    "guide_3": "\"Now create the bar graph.\"",
+    "visual_3": "Bar Graph creation tool with Scale of 2 active. Gridlines visible at each tick mark (consistent with standard graph display).",
+    "student_action_2": "Set bar heights for all 4 categories (click-to-set)",
+    "on_complete": "Graph displays with all 4 bars correctly placed.",
+    "guide_4": "\"You chose the right scale and created the graph. Every bar lands exactly where it should.\"",
+    "_generated_at": "2026-04-20T16:59:16.760559+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  },
+  {
+    "id": "s3_3_final_application",
+    "visual": "NEW data context: \"Team Scores\" (HORIZONTAL orientation)\n  - Data Table: Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40\n  - Scale Preview System available",
+    "guide": "\"Last one! Here are scores from four teams. Yellow Team won with 70 points.\"",
+    "guide_2": "\"You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale.\"",
+    "divider": "**Step 1: Scale Selection**",
+    "prompt": "\"Which scale works best for this data?\"",
+    "student_action": "[Select: Scale of 1 / Scale of 2 / Scale of 5 / Scale of 10]",
+    "correct_answer": "Scale of 10 (most efficient; all values end in 0 or 5; range up to 70)",
+    "on_correct": "\"Good choice. All values end in 0 or 5, and the biggest is 70. Scale of 10 gives you a clean graph.\"",
+    "on_incorrect": "(Scale of 1 or 2) \"That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?\"",
+    "on_incorrect_2": "(Scale of 5) \"That works! But notice the biggest value is 70. Scale of 10 would give you fewer lines and still show everything exactly.\"",
+    "divider_2": "**Step 2: Graph Creation**",
+    "visual_2": "Bar Graph creation tool (HORIZONTAL) with Scale of 10 active. Empty graph with axis 0-80 showing tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80.",
+    "guide_3": "\"Now create the graph. Place each bar at the right length.\"",
+    "student_action_2": "Set bar lengths for all 4 categories (click-to-set)",
+    "prompt_2": "\"Click to place the bar for Red Team (25 points).\"",
+    "student_action_3": "Click-to-set: Student clicks at height 25 (between 20 and 30 tick marks)",
+    "on_correct_2": "Bar locks at 25. \"Right at 25—halfway between 20 and 30.\"",
+    "on_incorrect_3": "\"25 is halfway between 20 and 30. Find that spot.\"",
+    "prompt_3": "\"Click to place the bar for Blue Team (40 points).\"",
+    "student_action_4": "Click-to-set at height 40",
+    "on_correct_3": "Bar locks at 40. \"Right on 40.\"",
+    "prompt_4": "\"Click to place the bar for Green Team (55 points).\"",
+    "student_action_5": "Click-to-set at height 55",
+    "on_correct_4": "Bar locks at 55. \"55—halfway between 50 and 60.\"",
+    "prompt_5": "\"Click to place the bar for Yellow Team (70 points).\"",
+    "student_action_6": "Click-to-set at height 70",
+    "on_correct_5": "Bar locks at 70. \"Right on 70.\"",
+    "on_complete": "\"That's it. You chose the scale and placed every bar exactly where it should be, some exactly on the lines and some halfway between.\"",
+    "divider_3": "**→ SECTION 3 COMPLETE. LESSON COMPLETE.**",
+    "_generated_at": "2026-04-20T16:59:26.114978+00:00",
+    "workspace_specs": {
+      "toys": [
+        "data_table"
+      ],
+      "tools": [
+        "click_scale_button"
+      ]
+    }
+  },
+  {
+    "id": "s3_4_bridge_exit_check",
+    "visual": "Final graph remains briefly.",
+    "guide": "\"You learned to CHOOSE scales. Check the biggest number—does it fit without too many marks on the axis? Check the ones place digits—are they 0 or 5 to find the exact place for the bar? For very small data, Scale of 1 could work. Then pick the easiest to read.\"",
+    "guide_2": "\"Let's see what you know.\"",
+    "_generated_at": "2026-04-20T16:59:28.845864+00:00",
+    "workspace_specs": {
+      "toys": [
+        "bar_graph"
+      ],
+      "tools": [],
+      "workspace_carry_over": true
+    }
+  }
+]

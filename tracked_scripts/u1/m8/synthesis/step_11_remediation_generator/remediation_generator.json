@@ -1,0 +1,229 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've practiced building expressions from equal groups pictures. You learned different ways to build them: choosing from options and using tiles. Now let's connect what you discovered.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:15.786657+00:00"
+  },
+  {
+    "id": "s1_1_representation_transfer_same_expression_different",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "The containers (bags/boxes/circles)"
+          },
+          "description": "Student selected 'The containers (bags/boxes/circles)': focused on what changes rather than what stays the same",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_shared",
+                "params": {
+                  "highlight": true,
+                  "description": "Expression 2 × 5 highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The containers do change. bags, boxes, circles. But look at the expression below. What does 2 × 5 tell us about the groups?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The items inside"
+          },
+          "description": "Student selected 'The items inside': focused on visual details rather than mathematical structure",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_groups": true,
+                  "description": "Groups in bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The items might look different. But count the groups in each picture. How many groups? How many in each group? That's what matters."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The colors or shapes"
+          },
+          "description": "Student selected 'The colors or shapes': focused on surface features rather than mathematical structure",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_shared",
+                "params": {
+                  "highlight": true,
+                  "description": "Expression 2 × 5 highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Colors and shapes can change, but the multiplication stays the same. Look at 2 × 5. Count the groups and what's in each group across all three pictures."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in bags."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in boxes."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in circles."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. In the bags: 2 groups, 5 in each. In the boxes: 2 groups, 5 in each. In the circles: 2 groups, 5 in each. The containers change, but the structure stays the same. 2 groups with 5 in each. That's what 2 × 5 means."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:01:35.767192+00:00"
+  },
+  {
+    "id": "s1_2_real_world_bridge_where_do",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "D"
+          },
+          "description": "Student selected scenario D: park benches with varying numbers of people (not equal groups)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "highlight_scenario": "scenario_d",
+                  "description": "Scenario D (park benches) highlights to show the unequal groups."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at those benches. Some have 2 people, some have 3, some have 1. Equal groups need the same number in each. Which scenarios have the same number?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models correct answers.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "event": "highlight_all_equal",
+                  "status": "confirmed",
+                  "description": "Scenarios A, B, and C all highlight to show they are valid equal groups."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The egg carton has 2 rows of 6 eggs. The parking lot has 3 rows of 4 cars. The bookshelf has 5 shelves with 3 books each. All three show equal groups because each group has the same number. D doesn't work because the benches have different numbers of people."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:01:43.427365+00:00"
+  },
+  {
+    "id": "s1_3_metacognitive_reflection_which_direction_made",
+    "incorrects": [],
+    "_generated_at": "2026-04-20T17:01:45.727400+00:00"
+  },
+  {
+    "id": "s1_4_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built expressions from equal groups pictures. You learned that 4 times 3 means 4 groups with 3 in each. You know what the numbers represent: groups and items.",
+        "id": "s1_4_identity_building_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_identity_building_closure_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next time, you'll find out what 4 times 3 equals. You'll learn to figure out the total. You're ready because you already know what the expression means.",
+        "id": "s1_4_identity_building_closure_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_identity_building_closure_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:05.067714+00:00"
+  }
+]

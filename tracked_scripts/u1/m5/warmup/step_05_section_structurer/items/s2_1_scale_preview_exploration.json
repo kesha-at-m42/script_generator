@@ -1,0 +1,128 @@
+{
+  "id": "s2_1_scale_preview_exploration",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing student's collected data from warmup."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_student_data",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale_selector_visible": true,
+        "scale_options": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "description": "Vertical bar graph appears with Scale Preview System. Four clickable scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays student's data using currently selected scale."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You know how to use different scales. But which one should you use for YOUR data?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student's collected data.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_student_data",
+          "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: 1, 2, 5, 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale_selector_visible": true,
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's find out. Click each scale to see what the graph would look like."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_student_data",
+      "params": {
+        "event": "enable_scale_exploration",
+        "status": "confirmed",
+        "description": "All four scale buttons become active and clickable. Student can freely click between scales to preview how the graph looks with each option."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student's collected data.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_student_data",
+          "description": "Vertical bar graph with Scale Preview System active. All four scale buttons clickable for exploration.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale_selector_visible": true,
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "All four scales work for this data! You have choices."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student's collected data.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_student_data",
+          "description": "Vertical bar graph displaying student's data with whichever scale was last selected during exploration.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale_selector_visible": true,
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:58:54.142362+00:00"
+}

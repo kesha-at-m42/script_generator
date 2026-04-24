@@ -1,0 +1,211 @@
+{
+  "id": "s3_1_reduced_scaffolding_3_step_chain",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_fruit_stand",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "scale": 5,
+        "categories": [
+          "Grapes",
+          "Apples",
+          "Bananas",
+          "Oranges"
+        ],
+        "values": {
+          "Grapes": 15,
+          "Apples": 45,
+          "Bananas": 30,
+          "Oranges": 25
+        },
+        "title": "Fruit Stand Sales",
+        "description": "Horizontal bar graph appears. Title: Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's another one. What should we find first?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select what to find first.",
+      "tool": "multiple_choice",
+      "options": [
+        "Add oranges and grapes",
+        "Subtract grapes from oranges",
+        "Compare apples to oranges"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add oranges and grapes"
+          },
+          "description": "Student selected add oranges and grapes, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Right—oranges and grapes combined. Find that total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fruit_stand",
+          "description": "Horizontal bar graph. Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Grapes",
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_fruit_stand",
+      "params": {
+        "highlight_categories": [
+          "Oranges",
+          "Grapes"
+        ],
+        "description": "Oranges bar (25) and Grapes bar (15) highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Oranges is 25. Grapes is 15. What's the combined total?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many oranges and grapes combined?",
+      "tool": "multiple_choice",
+      "options": [
+        10,
+        30,
+        40,
+        45
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40, correct (25 + 15 = 40)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "40 combined."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fruit_stand",
+          "description": "Horizontal bar graph. Fruit Stand Sales. Oranges (25) and Grapes (15) bars highlighted.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Grapes",
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ],
+          "highlight_categories": [
+            "Oranges",
+            "Grapes"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_fruit_stand",
+      "params": {
+        "highlight_categories": [
+          "Apples"
+        ],
+        "display_value": 40,
+        "description": "Combined value 40 displayed. Apples bar (45) highlights."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Oranges and grapes combined is 40. Apples is 45. Now find how many fewer."
+    },
+    {
+      "type": "prompt",
+      "text": "How many fewer oranges and grapes combined than apples?",
+      "tool": "multiple_choice",
+      "options": [
+        85,
+        45,
+        40,
+        5
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5, correct (45 - 40 = 5)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 fewer. You found the combined total first, then compared."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_fruit_stand",
+          "description": "Horizontal bar graph. Fruit Stand Sales. Combined value 40 displayed. Apples bar (45) highlighted.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Grapes",
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ],
+          "highlight_categories": [
+            "Apples"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:07.603425+00:00"
+}

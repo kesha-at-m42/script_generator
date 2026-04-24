@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 11:59  
+Generated: 2026-04-23 12:19  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 3
 
@@ -16,11 +16,12 @@ These likely represent concepts not yet in the glossary or toy_specs directory.
 
 | Phrase | Section | Snippet |
 | ---|---|--- |
+| `Same data` | `s1_5_complete_graph` | ...(Numeric Display). Same data. Vertical. |
+| `Vertical` | `s1_5_complete_graph` | ...isplay). Same data. Vertical. |
 | `Data Table and picture graph NOT` | `s2_7_comparison_question_bars_work_too` | ...) bars highlighted. Data Table and picture graph NOT visible. |
 | `Emma` | `s3_2_complete_picture_graph` | ...filled (7 symbols). Emma, Noah, Olivia rows empty. |
 | `Noah` | `s3_2_complete_picture_graph` | ...(7 symbols). Emma, Noah, Olivia rows empty. |
 | `Olivia rows empty` | `s3_2_complete_picture_graph` | ...mbols). Emma, Noah, Olivia rows empty. |
-| `Horizontal layout` | `s3_5_reading_axis_horizontal` | ...y=25. 4 categories. Horizontal layout. |
 | `Both completed horizontal graphs` | `s3_8_final_check_what_s_same` | Both completed horizontal graphs visible (Books picture graph, Screen Time bar g |
 
 ---
@@ -67,6 +68,13 @@ Review these sections: the correct tool may be something else.
 
 ## Section Detail
 
+### `s1_5_complete_graph`
+
+- **Unresolved:** `Same data` in `visual`
+  > ...(Numeric Display). Same data. Vertical.
+- **Unresolved:** `Vertical` in `visual`
+  > ...isplay). Same data. Vertical.
+
 ### `s2_1_two_ways_show_scale_5`
 
 - **Tool fallback:** defaulted to `multiple_choice` — no rule matched
@@ -85,11 +93,6 @@ Review these sections: the correct tool may be something else.
   > ...(7 symbols). Emma, Noah, Olivia rows empty.
 - **Unresolved:** `Olivia rows empty` in `visual`
   > ...mbols). Emma, Noah, Olivia rows empty.
-
-### `s3_5_reading_axis_horizontal`
-
-- **Unresolved:** `Horizontal layout` in `visual`
-  > ...y=25. 4 categories. Horizontal layout.
 
 ### `s3_6_bar_graph_independent_creation_horizontal`
 

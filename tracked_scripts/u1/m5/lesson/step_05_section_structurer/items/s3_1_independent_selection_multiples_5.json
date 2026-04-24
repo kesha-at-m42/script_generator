@@ -1,0 +1,255 @@
+{
+  "id": "s3_1_independent_selection_multiples_5",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "orientation": "horizontal",
+        "categories": [
+          "Dates",
+          "Cherries",
+          "Bananas",
+          "Apples"
+        ],
+        "values": [
+          60,
+          45,
+          30,
+          15
+        ],
+        "description": "Vertical data table appears. Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_fruits",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Dates",
+          "Cherries",
+          "Bananas",
+          "Apples"
+        ],
+        "scale_preview_active": true,
+        "available_scales": [
+          2,
+          5,
+          10
+        ],
+        "description": "Horizontal bar graph placeholder with scale preview system available. All three scales (2, 5, 10) show checkmarks indicating they are valid options."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's data about students' favorite fruits. The most votes went to Dates with 60. Scale of 1 doesn't make sense here because it would take 60 lines on the axis. That's too much!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+          "tangible_type": "data_table",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "values": [
+            60,
+            45,
+            30,
+            15
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_fruits",
+          "description": "Horizontal bar graph with scale preview system. All three scales (2, 5, 10) show checkmarks.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "scale_preview_active": true,
+          "available_scales": [
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Your job: pick the right scale. Which scale will you use?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale will you use?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 2",
+        "Scale of 5",
+        "Scale of 10"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 10"
+          },
+          "description": "Student selected Scale of 10, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Good choice."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+          "tangible_type": "data_table",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "values": [
+            60,
+            45,
+            30,
+            15
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_fruits",
+          "description": "Horizontal bar graph with scale preview system. Student has selected a scale option.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "scale_preview_active": true,
+          "available_scales": [
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Why is Scale of 10 a good choice? Choose all of the reasons."
+    },
+    {
+      "type": "prompt",
+      "text": "Why is Scale of 10 a good choice? Choose all of the reasons.",
+      "tool": "multi_select",
+      "options": [
+        "All values end in 0 or 5 so they can be graphed precisely.",
+        "The graph is easy to read.",
+        "The biggest number is 60 so the bars fit on the graph.",
+        "Scale of 2 takes too many marks to reach the biggest number."
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "All values end in 0 or 5 so they can be graphed precisely."
+              },
+              {
+                "selected": "The graph is easy to read."
+              },
+              {
+                "selected": "The biggest number is 60 so the bars fit on the graph."
+              },
+              {
+                "selected": "Scale of 2 takes too many marks to reach the biggest number."
+              }
+            ]
+          },
+          "description": "Student selected all four options, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Exactly. All values are multiples of 5, so scales of 5 and 10 both work to read the graph clearly. For data going up to 60, Scale of 10 gives you a cleaner graph."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+          "tangible_type": "data_table",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "values": [
+            60,
+            45,
+            30,
+            15
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_fruits",
+          "description": "Horizontal bar graph with scale preview system. Student has completed scale selection and justification.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Dates",
+            "Cherries",
+            "Bananas",
+            "Apples"
+          ],
+          "scale_preview_active": true,
+          "available_scales": [
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:51.845424+00:00"
+}

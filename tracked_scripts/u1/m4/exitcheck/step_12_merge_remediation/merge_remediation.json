@@ -1,0 +1,912 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You made bar graphs with scale of 10. You read values at the lines and between the lines. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0",
+        "_notion_block_id": "3485917e-ac52-8109-9293-c8c618b0168e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1",
+        "_toml_key": "step_100_transition_into_exit_check"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:45.778366+00:00",
+    "_notion_block_id": "3485917e-ac52-8170-930e-e3b79cd2df30",
+    "_toml_key": "section_100_transition_into_exit_check"
+  },
+  {
+    "id": "s1_1_read_value_at_axis_line",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_books",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Nonfiction",
+            "Fiction",
+            "Comics",
+            "Poetry"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "values": {
+            "Nonfiction": 30,
+            "Fiction": 40,
+            "Comics": 50,
+            "Poetry": 20
+          },
+          "description": "Vertical bar graph appears. Books Checked Out data. Nonfiction=30, Fiction=40, Comics=50, Poetry=20. Scale of 10, axis 0–60. All bars end at axis lines."
+        },
+        "id": "s1_1_read_value_at_axis_line_b0",
+        "_notion_block_id": "3485917e-ac52-813a-b539-c20315aafe0e"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_categories": [
+            "Fiction"
+          ],
+          "description": "Fiction bar highlights."
+        },
+        "id": "s1_1_read_value_at_axis_line_b1",
+        "_notion_block_id": "3485917e-ac52-81fa-8fff-e50d8b62d3e4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the Fiction bar. What value does the Fiction bar show?",
+        "id": "s1_1_read_value_at_axis_line_b2",
+        "_notion_block_id": "3485917e-ac52-8168-b9a9-c3dc510b7b83"
+      },
+      {
+        "type": "prompt",
+        "text": "What value does the Fiction bar show?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          35,
+          40,
+          45
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 40
+            },
+            "description": "Student selected 40, correct, bar ends at 40 line",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 40. The bar ends right at the 40 line on the axis.",
+                "id": "s1_1_read_value_at_axis_line_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-812e-8f2f-c6ec2c2f78c4"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4, confusing 4 with 40 or misreading scale",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Fiction"
+                  ],
+                  "description": "Fiction bar remains highlighted. Axis lines 0–60 visible."
+                },
+                "id": "s1_1_read_value_at_axis_line_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at where the top of the bar ends. The numbers on the axis tell you the value. This scale counts by 10s, not 1s.",
+                "id": "s1_1_read_value_at_axis_line_b3_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8140-a53d-e30bdfb39819"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 35
+            },
+            "description": "Student selected 35, estimating between 30 and 40 instead of reading the exact line",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Fiction"
+                  ],
+                  "description": "Fiction bar remains highlighted. 40 axis line emphasized."
+                },
+                "id": "s1_1_read_value_at_axis_line_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The bar ends exactly on a line, not between two lines. Check which number the top of the bar touches.",
+                "id": "s1_1_read_value_at_axis_line_b3_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8112-bac3-c2ab34e8e0c0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45, reading one line above where bar ends",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Fiction"
+                  ],
+                  "description": "Fiction bar remains highlighted. 40 axis line emphasized."
+                },
+                "id": "s1_1_read_value_at_axis_line_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the very top of the bar. It ends at 40, not at the next line up. Count the lines from the bottom to see.",
+                "id": "s1_1_read_value_at_axis_line_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-816b-a4fe-c1c54ac0bb55"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "trace_bar_to_axis",
+                  "status": "confirmed",
+                  "description": "System traces from top of Fiction bar horizontally to 40 line on axis."
+                },
+                "id": "s1_1_read_value_at_axis_line_b3_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The top of the Fiction bar lines up exactly with the 40 mark on the axis. We read straight across from the top of the bar to find the value. The Fiction bar shows 40.",
+                "id": "s1_1_read_value_at_axis_line_b3_v4_b1",
+                "_notion_block_id": "3485917e-ac52-815b-ac79-f9e12541a0e8"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_read_value_at_axis_line_b3",
+        "_notion_block_id": "3485917e-ac52-812f-9710-dafb1c0a1cde"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph. Books Checked Out data. Fiction bar highlighted. Scale of 10, axis 0–60.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Nonfiction",
+              "Fiction",
+              "Comics",
+              "Poetry"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ]
+          }
+        ],
+        "id": "s1_1_read_value_at_axis_line_b4",
+        "_toml_key": "step_101_read_value_at_axis_line"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:54.552134+00:00",
+    "_notion_block_id": "3485917e-ac52-8123-877f-e6d8bab0aad5",
+    "_toml_key": "section_101_read_value_at_axis_line"
+  },
+  {
+    "id": "s1_2_read_value_between_lines_interpolation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_points",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Team A",
+            "Team B",
+            "Team C",
+            "Team D"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears. Points Earned data. Team A=35, Team B=50, Team C=25, Team D=40. Scale of 10, axis 0 to 60. Ghost gridlines at 5s visible."
+        },
+        "id": "s1_2_read_value_between_lines_interpolation_b0",
+        "_notion_block_id": "3485917e-ac52-8110-a93e-e6714af6b569"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at Team A's bar. It ends between the lines. The bar is between 30 and 40. What value does this show?",
+        "id": "s1_2_read_value_between_lines_interpolation_b1",
+        "_notion_block_id": "3485917e-ac52-81d1-99c4-e935bb358be4"
+      },
+      {
+        "type": "prompt",
+        "text": "What is the value represented for Team A?",
+        "tool": "multiple_choice",
+        "options": [
+          30,
+          34,
+          35,
+          40
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 35
+            },
+            "description": "Student selected 35, correct. Bar ends halfway between 30 and 40.",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_points",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Team A",
+                  "description": "Team A bar highlights to confirm selection."
+                },
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. 35. It's halfway between 30 and 40. Half of 10 is 5.",
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8129-a16a-eb1b4e0e91d4"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 30
+            },
+            "description": "Student selected 30. They may have read the lower gridline instead of estimating between lines.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_points",
+                "params": {
+                  "highlight_categories": [
+                    "Team A"
+                  ],
+                  "description": "Team A bar highlights."
+                },
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Team A's bar goes past 30. Look where the top ends. It's between two lines.",
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8195-8673-ec59c955f8de"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 34
+            },
+            "description": "Student selected 34. They may have estimated but not recognized the halfway position.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_points",
+                "params": {
+                  "highlight_categories": [
+                    "Team A"
+                  ],
+                  "description": "Team A bar highlights."
+                },
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Team A's bar. It ends exactly halfway between 30 and 40. What number is halfway between those?",
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8147-b5a9-c4d4e97eb303"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 40
+            },
+            "description": "Student selected 40. They may have read the upper gridline instead of estimating between lines.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_points",
+                "params": {
+                  "highlight_categories": [
+                    "Team A"
+                  ],
+                  "description": "Team A bar highlights."
+                },
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Team A's bar doesn't reach 40. Look where it ends. It's between the 30 line and the 40 line.",
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-817f-852e-d35fb7fe32b9"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_points",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Team A",
+                  "description": "Team A bar highlights and value label appears showing 35."
+                },
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to read this. Team A's bar ends between 30 and 40. It ends exactly halfway between them. Halfway between 30 and 40 is 35. When a bar ends between two lines, find where it is between those numbers. The answer is 35.",
+                "id": "s1_2_read_value_between_lines_interpolation_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81ca-8308-d7d92be08494"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_read_value_between_lines_interpolation_b2",
+        "_notion_block_id": "3485917e-ac52-814c-b13a-f38dd19d7291"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_points",
+            "description": "Vertical bar graph in reading mode. Points Earned data. Team A=35, Team B=50, Team C=25, Team D=40. Scale of 10. Ghost gridlines at 5s visible. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Team A",
+              "Team B",
+              "Team C",
+              "Team D"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s1_2_read_value_between_lines_interpolation_b3",
+        "_toml_key": "step_102_read_value_between_lines_interpolation"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:03.754720+00:00",
+    "_notion_block_id": "3485917e-ac52-81c3-8338-f2b82a55e892",
+    "_toml_key": "section_102_read_value_between_lines_interpolation"
+  },
+  {
+    "id": "s1_3_create_bar_graph_with_mixed",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Horizontal data table appears. Art Supplies Collected data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+        },
+        "id": "s1_3_create_bar_graph_with_mixed_b0",
+        "_notion_block_id": "3485917e-ac52-819e-921c-f5ec3607653d"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_art_supplies",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "building",
+          "orientation": "vertical",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Markers",
+            "Crayons",
+            "Paintbrushes",
+            "Glue Sticks"
+          ],
+          "snap_to": 5,
+          "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0-60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+        },
+        "id": "s1_3_create_bar_graph_with_mixed_b1",
+        "_notion_block_id": "3485917e-ac52-811a-9a59-ffefef246a89"
+      },
+      {
+        "type": "dialogue",
+        "text": "Create the bar graph. Some values are at the lines, some are between.",
+        "id": "s1_3_create_bar_graph_with_mixed_b2",
+        "_notion_block_id": "3485917e-ac52-81d7-8de3-d1ef4a27dc29"
+      },
+      {
+        "type": "prompt",
+        "text": "Complete the graph.",
+        "tool": "click_to_set_height",
+        "target": "bar_graph_art_supplies",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "bar_height": {
+                    "category": "Markers",
+                    "value": 30
+                  }
+                },
+                {
+                  "bar_height": {
+                    "category": "Crayons",
+                    "value": 45
+                  }
+                },
+                {
+                  "bar_height": {
+                    "category": "Paintbrushes",
+                    "value": 20
+                  }
+                },
+                {
+                  "bar_height": {
+                    "category": "Glue Sticks",
+                    "value": 55
+                  }
+                }
+              ]
+            },
+            "description": "All four bars correctly placed: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_art_supplies",
+                "params": {
+                  "event": "confirm_bars",
+                  "status": "confirmed",
+                  "description": "All four bars confirm placement."
+                },
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's right. Markers and Paintbrushes at the lines. Crayons and Glue Sticks between the lines. You placed all four correctly.",
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8153-a3a3-ff6adece56c8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed at least one bar incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check the data table. Some values land on the lines, some between.",
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81d8-a401-d593befd1754"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed at least one bar incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_art_supplies",
+                "params": {
+                  "description": "Ghost gridlines at 5s highlight to show intervals."
+                },
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the gridlines. The lines are at 10, 20, 30. Between the lines are 5, 15, 25. Match each bar to its value.",
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81d5-9953-c145b94e44a8"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed at least one bar incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_art_supplies",
+                "params": {
+                  "event": "confirm_bars",
+                  "status": "confirmed",
+                  "description": "System sets all four bars: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+                },
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Markers is 30, right on the line. Crayons is 45, halfway between 40 and 50. Paintbrushes is 20, on the line. Glue Sticks is 55, halfway between 50 and 60. The scale of 10 means the lines are at 10, 20, 30. Values ending in 5 go between the lines.",
+                "id": "s1_3_create_bar_graph_with_mixed_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-814b-afc7-eea1eed06d4d"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_create_bar_graph_with_mixed_b3",
+        "_notion_block_id": "3485917e-ac52-8175-b4f7-f03a543c6f2c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Horizontal data table showing Art Supplies Collected values.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_art_supplies",
+            "description": "Vertical bar graph in building mode. Scale 10, axis 0-60. All four bars set: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+            "tangible_type": "bar_graph",
+            "mode": "building",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Markers",
+              "Crayons",
+              "Paintbrushes",
+              "Glue Sticks"
+            ]
+          }
+        ],
+        "id": "s1_3_create_bar_graph_with_mixed_b4",
+        "_toml_key": "step_103_create_bar_graph_with_mixed"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:15.464113+00:00",
+    "_notion_block_id": "3485917e-ac52-813c-a54e-d37833b94a76",
+    "_toml_key": "section_103_create_bar_graph_with_mixed"
+  },
+  {
+    "id": "s1_4_comparison_problem_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_supplies",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Markers",
+            "Crayons",
+            "Paintbrushes",
+            "Glue Sticks"
+          ],
+          "values": {
+            "Markers": 30,
+            "Crayons": 45,
+            "Paintbrushes": 20,
+            "Glue Sticks": 55
+          },
+          "description": "Vertical bar graph appears. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+        },
+        "id": "s1_4_comparison_problem_compare_b0",
+        "_notion_block_id": "3485917e-ac52-810c-804c-ca036284986f"
+      },
+      {
+        "type": "dialogue",
+        "text": "Use the graph you made. How many MORE art supplies does Glue Sticks have than Markers?",
+        "id": "s1_4_comparison_problem_compare_b1",
+        "_notion_block_id": "3485917e-ac52-8155-90e0-c514212b66ee"
+      },
+      {
+        "type": "prompt",
+        "text": "How many MORE art supplies does Glue Sticks have than Markers?",
+        "tool": "multiple_choice",
+        "options": [
+          15,
+          25,
+          55,
+          85
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 25
+            },
+            "description": "Student selected 25, correct difference between Glue Sticks and Markers",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 25 more. Glue Sticks has 55, Markers has 30. The difference is 25.",
+                "id": "s1_4_comparison_problem_compare_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8165-ad7a-c02d450860f7"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 55
+            },
+            "description": "Student selected 55: chose Glue Sticks value instead of finding difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_supplies",
+                "params": {
+                  "highlight_categories": [
+                    "Glue Sticks",
+                    "Markers"
+                  ],
+                  "description": "Glue Sticks and Markers bars highlight."
+                },
+                "id": "s1_4_comparison_problem_compare_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Glue Sticks. When we ask how many MORE, we need the difference. How far apart are Glue Sticks and Markers?",
+                "id": "s1_4_comparison_problem_compare_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8169-a71c-d957b49edb84"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 85
+            },
+            "description": "Student selected 85: added the two values instead of subtracting",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_supplies",
+                "params": {
+                  "highlight_categories": [
+                    "Glue Sticks",
+                    "Markers"
+                  ],
+                  "description": "Glue Sticks and Markers bars highlight."
+                },
+                "id": "s1_4_comparison_problem_compare_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You added them together. How many MORE means we subtract. Find the difference between Glue Sticks and Markers.",
+                "id": "s1_4_comparison_problem_compare_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81d6-972f-c3fd2c9c697c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 15
+            },
+            "description": "Student selected 15: incorrect calculation, possibly subtracted wrong pair or miscounted",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_supplies",
+                "params": {
+                  "highlight_categories": [
+                    "Glue Sticks",
+                    "Markers"
+                  ],
+                  "description": "Glue Sticks and Markers bars highlight."
+                },
+                "id": "s1_4_comparison_problem_compare_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look at the bars we need. Find Glue Sticks. Then find Markers. What is the difference between those two?",
+                "id": "s1_4_comparison_problem_compare_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8185-894f-e0294f033c0d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_supplies",
+                "params": {
+                  "event": "show_difference",
+                  "status": "confirmed",
+                  "description": "System demonstrates difference between Glue Sticks (55) and Markers (30). Visual shows 55 minus 30 equals 25.",
+                  "categories": [
+                    "Glue Sticks",
+                    "Markers"
+                  ]
+                },
+                "id": "s1_4_comparison_problem_compare_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to find how many more. First, I look at Glue Sticks: 55. Then I look at Markers: 30. To find how many more, I subtract. 55 minus 30 is 25. The difference is 25. That tells us Glue Sticks has 25 more than Markers.",
+                "id": "s1_4_comparison_problem_compare_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8128-9ed9-d7868a1a4c91"
+              }
+            ]
+          }
+        ],
+        "id": "s1_4_comparison_problem_compare_b2",
+        "_notion_block_id": "3485917e-ac52-818e-a6a8-e7e9d49c66b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_supplies",
+            "description": "Vertical bar graph in reading mode. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Markers",
+              "Crayons",
+              "Paintbrushes",
+              "Glue Sticks"
+            ]
+          }
+        ],
+        "id": "s1_4_comparison_problem_compare_b3",
+        "_toml_key": "step_104_comparison_problem_compare"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:22.876995+00:00",
+    "_notion_block_id": "3485917e-ac52-8172-8082-e05e6e291921",
+    "_toml_key": "section_104_comparison_problem_compare"
+  },
+  {
+    "id": "s1_5_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_library",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph showing Library Visitors data with scale of 10. Monday=25, Tuesday=40, Wednesday=30, Thursday=45, Friday=35."
+        },
+        "id": "s1_5_exit_check_closure_b0",
+        "_notion_block_id": "3485917e-ac52-8119-b1ad-c11eefeaba06"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can read bar graphs with a scale of 10, even values between the lines. You're ready to practice.",
+        "id": "s1_5_exit_check_closure_b1",
+        "_notion_block_id": "3485917e-ac52-817c-8566-c40adabe3993"
+      },
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "bar_graph_library",
+        "params": {
+          "description": "Bar graph fades out."
+        },
+        "id": "s1_5_exit_check_closure_b2",
+        "_notion_block_id": "3485917e-ac52-8115-8134-c71a7b294ffe"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_5_exit_check_closure_b3",
+        "_toml_key": "step_105_exit_check_closure"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:28.190573+00:00",
+    "_notion_block_id": "3485917e-ac52-8139-940b-e5a4e21c051b",
+    "_toml_key": "section_105_exit_check_closure"
+  }
+]

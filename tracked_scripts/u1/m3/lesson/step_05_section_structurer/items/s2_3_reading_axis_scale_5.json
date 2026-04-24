@@ -7,7 +7,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
+        "description": "Vertical data table appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15. 5 categories."
       }
     },
     {
@@ -30,25 +30,28 @@
           35
         ],
         "axis_interval": 5,
-        "bar_heights": {
+        "bar_values": {
+          "Pizza": 0,
           "Tacos": 30,
+          "Salad": 0,
+          "Pasta": 0,
           "Sandwiches": 15
         },
-        "description": "Vertical bar graph appears. Favorite Lunch Foods. Axis labeled 0-35 in 5s. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty."
+        "description": "Vertical bar graph appears. Favorite Lunch Foods. Axis labeled 0–35 in 5s. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty."
       }
+    },
+    {
+      "type": "dialogue",
+      "text": "Before you create the bars, look at the numbers on the axis."
     },
     {
       "type": "scene",
       "method": "update",
       "tangible_id": "bar_graph_lunch",
       "params": {
-        "highlight_axis_numbers": true,
-        "description": "Axis numbers highlight to draw attention to the scale."
+        "highlight_axis": true,
+        "description": "Axis numbers highlight."
       }
-    },
-    {
-      "type": "dialogue",
-      "text": "Before you create the bars, look at the numbers on the axis."
     },
     {
       "type": "dialogue",
@@ -70,7 +73,7 @@
           "condition": {
             "selected": 25
           },
-          "description": "Student selected 25, correct",
+          "description": "Student answered 25, correct",
           "is_correct": true,
           "beats": [
             {
@@ -86,12 +89,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Favorite Lunch Foods values.",
+          "description": "Vertical data table showing Favorite Lunch Foods values.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_lunch",
-          "description": "Vertical bar graph in building mode. Favorite Lunch Foods. Axis labeled 0-35 in 5s, axis numbers highlighted. Tacos bar at 30, Sandwiches bar at 15. Pizza, Salad, Pasta bars empty.",
+          "description": "Vertical bar graph in building mode. Favorite Lunch Foods. Axis labeled 0–35 in 5s with axis numbers highlighted. Tacos bar at 30, Sandwiches bar at 15. Pizza, Salad, Pasta bars empty.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "vertical",
@@ -101,15 +104,10 @@
             "Salad",
             "Pasta",
             "Sandwiches"
-          ],
-          "axis_range": [
-            0,
-            35
-          ],
-          "axis_interval": 5
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:11.986587+00:00"
+  "_generated_at": "2026-04-23T17:23:39.606767+00:00"
 }

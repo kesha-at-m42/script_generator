@@ -1,0 +1,823 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've built expressions from pictures and matched expressions to pictures. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0",
+        "_notion_block_id": "3485917e-ac52-8154-afd4-f13538b8f8de"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1",
+        "_toml_key": "step_100_transition_into_exit_check"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:54.405474+00:00",
+    "_notion_block_id": "3485917e-ac52-81f0-ba4d-f5fe6c6bf063",
+    "_toml_key": "section_100_transition_into_exit_check"
+  },
+  {
+    "id": "s1_1_build_expression_boxes",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "description": "3 boxes appear, each containing 4 items (cookies or markers). Equal groups visualization in reading mode."
+        },
+        "id": "s1_1_build_expression_boxes_b0",
+        "_notion_block_id": "3485917e-ac52-8135-940a-f6ca9d9f6259"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_boxes",
+        "tangible_type": "equation_builder",
+        "params": {
+          "expression_template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "description": "Equation builder appears below the boxes. Two blank slots with multiplication symbol between them. Tile palette shows numbers 1 through 10."
+        },
+        "id": "s1_1_build_expression_boxes_b1",
+        "_notion_block_id": "3485917e-ac52-81e8-ad3b-fdd2cdf43736"
+      },
+      {
+        "type": "dialogue",
+        "text": "Build the expression for these boxes.",
+        "id": "s1_1_build_expression_boxes_b2",
+        "_notion_block_id": "3485917e-ac52-8139-8d3f-cffcc3ceef5c"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the expression.",
+        "tool": "place_tile",
+        "target": "equation_builder_boxes",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 3,
+                "items": 4
+              }
+            },
+            "description": "Student placed 3 and 4, building 3 × 4",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 3 times 4.",
+                "id": "s1_1_build_expression_boxes_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-819a-a216-cc4097b7693c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "placed": {
+                    "groups": 4,
+                    "items": 3
+                  }
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed the numbers, placing 4 × 3 instead of 3 × 4",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Boxes highlight one at a time."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You got the numbers, but check the order. First number: how many groups? Count the boxes. Second number: how many in each group? Count inside one box.",
+                "id": "s1_1_build_expression_boxes_b3_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81f5-abcc-dd9743ad25c4"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "placed": {
+                      "groups": 4,
+                      "items": 3
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Student placed incorrect values on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Remember the two questions. How many groups? How many in each group?",
+                "id": "s1_1_build_expression_boxes_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-8169-9874-c5aa390becf4"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "placed": {
+                      "groups": 4,
+                      "items": 3
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Student placed incorrect values on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Boxes highlight one at a time as guide counts."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's count together. How many boxes? 1, 2, 3. That's the first number. Now look inside one box. How many items? 1, 2, 3, 4. That's the second number.",
+                "id": "s1_1_build_expression_boxes_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8129-a830-c6be10917a9f"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Boxes highlight one at a time as guide counts groups."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_items_in_one_container",
+                  "status": "confirmed",
+                  "description": "Items in one box highlight as guide counts items."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v4_b1"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_boxes",
+                "params": {
+                  "event": "place_tile_demo",
+                  "status": "confirmed",
+                  "slot": 0,
+                  "value": 3,
+                  "description": "Guide demonstrates placing 3 tile into first slot."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v4_b2"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_boxes",
+                "params": {
+                  "event": "place_tile_demo",
+                  "status": "confirmed",
+                  "slot": 1,
+                  "value": 4,
+                  "description": "Guide demonstrates placing 4 tile into second slot."
+                },
+                "id": "s1_1_build_expression_boxes_b3_v4_b3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how this works. I count the groups: 1, 2, 3. Three boxes. That's my first number. Then I look inside one box: 1, 2, 3, 4. Four items. That's my second number. The expression is 3 times 4. First number shows how many groups, second number shows how many in each.",
+                "id": "s1_1_build_expression_boxes_b3_v4_b4",
+                "_notion_block_id": "3485917e-ac52-81b4-a0f4-cf657f3c0d21"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_build_expression_boxes_b3",
+        "_notion_block_id": "3485917e-ac52-818a-bf78-e236ecd76c7d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "3 boxes with 4 items each. Equal groups visualization in reading mode.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4
+          },
+          {
+            "tangible_id": "equation_builder_boxes",
+            "description": "Equation builder showing 3 × 4. Expression complete.",
+            "tangible_type": "equation_builder",
+            "expression_template": [
+              "__",
+              "×",
+              "__"
+            ]
+          }
+        ],
+        "id": "s1_1_build_expression_boxes_b4",
+        "_toml_key": "step_101_build_expression_boxes"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:03.947326+00:00",
+    "_notion_block_id": "3485917e-ac52-815d-a308-cac860d2719a",
+    "_toml_key": "section_101_build_expression_boxes"
+  },
+  {
+    "id": "s1_2_identify_visual_expression",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder",
+        "tangible_type": "equation_builder",
+        "params": {
+          "mode": "display",
+          "expression": [
+            "4",
+            "×",
+            "2"
+          ],
+          "description": "Equation builder displays static expression 4 × 2 in expression mode."
+        },
+        "id": "s1_2_identify_visual_expression_b0",
+        "_notion_block_id": "3485917e-ac52-810d-9879-c5b60ed5d04a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "visual_option_a",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "description": "Visual option A: 4 bags with 2 items in each."
+        },
+        "id": "s1_2_identify_visual_expression_b1",
+        "_notion_block_id": "3485917e-ac52-8113-a595-df05878ea833"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "visual_option_b",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 4,
+          "description": "Visual option B: 2 bags with 4 items in each (factor reversal)."
+        },
+        "id": "s1_2_identify_visual_expression_b2",
+        "_notion_block_id": "3485917e-ac52-819e-b484-df7da577b0fb"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "visual_option_c",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 1,
+          "items_per_container": 6,
+          "description": "Visual option C: 6 items scattered without equal group structure (sum of factors)."
+        },
+        "id": "s1_2_identify_visual_expression_b3",
+        "_notion_block_id": "3485917e-ac52-8120-8509-d40bf26bd97e"
+      },
+      {
+        "type": "dialogue",
+        "text": "Which picture matches this expression?",
+        "id": "s1_2_identify_visual_expression_b4",
+        "_notion_block_id": "3485917e-ac52-8119-a11f-ddf999b35e42"
+      },
+      {
+        "type": "prompt",
+        "text": "Select the picture that shows 4 times 2.",
+        "tool": "multiple_choice",
+        "options": [
+          "A",
+          "B",
+          "C"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "A"
+            },
+            "description": "Student selected A: 4 bags of 2, correct match for 4 × 2",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "visual_option_a",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "Option A highlights to confirm selection."
+                },
+                "id": "s1_2_identify_visual_expression_b5_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's right. 4 groups with 2 in each.",
+                "id": "s1_2_identify_visual_expression_b5_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8105-b7bd-fc6c598de9c5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "B"
+            },
+            "description": "Student selected B: 2 bags of 4, factor reversal error",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "highlight_first_number": true,
+                  "description": "First number in expression highlights."
+                },
+                "id": "s1_2_identify_visual_expression_b5_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The first number tells you how many groups. Look at the first number in 4 times 2. How many groups do you need?",
+                "id": "s1_2_identify_visual_expression_b5_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8111-b81f-c8dae937fb86"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "C"
+            },
+            "description": "Student selected C: 6 scattered items, not equal groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "visual_option_a",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "Bags in option A highlight."
+                },
+                "id": "s1_2_identify_visual_expression_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Multiplication shows equal groups. The expression tells you how many groups and how many in each. Which picture shows groups?",
+                "id": "s1_2_identify_visual_expression_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8106-90fa-c30796536acc"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "visual_option_a",
+                "params": {
+                  "event": "highlight_groups_sequentially",
+                  "status": "confirmed",
+                  "description": "Option A bags highlight one at a time, then items in one bag highlight."
+                },
+                "id": "s1_2_identify_visual_expression_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The expression 4 times 2 means 4 groups with 2 in each group. I count the groups: 1, 2, 3, 4 bags. Then I check inside one bag: 2 items. Option A shows 4 groups of 2. That's what the expression means.",
+                "id": "s1_2_identify_visual_expression_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8153-a443-d98d005e8fcf"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_identify_visual_expression_b5",
+        "_notion_block_id": "3485917e-ac52-81fe-ae71-cf52ade211a5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation builder displays static expression 4 × 2.",
+            "tangible_type": "equation_builder",
+            "mode": "display",
+            "expression": [
+              "4",
+              "×",
+              "2"
+            ]
+          },
+          {
+            "tangible_id": "visual_option_a",
+            "description": "Visual option A: 4 bags with 2 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "visual_option_b",
+            "description": "Visual option B: 2 bags with 4 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 4
+          },
+          {
+            "tangible_id": "visual_option_c",
+            "description": "Visual option C: 6 items scattered without equal group structure.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 1,
+            "items_per_container": 6
+          }
+        ],
+        "id": "s1_2_identify_visual_expression_b6",
+        "_toml_key": "step_102_identify_visual_expression"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:21.389451+00:00",
+    "_notion_block_id": "3485917e-ac52-811d-8bef-f324def36520",
+    "_toml_key": "section_102_identify_visual_expression"
+  },
+  {
+    "id": "s1_3_build_expression_circles",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3,
+          "visual_style": "circles_with_dots",
+          "description": "5 circles appear, each containing 3 dots. Semi-abstract equal groups representation."
+        },
+        "id": "s1_3_build_expression_circles_b0",
+        "_notion_block_id": "3485917e-ac52-815a-bce4-d0ba6f6a2560"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_circles",
+        "tangible_type": "equation_builder",
+        "params": {
+          "expression_template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            5,
+            7,
+            8,
+            10,
+            12,
+            15,
+            18
+          ],
+          "description": "Equation builder appears below the circles. Two blank slots with multiplication symbol between. Tile palette shows: 3, 5, 7, 8, 10, 12, 15, 18."
+        },
+        "id": "s1_3_build_expression_circles_b1",
+        "_notion_block_id": "3485917e-ac52-81d1-b55e-e3b04404e58c"
+      },
+      {
+        "type": "dialogue",
+        "text": "Build the expression for the circles.",
+        "id": "s1_3_build_expression_circles_b2",
+        "_notion_block_id": "3485917e-ac52-819f-a7b4-d1e4cbd77bf8"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the expression.",
+        "tool": "place_tile",
+        "target": "equation_builder_circles",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "groups": 5,
+              "items": 3
+            },
+            "description": "Student placed 5 × 3, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_circles",
+                "params": {
+                  "event": "confirm_expression",
+                  "status": "confirmed",
+                  "description": "Expression 5 × 3 confirms."
+                },
+                "id": "s1_3_build_expression_circles_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's it. 5 times 3.",
+                "id": "s1_3_build_expression_circles_b3_v0_b1",
+                "_notion_block_id": "3485917e-ac52-816b-99ef-c6a673ec7bc9"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "groups": 3,
+                  "items": 5
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed the numbers: placed 3 × 5 instead of 5 × 3",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Circles highlight one at a time as guide counts them."
+                },
+                "id": "s1_3_build_expression_circles_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You switched the numbers. Count the circles first. How many circles do you see?",
+                "id": "s1_3_build_expression_circles_b3_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8152-ba6b-f72f3910f038"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "groups": 3,
+                    "items": 5
+                  }
+                }
+              ]
+            },
+            "description": "Student placed incorrect values on first attempt (not the reversal)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check both numbers. First, how many circles? Second, how many dots in each circle?",
+                "id": "s1_3_build_expression_circles_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-818d-bbd7-cd3a69fbac76"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "groups": 3,
+                    "items": 5
+                  }
+                }
+              ]
+            },
+            "description": "Student placed incorrect values on second attempt (not the reversal)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Circles highlight one at a time."
+                },
+                "id": "s1_3_build_expression_circles_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the circles: that number goes first. Then count the dots inside one circle: that number goes second. Place those two tiles.",
+                "id": "s1_3_build_expression_circles_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81bf-bee6-cf5e58e24ef9"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_containers_sequentially",
+                  "status": "confirmed",
+                  "description": "Guide counts circles one by one, highlighting each."
+                },
+                "id": "s1_3_build_expression_circles_b3_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_items_in_one_container",
+                  "status": "confirmed",
+                  "description": "Guide focuses on one circle and counts dots inside."
+                },
+                "id": "s1_3_build_expression_circles_b3_v4_b1"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_circles",
+                "params": {
+                  "event": "place_tile_demo",
+                  "status": "confirmed",
+                  "description": "Guide places 5 tile into first slot.",
+                  "slot": 0,
+                  "value": 5
+                },
+                "id": "s1_3_build_expression_circles_b3_v4_b2"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_circles",
+                "params": {
+                  "event": "place_tile_demo",
+                  "status": "confirmed",
+                  "description": "Guide places 3 tile into second slot.",
+                  "slot": 1,
+                  "value": 3
+                },
+                "id": "s1_3_build_expression_circles_b3_v4_b3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the circles: 1, 2, 3, 4, 5. That is 5 groups. I place the 5 tile first. Then I look inside one circle and count the dots: 1, 2, 3. That is 3 in each group. I place the 3 tile second. The expression is 5 times 3.",
+                "id": "s1_3_build_expression_circles_b3_v4_b4",
+                "_notion_block_id": "3485917e-ac52-81d5-9237-d2833814e83a"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_build_expression_circles_b3",
+        "_notion_block_id": "3485917e-ac52-81b9-a685-f4da31a22711"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "5 circles with 3 dots each. Semi-abstract equal groups context.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 3
+          },
+          {
+            "tangible_id": "equation_builder_circles",
+            "description": "Equation builder showing confirmed expression 5 × 3.",
+            "tangible_type": "equation_builder",
+            "expression_template": [
+              "__",
+              "×",
+              "__"
+            ],
+            "tile_palette": [
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              15,
+              18
+            ]
+          }
+        ],
+        "id": "s1_3_build_expression_circles_b4",
+        "_toml_key": "step_103_build_expression_circles"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:32.393194+00:00",
+    "_notion_block_id": "3485917e-ac52-81bd-a057-c988d6d3ec1a",
+    "_toml_key": "section_103_build_expression_circles"
+  }
+]

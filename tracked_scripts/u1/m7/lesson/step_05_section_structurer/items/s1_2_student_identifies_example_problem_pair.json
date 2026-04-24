@@ -1,0 +1,150 @@
+{
+  "id": "s1_2_student_identifies_example_problem_pair",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 5,
+        "description": "Equal groups appear. 2 boxes, 5 items in each box."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now you try. Count the groups first."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups?",
+      "tool": "multiple_choice",
+      "options": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student answered 2 groups, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 boxes. Those are your groups."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now look inside ONE box. How many?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many in each group?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        3,
+        5,
+        10
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student answered 5 items, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 in each box."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "So what do you have?"
+    },
+    {
+      "type": "prompt",
+      "text": "Say it: ___ groups of ___.",
+      "tool": "multiple_choice",
+      "options": [
+        "2 groups of 5",
+        "5 groups of 2",
+        "2 groups of 10",
+        "5 groups of 10"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "2 groups of 5"
+          },
+          "description": "Student answered 2 groups of 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Two groups of five. These are equal groups—same number in each one."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:25.973636+00:00"
+}

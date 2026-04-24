@@ -1,0 +1,559 @@
+[
+  {
+    "id": "s1_1_graph_reading_quick_success",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_books",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Books Read This Week"
+          ],
+          "scale": 5,
+          "symbol_count": 4,
+          "description": "Horizontal picture graph appears. Books Read This Week. 4 symbols displayed. Key shows each symbol = 5 books."
+        },
+        "id": "s1_1_graph_reading_quick_success_b0",
+        "_notion_block_id": "3485917e-ac52-8160-869d-d22bd198b2f3"
+      },
+      {
+        "type": "dialogue",
+        "text": "You know how to read these. Look. 4 symbols. Each one means 5 books. How many books altogether?",
+        "id": "s1_1_graph_reading_quick_success_b1",
+        "_notion_block_id": "3485917e-ac52-816b-9ac8-d49573362f4d"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books? You can skip-count.",
+        "tool": "multiple_choice",
+        "options": [
+          16,
+          20
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 20
+            },
+            "description": "Student answered 20, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. 20 books. You skip-counted by 5s. 5, 10, 15, 20. You've been doing this all unit.",
+                "id": "s1_1_graph_reading_quick_success_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8102-9461-e836a0a49f32"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 16
+            },
+            "description": "Student selected 16: counted the symbols (4) times 4 instead of using the scale (5)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "highlight_key": true,
+                  "description": "Key highlights showing each symbol = 5 books"
+                },
+                "id": "s1_1_graph_reading_quick_success_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The key tells us what each symbol means. Each one stands for 5 books, not 1. Skip-count by 5s, not by 1s.",
+                "id": "s1_1_graph_reading_quick_success_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8196-93b3-e393efc4f4d8"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_books",
+                "params": {
+                  "event": "highlight_symbols_sequence",
+                  "status": "confirmed",
+                  "description": "System highlights each symbol in sequence while counting by 5s: 5, 10, 15, 20"
+                },
+                "id": "s1_1_graph_reading_quick_success_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The key says each symbol means 5 books. So we count by 5s. First symbol: 5. Second: 10. Third: 15. Fourth: 20. The answer is 20 books.",
+                "id": "s1_1_graph_reading_quick_success_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8111-a248-dd7ee2ecf87d"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_graph_reading_quick_success_b2",
+        "_notion_block_id": "3485917e-ac52-8122-96a4-c2ef2da93914"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_books",
+            "description": "Horizontal picture graph in reading mode. Books Read This Week. 4 symbols, scale of 5. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Books Read This Week"
+            ],
+            "scale": 5,
+            "symbol_count": 4
+          }
+        ],
+        "id": "s1_1_graph_reading_quick_success_b3",
+        "_notion_block_id": "3425917e-ac52-81fd-95f0-ff2d7301294b",
+        "_toml_key": "step_100_graph_reading_quick_success"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:58.179369+00:00",
+    "_notion_block_id": "3485917e-ac52-8113-bcaa-f93796a776fa",
+    "_toml_key": "section_100_graph_reading_quick_success"
+  },
+  {
+    "id": "s2_1_grouping_animation_reveal",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_snacks",
+        "params": {
+          "event": "transform_symbols_to_groups",
+          "status": "proposed",
+          "description": "Animation begins: the 4 Chips symbols from the previous section start transforming into 4 bag containers, each revealing 5 items inside."
+        },
+        "id": "s2_1_grouping_animation_reveal_b0",
+        "_notion_block_id": "3485917e-ac52-81d0-b15b-cb5c5521bf48"
+      },
+      {
+        "type": "dialogue",
+        "text": "Wait. Look at what those symbols were hiding.",
+        "id": "s2_1_grouping_animation_reveal_b1",
+        "_notion_block_id": "3485917e-ac52-8171-a51f-d5abc7643153"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_snacks",
+        "params": {
+          "event": "transform_symbols_to_groups",
+          "status": "confirmed",
+          "description": "Animation completes: 4 bag containers now visible, each clearly showing 5 items inside. Visual continuation from the graph symbols."
+        },
+        "id": "s2_1_grouping_animation_reveal_b2",
+        "_notion_block_id": "3485917e-ac52-8166-995a-e72037fe672c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Picture graph with Chips row transformed: 4 bag containers displayed, each containing 5 items. Animation complete.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Chips",
+              "Cookies",
+              "Fruit",
+              "Crackers"
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b3",
+        "_notion_block_id": "3485917e-ac52-8148-9a19-dea465398274",
+        "_toml_key": "step_101_grouping_animation_reveal"
+      },
+      {
+        "type": "dialogue",
+        "text": "4 symbols. Each symbol held 5 items. That's 4 groups of 5. Look familiar? This is called multiplication. You've been doing multiplication this whole time.",
+        "id": "s2_1_grouping_animation_reveal_b4",
+        "_notion_block_id": "3485917e-ac52-81a2-bb0f-f5c850d1e1cb"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups do you see?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          5,
+          8,
+          20
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student answered 4, correct number of groups",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 × 5.",
+                "id": "s2_1_grouping_animation_reveal_b5_v0_b0",
+                "_notion_block_id": "3485917e-ac52-816a-b461-e6387607a08c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5: confused items per group with number of groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Chips"
+                  ],
+                  "description": "Chips row highlights to focus attention on the containers."
+                },
+                "id": "s2_1_grouping_animation_reveal_b5_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted how many items are in each bag. But we're asking about groups. How many bags do you see?",
+                "id": "s2_1_grouping_animation_reveal_b5_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8133-8f64-da139e4ddcf6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8: may have counted both containers and something else, or misunderstood grouping",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Chips"
+                  ],
+                  "description": "Chips row highlights. Each bag container pulses briefly to emphasize what counts as a group."
+                },
+                "id": "s2_1_grouping_animation_reveal_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "A group is one bag. Each bag holds items inside, but the bag itself is one group. Count the bags in the Chips row.",
+                "id": "s2_1_grouping_animation_reveal_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-811d-a73e-d58dff35597d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 20
+            },
+            "description": "Student selected 20: counted total items instead of groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "highlight_categories": [
+                    "Chips"
+                  ],
+                  "description": "Chips row highlights. Bag containers emphasized, items inside dimmed slightly."
+                },
+                "id": "s2_1_grouping_animation_reveal_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found the total number of items. We're not asking for that yet. Right now, count the bags. Each bag is one group. How many bags are there?",
+                "id": "s2_1_grouping_animation_reveal_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81f7-b0db-d5d04f5895c2"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_snacks",
+                "params": {
+                  "event": "highlight_groups_sequentially",
+                  "status": "confirmed",
+                  "description": "Each of the 4 bag containers in the Chips row highlights one at a time, counting 1, 2, 3, 4."
+                },
+                "id": "s2_1_grouping_animation_reveal_b5_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Watch each bag light up: 1, 2, 3, 4. Four bags. Each bag is a group. The answer is 4 groups. That's how multiplication starts: counting groups.",
+                "id": "s2_1_grouping_animation_reveal_b5_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8166-aaaf-d6a763b517bc"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b5",
+        "_notion_block_id": "3485917e-ac52-81d2-ac83-dc50f3864c74"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Picture graph with Chips row showing 4 bag containers, each containing 5 items. Multiple choice interaction complete.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Chips",
+              "Cookies",
+              "Fruit",
+              "Crackers"
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b6",
+        "_toml_key": "step_102_grouping_animation_reveal"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:10.073789+00:00",
+    "_notion_block_id": "3485917e-ac52-81a2-842d-fcc2398f4d94",
+    "_toml_key": "section_101_grouping_animation_reveal"
+  },
+  {
+    "id": "s3_1_transfer_bags_groups_beyond_graphs",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "description": "3 bags appear, each containing 4 items. Static visual, no animation."
+        },
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b0",
+        "_notion_block_id": "3485917e-ac52-8122-aeb0-d856d6e2740f"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a different picture. No graph. Just bags.",
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b1",
+        "_notion_block_id": "3485917e-ac52-81c9-82bc-e7638fb6d5ea"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          3,
+          4,
+          6
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student answered 3 groups, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 3 bags. That's 3 groups of 4. Same idea. Bags instead of graph symbols.",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81b7-ac54-e0d9c472b460"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student selected 2: likely counting only some containers or misinterpreting the visual",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "All three bags highlight one at a time."
+                },
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count each bag separately. How many bags do you see in total?",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81c0-9c8c-e3ef2c0cc5a0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4: counting items per bag instead of number of bags",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "The three bags themselves highlight, not the items inside."
+                },
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the items in each bag. The question asks how many groups. Count the bags themselves.",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81b0-9b94-d50cc1f61c83"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6: likely doubling or misunderstanding the counting structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "The three bags pulse to emphasize their count."
+                },
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "A group is one bag with all its items inside. Count just the bags. How many do you see?",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81c2-9edc-eaabd483d89c"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "Each bag highlights in sequence as the system counts them: 1, 2, 3."
+                },
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the bags one by one. First bag, second bag, third bag. That's 3 groups. Each bag is one group, no matter how many items are inside.",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81df-a009-d1bb1ea417d3"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b2",
+        "_notion_block_id": "3485917e-ac52-8136-99fe-d3591903dfe5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "3 bags, each containing 4 items. Static visual.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4
+          }
+        ],
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b3",
+        "_toml_key": "step_103_transfer_bags_groups_beyond_graphs"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:16.917423+00:00",
+    "_notion_block_id": "3485917e-ac52-8127-9089-e90fe267e805",
+    "_toml_key": "section_102_transfer_bags_groups_beyond_graphs"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You found equal groups in graphs. You found them in bags. There's a whole lot more hiding. Let's find them.",
+        "id": "s4_1_bridge_lesson_b0",
+        "_notion_block_id": "3485917e-ac52-818b-a20a-d53f3c24883c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s4_1_bridge_lesson_b1",
+        "_toml_key": "step_104_bridge_lesson"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:20.700994+00:00",
+    "_notion_block_id": "3485917e-ac52-81db-9f9b-cff32b286d7c",
+    "_toml_key": "section_103_bridge_lesson"
+  }
+]

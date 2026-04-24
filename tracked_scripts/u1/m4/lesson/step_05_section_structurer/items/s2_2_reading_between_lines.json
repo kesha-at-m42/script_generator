@@ -1,0 +1,80 @@
+{
+  "id": "s2_2_reading_between_lines",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_stickers",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Leo",
+          "Maya",
+          "Jordan"
+        ],
+        "axis_range": [
+          0,
+          40
+        ],
+        "scale": 5,
+        "description": "Vertical bar graph appears. Stickers Collected data. Leo's bar height = 35 (between 30 and 40 lines). Ghost gridlines at 5s visible. Leo's bar highlighted."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now look at Leo's bar. It's also between the lines. Leo's bar is between 30 and 40. What value does this show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does Leo's bar show?",
+      "tool": "multiple_choice",
+      "options": [
+        30,
+        34,
+        35,
+        40
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 35
+          },
+          "description": "Student selected 35, correct, halfway between 30 and 40",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "35. It's halfway between 30 and 40. Half of 10 is 5, so 30 plus 5 is 35."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_stickers",
+          "description": "Vertical bar graph in reading mode. Stickers Collected data. Leo's bar highlighted, height = 35 (between 30 and 40 lines). Ghost gridlines at 5s visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Leo",
+            "Maya",
+            "Jordan"
+          ],
+          "axis_range": [
+            0,
+            40
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:18.610917+00:00"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "s1_2_reading_bar_height",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3, confusing the bar value with the count of intervals or symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Blue"
+                ],
+                "description": "Blue bar remains highlighted, axis line at 30 glows."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look where the bar ends. It's not at 3. Find the number on the axis where the top of the bar lines up."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20, reading the wrong axis value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Horizontal line draws from top of Blue bar to vertical axis at 30.",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Blue's bar goes higher than 20. Follow the top of the bar to the axis. What number is there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35, the axis maximum instead of the bar height",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Horizontal line draws from top of Blue bar to vertical axis at 30.",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "35 is the top of the axis, not where Blue's bar ends. Look at where the bar stops. That's the value."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Horizontal guideline draws from top of Blue bar to axis, landing at 30. Axis label 30 pulses.",
+                "category": "Blue"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The top of Blue's bar lines up with the 30 mark on the axis. That's the height of the bar. The bar shows 30."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:08.478191+00:00"
+}

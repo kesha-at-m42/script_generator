@@ -1,0 +1,284 @@
+{
+  "id": "s1_3_two_step_problem_identify_compare",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student selected wrong strategy on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the question. It says museum and farm combined. What does combined tell us to do?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student selected wrong strategy on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ],
+                "description": "Museum and Farm bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks about museum and farm together. When you see combined or together, add those categories first. Which choice shows adding museum and farm?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student selected wrong strategy three or more times. System models the correct strategy.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ],
+                "description": "Museum and Farm bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The question says museum and farm combined. Combined means add. So our first step is to add museum and farm together. That's what we need to find first."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, likely subtracted 25 - 15 instead of adding",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ],
+                "description": "Museum and Farm bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You subtracted. But the question asks for combined. Combined means add the two values. What is 25 plus 15?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30, possibly misread one bar value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ],
+                "description": "Museum and Farm bars pulse to show values."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the bar heights. Museum is 25, farm is 15. Count by fives or add them. What is the total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, the zoo value instead of the combined total",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Museum",
+                  "Farm"
+                ],
+                "description": "Museum and Farm bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the zoo's votes. We need the combined total for museum and farm. Add those two bars. Museum is 25, farm is 15. What do they add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "event": "show_equation_overlay",
+                "status": "confirmed",
+                "description": "Animation shows: 25 + 15 = 40"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how we find it. Museum is 25 votes. Farm is 15 votes. We add them: 25 plus 15 equals 40. The combined total for museum and farm is 40 votes."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 85
+        },
+        "description": "Student selected 85, likely added 45 + 40 instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Zoo"
+                ],
+                "description": "Zoo bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added. But the question asks how many fewer. Fewer means compare, and compare means subtract. The zoo has 45, combined is 40. What is the difference?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, the zoo value without comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Zoo"
+                ],
+                "description": "Zoo bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's just the zoo. We need to compare. Zoo is 45, combined is 40. Find the difference between those two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40, the combined value without comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "highlight_categories": [
+                  "Zoo"
+                ],
+                "description": "Zoo bar highlights. Combined value 40 displayed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the combined total we found. Now we compare it to the zoo. The zoo has 45 votes. How many more is 45 than 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fieldtrip",
+              "params": {
+                "event": "show_comparison_overlay",
+                "status": "confirmed",
+                "description": "Shows: 45 compared to 40, difference of 5 highlighted"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk through it. Museum and farm combined is 40 votes. The zoo has 45 votes. We compare: 45 minus 40 equals 5. Museum and farm combined got 5 fewer votes than the zoo. The answer is 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:02:12.444658+00:00"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "s1_1_pattern_discovery_what_makes_groups",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "A"
+        },
+        "description": "Student selected A: 3 bags with 4 items each (an equal group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_grid",
+              "params": {
+                "highlight_options": [
+                  "A"
+                ],
+                "description": "Option A highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at A. Each bag has 4 items. That's the same in every bag. Equal groups have the same amount in each. Which picture shows different amounts in the containers?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "B"
+        },
+        "description": "Student selected B: 4 circles with 2 dots each (an equal group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_grid",
+              "params": {
+                "highlight_options": [
+                  "B"
+                ],
+                "description": "Option B highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at B. Every circle has 2 dots. That's equal. For groups to NOT be equal, one group needs a different number. Which picture shows that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "D"
+        },
+        "description": "Student selected D: 5 bags with 3 items each (an equal group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_grid",
+              "params": {
+                "highlight_options": [
+                  "D"
+                ],
+                "description": "Option D highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check D. All five bags have 3 items. That's the same number in each, so that's equal. Look for the picture where the containers have different amounts inside."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_grid",
+              "params": {
+                "event": "highlight_option",
+                "status": "confirmed",
+                "option_id": "C",
+                "description": "Option C highlights to show the correct answer."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Look at A: 3 bags, each has 4. That's equal. B: 4 circles, each has 2. Equal. D: 5 bags, each has 3. Equal. Now C: one box has 3, the other has 5. Those are different numbers. That makes C NOT equal groups. The answer is C. Equal groups need the same amount in every container."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:13.861436+00:00"
+}

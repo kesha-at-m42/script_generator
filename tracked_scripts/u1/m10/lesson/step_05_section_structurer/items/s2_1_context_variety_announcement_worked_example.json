@@ -1,0 +1,330 @@
+{
+  "id": "s2_1_context_variety_announcement_worked_example",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_books",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 9,
+        "visual_style": "books_on_shelves",
+        "description": "Equal groups visual appears. 3 horizontal rows of books on shelves. 9 books per row. Books arranged in clear horizontal rows."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_books",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          3,
+          4,
+          8,
+          9,
+          10,
+          12,
+          24,
+          27,
+          30,
+          36
+        ],
+        "description": "Equation builder appears with blank multiplication equation template. Tile palette shows numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Equal groups don't just come in bags and boxes. They're everywhere. Rows of books. Stacks of plates. Groups of animals. The math works the same way."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_books",
+          "description": "Equal groups visual showing 3 rows of books on shelves. 9 books per row.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves"
+        },
+        {
+          "tangible_id": "equation_builder_books",
+          "description": "Equation builder with blank multiplication template. Palette available.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at these shelves. I see rows of books. Each row is a group, just like each bag was a group."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_books",
+      "params": {
+        "event": "highlight_containers_sequential",
+        "status": "confirmed",
+        "description": "Rows highlight one at a time in sequence."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "1, 2, 3. Three rows. That's 3 groups. And in each row?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_books",
+          "description": "3 rows of books. All rows highlighted after sequential animation.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves"
+        },
+        {
+          "tangible_id": "equation_builder_books",
+          "description": "Equation builder with blank template.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_books",
+      "params": {
+        "event": "highlight_items_in_container",
+        "status": "confirmed",
+        "container_index": 0,
+        "description": "Items in first row highlight one at a time as guide counts."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "1, 2, 3, 4, 5, 6, 7, 8, 9. Nine books. So I've got 3 rows of 9. Same pattern: groups of items."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_books",
+          "description": "3 rows of books. First row's items highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves"
+        },
+        {
+          "tangible_id": "equation_builder_books",
+          "description": "Equation builder with blank template.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "3 times 9. And the product? Skip count by 9s: 9, 18, 27."
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_books",
+      "params": {
+        "placed": {
+          "groups": 3,
+          "items": 9,
+          "total": 27
+        },
+        "description": "Guide demonstration: tiles place into equation. 3 × 9 = 27 appears."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "3 times 9 equals 27. Same equation building, different picture."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_books",
+          "description": "3 rows of books on shelves. First row highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves"
+        },
+        {
+          "tangible_id": "equation_builder_books",
+          "description": "Equation builder showing completed equation: 3 × 9 = 27.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ],
+          "placed": {
+            "groups": 3,
+            "items": 9,
+            "total": 27
+          }
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_books",
+      "params": {
+        "template": [
+          "__",
+          "=",
+          "__",
+          "×",
+          "__"
+        ],
+        "placed": {
+          "total": 27,
+          "groups": 3,
+          "items": 9
+        },
+        "description": "Equation reverses to show commutative form: 27 = 3 × 9."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Both ways, same value."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_books",
+          "description": "3 rows of books on shelves.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves"
+        },
+        {
+          "tangible_id": "equation_builder_books",
+          "description": "Equation builder showing reversed form: 27 = 3 × 9.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "=",
+            "__",
+            "×",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ],
+          "placed": {
+            "total": 27,
+            "groups": 3,
+            "items": 9
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:54.405799+00:00"
+}

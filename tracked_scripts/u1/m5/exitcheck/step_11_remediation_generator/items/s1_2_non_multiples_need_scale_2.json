@@ -1,0 +1,101 @@
+{
+  "id": "s1_2_non_multiples_need_scale_2",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 5"
+        },
+        "description": "Student selected Scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  "23",
+                  "31",
+                  "9",
+                  "16"
+                ],
+                "description": "All four values highlighted in data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 works for multiples of 5. Check the ones place digits: 3, 1, 9, 6. Do any end in 0 or 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 10"
+        },
+        "description": "Student selected Scale of 10",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  "23",
+                  "31"
+                ],
+                "description": "23 and 31 highlighted in data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 10 only shows exact values for multiples of 10. Look at 23 and 31. Neither ends in 0, so where would they land on the graph?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  "23",
+                  "31",
+                  "9",
+                  "16"
+                ],
+                "description": "All four values highlighted in data table."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table",
+              "params": {
+                "event": "highlight_ones_digits",
+                "status": "confirmed",
+                "description": "Ones place digits pulse: 3, 1, 9, 6."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to know. Look at the ones place: 3, 1, 9, 6. Not a single 0 or 5, so these numbers aren't multiples of 5. Scales of 5 and 10 won't show them exactly. But Scale of 2 can show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:07.213670+00:00"
+}

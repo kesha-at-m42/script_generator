@@ -1,0 +1,194 @@
+{
+  "id": "s2_1_orientation_transfer_type_d_representation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_vertical",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Category A",
+          "Category B",
+          "Category C",
+          "Category D"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          50
+        ],
+        "values": {
+          "Category A": 20,
+          "Category B": 35,
+          "Category C": 40,
+          "Category D": 15
+        },
+        "description": "Vertical bar graph appears on left side. Scale of 10. Category B bar reaches 35, positioned between 30 and 40 gridlines."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_horizontal",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Category A",
+          "Category B",
+          "Category C",
+          "Category D"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          50
+        ],
+        "values": {
+          "Category A": 20,
+          "Category B": 35,
+          "Category C": 40,
+          "Category D": 15
+        },
+        "description": "Horizontal bar graph appears on right side. Same data, same scale of 10. Category B bar reaches 35, positioned between 30 and 40 gridlines."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the same data shown two ways, vertical and horizontal. Find the category with 35 in BOTH graphs."
+    },
+    {
+      "type": "prompt",
+      "text": "What category shows 35 in BOTH graphs?",
+      "tool": "click_category",
+      "target": "bar_graph_vertical",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Category B"
+          },
+          "description": "Student clicked Category B in vertical graph, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "highlight_categories": [
+                  "Category B"
+                ],
+                "description": "Category B bar highlights in vertical graph."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_vertical",
+          "description": "Vertical bar graph. Category B highlighted, value 35. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C",
+            "Category D"
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_horizontal",
+          "description": "Horizontal bar graph showing same data. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C",
+            "Category D"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now find 35 in the horizontal graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Click on the bar showing 35 in the horizontal graph.",
+      "tool": "click_category",
+      "target": "bar_graph_horizontal",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Category B"
+          },
+          "description": "Student clicked Category B in horizontal graph, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "highlight_categories": [
+                  "Category B"
+                ],
+                "description": "Category B bar highlights in horizontal graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Same value, same position between the lines, just different directions. The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_vertical",
+          "description": "Vertical bar graph. Category B highlighted, value 35. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C",
+            "Category D"
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_horizontal",
+          "description": "Horizontal bar graph. Category B highlighted, value 35. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C",
+            "Category D"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:58:08.932654+00:00"
+}

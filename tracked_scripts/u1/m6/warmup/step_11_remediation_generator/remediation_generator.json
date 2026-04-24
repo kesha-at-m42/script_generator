@@ -1,0 +1,466 @@
+[
+  {
+    "id": "s1_1_graph_reading_with_scale_2",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6, which is where the Soccer bar ends but ignores the scale of 2",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_activities",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ],
+                  "description": "Soccer bar highlights. Scale axis emphasized."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted where the bar ends. But look at the scale: each mark stands for 2 students, not 1. Count by 2s."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, close to correct but miscounted the intervals",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_activities",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ],
+                  "description": "Soccer bar highlights. Scale markings emphasized."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Almost. The scale goes by 2s. Count each mark carefully: 2, 4, 6, 8, 10, 12. Where does the Soccer bar end?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 24
+          },
+          "description": "Student selected 24, which doubles the correct answer by counting each interval as 2 rather than each mark representing 2",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_activities",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer"
+                  ],
+                  "description": "Soccer bar highlights. Scale axis emphasized."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That number is too high. The scale tells us what each mark means. Each mark on the axis shows 2 students. Count the marks where the Soccer bar ends."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_activities",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Soccer",
+                  "description": "Soccer bar highlights. System demonstrates counting by 2s along the scale."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The scale goes by 2s: 2, 4, 6, 8, 10, 12. The Soccer bar reaches the 12 mark. That means 12 students chose soccer. The answer is 12 because the scale tells us each mark represents 2 students, not 1."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:30.634694+00:00"
+  },
+  {
+    "id": "s2_1_comparison_question_single_step",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 18
+          },
+          "description": "Student selected 18: added soccer and tennis instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer",
+                    "Tennis"
+                  ],
+                  "description": "Soccer and Tennis bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added soccer and tennis. The question asks how many more, which means we need to find the difference. Subtract the smaller number from the larger one."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 12
+          },
+          "description": "Student selected 12: only read soccer's value instead of comparing",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer",
+                    "Tennis"
+                  ],
+                  "description": "Soccer and Tennis bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's how many chose soccer. The question asks how many more chose soccer than tennis. Compare the two bars. What is the difference between their heights?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3: possibly subtracted 6 from 12 incorrectly or confused the values",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer",
+                    "Tennis"
+                  ],
+                  "description": "Soccer and Tennis bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Not quite. Soccer has 12 students, tennis has 6. To find how many more, subtract. What is 12 minus 6?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_sports",
+                "params": {
+                  "event": "highlight_comparison",
+                  "status": "confirmed",
+                  "description": "Soccer and Tennis bars highlight to demonstrate the comparison.",
+                  "categories": [
+                    "Soccer",
+                    "Tennis"
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. How many more means we compare by finding the difference. Soccer is 12, tennis is 6. Subtract: 12 minus 6 equals 6. The answer is 6. That's what the difference between the two bars shows."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:45.737092+00:00"
+  },
+  {
+    "id": "s3_1_quick_scale_check_lesson_context",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 9
+          },
+          "description": "Student selected 9: counted the marks instead of multiplying by scale",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza"
+                  ],
+                  "description": "Pizza bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the marks on the bar. But look at the scale: each mark stands for 5 students. How many students is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25: read wrong category or miscounted",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos"
+                  ],
+                  "description": "Pizza and Tacos bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the Tacos bar. We need Pizza. Count the marks on the Pizza bar and multiply by 5."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 50
+          },
+          "description": "Student selected 50: read axis maximum instead of bar height",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza"
+                  ],
+                  "description": "Pizza bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the top of the axis. Count where the Pizza bar stops. How many marks does it reach?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "count_marks",
+                  "status": "confirmed",
+                  "description": "System counts marks on Pizza bar: 9 marks highlighted sequentially.",
+                  "category": "Pizza"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the marks on the Pizza bar: 9 marks. The scale says each mark equals 5 students. 9 times 5 equals 45. The answer is 45 students. When the scale isn't 1, you multiply the marks by the scale number."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:59.115533+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+        },
+        "id": "s4_1_bridge_lesson_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "word_problem_preview",
+        "tangible_type": "word_problem_area",
+        "params": {
+          "stem": "How many more students chose pizza than tacos and salad together?",
+          "description": "Word problem text appears: How many more students chose pizza than tacos and salad together?"
+        },
+        "id": "s4_1_bridge_lesson_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "You've got graph reading down. You've got comparison down. But look at THIS question.",
+        "id": "s4_1_bridge_lesson_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          },
+          {
+            "tangible_id": "word_problem_preview",
+            "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+            "tangible_type": "word_problem_area"
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more students chose pizza than tacos and salad together?",
+        "id": "s4_1_bridge_lesson_b4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          },
+          {
+            "tangible_id": "word_problem_preview",
+            "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+            "tangible_type": "word_problem_area"
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "See that word 'together'? This question needs more than one step. We'll come back to this question in the lesson, and you'll be able to answer it.",
+        "id": "s4_1_bridge_lesson_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          },
+          {
+            "tangible_id": "word_problem_preview",
+            "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+            "tangible_type": "word_problem_area"
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b7"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:58.812605+00:00"
+  }
+]

@@ -1,0 +1,112 @@
+{
+  "id": "s3_1_horizontal_orientation_introduction",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_field_trip",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Zoo",
+          "Museum",
+          "Park",
+          "Aquarium",
+          "Theater"
+        ],
+        "axis_range": [
+          0,
+          60
+        ],
+        "scale": 10,
+        "description": "Horizontal bar graph appears. Votes for Field Trip. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Scale of 10, axis along bottom 0 to 60. Categories listed vertically on left. Ghost gridlines at 5s visible. All 5 bars complete."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This bar graph is HORIZONTAL. The bars go sideways, but you read them the same way — finding where the bar ends on the scale."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_field_trip",
+          "description": "Horizontal bar graph. Votes for Field Trip. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Scale of 10, axis 0 to 60. Ghost gridlines at 5s visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Zoo",
+            "Museum",
+            "Park",
+            "Aquarium",
+            "Theater"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Zoo's bar extends to 45. Between 40 and 50 — halfway. What value does the Museum bar show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does the Museum bar show?",
+      "tool": "multiple_choice",
+      "options": [
+        3,
+        25,
+        30,
+        35
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "30. The bar ends right at the 30 line."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_field_trip",
+          "description": "Horizontal bar graph. Votes for Field Trip. Multiple choice tool active for Museum bar value.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Zoo",
+            "Museum",
+            "Park",
+            "Aquarium",
+            "Theater"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:13.649381+00:00"
+}

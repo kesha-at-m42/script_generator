@@ -1,0 +1,178 @@
+{
+  "id": "s1_3_bridge_pattern_check_concrete_relational",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "5",
+          "×",
+          "2",
+          "=",
+          "10"
+        ],
+        "mode": "static",
+        "description": "Equation Builder shows 5 × 2 = 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now here's the big idea. In the Warmup, you watched me count by 2s: 2, 4, 6, 8, 10. That skip-counting WAS multiplication. Skip-counting by 2s IS multiplying by 2. You've been doing multiplication without even knowing it."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder shows 5 × 2 = 10.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "5",
+            "×",
+            "2",
+            "=",
+            "10"
+          ],
+          "mode": "static"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder",
+      "params": {
+        "expression": [
+          "2",
+          "+",
+          "2",
+          "+",
+          "2",
+          "+",
+          "2",
+          "+",
+          "2",
+          "=",
+          "10"
+        ],
+        "description": "Repeated addition appears: 2 + 2 + 2 + 2 + 2 = 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "There's another way to see it. Instead of skip-counting, you could add: 2 plus 2 plus 2 plus 2 plus 2."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder shows repeated addition: 2 + 2 + 2 + 2 + 2 = 10.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "=",
+            "10"
+          ],
+          "mode": "static"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder",
+      "params": {
+        "expression": [
+          "5",
+          "×",
+          "2",
+          "=",
+          "10"
+        ],
+        "description": "Equation Builder returns to 5 × 2 = 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Same answer. Both work — but skip-counting is usually faster and multiplication is a shorter way to write it."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder shows 5 × 2 = 10.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "5",
+            "×",
+            "2",
+            "=",
+            "10"
+          ],
+          "mode": "static"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now you tell me the pattern. If I multiply ANY number by 2, will the answer be even or odd?"
+    },
+    {
+      "type": "prompt",
+      "text": "When you multiply any number by 2, is the product even or odd?",
+      "tool": "multiple_choice",
+      "options": [
+        "Even",
+        "Odd"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Even"
+          },
+          "description": "Student answered Even, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Always even. The pattern works every time — in groups of 2, every item always has a pair with no items left."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder shows 5 × 2 = 10.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "5",
+            "×",
+            "2",
+            "=",
+            "10"
+          ],
+          "mode": "static"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:01.251871+00:00"
+}

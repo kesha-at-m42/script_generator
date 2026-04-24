@@ -1,0 +1,389 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built equations with bags, rows, stacks, and groups. You found unknown numbers in different positions. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:39.876335+00:00"
+  },
+  {
+    "id": "s1_1_build_complete_equation_variety_visual",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_pencils",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 6,
+          "item_type": "pencils",
+          "arrangement": "horizontal_rows",
+          "description": "Equal groups visual appears. 3 rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
+        },
+        "id": "s1_1_build_complete_equation_variety_visual_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_pencils",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            12,
+            15,
+            18,
+            20
+          ],
+          "description": "Equation Builder appears below. Template shows three blank slots with multiplication and equals symbols. Tile palette displays: 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
+        },
+        "id": "s1_1_build_complete_equation_variety_visual_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Rows of pencils. Build the equation.",
+        "id": "s1_1_build_complete_equation_variety_visual_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation.",
+        "tool": "place_tile",
+        "target": "equation_builder_pencils",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "groups": 3,
+              "items": 6,
+              "total": 18
+            },
+            "description": "Student placed 3 × 6 = 18, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_pencils",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Equation 3 × 6 = 18 confirms."
+                },
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "3 times 6 equals 18.",
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_build_complete_equation_variety_visual_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_pencils",
+            "description": "Equal groups visual. 3 rows of 6 pencils on a desk.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 6,
+            "item_type": "pencils",
+            "arrangement": "horizontal_rows"
+          },
+          {
+            "tangible_id": "equation_builder_pencils",
+            "description": "Equation Builder showing confirmed equation 3 × 6 = 18.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "x",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              9,
+              12,
+              15,
+              18,
+              20
+            ]
+          }
+        ],
+        "id": "s1_1_build_complete_equation_variety_visual_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:52.409741+00:00"
+  },
+  {
+    "id": "s1_2_solve_product_unknown_reversed_form",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_flowers",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 7,
+          "item_type": "flowers",
+          "container_style": "circled",
+          "description": "Equal groups visual appears: 4 circled clusters of flowers, 7 flowers in each cluster."
+        },
+        "id": "s1_2_solve_product_unknown_reversed_form_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_reversed",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "=",
+            "4",
+            "x",
+            "7"
+          ],
+          "palette": [
+            11,
+            21,
+            24,
+            28
+          ],
+          "description": "Equation builder appears with reversed form: blank equals 4 times 7. Answer palette shows tiles 11, 21, 24, 28."
+        },
+        "id": "s1_2_solve_product_unknown_reversed_form_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "4 groups of 7 flowers. The equation is flipped — total goes first. Find the total and place it.",
+        "id": "s1_2_solve_product_unknown_reversed_form_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "☐ = 4 × 7. Find the total.",
+        "tool": "place_tile",
+        "target": "equation_builder_reversed",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "total": 28
+            },
+            "description": "Student placed 28 in the blank, correct product",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_reversed",
+                "params": {
+                  "event": "tile_placed",
+                  "status": "confirmed",
+                  "description": "28 tile locks into blank slot, equation complete: 28 = 4 × 7."
+                },
+                "id": "s1_2_solve_product_unknown_reversed_form_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "28 equals 4 times 7. Same value, both sides.",
+                "id": "s1_2_solve_product_unknown_reversed_form_b3_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_solve_product_unknown_reversed_form_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_flowers",
+            "description": "Equal groups visual showing 4 circled clusters of 7 flowers each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 7
+          },
+          {
+            "tangible_id": "equation_builder_reversed",
+            "description": "Equation builder showing completed reversed equation: 28 = 4 × 7.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "28",
+              "=",
+              "4",
+              "x",
+              "7"
+            ]
+          }
+        ],
+        "id": "s1_2_solve_product_unknown_reversed_form_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:04.849149+00:00"
+  },
+  {
+    "id": "s1_3_solve_1st_factor_unknown",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_stacks",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 5,
+          "context": "stacks",
+          "description": "Equal groups construction area appears, empty. Control panel shows +/- group buttons. Each new group will have 5 items. Running total display shows Total: 0."
+        },
+        "id": "s1_3_solve_1st_factor_unknown_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_factor",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "5",
+            "=",
+            "15"
+          ],
+          "style": "equation",
+          "description": "Equation builder appears with pre-filled template: blank × 5 = 15. First position is fillable slot, 5 and 15 are visible."
+        },
+        "id": "s1_3_solve_1st_factor_unknown_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many stacks of 5 make 15? Pick the number.",
+        "id": "s1_3_solve_1st_factor_unknown_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "☐ × 5 = 15. How many stacks?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3, correct answer",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_stacks",
+                "params": {
+                  "event": "build_groups_sequentially",
+                  "status": "confirmed",
+                  "description": "3 stacks of 5 items appear, building one stack at a time. Running total updates: 5, 10, 15."
+                },
+                "id": "s1_3_solve_1st_factor_unknown_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "3 stacks of 5 equals 15. That's how you find the missing factor by skip counting.",
+                "id": "s1_3_solve_1st_factor_unknown_b3_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_solve_1st_factor_unknown_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_stacks",
+            "description": "Equal groups construction area showing 3 stacks of 5 items. Running total display shows Total: 15.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 3,
+            "items_per_container": 5,
+            "context": "stacks"
+          },
+          {
+            "tangible_id": "equation_builder_factor",
+            "description": "Equation builder showing completed equation: 3 × 5 = 15.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "3",
+              "×",
+              "5",
+              "=",
+              "15"
+            ],
+            "style": "equation"
+          }
+        ],
+        "id": "s1_3_solve_1st_factor_unknown_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:19.051479+00:00"
+  },
+  {
+    "id": "s1_4_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready. Let's practice.",
+        "id": "s1_4_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:21.948898+00:00"
+  }
+]

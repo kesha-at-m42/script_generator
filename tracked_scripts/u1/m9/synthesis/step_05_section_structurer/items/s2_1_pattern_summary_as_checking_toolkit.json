@@ -1,0 +1,260 @@
+{
+  "id": "s2_1_pattern_summary_as_checking_toolkit",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "product_strip_twos",
+      "tangible_type": "product_strip",
+      "params": {
+        "factor": 2,
+        "products": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "description": "Multiples of 2 strip appears: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "product_strip_fives",
+      "tangible_type": "product_strip",
+      "params": {
+        "factor": 5,
+        "products": [
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50
+        ],
+        "description": "Multiples of 5 strip appears: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "product_strip_tens",
+      "tangible_type": "product_strip",
+      "params": {
+        "factor": 10,
+        "products": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "description": "Multiples of 10 strip appears: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here are all three patterns together. 2s — always even. 5s — end in 0 or 5. 10s — end in 0. These patterns aren't just facts. They're how you CHECK your work."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "product_strip_twos",
+          "description": "Multiples of 2 strip: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
+          "tangible_type": "product_strip",
+          "factor": 2,
+          "products": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ]
+        },
+        {
+          "tangible_id": "product_strip_fives",
+          "description": "Multiples of 5 strip: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
+          "tangible_type": "product_strip",
+          "factor": 5,
+          "products": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50
+          ]
+        },
+        {
+          "tangible_id": "product_strip_tens",
+          "description": "Multiples of 10 strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
+          "tangible_type": "product_strip",
+          "factor": 10,
+          "products": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_8x5",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "8",
+          "×",
+          "5",
+          "=",
+          "?"
+        ],
+        "description": "Equation appears: 8 × 5 = ?"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Say you see this question: what is 8 times 5? And you have these choices."
+    },
+    {
+      "type": "prompt",
+      "text": "Which answers can you eliminate right away because they DON'T fit the 5s pattern? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "13",
+        "35",
+        "40",
+        "42"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "13"
+              },
+              {
+                "selected": "42"
+              }
+            ]
+          },
+          "description": "Student selected 13 and 42, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "13 ends in 3 and 42 ends in 2 — neither fits the 5s pattern, so they can't be right. That leaves 35 and 40. Both end in 0 or 5, so the pattern alone can't tell you which one. That's where skip-counting finishes the job."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "product_strip_twos",
+          "description": "Multiples of 2 strip: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
+          "tangible_type": "product_strip",
+          "factor": 2,
+          "products": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ]
+        },
+        {
+          "tangible_id": "product_strip_fives",
+          "description": "Multiples of 5 strip: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
+          "tangible_type": "product_strip",
+          "factor": 5,
+          "products": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50
+          ]
+        },
+        {
+          "tangible_id": "product_strip_tens",
+          "description": "Multiples of 10 strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
+          "tangible_type": "product_strip",
+          "factor": 10,
+          "products": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100
+          ]
+        },
+        {
+          "tangible_id": "equation_8x5",
+          "description": "Equation: 8 × 5 = ? with multi-select options 13, 35, 40, 42.",
+          "tangible_type": "equation",
+          "expression": [
+            "8",
+            "×",
+            "5",
+            "=",
+            "?"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:15.966121+00:00"
+}

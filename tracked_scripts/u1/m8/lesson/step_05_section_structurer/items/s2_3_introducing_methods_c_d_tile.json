@@ -1,0 +1,292 @@
+{
+  "id": "s2_3_introducing_methods_c_d_tile",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 2,
+        "container_type": "boxes",
+        "description": "5 boxes with 2 items each appear on screen."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_demo",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "tile_palette": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "description": "Equation builder appears with two blank slots and multiplication symbol. Tile palette shows tiles 1 through 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You've learned that you need equal groups to write multiplication expressions and that equal groups work the same way no matter what holds them. These are important ideas for multiplication."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "5 boxes with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "container_type": "boxes"
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Equation builder with two blank slots and tile palette showing tiles 1 through 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You've been choosing complete expressions to represent equal groups. Now you'll build them piece by piece using number tiles. Watch."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "5 boxes with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "container_type": "boxes"
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Equation builder with two blank slots and tile palette.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_boxes",
+      "params": {
+        "event": "highlight_containers_sequentially",
+        "status": "confirmed",
+        "description": "Boxes highlight sequentially."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Notice all of the groups are equal. Same questions: How many groups?"
+    },
+    {
+      "type": "dialogue",
+      "text": "5 boxes. That's 5 groups. I need the 5 tile in the FIRST slot."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "event": "demo_place_tile",
+        "status": "confirmed",
+        "description": "Guide demonstrates picking up 5 tile and placing it in first slot.",
+        "tile_value": 5,
+        "slot_position": 1
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "placed_values": {
+          "groups": 5
+        },
+        "description": "Tile 5 snaps into first slot. Expression now shows 5 × __."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "5 boxes with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "container_type": "boxes"
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Equation builder showing 5 × __ with second slot still blank.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "placed_values": {
+            "groups": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equal_groups_boxes",
+      "params": {
+        "event": "highlight_items_in_one_container",
+        "status": "confirmed",
+        "description": "Items in one box highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many in each group?"
+    },
+    {
+      "type": "dialogue",
+      "text": "2 items. I need the 2 tile in the SECOND slot."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "event": "demo_place_tile",
+        "status": "confirmed",
+        "description": "Guide demonstrates placing 2 tile in second slot.",
+        "tile_value": 2,
+        "slot_position": 2
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_demo",
+      "params": {
+        "placed_values": {
+          "groups": 5,
+          "items": 2
+        },
+        "description": "Tile 2 snaps into second slot. Complete expression now shows 5 × 2."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "I built it piece by piece—5 times 2. Now you try with tiles."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "5 boxes with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "container_type": "boxes"
+        },
+        {
+          "tangible_id": "equation_builder_demo",
+          "description": "Equation builder showing complete expression 5 × 2.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "placed_values": {
+            "groups": 5,
+            "items": 2
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:11.297805+00:00"
+}

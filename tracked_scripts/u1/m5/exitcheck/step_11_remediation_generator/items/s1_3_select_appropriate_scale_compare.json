@@ -1,0 +1,101 @@
+{
+  "id": "s1_3_select_appropriate_scale_compare",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 5 — it shows more detail."
+        },
+        "description": "Student selected Scale of 5",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  "90"
+                ],
+                "description": "90 (Cara) highlights in data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 works, but look at 90. Count by 5s: you need 19 tick marks to reach it. Scale of 10 only needs 10. Which is easier to read?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Scale of 2 — it works for any numbers."
+        },
+        "description": "Student selected Scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  "90"
+                ],
+                "description": "90 (Cara) highlights in data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The biggest number is 90. Scale of 2 means counting 0, 2, 4, 6, all the way to 90. That's 46 marks on the axis. Way too crowded. Try a bigger scale."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "add",
+              "tangible_id": "bar_graph_steps",
+              "tangible_type": "bar_graph",
+              "params": {
+                "mode": "reading",
+                "orientation": "vertical",
+                "categories": [
+                  "Ana",
+                  "Ben",
+                  "Cara",
+                  "Dan"
+                ],
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  100
+                ],
+                "values": [
+                  30,
+                  70,
+                  90,
+                  50
+                ],
+                "description": "Vertical bar graph appears with Scale of 10. Steps Walked data displayed. Ana: 30, Ben: 70, Cara: 90, Dan: 50. Axis shows 0, 10, 20...100 with 11 tick marks."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The biggest number is 90. All values end in 0, so they're multiples of 10. With Scale of 10, every bar lands exactly on a line: 30 at 30, 50 at 50, 70 at 70, 90 at 90. The axis only needs 10 marks to reach 90. Clean and easy to read. For big numbers that are multiples of 10, Scale of 10 is the best choice."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:20.419915+00:00"
+}

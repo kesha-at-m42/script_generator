@@ -1,0 +1,112 @@
+{
+  "id": "s1_1_single_step_comparison_compare",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60 (added pencils and markers instead of finding difference)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Pencils",
+                  "Markers"
+                ],
+                "description": "Pencils and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "How many more means compare, not add. Look at how far apart the bars are. What's the difference between 40 and 20?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40 (identified pencils value but did not subtract)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Pencils",
+                  "Markers"
+                ],
+                "description": "Pencils and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the pencils total. How many more asks for the difference. Pencils is 40, markers is 20. How much bigger is 40 than 20?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15 (compared wrong categories or miscalculated)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Pencils",
+                  "Markers"
+                ],
+                "description": "Pencils and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks about pencils and markers. Find those two bars. Pencils is 40, markers is 20. Subtract to find how many more."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "event": "show_comparison_overlay",
+                "status": "confirmed",
+                "description": "Comparison overlay shows pencils bar at 40 and markers bar at 20, with difference of 20 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. How many more means compare. Pencils is 40, markers is 20. I subtract to find the difference: 40 minus 20 equals 20. The answer is 20. That's what compare means—find the difference between two values."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:16.447907+00:00"
+}

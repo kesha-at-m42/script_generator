@@ -1,0 +1,248 @@
+{
+  "id": "s1_2_build_equal_groups_create",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "container_count": 3
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student set container count to 3 (reversed the numbers) on first or second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "container_count",
+                "description": "Container count control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You set 3 bags. But we need 2 GROUPS. The first number tells you how many bags to make. What's the first number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "container_count": 3
+              }
+            }
+          ]
+        },
+        "description": "Student set container count incorrectly on first attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the prompt. How many groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "container_count": 3
+              }
+            }
+          ]
+        },
+        "description": "Student set container count incorrectly on second attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "container_count",
+                "description": "Container count control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The prompt says 2 groups of 3. The first number is the groups. That's how many bags. Set 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set container count incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_container_count",
+                "status": "confirmed",
+                "container_count": 2,
+                "description": "System sets container count to 2. 2 empty bags appear."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When we say 2 groups of 3, the first number tells us how many groups. That's 2. So we need 2 bags. Each bag is one group."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "items_per_container": 2
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student set items per container to 2 (reversed the numbers) on first or second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "items_per_container",
+                "description": "Items per container control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You set 2 in each bag. But we already have 2 bags. The second number tells you how many go INSIDE. What's the second number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "items_per_container": 2
+              }
+            }
+          ]
+        },
+        "description": "Student set items per container incorrectly on first attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the prompt again. How many in each group?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "items_per_container": 2
+              }
+            }
+          ]
+        },
+        "description": "Student set items per container incorrectly on second attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "items_per_container",
+                "description": "Items per container control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The prompt says 2 groups of 3. The second number is how many in each bag. That's 3. Set 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set items per container incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_items_per_container",
+                "status": "confirmed",
+                "items_per_container": 3,
+                "description": "System sets items per container to 3. 3 items appear in each of the 2 bags."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When we say 2 groups of 3, the second number tells us how many go in each group. That's 3. So each bag gets 3 items. Now we have 2 groups of 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:07.278634+00:00"
+}

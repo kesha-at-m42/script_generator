@@ -1,0 +1,79 @@
+{
+  "id": "s1_2_identify_visual_expression",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "B"
+        },
+        "description": "Student selected B: 2 bags of 4, factor reversal error",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder",
+              "params": {
+                "highlight_first_number": true,
+                "description": "First number in expression highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells you how many groups. Look at the first number in 4 times 2. How many groups do you need?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "C"
+        },
+        "description": "Student selected C: 6 scattered items, not equal groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "visual_option_a",
+              "params": {
+                "highlight_containers": true,
+                "description": "Bags in option A highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Multiplication shows equal groups. The expression tells you how many groups and how many in each. Which picture shows groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "visual_option_a",
+              "params": {
+                "event": "highlight_groups_sequentially",
+                "status": "confirmed",
+                "description": "Option A bags highlight one at a time, then items in one bag highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The expression 4 times 2 means 4 groups with 2 in each group. I count the groups: 1, 2, 3, 4 bags. Then I check inside one bag: 2 items. Option A shows 4 groups of 2. That's what the expression means."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:13.908432+00:00"
+}

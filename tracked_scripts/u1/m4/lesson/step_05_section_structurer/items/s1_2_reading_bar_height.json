@@ -1,0 +1,80 @@
+{
+  "id": "s1_2_reading_bar_height",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_colors",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red",
+          "Blue",
+          "Yellow",
+          "Green"
+        ],
+        "axis_range": [
+          0,
+          35
+        ],
+        "description": "Vertical bar graph appears. Same data as previous picture graph: Red=20, Blue=30, Yellow=25, Green=15. Blue bar highlighted, height at 30 axis line."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at Blue. The bar's HEIGHT ends at a line on the axis. What value does this show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does this show?",
+      "tool": "multiple_choice",
+      "options": [
+        3,
+        20,
+        30,
+        35
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30, correct bar height",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Blue bar highlighted at height 30. multiple_choice tool active.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Yellow",
+            "Green"
+          ],
+          "axis_range": [
+            0,
+            35
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:07.005484+00:00"
+}

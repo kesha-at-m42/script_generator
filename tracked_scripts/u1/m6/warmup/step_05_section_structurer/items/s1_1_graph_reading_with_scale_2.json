@@ -1,0 +1,87 @@
+{
+  "id": "s1_1_graph_reading_with_scale_2",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_activities",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Tennis",
+          "Swimming"
+        ],
+        "scale": 2,
+        "title": "After-School Activities",
+        "description": "Horizontal bar graph appears. After-School Activities data. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Scale of 2."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale."
+    },
+    {
+      "type": "prompt",
+      "text": "How many students chose soccer?",
+      "tool": "multiple_choice",
+      "options": [
+        6,
+        10,
+        12,
+        24
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 12
+          },
+          "description": "Student answered 12, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Soccer",
+                "description": "Soccer bar highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "12 students. Scale of 2. Each mark on the axis shows 2 students. That's how you read the scale."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_activities",
+          "description": "Horizontal bar graph in reading mode. After-School Activities data. Soccer bar highlighted. Scale of 2.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Tennis",
+            "Swimming"
+          ],
+          "scale": 2,
+          "title": "After-School Activities"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:28.795522+00:00"
+}

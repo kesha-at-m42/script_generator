@@ -1,0 +1,97 @@
+{
+  "id": "s2_1_grouping_animation_reveal",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_snacks",
+      "params": {
+        "event": "transform_symbols_to_groups",
+        "status": "proposed",
+        "description": "Animation begins: the 4 Chips symbols from the previous section start transforming into 4 bag containers, each revealing 5 items inside."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Wait. Look at what those symbols were hiding."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_snacks",
+      "params": {
+        "event": "transform_symbols_to_groups",
+        "status": "confirmed",
+        "description": "Animation completes: 4 bag containers now visible, each clearly showing 5 items inside. Visual continuation from the graph symbols."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_snacks",
+          "description": "Picture graph with Chips row transformed: 4 bag containers displayed, each containing 5 items. Animation complete.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Chips",
+            "Cookies",
+            "Fruit",
+            "Crackers"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "4 symbols. Each symbol held 5 items. That's 4 groups of 5. Look familiar? This is called MULTIPLICATION. You've been doing multiplication this whole time."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups do you see?",
+      "tool": "multiple_choice",
+      "options": [
+        4,
+        5,
+        8,
+        20
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 4
+          },
+          "description": "Student answered 4, correct number of groups",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 × 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_snacks",
+          "description": "Picture graph with Chips row showing 4 bag containers, each containing 5 items. Multiple choice interaction complete.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Chips",
+            "Cookies",
+            "Fruit",
+            "Crackers"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:10.073789+00:00"
+}

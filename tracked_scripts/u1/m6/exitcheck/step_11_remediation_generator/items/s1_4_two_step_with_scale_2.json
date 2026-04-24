@@ -1,0 +1,139 @@
+{
+  "id": "s1_4_two_step_with_scale_2",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student answered incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Read the scale and add Maya's books and Ben's books."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student answered incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what to do: count by twos on Maya's bar to 14, then count Ben's bar to 9. Add those numbers. What is 14 plus 9?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_equation_overlay",
+                "status": "confirmed",
+                "description": "Animation shows: 14 + 9 = 23"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The scale is 2, so I count by twos. Maya's bar reaches 14. Ben's bar reaches 9. When we see together, we add. 14 plus 9 equals 23. Maya and Ben read 23 books together."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student answered incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look closely. You have 23 total. Carla has 11. Compare them."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student answered incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Carla"
+                ],
+                "description": "Carla bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's the key: you found that Maya and Ben together is 23. How many more means we subtract. Count Carla's bar: 11. What is 23 minus 11?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_comparison_overlay",
+                "status": "confirmed",
+                "description": "Shows: 23 compared to 11, difference 12"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through it. Maya and Ben together is 23 books. Carla read 11 books. How many more asks for the difference. We subtract: 23 minus 11 equals 12. The answer is 12 books more."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:02:28.893731+00:00"
+}

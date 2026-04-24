@@ -1,0 +1,166 @@
+{
+  "id": "s1_3_skip_counting_connection",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_colors",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Blue",
+          "Red",
+          "Green",
+          "Yellow"
+        ],
+        "axis_range": [
+          0,
+          50
+        ],
+        "scale": 10,
+        "category_values": {
+          "Blue": 40,
+          "Red": 30,
+          "Green": 50,
+          "Yellow": 20
+        },
+        "description": "Vertical bar graph appears. Four color categories. Scale of 10. Blue=40, Red=30, Green=50, Yellow=20."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "highlight_categories": [
+          "Green"
+        ],
+        "description": "Green bar highlights, height 50."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Green shows 50. Let's count by 10s to check: 10, 20, 30, 40, 50."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "event": "highlight_axis_values_sequential",
+        "status": "confirmed",
+        "description": "Axis lines glow sequentially: 10, 20, 30, 40, 50.",
+        "values": [
+          10,
+          20,
+          30,
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Scale of 10. Green bar highlighted at 50. Axis values visible: 0, 10, 20, 30, 40, 50.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "scale": 10,
+          "category_values": {
+            "Blue": 40,
+            "Red": 30,
+            "Green": 50,
+            "Yellow": 20
+          }
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "highlight_categories": [
+          "Yellow"
+        ],
+        "description": "Yellow bar highlights, height 20."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You already know how to count by 10s. That's exactly what we do with scale of 10. The fourth bar shows Yellow. Count by 10s—what value does the bar show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does the bar show?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        12,
+        20,
+        25
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "20. Two jumps of 10: 10, 20."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Scale of 10. Yellow bar highlighted at 20. Multiple choice active.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "scale": 10,
+          "category_values": {
+            "Blue": 40,
+            "Red": 30,
+            "Green": 50,
+            "Yellow": 20
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:21.713995+00:00"
+}

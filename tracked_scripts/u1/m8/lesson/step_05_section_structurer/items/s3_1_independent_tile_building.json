@@ -1,0 +1,94 @@
+{
+  "id": "s3_1_independent_tile_building",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "visual_style": "boxes_with_items",
+        "description": "3 boxes appear, each containing 5 items."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_expression",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "tile_palette": [
+          2,
+          3,
+          5,
+          8,
+          9,
+          12,
+          15
+        ],
+        "description": "Equation builder appears with two blank slots and multiplication symbol. Tile palette shows 2, 3, 5, 8, 9, 12, 15."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the expression. Same two questions: how many groups? How many in each?"
+    },
+    {
+      "type": "prompt",
+      "text": "Build the expression.",
+      "tool": "place_tile",
+      "target": "equation_builder_expression",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 3,
+              "items": 5
+            }
+          },
+          "description": "Student placed 3 × 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Nice—3 times 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "3 boxes, each containing 5 items.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5
+        },
+        {
+          "tangible_id": "equation_builder_expression",
+          "description": "Equation builder showing 3 × 5. Tile palette: 2, 3, 5, 8, 9, 12, 15.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "3",
+            "×",
+            "5"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:31.219196+00:00"
+}

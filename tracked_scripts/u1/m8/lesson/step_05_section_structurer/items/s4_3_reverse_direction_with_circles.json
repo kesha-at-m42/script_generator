@@ -1,0 +1,142 @@
+{
+  "id": "s4_3_reverse_direction_with_circles",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_5x6",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "expression": [
+          "5",
+          "x",
+          "6"
+        ],
+        "description": "Equation Builder appears showing 5 × 6 in expression mode."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_a",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 6,
+        "visual_style": "circles_with_dots",
+        "description": "Option A: 5 circles, 6 dots in each circle."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_b",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 6,
+        "items_per_container": 5,
+        "visual_style": "circles_with_dots",
+        "description": "Option B: 6 circles, 5 dots in each circle."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_c",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 1,
+        "items_per_container": 11,
+        "visual_style": "scattered_dots",
+        "description": "Option C: 11 dots scattered without containers."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Last one. What does 5 times 6 look like?"
+    },
+    {
+      "type": "prompt",
+      "text": "Find 5 × 6.",
+      "tool": "multiple_choice",
+      "target": [
+        "equal_groups_option_a",
+        "equal_groups_option_b",
+        "equal_groups_option_c"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "equal_groups_option_a"
+          },
+          "description": "Student selected Option A, 5 circles of 6 dots, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "highlight": true,
+                "description": "Option A highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's it. 5 groups, 6 in each."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_5x6",
+          "description": "Equation Builder showing 5 × 6 in expression mode.",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "5",
+            "x",
+            "6"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_option_a",
+          "description": "Option A: 5 circles, 6 dots in each. Selected and highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 6,
+          "visual_style": "circles_with_dots"
+        },
+        {
+          "tangible_id": "equal_groups_option_b",
+          "description": "Option B: 6 circles, 5 dots in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 5,
+          "visual_style": "circles_with_dots"
+        },
+        {
+          "tangible_id": "equal_groups_option_c",
+          "description": "Option C: 11 dots scattered without containers.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 1,
+          "items_per_container": 11,
+          "visual_style": "scattered_dots"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:58.616145+00:00"
+}

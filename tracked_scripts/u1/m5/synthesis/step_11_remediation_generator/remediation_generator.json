@@ -1,0 +1,319 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Now let's connect what you discovered.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:55.118135+00:00"
+  },
+  {
+    "id": "s1_1_decision_checklist_consolidation_type_b",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Do the numbers end in 0 or 5?"
+          },
+          "description": "Student selected Do the numbers end in 0 or 5?, which is the second check, not the first",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "That's the second question. But if you check the digits first and the biggest number doesn't fit, the scale won't work no matter what. Which question tells you if the scale is even possible?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. The first question is always Does the biggest number fit? If the biggest number is too big for the scale, nothing else matters. The scale can't work. So you check that first. Then, if it fits, you check the digits to see if it works exactly. The answer is Does the biggest number fit?"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:25.630459+00:00"
+  },
+  {
+    "id": "s2_1_scale_strengths_type_pattern_discovery",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Graph A"
+          },
+          "description": "Student selected Graph A (scale of 1)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_a",
+                "params": {
+                  "highlight": true,
+                  "description": "Graph A highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Graph A shows every number, but count the lines. With so many tick marks, it's harder to find the value quickly. Look at Graph D. How many lines does it have?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Graph B"
+          },
+          "description": "Student selected Graph B (scale of 2)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_b",
+                "params": {
+                  "highlight": true,
+                  "description": "Graph B highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Graph B has fewer lines than A, but it's still crowded. When the data ends in 0 or 5, a bigger scale works better. Compare Graph B to Graph D."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Graph C"
+          },
+          "description": "Student selected Graph C (scale of 5)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_c",
+                "params": {
+                  "highlight": true,
+                  "description": "Graph C highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Graph C is good, but when all the numbers are multiples of 10, scale of 10 is even cleaner. Look at Graph D. Notice how simple it is?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_d",
+                "params": {
+                  "event": "highlight_scale_comparison",
+                  "status": "confirmed",
+                  "description": "Graph D highlights. Scale of 10 tick marks pulse to show clean intervals."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to think about it. All four graphs show the same data: 20, 40, and 60. Graph D uses scale of 10. That means only three tick marks between 0 and 60. Fewer lines means faster reading. When your data lands on multiples of 10, scale of 10 is the easiest to read."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:37.405200+00:00"
+  },
+  {
+    "id": "s3_1_real_world_connection_type_c",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Table A"
+          },
+          "description": "Student selected Table A (Daily Steps), which has large numbers that all end in 0 or 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_steps",
+                "params": {
+                  "highlight": true,
+                  "description": "Table A (Daily Steps) highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the steps numbers: 4,500, 3,200, 5,100, 2,800. They all end in 0. That means Scale of 5 could work. Which table has numbers that don't end in 0 or 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Table C"
+          },
+          "description": "Student selected Table C (Books Read), which has numbers that all end in 0 or 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table_books",
+                "params": {
+                  "highlight": true,
+                  "description": "Table C (Books Read) highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the books numbers: 25, 30, 35, 40. Every one ends in 0 or 5. That gives you options. Which table has numbers that don't follow that pattern?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "data_table_coins",
+                "params": {
+                  "event": "highlight_with_explanation",
+                  "status": "confirmed",
+                  "description": "Table B (Coins Collected) highlights. Each value pulses in sequence: 7, 12, 19, 23."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Table B has 7, 12, 19, 23. None of those end in 0 or 5. You can't count by 5s to get to 7 or 12 or 19 or 23. Scale of 2 is the only way to show all of them exactly. That's what makes Table B have to use Scale of 2."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:49.289691+00:00"
+  },
+  {
+    "id": "s4_1_metacognitive_reflection_type_1_strategy",
+    "incorrects": [],
+    "_generated_at": "2026-04-20T17:00:52.175855+00:00"
+  },
+  {
+    "id": "s4_2_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_completed",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "description": "Completed vertical bar graph appears with Scale of 10."
+        },
+        "id": "s4_2_identity_building_closure_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You learned to choose scales, not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
+        "id": "s4_2_identity_building_closure_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_completed",
+            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ],
+        "id": "s4_2_identity_building_closure_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "That's strategic thinking. You're not just following rules. You're making decisions.",
+        "id": "s4_2_identity_building_closure_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_completed",
+            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ],
+        "id": "s4_2_identity_building_closure_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next time, you'll use your graphs to solve problems and answer questions. The scale you choose will help you find answers faster.",
+        "id": "s4_2_identity_building_closure_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_completed",
+            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ],
+        "id": "s4_2_identity_building_closure_b6"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:58.117190+00:00"
+  }
+]

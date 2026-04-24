@@ -1,0 +1,73 @@
+{
+  "id": "s2_5_mixed_values_at_lines_between",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student did not set all bars correctly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Check the data table. Which values end in 0 or 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student did not set all bars correctly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "highlight_categories": [
+                  "Monday",
+                  "Wednesday"
+                ],
+                "description": "Monday and Wednesday bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Values that end in 0 go at the lines. Monday is 40, Wednesday is 50. Values that end in 5 go between. Where does Tuesday at 35 go?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student did not set all bars correctly. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "event": "confirm_all_bars",
+                "status": "confirmed",
+                "description": "System sets all four bars in sequence: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Monday is 40, right at the 40 line. Tuesday is 35, halfway between 30 and 40. Wednesday is 50, at the 50 line. Thursday is 25, halfway between 20 and 30. Values ending in 0 land on the lines. Values ending in 5 land between the lines."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:42.508206+00:00"
+}

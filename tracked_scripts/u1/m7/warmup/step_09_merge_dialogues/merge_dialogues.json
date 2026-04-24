@@ -1,0 +1,264 @@
+[
+  {
+    "id": "s1_1_graph_reading_quick_success",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_books",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Books Read This Week"
+          ],
+          "scale": 5,
+          "symbol_count": 4,
+          "description": "Horizontal picture graph appears. Books Read This Week. 4 symbols displayed. Key shows each symbol = 5 books."
+        },
+        "id": "s1_1_graph_reading_quick_success_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You know how to read these. Look. 4 symbols. Each one means 5 books. How many books altogether?",
+        "id": "s1_1_graph_reading_quick_success_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books? You can skip-count.",
+        "tool": "multiple_choice",
+        "options": [
+          16,
+          20
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 20
+            },
+            "description": "Student answered 20, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. 20 books. You skip-counted by 5s. 5, 10, 15, 20. You've been doing this all unit.",
+                "id": "s1_1_graph_reading_quick_success_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_graph_reading_quick_success_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_books",
+            "description": "Horizontal picture graph in reading mode. Books Read This Week. 4 symbols, scale of 5. multiple_choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Books Read This Week"
+            ],
+            "scale": 5,
+            "symbol_count": 4
+          }
+        ],
+        "id": "s1_1_graph_reading_quick_success_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:58.179369+00:00"
+  },
+  {
+    "id": "s2_1_grouping_animation_reveal",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_snacks",
+        "params": {
+          "event": "transform_symbols_to_groups",
+          "status": "proposed",
+          "description": "Animation begins: the 4 Chips symbols from the previous section start transforming into 4 bag containers, each revealing 5 items inside."
+        },
+        "id": "s2_1_grouping_animation_reveal_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Wait. Look at what those symbols were hiding.",
+        "id": "s2_1_grouping_animation_reveal_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_snacks",
+        "params": {
+          "event": "transform_symbols_to_groups",
+          "status": "confirmed",
+          "description": "Animation completes: 4 bag containers now visible, each clearly showing 5 items inside. Visual continuation from the graph symbols."
+        },
+        "id": "s2_1_grouping_animation_reveal_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Picture graph with Chips row transformed: 4 bag containers displayed, each containing 5 items. Animation complete.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Chips",
+              "Cookies",
+              "Fruit",
+              "Crackers"
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "4 symbols. Each symbol held 5 items. That's 4 groups of 5. Look familiar? This is called multiplication. You've been doing multiplication this whole time.",
+        "id": "s2_1_grouping_animation_reveal_b4"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups do you see?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          5,
+          8,
+          20
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student answered 4, correct number of groups",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 groups. And remember? 5 in each group. That's 4 groups of 5. And guess what? There's a symbol for that: 4 × 5.",
+                "id": "s2_1_grouping_animation_reveal_b5_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_snacks",
+            "description": "Picture graph with Chips row showing 4 bag containers, each containing 5 items. Multiple choice interaction complete.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Chips",
+              "Cookies",
+              "Fruit",
+              "Crackers"
+            ]
+          }
+        ],
+        "id": "s2_1_grouping_animation_reveal_b6"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:10.073789+00:00"
+  },
+  {
+    "id": "s3_1_transfer_bags_groups_beyond_graphs",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "description": "3 bags appear, each containing 4 items. Static visual, no animation."
+        },
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a different picture. No graph. Just bags.",
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          3,
+          4,
+          6
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student answered 3 groups, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 3 bags. That's 3 groups of 4. Same idea. Bags instead of graph symbols.",
+                "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "3 bags, each containing 4 items. Static visual.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4
+          }
+        ],
+        "id": "s3_1_transfer_bags_groups_beyond_graphs_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:16.917423+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You found equal groups in graphs. You found them in bags. There's a whole lot more hiding. Let's find them.",
+        "id": "s4_1_bridge_lesson_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s4_1_bridge_lesson_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:20.700994+00:00"
+  }
+]

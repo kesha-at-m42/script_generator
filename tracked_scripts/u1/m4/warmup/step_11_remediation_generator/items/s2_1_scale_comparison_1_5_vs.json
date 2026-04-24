@@ -1,0 +1,62 @@
+{
+  "id": "s2_1_scale_comparison_1_5_vs",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Left graph (scale of 5)"
+        },
+        "description": "Student selected the 1:5 graph, which uses more symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_5",
+              "params": {
+                "description": "Left graph highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_10",
+              "params": {
+                "description": "Right graph highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the keys. When each symbol stands for more, you need fewer symbols. Which key shows a bigger number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale_10",
+              "params": {
+                "event": "highlight_graph",
+                "status": "confirmed",
+                "description": "Right graph highlights to show the answer."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The right graph has scale of 10. Each symbol stands for 10. The left graph has scale of 5. Each symbol stands for 5. When each symbol shows more, you need fewer symbols to show the same amount. The right graph uses fewer symbols because its scale is bigger."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:58:40.233937+00:00"
+}

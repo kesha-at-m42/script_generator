@@ -1,0 +1,76 @@
+{
+  "id": "s3_1_real_world_connection_type_c",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "scenario_images",
+      "tangible_type": "image",
+      "params": {
+        "description": "Three real-world scenario images appear. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Scale of 10 is useful when numbers are bigger. Where might you see counting by 10s outside of math class?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which situations would work well with a scale of 10? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "B"
+              }
+            ]
+          },
+          "description": "Student selected A and B, both involve counting by 10s",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Money and measuring often use 10s. That's why scale of 10 feels natural for bigger amounts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "scenario_images",
+          "description": "Three real-world scenario images. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one.",
+          "tangible_type": "image"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You already know how to count by 10s. Bar graphs use the same skill you use with money and measuring."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "scenario_images",
+          "description": "Three real-world scenario images. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one.",
+          "tangible_type": "image"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:58:17.877335+00:00"
+}

@@ -1,0 +1,86 @@
+{
+  "id": "s1_1_expression_callback_activation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 2,
+        "container_type": "bag",
+        "description": "4 bags appear, each containing 2 items."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "description": "Equation builder appears alongside bags. Two empty slots separated by multiplication symbol. No equals sign. M8 expression format."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's warm up. Remember building these? 4 bags with 2 in each. Build the expression."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the expression for 4 groups of 2.",
+      "tool": "place_tile",
+      "target": "equation_builder",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 4,
+              "items": 2
+            }
+          },
+          "description": "Student placed 4 × 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 times 2. You know how to show groups with expressions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "4 bags with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "container_type": "bag"
+        },
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation builder with 4 × 2 placed in slots.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:06.091512+00:00"
+}

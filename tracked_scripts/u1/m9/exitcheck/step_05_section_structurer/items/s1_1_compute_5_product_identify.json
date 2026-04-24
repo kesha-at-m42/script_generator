@@ -1,0 +1,72 @@
+{
+  "id": "s1_1_compute_5_product_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_7x5",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": "equation",
+        "expression": [
+          "7",
+          "×",
+          "5",
+          "=",
+          "__"
+        ],
+        "description": "Equation Builder appears. 7 × 5 = [___]. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options below: 12, 30, 35, 40."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "7 times 5. Pick the product."
+    },
+    {
+      "type": "prompt",
+      "text": "What is the product of 7 × 5?",
+      "tool": "multiple_choice",
+      "options": [
+        12,
+        30,
+        35,
+        40
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 35
+          },
+          "description": "Student selected 35, correct product of 7 × 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_7x5",
+          "description": "Equation Builder showing 7 × 5 = [___]. Multiple choice tool active on product slot with options 12, 30, 35, 40.",
+          "tangible_type": "equation_builder",
+          "template": "equation",
+          "expression": [
+            "7",
+            "×",
+            "5",
+            "=",
+            "__"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:19.242812+00:00"
+}

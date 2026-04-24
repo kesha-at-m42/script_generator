@@ -1,0 +1,188 @@
+{
+  "id": "s2_4_guided_practice_full_scaffolding",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Compare bikes to scooters"
+        },
+        "description": "Student selected compare bikes to scooters, skipping the addition step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "highlight_categories": [
+                  "Scooters",
+                  "Skateboards"
+                ],
+                "description": "Scooters and Skateboards bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks about scooters and skateboards together. That word together means find the total of those two first."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Add all four categories"
+        },
+        "description": "Student selected add all four categories, including categories not needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "highlight_categories": [
+                  "Scooters",
+                  "Skateboards"
+                ],
+                "description": "Scooters and Skateboards bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question only asks about scooters and skateboards together. We don't need rollerblades or bikes yet. Add just those two."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "Animation shows: Scooters (30) and Skateboards (15) bars pulse, then calculation 30 + 15 = 45 appears"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When we see together, we add those categories first. Scooters is 30, skateboards is 15. Combined, that's 45. We find the total of the categories named together before we compare to anything else. The answer is add scooters and skateboards."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 110
+        },
+        "description": "Student selected 110, added bikes (65) and combined total (45) instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "highlight_categories": [
+                  "Bikes"
+                ],
+                "description": "Bikes bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "How many more means compare. Compare means subtract, not add. Bikes is 65. The combined total is 45. How many more?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 65
+        },
+        "description": "Student selected 65, which is the bikes value without comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "highlight_categories": [
+                  "Bikes"
+                ],
+                "description": "Bikes bar (65) highlights. Combined total 45 displays."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Bikes is 65, but the question asks how many more bikes than the combined total. Subtract: bikes minus combined. What's 65 minus 45?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, the combined total instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "highlight_categories": [
+                  "Bikes"
+                ],
+                "description": "Bikes bar (65) and combined value (45) both display."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the combined total of scooters and skateboards. Now we compare that total to bikes. How many more is 65 than 45?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_rolling",
+              "params": {
+                "event": "show_comparison",
+                "status": "confirmed",
+                "description": "Animation shows: Bikes bar (65) pulses, then comparison to combined value (45) displays, then calculation 65 - 45 = 20 appears"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this. We found the combined total: scooters and skateboards is 45. Now we compare. Bikes is 65. How many more means subtract: 65 minus 45 equals 20. Bikes is 20 more than scooters and skateboards combined. That's how we solve these problems: find the combined total first, then compare by subtracting."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:26.441501+00:00"
+}

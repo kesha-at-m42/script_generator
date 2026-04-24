@@ -1,0 +1,177 @@
+{
+  "id": "s2_1_all_scales_fit_small_data",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Marbles in Jars context. Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_marbles",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
+        ],
+        "scale_selector_visible": true,
+        "description": "Horizontal bar graph frame appears with scale selector showing all four scale buttons. No bars displayed yet."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's data about marbles. Look at the biggest number: 23. That's pretty small!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph frame with scale selector. Four scale buttons visible. No bars displayed yet.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "scale_selector_visible": true
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "This graph is horizontal — the bars go sideways. Let's check: which scales fit? Try clicking each scale."
+    },
+    {
+      "type": "prompt",
+      "text": "Click each scale to see if 23 fits.",
+      "tool": "click_scale_button",
+      "target": "bar_graph_marbles",
+      "validator": [
+        {
+          "condition_id": "explored_all_scales",
+          "condition": {},
+          "description": "Student explored all four scales. All fit.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "All four scales fit!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph with scale selector. All four scale options previewed, all showing fit indicator.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "scale_selector_visible": true
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's look at Scale of 1."
+    },
+    {
+      "type": "prompt",
+      "text": "Click Scale of 1 to see what it looks like.",
+      "tool": "click_scale_button",
+      "target": "bar_graph_marbles",
+      "validator": [
+        {
+          "condition_id": "selected_scale_1",
+          "condition": {
+            "selected": 1
+          },
+          "description": "Student selected Scale of 1.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "scale": 1,
+                "axis_range": [
+                  0,
+                  23
+                ],
+                "description": "Bar graph displays with Scale of 1. All bars fit. Axis shows 24 tick marks (0 through 23)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "It works — every number lands exactly. But look at all those lines on the side! Small data means all scales fit. But some are cleaner than others."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph. Scale of 1. Bars for Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23. Axis displays 24 tick marks (0-23).",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "scale": 1,
+          "axis_range": [
+            0,
+            23
+          ],
+          "scale_selector_visible": true
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:04.722189+00:00"
+}

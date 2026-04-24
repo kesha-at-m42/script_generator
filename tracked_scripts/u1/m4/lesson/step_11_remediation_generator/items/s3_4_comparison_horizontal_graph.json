@@ -1,0 +1,116 @@
+{
+  "id": "s3_4_comparison_horizontal_graph",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15, likely subtracted 25-10 instead of 50-25",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_miles",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Noah"
+                ],
+                "description": "Ava and Noah bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're comparing Ava and Noah. Find where each bar ends on the scale. What number does Ava's bar reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50, gave Ava's total instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_miles",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Noah"
+                ],
+                "description": "Ava and Noah bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "50 is how many miles Ava walked. The question asks how many MORE than Noah. Find the difference between the two bars."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 75
+        },
+        "description": "Student selected 75, added 50+25 instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_miles",
+              "params": {
+                "highlight_categories": [
+                  "Ava",
+                  "Noah"
+                ],
+                "description": "Ava and Noah bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The word MORE means we find the difference, not the total. Ava walked 50 miles, Noah walked 25. How far apart are those two numbers?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_miles",
+              "params": {
+                "event": "highlight_difference",
+                "status": "confirmed",
+                "description": "Animation shows the gap between Ava's bar at 50 and Noah's bar at 25, with the 25-unit difference highlighted.",
+                "categories": [
+                  "Ava",
+                  "Noah"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Ava's bar ends at 50. Noah's bar ends at 25. To find how many MORE, we subtract: 50 minus 25 equals 25. The difference between the two bars is 25 miles."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:50.738862+00:00"
+}

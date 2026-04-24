@@ -1,0 +1,592 @@
+[
+  {
+    "id": "s1_1_expression_callback_activation",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "placed": {
+                  "groups": 2,
+                  "items": 4
+                }
+              },
+              {
+                "or": [
+                  {
+                    "incorrect_count": 1
+                  },
+                  {
+                    "incorrect_count": 2
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Student reversed the numbers: placed 2 × 4 instead of 4 × 2",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 4 bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You're right that we need 4 and 2. But which number comes first? Count the bags. How many groups do you see?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "incorrect_count": 1
+              },
+              {
+                "not": {
+                  "placed": {
+                    "groups": 2,
+                    "items": 4
+                  }
+                }
+              }
+            ]
+          },
+          "description": "Student placed wrong numbers on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Let's look closely. Count the bags, then count what's in each bag."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "incorrect_count": 2
+              },
+              {
+                "not": {
+                  "placed": {
+                    "groups": 2,
+                    "items": 4
+                  }
+                }
+              }
+            ]
+          },
+          "description": "Student placed wrong numbers on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 4 bags highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what helps. The first number tells us how many groups. Count the bags: 4. The second number tells us how many in each group. Count inside one bag: 2. Place those numbers."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "event": "place_tiles",
+                  "status": "confirmed",
+                  "description": "System places 4 in first slot, 2 in second slot.",
+                  "tiles": [
+                    {
+                      "slot": 0,
+                      "value": 4
+                    },
+                    {
+                      "slot": 2,
+                      "value": 2
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. First, I count the bags. That's my groups: 4. Then I count inside one bag. That's my items per group: 2. So the expression is 4 times 2. The first number names the groups, the second names what's in each group."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:59.817271+00:00"
+  },
+  {
+    "id": "s2_1_animated_accumulation_5_circles_observation",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 0,
+          "items_per_container": 2,
+          "description": "Equal groups workspace appears empty, ready for circles to accumulate."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_accumulation",
+        "tangible_type": "equation_builder",
+        "params": {
+          "expression": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "description": "Equation Builder appears empty, ready to update in sync with circles."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "proposed",
+          "description": "First circle with 2 dots appears."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b2"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_accumulation",
+        "params": {
+          "expression": [
+            "1",
+            "×",
+            "2",
+            "=",
+            "2"
+          ],
+          "description": "Equation Builder updates to show 1 × 2 = 2."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "1 group of 2. That's 2.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b4"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "confirmed",
+          "description": "First circle animation completes."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "1 circle with 2 dots displayed.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 1,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 1 × 2 = 2.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "1",
+              "×",
+              "2",
+              "=",
+              "2"
+            ]
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b6"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "proposed",
+          "description": "Second circle with 2 dots appears."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b7"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_accumulation",
+        "params": {
+          "expression": [
+            "2",
+            "×",
+            "2",
+            "=",
+            "4"
+          ],
+          "description": "Equation Builder updates to show 2 × 2 = 4."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "2 groups of 2. That's 4.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b9"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "confirmed",
+          "description": "Second circle animation completes."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "2 circles, each with 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 2 × 2 = 4.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "2",
+              "×",
+              "2",
+              "=",
+              "4"
+            ]
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b11"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "proposed",
+          "description": "Third circle with 2 dots appears."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b12"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_accumulation",
+        "params": {
+          "expression": [
+            "3",
+            "×",
+            "2",
+            "=",
+            "6"
+          ],
+          "description": "Equation Builder updates to show 3 × 2 = 6."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b13"
+      },
+      {
+        "type": "dialogue",
+        "text": "6.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b14"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "confirmed",
+          "description": "Third circle animation completes."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b15"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "3 circles, each with 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 3 × 2 = 6.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "3",
+              "×",
+              "2",
+              "=",
+              "6"
+            ]
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b16"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "proposed",
+          "description": "Fourth circle with 2 dots appears."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b17"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_accumulation",
+        "params": {
+          "expression": [
+            "4",
+            "×",
+            "2",
+            "=",
+            "8"
+          ],
+          "description": "Equation Builder updates to show 4 × 2 = 8."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b18"
+      },
+      {
+        "type": "dialogue",
+        "text": "8.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b19"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "confirmed",
+          "description": "Fourth circle animation completes."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b20"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each with 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 4 × 2 = 8.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "4",
+              "×",
+              "2",
+              "=",
+              "8"
+            ]
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b21"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "proposed",
+          "description": "Fifth circle with 2 dots appears."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b22"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_accumulation",
+        "params": {
+          "expression": [
+            "5",
+            "×",
+            "2",
+            "=",
+            "10"
+          ],
+          "description": "Equation Builder updates to show 5 × 2 = 10."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b23"
+      },
+      {
+        "type": "dialogue",
+        "text": "10.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b24"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_circles",
+        "params": {
+          "event": "add_group_with_narration",
+          "status": "confirmed",
+          "description": "Fifth circle animation completes."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b25"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "5 circles, each with 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "5",
+              "×",
+              "2",
+              "=",
+              "10"
+            ]
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b26"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "products_strip",
+        "tangible_type": "image",
+        "params": {
+          "description": "Products Strip appears below circles: [ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ]."
+        },
+        "id": "s2_1_animated_accumulation_5_circles_observation_b27"
+      },
+      {
+        "type": "dialogue",
+        "text": "5 groups of 2 gave us these products: 2, 4, 6, 8, 10.",
+        "id": "s2_1_animated_accumulation_5_circles_observation_b28"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "5 circles, each with 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_accumulation",
+            "description": "Equation Builder showing 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "5",
+              "×",
+              "2",
+              "=",
+              "10"
+            ]
+          },
+          {
+            "tangible_id": "products_strip",
+            "description": "Products Strip showing [ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ].",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s2_1_animated_accumulation_5_circles_observation_b29"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:34.002397+00:00"
+  },
+  {
+    "id": "s2_2_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Interesting, right? You've been building expressions. Now you're going to find out what they EQUAL. And there are some cool patterns hiding in the answers. Let's keep going.",
+        "id": "s2_2_bridge_lesson_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_2_bridge_lesson_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:36.973565+00:00"
+  }
+]

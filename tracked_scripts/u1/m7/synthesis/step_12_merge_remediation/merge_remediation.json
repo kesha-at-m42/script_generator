@@ -1,0 +1,902 @@
+[
+  {
+    "id": "s1_1_pattern_discovery_what_makes_groups",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_grid",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "layout": "grid_2x2",
+          "options": [
+            {
+              "id": "A",
+              "container_count": 3,
+              "items_per_container": 4,
+              "container_type": "bags",
+              "description": "3 bags, 4 items in each"
+            },
+            {
+              "id": "B",
+              "container_count": 4,
+              "items_per_container": 2,
+              "container_type": "circles",
+              "description": "4 circles, 2 dots in each"
+            },
+            {
+              "id": "C",
+              "container_count": 2,
+              "items_per_container": [
+                3,
+                5
+              ],
+              "container_type": "boxes",
+              "description": "2 boxes: one has 3 items, the other has 5 items"
+            },
+            {
+              "id": "D",
+              "container_count": 5,
+              "items_per_container": 3,
+              "container_type": "bags",
+              "description": "5 bags, 3 items in each"
+            }
+          ],
+          "description": "Four context visualizations displayed in a 2x2 grid. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes with different amounts, 3 and 5. D: 5 bags with 3 items each."
+        },
+        "id": "s1_1_pattern_discovery_what_makes_groups_b0",
+        "_notion_block_id": "3485917e-ac52-816b-85f0-f3d1fc81b536"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here are four pictures. Three of them show equal groups. One does NOT. Which one is NOT equal groups?",
+        "id": "s1_1_pattern_discovery_what_makes_groups_b1",
+        "_notion_block_id": "3485917e-ac52-8100-8873-e4e10196db9e"
+      },
+      {
+        "type": "prompt",
+        "text": "Which one is NOT equal groups?",
+        "tool": "multiple_choice",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "C"
+            },
+            "description": "Student selected C, the two boxes with different amounts",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "event": "highlight_option",
+                  "status": "confirmed",
+                  "option_id": "C",
+                  "description": "Option C highlights to confirm selection."
+                },
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Those two boxes have different amounts: 3 in one, 5 in the other. That's not equal. For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group. That's what makes them equal groups.",
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8105-993b-f60ed22155f1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "A"
+            },
+            "description": "Student selected A: 3 bags with 4 items each (an equal group)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "A"
+                  ],
+                  "description": "Option A highlights."
+                },
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at A. Each bag has 4 items. That's the same in every bag. Equal groups have the same amount in each. Which picture shows different amounts in the containers?",
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-818f-ae7f-ecf91fa6b52c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "B"
+            },
+            "description": "Student selected B: 4 circles with 2 dots each (an equal group)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "B"
+                  ],
+                  "description": "Option B highlights."
+                },
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at B. Every circle has 2 dots. That's equal. For groups to NOT be equal, one group needs a different number. Which picture shows that?",
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81c1-ab33-cb8bdfc5942b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "D"
+            },
+            "description": "Student selected D: 5 bags with 3 items each (an equal group)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "highlight_options": [
+                    "D"
+                  ],
+                  "description": "Option D highlights."
+                },
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check D. All five bags have 3 items. That's the same number in each, so that's equal. Look for the picture where the containers have different amounts inside.",
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81ed-a51b-ec5464702755"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_grid",
+                "params": {
+                  "event": "highlight_option",
+                  "status": "confirmed",
+                  "option_id": "C",
+                  "description": "Option C highlights to show the correct answer."
+                },
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Look at A: 3 bags, each has 4. That's equal. B: 4 circles, each has 2. Equal. D: 5 bags, each has 3. Equal. Now C: one box has 3, the other has 5. Those are different numbers. That makes C NOT equal groups. The answer is C. Equal groups need the same amount in every container.",
+                "id": "s1_1_pattern_discovery_what_makes_groups_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81db-b631-d8f76fd7c2c0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_pattern_discovery_what_makes_groups_b2",
+        "_notion_block_id": "3485917e-ac52-816d-b3cc-ee5d85c84d17"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_grid",
+            "description": "Four context visualizations in 2x2 grid. Multiple choice tool active. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes with different amounts. D: 5 bags with 3 items each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "layout": "grid_2x2"
+          }
+        ],
+        "id": "s1_1_pattern_discovery_what_makes_groups_b3",
+        "_toml_key": "step_100_pattern_discovery_what_makes_groups"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:02.820629+00:00",
+    "_notion_block_id": "3485917e-ac52-8190-befa-e39972071ce0",
+    "_toml_key": "section_100_pattern_discovery_what_makes_groups"
+  },
+  {
+    "id": "s2_1_representation_transfer_same_multiplication_three",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "container_style": "bags",
+          "label": "Bags",
+          "description": "3 bags appear on the left. Each bag contains 5 items. Label: Bags."
+        },
+        "id": "s2_1_representation_transfer_same_multiplication_three_b0",
+        "_notion_block_id": "3485917e-ac52-8170-8aff-ee490e08bb80"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "container_style": "circles",
+          "label": "Circles",
+          "description": "3 circles appear in the center. Each circle contains 5 dots. Label: Circles."
+        },
+        "id": "s2_1_representation_transfer_same_multiplication_three_b1",
+        "_notion_block_id": "3485917e-ac52-8198-90a6-e851e5cee18b"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_symbols",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Graph"
+          ],
+          "scale": 5,
+          "symbol_count": 3,
+          "label": "Graph",
+          "description": "Picture graph appears on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph."
+        },
+        "id": "s2_1_representation_transfer_same_multiplication_three_b2",
+        "_notion_block_id": "3485917e-ac52-8147-8476-e31c3ce0d949"
+      },
+      {
+        "type": "dialogue",
+        "text": "Three different pictures. Take a look at each one. What do all three pictures show?",
+        "id": "s2_1_representation_transfer_same_multiplication_three_b3",
+        "_notion_block_id": "3485917e-ac52-81e9-af43-ca79382bf544"
+      },
+      {
+        "type": "prompt",
+        "text": "What do all three pictures show?",
+        "tool": "multiple_choice",
+        "options": [
+          "3 groups of 5",
+          "5 groups of 3",
+          "3 + 5",
+          "15 things with no groups"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "3 groups of 5"
+            },
+            "description": "Student selected 3 groups of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. All three show 3 groups of 5. Bags, circles, graph symbols, different containers, same structure inside. That's what multiplication is. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5, whether it's bags on a shelf, dots in circles, or symbols on a graph.",
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8125-b6c1-fd95176efa9a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "5 groups of 3"
+            },
+            "description": "Student selected 5 groups of 3: reversed the group structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight": "containers",
+                  "description": "The 3 bags highlight."
+                },
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You're counting what's inside the groups. Count the groups themselves first. How many bags are there? How many circles? How many symbols on the graph?",
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v1_b1",
+                "_notion_block_id": "3485917e-ac52-817b-9e1e-c32f9831fa9c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "3 + 5"
+            },
+            "description": "Student selected 3 + 5: interpreted as addition instead of multiplication",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "highlight": "all",
+                  "description": "All circles highlight showing repeated groups."
+                },
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Addition means we're combining two different amounts. Here, we have the same amount repeating. Each group has 5. Count how many groups have that same 5 inside.",
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v2_b1",
+                "_notion_block_id": "3485917e-ac52-818c-8bcd-c25744097bc8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "15 things with no groups"
+            },
+            "description": "Student selected 15 things with no groups: seeing total without structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight": "containers",
+                  "description": "Bags highlight to show container structure."
+                },
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The items are organized. They're not loose. Each bag holds 5, each circle holds 5, each symbol represents 5. How many of those containers are there?",
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8158-8781-e2853e3cf327"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "System counts the 3 bags, then shows 5 items in each."
+                },
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to see this. First, I count the containers. 1 bag, 2 bags, 3 bags. Then I look inside one bag: 5 items. Every bag has that same 5. So it's 3 groups of 5. The circles show it the same way: 3 circles, 5 dots in each. The graph shows it too: 3 symbols, each symbol stands for 5. Different containers, same structure. All three show 3 groups of 5.",
+                "id": "s2_1_representation_transfer_same_multiplication_three_b4_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81d8-8e89-eeb3d90855b9"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_representation_transfer_same_multiplication_three_b4",
+        "_notion_block_id": "3485917e-ac52-8183-830c-e4955d7be9fb"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "3 bags on the left, each containing 5 items. Label: Bags.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 5,
+            "container_style": "bags"
+          },
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "3 circles in the center, each containing 5 dots. Label: Circles.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 5,
+            "container_style": "circles"
+          },
+          {
+            "tangible_id": "picture_graph_symbols",
+            "description": "Picture graph on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Graph"
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s2_1_representation_transfer_same_multiplication_three_b5",
+        "_toml_key": "step_101_representation_transfer_same_multiplication_three"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:16.555139+00:00",
+    "_notion_block_id": "3485917e-ac52-81e3-86d7-c35d17869d4d",
+    "_toml_key": "section_101_representation_transfer_same_multiplication_three"
+  },
+  {
+    "id": "s3_1_real_world_bridge_equal_groups",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "word_problem_real_world",
+        "tangible_type": "word_problem_area",
+        "params": {
+          "stem": "A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+          "description": "Text scenario appears: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes."
+        },
+        "id": "s3_1_real_world_bridge_equal_groups_b0",
+        "_notion_block_id": "3485917e-ac52-81c9-8c00-f0c0a69cbcfa"
+      },
+      {
+        "type": "dialogue",
+        "text": "Equal groups aren't just in math problems. Here's a real situation.",
+        "id": "s3_1_real_world_bridge_equal_groups_b1",
+        "_notion_block_id": "3485917e-ac52-8125-8b02-df64e5b9198b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "word_problem_real_world",
+            "description": "Text scenario displayed: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+            "tangible_type": "word_problem_area"
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b2",
+        "_notion_block_id": "3485917e-ac52-81d4-ad7b-fd848961d4be",
+        "_toml_key": "step_102_real_world_bridge_equal_groups"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_juice",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "description": "Equal groups building interface appears. Empty workspace ready for student to set container count."
+        },
+        "id": "s3_1_real_world_bridge_equal_groups_b3",
+        "_notion_block_id": "3485917e-ac52-812e-8e42-edbd0cbc2489"
+      },
+      {
+        "type": "dialogue",
+        "text": "Can you build what the shelf looks like?",
+        "id": "s3_1_real_world_bridge_equal_groups_b4",
+        "_notion_block_id": "3485917e-ac52-81f1-95a3-eba90f41f97c"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups? Set the packs.",
+        "tool": "set_container_count",
+        "target": "equal_groups_juice",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "container_count": 4
+            },
+            "description": "Student set 4 containers, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 packs.",
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81c9-9c05-defcdad7f42d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student set wrong container count on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. How many packs are on the shelf?",
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81dd-b605-d4bfa5677493"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student set wrong container count on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "word_problem_real_world",
+                "params": {
+                  "highlight_phrase": "4 packs",
+                  "description": "Text '4 packs' highlights in the problem."
+                },
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the problem. It says 4 packs of juice boxes. That tells you how many groups. Set the containers to match.",
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81f9-b7c8-fbb64d5b481e"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student set wrong container count three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_juice",
+                "params": {
+                  "event": "set_container_count",
+                  "status": "confirmed",
+                  "description": "System sets container count to 4.",
+                  "container_count": 4
+                },
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The problem says 4 packs of juice boxes. That means we need 4 groups. So I set the containers to 4. The number of packs is the number of groups.",
+                "id": "s3_1_real_world_bridge_equal_groups_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8166-a8d3-c7ff9ce2400c"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b5",
+        "_notion_block_id": "3485917e-ac52-81fd-8ef2-f9653c08929e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "word_problem_real_world",
+            "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+            "tangible_type": "word_problem_area"
+          },
+          {
+            "tangible_id": "equal_groups_juice",
+            "description": "Equal groups in building mode. 4 empty containers displayed. Ready for items per container.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b6",
+        "_notion_block_id": "3485917e-ac52-81af-b445-de237e17a950",
+        "_toml_key": "step_103_real_world_bridge_equal_groups"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many in each pack? Add the juice boxes.",
+        "id": "s3_1_real_world_bridge_equal_groups_b7",
+        "_notion_block_id": "3485917e-ac52-8117-b370-e18e41cf8d81"
+      },
+      {
+        "type": "prompt",
+        "text": "How many in each pack? Add the juice boxes.",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_juice",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 6
+            },
+            "description": "Student set 6 items per container, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 4 packs, 6 in each. Equal groups, right there on a store shelf.",
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8188-95e1-eca07e0c49db"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student set wrong items per container on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check the problem. How many juice boxes in each pack?",
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v1_b0",
+                "_notion_block_id": "3485917e-ac52-8126-851b-c6a43fdbcc0e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student set wrong items per container on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "word_problem_real_world",
+                "params": {
+                  "highlight_phrase": "Each pack has 6",
+                  "description": "Text 'Each pack has 6' highlights in the problem."
+                },
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The problem says each pack has 6 juice boxes. That's how many items go in each container. Read that part again and set the number.",
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8177-90a2-fb4effc4653c"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student set wrong items per container three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_juice",
+                "params": {
+                  "event": "set_items_per_container",
+                  "status": "confirmed",
+                  "description": "System sets items per container to 6.",
+                  "items_per_container": 6
+                },
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how this works. The problem says each pack has 6 juice boxes. That means every group needs the same amount, 6. So I set the items per container to 6. Now we have 4 groups of 6, which is what the shelf looks like. The answer is 6 in each pack.",
+                "id": "s3_1_real_world_bridge_equal_groups_b8_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81a0-a1e7-f320ed71381d"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b8",
+        "_notion_block_id": "3485917e-ac52-81f6-9444-c2a08ff3800a"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "word_problem_real_world",
+            "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+            "tangible_type": "word_problem_area"
+          },
+          {
+            "tangible_id": "equal_groups_juice",
+            "description": "Equal groups showing 4 containers, each containing 6 items. Complete representation of the juice box scenario.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 6
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b9",
+        "_notion_block_id": "3485917e-ac52-81ea-aac2-d650f40a221a",
+        "_toml_key": "step_104_real_world_bridge_equal_groups"
+      },
+      {
+        "type": "dialogue",
+        "text": "4 groups of 6. That's 4 × 6. Any time you see the same number in each container, packs, bags, boxes, cartons, that's equal groups. It's multiplication, even outside math class.",
+        "id": "s3_1_real_world_bridge_equal_groups_b10",
+        "_notion_block_id": "3485917e-ac52-8105-a638-e64137d7be5c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "word_problem_real_world",
+            "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+            "tangible_type": "word_problem_area"
+          },
+          {
+            "tangible_id": "equal_groups_juice",
+            "description": "Equal groups showing 4 containers, each containing 6 items. Represents the completed real-world scenario.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 6
+          }
+        ],
+        "id": "s3_1_real_world_bridge_equal_groups_b11",
+        "_toml_key": "step_105_real_world_bridge_equal_groups"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:34.105941+00:00",
+    "_notion_block_id": "3485917e-ac52-81b1-a6dc-cc8cb004cc64",
+    "_toml_key": "section_102_real_world_bridge_equal_groups"
+  },
+  {
+    "id": "s4_1_metacognitive_reflection_type_2_connection",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_warmup",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A"
+          ],
+          "scale": 5,
+          "description": "Small picture graph appears on left side of screen. Scale of 5. Not interactive — iconic display only."
+        },
+        "id": "s4_1_metacognitive_reflection_type_2_connection_b0",
+        "_notion_block_id": "3485917e-ac52-81c0-ae39-ec2e0840264d"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5,
+          "description": "Small equal groups visual appears on right side of screen. 4 bags with 5 items each. Not interactive — iconic display only."
+        },
+        "id": "s4_1_metacognitive_reflection_type_2_connection_b1",
+        "_notion_block_id": "3485917e-ac52-81f3-92be-f96138cebbd7"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's something to think about. Today's work connects to something you've been doing for a while. Did you notice a connection?",
+        "id": "s4_1_metacognitive_reflection_type_2_connection_b2",
+        "_notion_block_id": "3485917e-ac52-81bc-a7e2-fb72d8c4cbfe"
+      },
+      {
+        "type": "prompt",
+        "text": "Did you notice a connection between graphs and equal groups?",
+        "tool": "multiple_choice",
+        "options": [
+          "Yes — reading graph scales was like finding equal groups",
+          "Kind of — some parts felt similar",
+          "Not really — this felt brand new"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_yes",
+            "condition": {
+              "selected": "Yes — reading graph scales was like finding equal groups"
+            },
+            "description": "Student selected Yes",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You spotted it. Every time you read a scale of 5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.",
+                "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8108-a6a2-e3f34fbfdc62"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_kind_of",
+            "condition": {
+              "selected": "Kind of — some parts felt similar"
+            },
+            "description": "Student selected Kind of",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Good noticing. The counting by 5s and counting by 2s from graphs. That was groups all along. The connection gets clearer over time.",
+                "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v1_b0",
+                "_notion_block_id": "3485917e-ac52-815b-91e3-ffe686e876cc"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_not_really",
+            "condition": {
+              "selected": "Not really — this felt brand new"
+            },
+            "description": "Student selected Not really",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That makes sense. The multiplication symbol and equal groups are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.",
+                "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-813a-970a-ffae12d1a0ce"
+              }
+            ]
+          }
+        ],
+        "id": "s4_1_metacognitive_reflection_type_2_connection_b3",
+        "_notion_block_id": "3485917e-ac52-81a1-b12c-d71f7757e93d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_warmup",
+            "description": "Small picture graph on left side. Scale of 5. Iconic display.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Category A"
+            ],
+            "scale": 5
+          },
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Small equal groups visual on right side. 4 bags with 5 items each. Iconic display.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5
+          }
+        ],
+        "id": "s4_1_metacognitive_reflection_type_2_connection_b4",
+        "_toml_key": "step_106_metacognitive_reflection_type_2_connection"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:46.770697+00:00",
+    "_notion_block_id": "3485917e-ac52-81e7-ba55-fa70675e2d23",
+    "_toml_key": "section_103_metacognitive_reflection_type_2_connection"
+  }
+]

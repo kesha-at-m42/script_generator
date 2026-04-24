@@ -1,0 +1,290 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built equations for 2s, 5s, and 10s. Let's see what you know."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:10.097627+00:00"
+  },
+  {
+    "id": "s1_1_compute_5_product_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_7x5",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": "equation",
+          "expression": [
+            "7",
+            "×",
+            "5",
+            "=",
+            "__"
+          ],
+          "description": "Equation Builder appears. 7 × 5 = [___]. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options below: 12, 30, 35, 40."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "7 times 5. Pick the product."
+      },
+      {
+        "type": "prompt",
+        "text": "What is the product of 7 × 5?",
+        "tool": "multiple_choice",
+        "options": [
+          12,
+          30,
+          35,
+          40
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 35
+            },
+            "description": "Student selected 35, correct product of 7 × 5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_builder_7x5",
+            "description": "Equation Builder showing 7 × 5 = [___]. Multiple choice tool active on product slot with options 12, 30, 35, 40.",
+            "tangible_type": "equation_builder",
+            "template": "equation",
+            "expression": [
+              "7",
+              "×",
+              "5",
+              "=",
+              "__"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:19.242812+00:00"
+  },
+  {
+    "id": "s1_2_build_full_visual_2_create",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_context",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 2,
+          "description": "6 groups appear, each containing 2 dots."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_main",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "tile_palette": [
+            2,
+            4,
+            5,
+            6,
+            8,
+            10,
+            12,
+            14
+          ],
+          "description": "Equation builder appears below the visual. Three empty slots. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Build the equation that matches the picture."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation represented by this picture.",
+        "tool": "place_tile",
+        "target": "equation_builder_main",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 6,
+                "items": 2,
+                "total": 12
+              }
+            },
+            "description": "Student placed 6 × 2 = 12, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "6 groups of 2 is 6 times 2 which equals 12."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_context",
+            "description": "6 groups with 2 dots each visible on screen.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 6,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_main",
+            "description": "Equation builder with three empty slots. Tile palette active.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "tile_palette": [
+              2,
+              4,
+              5,
+              6,
+              8,
+              10,
+              12,
+              14
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:30.249835+00:00"
+  },
+  {
+    "id": "s1_3_build_full_10_equation_create",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder",
+        "tangible_type": "equation_builder",
+        "params": {
+          "mode": "building",
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            4,
+            5,
+            10,
+            14,
+            20,
+            30,
+            40,
+            50
+          ],
+          "description": "Equation Builder appears. Three empty slots: [___] × [___] = [___]. Tile palette shows 4, 5, 10, 14, 20, 30, 40, 50."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "4 groups of 10. Build the equation."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for 4 groups of 10.",
+        "tool": "place_tile",
+        "target": "equation_builder",
+        "variable_answer": false,
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 4,
+                "items": 10,
+                "total": 40
+              }
+            },
+            "description": "Student placed 4 × 10 = 40, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Equation 4 × 10 = 40 confirms."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "4 times 10 equals 40. That ends in a 0 which is what we expect with multiples of 10."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation Builder showing 4 × 10 = 40 confirmed. Tile palette: 4, 5, 10, 14, 20, 30, 40, 50.",
+            "tangible_type": "equation_builder",
+            "mode": "building",
+            "template": [
+              "__",
+              "x",
+              "__",
+              "=",
+              "__"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:41.132144+00:00"
+  }
+]

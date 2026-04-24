@@ -1,0 +1,82 @@
+{
+  "id": "s3_4_comparison_horizontal_graph",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_miles",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Kai",
+          "Ava",
+          "Noah",
+          "Zoe"
+        ],
+        "axis_range": [
+          0,
+          50
+        ],
+        "scale": 5,
+        "description": "Horizontal bar graph appears. Miles Walked data. Kai=35, Ava=50, Noah=25, Zoe=45. Scale: each interval = 5 miles."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use the graph you made. How many MORE miles did Ava walk than Noah?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many MORE miles did Ava walk than Noah?",
+      "tool": "multiple_choice",
+      "options": [
+        15,
+        25,
+        50,
+        75
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student selected 25, correct difference",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25 more miles. Ava walked 50, Noah walked 25. The difference is 25."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_miles",
+          "description": "Horizontal bar graph in reading mode. Miles Walked data. Kai=35, Ava=50, Noah=25, Zoe=45.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Kai",
+            "Ava",
+            "Noah",
+            "Zoe"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:39.158602+00:00"
+}

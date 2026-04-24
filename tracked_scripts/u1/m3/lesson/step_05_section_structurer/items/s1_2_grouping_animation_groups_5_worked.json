@@ -8,24 +8,76 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears. Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical orientation."
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "values": [
+          20,
+          15,
+          25,
+          10
+        ],
+        "orientation": "vertical",
+        "description": "Data table appears showing Favorite Playground Activities data. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical orientation."
       }
     },
     {
       "type": "dialogue",
-      "text": "Let's see how 20 items become symbols when the scale is 5. Watch—we'll group by 5s."
+      "text": "Let's see how 20 items become symbols when the scale is 5. Watch. We'll group by 5s."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "values": [
+            20,
+            15,
+            25,
+            10
+          ],
+          "orientation": "vertical"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_playground",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "scale": 5,
+        "key_text": "Each ⭐ = 5",
+        "description": "Vertical picture graph appears. Favorite Playground Activities. Key visible: Each ⭐ = 5. All columns empty initially."
+      }
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "data_table",
+      "tangible_id": "picture_graph_playground",
       "params": {
-        "event": "grouping_animation",
+        "event": "grouping_animation_swings",
         "status": "proposed",
-        "description": "20 items appear for Swings category. Key visible: Each ⭐ = 5.",
-        "category": "Swings",
-        "total_items": 20,
-        "group_size": 5
+        "description": "20 individual items appear for Swings category."
       }
     },
     {
@@ -33,21 +85,46 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Favorite Playground Activities. 20 items displayed for Swings, preparing to group by 5s. Key: Each ⭐ = 5.",
-          "tangible_type": "data_table"
+          "description": "Data table showing Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "values": [
+            20,
+            15,
+            25,
+            10
+          ],
+          "orientation": "vertical"
+        },
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph. 20 individual items visible for Swings. Key: Each ⭐ = 5. Other columns empty.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
         }
       ]
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "data_table",
+      "tangible_id": "picture_graph_playground",
       "params": {
-        "event": "form_groups",
+        "event": "items_group_by_5",
         "status": "confirmed",
-        "description": "20 items cluster into 4 groups of 5.",
-        "category": "Swings",
-        "groups_formed": 4
+        "description": "20 items organize into 4 groups of 5 items each."
       }
     },
     {
@@ -59,21 +136,46 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table with Swings items grouped into 4 clusters of 5. Key: Each ⭐ = 5.",
-          "tangible_type": "data_table"
+          "description": "Data table showing Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "values": [
+            20,
+            15,
+            25,
+            10
+          ],
+          "orientation": "vertical"
+        },
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph. Swings shows 4 groups of 5 items. Key: Each ⭐ = 5. Other columns empty.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
         }
       ]
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "data_table",
+      "tangible_id": "picture_graph_playground",
       "params": {
-        "event": "transform_to_picture_graph",
+        "event": "groups_transform_to_symbols",
         "status": "confirmed",
-        "description": "4 groups transform into 4 symbols, stacking upward on picture graph for Swings column.",
-        "category": "Swings",
-        "symbols_placed": 4
+        "description": "4 groups transform into 4 star symbols, stacking vertically in Swings column."
       }
     },
     {
@@ -84,8 +186,26 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "values": [
+            20,
+            15,
+            25,
+            10
+          ],
+          "orientation": "vertical"
+        },
+        {
           "tangible_id": "picture_graph_playground",
-          "description": "Picture graph appears. Swings column shows 4 symbols. Other columns empty. Vertical orientation. Key: Each ⭐ = 5.",
+          "description": "Vertical picture graph. Swings column shows 4 star symbols stacked. Key: Each ⭐ = 5. Other columns empty.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -94,10 +214,17 @@
             "Slides",
             "Monkey Bars",
             "Sandbox"
-          ]
+          ],
+          "scale": 5,
+          "symbols": {
+            "Swings": 4,
+            "Slides": 0,
+            "Monkey Bars": 0,
+            "Sandbox": 0
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:59:24.604330+00:00"
+  "_generated_at": "2026-04-23T17:20:38.652546+00:00"
 }

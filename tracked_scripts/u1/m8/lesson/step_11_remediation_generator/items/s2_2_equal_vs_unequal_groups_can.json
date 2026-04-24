@@ -1,0 +1,202 @@
+{
+  "id": "s2_2_equal_vs_unequal_groups_can",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "C"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "C"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "selected": "B"
+              }
+            },
+            {
+              "not": {
+                "selected": "D"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only correct answers but not all (either A or C, not both)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_a",
+              "params": {
+                "highlight": true,
+                "description": "Option A highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_c",
+              "params": {
+                "highlight": true,
+                "description": "Option C highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found one that works. Look at all the bags again. Is there another one where every bag has the same number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "C"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected no correct answers (only B, only D, both B and D, or neither)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_a",
+              "params": {
+                "highlight": true,
+                "description": "Option A highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Equal groups means every bag has the SAME amount. Look at the first picture. Count the items in each bag. Are they all the same?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "C"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of correct and incorrect",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_b",
+              "params": {
+                "highlight": true,
+                "description": "Option B highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_d",
+              "params": {
+                "highlight": true,
+                "description": "Option D highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Some of your choices work, but check these highlighted ones. Count the items in each bag. Do they all have the same number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_a",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Option A bags highlight sequentially showing 4, 4, 4."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The first picture has 3 bags. Count the items: 4 in the first bag, 4 in the second, 4 in the third. All the same, so equal groups."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_c",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Option C bags highlight sequentially showing 3, 3, 3, 3."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The third picture has 4 bags: 3 in each one. All the same, equal groups. The correct answers are A and C because every bag in those pictures has the same number inside."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:07.002691+00:00"
+}

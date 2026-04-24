@@ -1,0 +1,55 @@
+{
+  "id": "s1_1_graph_reading_quick_success",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 16
+        },
+        "description": "Student selected 16: counted the symbols (4) times 4 instead of using the scale (5)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_key": true,
+                "description": "Key highlights showing each symbol = 5 books"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The key tells us what each symbol means. Each one stands for 5 books, not 1. Skip-count by 5s, not by 1s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "event": "highlight_symbols_sequence",
+                "status": "confirmed",
+                "description": "System highlights each symbol in sequence while counting by 5s: 5, 10, 15, 20"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The key says each symbol means 5 books. So we count by 5s. First symbol: 5. Second: 10. Third: 15. Fourth: 20. The answer is 20 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:43.869498+00:00"
+}

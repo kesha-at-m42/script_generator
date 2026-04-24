@@ -1,0 +1,526 @@
+{
+  "id": "s3_2_first_factor_unknown_student_constructs",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_cats",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 0,
+        "items_per_container": 10,
+        "description": "Equal Groups with Pictures in Construction Mode appears. Construction area empty. Running total display: Total: 0 / 40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_groups_of_10",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "10",
+          "=",
+          "40"
+        ],
+        "description": "Equation Builder appears with pre-filled template: ☐ × 10 = 40. Language prompt: __ groups of 10 equals 40 total."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now you try. Groups of 10. Total is 40. How many groups do you need? Build groups until you hit 40."
+    },
+    {
+      "type": "prompt",
+      "text": "☐ × 10 = 40. Build groups of 10 until the total reaches 40.",
+      "tool": "set_container_count",
+      "target": "equal_groups_cats",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "container_count": 4
+          },
+          "description": "Student built 4 groups of 10, total = 40",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_cats",
+              "params": {
+                "event": "confirm_groups",
+                "status": "confirmed",
+                "description": "4 groups of 10 highlight to confirm total = 40."
+              }
+            }
+          ]
+        },
+        {
+          "condition_id": "overshoot",
+          "condition": {
+            "container_count": 5
+          },
+          "description": "Student built 5 groups of 10, total = 50, overshot",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That's 50, too many. Remove a group and check again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats",
+          "description": "Equal Groups with Pictures in Construction Mode. Student building groups of 10. Running total updates live. set_container_count tool active.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 10
+        },
+        {
+          "tangible_id": "equation_builder_groups_of_10",
+          "description": "Equation Builder with template: ☐ × 10 = 40.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "10",
+            "=",
+            "40"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equal_groups_cats",
+      "params": {
+        "container_count": 4,
+        "description": "4 groups of 10 cats visible. Total = 40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_groups_of_10",
+      "params": {
+        "template": [
+          "4",
+          "×",
+          "10",
+          "=",
+          "40"
+        ],
+        "description": "Equation completes: 4 × 10 = 40."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "4 groups of 10 equals 40. You skip counted, 10, 20, 30, 40, and it took 4 groups."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_groups_of_10",
+      "params": {
+        "event": "show_reversed_form",
+        "status": "confirmed",
+        "description": "Reversed form shown: 40 = 4 × 10."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats",
+          "description": "4 groups of 10 cats visible. Total = 40.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 10
+        },
+        {
+          "tangible_id": "equation_builder_groups_of_10",
+          "description": "Equation: 4 × 10 = 40. Reversed form shown: 40 = 4 × 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "4",
+            "×",
+            "10",
+            "=",
+            "40"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equal_groups_cats"
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equation_builder_groups_of_10"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_cats_2",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 2,
+        "items_per_container": 0,
+        "description": "Equal Groups with Pictures in Construction Mode appears. 2 empty groups displayed, group count locked at 2. Items inside covered. Running total: Total: 0 / 10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_2_groups",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "2",
+          "×",
+          "__",
+          "=",
+          "10"
+        ],
+        "description": "Equation Builder with pre-filled template: 2 × ☐ = 10. Language prompt: 2 groups of __ equals 10 total."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the equation. 2 groups of how many cats equals 10. We need to build the groups. Let's add equal items to the 2 groups until you reach 10. Add 5 to each group so the total reaches 10."
+    },
+    {
+      "type": "prompt",
+      "text": "2 × ☐ = 10. Add 5 cats to each of the 2 groups to make 10 total.",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_cats_2",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 5
+          },
+          "description": "Student set 5 items per container, 2 equal groups of 5, total = 10",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_cats_2",
+              "params": {
+                "event": "confirm_groups",
+                "status": "confirmed",
+                "description": "2 groups of 5 cats highlight to confirm total = 10."
+              }
+            }
+          ]
+        },
+        {
+          "condition_id": "total_correct_unequal",
+          "condition": {
+            "total": 10
+          },
+          "description": "Student hit 10 total but groups unequal",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You hit 10. But check, are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+            }
+          ]
+        },
+        {
+          "condition_id": "equal_wrong_total",
+          "condition": {},
+          "description": "Groups equal but total not 10",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Equal groups, great! But the total isn't 10. Add more to each group or remove some and watch the total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats_2",
+          "description": "Equal Groups with Pictures in Construction Mode. 2 empty groups, group count locked at 2. set_items_per_container tool active. Running total updates live.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 0
+        },
+        {
+          "tangible_id": "equation_builder_2_groups",
+          "description": "Equation Builder with template: 2 × ☐ = 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "2",
+            "×",
+            "__",
+            "=",
+            "10"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equal_groups_cats_2",
+      "params": {
+        "items_per_container": 5,
+        "description": "5 cats appear in each of the 2 groups. Total = 10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_2_groups",
+      "params": {
+        "template": [
+          "2",
+          "×",
+          "5",
+          "=",
+          "10"
+        ],
+        "description": "Equation completes: 2 × 5 = 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "2 times 5 equals 10. You started with the equation and BUILT the answer. Now we can skip count by 5s two times: 5, 10. That's the total of 10. Each side of the equation has the same value."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats_2",
+          "description": "2 groups of 5 cats visible. Total = 10.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 5
+        },
+        {
+          "tangible_id": "equation_builder_2_groups",
+          "description": "Equation: 2 × 5 = 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "2",
+            "×",
+            "5",
+            "=",
+            "10"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equal_groups_cats_2"
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equation_builder_2_groups"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_cats_3",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 2,
+        "items_per_container": 0,
+        "description": "Equal Groups with Pictures in Construction Mode appears. 2 empty groups displayed, group count locked at 2. Running total: Total: 0 / 14."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_2_groups_14",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "2",
+          "×",
+          "__",
+          "=",
+          "14"
+        ],
+        "description": "Equation Builder with pre-filled template: 2 × ☐ = 14."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Your turn with a different one. 2 groups, 14 total. 2 times what equals 14?"
+    },
+    {
+      "type": "prompt",
+      "text": "2 × ☐ = 14. How many in each group?",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_cats_3",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 7
+          },
+          "description": "Student set 7 items per container, 2 equal groups of 7, total = 14",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_cats_3",
+              "params": {
+                "event": "confirm_groups",
+                "status": "confirmed",
+                "description": "2 groups of 7 cats highlight to confirm total = 14."
+              }
+            }
+          ]
+        },
+        {
+          "condition_id": "total_correct_unequal",
+          "condition": {
+            "total": 14
+          },
+          "description": "Student hit 14 total but groups unequal",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You hit 14. But check, are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+            }
+          ]
+        },
+        {
+          "condition_id": "equal_wrong_total",
+          "condition": {},
+          "description": "Groups equal but total not 14",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Equal groups, great! But the total isn't 14. Add more to each group or remove some and watch the total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats_3",
+          "description": "Equal Groups with Pictures in Construction Mode. 2 empty groups, group count locked at 2. set_items_per_container tool active. Running total updates live.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 0
+        },
+        {
+          "tangible_id": "equation_builder_2_groups_14",
+          "description": "Equation Builder with template: 2 × ☐ = 14.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "2",
+            "×",
+            "__",
+            "=",
+            "14"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equal_groups_cats_3",
+      "params": {
+        "items_per_container": 7,
+        "description": "7 cats appear in each of the 2 groups. Total = 14."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_2_groups_14",
+      "params": {
+        "template": [
+          "2",
+          "×",
+          "7",
+          "=",
+          "14"
+        ],
+        "description": "Equation completes: 2 × 7 = 14."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "2 times 7 equals 14. 2 groups of 7 is 14. You built the answer."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_builder_2_groups_14",
+      "params": {
+        "event": "show_reversed_form",
+        "status": "confirmed",
+        "description": "Reversed form shown: 14 = 2 × 7."
+      }
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cats_3",
+          "description": "2 groups of 7 cats visible. Total = 14.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 7
+        },
+        {
+          "tangible_id": "equation_builder_2_groups_14",
+          "description": "Equation: 2 × 7 = 14. Reversed form shown: 14 = 2 × 7.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "2",
+            "×",
+            "7",
+            "=",
+            "14"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:05:53.968853+00:00"
+}

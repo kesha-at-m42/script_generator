@@ -1,0 +1,394 @@
+{
+  "batch_only_items": [
+    "s1_1_build_expression_boxes",
+    "s1_2_identify_visual_expression",
+    "s1_3_build_expression_circles"
+  ],
+  "data": [
+    {
+      "id": "s1_0_transition_into_exit_check",
+      "type": "transition",
+      "beats": [
+        {
+          "type": "dialogue",
+          "text": "You've built expressions from pictures and matched expressions to pictures. Let's see what you know.",
+          "id": "s1_0_transition_into_exit_check_b0"
+        },
+        {
+          "type": "current_scene",
+          "elements": [],
+          "id": "s1_0_transition_into_exit_check_b1"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:54.405474+00:00"
+    },
+    {
+      "id": "s1_1_build_expression_boxes",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "equal_groups_boxes",
+          "tangible_type": "equal_groups",
+          "params": {
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "description": "3 boxes appear, each containing 4 items (cookies or markers). Equal groups visualization in reading mode."
+          },
+          "id": "s1_1_build_expression_boxes_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "equation_builder_boxes",
+          "tangible_type": "equation_builder",
+          "params": {
+            "expression_template": [
+              "__",
+              "×",
+              "__"
+            ],
+            "tile_palette": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "description": "Equation builder appears below the boxes. Two blank slots with multiplication symbol between them. Tile palette shows numbers 1 through 10."
+          },
+          "id": "s1_1_build_expression_boxes_b1"
+        },
+        {
+          "type": "dialogue",
+          "text": "Build the expression for these boxes.",
+          "id": "s1_1_build_expression_boxes_b2"
+        },
+        {
+          "type": "prompt",
+          "text": "Build the expression.",
+          "tool": "place_tile",
+          "target": "equation_builder_boxes",
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "placed": {
+                  "groups": 3,
+                  "items": 4
+                }
+              },
+              "description": "Student placed 3 and 4, building 3 × 4",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. 3 times 4.",
+                  "id": "s1_1_build_expression_boxes_b3_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s1_1_build_expression_boxes_b3"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "equal_groups_boxes",
+              "description": "3 boxes with 4 items each. Equal groups visualization in reading mode.",
+              "tangible_type": "equal_groups",
+              "mode": "reading",
+              "container_count": 3,
+              "items_per_container": 4
+            },
+            {
+              "tangible_id": "equation_builder_boxes",
+              "description": "Equation builder showing 3 × 4. Expression complete.",
+              "tangible_type": "equation_builder",
+              "expression_template": [
+                "__",
+                "×",
+                "__"
+              ]
+            }
+          ],
+          "id": "s1_1_build_expression_boxes_b4"
+        }
+      ],
+      "_generated_at": "2026-04-20T17:00:03.947326+00:00"
+    },
+    {
+      "id": "s1_2_identify_visual_expression",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "equation_builder",
+          "tangible_type": "equation_builder",
+          "params": {
+            "mode": "display",
+            "expression": [
+              "4",
+              "×",
+              "2"
+            ],
+            "description": "Equation builder displays static expression 4 × 2 in expression mode."
+          },
+          "id": "s1_2_identify_visual_expression_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "visual_option_a",
+          "tangible_type": "equal_groups",
+          "params": {
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "description": "Visual option A: 4 bags with 2 items in each."
+          },
+          "id": "s1_2_identify_visual_expression_b1"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "visual_option_b",
+          "tangible_type": "equal_groups",
+          "params": {
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 4,
+            "description": "Visual option B: 2 bags with 4 items in each (factor reversal)."
+          },
+          "id": "s1_2_identify_visual_expression_b2"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "visual_option_c",
+          "tangible_type": "equal_groups",
+          "params": {
+            "mode": "reading",
+            "container_count": 1,
+            "items_per_container": 6,
+            "description": "Visual option C: 6 items scattered without equal group structure (sum of factors)."
+          },
+          "id": "s1_2_identify_visual_expression_b3"
+        },
+        {
+          "type": "dialogue",
+          "text": "Which picture matches this expression?",
+          "id": "s1_2_identify_visual_expression_b4"
+        },
+        {
+          "type": "prompt",
+          "text": "Select the picture that shows 4 times 2.",
+          "tool": "multiple_choice",
+          "options": [
+            "A",
+            "B",
+            "C"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "A"
+              },
+              "description": "Student selected A: 4 bags of 2, correct match for 4 × 2",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "visual_option_a",
+                  "params": {
+                    "event": "highlight_selection",
+                    "status": "confirmed",
+                    "description": "Option A highlights to confirm selection."
+                  },
+                  "id": "s1_2_identify_visual_expression_b5_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's right. 4 groups with 2 in each.",
+                  "id": "s1_2_identify_visual_expression_b5_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s1_2_identify_visual_expression_b5"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "equation_builder",
+              "description": "Equation builder displays static expression 4 × 2.",
+              "tangible_type": "equation_builder",
+              "mode": "display",
+              "expression": [
+                "4",
+                "×",
+                "2"
+              ]
+            },
+            {
+              "tangible_id": "visual_option_a",
+              "description": "Visual option A: 4 bags with 2 items in each.",
+              "tangible_type": "equal_groups",
+              "mode": "reading",
+              "container_count": 4,
+              "items_per_container": 2
+            },
+            {
+              "tangible_id": "visual_option_b",
+              "description": "Visual option B: 2 bags with 4 items in each.",
+              "tangible_type": "equal_groups",
+              "mode": "reading",
+              "container_count": 2,
+              "items_per_container": 4
+            },
+            {
+              "tangible_id": "visual_option_c",
+              "description": "Visual option C: 6 items scattered without equal group structure.",
+              "tangible_type": "equal_groups",
+              "mode": "reading",
+              "container_count": 1,
+              "items_per_container": 6
+            }
+          ],
+          "id": "s1_2_identify_visual_expression_b6"
+        }
+      ],
+      "_generated_at": "2026-04-20T17:00:21.389451+00:00"
+    },
+    {
+      "id": "s1_3_build_expression_circles",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "equal_groups_circles",
+          "tangible_type": "equal_groups",
+          "params": {
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 3,
+            "visual_style": "circles_with_dots",
+            "description": "5 circles appear, each containing 3 dots. Semi-abstract equal groups representation."
+          },
+          "id": "s1_3_build_expression_circles_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "equation_builder_circles",
+          "tangible_type": "equation_builder",
+          "params": {
+            "expression_template": [
+              "__",
+              "×",
+              "__"
+            ],
+            "tile_palette": [
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              15,
+              18
+            ],
+            "description": "Equation builder appears below the circles. Two blank slots with multiplication symbol between. Tile palette shows: 3, 5, 7, 8, 10, 12, 15, 18."
+          },
+          "id": "s1_3_build_expression_circles_b1"
+        },
+        {
+          "type": "dialogue",
+          "text": "Build the expression for the circles.",
+          "id": "s1_3_build_expression_circles_b2"
+        },
+        {
+          "type": "prompt",
+          "text": "Build the expression.",
+          "tool": "place_tile",
+          "target": "equation_builder_circles",
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "groups": 5,
+                "items": 3
+              },
+              "description": "Student placed 5 × 3, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "equation_builder_circles",
+                  "params": {
+                    "event": "confirm_expression",
+                    "status": "confirmed",
+                    "description": "Expression 5 × 3 confirms."
+                  },
+                  "id": "s1_3_build_expression_circles_b3_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "That's it. 5 times 3.",
+                  "id": "s1_3_build_expression_circles_b3_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s1_3_build_expression_circles_b3"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "equal_groups_circles",
+              "description": "5 circles with 3 dots each. Semi-abstract equal groups context.",
+              "tangible_type": "equal_groups",
+              "mode": "reading",
+              "container_count": 5,
+              "items_per_container": 3
+            },
+            {
+              "tangible_id": "equation_builder_circles",
+              "description": "Equation builder showing confirmed expression 5 × 3.",
+              "tangible_type": "equation_builder",
+              "expression_template": [
+                "__",
+                "×",
+                "__"
+              ],
+              "tile_palette": [
+                3,
+                5,
+                7,
+                8,
+                10,
+                12,
+                15,
+                18
+              ]
+            }
+          ],
+          "id": "s1_3_build_expression_circles_b4"
+        }
+      ],
+      "_generated_at": "2026-04-20T17:00:32.393194+00:00"
+    }
+  ]
+}

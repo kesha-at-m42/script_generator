@@ -1,0 +1,138 @@
+{
+  "id": "s3_3_student_matches_expression_visual",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_match",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "style": "expression",
+        "expression": [
+          "5",
+          "×",
+          "3"
+        ],
+        "description": "Equation builder displays expression 5 × 3 in expression mode, read-only."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_a",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 3,
+        "description": "Option A: 5 bags with 3 items in each bag."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_b",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "description": "Option B: 3 bags with 5 items in each bag."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_option_c",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 0,
+        "items_per_container": 0,
+        "scattered_items": 8,
+        "description": "Option C: 8 items scattered without containers."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Which picture matches 5 times 3?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select the picture that shows 5 times 3.",
+      "tool": "multiple_choice",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "A"
+          },
+          "description": "Student selected option A: 5 bags of 3",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "highlight": true,
+                "description": "Option A highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the one—5 groups with 3 in each. That's what 5 times 3 means."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_match",
+          "description": "Equation builder showing 5 × 3 in expression mode.",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "style": "expression",
+          "expression": [
+            "5",
+            "×",
+            "3"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_option_a",
+          "description": "Option A: 5 bags with 3 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equal_groups_option_b",
+          "description": "Option B: 3 bags with 5 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5
+        },
+        {
+          "tangible_id": "equal_groups_option_c",
+          "description": "Option C: 8 items scattered without containers.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "scattered_items": 8
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:06.846189+00:00"
+}

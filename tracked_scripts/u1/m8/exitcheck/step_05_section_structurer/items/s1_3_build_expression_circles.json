@@ -1,0 +1,113 @@
+{
+  "id": "s1_3_build_expression_circles",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 3,
+        "visual_style": "circles_with_dots",
+        "description": "5 circles appear, each containing 3 dots. Semi-abstract equal groups representation."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_circles",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression_template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "tile_palette": [
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          15,
+          18
+        ],
+        "description": "Equation builder appears below the circles. Two blank slots with multiplication symbol between. Tile palette shows: 3, 5, 7, 8, 10, 12, 15, 18."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the expression for the circles."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the expression.",
+      "tool": "place_tile",
+      "target": "equation_builder_circles",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "groups": 5,
+            "items": 3
+          },
+          "description": "Student placed 5 × 3, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_circles",
+              "params": {
+                "event": "confirm_expression",
+                "status": "confirmed",
+                "description": "Expression 5 × 3 confirms."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Nice—5 times 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "5 circles with 3 dots each. Semi-abstract equal groups context.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_builder_circles",
+          "description": "Equation builder showing confirmed expression 5 × 3.",
+          "tangible_type": "equation_builder",
+          "expression_template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            5,
+            7,
+            8,
+            10,
+            12,
+            15,
+            18
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:32.393194+00:00"
+}

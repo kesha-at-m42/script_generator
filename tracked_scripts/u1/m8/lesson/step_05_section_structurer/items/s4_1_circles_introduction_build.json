@@ -1,0 +1,112 @@
+{
+  "id": "s4_1_circles_introduction_build",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 3,
+        "container_style": "circle",
+        "item_style": "dot",
+        "description": "2 circles appear, each containing 3 dots. Semi-abstract equal groups visualization."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_circles",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression_template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "tile_palette": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "description": "Equation builder appears below with two blank slots and multiplication symbol. Tile palette shows numbers 1 through 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Equal groups aren't always in bags or boxes. Check out these circles. First question: how many groups do you see? Second question: how many in each group? Build the expression using those two numbers."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the expression.",
+      "tool": "place_tile",
+      "target": "equation_builder_circles",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 2,
+              "items": 3
+            }
+          },
+          "description": "Student placed 2 × 3, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 times 3—same structure, different look."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "2 circles, each containing 3 dots. Semi-abstract equal groups context.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 3,
+          "container_style": "circle",
+          "item_style": "dot"
+        },
+        {
+          "tangible_id": "equation_builder_circles",
+          "description": "Equation builder showing 2 × 3. Both slots filled.",
+          "tangible_type": "equation_builder",
+          "expression_template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:34.183036+00:00"
+}

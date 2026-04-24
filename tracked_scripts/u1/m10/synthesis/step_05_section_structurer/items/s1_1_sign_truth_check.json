@@ -1,0 +1,154 @@
+{
+  "id": "s1_1_sign_truth_check",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_A",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "3",
+          "x",
+          "5",
+          "=",
+          "15"
+        ],
+        "description": "Equation A: 3 × 5 = 15"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_B",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "15",
+          "=",
+          "3",
+          "x",
+          "5"
+        ],
+        "description": "Equation B: 15 = 3 × 5"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_C",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "3",
+          "x",
+          "5",
+          "=",
+          "20"
+        ],
+        "description": "Equation C: 3 × 5 = 20"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_D",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "15",
+          "=",
+          "5",
+          "x",
+          "3"
+        ],
+        "description": "Equation D: 15 = 5 × 3"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Four equations. Three are true — both sides have the same value. One is false. Which one is false?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which equation is false?",
+      "tool": "multiple_choice",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "C"
+          },
+          "description": "Student selected C, correct — 3 × 5 = 20 is false",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "3 times 5 is 15, not 20. The sides don't match. And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_A",
+          "description": "Equation A: 3 × 5 = 15",
+          "tangible_type": "equation",
+          "expression": [
+            "3",
+            "x",
+            "5",
+            "=",
+            "15"
+          ]
+        },
+        {
+          "tangible_id": "equation_B",
+          "description": "Equation B: 15 = 3 × 5",
+          "tangible_type": "equation",
+          "expression": [
+            "15",
+            "=",
+            "3",
+            "x",
+            "5"
+          ]
+        },
+        {
+          "tangible_id": "equation_C",
+          "description": "Equation C: 3 × 5 = 20",
+          "tangible_type": "equation",
+          "expression": [
+            "3",
+            "x",
+            "5",
+            "=",
+            "20"
+          ]
+        },
+        {
+          "tangible_id": "equation_D",
+          "description": "Equation D: 15 = 5 × 3",
+          "tangible_type": "equation",
+          "expression": [
+            "15",
+            "=",
+            "5",
+            "x",
+            "3"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:25.939630+00:00"
+}

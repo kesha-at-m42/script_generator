@@ -9,41 +9,38 @@
       "params": {
         "mode": "reading",
         "orientation": "horizontal",
+        "title": "Weekend Screen Time",
         "categories": [
           "Saturday",
           "Sunday",
           "Monday",
           "Tuesday"
         ],
-        "values": {
-          "Saturday": 35,
-          "Sunday": 30,
-          "Monday": 40,
-          "Tuesday": 25
-        },
-        "title": "Weekend Screen Time",
-        "description": "Horizontal bar graph appears. Weekend Screen Time data. Saturday=35, Sunday=30, Monday=40, Tuesday=25."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "update",
-      "tangible_id": "bar_graph_screen_time",
-      "params": {
+        "values": [
+          35,
+          30,
+          40,
+          25
+        ],
+        "axis_range": [
+          0,
+          45
+        ],
+        "axis_interval": 5,
         "highlight_categories": [
           "Saturday",
           "Sunday"
         ],
-        "description": "Saturday and Sunday bars highlight."
+        "description": "Horizontal bar graph appears. Weekend Screen Time data. Saturday=35, Sunday=30, Monday=40, Tuesday=25. Horizontal axis 0-45 by 5s. Saturday and Sunday bars highlighted."
       }
     },
     {
       "type": "dialogue",
-      "text": "How many minutes of screen time on Saturday and Sunday in all?"
+      "text": "How many minutes of screen time on Saturday and Sunday IN ALL?"
     },
     {
       "type": "prompt",
-      "text": "How many minutes of screen time on Saturday and Sunday in all?",
+      "text": "How many minutes of screen time on Saturday and Sunday IN ALL?",
       "tool": "multiple_choice",
       "options": [
         5,
@@ -57,12 +54,12 @@
           "condition": {
             "selected": 65
           },
-          "description": "Student selected 65, correct answer (35 + 30)",
+          "description": "Student selected 65, correct total for Saturday + Sunday",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65. That's how you add values from a bar graph."
+              "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65."
             }
           ]
         }
@@ -73,7 +70,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_screen_time",
-          "description": "Horizontal bar graph in reading mode. Weekend Screen Time data. Saturday and Sunday bars highlighted. Saturday=35, Sunday=30, Monday=40, Tuesday=25.",
+          "description": "Horizontal bar graph in reading mode. Weekend Screen Time data. Saturday and Sunday bars highlighted. Multiple-choice tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -87,5 +84,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:35.491135+00:00"
+  "_generated_at": "2026-04-23T17:27:34.913706+00:00"
 }

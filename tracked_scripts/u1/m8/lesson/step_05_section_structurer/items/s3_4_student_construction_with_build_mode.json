@@ -1,0 +1,147 @@
+{
+  "id": "s3_4_student_construction_with_build_mode",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_4x5",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "display",
+        "style": "equation",
+        "expression": [
+          "4",
+          "×",
+          "5"
+        ],
+        "description": "Equation builder appears showing 4 × 5 in expression mode. Non-interactive display."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_build",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 0,
+        "items_per_container": 0,
+        "description": "Empty equal groups workspace appears below equation. Build mode controls visible: container count controls and items-per-container controls."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now you build the picture. Show me: what does 4 times 5 mean?"
+    },
+    {
+      "type": "prompt",
+      "text": "Add boxes and items to show 4 × 5.",
+      "tool": "set_container_count",
+      "target": "equal_groups_build",
+      "validator": [
+        {
+          "condition_id": "correct_container_count",
+          "condition": {
+            "container_count": 4
+          },
+          "description": "Student set container count to 4, correct first step",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "container_count": 4,
+                "items_per_container": 0,
+                "description": "Four empty containers appear in the workspace."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_4x5",
+          "description": "Equation builder showing 4 × 5 in expression mode.",
+          "tangible_type": "equation_builder",
+          "mode": "display",
+          "style": "equation",
+          "expression": [
+            "4",
+            "×",
+            "5"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_build",
+          "description": "Equal groups workspace with set_container_count tool active. Workspace empty, awaiting student input.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 0
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "text": "Now add items to each box.",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_build",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 5
+          },
+          "description": "Student set items per container to 5, completing 4 boxes of 5 items, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "items_per_container": 5,
+                "description": "Five items populate each of the four containers."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You built it. All of the groups are equal. 4 boxes with 5 items in each. 4 groups of 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_4x5",
+          "description": "Equation builder showing 4 × 5 in expression mode.",
+          "tangible_type": "equation_builder",
+          "mode": "display",
+          "style": "equation",
+          "expression": [
+            "4",
+            "×",
+            "5"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_build",
+          "description": "Equal groups workspace showing 4 containers with 5 items each. Build complete.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:23.599665+00:00"
+}

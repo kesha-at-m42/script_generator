@@ -1,0 +1,159 @@
+{
+  "id": "s1_1_reading_bar_heights_worked_example",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_colors",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red",
+          "Blue",
+          "Green",
+          "Yellow"
+        ],
+        "axis_range": [
+          0,
+          60
+        ],
+        "axis_interval": 10,
+        "bar_values": {
+          "Red": 40,
+          "Blue": 30,
+          "Green": 50,
+          "Yellow": 20
+        },
+        "highlight_categories": [
+          "Red"
+        ],
+        "description": "Vertical bar graph appears. Color data from warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0–60 in 10s. Red bar highlighted with axis line at 40 glowing."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You saw this bar graph in Warmup. Now let's learn how to read it exactly."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Color data. Red bar highlighted with axis line at 40 glowing. Axis labeled 0–60 in 10s.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "event": "highlight_axis_labels",
+        "status": "confirmed",
+        "description": "Axis numbers 10, 20, 30, 40, 50, 60 highlight sequentially from bottom to top."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "See these numbers along the side? They show the scale—10, 20, 30, 40... That's counting by 10s!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Color data. Red bar highlighted. Axis numbers highlighted, showing scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "event": "draw_bar_guideline",
+        "status": "confirmed",
+        "description": "Horizontal line draws from top of Red bar to vertical axis at 40.",
+        "category": "Red"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Red has 40. The HEIGHT OF THE BAR ends at the 40 line."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Color data. Red bar highlighted. Guideline drawn from top of Red bar to axis at 40.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "event": "count_by_intervals",
+        "status": "confirmed",
+        "description": "Axis labels highlight sequentially: 10, 20, 30, 40 pulse in sequence to demonstrate counting by 10s.",
+        "interval": 10,
+        "end_value": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "I can count by 10s to check: 10, 20, 30, 40. You already know how to count by 10s!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Color data. Red bar highlighted. Axis labels 10, 20, 30, 40 highlighted, showing counting sequence.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:57.275178+00:00"
+}

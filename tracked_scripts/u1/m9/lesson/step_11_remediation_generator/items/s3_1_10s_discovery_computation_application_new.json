@@ -1,0 +1,69 @@
+{
+  "id": "s3_1_10s_discovery_computation_application_new",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the numbers. What are the two factors being multiplied, and what's their product?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_10s",
+              "params": {
+                "description": "7 × 10 = 70 highlights on the products strip."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the strip. Find 7 times 10. The problem says 7 groups of 10. Place those two factors, then find the product on the strip."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles on third or subsequent attempt. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_7x10",
+              "params": {
+                "event": "model_tile_placement",
+                "status": "confirmed",
+                "description": "System places 7 in first slot, 10 in second slot, 70 in product slot."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to build it. 7 times 10 means 7 groups of 10. Those are the factors: 7 and 10. Skip count by 10s seven times: 10, 20, 30, 40, 50, 60, 70. The product is 70. The equation is 7 times 10 equals 70."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:09.272743+00:00"
+}

@@ -1,0 +1,98 @@
+{
+  "id": "s2_3_product_unknown_standard_form",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_plates",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 8,
+        "items_per_container": 4,
+        "item_type": "plates",
+        "container_style": "stacks",
+        "description": "8 stacks of 4 plates appear. Plates clearly stacked."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_product",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": "standard_form",
+        "expression": [
+          "8",
+          "×",
+          "4",
+          "=",
+          "__"
+        ],
+        "palette": [
+          28,
+          30,
+          32,
+          36
+        ],
+        "description": "Equation Builder appears with pre-filled equation: 8 × 4 = ☐. The ☐ is visible in the product slot. Palette shows answer tiles: 28, 30, 32, 36."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "8 stacks of 4 plates. These are equal groups so we can write a multiplication equation to represent the picture. The expression part is done — 8 times 4. But see that box where the product goes? That's the unknown — the number we need to figure out. Find the total and place it."
+    },
+    {
+      "type": "prompt",
+      "text": "8 × 4 = ☐. Find the product. Place the number.",
+      "tool": "place_tile",
+      "target": "equation_builder_product",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "total": 32
+          },
+          "description": "Student placed 32 in the product slot",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_product",
+              "params": {
+                "event": "tile_locks_in_slot",
+                "status": "confirmed",
+                "description": "32 tile locks into the product slot, completing the equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "8 times 4 equals 32. You found the unknown — 32 is the product. 8 stacks, 4 in each, same value as 32."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_plates",
+          "description": "8 stacks of 4 plates. Equal groups representation with plates clearly stacked.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 8,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "equation_builder_product",
+          "description": "Equation Builder showing completed equation: 8 × 4 = 32. Product slot filled.",
+          "tangible_type": "equation_builder",
+          "template": "standard_form"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:15.887902+00:00"
+}

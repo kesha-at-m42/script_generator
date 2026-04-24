@@ -1,0 +1,63 @@
+{
+  "id": "s2_2_equal_vs_unequal_groups_identification",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_grid",
+      "tangible_type": "image",
+      "params": {
+        "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks. Each picture has 18 items total."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Equal groups are everywhere — but not EVERY group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select ALL the pictures that show equal groups.",
+      "tool": "multi_select",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "C"
+              }
+            ]
+          },
+          "description": "Student selected A and C, both correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups aren't equal — different amounts in different groups. We can't write a multiplication equation for those."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "image_grid",
+          "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks.",
+          "tangible_type": "image"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:04:03.227966+00:00"
+}

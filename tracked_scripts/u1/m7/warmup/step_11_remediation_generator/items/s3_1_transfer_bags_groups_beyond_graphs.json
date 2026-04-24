@@ -1,0 +1,115 @@
+{
+  "id": "s3_1_transfer_bags_groups_beyond_graphs",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2: likely counting only some containers or misinterpreting the visual",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "All three bags highlight one at a time."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count each bag separately. How many bags do you see in total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4: counting items per bag instead of number of bags",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "The three bags themselves highlight, not the items inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the items in each bag. The question asks how many groups. Count the bags themselves."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6: likely doubling or misunderstanding the counting structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "The three bags pulse to emphasize their count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "A group is one bag with all its items inside. Count just the bags. How many do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Each bag highlights in sequence as the system counts them: 1, 2, 3."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count the bags one by one. First bag, second bag, third bag. That's 3 groups. Each bag is one group, no matter how many items are inside."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:10.398793+00:00"
+}

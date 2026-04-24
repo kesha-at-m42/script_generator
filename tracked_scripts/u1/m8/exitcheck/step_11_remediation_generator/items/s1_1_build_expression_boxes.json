@@ -1,0 +1,171 @@
+{
+  "id": "s1_1_build_expression_boxes",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "placed": {
+                "groups": 4,
+                "items": 3
+              }
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed the numbers, placing 4 × 3 instead of 3 × 4",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Boxes highlight one at a time."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You got the numbers, but check the order. First number: how many groups? Count the boxes. Second number: how many in each group? Count inside one box."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "placed": {
+                  "groups": 4,
+                  "items": 3
+                }
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Remember the two questions. How many groups? How many in each group?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "placed": {
+                  "groups": 4,
+                  "items": 3
+                }
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Boxes highlight one at a time as guide counts."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. How many boxes? 1, 2, 3. That's the first number. Now look inside one box. How many items? 1, 2, 3, 4. That's the second number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Boxes highlight one at a time as guide counts groups."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_items_in_one_container",
+                "status": "confirmed",
+                "description": "Items in one box highlight as guide counts items."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_boxes",
+              "params": {
+                "event": "place_tile_demo",
+                "status": "confirmed",
+                "slot": 0,
+                "value": 3,
+                "description": "Guide demonstrates placing 3 tile into first slot."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_boxes",
+              "params": {
+                "event": "place_tile_demo",
+                "status": "confirmed",
+                "slot": 1,
+                "value": 4,
+                "description": "Guide demonstrates placing 4 tile into second slot."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how this works. I count the groups: 1, 2, 3. Three boxes. That's my first number. Then I look inside one box: 1, 2, 3, 4. Four items. That's my second number. The expression is 3 times 4. First number shows how many groups, second number shows how many in each."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:02.921917+00:00"
+}

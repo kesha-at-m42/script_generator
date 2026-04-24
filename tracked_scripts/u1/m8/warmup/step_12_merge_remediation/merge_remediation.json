@@ -1,0 +1,464 @@
+[
+  {
+    "id": "s1_1_judgment_noticing_task",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_left",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "context": "bags",
+          "position": "left",
+          "description": "Left visual: 3 bags, 5 items in each bag. Equal groups arrangement."
+        },
+        "id": "s1_1_judgment_noticing_task_b0",
+        "_notion_block_id": "3485917e-ac52-81a5-a9e2-f4cbee3f2652"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_right",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3,
+          "context": "bags",
+          "position": "right",
+          "description": "Right visual: 5 bags, 3 items in each bag. Equal groups arrangement."
+        },
+        "id": "s1_1_judgment_noticing_task_b1",
+        "_notion_block_id": "3485917e-ac52-81ee-a984-e7fc2da4aa11"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look closely at both. What's DIFFERENT about these two?",
+        "id": "s1_1_judgment_noticing_task_b2",
+        "_notion_block_id": "3485917e-ac52-8199-9ddc-c55f86360309"
+      },
+      {
+        "type": "prompt",
+        "text": "What's different about these groups?",
+        "tool": "multiple_choice",
+        "options": [
+          "Different number of bags",
+          "Different items inside",
+          "One has more total items inside",
+          "Nothing—they're the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Different number of bags"
+            },
+            "description": "Student selected Different number of bags, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. The left has 3 bags. The right has 5 bags.",
+                "id": "s1_1_judgment_noticing_task_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8159-bd6c-d76d2a9b82b6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Different items inside"
+            },
+            "description": "Student selected 'Different items inside': misread what changed between the two groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual highlights: bags pulse to draw attention."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v1_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual highlights: bags pulse to draw attention."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v1_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the bags themselves. The items inside are the same. What about the number of bags?",
+                "id": "s1_1_judgment_noticing_task_b3_v1_b2",
+                "_notion_block_id": "3485917e-ac52-81e8-89e4-d40f7a000655"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "One has more total items inside"
+            },
+            "description": "Student selected 'One has more total items inside': focused on total rather than structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual: container outlines pulse."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v2_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual: container outlines pulse."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v2_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "The total is the same. But look at how the groups are organized. Count the bags on each side.",
+                "id": "s1_1_judgment_noticing_task_b3_v2_b2",
+                "_notion_block_id": "3485917e-ac52-8141-858b-cde3d19055e8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Nothing—they're the same"
+            },
+            "description": "Student selected 'Nothing—they're the same': did not notice structural difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "description": "Left visual: all bags highlight."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v3_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "description": "Right visual: all bags highlight."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v3_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "They look similar, but something is different. Count how many bags are on the left. Now count the bags on the right.",
+                "id": "s1_1_judgment_noticing_task_b3_v3_b2",
+                "_notion_block_id": "3485917e-ac52-814e-a36d-e114e4688ec3"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_left",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "Left visual: bags count from 1 to 3."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_right",
+                "params": {
+                  "event": "count_containers",
+                  "status": "confirmed",
+                  "description": "Right visual: bags count from 1 to 5."
+                },
+                "id": "s1_1_judgment_noticing_task_b3_v4_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. On the left, I count the bags: 1, 2, 3. Three bags. On the right, I count: 1, 2, 3, 4, 5. Five bags. The number of bags is different.",
+                "id": "s1_1_judgment_noticing_task_b3_v4_b2",
+                "_notion_block_id": "3485917e-ac52-81cd-b312-d73375f9a49a"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_judgment_noticing_task_b3",
+        "_notion_block_id": "3485917e-ac52-81f2-9a19-cc4aa8996006"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_left",
+            "description": "Left visual: 3 bags, 5 items in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 5,
+            "context": "bags",
+            "position": "left"
+          },
+          {
+            "tangible_id": "equal_groups_right",
+            "description": "Right visual: 5 bags, 3 items in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 3,
+            "context": "bags",
+            "position": "right"
+          }
+        ],
+        "id": "s1_1_judgment_noticing_task_b4",
+        "_toml_key": "step_100_judgment_noticing_task"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:54.885712+00:00",
+    "_notion_block_id": "3485917e-ac52-81c7-96a2-c16e9b854c8a",
+    "_toml_key": "section_100_judgment_noticing_task"
+  },
+  {
+    "id": "s2_1_personalization_recognition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "context": "boxes_with_items",
+          "description": "4 boxes appear, each containing 2 items. Concrete context visualization."
+        },
+        "id": "s2_1_personalization_recognition_b0",
+        "_notion_block_id": "3485917e-ac52-8146-a040-d74114c068a6"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "mc_options",
+        "tangible_type": "multiple_choice",
+        "params": {
+          "description": "Multiple choice options panel appears with four equation choices."
+        },
+        "id": "s2_1_personalization_recognition_b1",
+        "_notion_block_id": "3485917e-ac52-81ad-9e16-d96ff02fa79e"
+      },
+      {
+        "type": "dialogue",
+        "text": "Last time, you matched expressions to equal groups like these. Let's see if you remember how.",
+        "id": "s2_1_personalization_recognition_b2",
+        "_notion_block_id": "3485917e-ac52-817a-8213-c5ed6f5221c8"
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression matches these boxes?",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 2",
+          "2 × 4",
+          "4 + 2",
+          "2 + 4"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 × 2"
+            },
+            "description": "Student selected 4 × 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 4 times 2.",
+                "id": "s2_1_personalization_recognition_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81a7-b832-d00e69454797"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "2 × 4"
+            },
+            "description": "Student selected 2 × 4: reversed the order of groups and items per group",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_container_count": true,
+                  "description": "The 4 boxes highlight to emphasize the number of groups."
+                },
+                "id": "s2_1_personalization_recognition_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You've got the right numbers. But in multiplication, order matters for what we're describing. Count the boxes first. How many groups are there?",
+                "id": "s2_1_personalization_recognition_b3_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81d1-bf8c-e4b412c381a3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "4 + 2"
+            },
+            "description": "Student selected 4 + 2: used addition instead of multiplication",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_all_items": true,
+                  "description": "All items in all boxes highlight to show the total count."
+                },
+                "id": "s2_1_personalization_recognition_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Addition puts amounts together. But here we have equal groups. When you see equal groups, multiplication is the tool. How many groups, and how many in each?",
+                "id": "s2_1_personalization_recognition_b3_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8124-a615-f9842f4957de"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "2 + 4"
+            },
+            "description": "Student selected 2 + 4: used addition and reversed the order",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "highlight_container_count": true,
+                  "description": "The 4 boxes highlight to show the structure of equal groups."
+                },
+                "id": "s2_1_personalization_recognition_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "These aren't two separate amounts to add. They're equal groups. Multiplication describes equal groups. Count the boxes, then count what's in one box.",
+                "id": "s2_1_personalization_recognition_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8114-8ca1-f6d5ff2b17ae"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "count_groups_then_items",
+                  "status": "confirmed",
+                  "description": "Animation counts the 4 boxes, then counts 2 items in one box, building 4 × 2."
+                },
+                "id": "s2_1_personalization_recognition_b3_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. First, count the boxes: 1, 2, 3, 4. Four groups. Then look inside one box: 2 items. The expression is 4 times 2. That's how multiplication captures equal groups.",
+                "id": "s2_1_personalization_recognition_b3_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81ed-ad04-d0088d8048bf"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b3",
+        "_notion_block_id": "3485917e-ac52-81ac-8b23-cfe4a65c72ae"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "4 boxes, each containing 2 items. Concrete context visualization.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "context": "boxes_with_items"
+          },
+          {
+            "tangible_id": "mc_options",
+            "description": "Multiple choice options panel with four equation choices.",
+            "tangible_type": "multiple_choice"
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b4",
+        "_notion_block_id": "3485917e-ac52-81df-a004-f4ef58eb3d8e",
+        "_toml_key": "step_101_personalization_recognition"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "mc_options",
+        "params": {
+          "description": "Multiple choice options panel clears. Expression 4 × 2 remains visible."
+        },
+        "id": "s2_1_personalization_recognition_b5",
+        "_notion_block_id": "3485917e-ac52-81cf-a652-eb8741c67407"
+      },
+      {
+        "type": "dialogue",
+        "text": "Last time, you picked the right expression from choices. This time? YOU build them. Let's go.",
+        "id": "s2_1_personalization_recognition_b6",
+        "_notion_block_id": "3485917e-ac52-81ab-bb6a-e224f7b515f1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "4 boxes, each containing 2 items. Expression 4 × 2 visible from previous step.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "context": "boxes_with_items"
+          }
+        ],
+        "id": "s2_1_personalization_recognition_b7",
+        "_toml_key": "step_102_personalization_recognition"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:06.941176+00:00",
+    "_notion_block_id": "3485917e-ac52-8142-830f-cb67bbbc0ede",
+    "_toml_key": "section_101_personalization_recognition"
+  }
+]

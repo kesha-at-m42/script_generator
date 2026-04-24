@@ -1,0 +1,64 @@
+{
+  "id": "s3_3_expression_recognition_mixed_with_reduced",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 4,
+        "container_type": "box",
+        "description": "Two boxes appear, each containing 4 items."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Figure it out."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression shows this?",
+      "tool": "multiple_choice",
+      "options": [
+        "2 × 4",
+        "4 × 2",
+        "2 + 4",
+        "4 + 2"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "2 × 4"
+          },
+          "description": "Student selected 2 × 4, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 × 4. Two boxes, four in each."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "Two boxes, each containing 4 items. Multiple choice options displayed.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 4,
+          "container_type": "box"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:55.761094+00:00"
+}

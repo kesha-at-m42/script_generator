@@ -1,0 +1,151 @@
+{
+  "id": "s1_4_student_builds_notation_shown_build",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_build",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 0,
+        "items_per_container": 0,
+        "description": "Empty equal groups workspace in building mode. Container count and items per container controls visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build one more. This time, I'll show you how to write it with the × symbol."
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups?",
+      "tool": "set_container_count",
+      "target": "equal_groups_build",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "container_count": 4
+          },
+          "description": "Student set container count to 4",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "container_count": 4,
+                "description": "4 empty containers appear on screen."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "4 groups."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_build",
+          "description": "Equal groups workspace showing 4 empty containers. Items per container control active.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 0
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "text": "How many in each?",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_build",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 3
+          },
+          "description": "Student set items per container to 3",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "items_per_container": 3,
+                "description": "3 items appear in each of the 4 containers."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "4 groups of 3. You just showed me 4 × 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_build",
+          "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 3
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_display",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "4",
+          "×",
+          "3"
+        ],
+        "description": "Static equation 4 × 3 appears below the equal groups."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look. Here's how we write it: 4 × 3. The 4 is the groups. The 3 is how many in each. When we multiply, we're counting equal groups."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_build",
+          "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 3
+        },
+        {
+          "tangible_id": "equation_display",
+          "description": "Static equation 4 × 3 displayed below the equal groups.",
+          "tangible_type": "equation",
+          "expression": [
+            "4",
+            "×",
+            "3"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:53.519711+00:00"
+}

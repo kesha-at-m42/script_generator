@@ -1,0 +1,433 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've solved problems that needed one step AND problems that needed two steps. Now let's think about HOW you knew what to do.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:52.637574+00:00"
+  },
+  {
+    "id": "s1_1_pattern_discovery_type_recognizing_trigger",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?",
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b0"
+      },
+      {
+        "type": "prompt",
+        "text": "Which question needs just ONE step?",
+        "tool": "multiple_choice",
+        "options": [
+          "Question 1: How many more dogs are there than cats?",
+          "Question 2: How many more dogs are there than cats and birds combined?",
+          "Question 3: How many students chose red or blue altogether?"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Question 1: How many more dogs are there than cats?"
+            },
+            "description": "Student selected Question 1, correct answer",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. Question 1 just compares dogs to cats, no combining first.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "What's the clue that tells you a problem needs two steps?",
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b3"
+      },
+      {
+        "type": "prompt",
+        "text": "What's the clue that tells you a problem needs two steps?",
+        "tool": "multiple_choice",
+        "options": [
+          "The word \"more\"",
+          "Words like \"combined\" or \"altogether\"",
+          "Big numbers",
+          "Two categories are used"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Words like \"combined\" or \"altogether\""
+            },
+            "description": "Student selected words like combined or altogether, correct answer",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:00.437400+00:00"
+  },
+  {
+    "id": "s2_1_consolidation_type_b_sorting_problems",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "sorting_area",
+        "tangible_type": "sorting_area",
+        "params": {
+          "items": [
+            {
+              "id": "q1",
+              "text": "How many more chose pizza than tacos?"
+            },
+            {
+              "id": "q2",
+              "text": "How many more chose pizza and tacos combined than salad?"
+            },
+            {
+              "id": "q3",
+              "text": "How many fewer chose burgers and hot dogs together than pizza?"
+            }
+          ],
+          "zones": [
+            {
+              "id": "just_compare",
+              "label": "JUST COMPARE"
+            },
+            {
+              "id": "combine_first",
+              "label": "COMBINE FIRST, THEN COMPARE"
+            }
+          ],
+          "description": "Sorting area appears. Three question cards on left. Two drop zones on right labeled JUST COMPARE and COMBINE FIRST, THEN COMPARE."
+        },
+        "id": "s2_1_consolidation_type_b_sorting_problems_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's what you've been doing. You look at a problem and decide: Do I just compare? Or do I combine first, then compare? Sort these questions.",
+        "id": "s2_1_consolidation_type_b_sorting_problems_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Match the task to the group.",
+        "tool": "drag_to_sort",
+        "target": "sorting_area",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "just_compare": [
+                  "q1"
+                ],
+                "combine_first": [
+                  "q2",
+                  "q3"
+                ]
+              }
+            },
+            "description": "Student sorted all three questions correctly: q1 to just_compare, q2 and q3 to combine_first",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "sorting_area",
+                "params": {
+                  "event": "confirm_placement",
+                  "status": "confirmed",
+                  "description": "All three cards lock into their zones to confirm correct sorting."
+                },
+                "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You sorted them all. Words like combined and together tell you to find a total first.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "sorting_area",
+            "description": "Sorting area with three question cards and two drop zones. drag_to_sort tool active.",
+            "tangible_type": "sorting_area"
+          }
+        ],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b3"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "sorting_area",
+        "params": {
+          "description": "Sorting area clears."
+        },
+        "id": "s2_1_consolidation_type_b_sorting_problems_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "What question do you ask yourself to decide?",
+        "id": "s2_1_consolidation_type_b_sorting_problems_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "Select the key question.",
+        "tool": "multiple_choice",
+        "options": [
+          "What's the biggest number?",
+          "Does it say combined or together?",
+          "How many categories are there?",
+          "Should I add or subtract?"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Does it say combined or together?"
+            },
+            "description": "Student selected option B, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. That's the key question. The answer tells you whether it's one step or two.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b7"
+      },
+      {
+        "type": "dialogue",
+        "text": "This is strategic thinking. You're not just doing math. You're planning your approach based on what the problem says.",
+        "id": "s2_1_consolidation_type_b_sorting_problems_b8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b9"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:23.183639+00:00"
+  },
+  {
+    "id": "s3_1_real_world_bridge_type_c",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "word_problem_area_scenarios",
+        "tangible_type": "word_problem_area",
+        "params": {
+          "description": "Three real-world scenarios displayed: 1) Who has more stickers—just Maya, or Ben and Carlos put together? 2) Which team scored more—the Red team alone, or the Blue and Green teams combined? 3) Did I spend more on only snacks, or on drinks and dessert altogether?"
+        },
+        "id": "s3_1_real_world_bridge_type_c_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "This kind of thinking shows up all the time, not just in math problems.",
+        "id": "s3_1_real_world_bridge_type_c_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "What would you need to DO to answer all of these?",
+        "tool": "multiple_choice",
+        "options": [
+          "Count everything",
+          "Combine some things first, then compare",
+          "Find the biggest number",
+          "Subtract twice"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Combine some things first, then compare"
+            },
+            "description": "Student selected option B, combine first then compare, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Combine first, then compare. That pattern shows up everywhere.",
+                "id": "s3_1_real_world_bridge_type_c_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_real_world_bridge_type_c_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "word_problem_area_scenarios",
+            "description": "Three real-world scenarios displayed on screen. multiple_choice tool active.",
+            "tangible_type": "word_problem_area"
+          }
+        ],
+        "id": "s3_1_real_world_bridge_type_c_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:30.561313+00:00"
+  },
+  {
+    "id": "s4_1_metacognitive_reflection_type_1_strategy",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "What helped you most when figuring out what to do first?",
+        "id": "s4_1_metacognitive_reflection_type_1_strategy_b0"
+      },
+      {
+        "type": "prompt",
+        "text": "Select what helped most.",
+        "tool": "multiple_choice",
+        "options": [
+          "Looking for words like \"combined\" or \"altogether\"",
+          "Reading the question carefully",
+          "Thinking about what the question is really asking",
+          "Remembering the strategy"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "Looking for words like \"combined\" or \"altogether\""
+            },
+            "description": "Student selected option A",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Yes. Spotting those trigger words is huge. They tell you exactly what to do.",
+                "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v0_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "Reading the question carefully"
+            },
+            "description": "Student selected option B",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Careful reading pays off. The question tells you what it needs.",
+                "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v1_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "Thinking about what the question is really asking"
+            },
+            "description": "Student selected option C",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Nice. Thinking about what the question really asks, that's mathematical reasoning.",
+                "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v2_b0"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_d",
+            "condition": {
+              "selected": "Remembering the strategy"
+            },
+            "description": "Student selected option D",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That works. Having a strategy ready helps. Find combined total first, then compare works every time.",
+                "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v3_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s4_1_metacognitive_reflection_type_1_strategy_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s4_1_metacognitive_reflection_type_1_strategy_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:47.135249+00:00"
+  },
+  {
+    "id": "s4_2_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You learned something important today. You learned to look at a problem before jumping in. You ask: What should I find first?",
+        "id": "s4_2_identity_building_closure_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "That's not just math. That's strategic thinking. You're becoming someone who plans before solving.",
+        "id": "s4_2_identity_building_closure_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s4_2_identity_building_closure_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:50.559537+00:00"
+  }
+]

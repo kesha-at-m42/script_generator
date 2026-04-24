@@ -1,0 +1,394 @@
+[
+  {
+    "id": "s1_1_data_collection_game",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_collection_game_minis",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "categories": [
+            "Red Minis",
+            "Blue Minis",
+            "Green Minis",
+            "Yellow Minis"
+          ],
+          "target_values": [
+            20,
+            40,
+            30,
+            50
+          ],
+          "description": "Animated Minis characters appear collecting items. Four categories visible: Red, Blue, Green, and Yellow Minis."
+        },
+        "id": "s1_1_data_collection_game_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are collecting items! Help count what they found.",
+        "id": "s1_1_data_collection_game_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_collection_game_minis",
+        "params": {
+          "event": "count_items",
+          "status": "confirmed",
+          "description": "Student counts items across categories. Results: Red Minis 20, Blue Minis 40, Green Minis 30, Yellow Minis 50. Values display as multiples of 10 with clear differences."
+        },
+        "id": "s1_1_data_collection_game_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "You counted the items. That's a lot! Let's see how to show this data.",
+        "id": "s1_1_data_collection_game_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game_minis",
+            "description": "Completed counting game showing results. Red Minis: 20, Blue Minis: 40, Green Minis: 30, Yellow Minis: 50.",
+            "tangible_type": "data_collection_game",
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Green Minis",
+              "Yellow Minis"
+            ],
+            "values": [
+              20,
+              40,
+              30,
+              50
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:37.337163+00:00"
+  },
+  {
+    "id": "s2_1_scale_comparison_1_5_vs",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Left graph (scale of 5)"
+          },
+          "description": "Student selected the 1:5 graph, which uses more symbols",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "description": "Left graph highlights."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_10",
+                "params": {
+                  "description": "Right graph highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the keys. When each symbol stands for more, you need fewer symbols. Which key shows a bigger number?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_10",
+                "params": {
+                  "event": "highlight_graph",
+                  "status": "confirmed",
+                  "description": "Right graph highlights to show the answer."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The right graph has scale of 10. Each symbol stands for 10. The left graph has scale of 5. Each symbol stands for 5. When each symbol shows more, you need fewer symbols to show the same amount. The right graph uses fewer symbols because its scale is bigger."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:58:40.233937+00:00"
+  },
+  {
+    "id": "s3_1_picture_bar_bridge_1_10",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on picture graph, first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Check the key. How many symbols show 50?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on picture graph, second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_w2",
+                "params": {
+                  "highlight_categories": [
+                    "Birds"
+                  ],
+                  "description": "Birds column highlights on picture graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The key says each symbol equals 10. Count the Birds column: 5 symbols. How much is that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category on picture graph three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_w2",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds column highlights on picture graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The key tells us each symbol equals 10. I count the Birds column: 1, 2, 3, 4, 5 symbols. That's 5 times 10, which equals 50. Birds shows 50."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong category on bar graph, first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at the heights. Which bar reaches 50?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong category on bar graph, second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Birds"
+                  ],
+                  "description": "Birds bar highlights on bar graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The axis shows 0, 10, 20, 30, 40, 50, 60. Follow the Birds bar up to the top. What number does it reach?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong category on bar graph three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Birds",
+                  "description": "Birds bar highlights on bar graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to read bar graphs. I look at the vertical axis: 0, 10, 20, 30, 40, 50, 60. Then I follow the Birds bar to its top. It stops at 50. That's how bar graphs show the count. Birds has 50."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:58:53.331552+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Yellow",
+            "Green"
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears. Favorite Colors data with scale of 10. Red=30, Blue=50, Yellow=60, Green=40."
+        },
+        "id": "s4_1_bridge_lesson_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data.",
+        "id": "s4_1_bridge_lesson_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Bar graphs are powerful. You can read exact amounts from the numbers on the side.",
+        "id": "s4_1_bridge_lesson_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Ready to learn how to create bar graphs with scale of 10? Let's go.",
+        "id": "s4_1_bridge_lesson_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Yellow",
+              "Green"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b6"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:18.139145+00:00"
+  }
+]
