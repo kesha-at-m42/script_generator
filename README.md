@@ -168,6 +168,7 @@ Set the `SEQUENCES_DIR` env variable to your local Lesson Lab sequences director
 
 ## Running a Pipeline
 
+```bash
 # Run a pipeline directly from CLI
 python cli/run_pipeline.py --pipeline lesson_generator_dialogue_pass --module u1/m3 --phase lesson
 ```
