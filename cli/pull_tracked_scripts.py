@@ -56,6 +56,12 @@ _SCRIPT_TYPE_LABELS = {
     "synthesis": "synthesis",
 }
 _SKIP_FILES = {"notion_blocks.json", "notion_push_log.json"}
+_STEP_PROMPT_FILES = {
+    "section_structurer": "steps/prompts/section_structurer.py",
+    "dialogue_rewriter": "steps/prompts/dialogue_rewriter.py",
+    "remediation_generator": "steps/prompts/remediation_generator.py",
+    "starterpack_parser": "steps/prompts/starterpack_parser.py",
+}
 
 
 def _parse_registry_key(key: str) -> tuple[str, str, str] | None:
@@ -71,30 +77,59 @@ def _parse_registry_key(key: str) -> tuple[str, str, str] | None:
     return unit, _SCRIPT_TYPE_LABELS[m.group(1)], m.group(2)
 
 
+def _count_notion_block_ids(obj: object) -> int:
+    """Count how many _notion_block_id values are present in a data structure."""
+    if isinstance(obj, dict):
+        count = 1 if "_notion_block_id" in obj else 0
+        return count + sum(_count_notion_block_ids(v) for v in obj.values())
+    if isinstance(obj, list):
+        return sum(_count_notion_block_ids(item) for item in obj)
+    return 0
+
+
 def _find_source_json(tracked_dir: Path) -> Path | None:
-    """Find the last non-push/pull step JSON (e.g. merge_remediation.json)."""
+    """Find the best source JSON for patching.
+
+    Scores each candidate by how many _notion_block_id values it contains and
+    returns the one with the highest coverage. More IDs means more beats can be
+    matched via Layer 1 (ID match) rather than falling back to LEGACY content
+    matching. Falls back to any valid pipeline step output if no candidates score.
+    """
     step_dirs = sorted(
         [d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_", d.name)],
         key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
     )
+
+    best_path: Path | None = None
+    best_score: int = -1
+
     for step_dir in reversed(step_dirs):
-        if re.match(r"^step_\d+_pull$", step_dir.name):
-            continue
         if re.match(r"^step_\d+_push$", step_dir.name):
             continue
-        json_files = [
-            f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name
-        ]
-        for f in json_files:
+        is_pull = re.match(r"^step_\d+_pull$", step_dir.name)
+        candidates = (
+            [step_dir / "pull.json"]
+            if is_pull
+            else [f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name]
+        )
+        for f in candidates:
+            if not f.exists():
+                continue
             try:
                 data = json.loads(f.read_text(encoding="utf-8"))
-                if isinstance(data, list) or (
-                    isinstance(data, dict) and isinstance(data.get("sections"), list)
+                if not (
+                    isinstance(data, list)
+                    or (isinstance(data, dict) and isinstance(data.get("sections"), list))
                 ):
-                    return f
+                    continue
+                score = _count_notion_block_ids(data)
+                if score > best_score:
+                    best_score = score
+                    best_path = f
             except Exception:
                 pass
-    return None
+
+    return best_path
 
 
 def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
@@ -122,10 +157,76 @@ def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
     return None
 
 
-def _analyze_comment(comment: dict, sections: list) -> dict:
+def _extract_beat_from_data(data: list | dict, section_id: str, beat_idx: int) -> dict | None:
+    """Extract a specific beat by section ID and flat beat index from any pipeline JSON."""
+    sections = data if isinstance(data, list) else data.get("sections", [])
+    for section in sections:
+        if not isinstance(section, dict) or section.get("id") != section_id:
+            continue
+        from steps.formatting.id_stamper import flatten_beats
+        beats = flatten_beats(section)
+        if 0 <= beat_idx < len(beats):
+            return beats[beat_idx]
+    return None
+
+
+def _trace_beat_backwards(tracked_dir: Path, section_id: str, beat_description: str) -> list[dict]:
+    """Walk pipeline steps backwards and return [{step, beat, prompt_file}] newest to oldest.
+
+    For each step that has the section, also loads the per-section prompt file
+    from the step's prompts/ subdirectory if it exists.
+    Skips push/pull steps.
+    """
+    m = re.match(r"beats\[(\d+)\]", beat_description or "")
+    if not m:
+        return []
+    beat_idx = int(m.group(1))
+
+    step_dirs = sorted(
+        [d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_", d.name)],
+        key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
+    )
+
+    history = []
+    for step_dir in reversed(step_dirs):
+        if re.match(r"^step_\d+_(push|pull)$", step_dir.name):
+            continue
+        candidates = [
+            f for f in step_dir.glob("*.json")
+            if f.name not in _SKIP_FILES and "flag" not in f.name and "comment" not in f.name
+        ]
+        for f in candidates:
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                if not (isinstance(data, list) or (isinstance(data, dict) and isinstance(data.get("sections"), list))):
+                    continue
+                beat = _extract_beat_from_data(data, section_id, beat_idx)
+                if beat is None:
+                    break
+                entry: dict = {"step": step_dir.name, "beat": beat}
+                prompt_file = step_dir / "prompts" / f"{section_id}.md"
+                if prompt_file.exists():
+                    entry["prompt_file"] = str(prompt_file.relative_to(project_root))
+                history.append(entry)
+                break
+            except Exception:
+                pass
+
+    return history
+
+
+def _analyze_comment(comment: dict, sections: list, tracked_dir: Path | None = None) -> dict:
     """Call Claude to identify which pipeline step introduced the issue in a comment thread."""
     section_by_id = {s["id"]: s for s in sections if isinstance(s, dict) and "id" in s}
     surrounding = section_by_id.get(comment.get("section_id") or "", {})
+
+    pipeline_history: list[dict] = []
+    if tracked_dir is not None:
+        pipeline_history = _trace_beat_backwards(
+            tracked_dir,
+            comment.get("section_id") or "",
+            comment.get("beat_description") or "",
+        )
 
     user_message = json.dumps(
         {
@@ -134,6 +235,7 @@ def _analyze_comment(comment: dict, sections: list) -> dict:
             "beat_description": comment.get("beat_description"),
             "beat": comment.get("beat"),
             "surrounding_section": surrounding,
+            "pipeline_history": pipeline_history,
         },
         ensure_ascii=False,
     )
@@ -153,42 +255,65 @@ def _analyze_comment(comment: dict, sections: list) -> dict:
             max_tokens=COMMENT_ANALYZER_PROMPT.max_tokens or 600,
             temperature=COMMENT_ANALYZER_PROMPT.temperature or 0.3,
         )
-        return json.loads(raw)
+        text = raw.strip()
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*", "", text)
+            text = re.sub(r"\s*```$", "", text).strip()
+        result = json.loads(text)
+        result["pipeline_history"] = pipeline_history
+        return result
     except Exception as e:
-        return {"error": str(e), "raw": raw if "raw" in dir() else ""}
+        return {"error": str(e), "raw": raw if "raw" in dir() else "", "pipeline_history": pipeline_history}
+
+
+def _find_notion_blocks(tracked_dir: Path) -> list[dict] | None:
+    """Find the most recent notion_blocks.json anywhere in the tracked dir."""
+    step_dirs = sorted(
+        [d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_", d.name)],
+        key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
+    )
+    for step_dir in reversed(step_dirs):
+        blocks_file = step_dir / "notion_blocks.json"
+        if blocks_file.exists():
+            try:
+                return json.loads(blocks_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return None
 
 
 def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
     """Fetch @claude comments from Notion, analyze each, write notion_comments.json."""
-    pull_dirs = sorted(
-        [d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_pull$", d.name)],
-        key=lambda d: int(re.match(r"^step_(\d+)_", d.name).group(1)),
-    )
-    if not pull_dirs:
-        return "no pull dir"
+    # Use the best source: pull.json if available, else pipeline source JSON
+    source_file = _find_source_json(tracked_dir)
+    if not source_file:
+        return "no source JSON found"
 
-    pull_file = pull_dirs[-1] / "pull.json"
-    if not pull_file.exists():
-        return "pull.json missing"
-
-    sections = json.loads(pull_file.read_text(encoding="utf-8"))
+    raw = json.loads(source_file.read_text(encoding="utf-8"))
+    sections = raw if isinstance(raw, list) else raw.get("sections", [])
     if not isinstance(sections, list):
-        return "pull.json not a list"
+        return "source JSON has no sections list"
+
+    # Load pre-fetched blocks for full-tree comment sweep (catches untagged blocks)
+    blocks = _find_notion_blocks(tracked_dir)
 
     try:
-        comments = fetch_lesson_comments(page_id, sections)
+        comments = fetch_lesson_comments(page_id, sections, blocks=blocks)
     except Exception as e:
         return f"comment fetch error: {e}"
 
+    # Write output next to the source file
+    out_dir = source_file.parent
+    out_path = out_dir / "notion_comments.json"
+
     if not comments:
-        out_path = pull_dirs[-1] / "notion_comments.json"
         if out_path.exists():
             out_path.unlink()
         return "no @claude comments"
 
     analyzed = []
     for comment in comments:
-        analysis = _analyze_comment(comment, sections)
+        analysis = _analyze_comment(comment, sections, tracked_dir=tracked_dir)
         entry = {
             "discussion_id": comment["discussion_id"],
             "block_id": comment["block_id"],
@@ -196,14 +321,79 @@ def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
             "beat_description": comment.get("beat_description"),
             "beat": comment.get("beat"),
             "thread": comment["thread"],
+            "pipeline_history": analysis.pop("pipeline_history", []),
         }
         entry.update(analysis)
         analyzed.append(entry)
 
-    out_path = pull_dirs[-1] / "notion_comments.json"
     out_path.write_text(json.dumps(analyzed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    lines = []
+    for entry in analyzed:
+        sid = entry.get("section_id") or "?"
+        beat_desc = entry.get("beat_description") or "?"
+        lines.append(f"## {sid} · {beat_desc}")
+        thread = entry.get("thread", [])
+        if thread:
+            lines.append(f"> {thread[0].get('comment_text', '').strip()}")
+            if len(thread) > 1:
+                for msg in thread[1:]:
+                    lines.append(f"> {msg.get('comment_text', '').strip()}")
+        if entry.get("error"):
+            lines.append(f"**Analysis error:** {entry['error']}")
+        else:
+            issue = entry.get("issue_summary", "—")
+            step = entry.get("likely_step", "—")
+            conf = entry.get("confidence", "—")
+            reasoning = entry.get("reasoning", "—")
+            suggested_fix = entry.get("suggested_fix", "—")
+            beat_obj = entry.get("beat") or {}
+            history = entry.get("pipeline_history") or []
+            prompt_file = _STEP_PROMPT_FILES.get(step, f"steps/prompts/{step}.py")
+
+            lines.append(f"**Issue:** {issue}")
+            lines.append(f"**Step:** `{step}`  [{conf}]")
+            lines.append(f"**Reasoning:** {reasoning}")
+            lines.append(f"**Fix:** {suggested_fix}")
+            lines.append(f"**Prompt file:** `{prompt_file}`")
+
+            # Find the step in history that has the prompt file (where issue was introduced)
+            origin_step = next((h for h in history if "prompt_file" in h), None)
+            if origin_step:
+                lines.append(f"**Input prompt for this section:** `{origin_step['prompt_file']}`")
+
+            lines.append("")
+
+            thread_text = "\n".join(
+                f'  "{m.get("comment_text", "").strip()}"' for m in thread
+                if m.get("comment_text", "").strip() not in ("@Claude", "@claude")
+                and "@claude" not in m.get("comment_text", "").lower()
+            )
+            beat_summary = json.dumps(beat_obj, ensure_ascii=False)
+            origin_prompt_ref = (
+                f"\nInput prompt used: `{origin_step['prompt_file']}`"
+                if origin_step else ""
+            )
+            chat_prompt = (
+                f"Reviewer comment on `{sid}` ({beat_desc}):\n"
+                f"{thread_text}\n\n"
+                f"Issue: {issue}\n"
+                f"Beat: {beat_summary}\n\n"
+                f"Responsible step: `{step}` — `{prompt_file}`{origin_prompt_ref}\n\n"
+                f"Please read `{prompt_file}` and identify the specific rule or instruction "
+                f"that should have prevented this. Then suggest a targeted fix to that rule."
+            )
+            lines.append("**Paste into chat to fix:**")
+            lines.append("```")
+            lines.append(chat_prompt)
+            lines.append("```")
+        lines.append("")
+
+    report_path = out_path.parent / "notion_comments_report.md"
+    report_path.write_text("\n".join(lines), encoding="utf-8")
+
     rel = out_path.relative_to(project_root)
-    return f"{len(analyzed)} @claude comment(s) → {rel}"
+    return f"{len(analyzed)} @claude comment(s) -> {rel}"
 
 
 def _pull_entry(key: str, entry: dict) -> str:
