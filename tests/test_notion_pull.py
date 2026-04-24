@@ -13,9 +13,6 @@ import pytest
 from utils.notion import (
     blocks_to_lesson,
     lesson_to_blocks,
-    _strip_dialogue_text,
-    _parse_prompt_fields,
-    _scene_rendered_text,
 )
 
 
