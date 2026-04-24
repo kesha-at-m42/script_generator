@@ -123,11 +123,11 @@ def main():
     if args.pull:
         _pull(file_path, new_version=args.new_version, page_id_override=args.page_id)
     else:
-        _push(file_path, args.title, test_push=args.test_push, sections=args.sections)
+        _push(file_path, args.title, test_push=args.test_push, sections=args.sections, page_id=args.page_id)
 
 
 def _push(
-    file_path: Path, title: str | None, test_push: bool = False, sections: list[str] | None = None
+    file_path: Path, title: str | None, test_push: bool = False, sections: list[str] | None = None, page_id: str | None = None
 ) -> None:
     data = json.loads(file_path.read_text(encoding="utf-8"))
     title = title or file_path.parent.parent.parent.name
@@ -146,6 +146,7 @@ def _push(
         title=title,
         file_path=None if test_push else file_path,
         sections=sections,
+        page_id=page_id,
     )
     print(f"[OK] {get_page_url(page_id)}")
 
